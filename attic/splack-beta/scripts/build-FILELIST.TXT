@@ -1,0 +1,11 @@
+date > FILELIST.TXT
+cat <<- EOF >> FILELIST.TXT
+
+Here is the file list for this directory.  If you are using a 
+mirror site and find missing or extra files in the disk 
+subdirectories, please have the archive administrator refresh
+the mirror.
+
+EOF
+
+find . -exec ls -dl {} \; >> FILELIST.TXT

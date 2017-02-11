@@ -1,0 +1,11 @@
+kernel-modules: kernel-modules (Linux kernel modules)
+kernel-modules:
+kernel-modules: The default kernel modules for both Sparc and UltraSparc systems.
+kernel-modules: The correct 32 bit or 64 bit version will be installed.
+kernel-modules: The 64 bit version includes SMP support. 
+kernel-modules: The 32 bit version does not support SMP, if you have an 
+kernel-modules: SMP system such as the Sparc 20 you can find a suitable
+kernel-modules: kernel and modules in the /kernels directory.
+kernel-modules:
+kernel-modules:
+kernel-modules:

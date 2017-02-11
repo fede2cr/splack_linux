@@ -1,0 +1,72 @@
+		HOW TO MAKE A SPARC BOOTABLE CDROM (NEW)
+
+SILO may be used to create a bootable CDROM for sparc. At the moment it will
+support booting on sun4c, sun4m, sun4d and sun4u machines only.
+
+INTRO
+=====
+
+A CDROM is booted on Sparc by issuing following commands in the PROM
+(depending on PROM version - v0 is PROM with major versions 0, found
+on sun4c only, v2 is PROM with major versions 2 or 3, found on some newer
+sun4c and all sun4m and sun4d machines) and the same applies to P1275 PROMs
+found in the 64bit UltraSparc machines:
+
+v0:
+
+b sd(0,6,0)
+
+v2:
+
+boot cdrom
+
+(cdrom is actually alias to /iommu/sbus/espdma/esp/sd@0,6:d or something
+similar)
+
+As Solaris has different kernels for each architecture, the PROM boots by
+default from different "partitions" on the CD depending on the
+architecture of the machine (that's e.g. the :d in the cdrom alias on v2
+PROM). That partition table is stored in the first 512 bytes of the CD
+(with exactly the same format as partition tables on Sparc disks), so you
+can use SparcLinux fdisk program to look into that partition table.
+SparcLinux bootable CDROMs have a partition table where all partitions
+point to the main iso9660 image, starting from offset 0 to the end of the
+image.  The only value PROM looks at is starting offset, so that it will
+boot on all machines correctly.  In the boot process PROM finds start of
+the boot partition (in SILO's case it is always 0) and loads 7680 bytes
+from offset 512 in that partition.  Fortunately iso9660 has the first 32KB
+(16 sectors) reserved for OS use, so that the partition table and
+bootblock can be safely stored there. As SILO is longer in size than those
+32KB (eventhough it is compressed), it puts its first stage loader in
+there and puts its second stage loader somewhere in the iso9660
+filesystem.
+
+SILO 1.3.0 and up now uses the new isofs.b boot block for CD's. The old
+boot block required a patched mkisofs. This new boot block can be passed
+to stock mkisofs as the generic boot block. Adding the sparc-boot option
+will ensure that mkisofs adds the needed sun partition table.
+
+STEP BY STEP
+============
+
+You should first prepare the tree you'd like to have on the CD. The only
+requirement is that you put boot/second.b from SILO distribution into
+/boot in the tree and edit the appropriate /boot/silo.conf in the tree. The
+isofs.b boot block does not need to be in the CD tree.
+
+This is VERY important. The isofs.b boot block is hard wired to look for
+second.b in /boot on the iso9660 image. The silo.conf has to be located in
+/boot aswell, since isofs.b will tell second.b that is the location.
+
+Note, you also need to make sure that you enable RockRidge extensions so
+that normal path lookups work. This has always been true for SILO's usage
+of iso9660.
+
+Once the tree is prepared, just do:
+
+mkisofs -G /boot/isofs.b -B ... -r -o IMAGENAME DIRECTORY_TREE
+
+and you're done. The "..." to the -B option tells it to make the generic
+isofs.b boot block the only image for all sparc-boot partition pointers.
+
+If you have any problems, mail silo-general@lists.sparc-boot.org

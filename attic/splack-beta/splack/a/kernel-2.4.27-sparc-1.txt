@@ -1,0 +1,11 @@
+kernel-ide: kernel (Linux kernel)
+kernel-ide:
+kernel-ide: The default kernel for both Sparc and UltraSparc systems.
+kernel-ide: The correct 32 bit or 64 bit version will be installed.
+kernel-ide: The 64 bit version includes SMP support. 
+kernel-ide: The 32 bit version does not support SMP, if you have an 
+kernes-ide: SMP system such as the Sparc 20 you can find a suitable
+kernel-ide: kernel in the /kernels directory.
+kernel-ide:
+kernel-ide:
+kernel-ide:

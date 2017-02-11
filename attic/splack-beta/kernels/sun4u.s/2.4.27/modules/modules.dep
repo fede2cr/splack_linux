@@ -1,0 +1,403 @@
+/lib/modules/2.4.27/kernel/arch/sparc64/solaris/solaris.o:
+
+/lib/modules/2.4.27/kernel/drivers/block/loop.o:
+
+/lib/modules/2.4.27/kernel/drivers/block/nbd.o:
+
+/lib/modules/2.4.27/kernel/drivers/char/drm/ffb.o:
+
+/lib/modules/2.4.27/kernel/drivers/char/drm/tdfx.o:
+
+/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o:
+
+/lib/modules/2.4.27/kernel/drivers/fc4/soc.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/fc4/socal.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/ide/ide-floppy.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/ide-tape.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/aec62xx.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/amd74xx.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/atiixp.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/cs5530.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/cy82c693.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/hpt34x.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/hpt366.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/opti621.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/pdc202xx_new.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/pdc202xx_old.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/piix.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/rz1000.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/sc1200.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/serverworks.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/siimage.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/sis5513.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/slc90e66.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/trm290.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/pci/via82cxxx.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/raid/ataraid.o:
+
+/lib/modules/2.4.27/kernel/drivers/ide/raid/hptraid.o:	/lib/modules/2.4.27/kernel/drivers/ide/raid/ataraid.o
+
+/lib/modules/2.4.27/kernel/drivers/ide/raid/medley.o:	/lib/modules/2.4.27/kernel/drivers/ide/raid/ataraid.o
+
+/lib/modules/2.4.27/kernel/drivers/ide/raid/pdcraid.o:	/lib/modules/2.4.27/kernel/drivers/ide/raid/ataraid.o
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/amdtp.o:	/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o \
+	/lib/modules/2.4.27/kernel/drivers/ieee1394/ohci1394.o \
+	/lib/modules/2.4.27/kernel/drivers/ieee1394/cmp.o
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/cmp.o:	/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/dv1394.o:	/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o \
+	/lib/modules/2.4.27/kernel/drivers/ieee1394/ohci1394.o
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/eth1394.o:	/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o:
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/ohci1394.o:	/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/raw1394.o:	/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.27/kernel/drivers/ieee1394/sbp2.o:	/lib/modules/2.4.27/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.27/kernel/drivers/input/uinput.o:
+
+/lib/modules/2.4.27/kernel/drivers/message/fusion/isense.o:	/lib/modules/2.4.27/kernel/drivers/message/fusion/mptbase.o
+
+/lib/modules/2.4.27/kernel/drivers/message/fusion/mptbase.o:
+
+/lib/modules/2.4.27/kernel/drivers/message/fusion/mptctl.o:	/lib/modules/2.4.27/kernel/drivers/message/fusion/mptbase.o
+
+/lib/modules/2.4.27/kernel/drivers/message/fusion/mptlan.o:	/lib/modules/2.4.27/kernel/drivers/message/fusion/mptbase.o
+
+/lib/modules/2.4.27/kernel/drivers/message/fusion/mptscsih.o:	/lib/modules/2.4.27/kernel/drivers/message/fusion/mptbase.o
+
+/lib/modules/2.4.27/kernel/drivers/net/3c59x.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/8139too.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/8390.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/acenic.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/b44.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/bonding/bonding.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/bsd_comp.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/de4x5.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/dgrs.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/dl2k.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/dummy.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/e100/e100.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/e1000/e1000.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/eepro100.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/epic100.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/eql.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/fealnx.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/forcedeth.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/mii.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/myri_sbus.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/natsemi.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/ne2k-pci.o:	/lib/modules/2.4.27/kernel/drivers/net/8390.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ns83820.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/pcnet32.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_async.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_deflate.o:	/lib/modules/2.4.27/kernel/lib/zlib_deflate/zlib_deflate.o \
+	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o \
+	/lib/modules/2.4.27/kernel/lib/zlib_inflate/zlib_inflate.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o:	/lib/modules/2.4.27/kernel/drivers/net/slhc.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_synctty.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/pppoe.o:	/lib/modules/2.4.27/kernel/drivers/net/pppox.o \
+	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/pppox.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/shaper.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/sis900.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/sk98lin/sk98lin.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/skfp/skfp.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/slhc.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/slip.o:	/lib/modules/2.4.27/kernel/drivers/net/slhc.o
+
+/lib/modules/2.4.27/kernel/drivers/net/starfire.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/sunbmac.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/sundance.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/sunqe.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/tulip/tulip.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/typhoon.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/via-rhine.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/winbond-840.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/net/yellowfin.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/aurora.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/bbc.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/cpwatchdog.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/display7seg.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/envctrl.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/flash.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/openprom.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/riowatchdog.o:
+
+/lib/modules/2.4.27/kernel/drivers/scsi/aic7xxx/aic7xxx.o:
+
+/lib/modules/2.4.27/kernel/drivers/scsi/aic7xxx_old.o:
+
+/lib/modules/2.4.27/kernel/drivers/scsi/fcal.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/scsi/pluto.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/scsi/qlogicisp.o:
+
+/lib/modules/2.4.27/kernel/drivers/scsi/sg.o:
+
+/lib/modules/2.4.27/kernel/drivers/sound/ac97_codec.o:
+
+/lib/modules/2.4.27/kernel/drivers/sound/ac97_plugin_ad1980.o:	/lib/modules/2.4.27/kernel/drivers/sound/ac97_codec.o
+
+/lib/modules/2.4.27/kernel/drivers/sound/ac97_plugin_wm97xx.o:	/lib/modules/2.4.27/kernel/drivers/sound/ac97_codec.o
+
+/lib/modules/2.4.27/kernel/drivers/sound/btaudio.o:	/lib/modules/2.4.27/kernel/drivers/sound/soundcore.o
+
+/lib/modules/2.4.27/kernel/drivers/sound/es1371.o:	/lib/modules/2.4.27/kernel/drivers/sound/soundcore.o \
+	/lib/modules/2.4.27/kernel/drivers/sound/ac97_codec.o
+
+/lib/modules/2.4.27/kernel/drivers/sound/soundcore.o:
+
+/lib/modules/2.4.27/kernel/drivers/sound/trident.o:	/lib/modules/2.4.27/kernel/drivers/sound/ac97_codec.o \
+	/lib/modules/2.4.27/kernel/drivers/sound/soundcore.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/CDCEther.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/acm.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/aiptek.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/catc.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/dabusb.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/dc2xx.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/dsbr100.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/hpusbscsi.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/ibmcam.o:	/lib/modules/2.4.27/kernel/drivers/usb/usbvideo.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/kaweth.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/kbtab.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/konicawc.o:	/lib/modules/2.4.27/kernel/drivers/usb/usbvideo.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/mdc800.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/microtek.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/ov511.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/pegasus.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/powermate.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/printer.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/pwc.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/rio500.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/rtl8150.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/scanner.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/se401.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/belkin_sa.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/cyberjack.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/digi_acceleport.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/empeg.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/ftdi_sio.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/io_edgeport.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/io_ti.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/ipaq.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/keyspan.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/keyspan_pda.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/kl5kusb105.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/kobil_sct.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/mct_u232.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/omninet.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/pl2303.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/visor.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/serial/whiteheat.o:	/lib/modules/2.4.27/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/storage/usb-storage.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/stv680.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/tiglusb.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/ultracam.o:	/lib/modules/2.4.27/kernel/drivers/usb/usbvideo.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/usb-midi.o:	/lib/modules/2.4.27/kernel/drivers/sound/soundcore.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/usblcd.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/usbnet.o:	/lib/modules/2.4.27/kernel/drivers/net/mii.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/usbvideo.o:
+
+/lib/modules/2.4.27/kernel/drivers/usb/vicam.o:	/lib/modules/2.4.27/kernel/drivers/usb/usbvideo.o
+
+/lib/modules/2.4.27/kernel/drivers/usb/wacom.o:
+
+/lib/modules/2.4.27/kernel/fs/affs/affs.o:
+
+/lib/modules/2.4.27/kernel/fs/autofs/autofs.o:
+
+/lib/modules/2.4.27/kernel/fs/autofs4/autofs4.o:
+
+/lib/modules/2.4.27/kernel/fs/befs/befs.o:
+
+/lib/modules/2.4.27/kernel/fs/binfmt_misc.o:
+
+/lib/modules/2.4.27/kernel/fs/coda/coda.o:
+
+/lib/modules/2.4.27/kernel/fs/efs/efs.o:
+
+/lib/modules/2.4.27/kernel/fs/fat/fat.o:
+
+/lib/modules/2.4.27/kernel/fs/hfsplus/hfsplus.o:
+
+/lib/modules/2.4.27/kernel/fs/hpfs/hpfs.o:
+
+/lib/modules/2.4.27/kernel/fs/intermezzo/intermezzo.o:
+
+/lib/modules/2.4.27/kernel/fs/jfs/jfs.o:
+
+/lib/modules/2.4.27/kernel/fs/minix/minix.o:
+
+/lib/modules/2.4.27/kernel/fs/msdos/msdos.o:	/lib/modules/2.4.27/kernel/fs/fat/fat.o
+
+/lib/modules/2.4.27/kernel/fs/nfsd/nfsd.o:
+
+/lib/modules/2.4.27/kernel/fs/romfs/romfs.o:
+
+/lib/modules/2.4.27/kernel/fs/smbfs/smbfs.o:
+
+/lib/modules/2.4.27/kernel/fs/sysv/sysv.o:
+
+/lib/modules/2.4.27/kernel/fs/udf/udf.o:
+
+/lib/modules/2.4.27/kernel/fs/ufs/ufs.o:
+
+/lib/modules/2.4.27/kernel/fs/vfat/vfat.o:	/lib/modules/2.4.27/kernel/fs/fat/fat.o
+
+/lib/modules/2.4.27/kernel/fs/xfs/xfs.o:
+
+/lib/modules/2.4.27/kernel/lib/firmware_class.o:
+
+/lib/modules/2.4.27/kernel/lib/zlib_deflate/zlib_deflate.o:
+
+/lib/modules/2.4.27/kernel/lib/zlib_inflate/zlib_inflate.o:
+
+/lib/modules/2.4.27/kernel/net/802/p8022.o:
+
+/lib/modules/2.4.27/kernel/net/802/psnap.o:	/lib/modules/2.4.27/kernel/net/802/p8022.o
+
+/lib/modules/2.4.27/kernel/net/appletalk/appletalk.o:	/lib/modules/2.4.27/kernel/net/802/psnap.o
+
+/lib/modules/2.4.27/kernel/net/core/pktgen.o:
+
+/lib/modules/2.4.27/kernel/net/decnet/decnet.o:
+
+/lib/modules/2.4.27/kernel/net/ipv6/ipv6.o:
+
+/lib/modules/2.4.27/kernel/net/ipx/ipx.o:	/lib/modules/2.4.27/kernel/net/802/p8022.o \
+	/lib/modules/2.4.27/kernel/net/802/psnap.o
+
+/lib/modules/2.4.27/kernel/net/sctp/sctp.o:	/lib/modules/2.4.27/kernel/net/ipv6/ipv6.o
+

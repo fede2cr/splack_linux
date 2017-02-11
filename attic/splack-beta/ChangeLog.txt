@@ -1,0 +1,41 @@
+Wed  Nov 17 02:02:00 GMT, crn
+Updated splack/a/silo* to 1.4.8
+Updated boot with new silo stuff
+NOTE I had to cobble this together because parts of silo-1.4.8 will not
+ compile so I downloaded silo-loaders-1.4.8.tar.gz binaries and hacked it.
+ Someone will need to fixup sources/a/silo later.
+Added iso/beta.iso - this is a bootable CD image which works for 32 and 64 bit
+ systems.
+-------------------------------
+Thur Nov 10 02:14:00 GMT, crn
+Copied splack/a/aaa_base-10.0.0-noarch-1.tgz from Slackware 10
+also devs-2.3.1-noarch-21.tgz and hotplug-2004_01_05-noarch-3.tgz
+deleted splack/a/devfs* (we need to have udev eventually)
+Put the correct 64 bit kernel into splack/a/kernel-2.4.27-sparc-1.tgz (oops)
+We can now do a clean install without devfs screwing it up.
+--------------------------------
+Mon Nov 8 17:00:00:00 GMT, crn
+Forked a beta tree to get the install kit moving.
+Later changes to the official tree may not be included.
+kernels/* all new 2.4.27
+a/kernel-2.4.27-sparc-1.tgz and a/kernel-modules-2.4.27-sparc-1.tgz all new 2.4.27
+a/silo-1.4.5-sparc-2.tgz fixup siloconfig - we use /vmlinux not vmlinuz
+a/aaa_elflibs-sparc-1.tgz NASTY KLUDGE - temp package until alvaro (fede2) fixes
+ up the missing libraries
+boot/initrd.img : many fixups - add sbin/rpc.portmap, take out SeTkernel ....
+tftpboot : updated tftpconfig, delete old files, new sun4u image
+YAY - we now have a working installer - 64 bit and tftpboot only - but going forward.
+----------------------------------
+Wed Jun  9 16:07:49 CST 2004, fede2
+a/silo-1.4.5-sparc-2.tgz: Upgraded. Fixed siloconfig to find the kernel, based
+  on liloconfig code. With this fix, the installer is _almost_ ready.
+-----------------------------------
+Fri Jun  4 08:53:14 CST 2004, fede2
+install-packages, install.end, maketag, maketag.ez and tagfile roughly added
+  to some of the series.
+Some tagfiles, maketags, etc.
+boot/ Added. The first version of current's installer is on the way.
+u/gcc64/gcc64-3.2.3-sparc64-1.tgz: Added. This has only been tested for
+=======================================
+SEE ChangeLog.fede2 for earlier changes
+

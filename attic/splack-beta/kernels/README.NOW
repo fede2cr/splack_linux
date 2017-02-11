@@ -1,0 +1,114 @@
+This directory contains precompiled Linux kernels.  Brief descriptions of
+each kernel is given below.  You can find complete descriptions of the
+kernels in the individual "config" files in each kernel subdirectory.
+
+
+   javastation.n   Sun JavaStation "Mr. Coffee" and "Krups"  support.  There are
+                   no IDE or SCSI drivers in this kernel, as the Javastation has
+                   no provisions for those.  This kernel is also set up
+                   with proper network booting and root filesystem support.
+                   Systems that should use this image:
+
+                      Sun JavaStations 
+
+   sun4.s          Not available -  Sun 4 systems are no longer supported.
+
+   sun4c.s         Support for the sun4c family of SPARC systems.  Contains
+                   SCSI disk and CD-ROM support and all available SPARC SCSI
+                   drivers.  NOTE:  This kernel can also boot sun4m and
+                   sun4d machines, but does not support SMP machines in those
+                   families.
+
+                      Sun SPARCstation SLC
+                      Sun SPARCstation ELC
+                      Sun SPARCstation IPC
+                      Sun SPARCstation IPX
+                      Sun SPARCstation/server 1
+                      Sun SPARCstation/server 1+
+                      Sun SPARCstation/server 2
+
+   sun4m.s        Support for the sun4m family of SPARC systems.
+                   Contains SCSI disk and CD-ROM support and all available
+                   SPARC SCSI drivers.  Systems with multiple CPUs are also
+                   supported.  Systems that should use this image:
+
+                      Sun SPARCclassic
+                      Sun SPARCstation LC
+                      Sun SPARCstation LX
+                      Sun SPARCstation 4
+                      Sun SPARCstation/server 5
+                      Sun SPARCstation/server 10
+                      Sun SPARCstation/server 20
+
+   sun4d.s        Support for the sun4d family of SPARC systems.
+                   Contains SCSI disk and CD-ROM support and all available
+                   SPARC SCSI drivers. Single processor only. 
+                   Use this kernel until we get the SMP bugs fixed.  
+                   Systems that should use this image:
+
+                      Sun SPARCserver 1000, 1000E
+                      Sun SPARCcenter 2000, 2000E
+
+   sun4d-SMP.s     EXPERIMENTAL  Support for the sun4d family of SPARC systems.
+                   Contains SCSI disk and CD-ROM support and all available
+                   SPARC SCSI drivers. SMP on these machines is UNSTABLE. 
+                   Use this kernel ONLY if you want to help fix the kernel bugs
+                   and read the latest information at http://www.splack.org/  
+                   Systems that should use this image:
+
+                      Sun SPARCserver 1000, 1000E
+                      Sun SPARCcenter 2000, 2000E
+
+   sun4u.s         Support for UltraSPARC systems, both SBus and PCI.  Contains
+                   SCSI disk and CD-ROM support, all available UltraSPARC SCSI
+                   drivers, and IDE disk and CD-ROM support.  Systems with
+                   multiple CPUs are also supported.  Systems that should use
+                   this image:
+
+                      All 64 bit Sun Sparc systems including :
+                      Sun SPARCengine CP1400, CP1500
+                      Sun Ultra [all] 
+                      Sun Netra i, T, X
+                      Sun Enterprise [all]
+                      Sun Blade 
+                      Sun Fire
+
+
+These kernels are offered for installation during the setup program and they
+are provided here as a reference for those wanting to rebuild their kernel.
+
+These kernels are also perfectly fine to add to your system.  Installation
+is easy.  Suppose you want to install the sun4u.s kernel.  First pick a
+kernel version - 2.4.27 - then have a look at what's in that directory.
+
+  Say it contains these items:
+
+   modules/
+   System.map
+   config
+   vmlinux*
+
+The "modules" directory contains kernel modules specific to the sun4u.s
+kernel.  Copy the contents of directory to /lib/modules/2.4.27.
+If you previously had a /lib/modules/2.4.27 directory, make sure it's empty
+before copying over the new one.
+
+   rm -rf /lib/modules/2.4.27
+   mkdir /lib/modules/2.4.27
+   cp -av modules/* /lib/modules/2.4.27
+
+The "System.map" and "config" file should be placed in /boot for reference
+purposes.  The System.map file is useful for kernel developers and the config
+file is the kernel configuration file used to build the sun4u.s kernel.  If
+you decide to recompile your kernel, you may wish to start with this config
+as a default.  Having it in /boot makes a nice reference.
+
+   cp -a System.map config /boot
+
+The last file is the actual kernel.  Copy it to / and reboot.
+
+   cp -a vmlinux /vmlinux
+
+That's it.  Be careful not to install a kernel that will render the system
+unbootable.
+

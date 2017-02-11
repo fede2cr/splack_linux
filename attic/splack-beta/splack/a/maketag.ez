@@ -1,0 +1,59 @@
+9!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING SOFTWARE FROM SERIES A (BASE LINUX SYSTEM)" \
+       --checklist "Please select the optional components you wish to install \
+from series A. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the items you wish to install. \
+(NOTE: The more important system packages are not listed here and will be installed \
+automatically) \
+Press ENTER when you are \
+done." 20 76 9 \
+"kernel-ide"  "Linux 2.4.22 no SCSI (YOU NEED 1 KERNEL)" "on" \
+"cpio" "The GNU cpio backup/archiving utility" "on" \
+"cups" "CUPS - printer spooling system" "on" \
+"floppy" "Utilities for using DOS floppies" "on" \
+"gawk" "GNU awk pattern scanning language" "on" \
+"getty-ps" "Getty_ps - OPTIONAL" "off" \
+"glibc-zoneinfo" "Configures your time zone" "on" \
+"gpm" "Cut and paste text with your mouse" "on" \
+"infozip" "zip/unzip archive utilities" "on" \
+"isapnptools" "Plug'n'Play configuration tool" "on" \
+"jfsutils" "Utilities for IBM's Journaled Filesystem" "on" \
+"kbd" "Change keyboard mappings and console fonts" "on" \
+"loadlin" "Boots Linux from MS-DOS" "on" \
+"lprng" "LPRng - printer spooling system" "on" \
+"minicom" "Serial transfer and modem comm package" "on" \
+"pcmcia-cs" "PCMCIA/Cardbus PC card support" "on" \
+"xfsprogs" "Utilities for SGI's XFS filesystem" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+ rm -f $TMP/SeTpkgs
+ > $TMP/SeTnewtag
+ for pkg in \
+  aaa_base acpid apmd bash bin bzip2 coreutils cpio cups cxxlibs devs e2fsprogs elflibs dcron devfsd elvis etc findutils gawk genpower floppy gettext getty-ps glibc-solibs gpm grep gzip hdparm hotplug pkgtools kernel-ide isapnptools jfsutils kbd less lilo loadlin logrotate lprng minicom kernel-modules module-init-tools openssl-solibs pciutils pcmcia-cs procps reiserfsprogs sed shadow slocate smartmontools sysklogd syslinux sysvinit tar tcsh umsdos-progs usbutils util-linux infozip glibc-zoneinfo xfsprogs \
+  ; do
+  echo "$pkg: SKP" >> $TMP/SeTnewtag
+ done
+ exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in \
+ aaa_base acpid apmd bash bin bzip2 coreutils cxxlibs dcron devfsd devs e2fsprogs elvis etc elflibs findutils genpower glibc-solibs gettext grep gzip hdparm hotplug pkgtools less lilo kernel-modules logrotate module-init-tools openssl-solibs pciutils procps reiserfsprogs sed shadow slocate smartmontools sysklogd syslinux sysvinit tar tcsh umsdos-progs usbutils util-linux \
+  ; do
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+done
+for PACKAGE in kernel-ide cups lprng loadlin floppy pcmcia-cs isapnptools jfsutils gawk getty-ps \
+ minicom cpio kbd gpm infozip glibc-zoneinfo xfsprogs ; do
+ if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+ else
+  echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+ fi
+done
+rm -f $TMP/SeTpkgs

@@ -1,0 +1,96 @@
+# This is a Slackware Installation Tagfile.
+# 
+# This one comes from disk: A1 (Base Linux series)
+# and a backup copy called "tagfile.org" can be found on the same disk. You
+# should never edit the "tagfile.org" copy, only the one called "tagfile". Use
+# the "tagfile.org" only if you want to restore original installation defaults
+# by copying it over the top of "tagfile".
+# 
+# It is used to automate software installation. 
+# There are two labels that you can use: ADD and SKP.
+#
+# If the PROMPT option is used during installation, this file will be checked
+# to determine the installation default. First, all the lines beginning with
+# <package_name>: 
+# will be extracted. Then, the last line in the extracted segment will be 
+# checked for the flags ADD, REC, OPT and SKP.
+#
+# If ADD is found, then a priority of [required] will be displayed, and the
+# package will be automatically installed. 
+#
+# If SKP is found, then a priority of [skip] will be displayed, and
+# the package will be automatically skipped.
+#
+# All other packages will be prompted for. There are two optional flags you
+# can use to change the package priority level shown when the user is 
+# prompted: REC and OPT. If REC is found, the priority shown will be
+# [recommended], while if OPT is found, the user sees priority [optional].
+#
+# If no flags are found for a given package, the user is shown priority
+# [unknown], and is prompted for whether the package should be installed.
+#
+# If you mess this file up beyond recognition, just restore from "tagfile.org"
+# 
+#
+aaa_base: ADD
+acpid: REC
+apmd: REC
+bash: ADD
+bin: ADD
+bzip2: ADD
+coreutils: ADD
+cpio: ADD
+cups: REC
+cxxlibs: ADD
+dcron: ADD
+devfsd: ADD
+devs: ADD
+e2fsprogs: ADD
+elflibs: ADD
+elvis: ADD
+etc: ADD
+findutils: ADD
+floppy: ADD
+gawk: ADD
+genpower: OPT
+gettext: REC
+getty-ps: OPT
+glibc-solibs: ADD
+glibc-zoneinfo: ADD
+gpm: REC
+grep: ADD
+gzip: ADD
+hdparm: ADD
+hotplug: ADD
+infozip: ADD
+isapnptools: OPT
+jfsutils: OPT
+kbd: REC
+kernel-ide: REC
+kernel-modules: ADD
+less: ADD
+lilo: ADD
+loadlin: REC
+logrotate: ADD
+lprng: REC
+minicom: REC
+module-init-tools: ADD
+openssl-solibs: ADD
+pciutils: OPT
+pcmcia-cs: REC
+pkgtools: ADD
+procps: ADD
+reiserfsprogs: ADD
+sed: ADD
+shadow: ADD
+slocate: ADD
+smartmontools: ADD
+sysklogd: ADD
+syslinux: ADD
+sysvinit: ADD
+tar: ADD
+tcsh: REC
+umsdos-progs: ADD
+usbutils: ADD
+util-linux: ADD
+xfsprogs: OPT

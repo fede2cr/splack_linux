@@ -1,0 +1,418 @@
+#!/bin/sh
+# set -x
+#
+# tftpconfig
+# Utility for setting up a TFTP boot server on a Slackware machine.
+#
+# Copyright (C) 2000 BSDi, Concord, CA, USA
+# All rights reserved.
+#
+# Written by David Cantrell <david@slackware.com>
+#  modified 16-Apr-2002 by Alvaro Figueroa <fede2@fuerzag.ulatina.ac.cr>
+# Licensed under the GNU General Public License (GPL), any version
+#
+# ChangeLog:
+# 07-Mar-2003   - Support PROLL for javastations. (Chris Newport)
+# 07-Jly-2002	- Fix bugs and add support for new JavaStation files
+# 16-Apr-2002	- Almost a complete rewrite of the script.
+#		- New order of userland rarpd related actions.
+#		- Removed Slackware/Splack dependence.
+#		- I can know be runned outside /tftpboot.
+#		- It also checks if /tftpboot exist as a link.
+#		- It ask for the name of the tftpimage insted of using
+#		  Splacks's
+#		- It only checks if depmod and modprobe exist if it needs
+#		  them
+#		- It checks for programs having execute permitions instead
+#		  of read permition.
+#
+# 28-Nov-2001   - More clean up to the awk script.
+#
+# 27-Nov-2001   - Removed function hex, and replaced by a small awk script.
+#
+# 24-Jul-2001   - Removed any need to use addr, and replaced by and awk
+#		  script, inside function hex. It need to be cleaned up.
+#
+# 20-Jul-2001   - Broke apart detections for Slackware Linux.
+#               - Detect kernel version before looking for rarp module.
+#                 (Kernel 2.4.x no longer has rarpd in the kernel.)
+#               - Gave choice to continue without 'addr' or kernel 'rarpd'.
+#                 (Appears '/usr/bin/addr' is not in Slackware 8.)
+#               - Fixed missing 'fi' bug that caused EOF unexpectedly.
+#               - Splack Linux development started here.
+#
+# 25-May-2001   Added support for the 2.4 boot image for UltraSPARCs.
+#
+# 12-May-2001   Fixed the names of the image files it checks for when run.
+#
+# 09-Mar-2001   Removed console type question, as it is no longer necessary.
+#
+# 08-Mar-2001   Edited to work with the new TFTP boot image names.
+#
+# 12-Dec-2000   - Checks for correct tftp boot images existing before running.
+#               - Asks for machine type (either 32-bit or 64-bit).
+#               - Asks for console type (either color or serial).
+#               - Copies appropriate tftp image into place.
+#               - Sets symbolic links necessary for 32-bit SPARC systems.
+#
+# 05-Dec-2000   Initial version.
+#
+echo "Utility for setting up a TFTP boot server on a Slackware machine."
+echo "Licensed under the GNU General Public License (GPL), any version."
+echo "Original by David Cantrell. Maintained by Splack Linux - splack.org"
+
+# Check for required software.
+for f in /usr/sbin/inetd /usr/sbin/in.tftpd /sbin/arp 
+do
+   if [ ! -x $f ]
+   then
+      echo "System is missing $f, exiting."
+      exit
+   fi
+done
+
+USERLAND_RARPD=0
+
+# Is the tftp server enabled?
+a="`cat /etc/inetd.conf | grep tftp | cut -c 1`"
+if [ "`cat /etc/inetd.conf | grep tftp | cut -c 1`" = "#" ]
+then
+   echo "You need to enable your TFTP server by uncommenting this line in your"
+   echo "/etc/inetd.conf file:"
+   echo
+   cat /etc/inetd.conf | grep tftp
+   echo
+   echo "Remove the hash mark, save, and rerun this script."
+   exit
+fi
+
+# Check kernel version.
+if [ "`uname -r | cut -b1-3`" != "2.4" ]
+then
+	# Kernel is not 2.4.x.
+	# do we have RARP support in the kernel?
+	if [ ! -r /proc/net/rarp ]
+	then
+		for f in /sbin/depmod /sbin/modprobe
+		do
+		   if [ ! -x $f ]
+   		   then
+		      echo "System is missing $f, exiting."
+		      exit
+ 		   fi
+		done
+		/sbin/depmod -a
+		/sbin/modprobe rarp
+
+   		if [ ! -r /proc/net/rarp ]
+   		then
+      			echo "The running kernel lacks RARP support and the RARP module appears to be"
+      			echo "missing.  You need a kernel with RARP support for TFTP booting."
+      		exit
+   	fi
+fi
+else
+	echo "Running Kernel is greater than 2.2.x"
+	if [ ! -x /sbin/rarpd ]
+	then 
+	  echo "You'll need a userland rarpd. Splack has packages for it"
+	  exit -1
+#fi
+	else
+	  echo "Using userland rarpd."
+	  USERLAND_RARPD=1
+	fi
+fi
+
+# Create the tftpboot directory if we need to.
+if [ ! -d /tftpboot -o ! -L /tftpboot ]
+then
+   mkdir -p /tftpboot
+fi
+
+draw_line()
+{
+   echo
+   echo
+   echo "--------------------------------------------------------------------------------"
+   echo
+}
+
+
+# initial welcome screen, user can hit Ctrl+C here
+cat << EOF
+
+
+   tftpconfig - Splack's TFTP Boot Server Utility
+
+   This script will help you get your machine up and running as a
+   boot server for your SPARC-based computer.  Tftpconfig needs to know a few
+   things before it can proceed:
+
+      - The MAC address of the machine that will be network booting.
+      - The IP address you want to assign that machine.
+      - The boot image you want this machine to serve it.
+
+   Once you have gathered the MAC address and have chosen an IP address, press
+   enter.
+EOF
+read JUNK
+
+draw_line
+
+# get the MAC address
+cat << EOF
+
+   MAC Address of Client Machine
+
+   Enter the MAC address of the client machine.  This will be something 
+   similar to 08:00:20:B7:10:55, but may be written without leading zeros.
+   The MAC address is always displayed when the system powers on.  It is
+   usually the second thing displayed, right after "Keyboard present."
+
+   Enter the MAC address in the format above.  Add leading zeros if you need
+   to.  Do use colons to seperate each value in the MAC address.  If you mess
+   up, hit Ctrl+C and start the script over again.
+
+EOF
+echo -n "   MAC address > "
+read MACADDR
+
+draw_line
+
+# get the IP address for the client machine
+cat << EOF
+
+   IP Address of Client Machine
+
+   Enter the IP address that you want to assign the client machine when it
+   boots up.  Depending on your local network setup, this could be anything.
+   An example of a valid IP address is 192.168.1.14
+
+   Be sure to consult with the network administrator to make sure the IP
+   address you will be using is available.  IP address conflicts can cause
+   headaches for everyone.
+
+EOF
+echo -n "   IP address > "
+read IPADDR
+
+draw_line
+
+# results
+cat << EOF
+
+   Settings
+
+   You have supplied the following information:
+
+      MAC address    $MACADDR
+      IP address     $IPADDR
+
+   If these settings are correct, press enter.  Otherwise, press Ctrl+C and
+   start the script over again.
+
+EOF
+read JUNK
+
+
+# Populate the rarp table.
+/sbin/arp -s $IPADDR $MACADDR
+
+# If using a userland rarpd entries might go to /etc/ethers.
+if [ "$USERLAND_RARPD" == "1" ]
+then
+	echo "$MACADDR $IPADDR" >> /etc/ethers 
+#fi
+else
+	/sbin/rarp -s $IPADDR $MACADDR
+fi
+
+TFTPNAME=`awk -v IP=$IPADDR 'BEGIN{split(IP,a,".");printf("%02X%02X%02X%02X\n",a[1],a[2],a[3],a[4])}'`
+
+cat << EOF
+
+   Client Machine Type
+
+   You need to specify the type of system the client is.  If it a sun4c,
+   sun4d, or sun4m system, then it is a 32-bit machine.  Any machine that
+   has "Ultra" in its name is a 64-bit machine.
+
+   Examples of 32-bit machines:  SPARCstation 1/1+/2, SPARCstation IPC/IPX,
+                                 SPARCstation 5/10/20, SPARCcenter 1000/2000,
+                                 SPARCstation Classic
+
+   Examples of 64-bit machines:  Ultra 1/2/5/10/30/60/80, Enterprise servers.
+
+   Examples of JavaStations:     Sun JavaStation 1.
+
+   Select machine type:
+
+      [1]  My client machine is 32-bit.
+      [2]  My client machine is 64-bit.
+      [3]  My client machine is a JavaStation MrCoffee.
+      [4]  My client machine is a JavaStation Krups.
+
+EOF
+
+LUPE=1
+MACHINETYPE=0
+
+while [ "$LUPE" = "1" ]
+do
+   echo -n "   Machine type [1,2,3,4] > "
+   read MACHINETYPE
+
+   if [ "$MACHINETYPE" = "1" -o "$MACHINETYPE" = "2" -o "$MACHINETYPE" = "3" -o "$MACHINETYPE" = "4" ];
+   then
+      LUPE=0
+   else
+      echo
+      echo "   ERROR:  You must enter a 1, 2, 3 or 4 for the machine type."
+      echo
+   fi
+done
+
+draw_line
+
+# if we're booting an UltraSPARC, ask what kernel to use
+if [ "$MACHINETYPE" = "2" ]
+then
+   cat << EOF
+
+   UltraSPARC Kernel Version
+
+   You need to select the kernel version you'd like to use since you
+   are booting an UltraSPARC system.
+
+   Select kernel version:
+
+      [1]  Linux 2.2.19
+      [2]  Linux 2.4.4
+
+EOF
+LUPE=1
+while [ "$LUPE" = "1" ]
+do
+   echo -n "   Kernel version [1,2] > "
+   read KERNELVER
+
+   if [ "$KERNELVER" = "1" -o "$KERNELVER" = "2" ]
+   then
+      LUPE=0
+   else
+      echo
+      echo "   ERROR:  You must enter a 1 or 2 for the kernel version."
+      echo
+   fi
+done
+fi
+
+draw_line
+
+# results
+cat << EOF
+
+   Settings
+
+   You have supplied the following information:
+
+      MAC address    $MACADDR
+      IP address     $IPADDR
+EOF
+echo -n "      Machine type   "
+if [ "$MACHINETYPE" = "1" ]
+then
+   echo -n "32-bit"
+elif [ "$MACHINETYPE" = "2" ]
+then
+   echo -n "64-bit "
+   if [ "$KERNELVER" = "1" ]
+   then
+      echo -n "(Linux 2.2.19)"
+   elif [ "$KERNELVER" = "2" ]
+   then
+      echo -n "(Linux 2.4.4)"
+   fi
+else
+   echo -n "JavaStation"
+fi
+echo
+
+cat << EOF
+
+   If these settings are correct, press enter.  Otherwise, press Ctrl+C and
+   start the script over again.
+
+EOF
+read JUNK
+
+if [ "$MACHINETYPE" = "1" ]
+then
+   IMGNAME=tftp-sun4cdm.img
+elif [ "$MACHINETYPE" = "2" ]
+then
+   if [ "$KERNELVER" = "1" ]
+   then
+      IMGNAME=tftp-sun4u.img
+   elif [ "$KERNELVER" = "2" ]
+   then
+      IMGNAME=tftp-sun4u-2.4.4.img
+   fi
+elif [ "$MACHINETYPE" = "3" ]
+then
+   IMGNAME=tftp-javastation.boot
+elif [ "$MACHINETYPE" = "4" ]
+then
+   IMGNAME=tftp-javastation.boot
+fi
+
+if [ ! -r $IMGNAME ]
+then
+  echo "This image does not exist, or does not have the right perms"
+  exit
+fi
+
+case "$MACHINETYPE" in 
+ "1")
+	cp $IMGNAME /tftpboot/$TFTPNAME
+	( cd /tftpboot
+	ln -sf $TFTPNAME $TFTPNAME.SUN4C
+	ln -sf $TFTPNAME $TFTPNAME.SUN4D
+	ln -sf $TFTPNAME $TFTPNAME.SUN4M )
+ ;;
+ "2")
+        cp $IMGNAME /tftpboot/$TFTPNAME
+ ;;
+ "3")
+        cp $IMGNAME /tftpboot/$TFTPNAME.PROL
+	cp proll.mrcoffee /tftpboot/$TFTPNAME
+        ( cd /tftpboot
+        ln -sf $TFTPNAME $TFTPNAME.SUN4M )
+	echo "Unpacking root image - please wait"
+	mkdir /tftpboot/$IPADDR
+	IMGDIR=`pwd`
+	( cd /tftpboot/$IPADDR; tar xzf $IMGDIR/tftp-javastation.root.tgz )
+ ;;
+ "4")
+        cp $IMGNAME /tftpboot/$TFTPNAME.PROL
+        cp proll.krupps /tftpboot/$TFTPNAME
+        echo "Unpacking root image - please wait"
+        mkdir /tftpboot/$IPADDR
+        IMGDIR=`pwd`
+        ( cd /tftpboot/$IPADDR; tar xzf $IMGDIR/tftp-javastation.root.tgz )
+ ;;
+esac
+
+
+if [ $USERLAND_RARPD = '1' ]
+then
+        /usr/sbin/rarpd #Start the userland rarp server
+fi
+
+
+# done!
+echo
+
+echo "Your system is now set up to act as a boot server for $MACADDR."
+echo "You may now go to your SPARC system and type 'boot net' at the ok prompt."

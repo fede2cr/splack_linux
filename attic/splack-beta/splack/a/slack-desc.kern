@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+kernel: kernel (Linux kernel)
+kernel:
+kernel: The default kernel for both Sparc and UltraSparc systems.
+kernel: The correct 32 bit or 64 bit version will be installed.
+kernel: The 64 bit version includes SMP support. 
+kernel: The 32 bit version does not support SMP, if you have an 
+kernes: SMP system such as the Sparc 20 you can find a suitable
+kernel: kernel in the /kernels directory.
+kernel:
+kernel:
+kernel:

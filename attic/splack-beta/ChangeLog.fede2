@@ -1,0 +1,487 @@
+Wed Jun  9 16:07:49 CST 2004, fede2
+a/silo-1.4.5-sparc-2.tgz: Upgraded. Fixed siloconfig to find the kernel, based
+  on liloconfig code. With this fix, the installer is _almost_ ready.
+-----------------------------------
+Fri Jun  4 08:53:14 CST 2004, fede2
+install-packages, install.end, maketag, maketag.ez and tagfile roughly added
+  to some of the series.
+Some tagfiles, maketags, etc.
+boot/ Added. The first version of current's installer is on the way.
+u/gcc64/gcc64-3.2.3-sparc64-1.tgz: Added. This has only been tested for
+  building kernels, and it won't be supported at all on splack-curret for
+  building 64 bit userspace binaries.
+ap/cdrtools-2.00.3-sparc-1.tgz: Added. Now the soon to be uploaded ISO is
+being built on a splack box.
+source/rootdisks/: Added.
+-----------------------------------
+Tue May 25 16:30:49 CST 2004, fede2
+n/popa3d-0.6.3-sparc-1.tgz: Added.
+n/nail-10.5-sparc-1.tgz: Added.
+n/netpipes-4.2-sparc-1.tgz: Added.
+patches/packages/cvs-1.11.16-sparc-1.tgz:  Upgraded to cvs-1.11.16.  From
+  the NEWS file:
+    A potential buffer overflow vulnerability in the server has been fixed.
+    Prior to this patch, a malicious client could potentially use carefully
+    crafted server requests to run arbitrary programs on the CVS server
+    machine.
+  For more details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0396
+  (* Security fix *)
+d/cvs-1.11.6-sparc-1.tgz:  Added cvs-1.11.6. *DO NOT USE THIS PACKAGE*
+  There is a safer version at /patches. 
+-----------------------------------
+Tue May 25 10:18:50 CST 2004, fede2
+patches/packages/apache-1.3.29-sparc-2.tgz:  Patched four security issues
+  in the Apache web server as noted on http://httpd.apache.org.
+  These security fixes were backported from Apache 1.3.31:
+
+    In mod_digest, verify whether the nonce returned in the client
+    response is one we issued ourselves.  This problem does not affect
+    mod_auth_digest. (CAN-2003-0987)
+
+    Escape arbitrary data before writing into the errorlog.  (CAN-2003-0020)
+
+    Fix starvation issue on listening sockets where a short-lived connection
+    on a rarely-accessed listening socket will cause a child to hold the
+    accept mutex and block out new connections until another connection
+    arrives on that rarely-accessed listening socket.  (CAN-2004-0174)
+
+    Fix parsing of Allow/Deny rules using IP addresses without a netmask;
+    issue is only known to affect big-endian 64-bit platforms (CAN-2003-0993)
+
+  For more details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0987
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0020
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0174
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2003-0993
+
+  (* Security fix *)
+patches/packages/bin-8.5.0-sparc-2.tgz:  Fixed buffer overflows and
+  directory traversal vulnerabilities in the 'lha' archive utility.  Sites
+  using 'lha' should upgrade to the new bin package right away.
+  For more details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0234
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0235
+  (* Security fix *)
+  Upgraded to dosfstools-2.10.
+patches/packages/libpng-1.2.5-sparc-2.tgz:  Patched a problem where
+  libpng may access memory that is out of bounds when creating an error
+  message, possibly crashing libpng and creating a denial of service.
+  For more details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0421
+  (* Security fix *)
+patches/packages/rsync-2.6.2-sparc-1.tgz:  Upgraded to rsync-2.6.2.
+  Rsync before 2.6.1 does not properly sanitize paths when running a
+  read/write daemon without using chroot, allowing remote attackers to
+  write files outside of the module's path.
+  For more details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0426
+  (* Security fix *)
+patches/packages/sysklogd-1.4.1-sparc-9.tgz:  Patched a bug which could allow
+  a user to cause syslogd to write to unallocated memory and crash.
+  Thanks to Steve Grubb for finding the bug, and Solar Designer for refining
+  the patch.
+  (* Security fix *)
+Patches/packages/tcpdump-3.8.2-sparc-1.tgz:  Upgraded to tcpdump-3.8.2
+  and libpcap-0.8.2.  Fixes denial-of-service security issues.
+  For more details, see:
+    http://www.rapid7.com/advisories/R7-0017.html
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0183
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0184
+  (* Security fix *)
+a/silo-1.4.5-sparc-1.tgz: Upgraded to silo 1.4.5.
+ap/raidtools-1.00.3-sparc-1.tgz: Added.
+-----------------------------------
+Tue Apr 20 11:06:34 CST 2004, fede2
+patches/packages/utempter-1.1.1-sparc-1.tgz:  Upgraded to libutempter-1.1.1
+  (this is a new version written by Dmitry V. Levin of ALT Linux).
+  This upgrade fixes a low-level security issue in utempter-0.5.2 where
+  utempter could possibly be tricked into writing through a symlink, and is
+  a cleaner implementation all-around.
+  For more details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0233
+  (* Security fix *)
+BTW, a ton of thanks to Patrick for making build scripts that don't need
+  changes for other arquitectures. This will make my days a lot easyer.
+-----------------------------------
+Wed Mar 24 15:17:12 CST 2004, fede2
+l/libxml2-2.5.11-sparc-1.tgz: Added.
+-----------------------------------
+Fri Mar 19 11:36:29 CST 2004, fede2
+l/libungif-4.1.0b1-sparc-1.tgz: Added.
+l/libjpeg-6b-sparc-1.tgz: Added.
+-----------------------------------
+Thu Mar 18 17:14:25 CST 2004, fede2
+patches/packages/openssl-0.9.7d-sparc-1.tgz:  Upgraded to openssl-0.9.7d.
+patches/packages/openssl-solibs-0.9.7d-sparc-1.tgz:  Upgraded to
+  openssl-0.9.7d.  This fixes two potential denial-of-service issues in
+  earlier versions of OpenSSL.  For more details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0079
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0112
+  (* Security fix *)
+NOTE: This packages have been compiled for v9 processors (because my ss20
+  seems to be on vacation). I'll upload packages for older processors ASAP.
+-----------------------------------
+Fri Mar  5 21:03:38 CST 2004, fede2
+l/libpng-1.2.5-sparc-1.tgz: Added.
+-----------------------------------
+Thu Feb 19 21:00:50 CST 2004, fede2
+a/openssl-solibs-0.9.7b-sparc-1.tgz:  Added. *DO NOT USE THIS PACKAGE*.
+  There is a newer version at patches/.
+n/openssl-0.9.7b-sparc-1.tgz:  Added. *DO NOT USE THIS PACKAGE*.
+  There is a newer version at patches/.
+patches/packages/apache-1.3.29-sparc-1.tgz:  Upgraded to apache-1.3.29. 
+  This fixes the following local security issue:
+    o CAN-2003-0542 (cve.mitre.org)
+      Fix buffer overflows in mod_alias and mod_rewrite which occurred if
+      one configured a regular expression with more than 9 captures.
+  This vulnerability requires the attacker to create or modify certain
+  Apache configuration files, and is not a remote hole.  However, it could
+  possibly be used to gain additional privileges if access to the Apache
+  administrator account can be gained through some other means.  All sites
+  running Apache should upgrade.
+  (* Security fix *)
+patches/packages/mod_ssl-2.8.16_1.3.29-sparc-1.tgz:  Upgraded to
+  mod_ssl-2.8.16_1.3.29.
+patches/packages/fetchmail-6.2.5-sparc-1.tgz:  Upgraded to fetchmail-6.2.5.
+  This fixes a security issue where a specially crafted message could cause
+  fetchmail to crash, preventing the user from retrieving email.
+  (* Security fix *)
+patches/packages/gnupg-1.2.3-sparc-2.tgz:  Removed support for ElGamal
+  keys, since an implementation error has caused many of these to be
+  easily compromised.  Any existing sign+encrypt ElGamal keys should
+  be revoked (and you'll need to use your existing gpg to do that).
+  Fortunately, ElGamal is not used by default in GnuPG, is not widely
+  used, and was never a popular choice because it produced larger
+  signatures and was more costly to encrypt/decrypt than other
+  choices.  If you've been using ElGamal, you will need to select a
+  new key cipher type for your replacement key (my suggestion would
+  be to go with the GnuPG default).
+  (* Security fix *)
+patches/packages/lftp-2.6.10-sparc-1.tgz:  Upgraded to lftp-2.6.10.
+  According to the NEWS file, this includes "security fixes in html
+  parsing code" which could cause a compromise when using lftp to
+  access an untrusted site.
+  (* Security fix *)
+patches/packages/mutt-1.4.2i-sparc-1.tgz:  Upgraded to mutt-1.4.2i.
+  This fixes an overflow that is a potential security hole.  Here's the
+  information from www.mutt.org:
+    "Mutt 1.4.2 was released on February 11, 2004. This version fixes a buffer
+     overflow that can be triggered by incoming messages.  There are reports
+     about spam that has actually triggered this problem and crashed mutt. It
+     is recommended that users of mutt versions prior to 1.4.2 upgrade to this
+     version, or apply the patch included below."
+  (* Security fix *)
+-----------------------------------
+Wed Feb 18 22:27:42 CST 2004, fede2
+a/silo-1.4.4-sparc-1.tgz: Upgraded to silo 1.4.4.
+a/util-linux-2.12-sparc-1.tgz: Added.
+l/libtiff-3.5.7-sparc-1.tgz: Added.
+-----------------------------------
+tUE Jan  6 08:27:40 CST 2004, fede2
+n/sendmail-8.12.10-sparc-2.tgz: Rebuild because of old symbols not present
+  in the current glibc.
+n/sendmail-cf-8.12.10-noarch-2.tgz: Renamed just to be in sync with the
+  sendmail package.
+n/php-4.3.3-sparc-2.tgz: Rebuild without imap-ssl support. It seems to be
+  broken. I'll try to fix it mutch latter.
+-----------------------------------
+Wed Dec 10 17:58:35 CST 2003, fede2
+d/devfsd-1.3.25-sparc-2.tgz: Rebuild. It was broken for some reason, and
+  this new build does work.
+-----------------------------------
+Tue Dec  9 15:57:45 CST 2003, fede2
+d/gcc-3.2.3-sparc-2.tgz, gcc-g++-3.2.3-sparc-2.tgz,
+  d/gcc-g77-3.2.3-sparc-2.tgz, d/gcc-java-3.2.3-sparc-2.tgz,
+  d/gcc-objc-3.2.3-sparc-2.tgz: Recompiled for ncurses. (I think only the
+  main package needed this, but I'll upload them all just the same).
+n/php-4.3.3-sparc-1.tgz: Added.
+-----------------------------------
+Thu Dec  4 19:21:33 CST 2003, fede2
+a/silo-1.3.2-sparc-1.tgz: Added.
+a/sparc-utils-1.9-sparc-1.tgz: Added.
+l/libtermcap-1.2.3-sparc-1.tgz: Added.
+l/ncurses-5.3-sparc-1.tgz: Added.
+-----------------------------------
+Thu Dec  4 08:47:03 CST 2003, fede2
+patches/packages/rsync-2.5.7-sparc-1.tgz:  Upgraded to rsync-2.5.7.
+  From the rsync-2.5.7-NEWS file:
+    SECURITY:
+    * Fix buffer handling bugs.  (Andrew Tridgell, Martin Pool, Paul
+      Russell, Andrea Barisani)
+  The vulnerability affects sites running rsync in daemon mode (rsync
+  servers).  These sites should be upgraded immediately.
+  (* Security fix *)
+a/gettext-0.11.5-sparc-1.tgz: Added.
+d/gettext-tools-0.11.5-sparc-1.tgz: Added.
+l/zlib-1.1.4-sparc-1.tgz: Added.
+-----------------------------------
+Tue Nov 18 16:47:37 CST 2003, fede2
+d/bison-1.35-sparc-1.tgz: Added.
+d/byacc-1.9-sparc-1.tgz: Added.
+d/flex-2.5.4a-sparc-1.tgz: Added.
+d/m4-1.4-sparc-1.tgz: Added.
+l/popt-1.7-sparc-1.tgz: Added.
+-----------------------------------
+Fri Nov  7 14:42:52 CST 2003, fede2
+a/infozip-5.50-sparc-1.tgz: Added.
+a/pciutils-2.1.11-sparc-1.tgz: Added.
+ap/man-1.5l-sparc-1.tgz: Added.
+ap/man-pages-1.60-noarch-1.tgz: Added from Slackware.
+l/expat-1.95.6-sparc-1.tgz: Added.
+n/rsync-2.5.6-sparc-1.tgz: Added.
+-----------------------------------
+Sat Nov  1 11:55:07 CST 2003, fede2
+ap/diffutils-2.8.1-sparc-1.tgz: Added.
+ap/quota-3.09-sparc-1.tgz: Added.
+ap/rpm-4.2.1-sparc-1.tgz: Added (note the version of rpm).
+ap/beecrypt-3.1.0-sparc-1.tgz: Added. Needed by rpm.
+-----------------------------------
+Wed Oct 22 08:01:13 CST 2003, fede2
+a/sysklogd-1.4.1-sparc-1.tgz: Added.
+a/tcsh-6.12.00-sparc-1.tgz: Added.
+ap/ash-0.4.0-sparc-1.tgz: Added.
+ap/at-3.1.8-sparc-1.tgz: Added.
+ap/bc-1.06-sparc-1.tgz: Added.
+ap/groff-1.17.2-sparc-1.tgz: Added.
+ap/screen-3.9.15-sparc-1.tgz: Added.
+l/aspell-0.50.3-sparc-1.tgz: Added.
+l/aspell-en-0.51_0-noarch-1.tgz: Added.
+l/utempter-0.5.2-sparc-1.tgz: Added.
+extra/aspell-word-lists/aspell-br-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-ca-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-cs-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-cy-0.50_3-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-da-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-de-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-el-0.50_3-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-en-0.51_0-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-eo-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-es-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-fo-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-fr-0.50_3-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-it-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-nl-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-no-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-pl-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-pt-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-ro-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-ru-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-sk-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-sv-0.50_2-noarch-1.tgz: Added.
+extra/aspell-word-lists/aspell-uk-0.50_3-noarch-1.tgz: Added.
+extra/iproute2-2.4.7_now_ss020116_try/iproute2-2.4.7_now_ss020116_try-sparc-1.tgz: Added.
+-----------------------------------
+Mon Oct 20 19:53:54 CST 2003, fede2
+l/db1-1.85-sparc-1.tgz: Added.
+l/db2-2.4.14-sparc-1.tgz: Added.
+l/db3-3.3.11-sparc-1.tgz: Added.
+n/bind-9.2.2_P3-sparc-1.tgz: Added.
+n/curl-7.10.7-sparc-1.tgz: Added.
+n/fetchmail-6.2.4-sparc-1.tgz: Added.
+n/getmail-3.1.8-noarch-1.tgz: Added.
+n/inetd-1.79s-sparc-1.tgz: Added.
+n/links-2.1pre11-sparc-1.tgz: Added.
+n/nmap-3.45-sparc-1.tgz: Added.
+n/procmail-3.15.2-sparc-1.tgz: Added.
+n/tcpdump-3.7.2-sparc-1.tgz: Added.
+n/tcpip-0.17-sparc-1.tgz,: Added.
+n/wget-1.8.2-sparc-1.tgz: Added.
+-----------------------------------
+Fri Oct 17 12:16:11 CST 2003, fede2
+a/coreutils-5.0-sparc-2.tgz:  /usr/info/dir removed, and
+  /usr/info/coreutils.info compressed.
+a/elvis-2.1_4-sparc-1.tgz: Added.
+a/procps-2.0.16-sparc-1.tgz: Added.
+a/shadow-4.0.3-sparc-1.tgz: Added.
+ap/joe-2.9.8-sparc-1.tgz: Added.
+ap/lsof-4.68-sparc-1.tgz: Added.
+ap/most-4.9.4-sparc-1.tgz: Added.
+ap/vim-6.2-sparc-1.tgz: Added.
+d/strace-4.4.98-sparc-1.tgz: Added.
+n/iptables-1.2.8-sparc-1.tgz: Added.
+n/lftp-2.6.7-sparc-1.tgz: Added.
+n/mutt-1.4.1i-sparc-1.tgz: Added.
+y/bsd-games-2.13-sparc-1.tgz: Added.
+-----------------------------------
+Mon Oct  6 19:57:57 CST 2003, fede2
+a/bash-2.05b-sparc-1.tgz: Added.
+a/bzip2-1.0.2-sparc-1.tgz: Added.
+a/cpio-2.5-sparc-1.tgz: Added.
+a/dcron-2.3.3-sparc-1.tgz: Added.
+a/devfsd-1.3.25-sparc-1.tgz: Added.
+a/findutils-4.1.7-sparc-1.tgz: Added.
+a/grep-2.5-sparc-1.tgz: Added.
+a/gzip-1.3.3-sparc-1.tgz: Added.
+a/hdparm-5.3-sparc-1.tgz: Added.
+a/less-381-sparc-1.tgz: Added.
+a/lprng-3.8.22-sparc-1.tgz: Added.
+a/module-init-tools-0.9.14-sparc-1.tgz: Added.
+-----------------------------------
+Fri Oct  3 21:59:02 CST 2003, fede2
+n/openssh-3.7.1p2-sparc-2.tgz: Rebuilt to fix the same problem described at
+  sf.net's bug #815251.
+ap/mt-st-0.7-sparc-1.tgz: Added.
+ap/oggutils-1.0-sparc-1.tgz: Added.
+python-2.3.1-sparc-1.tgz: Added.
+d/python-demo-2.3.1-noarch-1.tgz, d/python-tools-2.3.1-noarch-1.tgz,
+  extra/bittorrent/bittorrent-3.3-noarch-1.tgz: Added
+  from Slackware.
+patches/packages/openssl-0.9.7c-sparc-1.tgz:  Upgraded to OpenSSL 0.9.7c.
+patches/packages/openssl-solibs-0.9.7c-sparc-1.tgz:  Upgraded to OpenSSL 0.9.7c.
+  This update fixes problems with OpenSSL's ASN.1 parsing which could lead to
+  a denial of service.  It is not known whether the problems could lead to the
+  running of malicious code on the server, but it has not been ruled out.
+  It also includes the minor fixes made on Slackware on the
+  openssl-0.9.7c-i468-2 package.
+  For detailed information, see OpenSSL's security advisory:
+    http://www.openssl.org/news/secadv_20030930.txt
+  We recommend sites that use OpenSSL upgrade to the fixed packages right away.
+  (* Security fix *)
+-----------------------------------
+Wed Oct  1 09:50:15 CST 2003, fede2
+extra/glibc-extra-packages/glibc-debug-2.3.2-sparc-1.tgz: Added.
+extra/glibc-extra-packages/glibc-profile-2.3.2-sparc-1.tgz: Added from
+  Slackware.
+a/glibc-solibs-2.3.2-sparc-1.tgz: Added.
+a/glibc-zoneinfo-2.3.2-noarch-1.tgz: Added from Slackware.
+l/glibc-2.3.2-sparc-1.tgz: Added.
+l/glibc-i18n-2.3.2-noarch-1.tgz: Added from Slackware.
+-----------------------------------
+Tue Sep 30 18:49:10 CST 2003, fede2
+a/logrotate-3.6.8-sparc-1.tgz: Added.
+ap/mysql-4.0.15a-sparc-1.tgz: Added.
+l/readline-4.3-sparc-1.tgz: Added.
+-----------------------------------
+Fri Sep 26 16:15:13 CST 2003, fede2
+a/bin-8.5.0-sparc-2.tgz: Recompiled. Killed sf.net's bug #813251.
+d/kernel-headers-2.4.22-sparc-1.tgz, u/kernel-headers-2.4.22-sparc64-1.tgz:
+  Added.
+n/proftpd-1.2.8p-sparc-2.tgz: Recompiled. Killed sf.net's bug #813253.
+n/openssh-3.7.1p2-sparc-1.tgz: Recompiled due to keep alive issues.
+-----------------------------------
+Wed Sep 24 22:04:58 CST 2003, fede2
+n/openssh-3.7.1p2-sparc-1.tgz:  Upgraded to openssh-3.7.1p2.
+  This fixes security problems with PAM authentication.  It also includes
+  several code cleanups from Solar Designer.  Slackware does not use PAM and is
+  not vulnerable to any of the fixed problems.
+  Please indulge me for this brief aside (as requests for PAM are on the rise):
+    If you see a security problem reported which depends on PAM, you can be
+    glad you run Slackware.  I think a better name for PAM might be SCAM, for
+    Swiss Cheese Authentication Modules, and have never felt that the small
+    amount of convenience it provides is worth the great loss of system
+    security.  We miss out on half a dozen security problems a year by not
+    using PAM, but you can always install it yourself if you feel that
+    you're missing out on the fun.  (No, don't do that)
+  OK, I'm done ranting here. :-)
+  I suppose this is still a:
+  (* Security fix *)
+n/proftpd-1.2.8p-sparc-1.tgz:  Upgraded to proftpd-1.2.8p.
+  This fixes a security problem in ProFTPD.  From http://www.proftpd.org:
+
+    X-Force Research at ISS has discovered a remote exploit in ProFTPD's
+    handling of ASCII translations that an attacker, by downloading a
+    carefully crafted file, can exploit and gain a root shell.  The source
+    distributions on ftp.proftpd.org have all been replaced with patched
+    versions. All ProFTPD users are strongly urged to upgrade to one of
+    the patched versions as soon as possible.
+
+  Note that the upgraded package does not change the displayed version
+  number to 1.2.8p (it remains 1.2.8), but we've verified the source code
+  to make sure that this is in fact the patched version.  We recommend all
+  sites running ProFTPD upgrade to the new package right away.
+  (* Security fix *)
+k/kernel-source-2.4.22-noarch-3.tgz: Added from Slackware. This sources
+still need a bit of patching.
+-----------------------------------
+Thu Sep 18 19:21:31 CST 2003, fede2
+d/automake-1.7.6-noarch-1.tgz:  Added from Slackware.
+d/libtool-1.4.3-sparc-1.tgz:  Recompiled.
+a/coreutils-5.0-sparc-1.tgz:  This package replaces the GNU fileutils, sh-utils,
+  and textutils packages.  Also, edited DIR_COLORS to change video files to use
+  the same colors as image files.  Previously they were "bold white", which made
+  them invisible in terminals with a white background.
+  Added symlinks for ginstall in case anything tries to use the old name rather
+  than 'install'.  Problem noted on Slackware by Matias Aguirre.
+  Added [ -> test symlink.  (bug report for Slackware from Patrik Rådman)
+-----------------------------------
+Thu Sep 18 10:20:30 CST 2003, fede2
+n/sendmail-8.12.10-sparc-1.tgz:  Upgraded to sendmail-8.12.10.
+  This fixes security issues as noted in Sendmail's RELEASE_NOTES:
+
+    "SECURITY: Fix a buffer overflow in address parsing.  Problem
+         detected by Michal Zalewski, patch from Todd C. Miller
+         of Courtesan Consulting.
+     Fix a potential buffer overflow in ruleset parsing.  This problem
+         is not exploitable in the default sendmail configuration;
+         only if non-standard rulesets recipient (2), final (4), or
+         mailer-specific envelope recipients rulesets are used then a
+         problem may occur.  Problem noted by Timo Sirainen."
+
+  We recommend that sites running Sendmail upgrade immediately.
+
+  (* Security fix *)
+n/sendmail-cf-8.12.10-noarch-1.tgz:  Upgraded to config files for
+  sendmail-8.12.10.
+-----------------------------------
+Wed Sep 17 11:07:08 CST 2003, fede2
+d/gcc-3.2.3-sparc-1.tgz, gcc-g++-3.2.3-sparc-1.tgz,
+  gcc-g77-3.2.3-sparc-1.tgz: Upgraded to gcc 3.2.3.
+d/gcc-java-3.2.3-sparc-1.tgz and gcc-objc-3.2.3-sparc-1.tgz: Added. They too
+  come from the gcc-3.2.3 packages. gcc-gnats is still missing.
+a/devs-2.3.1-noarch-18.tgz: Added from Slackware.
+a/pkgtools-9.1.0-sparc-1.tgz:  Added rpc.portmap and IP packet forwarding
+  on/off options to the setup.services menu. Bumped to 9.1.0 version.
+a/sed-3.02-sparc-1.tgz:  Switched to sed-3.02 with a patch from IBM to support
+  multibyte characters found here:
+    http://oss.software.ibm.com/developer/opensource/linux/patches/i18n/
+  This was done because both super-sed and the 4.x branch of GNU sed have some
+  serious performance and regex bugs.  I'd meant to revert super-sed before,
+  and remembered when it caused the lvm build to fail...
+  This package also completes the split from the bin package made earlyer
+  with the awk package.
+a/sysvinit-2.84-sparc-1.tgz:  In rc.S, detect if rc.hotplug is non-executable
+  and if so, echo "/dev/null" > /proc/sys/kernel/hotplug to make sure hotplug
+  isn't triggered as modules or devices are accessed.
+  Clean up rc.M. In /etc/rc.d/rc.6, detect SCRAM upsstatus
+  (thanks to Bruce G. Burns).
+  In rc.S, don't write to /proc/sys/kernel/hotplug without checking it first.
+  (thanks giovanni quadriglio)
+  In rc.M, run rc.alsa to load the mixer defaults.
+  In rc.M, don't use -f with fc-cache.  This is just too slow to run at
+  every boot, but it'll be done at install's end or when packages with
+  Type1/TTF fonts are installed.
+  Uncommented the netatalk block in rc.M, so that rc.atalk runs if executable
+  (or otherwise does not). 
+  Protect /etc/random-seed with chmod 600 (thanks to Daryl Bunce).
+d/autoconf-2.57-noarch-1.tgz: Added from Slackware.
+n/imapd-4.58-sparc-1.tgz: Added after the pine security fix.
+n/openssh-3.7.1p1-sparc-1.tgz:  Upgraded to openssh-3.7.1p1.  From the OpenSSH
+  Security Advisory (http://www.openssh.com/txt/buffer.adv):
+      "All versions of OpenSSH's sshd prior to 3.7.1 contain a buffer
+       management error.  It is uncertain whether this error is
+       potentially exploitable, however, we prefer to see bugs
+       fixed proactively."
+  (* Security fix *)
+-----------------------------------
+Thu Sep 11 15:12:13 CST 2003, fede2
+a/bin-8.5.0-sparc-1.tgz: Upgraded to bin-8.5.0.
+d/binutils-2.14.90.0.5-sparc-1.tgz: Upgraded to binutils-2.14.90.0.5.
+n/pine-4.58-sparc-1.tgz:  Upgraded to pine4.58.
+  This fixes two vulnerabilities in earlier PINE versions found by iDEFENSE
+  Labs (see http://www.idefense.com/advisory/09.10.03.txt).
+  (* Security fix *)
+-----------------------------------
+Tue Sep  9 14:35:05 CST 2003, fede2
+n/gnupg-1.2.3-sparc-1.tgz: Upgraded to gnupg-1.2.3.
++---------------------------------+
+Tue Sep  9 11:52:41 CST 2003, fede2
+First upload of stuff. The release of slackware 9.1 seems to be just arround
+  the corner, so this is a nice time for me to follow.
+Some information about the differences between Slackware and Splack has been
+  added to the README. It is still a bit informal at this stage.
+The following packages know have sources and packages on the repository:
+  a/aaa_base, a/e2fsprogs, a/etc(*), a/gawk, a/pkgtools, a/tar, d/make,
+  d/perl(**), ap/texinfo, n/apache, n/mod_ssl.
+(*) noarch package, so it has been copied from Slackware.
+(**) I disabled the DBD stuff until a bit latter.

@@ -1,0 +1,13 @@
+
+tftpconfig
+Utility for setting up a TFTP boot server on a Slackware Linux system.
+
+This is a Bourne shell script that will aid in setting up an existing Slackware
+system to be a boot server to install Slackware on a SPARC system.  It's pretty
+straightforward.  You will need the MAC address of your SPARC system, the IP
+you want to assign it, and the boot image you want to use.  Tftpconfig is an
+interactive script, so it will ask for that information.
+
+-David Cantrell
+ <david@slackware.com>
+

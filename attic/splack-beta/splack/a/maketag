@@ -1,0 +1,101 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES A (BASE LINUX SYSTEM)" \
+       --checklist "Please select the packages you wish to install \
+from series A. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the packages you wish to install. Certain important packages have \
+already been selected for you, and you are cautioned against unselecting \
+these packages. However, it's your system. :^)  For instance, be sure to \
+install LILO or you won't be able to make system bootdisks. \
+Press ENTER when you are \
+done." 21 76 8 \
+"kernel-ide"  "Linux 2.4.22 no SCSI (YOU NEED 1 KERNEL)" "on" \
+"aaa_base" "Basic filesystem, shell, and utils - REQUIRED" "on" \
+"acpid" "ACPI Power Management daemon" "on" \
+"apmd" "APM Power Management daemon" "on" \
+"bash" "GNU bash shell - REQUIRED" "on" \
+"bin" "Various system utilities - REQUIRED" "on" \
+"bzip2"  "bzip2 compression utility" "on" \
+"coreutils" "The core GNU command-line utilities - REQUIRED" "on" \
+"cpio" "The GNU cpio backup/archiving utility" "on" \
+"cups" "CUPS - printer spooling system" "on" \
+"cxxlibs" "C++ shared libraries - REQUIRED" "on" \
+"dcron" "Cron daemon - REQUIRED" "on" \
+"devfsd" "daemon for managing devfs - RECOMMENDED" "on" \
+"devs" "Device files found in /dev - REQUIRED" "on" \
+"e2fsprogs" "Utilities for ext2/ext3 filesystems - REQUIRED" "on" \
+"elflibs" "Various ELF libraries -- REQUIRED" "on" \
+"elvis" "elvis text editor (vi clone) - REQUIRED" "on" \
+"etc"  "System config files & utilities - REQUIRED" "on" \
+"findutils" "GNU file finding utilities" "on" \
+"floppy" "Utilities for using DOS floppies" "on" \
+"gawk" "GNU awk pattern scanning language" "on" \
+"genpower" "UPS monitoring daemon" "on" \
+"gettext" "Programs used to internationalize scripts" "on" \
+"getty-ps" "Getty_ps serial login support - OPTIONAL" "off" \
+"glibc-solibs" "Runtime glibc support libraries" "on" \
+"glibc-zoneinfo" "Configures your time zone" "on" \
+"gpm" "Cut and paste text with your mouse" "on" \
+"grep" "GNU grep searching tool - REQUIRED" "on" \
+"gzip"  "GNU zip compression utility - REQUIRED" "on" \
+"hdparm" "Get/Set hard drive parameters" "on" \
+"hotplug" "Tools for hotplugging PCI/Cardbus/USB devices" "on" \
+"infozip" "zip/unzip archive utilities" "on" \
+"isapnptools" "Plug'n'Play configuration tool" "on" \
+"jfsutils" "Utilities for IBM's Journaled Filesystem" "on" \
+"kbd" "Change keyboard and console mappings" "on" \
+"kernel-modules" "Linux 2.4.22 modules -- REQUIRED" "on" \
+"less" "A text pager utility - REQUIRED" "on" \
+"lilo" "Boot loader for Linux, DOS, OS/2, etc." "on" \
+"loadlin" "Boots Linux (UMSDOS too!) from MS-DOS" "on" \
+"logrotate" "System log rotation utility" "on" \
+"lprng" "LPRng - printer spooling system" "on" \
+"minicom" "Serial transfer and modem comm package" "on" \
+"module-init-tools" "Kernel module utilities -- REQUIRED" "on" \
+"openssl-solibs" "OpenSSL shared libraries -- REQUIRED" "on" \
+"pciutils" "Linux PCI utilities" "on" \
+"pcmcia-cs" "PCMCIA (laptop) card services support" "on" \
+"pkgtools" "Slackware package management tools - REQUIRED" "on" \
+"procps" "Displays process info - REQUIRED" "on" \
+"reiserfsprogs" "Tools for the ReiserFS journaling filesystem" "on" \
+"sed" "GNU stream editor -- REQUIRED" "on" \
+"shadow" "Shadow password suite -- REQUIRED" "on" \
+"slocate" "Locates files on the system" "on" \
+"smartmontools" "Hard drive monitoring utilities" "on" \
+"sysklogd" "Logs system and kernel messages" "on" \
+"syslinux" "Loader for making Linux boot floppies" "on" \
+"sysvinit" "System V-like INIT programs - REQUIRED" "on" \
+"tar" "GNU tar archive utility -- REQUIRED" "on" \
+"tcsh" "Extended C shell /bin/tcsh" "on" \
+"umsdos-progs" "Utilities needed by the UMSDOS filesystem" "on" \
+"usbutils" "Linux USB utilities" "on" \
+"util-linux" "Util-linux utilities - REQUIRED" "on" \
+"xfsprogs" "Utilities for SGI's XFS filesystem" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+ rm -f $TMP/SeTpkgs
+ > $TMP/SeTnewtag
+ for pkg in \
+  aaa_base acpid apmd bash bin bzip2 coreutils cpio cups cxxlibs dcron devs e2fsprogs elflibs devfsd elvis etc findutils floppy gawk genpower gettext getty-ps glibc-solibs gpm grep gzip hdparm hotplug pkgtools kernel-ide isapnptools jfsutils kbd less lilo loadlin logrotate lprng minicom kernel-modules module-init-tools openssl-solibs pciutils pcmcia-cs procps reiserfsprogs sed shadow slocate smartmontools sysklogd syslinux sysvinit tar tcsh umsdos-progs usbutils util-linux infozip glibc-zoneinfo xfsprogs \
+  ; do
+  echo "$pkg: SKP" >> $TMP/SeTnewtag
+ done
+ exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in \
+ aaa_base acpid apmd bash bin bzip2 coreutils cpio cups cxxlibs dcron devs e2fsprogs elflibs devfsd elvis etc findutils floppy gawk genpower gettext getty-ps glibc-solibs gpm grep gzip hdparm hotplug pkgtools kernel-ide isapnptools jfsutils kbd less lilo loadlin logrotate lprng minicom kernel-modules module-init-tools openssl-solibs pciutils pcmcia-cs procps reiserfsprogs sed shadow slocate smartmontools sysklogd syslinux sysvinit tar tcsh umsdos-progs usbutils util-linux infozip glibc-zoneinfo xfsprogs \
+ ; do
+ if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+ else
+  echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+ fi
+done
+rm -f $TMP/SeTpkgs

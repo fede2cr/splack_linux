@@ -1,0 +1,124 @@
+/lib/modules/2.4.27/kernel/drivers/block/loop.o:
+
+/lib/modules/2.4.27/kernel/drivers/block/nbd.o:
+
+/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o:
+
+/lib/modules/2.4.27/kernel/drivers/fc4/soc.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/fc4/socal.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/net/bonding/bonding.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/bsd_comp.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/dummy.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/myri_sbus.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_async.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_deflate.o:	/lib/modules/2.4.27/kernel/lib/zlib_deflate/zlib_deflate.o \
+	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o \
+	/lib/modules/2.4.27/kernel/lib/zlib_inflate/zlib_inflate.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o:	/lib/modules/2.4.27/kernel/drivers/net/slhc.o
+
+/lib/modules/2.4.27/kernel/drivers/net/ppp_synctty.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/pppoe.o:	/lib/modules/2.4.27/kernel/drivers/net/pppox.o \
+	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/pppox.o:	/lib/modules/2.4.27/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.27/kernel/drivers/net/slhc.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/slip.o:	/lib/modules/2.4.27/kernel/drivers/net/slhc.o
+
+/lib/modules/2.4.27/kernel/drivers/net/sunbmac.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/sunhme.o:
+
+/lib/modules/2.4.27/kernel/drivers/net/sunqe.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/aurora.o:
+
+/lib/modules/2.4.27/kernel/drivers/sbus/char/openprom.o:
+
+/lib/modules/2.4.27/kernel/drivers/scsi/fcal.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/scsi/pluto.o:	/lib/modules/2.4.27/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.27/kernel/drivers/scsi/sg.o:
+
+/lib/modules/2.4.27/kernel/fs/affs/affs.o:
+
+/lib/modules/2.4.27/kernel/fs/autofs/autofs.o:
+
+/lib/modules/2.4.27/kernel/fs/autofs4/autofs4.o:
+
+/lib/modules/2.4.27/kernel/fs/befs/befs.o:
+
+/lib/modules/2.4.27/kernel/fs/binfmt_misc.o:
+
+/lib/modules/2.4.27/kernel/fs/coda/coda.o:
+
+/lib/modules/2.4.27/kernel/fs/efs/efs.o:
+
+/lib/modules/2.4.27/kernel/fs/ext3/ext3.o:	/lib/modules/2.4.27/kernel/fs/jbd/jbd.o
+
+/lib/modules/2.4.27/kernel/fs/fat/fat.o:
+
+/lib/modules/2.4.27/kernel/fs/hfsplus/hfsplus.o:
+
+/lib/modules/2.4.27/kernel/fs/hpfs/hpfs.o:
+
+/lib/modules/2.4.27/kernel/fs/intermezzo/intermezzo.o:	/lib/modules/2.4.27/kernel/fs/jbd/jbd.o
+
+/lib/modules/2.4.27/kernel/fs/isofs/isofs.o:
+
+/lib/modules/2.4.27/kernel/fs/jbd/jbd.o:
+
+/lib/modules/2.4.27/kernel/fs/jfs/jfs.o:
+
+/lib/modules/2.4.27/kernel/fs/minix/minix.o:
+
+/lib/modules/2.4.27/kernel/fs/msdos/msdos.o:	/lib/modules/2.4.27/kernel/fs/fat/fat.o
+
+/lib/modules/2.4.27/kernel/fs/nfsd/nfsd.o:
+
+/lib/modules/2.4.27/kernel/fs/romfs/romfs.o:
+
+/lib/modules/2.4.27/kernel/fs/smbfs/smbfs.o:
+
+/lib/modules/2.4.27/kernel/fs/sysv/sysv.o:
+
+/lib/modules/2.4.27/kernel/fs/udf/udf.o:
+
+/lib/modules/2.4.27/kernel/fs/ufs/ufs.o:
+
+/lib/modules/2.4.27/kernel/fs/vfat/vfat.o:	/lib/modules/2.4.27/kernel/fs/fat/fat.o
+
+/lib/modules/2.4.27/kernel/fs/xfs/xfs.o:
+
+/lib/modules/2.4.27/kernel/lib/zlib_deflate/zlib_deflate.o:
+
+/lib/modules/2.4.27/kernel/lib/zlib_inflate/zlib_inflate.o:
+
+/lib/modules/2.4.27/kernel/net/802/p8022.o:
+
+/lib/modules/2.4.27/kernel/net/802/psnap.o:	/lib/modules/2.4.27/kernel/net/802/p8022.o
+
+/lib/modules/2.4.27/kernel/net/appletalk/appletalk.o:	/lib/modules/2.4.27/kernel/net/802/psnap.o
+
+/lib/modules/2.4.27/kernel/net/core/pktgen.o:
+
+/lib/modules/2.4.27/kernel/net/decnet/decnet.o:
+
+/lib/modules/2.4.27/kernel/net/ipv6/ipv6.o:
+
+/lib/modules/2.4.27/kernel/net/ipx/ipx.o:	/lib/modules/2.4.27/kernel/net/802/psnap.o \
+	/lib/modules/2.4.27/kernel/net/802/p8022.o
+
+/lib/modules/2.4.27/kernel/net/sctp/sctp.o:	/lib/modules/2.4.27/kernel/net/ipv6/ipv6.o
+

@@ -1,0 +1,30 @@
+Diffs entre slack y splack.
+
+s/Splack/Slackware/, aunque CHOST sigue siendo sparc-slackware-linux
+
+a/
+  acpid missing. This isn't needed on sparc (right?).
+  apmd missing. This isn't needed on sparc (right?).
+  isapnptools missing. No ISA on sparc boxes.
+  jfsutils missing. I haven't tested it yet. For now, lets just say its
+   broken.
+  lilo missing. Replaced by silo.
+  loadlin missing. Dunno why those .exe files don't run on my sparc :)
+  pcmcia-cs missing. I don't have a pcmcia box to test this. If you wanna
+   gimme a tadpole box, fine with me. I will be inclueded, but untested.
+  reiserfsprogs missing. I haven't tested it yet. For now, lets just say its
+   broken.
+  smartmontools missing (for now. I don't have box to test it).
+  syslinux missing. Only for x86.
+  umsdos-progs missing. For now, at least. I'm really not interested in this
+   packages.
+  xfsprogs missing. It's still broken on sparc. Hopefully this will change 
+   soon.
+ap/
+   The oggutils package does not have some duplicated documentation the
+    Slackware package does.
+   The rpm package has been upgraded to a latter 2.4.1 version. I was
+    getting extremly lazy about making this very uninteresting package, so it
+    was easy for me to get this package than to spend time building it. If you
+    have complains about it, please write to the splack-devel mailing list.
+    As expected, the beecrypt package is added.
