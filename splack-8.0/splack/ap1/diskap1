@@ -1,0 +1,408 @@
+CONTENTS: a2ps apsfilter ash bc cdparano cdrdao cdrtools diff enscript ghostscript groff gsfonts ispell jed joe jove ksh lvm man manpages mc mkisofs mp3 mt_st mysql oggutils quota raidtool rpm sc screen sox sudo texinfo vim workbone zsh
+a2ps: GNU a2ps-4.13b.
+a2ps: 
+a2ps: GNU a2ps is an Any to PostScript filter. Of course it processes
+a2ps: plain text files, but also pretty prints quite a few popular
+a2ps: programming languages. a2ps is used by apsfilter (apsfilt.tgz),
+a2ps: so be sure to install this package if you plan to do any printing.
+a2ps: Also contained in this package is psutils-1.17, a collection of
+a2ps: programs for manipulating PostScript files.
+a2ps: 
+a2ps: 
+a2ps: 
+apsfilter: apsfilter-6.1.1.
+apsfilter: 
+apsfilter: Apsfilter is a printer input filter. With apsfilter installed and
+apsfilter: configured, you can print many different file types (like ASCII,
+apsfilter: PostScript, and DVI, as well as compressed versions of all of these)
+apsfilter: directly with 'lpr', and apsfilter will automatically handle the
+apsfilter: conversion process on the fly.
+apsfilter: 
+apsfilter: To configure apsfilter, run the SETUP program in /usr/lib/apsfilter.
+apsfilter: 
+apsfilter: 
+ash: Kenneth Almquist's ash shell.
+ash: 
+ash: A lightweight (62K) Bourne compatible shell. Great for machines with
+ash: low memory, but does not provide all the extras of shells like bash,
+ash: tcsh, or zsh. Runs most shell scripts compatible with the Bourne
+ash: shell. Note that under Linux, most scripts seem to use at least some
+ash: bash-specific syntax. The Slackware setup scripts are a notable
+ash: exception, since ash is the shell used on the install disks. NetBSD
+ash: uses ash as its /bin/sh.
+ash: 
+ash: 
+bc: GNU bc 1.06 - An arbitrary precision calculator language.
+bc: 
+bc: bc is a language that supports arbitrary precision numbers with
+bc: interactive execution of statements. There are some similarities in
+bc: the syntax to the C programming language.
+bc: 
+bc: 
+bc: 
+bc: 
+bc: 
+bc: 
+cdparano: cdparanoia-III-alpha9.8
+cdparano: 
+cdparano: Cdparanoia is a Compact Disc Digital Audio (CDDA) extraction tool,
+cdparano: commonly known on the net as a 'ripper'. It reads digital audio data
+cdparano: from a Compact Disc and saves it to sound files. Cdparanoia has been
+cdparano: designed to read correct audio data even using cheap CDROM drives
+cdparano: prone to misalignment, frame jitter and loss of streaming.
+cdparano: Cdparanoia will also read and repair data from CDs that have been
+cdparano: damaged in some way.
+cdparano: 
+cdparano: 
+cdrdao: cdrdao-1.1.5
+cdrdao: 
+cdrdao: cdrdao burns proper disc-at-once (DAO) audio discs. In DAO mode the
+cdrdao: disc is written in one shot, so you don't have to have irritating 2
+cdrdao: second gaps interrupting a live recording.
+cdrdao: 
+cdrdao: 
+cdrdao: 
+cdrdao: 
+cdrdao: 
+cdrdao: 
+cdrtools: cdrtools-1.10
+cdrtools: 
+cdrtools: Tools for mastering and writing compact discs.
+cdrtools: 
+cdrtools: cdda2wav -- CD audio sampling utility.
+cdrtools: cdrecord -- burn discs in most ATAPI and SCSI CD-R drives.
+cdrtools: mkisofs -- create ISO9660/HFS/Joliet CD-ROM images.
+cdrtools: 
+cdrtools: 
+cdrtools: 
+cdrtools: 
+diff: GNU diffutils-2.7
+diff: 
+diff: The GNU diff utilities - finds differences between files. (to make
+diff: source code patches, for instance)
+diff: 
+diff: 
+diff: 
+diff: 
+diff: 
+diff: 
+diff: 
+enscript: GNU enscript 1.6.1
+enscript: 
+enscript: Enscript converts text files to PostScript and spools the generated
+enscript: output to a printer or saves it to a file. If no input files are
+enscript: given, enscript processes standard input. Enscript can be extended to
+enscript: handle different output media and it has many options for customizing
+enscript: printouts.
+enscript: 
+enscript: 
+enscript: 
+enscript: 
+ghostscript: Ghostscript version 5.50a
+ghostscript: 
+ghostscript: Preview, print and process PostScript documents on both PostScript and
+ghostscript: non-PostScript devices. If you need X11 support, you should also
+ghostscript: install the package 'gs_x11' found on the XAP series. It contains a
+ghostscript: /usr/bin/gs with support for X11.
+ghostscript: 
+ghostscript: 
+ghostscript: 
+ghostscript: 
+ghostscript: 
+groff: GNU groff 1.17 document formatting system.
+groff: 
+groff: The groff package provides versions of troff, nroff, eqn, tbl, and
+groff: other Unix text-formatting utilities. Groff is used to 'compile' man
+groff: pages stored in groff/nroff format into a form which can be printed or
+groff: displayed on the screen. These man pages are stored in compressed
+groff: form in the /usr/man directories.
+groff: 
+groff: 
+groff: 
+groff: 
+gsfonts: Fonts for the Ghostscript interpreter/previewer.
+gsfonts: 
+gsfonts: These fonts come from gnu-gs-fonts-other-5.50.tar.gz and
+gsfonts: gnu-gs-fonts-std-5.50.tar.gz.
+gsfonts: 
+gsfonts: 
+gsfonts: 
+gsfonts: 
+gsfonts: 
+gsfonts: 
+gsfonts: 
+ispell: ispell-3.1.20
+ispell: 
+ispell: Ispell is a fast screen-oriented spelling checker that shows you your
+ispell: errors in the context of the original file, and suggests possible
+ispell: corrections when it can figure them out. Compared to UNIX spell, it
+ispell: is faster and much easier to use. Ispell can also handle languages
+ispell: other than English. Ispell has a long history, and many people have
+ispell: contributed to the current version -- some of the major contributors
+ispell: include R. E. Gorin, Pace Willisson, Walt Buehring, and Geoff
+ispell: Kuenning.
+ispell: 
+jed: jed-B0.99-12
+jed: 
+jed: JED (by John E. Davis) is an extremely powerful but small emacs-like
+jed: programmer's editor that is extensible in a C-like macro language and
+jed: can do color syntax highlighting. Among the many features:
+jed:  Emacs, wordstar, EDT emulation;
+jed:  C, Fortran, TeX, text editing modes; Full undo;
+jed:  GNU Emacs compatible info reader, and lots more.
+jed: 
+jed: JED is also 8 bit clean, so you can even edit binary files!
+jed: 
+joe: Joe text editor v2.9.5
+joe: 
+joe: Joseph H. Allen's easy to use text editor, similar to WordStar[tm].
+joe: 
+joe: 
+joe: 
+joe: 
+joe: 
+joe: 
+joe: 
+joe: 
+jove: Jonathan's Own Version of Emacs (4.16)
+jove: 
+jove: A mostly Emacs compatible text editor, with man pages and the
+jove: 'teachjove' tutorial program. If you'd rather have the real thing,
+jove: the actual Emacs editor/environment is available in series 'E'.
+jove: 
+jove: 
+jove: 
+jove: 
+jove: 
+jove: 
+ksh: AT&T Korn Shell 93k+ (2001-01-01.0000)
+ksh: 
+ksh: The KornShell language and interactive shell were designed by
+ksh: David G. Korn at AT&T Bell Laboratories. Besides offering a very
+ksh: powerful interactive shell, it also offers a very robust programming
+ksh: language with such features as associative arrays and built in
+ksh: integer math operations. ksh is an excellent choice for system
+ksh: administration scripts and for everyday interactive use.
+ksh: 
+ksh: The official site for the Korn Shell is http://www.kornshell.com/
+ksh: 
+lvm: lvm_0.9.1_beta6
+lvm: 
+lvm: Heinz Mauelshagen's LVM (Logical Volume Manager) for Linux.
+lvm: LVM adds an additional layer between the physical peripherals and the
+lvm: I/O interface in the 2.4.x kernel to get a logical view of disks.
+lvm: This allows the concatenation of several disks (so-called physical
+lvm: volumes or PVs) to form a storage pool (so-called Volume Group or VG)
+lvm: with allocation units called physical extents (called PE). With LVM,
+lvm: you can actually extend, resize, or relocate storage dynamically.
+lvm: 
+lvm: 
+man: man-1.5h1
+man: 
+man: The man package is a collection of tools used for searching and
+man: reading the online system documentation. In fact, on most UNIX-like
+man: operating systems it is the primary means of finding out how programs
+man: on the system work. For example, 'man man' will display the
+man: documentation for man itself.
+man: 
+man: Man requires the groff text processing package.
+man: 
+man: 
+manpages: Man-pages 1.36
+manpages: 
+manpages: Man pages are online documentation for Linux. This package includes
+manpages: many section 1, 2, 3, 4, 5, 7, and 8 man pages for Linux.
+manpages: 
+manpages: The man-pages distribution is maintained by Andries E. Brouwer with
+manpages: the help of more writers, editors, and other contributors than we
+manpages: can name here. (See the list in /usr/man/man-pages-1.36.Announce)
+manpages: 
+manpages: 
+manpages: 
+mc: mc-4.5.51
+mc: 
+mc: The Midnight Commander is a Norton Commander clone, a program that
+mc: manipulates and manages files and directories. Useful, fast, and has
+mc: color displays on the Linux console. Mouse support is provided
+mc: through the gpm mouse server. This is a lightweight compilation of
+mc: mc for use on the text console or in an xterm.
+mc: 
+mc: mc was written by Miguel de Icaza and Mauricio Plaza.
+mc: 
+mc: 
+mkisofs: mkisofs-1.12b5
+mkisofs: 
+mkisofs: This package contains mkisofs patched to provide special
+mkisofs: SPARC Linux bootable functionality. The binary is installed
+mkisofs: as /usr/bin/mkisofs-silo.
+mkisofs: 
+mkisofs: 
+mkisofs: 
+mkisofs: 
+mkisofs: 
+mkisofs: 
+mp3: MP3 players
+mp3: 
+mp3: This package contains two command-line MP3 players for Linux,
+mp3: amp-0.7.6 and mpg123-0.59r.
+mp3: 
+mp3: 
+mp3: 
+mp3: 
+mp3: 
+mp3: 
+mp3: 
+mt_st: mt-st-0.6 - controls magnetic tape drive operation
+mt_st: 
+mt_st: This mt originates from BSD NET-2. Some Linux SCSI tape-specific
+mt_st: ioctls have been added to the original source and the man page has
+mt_st: been updated. Although this mt program is tailored for SCSI tape, it
+mt_st: can also be used with the QIC-02 driver and hopefully with other Linux
+mt_st: tape drivers using the same ioctls (some of the commands may not work
+mt_st: with all drivers).
+mt_st: 
+mt_st: 
+mt_st: 
+mysql: mysql-3.23.38
+mysql: 
+mysql: MySQL is a fast, multi-threaded, multi-user, and robust SQL
+mysql: (Structured Query Language) database server. It comes with a nice API
+mysql: which makes it easy to integrate into other applications.
+mysql: 
+mysql: The home page for MySQL is http://www.mysql.com/
+mysql: 
+mysql: 
+mysql: 
+mysql: 
+oggutils: Ogg Vorbis libraries and tools
+oggutils: 
+oggutils: Ogg Vorbis is a fully Open, non-proprietary, patent-and-royalty-free,
+oggutils: general-purpose compressed audio format for high quality
+oggutils: (44.1-48.0kHz, 16+ bit, polyphonic) audio and music at fixed and
+oggutils: variable bitrates from 16 to 128 kbps/channel. This places Vorbis in
+oggutils: the same class as audio representations including MPEG-1 audio layer
+oggutils: 3, MPEG-4 audio (AAC and TwinVQ), and PAC. This package includes
+oggutils: an encoder and player, as well as programming libraries for developing
+oggutils: programs that use the Ogg Vorbis CODEC.
+oggutils: 
+quota: Linux disk quota utilities (2.00)
+quota: 
+quota: An implementation of the diskquota system for the Linux operating
+quota: system -- keeps those greedy users from gobbling up 100% of the hard
+quota: drive space. Should work for all filesystems because of integration
+quota: into the VFS layer of the operating system. This system is a heavily
+quota: modified version of the Melbourne quota system by Robert Elz, which
+quota: uses both user and group quota files. Edvard Tuinder <ed@ow.org> and
+quota: Marco van Wieringen <mvw@planets.ow.org> are responsible for the
+quota: additional code and porting effort to make quotas work on Linux.
+quota: 
+raidtool: raidtools-19990824-0.90
+raidtool: 
+raidtool: Utilities required to support RAID-0/1/4/5. Its main goal is to group
+raidtool: several disks or partitions together, making them look like a single
+raidtool: block device. For updated information on RAID, please read the
+raidtool: docs in /usr/doc/raidtools-0.90/Software-RAID.HOWTO/.
+raidtool: 
+raidtool: These utilities require a 2.2.19 or newer kernel.
+raidtool: 
+raidtool: 
+raidtool: 
+rpm: rpm-4.0.2
+rpm: 
+rpm: RPM is a tool from Red Hat Software used to install and remove
+rpm: packages in the .rpm format. When installing RPM packages on
+rpm: Slackware, you may need to use the --nodeps and --force options.
+rpm: Before installing any binary package, it's wise to examine it to
+rpm: see what it's going to do, and if it will overwrite any files. You
+rpm: can use rpm2tgz to convert .rpm packages to .tgz packages so you
+rpm: can look them over.
+rpm: 
+rpm: 
+sc: The 'sc' spreadsheet. (v. 7.7)
+sc: 
+sc: This is a simple spreadsheet program.
+sc: 
+sc: 
+sc: 
+sc: 
+sc: 
+sc: 
+sc: 
+sc: 
+screen: GNU screen-3.9.8
+screen: 
+screen: Screen is a full-screen window manager that multiplexes a physical
+screen: terminal between several processes (typically interactive shells).
+screen: Each virtual terminal provides the functions of a DEC VT100 terminal
+screen: and several control functions from the ISO 6492 (ECMA 48, ANSI X3.64)
+screen: and ISO 2022 standards (e.g. insert/delete line and support for
+screen: multiple character sets). There is a scrollback history buffer for
+screen: each virtual terminal and a copy-and-paste mechanism that allows
+screen: moving text regions between windows.
+screen: 
+sox: sox-12.17.1
+sox: 
+sox: Sox is a universal sound converter, player, and recorder. It can
+sox: play, record, and convert between several sound file formats such as
+sox: .au, .snd, .voc and .wav.
+sox: 
+sox: 
+sox: 
+sox: 
+sox: 
+sox: 
+sudo: sudo-1.6.3p6
+sudo: 
+sudo: 'sudo' is a command that allows users to execute some commands as
+sudo: root. The /etc/sudoers file (edited with 'visudo') specifies which
+sudo: users have access to sudo and which commands they can run. 'sudo'
+sudo: logs all its activities to /var/log/ so the system administrator
+sudo: can keep an eye on things.
+sudo: 
+sudo: 
+sudo: 
+sudo: 
+texinfo: GNU texinfo-4.0
+texinfo: 
+texinfo: 'Texinfo' is a documentation system that uses a single source file to
+texinfo: produce both on-line information and printed output. Using Texinfo,
+texinfo: you can create a printed document with the normal features of a book,
+texinfo: including chapters, sections, cross references, and indices. From the
+texinfo: same Texinfo source file, you can create a menu-driven, on-line Info
+texinfo: file with nodes, menus, cross references, and indices.
+texinfo: 
+texinfo: This package is needed to read the documentation files in /usr/info.
+texinfo: 
+vim: Version 5.7 of Vim: Vi IMproved
+vim: 
+vim: Vim is an almost compatible version of the UNIX editor vi. Only the
+vim: 'Q' command is missing (you don't need it). Many new features have
+vim: been added: multi level undo, command line history, filename
+vim: completion, block operations, etc.
+vim: 
+vim: 
+vim: 
+vim: 
+vim: 
+workbone: Workbone 2.40-2
+workbone: 
+workbone: Text-based audio CD player.
+workbone: 
+workbone: 
+workbone: 
+workbone: 
+workbone: 
+workbone: 
+workbone: 
+workbone: 
+zsh: zsh version 3.0.8
+zsh: 
+zsh: Zsh is a UNIX command interpreter (shell) which of the standard shells
+zsh: most resembles the Korn shell (ksh), although it is not completely
+zsh: compatible. It includes enhancements of many types, notably in the
+zsh: command-line editor, options for customizing its behavior, filename
+zsh: globbing, features to make C-shell (csh) users feel more at home and
+zsh: extra features drawn from tcsh (another 'custom' shell). Zsh was
+zsh: written by Paul Falstad.
+zsh: 
+zsh: 

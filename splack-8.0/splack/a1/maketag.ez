@@ -1,0 +1,76 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING SOFTWARE FROM SERIES A (BASE LINUX SYSTEM)" \
+       --checklist "Please select the optional components you wish to install \
+from series A. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the items you wish to install. \
+(NOTE: The more important system packages are not listed here and will be installed \
+automatically) \
+Press ENTER when you are \
+done." 20 72 9 \
+"bash1" "GNU bash-1.14.7 shell" "on" \
+"cpio" "The GNU cpio backup/archiving utility" "on" \
+"floppy" "Utilities for using DOS floppies" "on" \
+"getty_ps" "Getty_ps 2.0.7j - OPTIONAL" "off" \
+"gpm" "Cut and paste text with your mouse" "on" \
+"infozip" "zip/unzip archive utilities" "on" \
+"kbd" "Change keyboard mappings and console fonts" "on" \
+"lpr" "BSD lpr - printer spooling system" "on" \
+"minicom" "Serial transfer and modem comm package" "on" \
+"zoneinfo" "Configures your time zone" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in aaa_base bash bash1 bin bzip2 cpio cxxlibs devfsd devs \
+              e2fsprog elflibs elvis etc fileutls find floppy getty_ps \
+              glibcso gpm grep gzip hdsetup infozip kbd ldso less \
+              lpr minicom modules modutils ossllibs pciutils procps reiserfs \
+              sh_utils shadow silo sparcutils sysklogd sysvinit tar tcsh \
+              txtutils umsprogs util vmlinux zoneinfo
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in aaa_base bash bin bzip2 cxxlibs devfsd devs e2fsprog \
+               elflibs elvis etc fileutls find glibcso grep gzip hdsetup \
+               ldso less modules modutils ossllibs pciutils procps reiserfs \
+               sh_utils shadow silo sparcutils sysklogd sysvinit tar tcsh \
+               txtutils umsprogs util vmlinux
+do
+#   rpkg="`find_package $PACKAGE`"
+#   echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+done
+for PACKAGE in bash1 cpio floppy getty_ps gpm infozip kbd lpr \
+               minicom zoneinfo
+do
+#   rpkg="`find_package $PACKAGE`"
+#   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+#   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+#   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+#   fi
+ if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+ else
+  echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+ fi
+
+done
+rm -f $TMP/SeTpkgs

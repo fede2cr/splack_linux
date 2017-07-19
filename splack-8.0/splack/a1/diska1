@@ -1,0 +1,507 @@
+CONTENTS: aaa_base bash bash1 bin bzip2 cpio cxxlibs devfsd devs e2fsprog elflibs elvis etc fileutls find floppy getty_ps glibcso gpm grep gzip hdsetup infozip kbd less lpr minicom modules modutils ossllibs pciutils procps reiserfs sh_utils shadow silo sparcutils sysklogd sysvinit tar tcsh txtutils umsprogs util vmlinux zoneinfo
+aaa_base: Basic Linux filesystem package.
+aaa_base: 
+aaa_base: Sets up the empty directory tree for Slackware and adds an email to
+aaa_base: root's mailbox welcoming them to Linux. :) This package should be
+aaa_base: installed first and never uninstalled.
+aaa_base: 
+aaa_base: 
+aaa_base: 
+aaa_base: 
+aaa_base: 
+aaa_base: 
+bash: GNU bash-2.05
+bash: 
+bash: The GNU Bourne-Again SHell. Bash is a sh-compatible command
+bash: interpreter that executes commands read from the standard input or
+bash: from a file. Bash also incorporates useful features from the Korn
+bash: and C shells (ksh and csh). Bash is ultimately intended to be a
+bash: conformant implementation of the IEEE Posix Shell and Tools
+bash: specification (IEEE Working Group 1003.2).
+bash: 
+bash: Bash must be present for the system to boot properly.
+bash: 
+bash1: GNU bash-1.14.7
+bash1: 
+bash1: The GNU Bourne-Again SHell. Bash is a sh-compatible command
+bash1: interpreter that executes commands read from the standard input or
+bash1: from a file. Bash also incorporates useful features from the Korn
+bash1: and C shells (ksh and csh). Bash is ultimately intended to be a
+bash1: conformant implementation of the IEEE Posix Shell and Tools
+bash1: specification (IEEE Working Group 1003.2).
+bash1: 
+bash1: Some older scripts may need /bin/bash1 instead of /bin/bash.
+bash1: 
+bin: Binaries that go in /bin and /usr/bin.
+bin: 
+bin: Various programs and utilities required by Slackware:
+bin: 
+bin:  apm apmd asapm at atd atrun batch bban bpe compress crond crontab
+bin:  diskcopy dosfsck ed eject file fiz fromdos gawk hdparm igawk indent
+bin:  lha lnsize makewhatis mkdosfs mktemp patch rpm2targz rpmoffset
+bin:  savelog sed shar splitvt sysvbanner tempfile time todos tput unarj
+bin:  unshar uudecode uuencode volname which xapm xx zcmp zless zoo
+bin: 
+bin: 
+bzip2: bzip2 version 1.0.1 (a block-sorting file compressor)
+bzip2: 
+bzip2: Bzip2 compresses files using the Burrows-Wheeler block sorting text
+bzip2: compression algorithm, and Huffman coding. Compression is generally
+bzip2: considerably better than that achieved by more conventional
+bzip2: LZ77/LZ78-based compressors, and approaches the performance of the PPM
+bzip2: family of statistical compressors.
+bzip2: 
+bzip2: Julian Seward <jseward@acm.org> is the author of bzip2.
+bzip2: 
+bzip2: 
+cpio: The GNU cpio backup and archiving utility v. 2.4.2
+cpio: 
+cpio: This is GNU cpio, a program to manage archives of files. This package
+cpio: also includes mt, a tape drive control program. cpio copies files into
+cpio: or out of a cpio or tar archive, which is a file that contains other
+cpio: files plus information about them, such as their pathname, owner,
+cpio: timestamps, and access permissions. The archive can be another file on
+cpio: the disk, a magnetic tape, or a pipe.
+cpio: 
+cpio: 
+cpio: 
+cxxlibs: C++ shared libraries
+cxxlibs: 
+cxxlibs: This package contains the shared libraries needed to run dynamically
+cxxlibs: linked C++ binaries.
+cxxlibs: 
+cxxlibs:  Includes libstdc++-2-libc6.1-1-2.9.0.so,
+cxxlibs:  libstdc++-3-libc6.1-2-2.10.0.so,
+cxxlibs:  libstdc++-3-libc6.2-2-2.10.0.so.
+cxxlibs: 
+cxxlibs: 
+cxxlibs: 
+devfsd: devfsd-v1.3.11
+devfsd: 
+devfsd: This package contains the devfsd daemon, which provides intelligent
+devfsd: management of device entries in the Device Filesystem (devfs).
+devfsd: 
+devfsd: devfs and devfsd are the work of Richard Gooch (rgooch@atnf.csiro.au).
+devfsd: 
+devfsd: 
+devfsd: 
+devfsd: 
+devfsd: 
+devs: Device files
+devs: 
+devs: This package creates special files in the /dev directory that
+devs: represent your system's hardware.
+devs: 
+devs: 
+devs: 
+devs: 
+devs: 
+devs: 
+devs: 
+e2fsprog: e2fsprogs-1.19
+e2fsprog: 
+e2fsprog: Utilities needed to create and maintain ext2 filesystems under Linux.
+e2fsprog: Included in this package are: chattr, lsattr, mke2fs, mklost+found,
+e2fsprog: tune2fs, fsck, e2fsck, e2label, debugfs, dumpe2fs, badblocks, uuidgen
+e2fsprog: and resize2fs.
+e2fsprog: 
+e2fsprog: These utilities were written by Remy Card (the developer and
+e2fsprog: maintainer of the ext2 fs) and Theodore T'so.
+e2fsprog: 
+e2fsprog: 
+elflibs: Assorted ELF shared libraries
+elflibs: 
+elflibs: This is a collection of shared libraries needed to run Linux code in
+elflibs: the ELF binary format. ELF (Executable and Linking Format) is the
+elflibs: standard Linux binary format. These libraries are gathered from
+elflibs: packages outside of the A series, and are intended to give a fairly
+elflibs: complete set of runtime ELF libraries when added to the glibcso
+elflibs: package (also in the A series). If you're doing a full installation,
+elflibs: these libraries are redundant, but installing them doesn't hurt.
+elflibs: 
+elflibs: 
+elvis: elvis-2.1_4
+elvis: 
+elvis: Elvis is a text editor. It is intended to be a modern replacement
+elvis: for the classic ex/vi editor of UNIX fame. Elvis supports many new
+elvis: features, including multiple edit buffers, multiple windows, and a
+elvis: variety of display modes.
+elvis: 
+elvis: As elvis is Slackware's default vi, this is a required package.
+elvis: 
+elvis: 
+elvis: 
+etc: /etc configuration files
+etc: 
+etc: System configuration files. The /etc directory is traditionally the
+etc: location where configuration files are found.
+etc: 
+etc: 
+etc: 
+etc: 
+etc: 
+etc: 
+etc: 
+fileutls: fileutils-4.1
+fileutls: 
+fileutls: These are the GNU file management utilities. Most of these programs
+fileutls: have significant advantages over their Unix counterparts, such as
+fileutls: greater speed, additional options, and fewer arbitrary limits.
+fileutls: 
+fileutls: These utilities are included:
+fileutls:  chgrp chmod chown cp dd df dircolors du ginstall ln ls
+fileutls:  mkdir mkfifo mknod mv rm rmdir shred sync touch
+fileutls: 
+fileutls: 
+find: GNU findutils-4.1
+find: 
+find: This package contains the GNU find, xargs, and locate programs.
+find: find and xargs comply with POSIX 1003.2. They also support some
+find: additional options, some borrowed from Unix and some unique to GNU.
+find: 
+find: 
+find: 
+find: 
+find: 
+find: 
+floppy: floppy disk utilities
+floppy: 
+floppy: Contains fdutils-5.4, tools to test and format floppy disks; and
+floppy: mtools-3.9.7, a collection of utilities for using DOS/Windows floppy
+floppy: disks with Linux.
+floppy: 
+floppy: 
+floppy: 
+floppy: 
+floppy: 
+floppy: 
+getty_ps: getty_ps 2.0.7j
+getty_ps: 
+getty_ps: /sbin/getty and /sbin/uugetty.
+getty_ps: These control the process of logging into your system, and may be used
+getty_ps: instead of 'agetty', which is the default getty included with the
+getty_ps: util-linux package. getty_ps supports a number of enhancements such as
+getty_ps: ringback support.
+getty_ps: 
+getty_ps: 
+getty_ps: 
+getty_ps: 
+glibcso: glibc-2.2.3 runtime support
+glibcso: 
+glibcso: This package contains the shared libraries, binaries, and support
+glibcso: files required to run most Linux applications linked with glibc.
+glibcso: 
+glibcso: 
+glibcso: 
+glibcso: 
+glibcso: 
+glibcso: 
+glibcso: 
+gpm: gpm-1.19.3
+gpm: 
+gpm: The general purpose mouse server, or gpm, allows you to use the mouse
+gpm: to cut and paste text from the screen. It also acts as a mouse
+gpm: server for applications running on the Linux console, such as the
+gpm: Midnight Commander file manager and dialog.
+gpm: 
+gpm: NOTE: This program may cause problems when you start X on systems
+gpm: that do not use a serial mouse. If you get an 'unable to open mouse
+gpm: device' error from X, disable /etc/rc.d/rc.gpm.
+gpm: 
+grep: GNU grep 2.4.2
+grep: 
+grep: Grep searches the named input files (or standard input if no files are
+grep: named, or the file name - is given) for lines containing a match to
+grep: the given pattern. This is the 'fastest grep in the west' (we hope).
+grep: 
+grep: 
+grep: 
+grep: 
+grep: 
+grep: 
+gzip: GNU zip compression utilities. (v. 1.2.4a)
+gzip: 
+gzip: Gzip reduces the size of the named files using Lempel-Ziv coding
+gzip: (LZ77). Whenever possible, each file is replaced by one with the
+gzip: extension .gz, while keeping the same ownership modes, access and
+gzip: modification times.
+gzip: 
+gzip: 
+gzip: 
+gzip: 
+gzip: 
+hdsetup: The Slackware setup/package maintenance system v. 7.3.0
+hdsetup: 
+hdsetup: The full screen and tty versions of setup and pkgtool, two utilities
+hdsetup: included with Slackware that allow you to easily install software
+hdsetup: packages, remove software packages, and review the installed software
+hdsetup: packages.
+hdsetup: 
+hdsetup: Also contains the command line utilities 'installpkg', 'removepkg',
+hdsetup: 'makepkg', 'explodepkg', and 'upgradepkg' that install, remove, build,
+hdsetup: examine, and upgrade software packages. Man pages are included.
+hdsetup: 
+infozip: Info-ZIP's zip 2.3 and unzip 5.41 utilities
+infozip: 
+infozip: zip is a compression and file packaging utility for Unix, VMS, MSDOS,
+infozip: OS/2, Windows NT, Minix, Atari and Macintosh, Amiga and Acorn RISC OS.
+infozip: It is analogous to a combination of the UNIX commands tar(1) and
+infozip: compress(1) and is compatible with PKZIP (Phil Katz's ZIP). A
+infozip: companion program (unzip(1L)), unpacks zip archives.
+infozip: 
+infozip: 
+infozip: 
+infozip: 
+kbd: kbd-1.06
+kbd: 
+kbd: Load and save keyboard mappings. Needed if you are not using the US
+kbd: keyboard map. This package also contains utilities to change your
+kbd: console fonts - if you install it you'll get a menu later on that lets
+kbd: you select from many different fonts. If you like one, you can make it
+kbd: your default font. A new default font can be chosen at any time by
+kbd: typing 'fontconfig'.
+kbd: 
+kbd: 
+kbd: 
+less: less-358
+less: 
+less: Less is a paginator similar to more(1), but which allows backward
+less: movement in the file as well as forward movement. Also, less does not
+less: have to read the entire input file before starting, so with large
+less: input files it starts up faster than text editors like vi(1).
+less: 
+less: Less was written by Mark Nudelman.
+less: 
+less: 
+less: 
+lpr: lpr-0.48-1
+lpr: 
+lpr: This is the lpr printing suite ported from BSD. It's the most
+lpr: standard UN*X printing system in current use. If you're interested
+lpr: in automatic detection of PostScript and DVI files, check out the
+lpr: apsfilter add-on in Slackware's AP package series.
+lpr: 
+lpr: 
+lpr: 
+lpr: 
+lpr: 
+minicom: Minicom 1.83.1
+minicom: 
+minicom: Minicom - a full featured menu-driven communications package similar
+minicom: to the DOS program 'Telix'. Also includes sz/rz - utilities used to
+minicom: upload and download files using the Zmodem protocol.
+minicom: 
+minicom: 
+minicom: 
+minicom: 
+minicom: 
+minicom: 
+modules: Linux kernel modules for 2.2.20pre2
+modules: 
+modules: A kernel module is a piece of object code that can be dynamically
+modules: loaded into the Linux kernel to provide new kernel functions. Most
+modules: of these modules provide support for devices such as CD-ROM drives,
+modules: tape drives, and ethernet cards. You can choose which modules to load
+modules: by editing /etc/rc.d/rc.modules.
+modules: 
+modules: 
+modules: 
+modules: 
+modutils: modutils-2.4.6
+modutils: 
+modutils: Utilities to use kernel modules. These tools are used for loading
+modutils: and unloading chunks of kernel code on the fly, to add support for a
+modutils: CD-ROM drive or ethernet card, for instance.
+modutils: 
+modutils: Many Linux drivers are provided as kernel modules, and some packages
+modutils: (like the PCMCIA package) require the module utilities to work, so you
+modutils: probably want to install these.
+modutils: 
+modutils: 
+ossllibs: openssl-0.9.6a shared libraries
+ossllibs: 
+ossllibs: These shared libraries provide encryption routines required by programs
+ossllibs: such as openssh. They are also used by KDE's Konqueror web browser to
+ossllibs: provide secure web connections.
+ossllibs: 
+ossllibs: This product includes software developed by the OpenSSL Project for
+ossllibs: use in the OpenSSL Toolkit (http://www.openssl.org). This product
+ossllibs: includes cryptographic software written by Eric Young
+ossllibs: (eay@cryptsoft.com). This product includes software written by Tim
+ossllibs: Hudson (tjh@cryptsoft.com).
+pciutils: pciutils-2.1.8 (Linux PCI utilities)
+pciutils: 
+pciutils: lspci displays detailed information about all PCI buses and devices
+pciutils: in the system, replacing the original /proc/pci interface.
+pciutils: 
+pciutils: setpci allows reading from and writing to PCI device configuration
+pciutils: registers. For example, you can adjust the latency timers with it.
+pciutils: 
+pciutils: See manual pages for more details.
+pciutils: 
+pciutils: 
+procps: procps-2.0.7, psmisc-18, procinfo-17
+procps: 
+procps: Utilities for displaying process and memory information written by
+procps: Michael K. Johnson, Werner Almesberger, Charles Blake, Branko
+procps: Lankester, Robert Nation, David Engel, Larry Greenfield, Roger Binns,
+procps: Sander van Malssen, and Brian Edmonds.
+procps: 
+procps: 
+procps: 
+procps: 
+procps: 
+reiserfs: reiserfsprogs-3.x.0j
+reiserfs: 
+reiserfs: These utilities are used for Reiserfs. Reiserfs is a file system
+reiserfs: based on balanced tree algorithms. Learn more at the home site:
+reiserfs: http://www.namesys.com
+reiserfs: 
+reiserfs: Reiserfs is the work of Hans Reiser and many others. See the file
+reiserfs: /usr/doc/reiserfs*/README for full credits.
+reiserfs: 
+reiserfs: 
+reiserfs: 
+sh_utils: GNU sh-utils-2.0
+sh_utils: 
+sh_utils: This is a package of small shell programming utilities. They are
+sh_utils: mostly compliant with POSIX.2, where applicable.
+sh_utils: 
+sh_utils: The programs in this package are:
+sh_utils:  basename chroot date dirname echo env expr false hostid logname
+sh_utils:  nice nohup pathchk pinky printenv printf sleep stty tee test true
+sh_utils:  tty uname who whoami yes
+sh_utils: 
+sh_utils: 
+shadow: Shadow password suite (shadow-19990827)
+shadow: 
+shadow: This set of login related programs utilizes an alternate, non-readable
+shadow: file to contain the actual encrypted passwords. This is presumed to
+shadow: increase system security by increasing the difficulty with which
+shadow: system crackers obtain encrypted passwords. It was written by
+shadow: Julianne Frances Haugh and the Linux port is maintained by Marek
+shadow: Michalkiewicz.
+shadow: 
+shadow: 
+shadow: 
+silo: Sparc Improved Loader (SILO 1.2.5)
+silo: 
+silo: The SPARC Improved Loader (SILO) must be used to boot Linux from your
+silo: hard disk or CD-ROM. It installs to the boot block of the hard disk
+silo: and can boot Linux, Solaris, or SunOS.
+silo: 
+silo: 
+silo: 
+silo: 
+silo: 
+silo: 
+sparcutils: SPARC Utilities
+sparcutils: 
+sparcutils: Contains various tools specific to the SPARC platform.
+sparcutils: 
+sparcutils: Programs included:
+sparcutils:  elftoaout-2.3, piggyback, piggyback64, ethtool, prtconf, flashprom
+sparcutils:  and sparc32-1.1
+sparcutils: 
+sparcutils: 
+sparcutils: 
+sparcutils: 
+sysklogd: Sysklogd 1.4.1
+sysklogd: 
+sysklogd: Dr. Greg Wettstein and Stephen Tweedie's syslogd/klogd.
+sysklogd: 
+sysklogd: This package contains a modified version of syslogd for the Linux
+sysklogd: environment. An additional utility, klogd, is included which allows
+sysklogd: kernel logging to be directed through the syslogd facility.
+sysklogd: Syslogd and klogd are started when your system boots.
+sysklogd: 
+sysklogd: 
+sysklogd: 
+sysvinit: sysvinit-2.78
+sysvinit: 
+sysvinit: System V style init programs by Miquel van Smoorenburg that control
+sysvinit: the booting and shutdown of your system. These support a number of
+sysvinit: system runlevels, each with a specific set of utilities spawned. For
+sysvinit: example, the normal system runlevel is 3, which starts agetty on
+sysvinit: virtual consoles tty1 - tty6. Runlevel 4 starts xdm. Runlevel 0 shuts
+sysvinit: the system down. See the documentation in /usr/doc/sysvinit and the
+sysvinit: scripts in /etc/rc.d for more information.
+sysvinit: 
+sysvinit: 
+tar: GNU tar 1.13
+tar: 
+tar: Tape ARchiver - adds and extracts files and directories to/from tape
+tar: or archive files. This version of tar also supports archive
+tar: compression using GNU zip or bzip2.
+tar: 
+tar: 
+tar: 
+tar: 
+tar: 
+tar: 
+tcsh: tcsh 6.10
+tcsh: 
+tcsh: tcsh is an enhanced but completely compatible version of the Berkeley
+tcsh: UNIX C shell, csh(1). It is a command language interpreter usable both
+tcsh: as an interactive login shell and a shell script command processor. It
+tcsh: includes a command-line editor, programmable word completion, spelling
+tcsh: correction, a history mechanism, job control, and a C-like syntax.
+tcsh: 
+tcsh: 
+tcsh: 
+tcsh: 
+txtutils: GNU textutils-2.0
+txtutils: 
+txtutils: These are the GNU text file (actually, file contents) processing
+txtutils: utilities. Most of these programs have significant advantages over
+txtutils: their Unix counterparts, such as greater speed, additional options,
+txtutils: and fewer arbitrary limits.
+txtutils: 
+txtutils: The programs in this package are: cat, cksum, comm, csplit, cut,
+txtutils: expand, fold, head, join, md5sum, nl, od, paste, pr, ptx, sort, split,
+txtutils: sum, tac, tail, tr, tsort, unexpand, uniq, and wc.
+txtutils: 
+umsprogs: umsdos-progs-1.13
+umsprogs: 
+umsprogs: Various utilities needed by Jacques Gelinas' UMSDOS filesystem.
+umsprogs: 
+umsprogs: 
+umsprogs: 
+umsprogs: 
+umsprogs: 
+umsprogs: 
+umsprogs: 
+umsprogs: 
+util: util-linux 2.11b - A huge collection of essential utilities.
+util: 
+util: agetty arch banner blockdev cal cfdisk chkdupexe clear clock col
+util: colcrt colrm column ctrlaltdel cytune ddate dmesg dnsdomainname
+util: domainname elvtune fdformat fdisk fsck.minix getopt getoptprog hexdump
+util: hostname hwclock ipcrm ipcs isosize jaztool last logger look losetup
+util: mcookie mesg mkfs mkfs.bfs mkfs.minix mkswap more mount namei
+util: nisdomainname ramsize readprofile rename renice reset rev rootflags
+util: script setfdprm setserial setsid setterm sfdisk sln strings swapdev
+util: swapoff swapon tunelp ul umount update vidmode wall whereis write
+util: ypdomainname ziptool
+vmlinux: Linux kernel version 2.2.20pre2
+vmlinux: 
+vmlinux: This package includes the kernel image and System.map file. Both the
+vmlinux: 32-bit and 64-bit kernels are included, the proper one for your system
+vmlinux: will be enabled during the package installation.
+vmlinux: 
+vmlinux: 
+vmlinux: 
+vmlinux: 
+vmlinux: 
+vmlinux: 
+zoneinfo: time zone database
+zoneinfo: 
+zoneinfo: This package allows you to configure your time zone.
+zoneinfo: 
+zoneinfo: This database comes from glibc-2.2.3, and is based on the tzdata2000g
+zoneinfo: package by Arthur David Olson et.al. The latest version and more
+zoneinfo: information may be found at ftp://elsie.nci.nih.gov/pub/
+zoneinfo: 
+zoneinfo: Use the timeconfig utility to set your local time zone.
+zoneinfo: 
+zoneinfo: 

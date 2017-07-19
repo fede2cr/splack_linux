@@ -1,0 +1,103 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+#item   ####description                                      ###on off ###
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING SOFTWARE FROM SERIES AP (APPLICATIONS)" \
+       --checklist "Please select the system components you wish to install \
+from series AP. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the items you wish to install. Recommended items have \
+already been selected for you, but you may unselect them if you wish. \
+Press ENTER when you are \
+done." 22 70 11 \
+"apsfilter" "APSfilter - very useful printer utility" "on" \
+"a2ps" "Any to .ps filter (required by APSfilter)" "on" \
+"ash" "A small /bin/sh type shell - 62K" "off" \
+"bc" "GNU bc - arbitrary precision math language" "off" \
+"cdparano" "Cdparanoia CD audio ripper" "off" \
+"cdrdao" "Tool for burning audio CDRs" "off" \
+"cdrtools" "CD-R mastering/burning tools" "off" \
+"diff" "GNU diffutils" "on" \
+"enscript" "A text to PostScript utility" "off" \
+"ghostscript" "GNU Ghostscript version 5.10" "on" \
+"groff" "GNU groff document formatting system" "on" \
+"ispell" "The International version of ispell" "off" \
+"jed" "JED programmer's editor" "on" \
+"joe" "joe text editor, version 2.8" "on" \
+"jove" "Jonathan's Own Version of Emacs text editor" "off" \
+"ksh" "KornShell language and interactive shell" "on" \
+"lvm" "LVM (Logical Volume Manager)" "off" \
+"man" "Primary tool for reading online documentation" "on" \
+"manpages" "man pages (online docs -- requires groff)" "on" \
+"mc" "The Midnight Commander file manager" "on" \
+"mkisofs" "mkisofs-1.12b5 for creating SPARC CD-Rs" "on" \
+"mp3" "Command-line MP3 players" "on" \
+"mt_st" "mt ported from BSD - controls tape drive" "on" \
+"mysql" "MySQL database server" "off" \
+"oggutils" "Ogg Vorbis encoder, player, and libraries" "on" \
+"quota" "User disk quota utilities" "on" \
+"raidtool" "MD (RAID) utilities" "on" \
+"rpm" "Unsupported package tool" "on" \
+"sc" "The 'sc' spreadsheet" "off" \
+"screen" "GNU screen ANSI/vt100 virtual terminal emulator" "on" \
+"sox" "Sound utilities" "on" \
+"sudo" "Allow special users limited root access" "off" \
+"texinfo" "GNU texinfo documentation system" "on" \
+"vim" "Improved vi clone" "on" \
+"workbone" "a text-based audio CD player" "on" \
+"zsh" "Zsh - a custom *nix shell" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in a2ps apsfilter ash bc cdparano cdrdao cdrtools diff \
+              enscript ghostscript groff gsfonts ispell jed joe jove ksh \
+              lvm man manpages mc mkisofs mp3 mt_st mysql oggutils quota \
+              raidtool rpm sc screen sox sudo texinfo vim workbone zsh
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+if fgrep \"ghostscript\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+then
+#  rpkg="`find_package ghostscript`"
+#  echo "$rpkg: ADD" >> $TMP/SeTnewtag
+#  rpkg="`find_package gsfonts`"
+#  echo "$rpkg: ADD" >> $TMP/SeTnewtag
+ echo "ghostscript: ADD" >> $TMP/SeTnewtag
+ echo "gsfonts: ADD" >> $TMP/SeTnewtag
+
+else
+#  rpkg="`find_package ghostscript`"
+#  echo "$rpkg: SKP" >> $TMP/SeTnewtag
+#  rpkg="`find_package gsfonts`"
+#  echo "$rpkg: SKP" >> $TMP/SeTnewtag
+ echo "ghostscript: SKP" >> $TMP/SeTnewtag
+ echo "gsfonts: SKP" >> $TMP/SeTnewtag
+fi
+for PACKAGE in a2ps apsfilter ash bc cdparano cdrdao cdrtools diff \
+               enscript groff ispell jed joe jove ksh lvm man manpages mc \
+               mkisofs mp3 mt_st mysql oggutils quota raidtool rpm sc \
+               screen sox sudo texinfo vim workbone zsh
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs
