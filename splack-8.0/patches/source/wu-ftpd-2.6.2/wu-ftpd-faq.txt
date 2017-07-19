@@ -1,0 +1,1161 @@
+THE_URL:file://localhost/home/koos/wu-ftpd-work/wu-ftpd-faq/wu-ftpd-faq.html
+THE_TITLE:Frequently Asked Questions about wu-ftpd
+
+Frequently Asked Questions about wu-ftpd, with answers
+
+   This article contains the answers to Frequently Asked Questions (FAQ)
+   concerning the wu-ftpd software. To ask questions about wu-ftpd,
+   subscribe to the mailinglist and ask there. To submit editorial
+   comments or new entries send email to: faq@wu-ftpd.org. If you wish to
+   get the latest version of this file, it is available as
+   
+   Via WWW : <URL:http://www.wu-ftpd.org/wu-ftpd-faq.html>
+   
+   Via FTP : <URL:ftp://ftp.wu-ftpd.org/pub/wu-ftpd/wu-ftpd-faq.txt>
+   
+   And via E-mail : Send an e-mail to wu-ftpd-faq@wu-ftpd.org with as
+   subject line send faq.
+   
+   Comments : this version is still lacking with details about certain
+   operating systems. Comments about those are welcome.
+     _________________________________________________________________
+   
+    1. Contents of this FAQ
+         1. Contents of this FAQ
+         2. What is this document
+              1. What is the intended audience for this document
+         3. What is wu-ftpd itself and this mailing list in particular ?
+              1. What is the license status for wu-ftpd ?
+              2. How do I subscribe/unsubscribe to the mailing list ?
+              3. Is this list archived anywhere ?
+              4. What are related documents ?
+              5. Are there any alternatives ?
+         4. Where do I get the wu-ftpd ?
+              1. Where do I get the latest version ?
+              2. What were the VR patches for wu-ftpd ?
+              3. What is BeroFTPD ?
+              4. PGP verification of the package fails!
+         5. Compiling the wu-ftpd
+              1. cc complains about strunames, typenames, modenames, ..
+                 being undeclared.
+              2. I don't have yacc
+              3. wu-ftpd doesn't 'see' that users are in multiple groups.
+              4. I get "conflicting types for `realpath'"
+              5. wu-ftpd doesn't use the shadow passwords on my Linux
+                 machine.
+              6. It doesn't compile at all on newer Linux installs. The
+                 error is :
+              7. The timezone in the xferlog is wrong
+              8. The timezone in the ls output is wrong
+              9. Digital Unix doesn't log commands after an anonymous
+                 user logs in
+             10. install fails with 'install: ..'
+             11. Digital Unix (The Unix Formerly Known As OSF/1) and
+                 Enhanced C2 security,
+             12. It doesn't compile at all on Digital Unix, errors about
+                 struct timeval
+             13. What should I do to be able to use wu-ftpd in a HP-UX
+                 10.01
+             14. What should I do for HP-UX 10.10 to make it work
+                 completely.
+             15. Installation notes for HP-UX 10.20.
+         6. Special compilation options/fixes
+              1. I need to authenticate real users via AFS
+              2. I need to use S/KEY authorisation
+              3. I want to block certain default addresses (IE30User@,
+                 mozilla@)
+         7. Installing the wu-ftpd
+              1. Command-line options for wu-ftpd
+              2. Testing on a different port number then ftp:21
+              3. Not all command line parameters seem to be used by
+                 wu-ftpd
+              4. How do I use the package file
+                 WUFtpd250.wu-ftpd-2.5.0.SPARC.ULTRASparc.2.5.1.2.5.pkg.t
+                 ar ?
+         8. Are there year 2000 issues with wu-ftpd?
+         9. The ftpaccess file
+              1. Some files (banners, etc) don't get shown to anonymous
+                 users.
+              2. What is the exact format of the <times> parameter in the
+                 "limit"
+              3. What tools are there to check the configuration
+              4. Why does %M produce (Max unlimited) on the login banner
+        10. Programs (ls, gzip, tar) work for real users, not for
+            anonymous users, giving errors like 425 Can't create data
+            socket (0.0.0.0,20): Bad file number or simply no output.
+              1. Solaris
+              2. Building a statically linked ls for Solaris fails
+              3. Linux
+              4. Dec OSF
+              5. SunOS4.1.x
+              6. AIX
+              7. IRIX (5.3, 6.2)
+              8. SCO Unix
+              9. BSD vs SVR4 ls
+             10. It worked, until I upgraded the operating system.
+        11. Running wu-ftpd
+              1. ftpd allways says "221 Server shutting down. Goodbye."
+              2. Anonymous ftp works fine, but real users are denied
+                 access
+              3. ftpconversions doesn't work
+              4. On-the-fly compression works, on-the-fly tarring, but
+                 not both.
+              5. I want to use zip compression (InfoZip)
+              6. I want a real user to be able to access the host only
+                 via ftp, not via telnet
+              7. Somebody uploaded a file with a weird name
+              8. I want anonymous users to be able to upload files, but
+                 in the most secure manner possible
+              9. The upload clause doesn't work with directories as it
+                 used to.
+             10. The default umask used when a real user uploads a file
+                 is wrong
+             11. I heard something about 'SITE EXEC' having a security
+                 hole
+             12. How do I make reports more readable ?
+             13. Incoming file transfers fail with SunOS and an NFS
+                 mounted incoming
+             14. Normal ftp clients work, Netscape ftp's fail. So,
+                 passive mode doesn't work.
+             15. I made a symbolic link within the anonymous tree and it
+                 doesn't work for the anonymous users.
+             16. I want to redirect anonymous users to another machine
+             17. ftpd stops accepting connections when a lot of
+                 connections come in.
+             18. Running wu-ftpd on a *large* site
+             19. Only the first 8 characters of the anonymous username
+                 are recieved by the server.
+             20. wu-ftpd fails with '500 Illegal PORT Command' under AIX
+                 4.3 or Solaris 8
+             21. I want to host multiple ftp servers on the same machine
+             22. I just upgraded and now nobody can log in. It worked
+                 before.
+             23. I get disconnected directly from the ftp server.
+             24. Mirror breaks with wu-ftpd 2.6.0.
+             25. Logins to the ftp server take a long time, after that
+                 things run smooth
+             26. ls doesn't show anything except files. It does not show
+                 directories and links
+             27. My client hangs at the end of a transfer
+             28. Sometimes ftpd stops working and inetd logs 'ftp/tcp
+                 server failing (looping), service terminated'
+             29. I can't login, in the syslog is: get passwd; pwdb:
+                 request not recognized
+        12. Other things
+              1. Where is the FTP protocol documented ?
+              2. How can I make my ftp-archive accessible by Email
+                 (ftpmail) ?
+        13. Credits/miscellanious
+              1. How do I contact the WU-FTPD Development team
+              2. I have a correction / new feature, how do I submit it
+                 for the WU-FTPD Development team's consideration
+              3. I have what I believe to be a critical security problem
+                 with the daemon and don't want to talk about it via
+                 email. Can I call someone on the telephone
+    2. What is this document
+       This is the FAQ (frequently asked questions) for newer versions of
+       wu-ftpd as maintained at ftp.wu-ftpd.org. This document is an
+       addition to the manpages of wu-ftpd which are part of the
+       installation and available online as
+       <URL:http://www.wu-ftpd.org/man/>.
+       Answer number one is: Update to the latest version (at this
+       moment: 2.6.1). A lot of problems have been fixed, including
+       security problems.
+       Note: The various addresses used in this document are for
+       contacting the authors on subjects mentioned in this document.
+       Using these addresses for sending unsolicited Email is forbidden.
+       
+       Again: please update to the latest version for security purposes!
+                                       
+         1. What is the intended audience for this document
+            This document (and wu-ftpd in general) need a general
+            knowledge of Unix system management aimed at the Unix version
+            you are trying to install wu-ftpd on. Subjects like user
+            management, password management, filesystem management,
+            changing access settings and chroot environments are
+            prerequisite knowledge. Reviews of books about Unix in
+            general (and other books) on The Virtual Bookcase at
+            <URL:http://www.virtualbookcase.com/>
+    3. What is wu-ftpd itself and this mailing list in particular ?
+       Wuarchive-ftpd, more affectionately known as wu-ftpd, is a
+       replacement ftp daemon for Unix systems developed at Washington
+       University (*.wustl.edu) by Bryan D. O'Connor. (who is no longer
+       working on it or supporting it!) wu-ftpd is the most popular ftp
+       daemon on the Internet, used on many anonymous ftp sites all
+       around the world.
+         1. What is the license status for wu-ftpd ?
+            The correct answer to this is in the the 'LICENSE' file which
+            comes with the source tree and is available online as
+            <URL:http://www.wu-ftpd.org/license.html>
+            This mailing list is for discussing problems with maintaining
+            this daemon and ftp-sites where it is used.
+         2. How do I subscribe/unsubscribe to the mailing list ?
+            To subscribe, send a mail message with a body of SUBSCRIBE
+            WU-FTPD <your full name> to the list server
+            listproc@mail.wustl.edu.
+            To unsubscribe, send a mail message with a body of
+            UNSUBSCRIBE WU-FTPD to the list server
+            listproc@mail.wustl.edu.
+            To send mail to all people on the list, send it to
+            wu-ftpd@mail.wustl.edu.
+         3. Is this list archived anywhere ?
+            An archive from June 1994 until recent, reachable via WWW at
+            <URL:http://www.landfield.com/wu-ftpd/mail-archive>, and via
+            ftp at <URL:ftp://ftp.landfield.com/wu-ftpd/mail-archive>.
+            The search page is at
+            <URL:http://www.landfield.com/wu-ftpd/mail-archive/search.ht
+            ml> This archive is maintained by Kent Landfield
+            (kent@landfield.com).
+         4. What are related documents ?
+            The RFC's that describe the FTP protocol are rfc959 and
+            rfc1579. A possible location to get these is :
+            <URL:http://info.internet.isi.edu/in-notes/rfc/files/rfc959.
+            txt>
+            <URL:http://info.internet.isi.edu/in-notes/rfc/files/rfc1579
+            .txt> or <URL:http://www.faqs.org/rfcs/rfc959.txt>
+            <URL:http://www.faqs.org/rfcs/rfc1579.txt>
+            Documents on specific parts of the configuration or specific
+            uses of wu-ftpd:
+               o <URL:ftp://ftp.wu-ftpd.org/pub/wu-ftpd/telnet.testing.HO
+                 WTO> telnet.testing.HOWTO : how to test wu-ftpd using
+                 telnet/netcat.
+               o <ftp://ftp.wu-ftpd.org/pub/wu-ftpd/upload.configuration.
+                 HOWTO> upload.configuration.HOWTO : How to allow uploads
+                 by remote users in a secure way.
+            Kent Landfield maintains a resource center to collect all
+            wu-ftpd related links at
+            <URL:http://www.landfield.com/wu-ftpd/>
+            Darci Chapman maintains the Solaris/wu-ftpd howto guide at
+            <URL:http://www.wildheart.org/wu-ftpd/>
+            The manpage for wu-ftpd can be viewed online at
+            <URL:http://www.academ.com/cgi-bin/bsdi-man?proto=1.1&apropo
+            s=0&msection=local&query=ftpd> with the manpage for ftpaccess
+            in
+            <URL:http://www.academ.com/cgi-bin/bsdi-man?proto=1.1&query=
+            ftpaccess&msection=5&apropos=0>
+            The Academ wu-ftpd pages at
+            <URL:http://www.academ.com/academ/wu-ftpd/>.
+            'ANONYMOUS FTP CONFIGURATION GUIDELINES'
+            A set of guidelines from CERT (Computer Emergency Response
+            Team) about setting up anonymous ftp.
+            <URL:ftp://ftp.cert.org/pub/tech_tips/anonymous_ftp_config>
+            <URL:ftp://ftp.cert.org/pub/tech_tips/anonymous_ftp_abuses>
+            'How to set up a secure ftp server'
+            A file describing how to set up anonymous ftp in general in a
+            secure way, avoiding misuse.
+            <URL:ftp://sunsite.unc.edu/pub/sun-info/sun-faq/FAQs/SettingU
+            pSecureFTP.faq>
+            'guestgroup howto'
+            A document describing the set up of guestgroups in the
+            wu-ftpd server. At this moment a seperate document from this
+            document.
+            <URL:ftp://ftp.fni.com/pub/wu-ftpd/guest-howto>
+            A document describing virtual ftp servers
+            <URL:http://www.westnet.com/providers/multi-wu-ftpd.txt>
+            Ftpaccess on virtual ftp servers
+            <URL:ftp://ftp.meme.com/pub/software/wu-ftpd-2.4.2/README.ALT
+            .FTPACCESS>
+            upload.configuration.HOWTO
+            <URL:ftp://ftp.wu-ftpd.org/pub/wu-ftpd/upload.configuration.H
+            OWTO> How to set up the upload configuration for 2.4.2 Beta
+            18 VR14 and higher (including 2.6.1).
+            Read these. Something like
+#> telnet xxx.yyy.nl
+Trying XXX.XXX.XXX.XXX ...
+Connected to xxx.yyy.nl.
+Escape character is '^]'.
+
+SunOS UNIX (xxx.yyy.nl)
+
+login: ftp
+Last login: Sat Oct 28 22:11:36 from xxxxxx.xxx.xxx.nl
+SunOS Release 4.1.3 (HSIS_X25) #1: Wed Apr 7 14:19:15 MET DST 1993
+%>
+            should not happen.
+            There are also some books discussing setting up anonymous
+            FTP.
+            The book links link to the right book on the amazon.com
+            website.
+               o TCP/IP Network Administration has a section on setting
+                 up anonymous ftp.
+            Reviews of more books about Unix in general (and other books)
+            on The Virtual Bookcase at
+            <URL:http://www.virtualbookcase.com/>
+         5. Are there any alternatives ?
+            Troll Ftpd, a free ftpserver, available from
+            <URL:http://www.troll.no/freebies/ftpd.html>
+            FileDrive, a commercial fileserver which needs it's own
+            clients, available from <URL:http://www.filedrive.com/>
+            NcFTPd server, commercial server (free for educational
+            domains), available from <URL:http://www.ncftpd.com/>
+            ProFTPD, a free ftpserver (GPL), available from
+            <URL:http://www.proftpd.org/>
+            ftpd-BSD, a port of the OpenBSD ftpd, available from
+            <URL:http://www.eleves.ens.fr:8080/home/madore/programs/#pro
+            g_ftpd-BSD>
+    4. Where do I get the wu-ftpd ?
+       The original wu-ftpd home is wuarchive.wustl.edu, but at this
+       moment wuarchive no longer supports or maintains wu-ftpd. The
+       correct location at this moment for wu-ftpd is
+       ftp://ftp.wu-ftpd.org/pub/wu-ftpd/ (please use a real ftp client
+       to access this).
+       Mirror sites:
+          + Austria:
+            ftp://gd.tuwien.ac.at/infosys/servers/ftp/wu-ftpd/
+            http://gd.tuwien.ac.at/infosys/servers/ftp/wu-ftpd/
+          + Canada:
+            ftp://ftp.crc.ca/pub/packages/ftp/servers/wuarchive-ftpd-vr/
+          + Estonia:
+            ftp://ftp.ut.ee/pub/unix/networking/wu-ftpd/
+          + Hungary:
+            ftp://ftp.ahol.com/pub/mirrors/wu-ftpd/
+            ftp://ftp.kfki.hu/pub/infosystems/wu-ftpd/
+          + Germany:
+            ftp://ftp.dpn.de/pub/mirrors/wu-ftpd/
+          + Israel:
+            ftp://ftp.tau.ac.il/pub/unix/ftp/wu-ftpd/
+          + Japan:
+            ftp://ftp.ring.gr.jp/pub/net/wu-ftpd/
+            http://www.ring.gr.jp/archives/net/wu-ftpd/
+            ftp://ring.aist.go.jp/pub/net/wu-ftpd/
+            http://ring.aist.go.jp/archives/net/wu-ftpd/
+            ftp://ring.asahi-net.or.jp/pub/net/wu-ftpd/
+            http://ring.asahi-net.or.jp/archives/net/wu-ftpd/
+            ftp://ring.so-net.ne.jp/pub/net/wu-ftpd/
+            http://ring.so-net.ne.jp/archives/net/wu-ftpd/
+            ftp://ring.nacsis.ac.jp/pub/net/wu-ftpd/
+            http://ring.nacsis.ac.jp/archives/net/wu-ftpd/
+            ftp://ring.etl.go.jp/pub/net/wu-ftpd/
+            http://ring.etl.go.jp/archives/net/wu-ftpd/
+            ftp://ftp.win.ne.jp/pub/network/wu-ftpd/
+            ftp://mirror.nucba.ac.jp/mirror/wu-ftpd/
+            http://mirror.nucba.ac.jp/mirror/wu-ftpd/
+            ftp://ftp.cin.nihon-u.ac.jp/pub/net/ftp/wu-ftpd-vr/
+            ftp://ftp.riken.go.jp/pub/net/wu-ftpd/
+            http://SunSITE.sut.ac.jp/pub/archives/packages/wu-ftpd/
+            ftp://SunSITE.sut.ac.jp/pub/archives/packages/wu-ftpd/
+          + Norway:
+            ftp://ftp.bitcon.no/pub/unix/networking/wu-ftpd/
+            http://archive.bitcon.no/pub/unix/networking/wu-ftpd/
+          + Poland:
+            ftp://ftp.task.gda.pl/pub/unix/ftp/wu-ftpd-vr/
+            ftp://giswitch.sggw.waw.pl/pub/unix/wu-ftpd/
+          + Spain:
+            ftp://ftp.upc.es/pub/wu-ftpd/
+          + Sweden:
+            ftp://ftp.sunet.se/pub/nir/ftp/servers/wuarchive-ftpd-vr/
+            http://ftp.sunet.se/pub/nir/ftp/servers/wuarchive-ftpd-vr/
+          + Switzerland:
+            ftp://sunsite.cnlab-switch.ch/mirror/wu-ftpd/
+          + Taiwan:
+            ftp://ftp.nchu.edu.tw/pub/packages/wu-ftpd/
+            http://pds.nchu.edu.tw/pub/packages/wu-ftpd/
+          + Turkey:
+            ftp://ftp.ulak.net.tr/pub/wu-ftpd/
+            http://ftp.ulak.net.tr/pub/wu-ftpd/
+          + United Kingdom:
+            ftp://sunsite.org.uk/Mirrors/ftp.vr.net/pub/wu-ftpd/
+            http://sunsite.org.uk/Mirrors/ftp.vr.net/pub/wu-ftpd/
+            ftp://ftp.ox.ac.uk/pub/comp/security/COAST/mirrors/ftp.vr.net
+            /
+          + United States:
+            ftp://ftp.academy.rpi.edu/pub/wu-ftpd/
+            ftp://ftp.vr.net/pub/wu-ftpd/
+            http://www.landfield.com/wu-ftpd/wu-ftpd.org/
+         1. Where do I get the latest version ?
+            The wa-ftpd development group maintains wu-ftpd and makes the
+            latest version available at ftp.wu-ftpd.org in
+            ftp://ftp.wu-ftpd.org/pub/wu-ftpd/ (please use ftp to access
+            this). This version of wu-ftpd is now actively maintained by
+            the wu-ftpd developers group, reachable by email as
+            (wuftpd-dev@wu-ftpd.org).
+         2. What were the VR patches for wu-ftpd ?
+            The VR-series offered a number of enhancements and bug fixes
+            not available in the base version. The VR patches have been
+            integrated in wu-ftpd 2.5.0 and the will not be available
+            from ftp.vr.net after the end of August 1999.
+         3. What is BeroFTPD ?
+            BeroFTPD was a derivative of wu-ftpd with extra functionality
+            for virtual hosts. Patches from the VR versions were
+            included. The enhancments from BeroFTPD are now incorporated
+            into the main daemon.
+         4. PGP verification of the package fails!
+            The signature has been made with a newer pgp. You need a
+            recent pgp to get the right answer.
+    5. Compiling the wu-ftpd
+       In wu-ftpd 2.6.0, GNU autoconf is introduced, but it's still in
+       experimental stage. So first try ./configure and if that fails try
+       the old method:
+       In general, editing src/pathnames.h and typing build arch should
+       be enough.
+         1. cc complains about strunames, typenames, modenames, .. being
+            undeclared.
+            This error is fully explained in the INSTALL/INSTALL.orig
+            file in wu-ftpd package. A few relevant lines :
+If cc complains about strunames, typenames, modenames, ... being undefined
+you need to install support/ftp.h as /usr/include/arpa/ftp.h (always make
+a backup of the old ftp.h just in case!) and do the build again.  The new
+ftp.h should be a compatible superset of your existing ftp.h, so you
+shouldn't have problems with this replacement.
+         2. I don't have yacc
+            Replace yacc with bison -y in the Makefile.
+         3. wu-ftpd doesn't 'see' that users are in multiple groups.
+            This is fixed in recent versions (2.6.1). Upgrade now.
+         4. I get "conflicting types for `realpath'"
+            This is fixed in recent versions (2.6.1). Upgrade now.
+         5. wu-ftpd doesn't use the shadow passwords on my Linux machine.
+            Upgrade to version 2.6.1 or later. They automatically use
+            shadow passwords when available. If this gives problems, you
+            might want to upgrade your Linux. For older versions:
+            Since older Linux distributions (around libc.5.3 this got
+            fixed) don't include shadow passwords, wu-ftpd might assume
+            your Linux does not have shadow passwords. To compile for
+            shadow passwords with Linux when this happens :
+               o Get the shadow.h from the latest shadow package.
+               o After building the shadow package, you have a
+                 libshadow.a.
+               o Copy shadow.h to the src dir.
+               o Copy libshadow.a to the support dir.
+               o Edit src/config.h to say '#define SHADOW_PASSWORD'
+                 instead of #undef.
+               o Edit the LIBES line in src/Makefile to read :
+                 LIBES = -lsupport -lbsd -lshadow (for some releases,
+                 -lcrypt is also needed)
+            Modify src/ftpd.c around line 1061 to read :
+        xpasswd = pw_encrypt(passwd, salt);
+         6. It doesn't compile at all on newer Linux installs. The error
+            is :
+            Upgrade to version 2.6.1
+         7. The timezone in the xferlog is wrong
+            Either, you compiled with support for setting the process
+            title (SPT_TYPE) on a machine that doesn't support this,
+            where changing the process title clobbers the environment and
+            therefore zaps the TZ variable. Recompile with SPT_TYPE set
+            to SPT_NONE.
+            Systems which don't support SPT_TYPE : Aix, SGI Irix
+            Or, you need to copy the zoneinfo files to the ~ftp tree too.
+            These are :
+/etc/TIMEZONE
+/etc/default/init
+/etc/localtime (FreeBSD)
+/usr/share/lib/zoneinfo/..
+            The name of the correct file in /usr/share/lib/zoneinfo
+            depends on your current timezone. Exact filenames depend on
+            your operating system too. See the manpages for timezone(4)
+            and zic(1M).
+         8. The timezone in the ls output is wrong
+            See above, but also check if your system needs
+            /etc/default/init (Solaris 2.5 for example) for setting the
+            correct TZ variable. This file has to be in chrooted
+            environments too then.
+            Noted by Francois Belanger (francois@goltier.com).
+            Digital Unix needs /etc/zoneinfo/localtime.
+         9. Digital Unix doesn't log commands after an anonymous user
+            logs in
+            Upgrade to version 2.6.1 or later.
+        10. install fails with 'install: ..'
+            The makefile is setup for the bsd version of the install
+            program. Some OS'es (including Solaris) use the svr4 version.
+            In that case set in the makefile :
+            INSTALL = /usr/ucb/install
+        11. Digital Unix (The Unix Formerly Known As OSF/1) and Enhanced
+            C2 security,
+            First, upgrade to version 2.6.1 or later. Then, make the
+            changes noted in src/makefiles/Makefile.{dec,du4}.
+        12. It doesn't compile at all on Digital Unix, errors about
+            struct timeval
+            Upgrade to version 2.6.1 or later.
+        13. What should I do to be able to use wu-ftpd in a HP-UX 10.01
+            Upgrade to version 2.6.1 or later. If you are not using C2
+            security, you may need to change the definitions for
+            SHADOW_PASSWORD and HPUX_10_TRUSTED.
+            Some kernel configuration may be required to allow more heavy
+            load on lock files and multiple access to the same file. This
+            can all be done through SAM. An important thing to keep in
+            mind on a heavily accessed machine is that the fin_wait state
+            needs to be lowered enough to keep open file locks at a
+            minimum.
+        14. What should I do for HP-UX 10.10 to make it work completely.
+            If the above doesn't work, some more notes :
+/usr/include/shadow.h:  This *system* file had an apparent typo that caused
+gcc to fail.  I changed the following statement:
+
+     extern int lckpwdf(void),
+            to
+     extern int lckpwdf(void); <<--- note the ';'
+
+realpath.c:  I think there was a external reference (maybe more than 1
+reference?)  which did not match the internal declaration.  I think I
+changed the realpath declaration to match the externals.  I deleted the
+original sources so I don't recall the change exactly.
+
+ftpcmd.c:  This file results from ftpcmd.y (via yacc/bison).  Unfortunately
+the resulting c code will not build.  It was necessary to move 2 of the
+structures to an earlier section.  I think it was the 'cmdtab[]' and
+'sitetab[]' structures which were moved.  They were being called prior to
+their declaration.  (`what bison` gives $Revision: 76.162.1.5 $)
+
+Makefile.hpx:  Modified to not delete the ftpcmd.c file fixed above.
+
+ftpd.c:  1) installed the shadow password patch per the instructions in the
+FAQ.  The new code worked without any problems (I'll probably port it to
+the POP3 server I've been wanting to install).  2) Modified the sprintf
+calls near SEPPROCTITLE to include "wuftpd" in the process string (similar
+to hp-ux ftpd).  this allows "ps -ef | grep ftp" to show all connected ftp
+processes.  It might need a little doctoring up since the file names on
+RETR have ^M^J tacked on.
+            Notes provided by Chuck Davis (cdavis@wrair-amss.army.mil).
+            Extra remark: On a trusted system HP's getpwnam does not
+            supply the encrypted password. Instead you have to use
+            getprpwnam. Modify ftpd.c to use getprpwnam.
+         pr_pw = getprpwnam(pw->pw_name);      /* get shadow password */
+         xpasswd = crypt(passwd, pr_pw->ufld.fd_encrypt);
+         bpasswd = bigcrypt(passwd, pr_pw->ufld.fd_encrypt);
+        15. Installation notes for HP-UX 10.20.
+            A complete set of installation notes for wu-ftpd on HP-UX
+            10.20:
+            This section is written by someone else who wishes to remain
+            unnamed.
+            I installed wu-ftp2.4 on a clean HPUX 10.20 build. The 10.20
+            build came straight from HP, and the only important
+            differences on this build from a generic build is that the
+            X-libs and X-utils were stripped out (something I would
+            recommend if you are building an HP 10.20 for ftp only).
+            - Get both the wu-ftp2.4 package and the current ansi-c
+            compiler package (I got mine from HP, you can request the
+            package ansic.hp-10.20.tar.gz)
+            - Uncompress and untar the C package first (HP comes with a
+            standard c compiler, but it is only useful in the kernel
+            compiling and doesn't function well outside of doing kernel
+            work). Follow the README/INSTALL docs for installing the c
+            compiler. Make sure you put this new compiler in your path,
+            or do some editing whenever you use cc to point to this
+            compiler and not the default.
+            - Build wu-ftpd normally
+            - Set up the server
+            - Special notes about tuning for heavy load: The ftp servers
+            that I maintain are heavily hit and some kernel configuration
+            was required to allow more heavy load on lock files and
+            multiple access to the same file. This was all done through
+            SAM. An important thing to keep in mind on a heavily accessed
+            machine is that the fin_wait state needs to be lowered enough
+            to keep open file locks at a minimum. I set all of my
+            fin_waits to 5 minutes or less.
+    6. Special compilation options/fixes
+       This section deals with specialities in compilation for certain
+       situations.
+         1. I need to authenticate real users via AFS
+            Edit the Makefile for your OS to add the AFS libs/includes.
+            They only appear in the Makefile for AIX. Then, add the
+            following line to the #include section of src/ftpd.c :
+#include <afs/stds.h>
+            Noted by Perry L. Morgan (pmorgan@uceng.uc.edu).
+         2. I need to use S/KEY authorisation
+            Method for 'configure' :
+            (For Solaris 7 as noted by Justin Kurmaty (justin@pty.com):
+1. copied skey.h /usr/include
+2. copied libskey.a /usr/lib
+3. ran configure --enable-skey
+            Method for 'build' :
+            Michael Brennen (mbrennen@fni.com) wrote on the list:
+The general SKEY procedure is something like this:
+
+The last thing in config.h is an #undef SKEY; comment that out.  That is
+a gotcha that can take some time to find, although that doesn't seem to
+be the problem.
+
+Copy skey.h into the src directory.
+
+Copy libskey.a into the support directory.
+
+Edit the appropriate Makefile.* in src/makefiles and add the following:
+   add "-DSKEY" to the CFLAGS macro;
+   add "-lskey" to the LIBES macro.
+
+That should do it; if not, holler back.
+         3. I want to block certain default addresses (IE30User@,
+            mozilla@)
+            Check the option 'deny-mail' in the ftpaccess(5) manpage.
+    7. Installing the wu-ftpd
+       In general, change the line for the ftp-server in /etc/inetd.conf
+       (the file that defines the servers started by inetd. For some
+       operating systems, this is another file).
+         1. Command-line options for wu-ftpd
+            With the latest versions, using no command-line options will
+            set it to a default-mode, in which it will not parse the
+            ftpaccess file. Add the option -a to the command line in
+            inetd.conf.
+         2. Testing on a different port number then ftp:21
+            This can be done from the command line or with a special
+            definition in /etc/services / /etc/inetd.conf. For
+            command-line, look up -P and -p in the ftpaccess(5) manpage.
+            To set up with special definitions, add 2 ports with
+            consecutive numbers in /etc/services, and then start wu-ftpd
+            on these ports. Add to /etc/services something like :
+ftptest         4021/tcp        #command port
+ftptest-data    4020/tcp        #data port
+            Then start wu-ftpd from /etc/inetd.conf like :
+ftptest stream tcp nowait root /usr/etc/in.ftpd in.ftpd
+            The key is the name 'ftptest' which associates the port
+            assignment in the /etc/services file to that in the
+            inetd.conf file. Make certain the choice of ports in
+            /etc/services (4021 and 4020 above) are from the local use
+            list and don't conflict with other port assignments (see
+            RFC1700, ASSIGNED NUMBERS). One important subtlety. The data
+            port is not really derived from the data port declaration in
+            the /etc/services file. The FTP specification (RFC765) states
+            the data port is defined as one less than the command port.
+            However, including the data port declaration in the
+            /etc/services file prevents it from being accidentally
+            assigned to something else.
+            From a mail by W. James Showalter (gamma@mintaka.disa.mil)
+         3. Not all command line parameters seem to be used by wu-ftpd
+            Your inetd probably drops some parameters after a given
+            number (4 or 5). You can use the following wrapper program to
+            give additional parameters :
+/* wrapper for wuftpd to add command line arguments
+   that don't fit under inetd */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <syslog.h>
+
+int main(argc,argv)
+   int argc;
+   char **argv;
+{
+   char *path="/local-adm/bin/ftpd";
+   char *cmd="ftpd";
+
+   fflush(stderr);
+   fflush(stdout);
+   errno=0;
+   execl(path,cmd,"-a","-l","-L","-u022",NULL);
+
+   openlog("wrapftpd",LOG_PID, LOG_LOCAL6);
+   syslog(LOG_WARNING,(const char *)strerror(errno));
+   closelog();
+   exit(EXIT_FAILURE);
+
+}
+            Code from Albert Lunde (Albert-Lunde@nwu.edu)
+         4. How do I use the package file
+            WUFtpd250.wu-ftpd-2.5.0.SPARC.ULTRASparc.2.5.1.2.5.pkg.tar ?
+            Unpack the tar into an empty directory which will then have a
+            subdirectory named WUFtpd250 Do not enter this directory, but
+            type 'pkgadd -d .', you will get something like:
+# pkgadd -d .
+
+The following packages are available:
+  1  WUFtpd250     wu-ftpd 2.5.0 SPARC/ULTRAsparc 2.5.1 - 2.5
+                   (sun4c,sun4d,sun4e,sun4m,sun4u,sun4u1) 2.5.0
+
+Select package(s) you wish to process (or 'all' to process
+all packages). (default: all) [?,??,q]:
+    8. Are there year 2000 issues with wu-ftpd?
+       The original version of wu-ftpd had a year 2000 representation
+       problem in the handling of the MDTM (modification time of file)
+       command. No internal workings of wu-ftpd were affected by this
+       problem.
+       This problem has been fixed in wu-ftpd 2.4.2 beta 14 which was
+       published August 1997. With this fix, wu-ftpd is believed to be
+       completely Y2K-compliant.
+       The fix that was applied :
+       The following statement appears in ftpcmd.y. It is part of the
+       action for the syntax: MDTM check_login SP pathname CRLF
+                reply(213,
+                        "19%02d%02d%02d%02d%02d%02d",
+                        t->tm_year, t->tm_mon+1, t->tm_mday,
+                        t->tm_hour, t->tm_min, t->tm_sec);
+       The 19%02d needs to be changed to %04d and t->tm_year needs to be
+       changed to t->tm_year + 1900:
+                reply(213,
+                        "%04d%02d%02d%02d%02d%02d",
+                        t->tm_year + 1900, t->tm_mon+1, t->tm_mday,
+                        t->tm_hour, t->tm_min, t->tm_sec);
+       Oh, and wu-ftpd versions that old also have gaping security holes.
+    9. The ftpaccess file
+         1. Some files (banners, etc) don't get shown to anonymous users.
+            When the anonymous user is logged in, bannerfiles are opened
+            relative to the root of the anonymous user. Keep this in
+            mind. It can be usefull to have 2 sets of banners or use
+            links.
+         2. What is the exact format of the <times> parameter in the
+            "limit"
+            This is a format consisting of day and time parameters.
+            Possible items : Sa,Su,Mo, .. Any (for any day) and time
+            parameters. For example : SaSu|Any1800-0700 means all of
+            Saturday and Sunday or Any day between 18:00 and 07:00. Check
+            if ftpd inherits the correct time zone.
+         3. What tools are there to check the configuration
+            ftpcheck found at <URL:ftp://ftp.cle.ab.com/pub/ftpcheck.v2.3
+         4. Why does %M produce (Max unlimited) on the login banner
+            All counts and maximums depend on which class the user is in,
+            and the class is unknown before login (since wu-ftpd takes
+            realuser/anonymous/guestuser as a variable for calculating
+            which class a user is in).
+   10. Programs (ls, gzip, tar) work for real users, not for anonymous
+       users, giving errors like 425 Can't create data socket
+       (0.0.0.0,20): Bad file number or simply no output.
+       First, consider if you can't relink them staticly so the shared
+       libraries aren't needed. You can get the GNU fileutils from :
+       <URL:ftp://prep.ai.mit.edu/pub/gnu/fileutils-3.16.tar.gz>
+       (version numbers may vary).
+       For different operating systems, different libraries and/or
+       devices are needed. You can test if things are running correctly
+       by doing a chroot to the ftp homedir. To test if /bin/ls is
+       working in the ~ftp dir, type :
+       chroot ~ftp /bin/ls
+       Or, the partition is mounted -nosuid which gives the same error
+       under SunOS or Solaris, more information on the page
+       <URL:http://www.stokely.com/stokely/sunservice.tips/11991.html>
+         1. Solaris
+            First, have a look at the manpage for the original
+            in.ftpd(1m). It has a scipt for setting everything up. If the
+            filesystem with ~ftp is mounted -nosuid, the special device
+            files will not work.
+            Solaris needs ~ftp/dev/tcp and ~ftp/dev/zero and the
+            libraries. Check the man-page for your Solaris version for
+            exact details. Use the command ldd to find out which
+            libraries a program uses. Also, the ~ftp/etc/group file is
+            needed for ls to work, without it it will just dump core.
+            Follow the same rules as for /etc/passwd : not too much
+            information in that file, like group passwords (if you have
+            those).
+            Needed libraries can include :
+            ld.so, ld.so.1, libc.so.1, libdl.so.1, libintl.so.1,
+            libmp.so.1, libnsl.so.1, libsocket.so.1, libw.so.1,
+            nss_compat.so.1, nss_dns.so.1, nss_files.so.1, nss_nis.so.1,
+            nss_nisplus.so.1, straddr.so
+            Problem with /etc/group found by Eric (ewedaa@kset.com).
+         2. Building a statically linked ls for Solaris fails
+            This is discussed in the comp.unix.solaris Frequently Asked
+            Questions <URL:http://www.fwi.uva.nl/pub/solaris/solaris2>
+            item 6.24 (at this moment).
+         3. Linux
+            Use the command ldd to find out which libraries a program
+            uses. Also, with ELF binaries you need the ELF file loader,
+            ld-linux.so in ~ftp/lib.
+            ELF change remarked by Al Longyear (longyear@sii.com).
+         4. Dec OSF
+            Copy the static version of ls (/sbin/ls) and not the dynamic
+            one. The static version is about 400K.
+            Make passwd and group files in ~ftp/etc. Copy from /etc/sia
+            dir to ~ftp/etc/sia the files matrixconf and siainitgood.
+         5. SunOS4.1.x
+            SunOS needs ~ftp/dev/zero, ~ftp/dev/tcp and the libraries.
+            Check permissions on the device files.
+         6. AIX
+            AIX comes with scripts to automate this installation.
+            AIX 3.2.5 - /usr/lpp/tcpip/samples/anon.ftp
+            AIX 4.1.4 - /usr/samples/tcpip/anon.ftp
+            After it's done, change the mode of ~ftp/pub to something
+            safer.
+            Also, AIX comes with a 'dump' utility that can show which
+            libraries a program uses.
+            Noted by Eilon Gishri (eilon@aristo.tau.ac.il)
+         7. IRIX (5.3, 6.2)
+            IRIX 6.2 needs ~/ftp/dev/zero and libraries. To create
+            /dev/zero, check it's current major and minor number with :
+ls -lL /dev/zero
+            And then create it in ~ftp using :
+cd ~ftp/dev
+mknod zero c <major> <minor>
+cd ..
+chmod 555 dev
+            You will probably need to copy /lib/libc.so.1 to
+            ~ftp/lib/libc.so.1 and /lib/rld to ~ftp/lib/rld. These are
+            required by ls, compress, gtar and gzip.
+            You can see what libraries a program needs by doing the
+            following:
+csh# setenv _RLD_PATH /usr/lib/rld.debug
+csh# setenv _RLD_ARGS '-v -quickstart_info -stat'
+            To stop seeing what libraries are needed unset the
+            environment variables:
+csh# unsetenv _RLD_PATH
+csh# unsetenv _RLD_ARGS
+            Useful information on Irix also in the IRIX Insight Library
+            (Online Books) in the book/chapter "IRIX Admin: Networking
+            and Mail" in the paragraph "How to Set Up a Proper Anonymous
+            FTP Account". Information from Frans Stekelenburg
+            (gjs@knmi.nl) and Jim Davis (jdavis@cs.arizona.edu)
+         8. SCO Unix
+            SCO needs /dev/socksys.
+         9. BSD vs SVR4 ls
+            This is a very sneaky one. To quote : The problem was that
+            ls_short and ls_long were being defined incorrectly (since
+            the system was compiled with a BSDish compiler, the BSD
+            config file was used) using ls -lA and ls -lgA respectively.
+            It turns out that the ls command was running but it was
+            erroring out (this is because the system is actually running
+            SVR4), since a failed ls produces output only to stderr not
+            stdout I saw nothing for my output.
+            Information from Perry A. Stupp (pstupp@i-com.com)
+        10. It worked, until I upgraded the operating system.
+            Something in the upgrade changed in your OS. Most likely :
+            newer shared libraries. Also : other major/minor numbers in
+            /dev. Redo the shared libs and devices after an upgrade if
+            things like the above happen.
+   11. Running wu-ftpd
+       There is a nice set of manpages with wu-ftpd. They do contain a
+       lot of information.
+       Also, note that a lot of things about the chrooted environment for
+       anonymous users also applies to the chrooted environment for guest
+       users.
+         1. ftpd allways says "221 Server shutting down. Goodbye."
+            The directive shutdown in the ftpaccess file points to a file
+            that exists at that moment. Either change the directive or
+            delete the file.
+            Also, after you've used the ftpshut command, you'll need to
+            remove the ftpshut file by hand.
+         2. Anonymous ftp works fine, but real users are denied access
+            Check the following :
+               o Reasons for denial are logged using syslog. Check your
+                 logs.
+               o Their shell is in the /etc/shells file. Note : AIX
+                 doesn't even have this file, so you need to create it
+                 for wu-ftpd.
+               o The problem has been fixed in the latest versions for
+                 AIX. Get the latest version.
+               o /etc/shells needs the correct access rights (world
+                 readable and not world writable).
+               o If you're using shadow passwords : make sure the daemon
+                 is compiled with shadow password support.
+         3. ftpconversions doesn't work
+            There are a lot of possible reasons, mostly having to do with
+            the fact that some versions tar use different command line
+            parameters.
+               o Solaris 2.4 : if you use Solaris tar, and give the
+                 commandline as /bin/tar -cf - %s, the effect will be the
+                 same as /bin/tar -cvf - %s. The -v option will add
+                 extraneous data to the stream. Solution : replace it
+                 with /bin/tar cf - %s (no leading -).
+               o Also, check your 'tar' and 'compress' directives in
+                 ftpaccess.
+         4. On-the-fly compression works, on-the-fly tarring, but not
+            both.
+            With Solaris 2.4 and GNU's tar-1.11.8 (configured and
+            compiled with --disable-nls flag) use the GNU tar flag
+            --use-compress-program=path to compression program
+            sample :
+            : : :.tar.Z:/bin/ftp-exec/tar -c
+            --use-compress-program=/bin/ftp-exec/compress -f -
+            %s:T_REG|T_DIR:O_COMPRESS|O_TAR:TAR+COMPRESS
+            : : :.tar.gz:/bin/ftp-exec/tar -c
+            --use-compress-program=/bin/ftp-exec/gzip -f -
+            %s:T_REG|T_DIR:O_COMPRESS|O_TAR:TAR+GZIP
+         5. I want to use zip compression (InfoZip)
+            Lines for ftpconversions :
+ :.zip: : :/bin/unzip  -qq -p %s:T_REG|T_ASCII:O_UNCOMPRESS:UNZIP
+ : : :.zip:/bin/zip -qq -r - %s:T_REG|T_DIR:O_COMPRESS|O_TAR:ZIP
+            Info-ZIP can be found at
+            <URL:http://quest.jpl.nasa.gov/Info-ZIP/>
+         6. I want a real user to be able to access the host only via
+            ftp, not via telnet
+            Create a shell for this purpose (for example, a program that
+            says the above or a copy of /bin/true). Put this shell in
+            /etc/shells. Change the shell of the user to that shell.
+            Next : make sure mail cannot be delivered locally to the
+            account. Using the fact that the shell is valid for sendmail
+            (it is in /etc/shells) a user can be able to start commands
+            as that user.
+            Information and a sample script on
+            <URL:http://www.landfield.com/wu-ftpd/ftponly/ftponly.html>
+            
+              The same, for AIX.
+                      Use chuser (or SMIT) to set the user to login=no,
+                      su=no, telnet=no, rlogin=no.
+                      
+         7. Somebody uploaded a file with a weird name
+            Somebody is trying to misuse your ftp-site for transferring
+            software (worst case scenario). Check if the directive
+            path-filter in the ftpaccess file is something like :
+path-filter anonymous /etc/paths.msg ^[-A-Za-z0-9\._]*$ ^\. ^-
+         8. I want anonymous users to be able to upload files, but in the
+            most secure manner possible
+            In general: you don't want this. But, if you're stubborn...
+            Read the upload.configuration.HOWTO, pointer at the beginning
+            of this faq. Make very sure that you have the latest version
+            of wu-ftpd (2.6.1), set your path-filter to the one mentioned
+            above. Make the incoming directory owned by something else
+            then ftp (root, or nobody) with another group then ftp
+            (nobody). Something like :
+drwx-wx-wt       root    nobody        incoming
+            This will allow ftp to write in the directory, but not read
+            it. Set the upload directive in ftpaccess to something like :
+upload    /home/ftp    /home/ftp/incoming/*   yes root daemon 0400 nodirs
+            One note : files get created as root and changed to the owner
+            mentioned in the upload line. This will fail on some secure
+            NFS setups. Best solution is to mount the /incoming
+            separately.
+         9. The upload clause doesn't work with directories as it used
+            to.
+            Unlimited subdirectory creation has been prohibited as this
+            has been the source of problems with wu-ftpd. You will need
+            to explicitely allow a certain amount of levels of subdirs,
+            like for example:
+upload /home/test /home/test/public_html                   yes test users 0664
+dirs 0775
+upload /home/test /home/test/public_html/*                 yes test users 0664
+dirs 0775
+upload /home/test /home/test/public_html/*/*               yes test users 0664
+dirs 0775
+upload /home/test /home/test/public_html/*/*/*             yes test users 0664
+dirs 0775
+            This is new for versions 2.6.0 and higher.
+        10. The default umask used when a real user uploads a file is
+            wrong
+            The default umask is inherited from inetd. This can be a
+            wrong one. There is a command line parameter -u. Edit the
+            line in inetd.conf to something like ftpd -A -L -l -u077.
+        11. I heard something about 'SITE EXEC' having a security hole
+            In some slackware distributions the _PATH_EXECPATH is set to
+            something like /bin. Recompile wu-ftpd with it set to a
+            special path like /bin/ftp-exec.
+            To test for this hole, type (when logged in as a real user,
+            not anonymous) :
+            ftp> SITE EXEC bash -c id
+            If you get a return with '200-uid=0(root) gid=0(root)' in it,
+            you have the problem.
+        12. How do I make reports more readable ?
+            There are a couple of scripts to make better reports from the
+            xferlog.
+               o dumpxfer processes the xferlog and gives more humanly
+                 readable output
+               o processlog script to run dumpxfer, email you the output
+                 and truncate the log
+            These are available via anonymous ftp via
+            <URL:ftp://tnt.microimages.com/tools/> both need Perl.
+            I (Koos van den Hout) also wrote a Perl script to process the
+            log, mail daily statistics and uploaded files, and create a
+            top most downloaded files. It is available from
+            <URL:ftp://ftp.cetis.hvu.nl/pub/koos/ftplogcheck>
+            iistat generates nice transfer graphs from the xferlog file
+            (and from a lot of other sources). Available from
+            <URL:ftp://ftp.support.lotus.com/pub/utils/InternetServices/
+            iisstat/iisstat.html>
+            Phil Schwan wrote xferstats, available from
+            ftp://ftp.wu-ftpd.org/pub/support/
+            Webalizer, a very good web log analyzer, also supports
+            wu-ftpd xferlog format. Available from
+            <URL:http://www.mrunix.net/webalizer/>
+        13. Incoming file transfers fail with SunOS and an NFS mounted
+            incoming
+            You get errors like :
+Dec 7 11:14:33 ftphost vmunix: NFS write error 13 on host fileserver
+fh 746 1 a0000 5fea7 3b5a1bd8 a0000 2 1e0a6aed
+            That's a known problem. Updating to the latest version is the
+            first help. Other possible solutions :
+               o Have the incoming disk on the ftpserver itself
+               o /etc/ftpaccess sets owner to ftp, group to a restricted
+                 group and mode to 0040 (only group read)
+            Thanks to Peter Glassenbury (pete@cosc.canterbury.ac.nz) for
+            this one.
+        14. Normal ftp clients work, Netscape ftp's fail. So, passive
+            mode doesn't work.
+            Apparantly ftpd needs write permission on ~ftp/dev/tcp in
+            order to operate correctly in passive mode (Solaris). Set it
+            to the same mode as permissions shown by ls -lL /dev/tcp,
+            being 666. Also read the Solaris man page for ftpd for
+            Solaris-specific information. Changed from previous versions
+            Fix:
+cd ~ftp/dev
+chmod 666 tcp
+            Thanks to Simon Rakov (Simon_Rakov@iongate.staff.ichange.com)
+            for this one.
+        15. I made a symbolic link within the anonymous tree and it
+            doesn't work for the anonymous users.
+            Symbolic links are relative to your active root. If you want
+            to access files/directories/diskspace outside your chrooted
+            environment, you'll have to import it using directory
+            loopback mounts (available on at least Solaris) or using NFS
+            mounts (available on most other operating systems but they
+            have a performance impact).
+        16. I want to redirect anonymous users to another machine
+            That's a not-so-well-known ftpaccess feature : just add
+            'guestserver anon.ftp.server.hostname' to your ftpaccess
+            file..
+        17. ftpd stops accepting connections when a lot of connections
+            come in.
+            This is a feature of inetd, not ftpd. Inetd will limit the
+            amount of connections that can be made to a service per
+            minute. Some versions allow to specify this amount in
+            inetd.conf, by specifying it in the nowait flag, like :
+ftp stream tcp nowait.256 root /usr/sbin/ftpd ftpd -a
+            which will allow 256 connections per minute. Check the
+            manpage for inetd.
+        18. Running wu-ftpd on a *large* site
+            Wu-ftpd is now default suited for running on a large site.
+            The patches mentioned below have been included per default.
+            For example sunsite.doc.ic.ac.uk has made some modifications
+            available at
+            <URL:ftp://sunsite.doc.ic.ac.uk/packages/mirror/experimental
+            /wu-2.4.2-upd13.shar>
+            From the notes on those patches:
+DAEMON
+If ftpd called with -D then run as a standalone daemon listing on the
+ftp port.   This can speed up ftpd response as all ftpd then needs to
+do is fork off a copy to handle an incoming request.  Under inetd
+a new copy has to be opened and exec'd.
+
+FILEWHAT
+If SETPROCTITLE doesn't work or if you have so many users that ps
+takes a long time then FILEWHAT keeps the info in a file so that
+ftpcount can just print it.
+        19. Only the first 8 characters of the anonymous username are
+            recieved by the server.
+            This is actually a bug in very old ftp-clients which only
+            send the first 8 characters because the password is limited
+            to 8 characters anyway. Upgrade your client.
+        20. wu-ftpd fails with '500 Illegal PORT Command' under AIX 4.3
+            or Solaris 8
+            Both set services in inetd.conf to ipv6 which wu-ftpd doesn't
+            support yet. Fix: change the protocol from tcp6 to tcp.
+        21. I want to host multiple ftp servers on the same machine
+            At this moment this is only possible with one IP number for
+            each ftp server. So called 'name based virtual hosting' is
+            inherently impossible with the current FTP protocol. wu-ftpd
+            2.6.0 supports this in a somewhat limited extent, BeroFTPD
+            supports it somewhat better, but read the catch:
+            There is a draft for an extension to the ftp protocol named
+            HOST to support virtual hosts like HTTP. But, this is a draft
+            and there are a lot of old ftp clients out there. So do not
+            count on using this.
+        22. I just upgraded and now nobody can log in. It worked before.
+            Did you look in the system log? The daemon will log the
+            reason for the failure there. It helps a lot to know why.
+            Most plausible (at the moment) you're upgrading to the latest
+            version and, if you'd look, the syslog says 'not in any
+            class'. That means you're using the old, unsafe wildcards on
+            your class statements such as the following: class lcl
+            real,guest,anonymous 127.*.*.* The latest versions don't
+            support this notation for security reasons. Use netmask or
+            CIDR instead, as in either of the following: class lcl
+            real,guest,anonymous 127.0.0.0/8 or class lcl
+            real,guest,anonymous 127.0.0.0:255.0.0.0.
+        23. I get disconnected directly from the ftp server.
+            Most probable reason: in inetd.conf the ftp server gets
+            started using tcpd (tcp_wrappers) which fails a security
+            check. Look in the logfiles given from syslog.conf which
+            check fails.
+        24. Mirror breaks with wu-ftpd 2.6.0.
+            Get the patch for mirror to update it. Available from:
+            <URL:ftp://ftp.wu-ftpd.org/pub/support/wu-ftpd-2.6.0-mirror-
+            2.9.patch>
+            In wu-ftpd 2.6.0, some flaws in dealing with the ftp protocol
+            were fixed which broke some clients.
+        25. Logins to the ftp server take a long time, after that things
+            run smooth
+            Possible causes: IDENT (RFC931) lookup is enabled in wu-ftpd.
+            This has a timeout of 10 seconds. If the protocol (port 113)
+            gets blocked by a firewall or suchlike, it will wait for
+            timeout. Or, DNS lookups take a long time because of broken
+            dns.
+        26. ls doesn't show anything except files. It does not show
+            directories and links
+            Some ftp clients improperly use the NLST and LIST commands.
+            NLST was intended to show files only for retrieval using the
+            mget command. LIST was intended to show everything in
+            human-readable form. Earlier versions of the wu-ftpd did not
+            correctly interpret the RFC which defines these commands and
+            many ftp clients were written incorrectly and do not use the
+            definitions in the RFC. Starting wu-ftpd 2.6.0, the
+            interpretation of NLST versus LIST ftp commands has been
+            changed to what is the right interpretation. NLST lists
+            retrievable files for the ftp mget command, LIST lists all
+            files for a human reader. Suggested fix: fix the client
+            software, or train the users to use ls -l (or dir) in a
+            command-line client to get a listing of the files and
+            directories.
+        27. My client hangs at the end of a transfer
+            Starting wu-ftpd 2.6.0, the FTP RFC has been implemented in a
+            stricter way, which breaks some clients. Most visible clients
+            are mirror and squid. More information on which clients and
+            how to update them at
+            <URL:http://www.wu-ftpd.org/broken-clients.html>
+        28. Sometimes ftpd stops working and inetd logs 'ftp/tcp server
+            failing (looping), service terminated'
+            Inetd counts the number of connection occuring within a
+            minute. If that number exceeds some threshold, is assumes the
+            ftp service is broken (or under attack) and keeps getting
+            restarted - and shuts down the service. In most systems, this
+            can be overcome by adding a parameter to the inetd.conf file
+            like .... nowait.400 (400 connections per minute). Check the
+            specific syntax for your Operating system.
+        29. I can't login, in the syslog is: get passwd; pwdb: request
+            not recognized
+            Your /etc/pam.d/ftp file is missing/incomplete, it should
+            contain at least:
+#%PAM-1.0
+auth    required pam_pwdb.so shadow nullok
+auth    required pam_shells.so
+account required pam_pwdb.so
+session required pam_pwdb.so
+            And for denying users in /etc/ftpusers:
+auth       required     /lib/security/pam_listfile.so item=user sense=deny file
+=/etc/ftpusers onerr=succeed
+   12. Other things
+         1. Where is the FTP protocol documented ?
+            RFC959 documents the FTP protocol.
+         2. How can I make my ftp-archive accessible by Email (ftpmail) ?
+            There is a Perl-script collection available named ftpmail. It
+            is available on a lot of ftp-sites (archie for 'ftpmail'),
+            some of which are :
+            <URL:ftp://sunsite.doc.ic.ac.uk/packages/ftpmail/>,
+            nic.funet.fi, ftp.warwick.ac.uk, ftp.loria.fr,
+            ftp.germany.eu.net.
+   13. Credits/miscellanious
+       A number of people deserve credit :
+          + Alexander L. Haiut (alx@cs.bgu.ac.il), creator of the
+            original faq.
+          + *Hobbit* (hobbit@avian.org) for the first security patches to
+            wu-ftpd.
+          + Stan Barber (sob@owlman.academ.com), long time maintainer of
+            wu-ftpd and the patch-archive for wu-ftpd. Not actively
+            maintaining it anymore.
+          + Reinier Post (reinpost@win.tue.nl), for the scripts that
+            maintain this FAQ.
+          + And of course, Bryan O'Connor at Washington University who
+            wrote wu-ftpd in the first place. Warning : Bryan is no
+            longer working on wu-ftpd, or even working at Washington
+            University. Please don't mail him with questions.
+          + And all the people who send me updates for the FAQ or other
+            information.
+       (No chocolate cookies. Yet)
+         1. How do I contact the WU-FTPD Development team
+            Send email to (wuftpd-members@wu-ftpd.org)
+         2. I have a correction / new feature, how do I submit it for the
+            WU-FTPD Development team's consideration
+            The development team prefers context-diffs against the
+            lastest version of the source code. Completely new files may
+            be included separately or as part of the context-diff.
+            If your entire patch is small (less than 25,000 bytes) you
+            may send it via email, with a brief description of your
+            change, to wuftpd-members@wu-ftpd.org.
+            If your patch or addition is large (over 25,000 bytes) or
+            invloves several files, please create a compressed tar
+            (tar.gz or tar.Z) and upload it to
+            ftp://ftp.wu-ftpd.org/incoming After you have uploaded,
+            please send a brief description of your patchs, along with
+            the name you uploaded it as, to wuftpd-members@wu-ftpd.org.
+         3. I have what I believe to be a critical security problem with
+            the daemon and don't want to talk about it via email. Can I
+            call someone on the telephone
+            Yes, but you had better be right. Be sure you have read all
+            of this FAQ, and all of the documentation which came with the
+            daemon. If you believe you have a problem which effects the
+            security of servers, other than your own, you may contact
+            Gregory A Lundberg at
+        1-800-809-2195 or 1-937-298-5254 (office)
+        1-888-977-5370 or 1-937-299-7653 (home)
+                          1-937-299-8743 (FAX)
+       
+   Last modified : Tue Sep 5 14:53:20 2000
+     _________________________________________________________________
+   
+   Created by : Koos van den Hout (koos@wu-ftpd.org)
+   Email related to this faq: (faq@wu-ftpd.org)
+   Homepage (private/daytime job): http://www.cetis.hvu.nl/~koos/
+   Homepage (my company): http://www.xs4all.nl/~koos/

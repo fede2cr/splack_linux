@@ -1,0 +1,159 @@
+
+This file contains some helpful information if you are having trouble booting
+Linux on your SPARC system.
+
+
+SUPPORTED BOOT METHODS:
+
+   Floppy
+   Network
+   CD-ROM
+
+* Booting the Floppy Disk Images
+
+     This method is being supported so that users without a CD burner can
+     easily boot and install Splack.  Pick the boot disk image appropriate
+     for your system and write that out to a floppy using RAWRITE or dd.  The
+     README file contains more information regarding this.
+
+     There are two root disk images, color1.gz and color2.dsk.  Write these
+     out to seperate floppies.  When the kernel boots and asks for the ramdisk
+     floppy, give it color1.gz.  That will load and then ask for color2.dsk.
+
+     From this point, you can login as root and prepare your hard disk and
+     start installing Splack.
+
+     NOTE:  Floppy installation is not supported, only booting.  So you will
+     still need to have the Splack distribution available via NFS, a CD-ROM,
+     or an existing hard disk partition.  For NFS users, you'll also need the
+     network supplemental disk.  Be sure to have a look at the README file for
+     more information.
+
+* Booting the CD-ROM
+
+     This is probably the easiest method.  The ISO9660 image for Splack
+     is setup to detect your architecture and then load the correct kernel.
+     Save yourself some time and just use the prebuilt ISO images.
+
+     Burn the disc and then pop it in your drive.  Boot it by typing "boot
+     cdrom" at the ok prompt.  Hit Stop-A (also called L1-A) to get to the
+     ok prompt.  If your CD-ROM was not standard on your Sun, you may have
+     to actually specify the device to boot ("cdrom" is an alias in the
+     PROM to SCSI device ID 6).  It's easy enough.  See the OPENBOOT.TXT file
+     for some help using the OpenBoot PROM on your Sun.
+
+     NOTE:  If you are using an older Sun system, specifically a sun4c system,
+     you should burn your disc at 2x.  Most of the CD-ROM drives on sun4c
+     systems have trouble reading CD-R discs that were recorded at speeds
+     higher than 2x.
+
+* Booting over the Network
+
+     This will also involve either a CD-ROM containing the actual Splack
+     packages or an NFS export from your main file server.  The booting step
+     is done using TFTP.  I will explain how to set that up on a Splack
+     machine below.  First, the easy way:
+
+     (1)  Take the Splack CD to an installed Linux box (the tftpconfig 
+          script hasn't been modified to work on other operating systems).
+          One that will serve as our boot server.  Mount the CD there.
+
+     (2)  Change to /images on the CD and run "./tftpconfig".  Follow the
+          instructions.
+
+     (3)  Done!
+
+
+     The hard way:
+
+     (1)  Enable the in.tftpd server.  Edit /etc/inetd.conf and uncomment
+          the "tftp" line.  Save and quit the editor.
+
+     (2)  Load the RARP kernel module:
+
+             /sbin/modprobe rarp
+
+          This module is in the modules.tgz package on the Intel platform, so
+          make sure you've installed that.  If you rebuilt your kernel, make
+          sure you built RARP support either into the kernel or as a module.
+
+     (3)  Populate the RARP table with the information for your Sun machine.
+          All you need is the MAC address of the Sun (displayed when you
+          turn it on) and the IP address you want to assign it.  Here's an
+          example.  Suppose I have an system with a MAC address of
+          08:00:20:C0:4C:51 and I want it to have an IP address of 
+          192.168.1.14.  I need to run these commands on my boot server:
+
+             /sbin/rarp -s 192.168.1.14 08:00:20:C0:4C:51
+             /sbin/arp -s 192.168.1.14 08:00:20:C0:4C:51
+
+     (4)  Make the /tftpboot directory.  This is where we will place the
+          boot image that the server will pass along to the SPARC.
+
+     (5)  Select the tftp image for your system from the /tftpboot directory.
+          The README file there will explain the available images.  For my
+          example, I am using the tftp-sun4u.img file.
+
+     (6)  Get the hexidecimal representation of the IP address you will have
+          the Sun system using.  You can use something like the following
+	  awk script:
+
+          $ awk -v IP=$IPADDR 'BEGIN{split(IP,a,".");printf("%02X%02X%02X%02X\n",a[1],a[2],a[3],a[4])}'
+
+	  And then you will get something like "C0A8010E".
+
+     (7)  Copy the tftp image you select to /tftpboot/<hex ip address>.  So
+          my example, I'd do:
+
+             cp tftp-sun4u.img /tftpboot/C0A8010E
+
+          If you have a sun4c/d/m system, then you will need to add ".SUN4x"
+          to the end of the filename in /tftpboot, where "x" is C, D, or M
+          for the architechture you have.  For example, the proper filename
+          for a SPARCstation 5 would be:
+
+             /tftpboot/C0A8010E.SUN4M
+
+          UltraSPARC (sun4u) systems do not need the ".SUN4x" extension on
+          the boot file.
+
+     (8)  Send SIGHUP to inetd by typing "killall -HUP inetd".
+
+
+     With those easy steps out of the way, you can move over to the Sun and
+     fire it up.  Drop to the PROM ok prompt and type "boot net".
+
+
+MACHINES KNOWN TO BOOT AND RUN SPLACK:
+
+   The following is a list of machines that have been verified to successfully
+   boot, install, and run (by 'run' I mean login and do normal userland stuff)
+   Splack.  If you are using a machine that isn't on this list and
+   can verify that Splack works on it, send me an email so I can get
+   it added.
+
+   sun4c:
+   - Sun SPARCstation IPC
+   - Sun SPARCstation 2
+
+   sun4m:
+   - Sun SPARCstation 4
+   - Sun SPARCstation 5
+   - Sun SPARCstation 10 (TMS390 CPU)
+   - Sun SPARCstation 20
+
+   sun4u:
+   - Sun Ultra 1/170E
+   - Sun Ultra 2
+   - Sun Ultra 5 (Model 360)
+   - Sun Ultra 10
+   - Sun Ultra 60 (single and dual CPU models)
+   - Sun Ultra Enterprise 1
+
+
+Good luck!
+
+-- 
+Alvaro Figueroa
+fede2@fuerzag.ulatina.ac.cr
+

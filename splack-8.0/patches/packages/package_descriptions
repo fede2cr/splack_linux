@@ -1,0 +1,242 @@
+apache: apache (The Apache HTTP Server)
+apache:
+apache: Apache is an HTTP server designed as a plug-in replacement for the
+apache: NCSA HTTP server.  It fixes numerous bugs in the NCSA server and
+apache: includes many frequently requested new features, and has an API which
+apache: allows it to be extended to meet users' needs more easily.
+apache:
+apache: Apache is the most popular web server in the known universe; over
+apache: half of the servers on the Internet are running Apache or one of
+apache: its variants.
+apache:
+mod_ssl: mod_ssl (Apache module for SSL)
+mod_ssl:
+mod_ssl: mod_ssl provides provides strong cryptography for the Apache web
+mod_ssl: server via the Secure Sockets Layer (SSL v2/v3) and Transport Layer
+mod_ssl: Security (TLS v1).  It is based on OpenSSL and provides support for
+mod_ssl: all major security needs through HTTP.
+mod_ssl:
+mod_ssl: mod_ssl is written by Ralf S. Engelschall.
+mod_ssl:
+mod_ssl:
+mod_ssl:
+glibc: glibc (GNU C libraries)
+glibc:
+glibc: This package contains the GNU C libraries and header files.  The GNU
+glibc: C library was written originally by Roland McGrath, and is currently
+glibc: maintained by Ulrich Drepper.  Some parts of the library were
+glibc: contributed or worked on by other people.
+glibc:
+glibc: You'll need this package to compile programs.
+glibc:
+glibc:
+glibc:
+glibcso: glibc-solibs (shared GNU C libraries)
+glibcso:
+glibcso: This package contains the shared libraries, binaries, and support
+glibcso: files required to run most Linux applications linked with glibc.
+glibcso:
+glibcso:
+glibcso:
+glibcso:
+glibcso:
+glibcso:
+glibcso:
+openssl: openssl (Secure Sockets Layer toolkit)
+openssl:
+openssl: The OpenSSL certificate management tool and the shared libraries that
+openssl: provide various encryption and decryption algorithms and protocols.
+openssl:
+openssl: This product includes software developed by the OpenSSL Project for
+openssl: use in the OpenSSL Toolkit (http://www.openssl.org).  This product
+openssl: includes cryptographic software written by Eric Young
+openssl: (eay@cryptsoft.com).  This product includes software written by Tim
+openssl: Hudson (tjh@cryptsoft.com).
+openssl:
+ossllibs: openssl-solibs (OpenSSL shared libraries)
+ossllibs:
+ossllibs: These shared libraries provide encryption routines required by
+ossllibs: programs such as openssh.  They are also used by KDE's Konqueror web
+ossllibs: browser to provide secure web connections.
+ossllibs:
+ossllibs: This product includes software developed by the OpenSSL Project for
+ossllibs: use in the OpenSSL Toolkit (http://www.openssl.org).  This product
+ossllibs: includes cryptographic software written by Eric Young
+ossllibs: (eay@cryptsoft.com).  This product includes software written by Tim
+ossllibs: Hudson (tjh@cryptsoft.com).
+openssh: openssh (Secure Shell daemon and clients)
+openssh:
+openssh: ssh (Secure Shell) is a program for logging into a remote machine and
+openssh: for executing commands on a remote machine.  It is intended to replace
+openssh: rlogin and rsh, and provide secure encrypted communications between
+openssh: two untrusted hosts over an insecure network.  sshd (SSH Daemon) is
+openssh: the daemon program for ssh.  OpenSSH is based on the last free version
+openssh: of Tatu Ylonen's SSH, further enhanced and cleaned up by Aaron
+openssh: Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo de Raadt, and
+openssh: Dug Song.  It has a homepage at http://www.openssh.com/
+openssh:
+cvs:      cvs-1.11.1p1 - Concurrent Versions System
+cvs:
+cvs:      CVS is a version control system, which allows you to keep old versions
+cvs:      of files (usually source code), keep a log of who, when, and why
+cvs:      changes occurred, etc., like RCS or SCCS.  It handles multiple
+cvs:      developers, multiple directories, triggers to enable/log/control
+cvs:      various operations, and can work over a wide area network.
+cvs:
+cvs:      Some of the people who have worked on CVS include:  Dick Grune,
+cvs:      Brian Berliner, Jeff Polk, and others too numerous to mention.
+cvs:
+zlib:     zlib-1.1.4 (compression library)
+zlib:
+zlib:     zlib is a general purpose thread safe data compression library.  The
+zlib:     data format used by the zlib library is described by RFCs 1950 to
+zlib:     1952 in the files ftp://ds.internic.net/rfc/rfc1950.txt (zlib format)
+zlib:     rfc1951.txt (deflate format) and rfc1952.txt (gzip format).
+zlib:
+zlib:   
+zlib:
+zlib:
+zlib:
+mod_php:  php-4.1.2
+mod_php:
+mod_php:  PHP is an HTML-embedded scripting language.  It shares syntax
+mod_php:  characteristics with C, Java, and Perl.  The primary objective
+mod_php:  behind this language is to make a fast and easy-to-use scripting
+mod_php:  language for dynamic web sites.
+mod_php:
+mod_php:  More information can be found online at http://www.php.net/
+mod_php:
+mod_php:
+mod_php:
+tcpip1:   TCP/IP networking programs and support files.
+tcpip1:
+tcpip1:   This is a basic set of TCP/IP utilities for Linux.  Some of these were
+tcpip1:   written from scratch and some were ported from various sources such as
+tcpip1:   BSD.  Some of the people who helped write and/or port this code
+tcpip1:   include:  Florian  La Roche,  Alan Cox,  Fred N. van Kempen,  H.J. Lu,
+tcpip1:   Donald J. Becker,  Rick Sladkey,  Mark Shand,  Orest Zborowski,
+tcpip1:   Johannes Stille,  Linus Torvalds,  David A. Holland,  and Olaf Kirch.
+tcpip1:
+tcpip1:
+tcpip1:
+procmail: The procmail mail processing program. (v3.21 2001/06/29)
+procmail:
+procmail: Can be used to create mail-servers, mailing lists, sort your incoming
+procmail: mail into separate folders/files (real convenient when subscribing to
+procmail: one or more mailing lists or for prioritising your mail), preprocess
+procmail: your mail, start any programs upon mail arrival (e.g. to generate
+procmail: different chimes on your workstation for different types of mail) or
+procmail: selectively forward certain incoming mail automatically to someone.
+procmail:
+procmail: The author of procmail is Stephen R. van den Berg.
+procmail:
+sendmail: sendmail 8.11.6.
+sendmail:
+sendmail: Eric Allman's mail transport agent. The _Unix System Administration
+sendmail: Handbook_ calls sendmail 'The most complex and complete mail delivery
+sendmail: system in common use...'
+sendmail:
+sendmail: Ready-made configuration files are included for systems connected by
+sendmail: TCP/IP (with or without a nameserver) and for systems using UUCP.
+sendmail:
+sendmail: procmail is included as a local mail agent.
+sendmail:
+smailcfg: Configuration files for sendmail.
+smailcfg:
+smailcfg: These files are used to create sendmail.cf configuration files.  The
+smailcfg: m4 macro processor (on the D series of disks) is also required in
+smailcfg: order to make use of these files. 
+smailcfg:
+smailcfg: These files and the documentation in /usr/src/sendmail should make it
+smailcfg: possible to support virtually any mail configuration.  NOTE: you
+smailcfg: probably won't need this package if you're planning to use one of the
+smailcfg: sendmail.cf samples included in the sendmail package.
+smailcfg:
+wuftpd:   wu-ftpd-2.6.2
+wuftpd:
+wuftpd:   wu-ftpd is a replacement ftp server for Un*x systems.  Besides
+wuftpd:   supporting the ftp protocol defined in RFC 959, it adds the following
+wuftpd:   features:  logging of transfers, logging of commands, on the fly
+wuftpd:   compression and archiving, classification of users on type and
+wuftpd:   location, per class limits, per directory upload permissions, 
+wuftpd:   restricted guest accounts, system wide and per directory messages,
+wuftpd:   directory alias, cdpath, filename filter, and virtual host support.
+wuftpd:
+wuftpd:
+mutt:     The mutt mail client v1.2.5.1.
+mutt:
+mutt:     Mutt is a small but very powerful text-based MIME mail client.  Mutt
+mutt:     is highly configurable, and is well suited to the mail power user with
+mutt:     advanced features like key bindings, keyboard macros, mail threading,
+mutt:     regular expression searches and a powerful pattern matching language
+mutt:     for selecting groups of messages.
+mutt:
+mutt:
+mutt:
+mutt:
+pine: Pine version 4.44
+pine: 
+pine: A menu driven user mail program. Originally based on Elm (Pine Is
+pine: No-longer Elm), but with many additional features that make it
+pine: easier to use. Also contains pilot (a simple file manager) and
+pine: pico (an easy to use text editor).
+pine: 
+pine: 
+pine: 
+pine: 
+pine: 
+imapd: imapd (IMAP4rev1 2001.315 from pine4.44)
+imapd: 
+imapd: /sbin/ipop3d and /sbin/imapd are servers supporting the POP3 and
+imapd: IMAP remote mail access protocols. They allow users to download 
+imapd: mail from your Linux system for remote viewing.
+imapd: 
+imapd: 
+imapd: 
+imapd: 
+imapd: 
+imapd:
+at:       at
+at:
+at:       at and batch read commands from standard input or a specified file
+at:       which are to be executed at a later time using /bin/sh.
+at:
+at:
+at:
+at:
+at:
+at:
+at:
+sudo:     sudo
+sudo:
+sudo:     'sudo' is a command that allows users to execute some commands as 
+sudo:     root.  The /etc/sudoers file (edited with 'visudo') specifies which
+sudo:     users have access to sudo and which commands they can run.  'sudo' 
+sudo:     logs all its activities to /var/log/ so the system administrator
+sudo:     can keep an eye on things.
+sudo:
+sudo:
+sudo:
+sudo:
+xchat:    xchat
+xchat:
+xchat:    X-Chat is yet another IRC client for the X Window System, using the
+xchat:    GTK+ toolkit. It is pretty easy to use compared to the other GTK+ IRC
+xchat:    clients and the interface is quite nicely designed.
+xchat:
+xchat:
+xchat:
+xchat:
+xchat:
+xchat:
+rsync:    rsync-2.5.4
+rsync:
+rsync:    rsync is a replacement for rcp that has many more features.  It
+rsync:    uses the "rsync algorithm" which provides a very fast method for
+rsync:    bringing remote files into sync.  It does this by sending just the
+rsync:    differences in the files across the link, without requiring that both
+rsync:    sets of files are present at one of the ends of the link beforehand.
+rsync:
+rsync:    rsync was written by Andrew Tridgell and Paul Mackerras.
+rsync:
+rsync:

@@ -1,0 +1,121 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sendmail
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_sendmail.tar.gz
+
+echo "+=================+"
+echo "| sendmail.8.11.6 |"
+echo "+=================+"
+OSCPU="`uname -srm | tr ' ' '.'`"
+cd $TMP
+tar xzvf $CWD/sendmail.8.11.6.tar.gz
+cd sendmail-8.11.6
+
+# Patch from sendmail for CA-2003-07:  Remote Buffer Overflow in Sendmail
+cat $CWD/sendmail.8.11.6.security.cr.patch | patch -p0 --verbose --backup --suffix=.orig
+
+# 8.11.6p2 security patch from sendmail.
+( cd sendmail
+cat $CWD/prescan.8.11.6.patch | patch -p0 --verbose --backup --suffix=.orig
+)
+
+# Jan Rafaj's patches to allow non-suid sendmail.  If you're
+# interested in this, uncomment and recompile.
+## Allow sendmail to open file in "mqueue" dir, even if its sgid != 0
+#zcat $CWD/sendmail-mqueue_notworldwritable.diff.gz | patch -p0
+#zcat $CWD/sendmail-no_stupid_ugid_check.diff.gz | patch -p0
+
+# Build .cf files for Linux:
+zcat $CWD/sendmail.mc.diff.gz | patch -p1 --backup
+cd $TMP/sendmail-8.11.6/cf/cf
+cp linux.uucp.mc config.mc
+sh Build config.cf
+mv config.cf $PKG/usr/src/sendmail/linux.uucp.cf
+cp linux.smtp.mc config.mc
+sh Build config.cf
+mv config.cf $PKG/usr/src/sendmail/linux.smtp.cf
+#cp linux.smtp-rbl.mc config.mc
+#sh Build config.cf
+#mv config.cf $PKG/usr/src/sendmail/linux.smtp-rbl.cf
+#cp linux.smtp-rbl+.mc config.mc
+#sh Build config.cf
+#mv config.cf $PKG/usr/src/sendmail/linux.smtp-rbl+.cf
+cd $TMP/sendmail-8.11.6
+# make
+sh Build
+cat sendmail/mailq.1 | gzip -9c > $PKG/usr/man/man1/mailq.1.gz
+cat sendmail/newaliases.1 | gzip -9c > $PKG/usr/man/man1/newaliases.1.gz
+wget -N -k -r http://www.sendmail.org/faq/faq.txt
+cp -a www.sendmail.org/faq/faq.txt $PKG/usr/doc/sendmail
+cp -a FAQ INSTALL KNOWNBUGS LICENSE PGPKEYS README RELEASE_NOTES $PKG/usr/doc/sendmail
+( cd doc ; cp -a op $PKG/usr/doc/sendmail )
+( cd $PKG/usr/doc/sendmail ; chown -R root.root . ; find . -type d -exec chmod 755 {} \; ; find . -type f -exec chmod 644 {} \; )
+cd obj.$OSCPU/sendmail
+strip sendmail
+cat sendmail > $PKG/usr/sbin/sendmail.new
+cat aliases.5 | gzip -9c > $PKG/usr/man/man5/aliases.5.gz
+cat sendmail.8 | gzip -9c > $PKG/usr/man/man8/sendmail.8.gz
+cat statistics > $PKG/etc/mail/statistics
+cat ../../sendmail/helpfile > $PKG/etc/mail/helpfile
+cd ../makemap
+strip makemap
+cat makemap > $PKG/usr/sbin/makemap
+cat makemap.8 | gzip -9c > $PKG/usr/man/man8/makemap.8.gz
+cd ../mailstats
+strip mailstats
+cat mailstats > $PKG/usr/sbin/mailstats
+cat mailstats.8 | gzip -9c > $PKG/usr/man/man8/mailstats.8.gz
+cd ../praliases
+strip praliases
+cat praliases > $PKG/usr/bin/praliases
+cat praliases.8 | gzip -9c > $PKG/usr/man/man8/praliases.8.gz
+cd ../rmail
+strip rmail
+cat rmail > $PKG/usr/bin/rmail
+cat rmail.8 | gzip -9c > $PKG/usr/man/man8/rmail.8.gz
+cd ../smrsh
+strip smrsh
+cat smrsh > $PKG/usr/sbin/smrsh
+cat smrsh.8 | gzip -9c > $PKG/usr/man/man8/smrsh.8.gz
+cd ../mail.local
+strip mail.local
+cat mail.local > $PKG/usr/sbin/mail.local
+cat mail.local.8 | gzip -9c > $PKG/usr/man/man8/mail.local.8.gz
+cd ../vacation
+strip vacation
+cat vacation > $PKG/usr/bin/vacation
+cat vacation.1 | gzip -9c > $PKG/usr/man/man1/vacation.1.gz
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/sendmail.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+## Clean up the extra stuff:
+#if [ "$1" = "--cleanup" ]; then
+#  rm -rf $TMP/sendmail-8.11.6
+#  rm -rf $PKG
+#fi

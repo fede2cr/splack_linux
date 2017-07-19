@@ -1,0 +1,136 @@
+#!/bin/sh
+
+CWD=`pwd`
+
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-mod_php
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_mod_php.tar.gz
+
+# compile a static gd that we can link into php
+cd $TMP
+tar xvzf $CWD/gd-1.8.2.tar.gz
+cd gd-1.8.2
+make
+mkdir lib bin include
+cp libgd.a lib
+cp gd.h gdcache.h gd_io.h gdfontg.h gdfontmb.h gdfonts.h gdfontt.h include
+cp pngtogd pngtogd2 gdtopng gd2topng gd2copypal gdparttopng webpng \
+   bdftogd bin
+
+# compile php
+cd $TMP
+tar xvzf $CWD/php-4.1.2.tar.gz
+cd php-4.1.2
+./configure --prefix=/usr \
+            --with-apxs=/usr/sbin/apxs \
+            --with-mod_charset \
+            --enable-force-cgi-redirect \
+            --enable-discard-path \
+            --with-config-file-path=/etc/apache \
+            --enable-safe-mode \
+            --with-openssl \
+            --enable-bcmath \
+            --with-bz2 \
+            --enable-calendar \
+            --enable-ctype \
+            --with-gdbm \
+            --with-db2 \
+            --with-db3 \
+            --enable-dbase \
+            --enable-ftp \
+            --enable-gd-imgstrttf \
+            --with-gd=$TMP/gd-1.8.2 \
+            --with-jpeg-dir=$TMP/gd-1.8.2 \
+            --with-mysql=/usr \
+            --with-xml=shared \
+            --with-mm=/usr \
+            --enable-trans-sid \
+            --enable-shmop \
+            --enable-sockets \
+            --with-regex=php \
+            --enable-sysvsem \
+            --enable-sysvshm \
+            --enable-yp \
+            --enable-memory-limit \
+            --with-tsrm-pthreads \
+            --enable-shared \
+            --disable-debug \
+            --with-zlib=/usr
+            # --with-gmp \ #This is *very* temporal.
+            # --with-readline=/usr  # this is only for the CGI version
+            # --with-ttf    # this links with the shlib, need X for that
+            # --with-java
+            # --with-dom    # requires libxml >= 2.2.7
+
+#Fuck it. I'll use a framework
+make
+#prefix=$PKG make -e install
+
+( cd pear/scripts
+  for i in pear pearize php-config phpextdist phpize phptar; do
+    cat $i > $PKG/usr/bin/$i
+  done
+)
+
+#This will probably be replace by putting a variable into make install
+#A bunch of includes...
+cat acconfig.h > $PKG/usr/include/php/acconfig.h
+cat php_version.h > $PKG/usr/include/php/php_version.h
+
+for i in regex main ext/standard ext/xml Zend TSRM; do
+  for j in $i/*.h; do
+    cat $j > $PKG/usr/include/php/$j
+  done
+done
+
+#Libs know.
+( cd pear
+  for i in Archive Benchmark Cache/Container Cache Console Crypt DB Date File HTML HTTP Image Log Mail Math Net Numbers PEAR Payment Schedule XML .; do
+     for j in $i/*.php; do
+       cat $j > $PKG/usr/lib/php/$j
+     done
+  done
+)
+
+( for i in acinclude.m4 dynlib.m4 build/dynlib.mk build/fastgen.sh build/library.mk build/ltlib.mk build/mkdep.awk pear/pear.m4 build/program.mk build/rules.mk build/rules_common.mk build/rules_pear.mk build/shtool; do
+    cp $i $PKG/usr/lib/php/build/
+  done
+)
+
+cat .libs/libphp4.so > $PKG/usr/libexec/libphp4.so
+
+mkdir -p $PKG/usr/doc/php-4.1.2
+cp -a \
+  CODING_STANDARDS CREDITS EXTENSIONS INSTALL LICENSE NEWS README* \
+  RELEASE_PROCESS TODO* *.txt $PKG/usr/doc/php-4.1.2
+chown -R root.root $PKG/usr/doc/php-4.1.2
+
+mkdir -p $PKG/etc/apache
+cp -a php.ini-dist php.ini-recommended $PKG/etc/apache
+cp -a $CWD/mod_php.conf.example $PKG/etc/apache
+chmod 644 $PKG/etc/apache/*
+chown root.root $PKG/etc/apache/*
+
+mkdir -p $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/mod_php.tgz
+
+if [ "$1" == "--cleanup" ]; then
+   cd $TMP
+   rm -rf gd-1.8.2 php-4.1.2
+fi

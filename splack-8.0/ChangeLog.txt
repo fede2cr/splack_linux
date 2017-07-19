@@ -1,0 +1,955 @@
+Wed Jul 30 18:12:05 CST 2003, fede2
+patches/packages/apache.tgz Rebuilt from SlackBuild. This upgrade takes care
+  of the libmm temp file vulnerability (For detail, see: 
+  http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2002-0658). Other
+  changes on this package include the inclusion of the EAPI patches from
+  mod_ssl-2.8.14_1.3.27, and the rights of /etc/rc.d/rc.httpd set to 644 by
+  default. This last is donde so on full instalations, Apache will NOT start
+  at boot by default. Upgrading to this packaga will also disable starting
+  Apache at boot until you execute chmod 755 /etc/rc.d/rc.httpd.
+  (* Security fix *)
+patches/packages/mod_ssl.tgz:  Upgraded to mod_ssl-2.8.14_1.3.27.
+  Includes RSA blinding fixes, and also fixes a bug in which an
+  off-by-one error in earlier versions of mod_ssl that may allow local users
+  to execute code as the Apache user. (For more information on this last
+  security fix, see:
+  http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2002-0653 )
+  (* Security fix *)
+-----------------------------------
+Wed Jul 30 09:46:09 CST 2003, fede2
+patches/packages/glibc.tgz:  Patched to fix a buffer overflow
+  in glibc's DNS resolver functions that look up network addresses.
+  Another workaround for this problem is to edit /etc/nsswtich.conf changing:
+    networks:       files dns
+  to:
+    networks:       files
+   It also includes the xdrmem_getbytes() fix.
+  (* Security fix *)
+patches/packages/glibcso.tgz:  Patched to fix a buffer
+  overflow in glibc's DNS resolver functions that look up network addresses.
+  (* Security fix *)
+patches/packages/openssl.tgz, osslibs.tgz:  Upgraded to openssl-0.9.7b. This
+  includes patches for the widely publicized timing attacks against SSL. We've
+  seen no evidence that these attacks have occured in the wild (and suspect it
+  to be unlikely), but recommend that sites using SSL upgrade.
+  (* Security fix *)
+patches/packages/openssh.tgz:  Upgraded to openssh-3.6.1p2.
+  This version enables privilege separation by default.  The README.privsep file
+  says this about it:
+
+     Privilege separation, or privsep, is method in OpenSSH by which operations
+     that require root privilege are performed by a separate privileged monitor
+     process.  Its purpose is to prevent privilege escalation by containing
+     corruption to an unprivileged process.  More information is available at:
+       http://www.citi.umich.edu/u/provos/ssh/privsep.html
+
+  Therefore we recommend that all sites running the OpenSSH daemon (sshd,
+  enabled by default in Splack 8.0) upgrade to this new openssh package.
+  After upgrading the package, restart the daemon like this:
+
+  /etc/rc.d/rc.sshd restart
+  (* Security fix *)
+-----------------------------------
+Mon Jul 28 16:48:29 CST 2003, fede2
+patches/source/openssh-3.4p1 removed.
+patches/source/openssh-3.6.1p2 added. Same statement as below.
+-----------------------------------
+Wed Jul 23 12:20:19 CST 2003, fede2
+patches/source/openssl-0.9.6e removed.
+patches/source/openssl-0.9.7b added. Packages will get in as soon as the
+  kernel on the ss20 I'm building packages let me :).
+-----------------------------------
+Fri Jul 18 19:02:38 CST 2003, fede2
+splack/gtk1/gnomlibs.tgz Remove some $TMP stuff that got in. The source
+  will stay as it is, as I don't care for 8.0 that mutch.
+-----------------------------------
+Fri Jul 18 18:45:12 CST 2003, fede2
+patches/packages/openssl.tgz:  Upgraded to openssl-0.9.6e, which
+  fixes 4 potentially remotely exploitable bugs.  For details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2002-0659
+  (* Security fix *)
+patches/packages/ossllibs.tgz:  Upgraded to openssl-0.9.6e,
+  which fixes 4 potentially remotely exploitable bugs.  For details, see:
+    http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2002-0659
+  (* Security fix *)
+-----------------------------------
+Fri Jul 18 11:43:12 CST 2003, fede2
+pasture/ directory removed. I can't find mutch sense in having it, since
+  splack doesn't have older versions.
+-----------------------------------
+Thu May  8 19:11:17 CST 2003, fede2
+Merged in the javastation updates from Chris Newport.
+tftpboot/README.JAVASTATION, tftp-javastation.boot, tftp-javastation.img,
+  tftp-javastation.root.tgz deleted.
+javastation/ directory added.
+-----------------------------------
+Mon Mar  3 15:14:03 CST 2003, fede2
+BOOTING.TXT, CONTRIB-HOWTO.TXT, FAQ.TXT, TODO, scripts/README Misc changes
+such as s/openprojects/freenode/ and such.
+isos/install.iso, isos/checksums.md5 Deleted. Isos will be distributed using
+jigdo from now on.
+-----------------------------------
+Tue Aug 20 13:36:33 CST 2002, fede2
+splack/gtk1/galeon.tgz Rebuilt from SlackBuild.
+splack/gtk1/gtm.tgz Rebuilt from SlackBuild.
+source/gtk/mozilla-gnome/gtm/SlackBuild Modified to compress the man pages.
+patches/source/xchat/SlackBuild minor fixes.
+splack/gtk1/mozilla.tgz Rebuilt from source. 
+-----------------------------------
+Sun Jul 21 16:45:19 CST 2002, fede2
+splack/ap1/screen.tgz Rebuilt from Slackbuild.
+  The screen binary had zero size.
+-----------------------------------
+Sun Jul 7 18:18:00 GMT 2002, crn
+New javastation support, fixup tftpconfig
+tftpboot/README.JAVASTATION, tftpboot/tftpconfig,
+tftpboot/tftp-javastation.img, tftpboot/tftp-javastation-root.tgz
+-----------------------------------
+Mon Jul  8 15:22:30 CST 2002, fede2
+This upload finishes up the base-gnome packages
+  of the gtk series. Please check out the content
+  and funtionality of this packages.
+
+splack/gtk1/gladedev.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gladedev/SlackBuild added.
+splack/gtk1/userdocs.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/userdocs/SlackBuild added.
+splack/gtk1/xalf.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/xalf/SlackBuild added.
+splack/gtk1/sawfish.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/sawfish/SlackBuild added.
+splack/gtk1/repgtk.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/repgtk/SlackBuild added.
+splack/gtk1/librep.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/librep/SlackBuild added.
+splack/gtk1/gmp.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gmp/SlackBuild added.
+splack/gtk1/panelmm.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/panelmm/SlackBuild added.
+splack/gtk1/gnometop.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnometop/SlackBuild added.
+splack/gtk1/ghex.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/ghex/SlackBuild added.
+-----------------------------------
+Thu Jul  4 20:04:45 CST 2002, fede2
+splack/gtk1/ggv.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/ggv/SlackBuild added.
+splack/gtk1/gdm.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gdm/SlackBuild added.
+splack/gtk1/bugbuddy.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/bugbuddy/SlackBuild added.
+-----------------------------------
+Tue Jul  2 17:16:46 CST 2002, fede2
+splack/gtk1/gnomepim.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnomepim/SlackBuild added.
+splack/gtk1/gnomedia.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnomedia/SlackBuild added.
+splack/gtk1/gnogames.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnogames/SlackBuild added.
+splack/gtk1/gnoaudio.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnoaudio/SlackBuild added.
+splack/gtk1/gnoutils.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnoutils/SlackBuild added.
+splack/gtk1/gnpython.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnpython/SlackBuild added.
+splack/gtk1/gnomapps.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnomapps/SlackBuild added.
+splack/gtk1/gnomcore.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnomcore/SlackBuild added.
+splack/gtk1/scrollkp.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/scrollkp/SlackBuild added.
+splack/gtk1/control.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/control/SlackBuild added.
+splack/gtk1/gnomevfs.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnomevfs/SlackBuild added.
+splack/gtk1/gconf.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gconf/SlackBuild added.
+splack/gtk1/libglade.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/libglade/SlackBuild added.
+splack/gtk1/libgtop.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/libgtop/SlackBuild added.
+splack/gtk1/bonobo.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/bonobo/SlackBuild added.
+-----------------------------------
+Mon Jul  1 16:51:51 CST 2002, fede2
+splack/gtk1/gnoprint.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnoprint/SlackBuild added.
+splack/gtk1/gdkpixbf.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gdkpixbuf/SlackBuild added.
+splack/gtk1/oaf.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/oaf/SlackBuild added.
+splack/gtk1/gnomemm.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnomemm/SlackBuild added.
+splack/gtk1/gtkmm.tgz Rebuit from SlackBuild.
+source/gtk/base-gnome/gtkmm/SlackBuild modified to remove the
+  disable-sigctest that kept me worried in my sleep.
+splack/gtk1/lisigc.tgz Rebuilt with a downgraded version of binutils to fix
+  some dynamic reloc problems on sparc with this glibc version and this
+  binutils version.
+splack/gtk1/gnomelibs.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gnomlibs/SlackBuild added.
+splack/gtk1/esound.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/esound/SlackBuild added.
+splack/gtk1/audiofil.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/audiofil/SlackBuild added.
+splack/gtk1/orbit.tgz added.
+source/gtk/base-gnome/orbit/SlackBuild Rebuilt from SlackBuild.
+-----------------------------------
+Sat Jun 29 19:07:49 CST 2002. fede2
+splack/gtk1/libghttp.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/libghttp/SlackBuild added.
+splack/gtk1/libxml1.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/libxml1/SlackBuild added.
+splack/gtk1/gtkeng.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gtkeng/SlackBuild added.
+splack/gtk1/imlib.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/imlib/SlackBuild added.
+splack/gtk1/libungif.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/libungif/SlackBuild added.
+splack/gtk1/gtkmm.tgz
+source/gtk/base-gnome/gtkmm/SlackBuild added.
+splack/gtk1/libsigc++.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/libsigc/SlackBuild added.
+splack/gtk1/gimplibs.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gimplibs/SlackBuild The mpeg_lib.build got in, and
+  got merged with the aalib.build script.
+-----------------------------------
+Sat Jun 29 00:18:11 CST 2002, fede2
+splack/gtk1/gimplibs.tgz Rebuilt from SlackBuild.
+splack/gtk1/gtk+.tgz Rebuilt from SlackBuild.
+splack/gtk1/glib.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/gimplibs/aalib.build added. This file will be latter
+  merged into a SlackBuild.
+source/gtk/base-gnome/gtkplus/SlackBuild added.
+source/gtk/base-gnome/glib/SlackBuild modified to compres the man pages and
+  to handle links properly.
+-----------------------------------
+Fri Jun 28 17:53:57 CST 2002, fede2
+source/gtk/base-gnome/glib/SlackBuild Slightly cleaned up.
+-----------------------------------
+Thu Jun 27 20:14:48 CST 2002, fede2
+splack/gtk1/aaagnome.tgz, glib.tgz Rebuilt from SlackBuild.
+source/gtk/base-gnome/glib/ SlackBuild added.
+splack/gtk1/diskgtk1, install.end, maketag, maketag.ez, tagfile,
+  tagfile.org added.
+splack/gtk1/ The old gnome packages where deleted. They will be slowly
+  replaced.
+-----------------------------------
+Thu Jun 27 11:59:13 CST 2002, fede2
+source/gtk/ All of it's content has been removed and replaced by
+  Slackware's. All of the build scripts are missing, mostly because I'm doing
+  this so that mirrors can get up to date with the sources, for when I upload
+  the gnome packages.
+-----------------------------------
+Thu Jun 27 11:32:37 CST 2002, fede2
+patches/packages/openssh.tgz:  Upgraded to openssh-3.4p1.
+  This version enables privilege separation by default.  The README.privsep file
+  says this about it:
+
+     Privilege separation, or privsep, is method in OpenSSH by which operations
+     that require root privilege are performed by a separate privileged monitor
+     process.  Its purpose is to prevent privilege escalation by containing
+     corruption to an unprivileged process.  More information is available at:
+       http://www.citi.umich.edu/u/provos/ssh/privsep.html
+
+  Note that ISS has released an advisory on OpenSSH (OpenSSH Remote Challenge
+  Vulnerability).  Splack is not affected by this issue, as we have never
+  included AUTH_BSD, S/KEY, or PAM.  Unless at least one of these options is
+  compiled into sshd, it is not vulnerable.  Further note that none of these
+  options are turned on in a default build from source code, so if you have
+  built sshd yourself you should not be vulnerable unless you've enabled one
+  of these options.
+
+  Regardless, the security provided by privsep is unquestionably better.
+  This time we (Splack) were lucky, but next time we might not be.
+  Therefore we recommend that all sites running the OpenSSH daemon (sshd,
+  enabled by default in Splack) upgrade to this new openssh package.
+  After upgrading the package, restart the daemon like this:
+
+  /etc/rc.d/rc.sshd restart
+
+  We would like to thank Theo and the rest of the OpenSSH team for
+  their quick handling of this issue, Niels Provos and Markus Friedl for
+  implementing privsep, and Solar Designer for working out issues with
+  privsep on 2.2 Linux kernels.
+-----------------------------------
+Thu Jun 27 09:52:27 CST 2002, fede2
+patches/packages/apache.tgz:  Upgraded to apache-1.3.26.
+  This fixes the issue described in:
+  "CERT Advisory CA-2002-17 Apache Web Server Chunk Handling Vulnerability"
+  (* Security fix *)
+patches/packages/mod_ssl.tgz:  Upgraded to mod_ssl-2.8.9_1.3.26.
+-----------------------------------
+Wed Jun 26 19:33:46 CST 2002, fede2
+source/n/openssh SlackBuild added.
+splack/n1/openssh.tgz Rebuilt from SlackBuild.
+source/n/apache, mod_ssl Got Slackware's SlackBuilds.
+splack/n1/apache.tgz, mod_ssl.tgz Rebuilt from SlackBuild.
+(This two packages are only added in order to have the same
+ version of the packages that Slackware has.
+ Please, upgrade to the packages in the /patches directory,
+ as this packages's versions include security problems)
+-----------------------------------
+Mon Jun  3 05:36:09 CST 2002, fede2
+docs/Linux-HOWTO/, Linux-mini-HOWTO/, faqs/, linux-doc-project/ Updated to
+  match Slackware's
+docs/linux-2.4.18-rc4/ added.
+source/f/ Directory removed. It doesn't exists on Slackware.
+splack/f1/ It files got updated with Slackware's.
+-----------------------------------
+Mon May 27 07:48:16 CST 2002, fede2
+docs/linux-2.2.21 600 permitions fixed for kernel-docs.txt and proc.txt
+-----------------------------------
+Thu May 23 19:50:00 CST 2002. fede2
+source/d/glibc/nss_db.build s/i386/sparc :)
+splack/d1/ncurses.tgz Rebuilt from SlackBuild.
+source/d/ncurses Source fixed.
+source/k/ linux and lnx24 packages sources updated.
+-----------------------------------
+Wed May 22 13:50:19 CST 2002, fede2
+kernels/sun4u.s/ 2.2.20pre2 directory removed. Added kernel version
+  2.2.21.
+docs/linux-2.2.21 Added.
+docs/linux-2.2.20 Deleted.
+splack/a1/kdb.tgz Rebuilt from SlackBuild.
+sources/a/kdb/ SlackBuild cleanedup a little. Minor fixes. It know
+  includes /etc/rc.d/rc.font.sample.
+-----------------------------------
+Tue May 21 14:41:42 CST 2002, fede2
+splack/ap1/mp3.tgz Rebuilt from SlackBuild.
+source/ap/mp3/_mp3.tar.gz Framework added.
+source/ap/mp3/SlackBuild cleaned.
+splack/ap1/vim.tgz Rebuilt from SlackBuild. Old package was fsckedup.
+splack/a1/util.tgz Rebuilt from SlackBuild.
+sources/a/util/SlackBuild A small typo on some make.
+splack/d1/ncurses.tgz Hardcode broken links fix.
+splack/a1/hdsetup.tgz Rebuilt from SlackBuild.
+sources/a/hdsetup/_hdsetup.tar.gz Permisions fixed for etc/splack-version.
+-----------------------------------
+Sun Apr 28 18:29:02 CST 2002, fede2
+patches/packages/sudo.tgz:  Upgraded to sudo-1.6.6.
+  This version of sudo fixes a security problem whereby a local user may gain
+  root access through corruption of the heap (Off-By-Five).
+  This issue was discovered by Global InterSec LLC, and more information may
+  be found on their web site:
+  http://www.globalintersec.com/adv/sudo-2002041701.txt
+  The discussion on the site indicates that this problem may only be 
+  exploitable on systems that use PAM, which Slackware does not use.
+  However, in the absence of proof, it still seems prudent to upgrade 
+  sudo immediately.
+  (* Security fix *)
+patches/source/sudo-1.6.6 Added.
+patches/source/sudo-1.6.5p1 Removed.
+-----------------------------------
+Sun Apr 21 11:50:53 CST 2002, fede2
+splack/ap1/zsh.tgz Rebuilt from SlackBuild.
+source/ap/zsh Upgraded to zsh-4.0.1.
+splack/ap1/vim.tgz Rebuilt from SlackBuild.
+splack/ap1/workbone.tgz Rebuilt from SlackBuild.
+source/ap/vim/SlackBuild s/i386/sparc/
+splack/ap1/texinfo.tgz Rebuilt from SlackBuild.
+splack/ap1/sc.tgz Rebuilt from SlackBuild.
+TODO I added an entry for a dialog interface for tftpconfig.
+splack/ap1/qouta.tgz Rebuilt from SlackBuild.
+source/d/binutils/SlackBuild fixed link creation.
+source/d/binutils/doinst.sh Removed. It was doing nothing in there.
+-----------------------------------
+Tue Apr 16 11:42:54 CST 2002, fede2
+tftpboot/tftpconfig Is almost a complete rewrite. See internal ChangeLog for
+  more information.
+Sun Apr 14 18:43:11 CST 2002, fede2
+splack/d1/binutils.tgz This includes a quick and dirty fix for some broken
+  links. Source need to be fixed.
+splack/n1/tcpdump.tgz Rebuilt from SlackBuild.
+source/n/tcpdump/ SlackBuild and framework added.
+source/x/xfree/ Initial sources are in there. At this time, they do compile
+properly, but they don't build the package.
+-----------------------------------
+Wed Apr 10 11:03:14 CST 2002, fede2
+modules/2.2.19 has been renamed to 2.2.20.
+-----------------------------------
+Tue Apr  9 19:40:46 CST 2002, fede2
+splack/ap1/screen.tgz Rebuilt from SlackBuild.
+CONTRIBUTE-HOWTO.TXT Comment about how to contact the splack team added.
+splack/ap1/jed.tgz Rebuilt from SlackBuild.
+splack/ap1/ispell.tgz Rebuilt from SlackBuild.
+splack/ap1/a2ps.tgz Rebuilt from SlackBuild.
+splack/ap1/bc.tgz Rebuilt from SlackBuild.
+splack/ap1/ash.tgz Rebuilt from SlackBuild.
+source/ap/SlackBuild Modified to work without a framework.
+splack/ap1/diff.tgz Rebuilt from SlackBuild.
+splack/ap1/diffutils.tgz Removed.
+source/ap/diff/_diff.tar.gz Stripped. I dont know why, but it had the
+  documentation _inside_ it; insted of picking it up from the souce.
+source/ap/diff/SlackBuild modified to copy the documentation where it should
+  be. Cleaned up a little bit, also.
+source/ap/cdrdao/SlackBuild Modified to copy source after making. Also, to
+  compress the manpage.
+kernels/build_sparc_kernels.sh Removed.
+splack/a1/pcitutils.tgz Rebuilt from SlackBuild.
+source/a/pciutils/SlackBuild cleaned up a little bit.
+-----------------------------------
+Tue Apr  9 00:25:06 CST 2002, fede2
+splack/ap1/diskap1, maketag, maketag.ez, tagfile, tagfile.org modified to
+  reflect last change.
+splack/ap1/cdparano.tgz Added, since it has proper name.
+splack/ap1/cdparanoia.tgz Deleted.
+source/ap/cdparano/SlackBuild modified in order to generate a package called
+  cdparano.tgz.
+-----------------------------------
+Mon Apr  8 22:30:55 CST 2002, fede2
+splack/ap1/cdparanoia.tgz Rebuilt from SlackBuild.
+  source/ap/cdparanoia/SlackBuild Modified in order to refer to a .tgz source
+  instead of a .tar.gz one.
+splack/d1/termcap.tgz Aldo I can compile it using its SlackBuild without
+  getting a segfault on every package that is liked to termcap, I did make a
+  hardcode fix to its doints.sh scritp to handle links properly.
+-----------------------------------
+Sat Apr  6 19:08:03 CST 2002, fede2
+kernels/sun4.s/ Updated to 2.2.20.
+splack/a1/reiserfs.tgz Rebuilt from SlackBuild.
+splack/a1/umsprogs.tgz Rebuilt from SlackBuild.
+source/a/umsprogs/SlackBuild fixed to uncompress the correct source file.
+kernels/sun4c.s/ Updated to 2.2.20.
+UPGRADE.TXT Removed. I don't think any one will have troubles with Splack's
+  vertions that had libc5 ;).
+TODO Removed an entry that complained about maketags not working.
+splack/a1/tcsh.tgz Rebuilt from SlackBuild.
+FAQ.TXT Updated Question 12, and added questions 0 and 14. It also has some
+  more s/Slackware/Splack/.
+kernels/VERSION, README.NOW updated acording to this update and the ones
+  that will follow.
+kernels/sun4dm.s/ Updated to 2.2.20.
+splack/a1/hdsetup.tgz Rebuilt.
+source/a/hdsetup/SlackBuild cleaned up.
+source/a/hdsetup/_hdsetup.tar.gz modified to include a more proper
+splack-version (with a link to slackware-version) and add the name which
+splack 8.0 will have on its release.
+splack/a1/diska1 modified to mention silo as version 1.2.5.
+splack/a1/silo.tgz Upgraded to silo-1.2.5.
+source/a/silo/SlackBuild modified to compile packages for the new silo
+  version. Cleaned up a little bit also.
+source/a/silo/silo-1.2.5.tar.bz2 added.
+-----------------------------------
+Thu Apr  4 18:31:22 CST 2002, fede2
+source/a/hdsetup/SlackBuild cleaned up.
+splack/a1/etc.tgz Rebuilt from SlackBuild.
+source/a/etc/SlackBuild cleaned up.
+source/ap/lvm/SlackBuild sparc32 entried removed.
+splack/ap1/jove.tgz Rebuilt from SlackBuild.
+splack/ap1/joe.tgz Rebuilt from SlackBuild.
+docs/linux-2.2.18 Removed.
+docs/linux-2.2.20 Added with its proper content.
+splack/a1/infozip.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Wed Apr  3 16:43:44 CST 2002, fede2
+source/d/termcap/SlackBuild cleaned up a little bit, and modified to include
+  the Makefile links path patch.
+source/d/termcap/link_path.diff.gz added. This patch modifies the Makefile
+  in order to generate a proper link to its libraries.
+-----------------------------------
+Fri Mar 29 00:36:18 CST 2002, fede2
+source/ap/sox/Makefile_links.diff.gz added.
+source/ap/sox/SlackBuild modified in order to compress the man pages and
+  to fix some broken links problems.
+splack/ap1/sox.tgz Rebuilt.
+-----------------------------------
+Sun Mar 24 11:56:58 CST 2002, fede2
+patches/packages/rsync.tgz: Upgraded to 2.5.4 to fix the broken -z option.
+patches/source/ Upgraded to rsync 2.5.4.
+patches/packages/cvs.tgz:  Patched to link to the shared zlib on the system
+  instead of statically linking to the included zlib source.  Also, use mktemp
+  to create files in /tmp files more safely.
+  (* Security fix *)
+-----------------------------------
+Sat Mar 23 19:34:31 CST 2002, fede2
+rootdsk/network.dsk.REAME mention of cfdisk removed. It does not work with
+  Sun Labels, so it cannot be used to install splack.
+-----------------------------------
+Thurs Mar 21 12:13:00 GMT 2002, crn
+More installer fixups, should now install cleanly from CD and
+  from floppy. Serial console installs fixed. Note that vt100
+  compatible terminal is REQUIRED.
+.boot/color-cd.gz, splack/a1/maketag.ez, splack/n1/maketag.ez,
+rootdsks/color1.gz, rootdsks/color2.dsk
+Jon's fix for Sparc10&20 - these will now boot OK from floppy
+but if you need a CD image make your own with .boot/second.ss10-20
+instead of .boot/second.b  WARNING this will not boot on Ultras.
+-----------------------------------
+Thurs Mar 14 10:33:00 GMT 2002, crn
+Numerous installer fixups, should now install cleanly from CD
+  using kbd&screen. X still broken. Serial install not tested.
+rootdsks/network.dsk  floppy image updated to correct kernel.
+.boot/color-cd.gz  many changes.
+splack/*/maketag,maketag.ez  bugfixes
+splack/a1/hdsetup.tgx bugfixes
+splack/n1/tcpip1.tgz, source/n/tcpip1/_tcpip1.tar.gz
+  change order of probing network modules to try standard Sun
+  NICs before addins that can cause problems.
+-----------------------------------
+Thu Mar 14 20:12:15 CST 2002, fede2
+source/d/zlib/SlackBuild Cosmetic fixes.
+patches/packages/zlib.tgz:  Upgraded to zlib-1.1.4.  This fixes a security
+  problem which may introduce vulnerabilities into any program that links with
+  zlib.  Quoting the advisory on zlib.org:
+
+  "Depending upon how and where the zlib routines are called from the given
+   program, the resulting vulnerability may have one or more of the following
+   impacts: denial of service, information leakage, or execution of arbitrary
+   code."
+
+Sites are urged to upgrade the zlib package immediately.
+
+The complete advisory may be found here:
+   http://www.zlib.org/advisory-2002-03-11.txt
+
+(* Security fix *)
+patches/packages/mod_php.tgz:  Upgraded to PHP 4.1.2.
+
+  This fixes several security problems in the POST handling code used for
+  uploading files through forms.  All sites using PHP are urged to upgrade as
+  soon as possible.
+
+  A workaround for securing systems running PHP 4.0.3 or above (which
+includes
+  Slackware 8.0) is to add this directive to the php.ini:
+
+  file_uploads = Off
+
+(* Security fix *)
+-----------------------------------
+Mon Mar 11 19:12:22 CST 2002, fede2
+patches/packages/openssh.tgz:  Upgraded to openssh-3.1p1.
+
+  This fixes a security problem in the openssh package.  All sites running
+  OpenSSH should upgrade immediately.
+
+  All versions of OpenSSH between 2.0 and 3.0.2 contain an off-by-one error
+  in the channel code.  OpenSSH 3.1 and later are not affected.  This bug can
+  be exploited locally by an authenticated user logging into a vulnerable
+  OpenSSH server or by a malicious SSH server attacking a vulnerable OpenSSH
+  client.  This bug was discovered by Joost Pol <joost@pine.nl>
+
+(* Security fix *)
+patches/source/openssh-3.1p1/ added with source, SlackBuild and the hole
+  enchilada.
+-----------------------------------
+Tue Feb 26 16:46:05 CST 2002, fede2
+splack/a1/sysklogd.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Tue Feb 19 17:02:21 CST 2002, fede2
+splack/a1/diska1 modified because sysvinit package description didn't apear.
+-----------------------------------
+Fri Feb  8 19:38:13 CST 2002, fede2
+splack/ap1/mysql.tgz Rebuilt again. There is a bug somewhere... Damn.
+splack/ap1/raidtool.tgz Rebuilt from SlackBuild again, and rename it to
+  raidtool.tgz... Again.
+-----------------------------------
+Sun Feb  3 11:13:45 CST 2002, fede2
+isos/install.iso re-made to include the latest changes. Enjoy :).
+-----------------------------------
+Thu Jan 31 11:41:12 CST 2002, fede2
+patches/packages/rsync.tgz:  Fixed a security hole by upgrading to
+  rsync-2.4.8pre1.  This is the relevant information from the rsync NEWS
+  file:
+
+  SECURITY FIXES:
+
+    * Signedness security patch from Sebastian Krahmer
+      <krahmer@suse.de> -- in some cases we were not sufficiently
+      careful about reading integers from the network.
+
+(* Security fix *)
+-----------------------------------
+Wed Jan 30 18:37:31 CST 2002, fede2
+source/a/procps/SlackBuild cosmetic fixes.
+splack/a1/procps.tgz Rebuilt from SlackBuild.
+splack/a1/txtutils.tgz Rebuilt from SlackBuild.
+splack/a1/modutils.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Mon Jan 28 19:50:55 CST 2002, fede2
+splack/a1/sh_utils.tgz Rebuilt from SlackBuild.
+splack/a1/sysvinit.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Mon Jan 28 09:28:27 CST 2002, fede2
+splack/a1/elvis.tgz Rebuilt from SlackBuild.
+source/a/elvis Framework added and SlackBuild modified.
+-----------------------------------
+Thu Jan 24 01:03:14 CST 2002, fede2
+splack/a1/minicom.tgz Rebuilt from SlackBuild.
+source/a/minicom/ Framework replaced with Slackware's.
+splack/a1/shadow.tgz Rebuilt from SlackBuild.
+splack/a1/textutils.tgz renamed txtutils.tgz which is the proper name. I was
+  also rebuilt from SlackBuild.
+source/a/txtutils/SlackBuild slightly modified to that it won't try to strip
+  every file in the src dir.
+-----------------------------------
+Tue Jan 22 20:19:54 CST 2002, fede2
+splack/ap1/mysql.tgz Rebuilt. I was giving me CRC errors.
+splack/a1/fileutils.tgz renamed fileutls.tgz which is the proper name.
+-----------------------------------
+Tue Jan 22 15:32:58 CST 2002, fede2
+patches/packages/xchat.tgz:  Upgraded to xchat-1.8.7.
+  This fixes a problem where an attacker could execute IRC server commands as
+  the user running xchat.
+(* Security fix *)
+-----------------------------------
+Tue Jan 22 10:20:43 CST 2002, fede2
+patches/packages/at.tgz:  Fixed a buffer overflow.
+(* Security fix *)
+patches/packages/sudo.tgz:  Upgraded to sudo-1.6.5p1.
+  This fixes a vulnerability where the mail system could be exploited.  So
+far,
+  the only working examples of this problem require Postfix to be installed,
+  but it's possible that exploits involving other mailers could emerge.
+(* Security fix *)
+-----------------------------------
+Tue Jan 22 09:15:18 CST 2002, fede2
+splack/a1/cpio.tgz Rebuilt from SlackBuild.
+splack/a1/devs.tgz Rebuilt from SlackBuild.
+splack/a1/devfsd.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Mon Jan 21 23:21:52 CST 2002, fede2
+splack/d1/binutils.tgz Rebuilt from SlackBuild.
+source/d/binutils/SlackBuild Several small but basic fixes. I don't really
+  know how did this SlackBuild passed trough me ;)
+-----------------------------------
+Mon Jan 21 19:18:52 CST 2002, fede2
+splack/a1/reiserfs.tgz Rebuilt from SlackBuild.
+splack/a1/lpr.tgz Rebuilt from SlackBuild.
+source/a/lpr/ Framework added.
+source/d/binutils/SlackBuild very small typo fixed.
+splack/a1/less.tgz Rebuilt from SlackBuild.
+source/a/less/ Framework updaded from Slackware's. lesspipe.sh removed,
+  because it is in the new framework.
+splack/a1/grep.tgz Rebuilt from SlackBuild.
+splack/a1/findutils.tgz renamed to its proper name, find.tgz. find.tgz
+  Rebuilt from SlackBuild.
+source/a/find/ Framework added.
+splack/a1/bin.tgz Rebuilt from SlackBuild.
+source/a/bin/SlackBuild slightly modified so that it doesn't have to build
+  the entire util-linux-2.11b if we only need mount and umount.
+-----------------------------------
+Sun Jan 20 23:38:16 CST 2002, fede2
+source/a/util/ Framework replaced with Slackware's. SlackBuild modified to
+  compile sfdisk.
+source/a/bin/ The source of util-linux-2.11f has been added.
+source/ap/joe/joe-2.9.5.tgz Renamed with the tag.gz extention.
+-----------------------------------
+Mon Jan 14 12:40:56 CST 2002, fede2
+patches/packages/pine.tgz:  Fix a security problem with pine by upgrading
+  to pine4.44.
+
+  More details from the Pine Announcement List:
+    This note is to announce the availability of the Pine Message System
+    version 4.44. The purpose of this release is to fix a security
+    bug with the treatment of quotes in the URL-handling code. The bug
+    allows a malicious sender to embed commands in a URL. This bug is
+    present in all versions of UNIX Pine.
+
+(* Security fix *)
+
+patches/packages/imapd.tgz:  This comes with Pine, so here's the new
+  version of this as well.  Just an upgrade, not a security fix.
+-----------------------------------
+Sat Jan 13 00:33:40 CST 2002, fede2
+splack/a1/ tagfile, tagfile.org s/e2fsprogs/e2fsprog.
+splack/ap1/ maketag, maketag.ez, tagfile, tagfile.org, diskap1
+  s/diffutils/diff, s/raidtools/raidtool.
+splack/ap1/diffutils.tgz deleted. The proper name is diff.tgz
+splack/ap1/diff.tgz Rebuilt from SlackBuild.
+splack/ap1/mt_st.tgz Rebuilt from SlackBuild.
+splack/ap1/sox.tgz Rebuilt from SlackBuild.
+splack/ap1/sudo.tgz Rebuilt from SlackBuild.
+splack/ap1/screen.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Sat Jan 12 05:46:29 CST 2002, fede2
+patches/packages/glibc.tgz, patches/packages/glibcso.tgz:
+  Fixed a buffer overflow in the glob(3) function.  This bug may be
+  exploited through external services that might make use of it, like the
+  port of OpenBSD's FTP server (not included in Slackware, but an example
+  that's known to be affected).  It's highly recommended that internet-
+  connected machines or machines with local users who might try to exploit
+  setuid root binaries be upgraded as soon as possible.
+
+  The glibc patch was obtained from Slackware' sources.
+  
+(* Security fix *)
+-----------------------------------
+Sat Jan 12 03:11:56 CST 2002, fede2
+source/u/egcs64/SlackBuild created. doinst.sh created.
+splack/u1/egcs64.tgz Rebuilt from SlackBuild.
+splack/ap1/mysql.tgz Rebuilt from SlackBuild.
+splack/d1/python.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Thu Jan 10 20:32:12 CST 2002, fede2
+source/n/proftpd/ Sources syncked with Slackware's. SlackBuild patched to
+  work on Splack.
+splack/n1/proftpd.tgz Upgraded to 1.2.2rc3 and rebuilt from SlackBuild.
+splack/n1/diskn1 Patched to refer to this new version of proftpd.
+source/d/python/SlackBuild slightly patched.
+-----------------------------------
+Wed Jan  9 17:26:25 CST 2002, fede2
+source/d/libtiff/SlackBuild fixed.
+splack/d1/libtiff.tgz Rebuilt from SlackBuild.
+source/n/rsync/ SlackBuild and framework added.
+splack/n1/rsync.tgz Rebuilt from SlackBuild.
+splack/a1/tar.tgz Rebuilt from SlackBuild.
+splack/a1/bzip2.tgz Rebuilt from SlackBuild.
+source/a/gzip/SlackBuild Slightly patched to include the docs.
+splack/a1/gzip.tgz Rebuilt from SlackBuild. This sould fix 
+  a couple bugs with the older package and remove the 2G limitation.
+-----------------------------------
+Tue Jan  8 00:50:19 CST 2002, fede2
+patches/packages/mutt.tgz:  Upgraded to mutt-1.2.5.1 to fix a security
+  problem in the address handling code.  Mutt users are urged to upgrade
+  as soon as possible.
+(* Security fix *)
+-----------------------------------
+Tue Jan  8 00:06:28 CST 2002, fede2
+color-cd:SeTkernel, small patch by Christian M. Stamgren.
+-----------------------------------
+Mon Jan  7 08:38:26 GMT 2002, fede2
+splack/a1/maketag Small patch by Christian M. Stamgren.
+splack/a1/maketag, maketag.ez, diska1 patched. s/e2fsprogs/e2fsprog
+splack/ap1/maketag, maketag.ez, diskap1 patched. s/raidtool/raidtools
+-----------------------------------
+Sun Jan  6 00:51:34 CST 2002, fede2
+splack/d1/perl.tgz Rebuilt from SlackBuild.
+splack/d1/egcs.tgz Ownerships at /usr/doc fixed.
+-----------------------------------
+Sat Jan  5 22:27:44 CST 2002, fede2
+splack/d1/gettext.tgz Rebuilt from SlackBuild.
+source/ap/, apsfilter directory renamed apsfilt,
+  diffutils directory renamed diff, ghostscript directory renamed ghostscr,
+  ksh directory renamed ksh93, raidtools directory renamed raidtool.
+source/d/gcc_objs directory renamed gccobjs.
+source/a/, ossllibs link removed, vmlinux directory removed,
+  getty_ps directory renamed getty, fileutils directory renamed fileutls,
+  e2fsprogs directory renamed e2fsprog.
+-----------------------------------
+Thu Jan  3 11:11:53 CST 2002, fede2
+patches/packages/wuftpd.tgz:  This is a wu-ftpd-2.6.2 package to replace
+  the one shipped in /pasture, which has a security hole.  WU-FTPD is not
+  installed on Splack by default, and unless you have some specific
+  reason to need WU-FTPD, we suggest using the default ProFTPD server.
+(* Security fix *)
+-----------------------------------
+Thu Jan  3 11:11:53 CST 2002, fede2
+An input validation error in sendmail has been discovered by Cade Cairns of
+SecurityFocus.  This problem can be exploited by local users to gain root
+access.  It is not exploitable by remote attackers without shell access.
+
+It is recommended that all multiuser sites running sendmail upgrade to these
+new packages:
+
+packages/procmail.tgz:  Upgraded to procmail-3.21.  The ChangeLog mentions
+   these problems, but it's not known how serious they really are:
+               - SECURITY: don't do unsafe things from signal handlers:
+                  - ignore TRAP when terminating because of a signal
+                  - resolve the host and protocol of COMSAT when it is set
+                  - save the absolute path form of $LASTFOLDER for the comsat
+                    message when it is set
+                  - only use the log buffer if it's safe
+packages/sendmail.tgz:  Upgraded to sendmail.8.11.6.  Removed setup for MAPS,
+   since it's no longer a free service.
+packages/smailcfg.tgz:  Upgraded to sendmail.8.11.6 config files.
+
+Detailed information about this security problem may be found here:
+   http://www.securityfocus.com/bid/3163
+(* Security fix *)
+-----------------------------------
+Thu Jan  3 11:11:53 CST 2002, fede2
+An advisory from zen-parse on BugTraq today describes a hole in the netkit-0.17
+telnetd daemon which is used in Splack.  All sites running telnet service are
+advised to upgrade using one of these updated packages as soon as possible.
+packages/tcpip1.tgz:  New version of the tcpip1 package containing a
+   fixed /usr/sbin/in.telnetd.
+patches/telnetd.tgz:  A patch-package containing just the fixed
+   in.telnetd binary (for faster download).
+(* Security fix *)   
+-----------------------------------
+Thu Jan  3 11:11:53 CST 2002, fede2
+/patches/ directory has been added to the Splack repository. The packages
+  that will be under the /splack/ directory *must* have the same versions that
+  the packages of Slackware 8.0 do have. So, the packages under this directory
+  will fix the vulnerabilities that are found on a Slackware 8.0 and on a
+  Splack -current system.
+-----------------------------------
+Mon Dec 31 23:18:30 CST 2001, fede2
+source/ap/oggutils/SlackBuid fixed to properly install vorbis-tools.
+splack/ap1/oggutils.tgz Rebuilt updated and upgraded to 1.0rc1.
+-----------------------------------
+Sun Dec 30 00:58:08 CST 2001, fede2
+.boot/color-cd.gz Patched buy Christian M. Stamgren. s/Slackware/splack,
+  removal of the XV series and other minor bugs.
+isos/install.iso remade with this change on it.
+-----------------------------------
+Fri Dec 14 19:59:07 CST 2001, fede2
+PACKAGES.TXT Patched by Karl Magnus Kolstoe, and me. s/slakware/splack
+  mostly, and adapting it to use the 8.0 package naming style.
+MIRRORS.TXT Patched by Karl Magnus Kolstoe.
+source/ap/raidtool SlackBuild update so it won't include the raid
+  devices that are already in devs.tgz
+splack/ap1/raidtool.tgz Created from SlackBuild.
+splack/ap1/raidtools.tgz Delete. The proper name is raidtool.tgz
+-----------------------------------
+Thu Dec 13 19:37:30 CST 2001, fede2
+source/a/cdrtools SlackBuild updated.
+splack/ap1/cdrtools.tgz Rebuil from SlackBuild.
+source/a/silo SlackBuild updated and upgraded to silo 1.2.4
+splack/a1/silo.tgz Rebuilt from SlackBuild.
+source/d/glibc SlackBuild modified.
+splack/d1/glibc.tgz, splack/d1/glocales.tgz,
+splack/a1/glibcso.tgz Packages rebuilt from SlackBuild.
+  TODO, BOOTING.TXT, README.TXT, and scripts/README patched 
+  by Karl Magnus Kolstoe. Mostly s/Slackware/Splack/ and some typos.
+  these files still needs auditing.
+-----------------------------------
+Tue Dec 11 16:49:51 GMT 2001, fede2
+source/a/e2fsprogs upgraded to e2fsprogs-1.22.
+splack/a1/e2fsprog.tgz created from SlackBuild.
+splack/a1/e2fsprogs.tgz deleted. The proper name is e2fsprog.tgz.
+splack/n1/bind.tgz rebuilt from SlackBuild.
+source/n/bind SlackBuild created.
+-----------------------------------
+Thu Dec  6 13:00:59 GMT 2001, fede2
+splack/d1/egcs.tgz rebuilt from SlackBuild.
+splack/a1/bash1.tgz rebuilt from SlackBuild.
+-----------------------------------
+Mon Dec  3 16:53:00 CST 2001, fede2
+splack/a1/bash.tgz rebuilt from SlackBuild.
+-----------------------------------
+Thu Nov 29 18:25:14 CST 2001, fede2
+splack/d1/ gcc.tgz, gcc_g77.tgz, gcc_objc.tgz,
+contrib/gcc-java-chill/ gccchill.tgz, gcc-java.tgz rebuilt from SlackBuild.
+source/d/SlackBuild changed.
+splack/a1/aaa_base.tgz rebuilt from SlackBuild.
+-----------------------------------
+Wed Nov 28 18:08:00 CST 2001, fede2
+source/d/egcs/, splack/d1/egcs.tgz updated.
+tftpboot/tftpconfig, BOOTING.TXT final clean ups. 
+  Thanks to Alf Delgado on this.
+-----------------------------------
+Tue Nov 27 17:42:16 CST 2001, fede2
+source/d/libgr SlackBuild script cleaned up.
+  TODO updated.
+README.TXT BOOTING.TXT updated.
+tftpboot/tftpconfig cleaned up a little bit.
+-----------------------------------
+Mon Nov 26 19:25:48 CST 2001, fede2
+source/a/ bin, floppy, minicom, pcmcia, sparcutils, 
+source/ap/ cdrdao, enscript, ghostscript,  rpm, 
+source/d/ binutils, gdb, gcc, libtiff, libtool, perl sources modified.
+splack/d1/termcap.tgz fixed.
+splack/d1/binutils.tgz, source/d/binutils/doinst.sh fixed.
+splack/ap1/rpm.tgz, source/ap/rpm/doinst.sh fixed.
+-----------------------------------
+Wed Nov 14 09:54:45 GMT 2001, fede2
+source/d/ The same thing.
+Changelog.slackware-current.txt removed.
+-----------------------------------
+Sun Nov 11 16:59:40 GMT 2001, fede2
+source/ap/ The rest of the series is done.
+-----------------------------------
+Thu Nov  8 19:21:13 GMT 2001, fede2
+source/ap/ a2ps, apsfilter, ash, bc, cdparano, cdrdao,
+  cdrtools, diffutils, enscript, ghostscript, groff, gsfonts
+  ispell, jed, joe, jove in sync with Ryan's.
+-----------------------------------
+Wed Nov  7 18:39:48 GMT 2001, fede2
+source/a/ The rest of the packages of the a series now
+  have the Ryan Veety's SlackBuilds.
+-----------------------------------
+Mon Nov  5 18:48:58 GMT 2001, fede2
+source/a/ Synced some of the packages in order, with the
+  SlackBuilds Ryan Veety sent me. They are not well tested,
+  and the packages that are in splack/a/ are not made from
+  this SlackBuilds *yet*.
+aaa_base, bash, bash1, bin, bzip2, cpio, devfsd, devs,
+e2fsprogs, elvis, etc, fileutils, find, floppy updated.
+-----------------------------------
+Sat Nov  3 17:47:35 GMT 2001, fede2
+isos/install.iso uploaded. It know has a working installer, 
+  and it is not a mini-install image any more.
+isos/checksums.md5 created. It contains the md5 signatures
+  of the iso images that will be on that directory.
+-----------------------------------
+Sat Oct 20 2001 crn
+splack/ap1/rpm.tgz, .boot/color-cd.tgz more silly install bugs fixed.
+Copied 2.2.20pre2 kernels to .boot
+A working mini-iso is now in test and looks good
+  on my Ultra5, Watch this space.
+-----------------------------------
+Thurs Oct 18 2001 crn
+splack.a1/diska1, splack/a1/bin.tgz more silly install bugs fixed.
+-----------------------------------
+Mon Oct 15 18:56:35 CST 2001, fede2
+d1/p2c.tgz, d1/rcs.tgz upgraded
+-----------------------------------
+Mon Oct 15, crn
+ap1/diskap1, d1/diskd1, n1/diskn1 fixed typos
+a1/floppy.tgz patched errors in doinst.sh
+Verified all package installs in a1
+We are now on the path to an installable distribution.
+-----------------------------------
+Sun Oct 14 17:24:20 CST 2001, fede2
+d1/ncurses.tgz upgraded
+-----------------------------------
+Sun Oct  14, crn
+splack-current/splack/*/disk*, tagfile, tagfile.org
+revisions for splack installer.
+-----------------------------------
+Mon Oct  8 18:49:21 CST 2001, fede2
+d1/gettext.tgz, d1/gmake.tgz, d1/jpeg6.tgz, d1/libgr.tgz, d1/libpng.tgz,
+d1/libtool.tgz, d1/m4.tgz Rebuilt from SlackBuild.
+-----------------------------------
+Tue Oct  2 17:03:46 CST 2001, fede2
+d1/autoconf.tgz, d1/automake.tgz, d1/binutils.tgz, d1/bison.tgz,
+d1/byacc.tgz, d1/cvs.tgz, d1/flex.tgz Rebuilt from SlackBuild.
+XView packages and source deleted. We still don't have permition from Sun to
+  distribute this.
+-----------------------------------
+Sun Sep 30 18:14:49 CST 2001, fede2
+MIRRORS.TXT added.
+-----------------------------------
+Mon Sep 10 15:53:29 CST 2001, fede2
+CONTRIBUTE-HOWTO patched by Jeffrey Esquivel
+-----------------------------------
+Tue Jul 24 16:04:25 GMT 2001, fede2
+/tftpboot/tftpconfig Need for addr removed.
+-----------------------------------
+Sun Jul 22 15:53:49 GMT 2001, fede2
+Added /scripts, a directory that will contain scripts that will assist users
+  and developers in maintainig some of the files on the splack dir.
+-----------------------------------
+Sat Jul 21 16:03:19 GMT 2001, fede2
+Packages on the splack dir have been renamed to fit the <package>-<arch>.tgz
+  package naming scheme.
+-----------------------------------
+Wed Jul 18 11:47:20 GMT 2001, fede2
+Removed packages for Java and XView. Slackware had permits from Sun
+  Microsystems to distribute this software. We don't.
+-----------------------------------
+Tue Jul 17 17:20:51 GMT 2001, fede2
+Official name "Splack Linux" adopted!
+Information about "Arena Web Browser" removed from COPYRIGHT.TXT. Arena Web
+Browser was included a _long_ time ago in slackware.
+-----------------------------------
+Mon Jul 16 19:43:27 GMT 2001, fede2
+CONTRIBUTE-HOWTO.TXT added.
+Description of package versions erased from README73.TXT. This file also got
+  renamed to README.TXT. I won't have internal versions on current.
+TODO added.
+Two mayor policies of the proyect defined. Not to use protopkg, and to use
+  package-arch.tgz naming scheme.
+-----------------------------------
+Sun Jul 15 14:35:08 GMT 2001, fede2
+Still s/slackware/sunlinux/g. Erasing, adding, modifying the original
+  documentation writen by David Cantrell.
+-----------------------------------
+Sat Jul 14 08:37:22 CST 2001, fede2
+Official start of the proyect!
+The first bit of documentation added. Original Changelog.txt moved to
+ChangeLog.slackware-sparc.txt. ../README added. 
+BTW, English is not my nathal lenguage. If any typos, please let me know. ;)

@@ -1,0 +1,91 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG1=$TMP/package-pine
+PKG2=$TMP/package-imapd
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG1 ]; then
+  mkdir -p $PKG1 # place for the package to be built
+fi
+if [ ! -d $PKG2 ]; then
+  mkdir -p $PKG2 # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG1
+explodepkg $CWD/_pine.tar.gz
+cd $PKG2
+explodepkg $CWD/_imapd.tar.gz
+
+echo "+==========+"
+echo "| pine4.44 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/pine4.44.tar.gz
+cd pine4.44
+zcat $CWD/pine-slackware.config.diff.gz | patch -p1 --backup --verbose -E
+zcat $CWD/pine-cflags.diff.gz | patch -p1 --backup --verbose -E
+# Remove ~ files:
+find . -name "*~" -exec rm -v {} \;
+mkdir $PKG1/usr/doc/pine4.44
+cp -a README CPYRIGHT $PKG1/usr/doc/pine4.44
+( cd doc ; cp -a * $PKG1/usr/doc/pine4.44 )
+( cd $PKG1/usr/doc/pine4.44 ; rm *.1 tech-notes.txt )
+( cd $PKG1/usr/doc/pine4.44 ; chown -R root.root * )
+mkdir -p $PKG2/usr/doc/pine4.44
+cp -a README CPYRIGHT $PKG2/usr/doc/pine4.44
+chown root.root $PKG2/usr/doc/pine4.44/*
+./build slx
+( cd imap ; make clean )
+( cd imap ; make slx )
+for file in doc/pico.1 doc/pilot.1 doc/pine.1 ; do
+  cat $file | gzip -9c > $PKG1/usr/man/man1/`basename $file`.gz
+done
+for file in imap/src/imapd/imapd.8c imap/src/ipopd/ipopd.8c ; do
+  cat $file | gzip -9c > $PKG2/usr/man/man8/`basename $file`.gz
+done
+cd imap/imapd
+strip imapd
+cat imapd > $PKG2/usr/sbin/imapd
+cd ../ipopd
+strip ipop3d
+cat ipop3d > $PKG2/usr/sbin/ipop3d
+cd ../../bin
+strip *
+cat pico > $PKG1/usr/bin/pico
+cat pilot > $PKG1/usr/bin/pilot
+cat pine > $PKG1/usr/bin/pine
+# Add a default system-wide config file:
+$PKG1/usr/bin/pine -conf > $PKG1/usr/lib/pine/pine.conf
+
+# Build the package:
+cd $PKG1
+tar czvf $TMP/pine.tgz .
+cd $PKG2
+tar czvf $TMP/imapd.tgz .
+
+# Warn of zero-length files:
+for dir in $PKG1 $PKG2 ; do
+  cd $dir
+  for file in `find . -type f -print` ; do
+    if [ "`filesize $file`" = "0" ]; then
+      echo "WARNING: zero length file $file"
+    fi
+    if [ "`filesize $file`" = "20" ]; then
+      echo "WARNING: possible empty gzipped file $file"
+    fi
+  done
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/pine4.44
+  rm -rf $PKG1
+  rm -rf $PKG2
+fi

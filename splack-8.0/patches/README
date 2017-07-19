@@ -1,0 +1,37 @@
+
+Splack Current - Security Patches
+
+This directory contains patched binary packages and the source
+used to create them.  All packages here refer to specific security
+problems with the Current version of Splack.  To apply a patch to your
+system, follow these steps:
+
+1)  Download the necessary package and the package_descriptions
+    file.
+
+2)  Backup any configuration files that the package might
+    overwrite.  To see what's in a package, use the "tar -tvzf"
+    command on the package.
+
+3)  Drop the machine into single user mode using "telinit 1".
+    Make sure you're at the console, as single user mode will
+    drop any network connections.  NOTE:  Some packages don't
+    require you to be in runlevel 1, but it's generally a safe
+    measure to go to single user for all packages.
+
+4)  Use upgradepkg to apply the patch to the system:
+
+       /sbin/upgradepkg <package name>
+
+    For example, to apply a new glibcso.tgz patch to the system,
+    use this command:
+
+       /sbin/upgradepkg glibcso
+
+5)  Go back into runlevel 3 (or 4, if were using that) using the
+    "telinit 3" command.  You may also want to reboot after
+    applying a patch, but that's generally not necessary.
+
+6)  If everything is fine, you may remove the patch and description
+    files that you downloaded.
+

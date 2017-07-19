@@ -1,0 +1,22 @@
+
+Q: Which bootdisk should I use?
+
+A: Here's a listing of the bootdisks that can be found in this directory,
+   with a short description of each and the machines that it is known to
+   function on.  Be sure to use the correct boot disk for your system.
+
+   All boot disk kernels contain support for SCSI controllers, hard disks,
+   and CD-ROM drives.  Network devices are supported by loadable modules.
+
+
+   sun4.s       | Support for Sun 4 systems only, specifically the Sun 4/330.
+
+   sun4c.s      | Support for the sun4c family.  Use this boot disk if you
+                | have a SPARCstation/server 1/1+/2 or a SPARCstation
+                | IPC/IPX/SLC/ELC.  NOTE:  This boot disk will also work on
+                | sun4d and sun4m machines, but does not include SMP support.
+
+   sun4dm.s     | Support for the sun4d and sun4m families, including SMP
+                | systems.  Use this boot disk if you have a SPARCstation
+                | Classic, SPARCstation LC/LX/4, or SPARCstation/server 5/10/20.
+

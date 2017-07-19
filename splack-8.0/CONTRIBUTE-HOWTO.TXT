@@ -1,0 +1,95 @@
+Contribute Howto.
+-----------------
+
+This document is intended for all the people who want to contribute to
+this project, and don't know how to get started.
+
+First of all, you can start by patching this documents, english is not
+my primary lenguage, and I don't have enough time to spend around
+fixing typos and such errors.
+
+Beta-testing.
+-------------
+The best way you could help out the project, is to beta test our
+product. Please take into consideration that this is _not_ an official
+release, but it is a distribution that is in a heavy development
+stage.  Please don't use it on production servers. It is very likely
+that you would have to re-download packages in a daily basis; it is
+also probable that you will find things on a very disfuctional stage;
+it is posible that you get unexpected crashes at any time. But your
+work and feedback is _very_ important for us. I only have about 5
+diferent types of Sun's and a limited hardware to test all of the
+bootdisks and packages.
+
+As mentioned on other documents, this project is based on the work
+that was being held by David Cantrell when he was developing Slackware
+for sparc. The work David left is very stable and functional. The
+whole proyect, is based on the feeling that what he was doing was just
+too good, an that it's a shame that he had to stop it. We hope not to
+mess things up, but to improve them, so if you trust on the stability
+of David's work, I hope that you will trust on our's.
+
+Package contribution
+--------------------
+A _lot_ of packages have to be recompiled and upgraded. If you want to
+help with this, you have to install a _clean_, _current_ version of
+the distribution; grab slackware sources, adjust the Slackbuild to
+compile and function properly with our distribution. Send in any
+scripts, or patches that you would like to contribute. Only "source"
+submissions are accepted at this time.
+
+"Social" work
+-------------
+One of the reasons why there are so many untested and unheard distributions
+out there, is probably because people like to use distributions that has
+name and reputation. I would personally won't like when people ditch Splack
+just because they see our work as Just Another Distribution, and not as a
+serius contribution to the Slackware and Sparc comunities. This is one of
+the things that I think will be hard to acomplish. To get a "name" that
+would make people trust this distribution. 
+
+There are a number of ways how you could perform "Social" work. To get the
+aproval of the media is one of them. To get the aproval of potential
+users and developers, is another. But to get the aproval and the interest
+of the Slackware Team, is probably one of the hardest.
+
+BTW, try not to spam the Slackware team, because that would surelly give
+a negative turn on this matter.
+
+"Brain" work
+------------
+If you do not own a Sparc, you would surelly have a hard time
+compiling packages for the distribution, and specially installing it
+;).  But we have a lot of decisions to make. The two firts, were the
+naming scheme, and the package tool that we would use for our
+distribution. Topics like this are treated at our mailing lists at
+SourceForge, the Slackware for Sparc forum at the Slackware web site.
+It is very important that current Slackware users agree on our decisions.
+This is a little bit of the "Social" work I mentioned before :).
+
+Mirroring Splack
+----------------
+We hope that Splack Linux gets to be a major thing, so a lot of people
+would be interested in downloading it. The bandwith that
+ftp.ulatina.ac.cr currently has is _way too short_ for this
+purpose. If you would like to mirror Splack Linux, you could rsync to
+sourceforge. Then let us know to update the MIRRORS.TXT file, adding
+your contribution on it.
+
+
+Contacting the Splack Team
+--------------------------
+
+You can use the mailing lists assigned to the Splack project at
+sourceforge.net (http://sourceforge.net/mail/?group_id=31547); you can
+contact us at the irc channel at irc.freenode.net, port 6667, channel
+#splack.
+
+Or, you can contact me directly. See the bottom of this document.
+
+The Splack Team would like to thank anyone that could give us _any_ type of
+help. We apreciate your contributions. ;)
+
+--
+Alvaro Figueroa C.
+(fede2@fuerzag.ulatina.ac.cr)

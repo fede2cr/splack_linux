@@ -1,0 +1,203 @@
+#!/bin/sh
+## build glibc-2.2.5 for Slackware
+## by Patrick J. Volkerding <volkerdi@slackware.com>
+## Modified by the Splack development team
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+export PKG=$TMP/package-glibc
+
+if [ ! "`ls /var/log/packages/automake* 2> /dev/null`" = "" -o ! "`ls /var/log/packages/autoconf* 2> /dev/null`" = "" ]; then
+  cat << EOF
+
+
+Hey!!!!
+
+Having autoconf and/or automake around for this is JUST ASKING FOR TROUBLE.
+Unless you magically have the same autoconf/make as this glibc was developed with,
+at least nss_db will fail.
+
+EOF
+sleep 4700
+fi
+
+
+
+# Empty this first:
+rm -rf $PKG
+mkdir -p $PKG/lib
+mkdir -p $PKG/sbin
+mkdir -p $PKG/usr/bin
+mkdir -p $PKG/usr/lib
+mkdir -p $PKG/usr/sbin
+mkdir -p $PKG/usr/include
+mkdir -p $PKG/usr/doc
+mkdir -p $PKG/usr/man
+mkdir -p $PKG/usr/share
+
+#Ok, lets try this. On the box wich you use to compile packages, you souln't
+#have anything at /usr/local, so I'm not gonna preserv anything on /usr/local
+#If you don't like it, then patch it.
+if [ -d /usr/local/include ]; then
+  mkdir -p /usr/local/include
+fi
+mv /usr/include/* /usr/local/include
+ln -s /usr/src/linux/include/linux /usr/local/include/linux
+
+### The system includes must be removed first
+###mv /usr/include /usr/include-glibcbuild
+###
+###mkdir /usr/include
+( cd /usr/src/linux
+  make mrproper
+  make oldconfig
+  make dep )
+( cd /usr/include
+  ln -sf /usr/src/linux/include/linux linux
+  ln -sf /usr/src/linux/include/asm asm )
+#( cd /usr/src/linux/include
+###  rm -rf asm
+###  ln -sf asm-sparc asm )
+
+cd $TMP
+tar xzvf $CWD/glibc-2.2.5.tar.gz
+cd glibc-2.2.5
+
+tar xzvf $CWD/glibc-linuxthreads-2.2.5.tar.gz
+
+zcat $CWD/glibc-2.2.5-dns-network-overflow.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/glibc-2.2.5-sparc-mathinline.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/glibc-2.2.5-sparc-misc.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/glibc-2.2.5-sparc32-semctl.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/glibc-2.2.5-sparc64-fixups.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/glibc-xdr_security.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+
+# No CFLAGS
+./configure --prefix=/usr \
+            --enable-add-ons=linuxthreads \
+            --without-cvs \
+            sparc-slackware-linux
+
+make
+make install install_root=$PKG
+make localedata/install-locales install_root=$PKG
+
+###rm -r /usr/include ; mv /usr/include-glibcbuild /usr/include 
+
+mkdir -p $PKG/etc
+cat nscd/nscd.conf > $PKG/etc/nscd.conf-sample
+
+# Since GNU does not provide man pages, I put some together:
+mkdir -p $PKG/usr/man/man1 $PKG/usr/man/man8
+
+cat $CWD/ldd.1.gz > $PKG/usr/man/man1/ldd.1.gz
+cat $CWD/ldconfig.8.gz > $PKG/usr/man/man1/ldconfig.8.gz
+
+# Not a bad idea to have this here as well:
+( cd $PKG ; tar xzvf $CWD/timezone-scripts.tar.gz )
+
+## Install docs:
+( mkdir -p $PKG/usr/doc/glibc-2.2.5
+  cp -a BUGS CONFORMANCE COPYING COPYING.LIB FAQ INSTALL INTERFACE \
+    NAMESPACE NEWS NOTES PROJECTS README README.libm $PKG/usr/doc/glibc-2.2.5
+  cd linuxthreads
+  mkdir -p $PKG/usr/doc/glibc-2.2.5/linuxthreads
+  cp -a Banner FAQ.html LICENSE README README.Xfree3.2 linuxthreads.texi \
+    Examples $PKG/usr/doc/glibc-2.2.5/linuxthreads
+  cd man
+  mkdir $PKG/usr/man/man3
+  for file in *.man ; do
+    cat $file | gzip -9c > $PKG/usr/man/man3/`basename $file .man`.3.gz
+  done 
+  chown -R root.root $PKG/usr/doc/glibc-2.2.5
+  find $PKG/usr/doc/glibc-2.2.5 -type d | xargs chmod 755 
+  find $PKG/usr/doc/glibc-2.2.5 -type f | xargs chmod 644 )
+
+### If you want glibc installed, uncomment the lines below.
+## Save the ldd from ldso.tgz:
+#mv /usr/bin/ldd /usr/bin/ldd-ldso
+#make install
+#make localedata/install-locales
+#mv /usr/bin/ldd /usr/bin/ldd-glibc
+#mv /usr/bin/ldd-ldso /usr/bin/ldd
+
+
+# Don't forget to add the /usr/share/zoneinfo/localtime -> /etc/localtime symlink! :)
+if [ ! -r $PKG/usr/share/zoneinfo/localtime ]; then
+  ( cd $PKG/usr/share/zoneinfo ; ln -sf /etc/localtime . )
+fi
+
+echo "Building Berkeley DB libraries..."
+sleep 5
+cd $CWD
+./bsd_db.build
+
+
+echo "Building nss_db-2.2..."
+sleep 5
+cd $CWD
+./nss_db.build
+
+# Move all libs to incoming to prepare for doinst.sh
+cd $PKG/lib
+mkdir incoming
+mv *.so incoming  
+
+
+# Ryan: Build the glibcso.tgz package
+SOPKG=$TMP/package-glibcso
+mkdir -p $SOPKG/lib/incoming
+cp -a $PKG/lib/incoming/*       $SOPKG/lib/incoming
+#cp -a $PKG/lib/libSegFault.so   $SOPKG/lib #(The .so files were moved to incoming)
+strip $SOPKG/lib/incoming/*
+strip $SOPKG/lib/*
+mkdir -p $SOPKG/usr/libexec
+cp -a $PKG/usr/libexec/pt_chown $SOPKG/usr/libexec
+chown root.root $SOPKG/usr/libexec
+chmod 4711      $SOPKG/usr/libexec
+mkdir -p $SOPKG/sbin
+mkdir -p $SOPKG/usr/bin
+chown root.bin $SOPKG/sbin
+chown root.bin $SOPKG/usr/bin
+mkdir -p $SOPKG/usr/man/man1
+mkdir -p $SOPKG/usr/man/man8
+cp -a $PKG/sbin/ldconfig              $SOPKG/sbin/ldconfig
+cp -a $PKG/usr/bin/ldd                $SOPKG/usr/bin/ldd
+cp -a $PKG/usr/man/man1/ldd.1.gz      $SOPKG/usr/man/man1/ldd.1.gz
+cp -a $PKG/usr/man/man8/ldconfig.8.gz $SOPKG/usr/man/man8/ldconfig.8.gz
+mkdir -p $SOPKG/install
+cp -a $CWD/doinst.sh-glibcso $SOPKG/install/doinst.sh
+chown root.root              $SOPKG/install/doinst.sh
+chmod 644                    $SOPKG/install/doinst.sh
+cd $SOPKG
+tar czvf $TMP/glibcso.tgz .
+
+
+# Ryan: Build the glocale.tgz package
+LOPKG=$TMP/package-glocale
+mkdir -p $LOPKG/usr/lib/locale
+mv $PKG/usr/lib/locale/* $LOPKG/usr/lib/locale
+cd $LOPKG
+tar czvf $TMP/glocale.tgz .
+
+
+# Ryan: Build the glibc.tgz package
+rm $PKG/etc/ld.so.cache
+cd $PKG/lib
+mv libdb1.so.2.1.3 libdb2.so.3 incoming
+rm *  # Should be all symlinks!
+mv incoming/libSegFault* ./
+
+rm -f $PKG/usr/info/dir
+gzip -9 $PKG/usr/info/*
+for d in sbin usr/bin usr/sbin
+do            
+   chown -R root.bin $PKG/$d
+done
+mkdir $PKG/install
+cp -a $CWD/doinst.sh-glibc $PKG/install/doinst.sh
+chown root.root $PKG/install/doinst.sh
+chmod 755 $PKG/install/doinst.sh
+cd $PKG
+tar czvf $TMP/glibc.tgz .

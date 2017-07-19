@@ -1,0 +1,6 @@
+ :.Z:  :  :/bin/compress -d -c %s:T_REG|T_ASCII:O_UNCOMPRESS:UNCOMPRESS
+ :   : :.Z:/bin/compress -c %s:T_REG:O_COMPRESS:COMPRESS
+ :.gz: :  :/bin/gzip -cd %s:T_REG|T_ASCII:O_UNCOMPRESS:GUNZIP
+ :   : :.gz:/bin/gzip -9c %s:T_REG:O_COMPRESS:GZIP
+ :   : :.tar:/bin/tar -cf - %s:T_REG|T_DIR:O_TAR:TAR
+ :   : :.tar.gz:/bin/tar -czf - %s:T_REG|T_DIR:O_COMPRESS|O_TAR:TAR+GZIP

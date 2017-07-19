@@ -1,0 +1,467 @@
+
+Frequently Asked Questions for Splack:
+
+Q0:  What is Splack?
+Q1:  What are some good resources on the web for help with Splack?
+Q2:  How can I access my Solaris filesystem(s) under Splack?
+Q3:  XFree86 reports "Firmware not loaded, forcing no acceleration."  How can
+     I use the accelerated features of my framebuffer?
+Q4:  Can I run Solaris or SunOS applications under Splack?
+Q5:  Can I use a serial terminal during installation?
+Q6:  Is it necessary to reinstall SILO each time I recompile my kernel?
+Q7:  How do I compile a kernel on the SPARC platform?
+Q8:  When I boot my machine, it says "Ethernet address ff:ff:ff:ff:ff:ff,
+     Host ID: ffffffff." -and/or- "The IDPROM contents are invalid."
+Q9:  How can I make sound play through the headphone or line out jack?
+Q10:  My SPARCstation IPC, IPX, or other sun4c system prints "Watchdog
+      reset" and/or "Memory Address not Aligned" when I try to network
+      boot it.  What's going on?
+Q11:  Why doesn't xf86config or XF86Setup work?
+Q12:  How do I create a bootable Splack Installation CD?
+Q13:  My older SPARC system has problems booting off the hard disk.
+Q14: Why is there an 2.4.18-rc4 kernel in there, insted of an "stable"
+     2.4.18?
+
+-----
+
+Q0: What is Splack?
+
+A:  It firts started out as a following of David Cantrells' work with the
+    port of Slackware for the SPARC arquitecture; but know our aim is to
+    have a distribution that resembles Slackware in every way that we posibly
+    can, and to have it available on a number of arquitectures diferent that
+    x86. The firts eforts of this are for the Sparc arquitecture only.
+
+    I would like to make notice that Splack is not a project supported by
+    the Slackware Team.
+
+-----
+
+Q1:  What are some good resources on the web for help with Splack?
+
+A:  I suggest everyone start by reading the documentation available at
+    http://www.ultralinux.org/.  The FAQ there contains a lot of useful
+    information and links to other sites.  There is also Slackware-specific
+    documentation and help available at http://www.slackware.com/.  A
+    discussion forum for the Slackware SPARC port has also been opened on
+    http://www.slackware.com/forum/.
+
+    There is also a HOWTO specific to running Linux on SPARC hardware.  It
+    covers a range of topics and is a good starting point if you are new
+    to Linux on SPARC hardware.  The URL is:
+
+       http://www.linuxdoc.org/HOWTO/SPARC-HOWTO.html
+
+-----
+
+Q2:  How can I access my Solaris filesystem(s) under Splack?
+
+A:  All of the precompiled kernels for Splack have UFS filesystem support
+    enabled.  This is the filesystem that Solaris and SunOS use.
+    Since there are several other operating systems that use a variant of
+    UFS, it's necessary to specify the type of UFS filesystem you are
+    accessing as a mount option.
+
+    If you want to access a Solaris filesystem on /dev/sda2, this mount
+    command line would place it under /mnt:
+
+       mount -t ufs -o ufstype=sun /dev/sda2 /mnt
+
+    Entries for these type mounts can be added to /etc/fstab so that the
+    Solaris filesystems are mounted automatically each time you boot the
+    system.  An entry for the above mount would look like this:
+
+       /dev/sda2 /mnt ufs defaults,ufstype=sun 0 0
+
+    Remember that /mnt is typically reserved as a temporary mount point and 
+    should not be used to mount things on a permanent basis.
+
+-----
+
+Q3:  XFree86 reports "Firmware not loaded, forcing no acceleration."  How can
+     I use the accelerated features of my framebuffer?
+
+A:  Elite3D framebuffers have a feature called the AFB Graphics Accelerator.
+    Basically, it means the accelerated features of the device are not
+    enabled until additional software has been loaded.  This software is part
+    of Solaris, but not Linux.
+
+    There are two solutions to this problem.  First, you can use the device
+    with acceleration disabled.  This will probably get very annoying because
+    it is incredibly slow, almost to the point of being unusable.  The other
+    option is to use the included "afbinit" program (part of the sparcutils
+    package in the A series) to load the afb.ucode file.  This file contains
+    the necessary stuff to enable the accelerated features of the device.  It
+    is available under Solaris as /usr/lib/afb.ucode.  So if you have Solaris,
+    this is definitely the way to go.
+
+    The Slackware init scripts are configured to load /usr/lib/afb.ucode on
+    all available Elite3D devices.  All you have to do is copy
+    /usr/lib/afb.ucode from your Solaris filesystem to /usr/lib/afb.ucode on
+    your Linux filesystem.  Reboot the machine and enjoy a much faster X
+    configuration.  :)
+
+    NOTE:  The afb.ucode file is part of the SUNWafbcf package in Solaris 8.
+
+-----
+
+Q4:  Can I run Solaris or SunOS applications under Splack?
+
+A:  For UltraSPARC:
+    ==============
+    On UltraSPARC systems, you can copy your Solaris libraries and
+    configuration files to the /usr/gnemul/solaris tree and enjoy fairly
+    functional and usable Solaris binary emulation.  You will also need
+    to load the solaris.o kernel module to have the binary emulation work.
+
+    First make sure you have the /usr/gnemul/solaris tree set up.  This is
+    the place the kernel looks when trying to find libraries to run Solaris
+    ELF programs.  If you absolutely have to have this in a different
+    directory, you'll have to patch the kernel and recompile it.
+
+    Do not just mount your Solaris root filesystem to /usr/gnemul/solaris.
+    This will not work.  You need to have the libraries and optionally the
+    Solaris binaries in that directory.  Start by making the tree:
+
+       mkdir -p /usr/gnemul/solaris
+       mkdir -p usr/{bin,sbin,lib}
+       mkdir -p usr/openwin/lib
+       ln -s usr/bin .
+       ln -s usr/sbin .
+       ln -s usr/lib .
+
+    Now we have the directory structure set up, let's populate the tree.  I
+    will assume your Solaris root filesystem is mounted to /solaris.
+
+       cp -a /solaris/usr/bin/* /usr/gnemul/solaris/usr/bin
+       cp -a /solaris/usr/sbin/* /usr/gnemul/solaris/usr/sbin
+       cp -a /solaris/usr/lib/lib*so* /usr/gnemul/solaris/usr/lib
+       cp -a /solaris/usr/lib/ld.so* /usr/gnemul/solaris/usr/lib
+       cp -a /solaris/usr/openwin/lib/* /usr/gnemul/solaris/usr/openwin/lib
+
+    Now you have the base emulation environment set up.  Depending on the
+    application you want to run, you may have all the libraries you need,
+    or you may need to copy more.  It's best to use the "ldd" program and
+    check the program you want to run to make sure you have all the libraries
+    it needs.
+
+    After copying the needed files or mounting your Solaris filesystem, you 
+    can unmount your Solaris filesystem.  Edit /etc/rc.d/rc.modules and make
+    sure the solaris.o module is set to load.  Either reboot now to load the
+    module, or run this command:
+
+       /sbin/modprobe solaris
+
+    Enjoy!  Your Slackware/SPARC system can now run Solaris software.
+
+
+    For non-UltraSPARC:
+    ==================
+    This is currently unsupported on Splack, but could be working in the
+    future.
+
+-----
+
+Q5:  Can I use a serial terminal during installation?
+
+A:  The CD-ROM offers the "serial" boot method, which is set up to use the
+    serial port as the console.  The system will default to using serial port
+    A, but you can override that with the console= parameter:
+
+       boot: serial console=ttyb
+
+    If you are network booting, be sure to use the appropriate TFTP boot image
+    from the /tftpboot subdirectory.  The "tftpconfig" script can help you
+    set up your boot server and choose the correct image.  The images are
+    configured to use serial port A by default, but that can be overridden
+    with the console= parameter:
+
+       ok boot net console=ttyb
+
+    Splack is configured to open login sessions on both serial ports,
+    no additional configuration is needed.
+
+-----
+
+Q6:  Is it necessary to reinstall SILO each time I recompile my kernel?
+
+A:  The SPARC architechture does not have the same kind of boot sector as
+    an Intel system.  SILO is designed to be installed once and read its
+    configuration file each time you boot the machine.  It can read a wide
+    range of filesystems, so your configuration file can be almost anywhere.
+    Therefore, you do not need to reinstall SILO each time you add a new
+    kernel or modify your /etc/silo.conf file.
+
+    NOTE:  If you install a *new* version of SILO, complete with new boot
+    blocks in /boot, then you need to reinstall SILO.  Of course, it never
+    hurts to always reinstall it.
+
+-----
+
+Q7:  How do I compile a kernel on the SPARC platform?
+
+A:  It's similar to building a kernel on the Intel platform, but instead of
+    issuing a 'make zImage' or 'make bzImage', you do 'make vmlinux'.  So
+    a full set of instructions for building a kernel on the SPARC platform
+    is:
+
+       cd /usr/src/linux
+       make menuconfig       # Configure the kernel to your liking.  You
+                             # may also use 'make config' or 'make xconfig'.
+       make dep
+       make clean
+       make vmlinux
+       make modules
+
+    To install the kernel, you install the modules and copy the kernel in
+    place:
+
+       cp vmlinux /
+       cp System.map /boot
+       make modules_install
+
+    That's it!
+
+-----
+
+Q8:  When I boot my machine, it says "Ethernet address ff:ff:ff:ff:ff:ff,
+     Host ID: ffffffff." -and/or- "The IDPROM contents are invalid."
+
+A:  Sounds like you might need to purchase a new NVRAM chip for your system.
+    I highly suggest consulting the information at this site:
+
+       http://www.squirrel.com/sun-nvram-hostid.faq.html
+
+    That should answer all of your questions concerning the NVRAM, how to
+    fix it, how to replace it, and so on.
+
+-----
+
+Q9:  How can I make sound play through the headphone or line out jack?
+
+A:  Using the "audioctl" program, you can adjust the output device on the
+    sound device.  For example, to use the line out port, you would use this
+    command line:
+
+       audioctl -w play.port=0x4
+
+    To see available ports, use this command:
+
+       audioctl -a | grep play.avail_ports
+
+    On my system, that returns:
+
+       play.avail_ports=0x7 (speaker (0x1)|headphone (0x2)|line out (0x4))
+
+    This lets you see the values for the different sound output ports on
+    your system.
+
+    See the audioctl(1) man page for more information.
+
+-----
+
+Q10:  My SPARCstation IPC, IPX, or other sun4c system prints "Watchdog
+      reset" and/or "Memory Address not Aligned" when I try to network
+      boot it.  What's going on?
+
+A:  This could be the result of many things.  Most of these systems are
+    secondhand and tend to have memory that did not originally come with the
+    machine.  Most often, it's old PC RAM.
+
+    The first thing I suggest is having a look at the Sun Hardware Reference
+    and making sure you're using the proper type of SIMMs in your sun4c
+    system (it's under the Boards listings):
+
+       http://www.sunhelp.org/pages.php?page=info-ref
+
+    Second, make sure the RAM you have is actually good RAM.  On machines
+    that cannot boot via the network, I have seen the CD-ROM boot up just
+    find.  So there's always that option.  Unfortunately, CD-ROM drives were
+    not standard on sun4c machines, so most secondhand owners won't have
+    them.
+
+    If you can't network boot, try the CD-ROM.
+
+-----
+
+Q11:  Why doesn't xf86config or XF86Setup work?
+
+A:  Most new SPARC Linux users will install the distribution and then proceed
+    to run XF86Setup or the xf86config program to set up X on their system.  I
+    know because I did this too.  You'll find that it doesn't work, but this
+    is a good thing.  You don't need an /etc/XF86Config file on your system to
+    use X.  All you need is the proper symbolic link for the X server.
+
+    To start with, all systems will need to do this:
+
+       rm -rf /etc/XF86Config
+       rm -rf /var/X11R6/bin/X
+
+    Then, you'll need to symlink to the correct X server for your framebuffer.
+    If you are using a monochrome framebuffer, run this command:
+
+       ln -sf /usr/X11R6/bin/XsunMono /var/X11R6/bin/X
+
+    If you're using an 8-bit color framebuffer, run this command:
+
+       ln -sf /usr/X11R6/bin/Xsun /var/X11R6/bin/X
+
+    And if you're using a 24-bit color framebuffer, run this command:
+
+       ln -sf /usr/X11R6/bin/Xsun24 /var/X11R6/bin/X
+
+    After that, all you need to do is type "startx" and X will start up.  It
+    is important to note that without the existence of the XF86Config, you
+    cannot have a custom font path and other such settings.  It is possible
+    to have an XF86Config with these settings, but be careful not to specify
+    settings for the server or monitor.  Most users will find it easier to set
+    a custom font path using the xset command in their .xinitrc files.
+
+    Lastly, if you're using a PCI framebuffer, particularly the PGX24 or PGX32,
+    you'll need to write an XF86Config file and use the proper X server.  This
+    will be either XF86_Mach64 or XF86_3DLabs.
+
+    UPDATE (25-Apr-2001):  There is a now a script called "xfree86setup"
+    that you can run as root to get an initial configuration for XFree86 on
+    your system.
+
+-----
+
+Q12:  How do I create a bootable Splack installation CD?
+
+A:  You must use a patched version of mkisofs in order to create the proper
+    boot sectors on CD. This patch is now mantained by the SILO crew and can
+    be downloaded from silo.sourceforge.net. This is included in the
+    cdutils package in Splack's AP series.  
+
+    The FTP site directory is structured the way a bootable CD should be, 
+    including the .boot directory.  If you are constructing your own CD, be
+    sure to add a boot directory with the SILO boot blocks, a config file, 
+    and any kernels you plan on booting.
+
+    If you're using the FTP site directory to make your CD, this command
+    should work from within the downloaded tree:
+
+       mkisofs -o /tmp/splack-install.iso -R \
+          -V "Splack Install" -v -T -d -D -N -L \
+          -B .boot/second.b \
+          -s /.boot/silo.conf \
+          -S .boot/cd.b \
+          -A "Splack" .
+
+    You may be wondering why I'm not using the latest version of mkisofs to
+    create the CD images.  Well, it contains support for making bootable
+    SPARC CDs, but it does not work like the method patched into the old
+    version.  I have yet to make the latest version of mkisofs actually
+    produce a valid bootable CD.  If you know how, feel free to clue me in.
+    But I like the SILO method.  :)
+
+    Note: In a sort period of time, ISO images will be replace by jigdo
+    files and templates (with some docs on how to make them work).
+
+-----
+
+Q13:  My older SPARC system has problems booting off the hard disk.
+
+A:  Some SPARCs with old version 2 bootproms (mine is 2.4.1) will not boot
+    Slackware when the harddisk is bigger then 1GB.  There is a workaround
+    for this which I will describe here.
+    
+    First, before you install Splack you will need to manually partition your
+    disk.  You need to create a small partition at the beginning of the disk
+    in which all the bootfiles will be placed.  This will be mounted as the 
+    /boot partition.  Make sure the Sun disk label is partition 3.  I have a
+    2GB disk which looks like this:
+    
+    root@sunws:~# fdisk /dev/sda
+    
+    Command (m for help): p
+    
+    Disk /dev/sda (Sun disk label): 67 heads, 62 sectors, 1007 cylinders
+    Units = cylinders of 4154 * 512 bytes
+    
+       Device Flag    Start       End    Blocks   Id  System
+    /dev/sda1             0         2      4154   83  Linux native
+    /dev/sda2  u          2        33     64387   82  Linux swap
+    /dev/sda3             0      1007   2091539    5  Whole disk
+    /dev/sda4            33      1007   2022998   83  Linux native
+    
+    The right order to create this is:
+    
+    1. Remove all existing partitions
+    2. Add partition 3, start at cylinder 0, end at cylinder 1007.
+    3. Toggle partition 3 to type 5, Whole disk.
+    4. Add partition 1, start at cylinder 0, end at +5M.  This will become
+       /boot.
+    5. Add partition 2, start at cylinder 2, end at +64M, or whatever size of
+       swap you need.
+    6. Toggle partition 2 to type 82, Linux swap.
+    7. Add partition 4, start at the first free cylinder, end at the last
+       cylinder.
+       This will be the root partition.
+    
+    You may also start with a create a new empty Sun disklabel, remove
+    partitions 1 and 2 and start at point 4. Of course when you need more
+    partitions you can do so, but it's important that partition 1 (/boot) is
+    at the beginning of your disk.
+
+    When you are ready install Splack with the setup program. When you are
+    at the point of selecting the target drives, select /dev/sda4 as the root.
+    Then select /dev/sda1 at mountpoint /boot.
+    
+    After installing Splack when you boot your new system, you will notice
+    that your system won't boot from the harddisk.  It will stop at the "boot:"
+    prompt after some error messages that it couldn't find /etc/silo.conf.
+    After the "boot:" prompt type: 4/vmlinux.gz root=/dev/sda4 ro <enter> and
+    your system will hopefully boot.
+    
+    Login as root.  Move /etc/silo.conf to /boot.  Edit this file, in my case
+    with the example partions as above it looks like this:
+    
+    # SILO configuration file
+    #
+    # Start the SILO global section
+    timeout = 50
+    # End SILO global section
+    
+    # Linux bootable partition config begins
+    image = 4/vmlinux.gz
+      root = /dev/sda4
+      label = Linux
+      read-only # We mount filesystems ro, check them, then remount rw
+    # Linux bootable partition config ends
+    
+    As you can see, the image line is changed.  Now you must run silo by hand,
+    the utility siloconfig can't be used anymore.  Type:
+    
+    /sbin/silo -C /boot/silo.conf
+    
+    This will create a new second stage bootloaded which will use silo.conf
+    from your small boot partition.
+    
+    If you still have trouble, you can copy the kernel to /boot and change the 
+    image line in silo.conf to:  image = 1/vmlinux.gz
+
+    (This solution was documented and contributed by
+     Michiel Broek <mbroek@users.sourceforge.net>)
+
+-----
+
+Q14: Why is there an 2.4.18-rc4 kernel in there, insted of an "stable"
+     2.4.18?
+
+A.   Well, when Marcelo Tostatti (current kernel 2.4 mantainer) was building
+     the 2.4.18 kernel to upload it to kernel.org, he forgot to add some small
+     patches. One of them is the -rc4 patch that fixes a problem with running
+     static binaries on some arquitectures, and this affects sparc32 and 
+     sparc64.
+
+----
+
+In addition, the LDP people have put out an excellent set of manuals for Linux.
+These are available on metalab.unc.edu in /pub/Linux/docs/LDP.
+
+---
+Alvaro Figueroa
+(fede2@fuerzag.ulatina.ac.cr)
+(This FAQ was orininally writen by David Cantrell)

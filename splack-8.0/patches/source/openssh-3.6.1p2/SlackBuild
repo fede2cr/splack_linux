@@ -1,0 +1,122 @@
+#!/bin/sh
+# Copyright 2000 BSDi, Inc. Concord, CA, USA
+# Copyright 2001, 2002 Slackware Linux, Inc. Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+CWD=`pwd`
+
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+PKG=$TMP/package-openssh
+
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# WARNING:  first we toss out existing ssh config files...
+#rm -f /etc/ssh/sshd_* /etc/ssh/ssh_*
+
+# Prepare the framework and extract the package:
+cd $TMP
+rm -rf $PKG openssh-3.6.1p2
+tar xzvf $CWD/openssh-3.6.1p2.tar.gz
+cd openssh-3.6.1p2
+chown -R root.root .
+
+# Compile package:
+./configure --prefix=/usr \
+            --sysconfdir=/etc/ssh \
+            --without-pam \
+            --with-md5-passwords \
+            --with-tcp-wrappers \
+            --with-default-path=/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin \
+            --with-ipv4-default \
+            --with-privsep-path=/var/empty \
+            --with-privsep-user=sshd \
+            sparc-slackware-linux
+make
+
+# Install the package:
+make install DESTDIR=$PKG
+
+# Compress the installed manpages:
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+
+# Relink the slogin(1) man page
+( cd $PKG/usr/man/man1
+  rm -f slogin.1
+  ln -sf ssh.1.gz slogin.1.gz
+)
+
+# Install directory used with PrivilegeSeparation option:
+mkdir -p $PKG/var/empty
+chmod 755 $PKG/var/empty
+
+# Install docs:
+mkdir -p $PKG/usr/doc/openssh-3.6.1p2
+cp -a \
+  CREDITS ChangeLog INSTALL LICENCE OVERVIEW README README.privsep README.smartcard RFC.nroff TODO WARNING.RNG \
+  $PKG/usr/doc/openssh-3.6.1p2
+chmod 644 $PKG/usr/doc/openssh-3.6.1p2/*
+
+# Install also 'ssh-copy-id' and its manpage from contrib:
+( cd contrib
+  cp -a ssh-copy-id $PKG/usr/bin/ssh-copy-id
+  chown root.bin $PKG/usr/bin/ssh-copy-id
+  chmod 755 $PKG/usr/bin/ssh-copy-id
+  cat ssh-copy-id.1 | gzip -9c > $PKG/usr/man/man1/ssh-copy-id.1.gz
+)
+
+# Fix some ownerships per FSSTND:
+chown -R root.bin $PKG/usr/bin $PKG/usr/sbin
+
+( cd $PKG
+
+  # Ditch the new host keys, since these have to be uniquely prepared on each machine:
+  rm -f etc/ssh/ssh_host_dsa_key
+  rm -f etc/ssh/ssh_host_dsa_key.pub
+  rm -f etc/ssh/ssh_host_rsa_key
+  rm -f etc/ssh/ssh_host_rsa_key.pub
+  rm -f etc/ssh/ssh_host_key
+  rm -f etc/ssh/ssh_host_key.pub
+
+  # Set up the config script installation:
+  mv etc/ssh/ssh_config etc/ssh/ssh_config.new
+  mv etc/ssh/sshd_config etc/ssh/sshd_config.new
+
+  # Add the init script:
+  mkdir -p etc/rc.d
+  cat $CWD/rc.sshd > etc/rc.d/rc.sshd
+  chmod 755 etc/rc.d/rc.sshd
+
+  # Copy runtime installation files:
+  mkdir -p install
+  zcat $CWD/doinst.sh.gz > install/doinst.sh
+)
+
+# Create the package itself:
+cd $PKG
+echo "y" | makepkg $TMP/openssh.tgz

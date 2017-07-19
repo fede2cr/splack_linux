@@ -1,0 +1,661 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-tcpip1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_tcpip1.tar.gz
+# This is for the "blue underscore" effect, already patched in.
+#( cd $PKG ; zcat $CWD/termcap.diff.gz | patch )
+#( cd $PKG ; rm etc/termcap.orig )
+
+# Find the size of a file:
+filesize() {
+ SIZE=`ls -l -d -G $1 | cut -b23-32`
+ echo -n $SIZE
+}
+
+echo "+=================+"
+echo "| nfs-utils-0.3.1 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/nfs-utils-0.3.1.tar.gz
+cd nfs-utils-0.3.1
+CFLAGS=-O2 ./configure \
+  --prefix=/usr \
+  --with-statedir=/var/lib/nfs \
+  --enable-nfsv3 \
+  --enable-secure-statd \
+  sparc-slackware-linux
+make
+strip utils/exportfs/exportfs
+cat utils/exportfs/exportfs > $PKG/usr/sbin/exportfs
+cat utils/exportfs/exportfs.man | gzip -9c > $PKG/usr/man/man8/exportfs.8.gz
+cat utils/exportfs/exports.man | gzip -9c > $PKG/usr/man/man8/exports.8.gz
+strip utils/lockd/lockd
+cat utils/lockd/lockd > $PKG/usr/sbin/rpc.lockd
+cat utils/lockd/lockd.man | gzip -9c > $PKG/usr/man/man8/lockd.8.gz
+strip utils/mountd/mountd
+cat utils/mountd/mountd > $PKG/usr/sbin/rpc.mountd
+cat utils/mountd/mountd.man | gzip -9c > $PKG/usr/man/man8/mountd.8.gz
+strip utils/nfsd/nfsd
+cat utils/nfsd/nfsd > $PKG/usr/sbin/rpc.nfsd
+cat utils/nfsd/nfsd.man | gzip -9c > $PKG/usr/man/man8/nfsd.8.gz
+strip utils/nfsstat/nfsstat
+cat utils/nfsstat/nfsstat > $PKG/usr/sbin/nfsstat
+cat utils/nfsstat/nfsstat.man | gzip -9c > $PKG/usr/man/man8/nfsstat.8.gz
+strip utils/nhfsstone/nhfsstone
+cat utils/nhfsstone/nhfsgraph > $PKG/usr/sbin/nhfsgraph
+cat utils/nhfsstone/nhfsnums > $PKG/usr/sbin/nhfsnums
+cat utils/nhfsstone/nhfsrun > $PKG/usr/sbin/nhfsrun
+cat utils/nhfsstone/nhfsstone > $PKG/usr/sbin/nhfsstone
+cat utils/nhfsstone/nhfsgraph.man | gzip -9c > $PKG/usr/man/man8/nhfsgraph.8.gz
+cat utils/nhfsstone/nhfsnums.man | gzip -9c > $PKG/usr/man/man8/nhfsnums.8.gz
+cat utils/nhfsstone/nhfsrun.man | gzip -9c > $PKG/usr/man/man8/nhfsrun.8.gz
+cat utils/nhfsstone/nhfsstone.man | gzip -9c > $PKG/usr/man/man8/nhfsstone.8.gz
+mkdir -p $PKG/usr/doc/nfs-utils-0.3.1/nhfsstone
+cp -a utils/nhfsstone/DISCLAIMER utils/nhfsstone/README utils/nhfsstone/README.linux \
+  $PKG/usr/doc/nfs-utils-0.3.1/nhfsstone
+strip utils/rquotad/rquotad
+cat utils/rquotad/rquotad > $PKG/usr/sbin/rpc.rquotad
+cat utils/rquotad/rquotad.man | gzip -9c > $PKG/usr/man/man8/rquotad.8.gz
+mkdir -p $PKG/usr/doc/nfs-utils-0.3.1/rquotad
+cp -a utils/rquotad/NEW utils/rquotad/README.okir $PKG/usr/doc/nfs-utils-0.3.1/rquotad
+strip utils/showmount/showmount
+cat utils/showmount/showmount > $PKG/usr/sbin/showmount
+cat utils/showmount/showmount.man | gzip -9c > $PKG/usr/man/man8/showmount.8.gz
+strip utils/statd/statd
+cat utils/statd/statd > $PKG/usr/sbin/rpc.statd
+cat utils/statd/statd.man | gzip -9c > $PKG/usr/man/man8/statd.8.gz
+mkdir -p $PKG/usr/doc/nfs-utils-0.3.1/statd
+cp -a utils/statd/COPYING utils/statd/COPYRIGHT utils/statd/TODO $PKG/usr/doc/nfs-utils-0.3.1/statd
+cp -a COPYING ChangeLog README linux-nfs $PKG/usr/doc/nfs-utils-0.3.1
+find $PKG/usr/doc/nfs-utils-0.3.1 -type d -exec chmod 755 {} \;
+find $PKG/usr/doc/nfs-utils-0.3.1 -type f -exec chmod 644 {} \;
+chown -R root.root $PKG/usr/doc/nfs-utils-0.3.1
+
+echo "+==================+"
+echo "| tcp_wrappers_7.6 |"
+echo "+==================+"
+cd $TMP
+tar xzvf $CWD/tcp_wrappers_7.6.tar.gz
+cd tcp_wrappers_7.6
+zcat $CWD/tcp_wrappers_7.6.diff.gz | patch -p1 --backup
+make REAL_DAEMON_DIR=/usr/sbin linux
+strip tcpd safe_finger tcpdchk tcpdmatch try-from
+cat libwrap.a > $PKG/usr/lib/libwrap.a
+cat tcpd.h > $PKG/usr/include/tcpd.h
+cat safe_finger > $PKG/usr/sbin/safe_finger
+cat tcpd > $PKG/usr/sbin/tcpd
+cat tcpdchk > $PKG/usr/sbin/tcpdchk
+cat tcpdmatch > $PKG/usr/sbin/tcpdmatch
+cat try-from > $PKG/usr/sbin/try-from
+cat hosts_access.3 | gzip -9c > $PKG/usr/man/man3/hosts_access.3.gz
+cat hosts_access.5 | gzip -9c > $PKG/usr/man/man5/hosts_access.5.gz
+cat hosts_options.5 | gzip -9c > $PKG/usr/man/man5/hosts_options.5.gz
+cat tcpd.8 | gzip -9c > $PKG/usr/man/man8/tcpd.8.gz
+cat tcpdchk.8 | gzip -9c > $PKG/usr/man/man8/tcpdchk.8.gz
+cat tcpdmatch.8 | gzip -9c > $PKG/usr/man/man8/tcpdmatch.8.gz
+
+echo "+===============+"
+echo "| icmpinfo-1.11 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/icmpinfo-1.11.tar.gz
+cd icmpinfo-1.11
+zcat $CWD/icmpinfo-1.11.diff.gz | patch -p1 --backup
+zcat $CWD/icmpinfo-1.11.diff2.gz | patch -p1 --backup
+make
+strip icmpinfo
+cat icmpinfo > $PKG/usr/sbin/icmpinfo
+gzip -9c icmpinfo.man > $PKG/usr/man/man1/icmpinfo.1.gz
+
+echo "+=================+"
+echo "| gnu-pop3d-0.9.8 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/gnu-pop3d-0.9.8.tar.gz
+cd gnu-pop3d-0.9.8
+mkdir -p $PKG/usr/doc/gnu-pop3d-0.9.8
+cp -a AUTHORS INSTALL IRONY README README.rfc RFC*.txt TODO $PKG/usr/doc/gnu-pop3d-0.9.8
+chown -R root.root $PKG/usr/doc/gnu-pop3d-0.9.8
+find $PKG/usr/doc/gnu-pop3d-0.9.8 -type f -exec chmod 644 {} \;
+find $PKG/usr/doc/gnu-pop3d-0.9.8 -type d -exec chmod 755 {} \;
+./configure --prefix=/usr sparc-slackware-linux
+make
+strip gnu-pop3d
+cat gnu-pop3d > $PKG/usr/sbin/gnu-pop3d
+cat gnu-pop3d.8 | gzip -9c > $PKG/usr/man/man8/gnu-pop3d.8.gz
+cat gnu-pop3d.init > $PKG/usr/doc/gnu-pop3d-0.9.8/gnu-pop3d.init
+
+echo "+================+"
+echo "| pidentd-3.0.12 |"
+echo "+================+"
+cd $TMP
+tar xzvf $CWD/pidentd-3.0.12.tar.gz
+cd pidentd-3.0.12
+zcat $CWD/pidentd-3.0.12.diff.gz | patch -p1 --backup --verbose
+# Disable useless attempt at writing a PID file... doesn't work since
+# a) it runs as "nobody" b) there may be multiple copies active
+zcat $CWD/pidentd-3.0.12.nopidfile.diff.gz | patch -p1 --backup --verbose
+mkdir -p $PKG/usr/doc/pidentd-3.0.12
+cp -a BUGS ChangeLog FAQ INSTALL README Y2K doc/rfc* $PKG/usr/doc/pidentd-3.0.12
+chown -R root.root $PKG/usr/doc/pidentd-3.0.12
+chmod 644 $PKG/usr/doc/pidentd-3.0.12/*
+./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --with-des-includes=/usr/include/openssl \
+            sparc-slackware-linux
+make
+strip src/identd src/ibench src/idecrypt src/ikeygen
+cat src/identd > $PKG/usr/sbin/in.identd
+cat src/ibench > $PKG/usr/sbin/ibench
+cat src/idecrypt > $PKG/usr/sbin/idecrypt
+cat src/ikeygen > $PKG/usr/sbin/ikeygen
+cat etc/identd.conf > $PKG/etc-incoming/identd.conf
+cat doc/identd.8 | gzip -9c > $PKG/usr/man/man8/identd.8.gz
+echo ".so man8/identd.8" | gzip -9c > $PKG/usr/man/man8/in.identd.8.gz
+
+echo "+===================+"
+echo "| traceroute-4.4BSD |"
+echo "+===================+"
+cd $TMP
+tar xzvf $CWD/traceroute-4.4BSD.tar.gz
+cd traceroute-4.4BSD
+zcat $CWD/traceroute-4.4BSD.diff.gz | patch -p0 --backup
+make
+strip traceroute
+cat traceroute > $PKG/usr/bin/traceroute
+gzip -9c traceroute.8 > $PKG/usr/man/man8/traceroute.8.gz
+
+echo "+================+"
+echo "| net-tools-1.60 |"
+echo "+================+"
+cd $TMP
+tar xyvf $CWD/net-tools-1.60.tar.bz2
+cd net-tools-1.60
+zcat $CWD/net-tools.diff.gz | patch -p1 --backup
+mkdir -p $PKG/usr/doc/net-tools-1.60
+cp -a README $PKG/usr/doc/net-tools-1.60
+chmod 644 $PKG/usr/doc/net-tools-1.60/*
+chown root.root $PKG/usr/doc/net-tools-1.60/*
+HAVE_IP_TOOLS=1 HAVE_MII=1 make
+strip ipmaddr iptunnel hostname arp ifconfig rarp route netstat plipconfig slattach mii-tool
+cat arp > $PKG/sbin/arp
+cat ifconfig > $PKG/sbin/ifconfig
+cat rarp > $PKG/sbin/rarp
+cat route > $PKG/sbin/route
+cat hostname > $PKG/bin/hostname
+cat mii-tool > $PKG/sbin/mii-tool
+cat netstat > $PKG/bin/netstat
+cat plipconfig > $PKG/sbin/plipconfig
+cat slattach > $PKG/usr/sbin/slattach
+cat ipmaddr > $PKG/sbin/ipmaddr
+cat iptunnel > $PKG/sbin/iptunnel
+cd man/en_US
+for page in dnsdomainname.1 domainname.1 hostname.1 nisdomainname.1 \
+  ypdomainname.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cat ethers.5 | gzip -9c > $PKG/usr/man/man5/ethers.5.gz
+for page in arp.8 ifconfig.8 mii-tool.8 netstat.8 rarp.8 route.8 \
+  slattach.8 plipconfig.8 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man8/$page.gz
+done
+
+echo "+=============+"
+echo "| ruptime-570 |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/ruptime-570.tar.gz
+cd ruptime
+zcat $CWD/ruptime-570.diff.gz | patch -p1 -E --backup --verbose
+make
+strip ruptime
+cat ruptime > $PKG/usr/bin/ruptime
+cat ruptime.1 | gzip -9c > $PKG/usr/man/man1/ruptime.1.gz
+
+echo "+=========+"
+echo "| netdate |"
+echo "+=========+"
+cd $TMP
+tar xzvf $CWD/netdate.tar.gz
+cd netdate
+zcat $CWD/netdate.diff.gz | patch -p1 --backup
+zcat $CWD/netdate.diff2.gz | patch -p1 --backup
+make
+strip netdate
+cat netdate > $PKG/usr/sbin/netdate
+cat netdate.8 | gzip -9c > $PKG/usr/man/man8/netdate.8.gz
+
+echo "+==================+"
+echo "| netkit-base-0.17 |"
+echo "+==================+"
+cd $TMP
+tar xzvf $CWD/netkit-base-0.17.tar.gz
+cd netkit-base-0.17
+./configure --prefix=/usr
+make
+cd inetd
+strip inetd
+#cat inetd > $PKG/usr/sbin/inetd
+#cat inetd.8 | gzip -9c > $PKG/usr/man/man8/inetd.8.gz
+cd ../ping
+strip ping
+cat ping > $PKG/bin/ping
+cat ping.8 | gzip -9c > $PKG/usr/man/man8/ping.8.gz
+
+echo "+====================+"
+echo "| inetd-OpenBSD-1.79 |"
+echo "+====================+"
+cd $TMP
+tar xzvf $CWD/inetd-OpenBSD-1.79.tar.gz
+cd inetd
+zcat $CWD/inetd-OpenBSD-1.79.diff.gz | patch -p1 --backup --suffix=.orig --verbose -E
+make
+strip inetd
+cat inetd > $PKG/usr/sbin/inetd
+cat inetd.8 | gzip -9c > $PKG/usr/man/man8/inetd.8.gz
+
+echo "+==================+"
+echo "| biff+comsat-0.17 |"
+echo "+==================+"
+cd $TMP
+tar xzvf $CWD/biff+comsat-0.17.tar.gz
+cd biff+comsat-0.17
+zcat $CWD/biff+comsat-0.17.diff.gz | patch -p1
+zcat $CWD/biff+comsat.offset.diff.gz | patch -p1
+./configure --prefix=/usr
+make
+cd biff
+strip biff
+cat biff > $PKG/usr/bin/biff
+cat biff.1 | gzip -9c > $PKG/usr/man/man1/biff.1.gz
+cd ../comsat
+strip comsat
+cat comsat > $PKG/usr/sbin/in.comsat
+cat comsat.8 | gzip -9c > $PKG/usr/man/man8/in.comsat.8.gz
+
+echo "+=================+"
+echo "| bsd-finger-0.17 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/bsd-finger-0.17.tar.gz
+cd bsd-finger-0.17
+zcat $CWD/bsd-finger-0.17.diff.gz | patch -p1
+./configure --prefix=/usr
+make
+cd finger
+strip finger
+cat finger > $PKG/usr/bin/finger
+cat finger.1 | gzip -9c > $PKG/usr/man/man1/finger.1.gz
+cd ../fingerd
+strip fingerd
+cat fingerd > $PKG/usr/sbin/in.fingerd
+cat fingerd.8 | gzip -9c > $PKG/usr/man/man8/in.fingerd.8.gz
+
+echo "+========================+"
+echo "| netkit-bootparamd-0.17 |"
+echo "+========================+"
+cd $TMP
+tar xzvf $CWD/netkit-bootparamd-0.17.tar.gz
+cd netkit-bootparamd-0.17
+./configure --prefix=/usr
+make
+cd rpc.bootparamd
+strip bootparamd callbootd
+cat bootparamd > $PKG/usr/sbin/rpc.bootparamd
+cat callbootd > $PKG/usr/bin/callbootd
+gzip -9c bootparamd.8 > $PKG/usr/man/man8/rpc.bootparamd.8.gz
+
+echo "+=================+"
+echo "| netkit-ftp-0.17 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/netkit-ftp-0.17.tar.gz
+cd netkit-ftp-0.17
+./configure --prefix=/usr
+make
+cd ftp
+strip ftp
+cat ftp > $PKG/bin/ftp
+cat ftp.1 | gzip -9c > $PKG/usr/man/man1/ftp.1.gz
+cat netrc.5 | gzip -9c > $PKG/usr/man/man5/netrc.5.gz
+
+echo "+===================+"
+echo "| netkit-ntalk-0.17 |"
+echo "+===================+"
+cd $TMP
+tar xzvf $CWD/netkit-ntalk-0.17.tar.gz
+cd netkit-ntalk-0.17
+zcat $CWD/netkit-ntalk-0.17.diff.gz | patch -p1
+./configure --prefix=/usr
+make
+cd talk
+strip talk
+cat talk > $PKG/usr/bin/talk
+cat talk.1 | gzip -9c > $PKG/usr/man/man1/talk.1.gz
+cd ../talkd
+strip talkd
+cat talkd > $PKG/usr/sbin/in.talkd
+cat talkd.8 | gzip -9c > $PKG/usr/man/man8/in.talkd.8.gz
+
+# Include old version of 'talk', which works better with
+# 8-bit character sets:
+echo "+===================+"
+echo "| netkit-ntalk-0.11 |"
+echo "+===================+"
+cd $TMP
+tar xzvf $CWD/netkit-ntalk-0.11.tar.gz
+cd netkit-ntalk-0.11
+zcat $CWD/netkit-ntalk-0.11.diff.gz | patch -p0 --backup
+./configure --prefix=/usr
+make
+cd talk
+strip talk
+cat talk > $PKG/usr/bin/talk-0.11
+
+echo "+====================+"
+echo "| netkit-routed-0.17 |"
+echo "+====================+"
+cd $TMP
+tar xzvf $CWD/netkit-routed-0.17.tar.gz
+cd netkit-routed-0.17
+zcat $CWD/routed.18.candidate.final.patch.gz | patch -p1 --backup --verbose -E --suffix=.orig
+zcat $CWD/netkit-routed-0.17.diff.gz | patch -p1 --backup --verbose -E --suffix=.orig
+./configure --prefix=/usr
+make
+strip ripquery/ripquery routed/routed
+cat routed/routed > $PKG/usr/sbin/routed
+cat routed/routed.8 | gzip -9c > $PKG/usr/man/man8/routed.8.gz
+cat ripquery/ripquery > $PKG/usr/sbin/ripquery
+cat ripquery/ripquery.8 | gzip -9c > $PKG/usr/man/man8/ripquery.8.gz
+
+echo "+=================+"
+echo "| netkit-rsh-0.17 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/netkit-rsh-0.17.tar.gz
+cd netkit-rsh-0.17
+./configure --prefix=/usr
+make
+cd rsh
+strip rsh
+cat rsh > $PKG/usr/bin/rsh
+cat rsh.1 | gzip -9c > $PKG/usr/man/man1/rsh.1.gz
+cd ../rshd
+strip rshd
+cat rshd > $PKG/usr/sbin/in.rshd
+cat rshd.8 | gzip -9c > $PKG/usr/man/man8/in.rshd.8.gz
+cd ../rcp
+strip rcp
+cat rcp > $PKG/usr/bin/rcp
+cat rcp.1 | gzip -9c > $PKG/usr/man/man1/rcp.1.gz
+cd ../rexecd
+strip rexecd
+cat rexecd > $PKG/usr/sbin/in.rexecd
+cat rexecd.8 | gzip -9c > $PKG/usr/man/man8/rexecd.8.gz
+cd ../rlogin
+strip rlogin
+cat rlogin > $PKG/usr/bin/rlogin
+cat rlogin.1 | gzip -9c > $PKG/usr/man/man1/rlogin.1.gz
+cd ../rlogind
+strip rlogind
+cat rlogind > $PKG/usr/sbin/in.rlogind
+cat rlogind.8 | gzip -9c > $PKG/usr/man/man8/in.rlogind.8.gz
+
+echo "+====================+"
+echo "| netkit-rusers-0.17 |"
+echo "+====================+"
+cd $TMP
+tar xzvf $CWD/netkit-rusers-0.17.tar.gz
+cd netkit-rusers-0.17
+zcat $CWD/netkit-rusers-0.17.diff.gz | patch -p1
+./configure --prefix=/usr
+make
+cd rpc.rusersd
+strip rusersd
+cat rusersd > $PKG/usr/sbin/rpc.rusersd
+cat rpc.rusersd.8 | gzip -9c > $PKG/usr/man/man8/rpc.rusersd.8.gz
+cd ../rusers
+strip rusers
+cat rusers > $PKG/usr/bin/rusers
+cat rusers.1 | gzip -9c > $PKG/usr/man/man1/rusers.1.gz
+cd ../rup
+strip rup
+cat rup > $PKG/usr/bin/rup
+cat rup.1 | gzip -9c > $PKG/usr/man/man1/rup.1.gz
+
+echo "+===================+"
+echo "| netkit-rwall-0.17 |"
+echo "+===================+"
+cd $TMP
+tar xzvf $CWD/netkit-rwall-0.17.tar.gz
+cd netkit-rwall-0.17
+./configure --prefix=/usr
+make
+cd rpc.rwalld
+strip rwalld
+cat rwalld > $PKG/usr/sbin/rpc.rwalld
+cat rpc.rwalld.8 | gzip -9c > $PKG/usr/man/man8/rpc.rwalld.8.gz
+cd ../rwall
+strip rwall
+cat rwall > $PKG/usr/bin/rwall
+cat rwall.1 | gzip -9c > $PKG/usr/man/man1/rwall.1.gz
+
+echo "+==================+"
+echo "| netkit-rwho-0.17 |"
+echo "+==================+"
+cd $TMP
+tar xzvf $CWD/netkit-rwho-0.17.tar.gz
+cd netkit-rwho-0.17
+zcat $CWD/netkit-rwho-0.17.diff.gz | patch -p1
+./configure --prefix=/usr
+make
+cd rwho
+strip rwho
+cat rwho > $PKG/usr/bin/rwho
+cat rwho.1 | gzip -9c > $PKG/usr/man/man1/rwho.1.gz
+cd ../rwhod
+strip rwhod
+cat rwhod > $PKG/usr/sbin/rwhod
+cat rwhod.8 | gzip -9c > $PKG/usr/man/man8/rwhod.8.gz
+
+echo "+====================+"
+echo "| netkit-telnet-0.17 |"
+echo "+====================+"
+cd $TMP
+tar xzvf $CWD/netkit-telnet-0.17.tar.gz
+cd netkit-telnet-0.17
+zcat $CWD/netkit-telnet-0.17.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/netkit-telnet-0.17-ayt.patch.gz | patch -p1 --verbose --backup --suffix=.orig
+./configure --prefix=/usr
+make
+cd telnet
+strip telnet
+cat telnet > $PKG/bin/telnet
+cat telnet.1 | gzip -9c > $PKG/usr/man/man1/telnet.1.gz
+cd ../telnetd
+strip telnetd
+cat telnetd > $PKG/usr/sbin/in.telnetd
+cat telnetd.8 | gzip -9c > $PKG/usr/man/man8/in.telnetd.8.gz
+
+echo "+==================+"
+echo "| netkit-tftp-0.17 |"
+echo "+==================+"
+cd $TMP
+tar xzvf $CWD/netkit-tftp-0.17.tar.gz
+cd netkit-tftp-0.17
+./configure --prefix=/usr
+make
+cd tftp
+strip tftp
+cat tftp > $PKG/usr/bin/tftp
+cat tftp.1 | gzip -9c > $PKG/usr/man/man1/tftp.1.gz
+cd ../tftpd
+strip tftpd
+cat tftpd > $PKG/usr/sbin/in.tftpd
+cat tftpd.8 | gzip -9c > $PKG/usr/man/man8/in.tftpd.8.gz
+
+echo "+===================+"
+echo "| netkit-timed-0.17 |"
+echo "+===================+"
+cd $TMP
+tar xzvf $CWD/netkit-timed-0.17.tar.gz
+cd netkit-timed-0.17
+zcat $CWD/netkit-timed-0.17.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E
+./configure --prefix=/usr
+make
+cd timed/timed
+strip timed
+cat timed > $PKG/usr/sbin/in.timed
+cat timed.8 | gzip -9c > $PKG/usr/man/man8/timed.8.gz
+cd ../timedc
+strip timedc
+cat timedc > $PKG/usr/sbin/timedc
+cat timedc.8 | gzip -9c > $PKG/usr/man/man8/timedc.8.gz
+
+echo "+===============+"
+echo "| netwrite-0.17 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/netwrite-0.17.tar.gz
+cd netwrite-0.17
+zcat $CWD/netwrite-0.17.diff.gz | patch -p1
+./configure --prefix=/usr
+make
+# The versions in util-linux are better, but we'll keep in.writed just in case:
+#cat write > $PKG/usr/bin/write
+#cat write.1 | gzip -9c > $PKG/usr/man/man1/write.1.gz
+cd writed
+strip writed
+cat writed > $PKG/usr/sbin/in.writed
+cat writed.8 | gzip -9c > $PKG/usr/man/man8/in.writed.8.gz
+
+echo "+===========+"
+echo "| portmap_4 |"
+echo "+===========+"
+cd $TMP
+tar xzvf $CWD/portmap_4.tar.gz
+cd portmap_4
+zcat $CWD/portmap_4.diff.gz | patch -p1 --backup --suffix=.orig
+mkdir $PKG/usr/doc/portmap_4
+cp -a BLURB CHANGES README $PKG/usr/doc/portmap_4
+chmod 644 $PKG/usr/doc/portmap_4/*
+chown root.root $PKG/usr/doc/portmap_4/*
+make FACILITY=LOG_AUTH ZOMBIES='-DIGNORE_SIGCHLD -Dlint' LIBS="-lnsl"
+strip portmap pmap_dump pmap_set
+cat portmap > $PKG/sbin/rpc.portmap
+cat pmap_dump > $PKG/usr/sbin/pmap_dump
+cat pmap_set > $PKG/usr/sbin/pmap_set
+cat $CWD/portmap.8.gz > $PKG/usr/man/man8/portmap.8.gz
+
+echo "+=============+"
+echo "| whois-4.5.4 |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/whois_4.5.4.tar.gz
+cd whois-4.5.4
+mkdir -p $PKG/usr/doc/whois-4.5.4
+cp -a README TODO $PKG/usr/doc/whois-4.5.4
+chown -R root.root $PKG/usr/doc/whois-4.5.4
+make
+strip whois
+cat whois > $PKG/usr/bin/whois
+cat whois.1 | gzip -9c > $PKG/usr/man/man1/whois.1.gz
+
+echo "+=================+"
+echo "| pcnfsd.93.02.16 |"
+echo "+=================+"
+cd $TMP
+mkdir pcnfsd
+cd pcnfsd
+tar xzvf $CWD/pcnfsd.93.02.16.tar.gz
+zcat $CWD/pcnfsd.93.02.16.diff.gz | patch -p1 --backup
+make clean
+make bsd
+mkdir -p $PKG/usr/doc/pcnfsd.93.02.16
+cp -a README $PKG/usr/doc/pcnfsd.93.02.16
+chown root.root $PKG/usr/doc/pcnfsd.93.02.16/README
+cat pcnfsd.8c | gzip -9c > $PKG/usr/man/man8/pcnfsd.8.gz
+cd bsd
+strip clnt.pcnfsd rpc.pcnfsd
+cat clnt.pcnfsd > $PKG/usr/sbin/clnt.pcnfsd
+cat rpc.pcnfsd > $PKG/usr/sbin/rpc.pcnfsd
+
+echo "+========+"
+echo "| bwnfsd |"
+echo "+========+"
+cd $TMP
+tar xzvf $CWD/bwnfsd.tar.gz
+cd bwnfsd
+zcat $CWD/bwnfsd.diff.gz | patch -p1 --backup
+make linux
+strip bwnfsd
+cat bwnfsd > $PKG/usr/sbin/rpc.bwnfsd
+
+echo "+============+"
+echo "| mini-inews |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/mini-inews.tar.gz
+cd inews
+zcat $CWD/mini-inews.diff.gz | patch -p1 -E --verbose --backup
+make
+strip inews
+cat inews > $PKG/usr/bin/inews-nntp
+
+echo "+==============+"
+echo "| pop3d-1.006d |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/pop3d-1.006d.tar.gz
+cd pop3d-1.006d
+zcat $CWD/pop3d-1.006d.diff.gz | patch -p1 --backup
+make
+strip in.pop3d
+cat in.pop3d > $PKG/usr/sbin/in.pop3d
+gzip -9c pop3d.1 > $PKG/usr/man/man8/in.pop3d.8.gz
+cp $CWD/flushpop.sh $PKG/usr/sbin/flushpop.sh
+chown root.bin $PKG/usr/sbin/flushpop.sh
+chmod 755 $PKG/usr/sbin/flushpop.sh
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/tcpip1.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+ for dir in biff+comsat-0.17 bsd-finger-0.17 bwnfsd whois-4.5.4 \
+  icmpinfo-1.11 inetd inews pcnfsd net-tools-1.60 netdate netkit-base-0.17 \
+  netkit-bootparamd-0.17 netkit-ntalk-0.17 netkit-routed-0.17 \
+  netkit-rsh-0.17 netkit-rusers-0.17 netkit-rwall-0.17 netkit-rwho-0.17 \
+  netkit-telnet-0.17 netkit-tftp-0.17 netkit-timed-0.17 netwrite-0.17 \
+  nfs-utils-0.3.1 package-tcpip1 pidentd-3.0.12 pop3d-1.006d \
+  portmap_4 ruptime tcp_wrappers_7.6 traceroute-4.4BSD \
+  gnu-pop3d-0.9.8 ; do
+  rm -rf $TMP/$dir
+ done
+ rm -rf $PKG
+fi

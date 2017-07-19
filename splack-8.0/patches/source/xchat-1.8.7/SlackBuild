@@ -1,0 +1,65 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-xchat
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_xchat.tar.gz
+
+cd $TMP
+tar xyvf $CWD/xchat-1.8.7.tar.bz2
+cd xchat-1.8.7
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            --with-catgets \
+            --enable-openssl \
+            --enable-panel \
+            --disable-textfe \
+            sparc-slackware-linux
+make
+
+strip src/fe-gtk/xchat && cp src/fe-gtk/xchat $PKG/opt/gnome/bin
+cp xchat.desktop $PKG/opt/gnome/share/gnome/apps/Internet
+cp xchat.png $PKG/opt/gnome/share/pixmaps
+
+for i in `find $TMP/xchat-1.8.7/po -name \*.gmo`
+do
+  cp -a $i $PKG/usr/share/locale/`basename $i .gmo`/LC_MESSAGES/xchat.mo
+done
+
+mkdir -p $PKG/usr/doc/xchat-1.8.7
+cp -a AUTHORS COPYING ChangeLog FAQ README  doc/* $PKG/usr/doc/xchat-1.8.7
+chmod 644 $PKG/usr/doc/xchat-1.8.7/*
+chown -R root.root $PKG/usr/doc/xchat-1.8.7
+
+# Build the package:
+cd $PKG
+echo "n" | makepkg $TMP/xchat.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/xchat-1.8.7
+  rm -rf $PKG
+fi

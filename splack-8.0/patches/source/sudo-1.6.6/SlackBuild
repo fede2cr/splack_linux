@@ -1,0 +1,55 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sudo
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_sudo.tar.gz
+
+VERSION=1.6.6
+ARCH=sparc
+BUILD=1
+
+echo "+==============+"
+echo "| sudo-$VERSION |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/sudo-$VERSION.tar.gz
+cd sudo-$VERSION
+./configure --prefix=/usr --sbindir=/usr/sbin --with-getpass --with-C2
+make
+strip sudo visudo
+cat sudo > $PKG/usr/bin/sudo
+cat sudoers > $PKG/etc/sudoers.new
+cat visudo > $PKG/usr/sbin/visudo
+cat sudo.man | gzip -9c > $PKG/usr/man/man8/sudo.8.gz
+cat visudo.man | gzip -9c > $PKG/usr/man/man8/visudo.8.gz
+cat sudoers.man | gzip -9c > $PKG/usr/man/man5/sudoers.5.gz
+mkdir -p $PKG/usr/doc/sudo-$VERSION
+for file in BUGS CHANGES HISTORY INSTALL PORTING README \
+RUNSON TODO TROUBLESHOOTING ; do
+ cp -a $file $PKG/usr/doc/sudo-$VERSION
+done
+chmod 644 $PKG/usr/doc/sudo-$VERSION/*
+chown root.root $PKG/usr/doc/sudo-$VERSION/*
+
+# Build the package:
+cd $PKG
+echo "n" | makepkg $TMP/sudo.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/sudo-$VERSION
+  rm -rf $PKG
+fi

@@ -1,0 +1,4 @@
+#!/bin/sh
+./SlackBuild-procmail $*
+./SlackBuild-sendmail $*
+./SlackBuild-smailcfg $*

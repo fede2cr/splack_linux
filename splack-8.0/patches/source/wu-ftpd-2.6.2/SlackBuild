@@ -1,0 +1,80 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-wuftpd
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_wuftpd.tar.gz
+
+echo "+===============+"
+echo "| wu-ftpd-2.6.2 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/wu-ftpd-2.6.2.tar.gz
+cd wu-ftpd-2.6.2
+zcat $CWD/wu-ftpd-2.6.2.diff.gz | patch -p1 -E --backup
+./configure --prefix=/usr
+make
+strip bin/*
+cat bin/ckconfig > $PKG/usr/sbin/ckconfig
+cat bin/ftpcount > $PKG/usr/bin/ftpcount
+cat bin/ftpd > $PKG/usr/sbin/wu.ftpd
+cat bin/ftpshut > $PKG/usr/bin/ftpshut
+cat bin/ftpwho > $PKG/usr/bin/ftpwho
+cat util/xferstats > $PKG/usr/bin/xferstats
+mkdir -p $PKG/usr/doc/wu-ftpd-2.6.2
+cp -a CHANGES CONTRIBUTORS COPYRIGHT ERRATA \
+  INSTALL LICENSE README README.AUTOCONF $PKG/usr/doc/wu-ftpd-2.6.2
+cp -a doc/examples $PKG/usr/doc/wu-ftpd-2.6.2
+chown -R root.root $PKG/usr/doc/wu-ftpd-2.6.2
+cd doc
+for page in ftpcount.1 ftpwho.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+# cat realpath.3 | gzip -9c > $PKG/usr/man/man3/realpath.3.gz
+for page in ftpaccess.5 xferlog.5 ftpconversions.5 ftphosts.5 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man5/$page.gz
+done
+for page in ftpd.8 ftpshut.8 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man8/$page.gz
+done
+echo ".so man8/ftpd.8" | gzip -9c > $PKG/usr/man/man8/wu.ftpd.8.gz
+cat $CWD/etc/ftpaccess > $PKG/etc-incoming/ftpaccess
+cat $CWD/etc/ftpconversions > $PKG/etc-incoming/ftpconversions
+cat $CWD/etc/ftpgroups > $PKG/etc-incoming/ftpgroups
+cat $CWD/etc/ftpusers > $PKG/etc-incoming/ftpusers
+cat $CWD/etc/msgs/mirrors.msg > $PKG/etc-incoming/msgs/mirrors.msg
+cat $CWD/etc/msgs/msg.dead > $PKG/etc-incoming/msgs/msg.dead
+cat $CWD/etc/msgs/msg.toomany > $PKG/etc-incoming/msgs/msg.toomany
+cat $CWD/etc/msgs/welcome.msg > $PKG/etc-incoming/msgs/welcome.msg
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/wuftpd.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+ rm -rf wu-ftpd-2.6.2
+ rm -rf $PKG
+fi

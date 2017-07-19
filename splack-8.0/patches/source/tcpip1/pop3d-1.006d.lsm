@@ -1,0 +1,23 @@
+Begin3
+Title:          in.pop3d
+Version:        1.006d
+Entered-date:   18Jan99
+Description:    From the orginal BSD POP3 daemon with patches: shadow,
+		security patches, ignore case patch, syslogging, SIGPIPE
+		patch (a Netscape E-mail problem leaving files in /tmp),
+		other Netscape patches, APOP and UIDL patches, TACACS
+		authentication patch, virtual IP patch, and
+		QMAIL ~/Mailbox patches.  See READMEs for details.
+		The 1.006 release has added standalone daemon code so it
+		does NOT have to be run from inetd.
+		Mailing list: mail to pop3d-request@scott.net. with
+		"subscribe email@address.com" in the BODY.
+Keywords:       mail, pop3, pop
+Author:         various
+Maintained-by:  dtscott@scott.net.
+Primary-site:   ftp://ftp.scott.net/pub/linux/mail
+Alternate-site: 
+Original-site:  ftp://ftp.scott.net/pub/linux/mail
+Platform:       Linux most versions
+Copying-policy: 
+End

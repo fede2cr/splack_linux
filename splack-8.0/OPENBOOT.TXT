@@ -1,0 +1,129 @@
+
+Tips and Tricks For The PROM
+
+SPARC-based computer systems use what's called the PROM to control hardware,
+boot the system, and run diagnostics.  The PROM is actually the memory chip
+and it stores the firmware that the system executes.  The software that runs
+is called OpenBoot.
+
+The system boots, loads the firmware, and executes it.  The firmware is then
+responsible for making sure all the hardware works, loading a single program
+into memory, and running it.  Most often, this single program is an operating
+system.  But it doesn't have to be.
+
+OpenBoot may look alien to you if you have a lot of experience with Intel
+hardware.  But rest assured, after a few days of entering commands at the
+"ok" prompt, you'll feel at home in no time.
+
+
+SUMMARY
+
+   Like I mentioned, OpenBoot is the software on the PROM chip that the
+   system loads and executes each time you turn on the system.  OpenBoot
+   is built around the Forth interpreted programming language, so anything
+   you want to add to it can be written in Forth.
+
+   To access OpenBoot, hit STOP+A (or L1+A) on your keyboard.  If the system
+   is just starting up, you will be presenting with an "ok" prompt.  If the
+   system is currently running that single program, you will see something
+   like this:
+
+      Type b (boot), c (continued), or n (new command mode)
+      >
+
+   Hit "n" at that prompt and you'll get an "ok" prompt.
+
+   Congratulations, you're now at the OpenBoot console!
+
+
+BASIC COMMANDS
+
+   The obvious first command would be "help", which displays a list of
+   available commands.  You can in turn type "help <command>" for help on
+   that specific command.  The most useful commands are described below:
+
+   printenv
+      Displays the current system settings.
+
+   setenv
+      Used to change a system setting.
+
+   reset
+      Restart the system.
+
+   boot
+      Boot the system.
+
+   You should have a look at each of the help screens for those commands.
+   In fact, play around with each of those to become comfortable using them.
+   If you render the system settings completely useless, you can enter the
+   OpenBoot console and type "set-defaults" to restore factory defaults.
+   Of course, if you go and set a password and then forget it, you have no
+   way of recovering that except to buy a new NVRAM chip from Sun.  :^)
+
+
+DEVICES
+
+   All of the system devices are represented in the device tree.  This is
+   a virtual thing that is layed out like a filesystem.  To start, type
+   "show-devs".  You will see a listing of the devices on the system.  You
+   can type "cd" and "ls" on these nodes just like you would on directories
+   and files on a real filesystem.  Typing ".attributes" in a directory
+   will show you the values for the current node.
+
+   You'll soon find that device paths in the device tree are incredibly
+   long.  So long, that you'll want shorter names to represent common 
+   devices.  The "devalias" command can help there.  The syntax is:
+
+      devalias <alias> <device node>
+
+   You can alias a node to something like "harddisk".  Or something similar.
+   Keep in mind that the devalias command will not retain the device aliases
+   after a system reset.  Therefore, you should probably use the "nvalias"
+   command to set the alias so it stores it to the nvramrc.  This file is
+   sourced by OpenBoot when you enter the console.  The syntax is the same
+   as the devalias command.  To undo an nvalias, use "nvunalias".
+
+   Diagnostics are always impressive.  And OpenBoot offers several tools for
+   checking the system.
+
+   test <device node>
+      Test a specific device.
+
+   test-all
+      Test all devices.
+
+   probe-scsi
+      Search for onboard, Sun SCSI controllers and devices.
+
+   probe-scsi-all
+      Search for any and all SCSI devices in the system, even third party ones.
+
+   watch-clock
+      Test the clock.
+
+   watch-net
+      Monitor network traffic.
+
+   show-sbus
+      Search for any SBus adapters.
+
+
+COOL STUFF
+
+   I like to setup nvaliases for my Slackware and Solaris partitions so that
+   I can easily type "boot linux" or "boot solaris" at the ok prompt.  Using
+   the nvalias command, you can set up these aliases.  Don't forget to run
+   "setenv use-nvramrc? true" so that the nvramrc file will be sourced when
+   you boot the machine.
+
+   And I also like to replace my default boot logo with the Slackware
+   "underbar S" logo.  The http://www.ccl.kuleuven.ac.be/~bob/oem-logo.html
+   page can help you with that.  :^)
+
+
+Enjoy!
+
+--
+David Cantrell
+david@slackware.com

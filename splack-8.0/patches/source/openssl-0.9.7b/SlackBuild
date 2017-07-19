@@ -1,0 +1,108 @@
+#!/bin/sh
+# Copyright 2000 BSDi, Inc. Concord, CA, USA
+# Copyright 2001, 2002 Slackware Linux, Inc.  Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+PKG_openssl=$TMP/package-openssl
+PKG_ossllibs=$TMP/package-ossllibs
+
+if [ ! -d $PKG_openssl ]; then
+  mkdir -p $PKG_openssl # place for the package to be built
+fi
+if [ ! -d $PKG_ossllibs ]; then
+  mkdir -p $PKG_ossllibs # place for the package to be built
+fi
+
+relink() {
+  ORIGLINE=`/bin/ls -l $1`
+  LINK=`echo $ORIGLINE | cut -f 9 -d ' '`.gz
+  FILE=`echo $ORIGLINE | cut -f 11 -d ' '`.gz
+  rm $1
+  ln -sf $FILE $LINK
+}
+
+
+
+cd $TMP
+tar xyvf $CWD/openssl-0.9.7b.tar.bz2
+cd openssl-0.9.7b
+# Use .so.0, not .so.0.9.6:
+zcat $CWD/openssl-0.9.7b-soname.diff.gz | patch -p1 --backup --verbose --suffix=.orig
+chown -R root.root .
+# These are the known patent issues with OpenSSL:
+# name   #         expires
+# MDC-2: 4,908,861 13/03/2007, not included.
+# IDEA:  5,214,703 25/05/2010, not included.
+# RC5:   5,724,428 03/03/2015, not included.
+./config --prefix=/usr --openssldir=/etc/ssl no-mdc2 no-idea no-rc5 shared
+make
+make install INSTALL_PREFIX=$PKG_openssl
+
+strip --strip-unneeded $PKG_openssl/usr/lib/lib*.so.*.*.* $PKG_openssl/usr/bin/*
+( cd $PKG_openssl/usr/lib ; ln -sf libcrypto.so.0 libcrypto.so )
+( cd $PKG_openssl/usr/lib ; ln -sf libssl.so.0 libssl.so )
+chown -R root.bin $PKG_openssl/usr/bin
+mv $PKG_openssl/etc/ssl/man $PKG_openssl/usr
+( cd $PKG_openssl/usr/man/man1 ; mv passwd.1 ssl_passwd.1 )
+( cd $PKG_openssl/usr/man/man3 ; mv rand.3 ssl_rand.3 )
+gzip -9 $PKG_openssl/usr/man/man?/*
+
+for mandir in man1 man3 man7 ; do
+  ( cd $PKG_openssl/usr/man/$mandir
+    for page in *.? ; do    
+      relink $page      
+    done
+  ) 
+done
+
+mkdir -p $PKG_openssl/usr/doc/openssl-0.9.7b
+cp -a CHANGES CHANGES.SSLeay FAQ INSTALL INSTALL.MacOS INSTALL.VMS INSTALL.W32 \
+  LICENSE NEWS README README.ENGINE doc $PKG_openssl/usr/doc/openssl-0.9.7b
+find $PKG_openssl/usr/doc/openssl-0.9.7b -type d -exec chmod 755 {} \;
+find $PKG_openssl/usr/doc/openssl-0.9.7b -type f -exec chmod 644 {} \;
+cd $PKG_openssl
+echo "y
+n" | makepkg ../openssl.tgz
+
+# Make runtime package:
+mkdir -p $PKG_ossllibs/usr/lib
+( cd usr/lib ; cp -a lib*.so.*.*.* $PKG_ossllibs/usr/lib )
+( cd $PKG_ossllibs/usr/lib ; ldconfig . )
+mkdir -p $PKG_ossllibs/etc
+( cd $PKG_ossllibs/etc ; cp -a $PKG_openssl/etc/ssl . )
+mkdir -p $PKG_ossllibs/usr/doc/openssl-0.9.7b
+( cd $TMP/openssl-0.9.7b
+  cp -a CHANGES CHANGES.SSLeay FAQ INSTALL INSTALL.MacOS INSTALL.VMS INSTALL.W32 \
+  LICENSE NEWS README README.ENGINE $PKG_ossllibs/usr/doc/openssl-0.9.7b
+)
+find $PKG_ossllibs/usr/doc/openssl-0.9.7b -type d -exec chmod 755 {} \;
+find $PKG_ossllibs/usr/doc/openssl-0.9.7b -type f -exec chmod 644 {} \;
+cd $PKG_ossllibs
+echo "y
+n" | makepkg ../ossllibs.tgz

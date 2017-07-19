@@ -1,0 +1,34 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-cvs
+
+cd $TMP
+tar xzvf $CWD/cvs-1.11.1p1.tar.gz
+cd cvs-1.11.1p1
+# Link against external zlib.  Prompted by a security problem with
+# the included version of zlib which cvs was statically linking with.
+zcat $CWD/cvs-1.11.1p1.zlib.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+# Increase resistance to /tmp attacks:
+zcat $CWD/cvs-1.11.1p1.tmp.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+# Fix a missing passfile on first use:
+zcat $CWD/cvs-1.11.1p1.login.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/cvs-1.11.1p1-sockaddr.patch.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/cvs-1.11.1p1.timestamp.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+
+mkdir -p $PKG/usr/doc/cvs-1.11.1p1
+cp -a BUGS COPYING COPYING.LIB DEVEL-CVS FAQ HACKING INSTALL \
+  MINOR-BUGS NEWS PROJECTS README TESTS TODO $PKG/usr/doc/cvs-1.11.1p1
+chown root.root $PKG/usr/doc/cvs-1.11.1p1/*
+chmod 644 $PKG/usr/doc/cvs-1.11.1p1/*
+./configure --prefix=/usr
+make CFLAGS=-O2
+make CFLAGS=-O2 LDFLAGS=-s install prefix=$PKG/usr
+( cd $PKG/usr/doc/cvs-1.11.1p1 ; rm -rf contrib )
+( cd $PKG/usr/doc/cvs-1.11.1p1 ; ln -sf ../../share/cvs/contrib contrib )
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/cvs.tgz

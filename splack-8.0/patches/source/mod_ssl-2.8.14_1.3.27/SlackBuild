@@ -1,0 +1,101 @@
+#!/bin/sh
+#
+# Build and package mod_ssl on Slackware.
+# by:  David Cantrell <david@slackware.com>
+# Currently maintained by:  PJV <volkerdi@slackware.com>
+
+MODSSL_VER=2.8.14
+APACHE_VER=1.3.27
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-mod_ssl
+
+rm -rf $PKG
+mkdir -p $PKG
+( cd $PKG ; explodepkg $CWD/_mod_ssl.tar.gz )
+
+cd $TMP
+tar xvzf $CWD/apache_$APACHE_VER.tar.gz
+tar xvzf $CWD/mod_ssl-$MODSSL_VER-$APACHE_VER.tar.gz
+
+# build mod_ssl
+cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+./configure --with-apxs=/usr/sbin/apxs \
+            --with-crt=/etc/apache/mod_ssl/server.crt \
+            --with-key=/etc/apache/mod_ssl/server.key \
+            --with-patch=/usr/bin/patch
+make
+
+# go back to the Apache tree and generate the additional package components
+cd $TMP/apache_$APACHE_VER
+cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.sslcfg/sslcfg.patch | patch -p0
+cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.ssldoc/ssldoc.patch | patch -p0
+cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.sslsup/sslsup.patch | patch -p0
+( cd $TMP/apache_$APACHE_VER/src/support
+  cat apachectl | sed -e "s|PIDFILE=/usr/local/apache/logs/httpd.pid|PIDFILE=/var/run/httpd.pid|g" | sed -e "s|HTTPD='/usr/local/apache/src/httpd'|HTTPD=/usr/sbin/httpd|g" > apachectl.new
+  mv apachectl.new apachectl )
+
+# install mod_ssl
+cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+make install
+mkdir -p $PKG/usr/doc/mod_ssl-$MODSSL_VER-$APACHE_VER
+cp -a ANNOUNCE CHANGES CREDITS INSTALL LICENSE NEWS README* \
+   $PKG/usr/doc/mod_ssl-$MODSSL_VER-$APACHE_VER
+
+# install the other components for this package
+cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+( cd pkg.sslcfg
+  cp -a README.CRT Makefile.crt ca-bundle.crt snakeoil-ca-rsa.crt \
+     snakeoil-ca-dsa.crt snakeoil-rsa.crt snakeoil-dsa.crt \
+     server.crt $PKG/etc/apache/ssl.crt )
+( cd pkg.sslcfg
+  cp -a README.CSR server.csr $PKG/etc/apache/ssl.csr )
+( cd pkg.sslcfg
+  cp -a README.PRM snakeoil-ca-dsa.prm snakeoil-dsa.prm \
+     $PKG/etc/apache/ssl.prm )
+( cd pkg.sslcfg
+  cp -a Makefile.crl README.CRL $PKG/etc/apache/ssl.crl )
+( cd pkg.sslcfg
+  cp -a README.KEY snakeoil-ca-rsa.key snakeoil-ca-dsa.key snakeoil-rsa.key \
+     snakeoil-dsa.key server.key $PKG/etc/apache/ssl.key )
+
+( cd pkg.ssldoc
+  cp -a index.html ssl_* $PKG/var/www/htdocs/manual/mod/mod_ssl )
+( cd pkg.ssldoc
+  cp -a apache_pb.gif feather.jpg mod_ssl_sb.gif openssl_ics.gif \
+     $PKG/var/www/htdocs/manual/images )
+
+cd $TMP/apache_$APACHE_VER
+( cd htdocs
+  cp -a index.html.en $PKG/var/www/htdocs )
+( cd htdocs/manual/mod
+  cp -a index.html index-bytype.html directives.html \
+     $PKG/var/www/htdocs/manual/mod )
+( cd src/support
+  cp -a apachectl $PKG/usr/sbin )
+
+# get the module in the package
+cp -a /usr/libexec/libssl.so $PKG/usr/libexec
+
+# attributes
+chmod 700 $PKG/etc/apache/ssl.key
+
+# some housekeeping
+chown -R root.root $PKG/usr/doc/*
+chown root.bin $PKG/usr/sbin/*
+chmod 755 $PKG/usr/sbin/*
+
+# make the package
+cd $PKG
+echo y| makepkg $TMP/mod_ssl.tgz
+
+# clean up
+if [ "$1" = "--cleanup" ]; then
+   cd $CWD
+   rm -rf $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+   rm -rf $TMP/apache_$APACHE_VER
+   rm -rf $PKG
+fi

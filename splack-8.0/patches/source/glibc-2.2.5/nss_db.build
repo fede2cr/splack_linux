@@ -1,0 +1,36 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+
+tar xzvf $CWD/nss_db-2.2.tar.gz
+cd nss_db-2.2
+
+CFLAGS=-O2 ./configure --prefix= \
+	--enable-static \
+	--enable-shared \
+	sparc-slackware-linux
+# libtool bug?
+if [ ! $? = 0 ]; then
+  # last ditch effort
+  cp /usr/bin/libtool .
+fi
+make
+rm -f $PKG/usr/lib/libnss_db.so $PKG/usr/lib/libnss_db.so.2
+cat .libs/libnss_db.so.2.0.0 > $PKG/lib/libnss_db-2.2.so
+chmod 755 $PKG/lib/libnss_db-2.2.so
+strip $PKG/lib/libnss_db-2.2.so
+cat .libs/libnss_db.a > $PKG/usr/lib/libnss_db.a
+strip makedb
+cat makedb > $PKG/usr/bin/makedb
+chmod 755 $PKG/usr/bin/makedb
+
+( cd $PKG/lib ; rm -rf libnss_db.so )
+( cd $PKG/usr/lib ; rm -rf libnss_db.so )
+( cd $PKG/usr/lib ; ln -sf ../../lib/libnss_db.so.2 libnss_db.so )
+( cd $PKG/lib ; rm -rf libnss_db.so.2 ; ln -sf libnss_db-2.2.so libnss_db.so.2 )
+
+## Install docs:
+mkdir -p $PKG/usr/doc/nss_db-2.2
+cp -a AUTHORS COPYING COPYING.LIB ChangeLog INSTALL NEWS README THANKS $PKG/usr/doc/nss_db-2.2
+chown -R root.root $PKG/usr/doc/nss_db-2.2
+
