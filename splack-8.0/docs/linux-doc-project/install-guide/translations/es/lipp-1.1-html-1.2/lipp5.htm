@@ -1,0 +1,2184 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Lipp5</TITLE>
+<META NAME="Versión" CONTENT="8.0.3514">
+<META NAME="Fecha" CONTENT="05/12/96">
+<META NAME="Template" CONTENT="C:\ARCHIVOS DE PROGRAMA\MICROSOFT OFFICE\OFFICE\html.dot">
+<STYLE type="text/css"><!--         
+A:LINK {COLOR:BLUE; TEXT-DECORATION:NONE}
+A:VISITED {COLOR:GREY; TEXT-DECORATION:NONE}
+A:HOVER {COLOR:RED; TEXT-DECORATION:UNDERLINE}
+--></STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=735>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><A HREF="lipp4.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=36 HEIGHT=34></A> 
+    </TD>
+    <TD WIDTH="11%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><A HREF="lipp.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=36></A> 
+    </TD>
+    <TD WIDTH="43%" VALIGN="TOP"> 
+      <P ALIGN="RIGHT"><A HREF="lippa.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=36 HEIGHT=34></A> 
+    </TD>
+  </TR>
+</TABLE>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><font size="2" color="#000000"><b><u><font size="6">Cap&iacute;tulo 
+  5</font></u></b></font></P>
+<P> 
+<HR>
+<font size="2" color="#000000"><br>
+</font> 
+<dir> </dir>
+<p><font size="2" color="#000000"><b><a name="indice"></a><a href="#avanzadas"><u>Caracter&iacute;sticas 
+  avanzadas</a></u></b></font></p>
+<dir> 
+  <dir> 
+    <p><font color="#000000" size="2"><a href="#5.1">5.1 El sistema X Window</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#5.1.1">5.1.1 Requisitos de 
+          hardware</a><br>
+          <a href="#5.1.2">5.1.2 Instalaci&oacute;n de XFree86</a><br>
+          <a href="#5.1.3">5.1.3 Configuraci&oacute;n de XFree86</a><br>
+          <a href="#5.1.4">5.1.4 Introducci&oacute;n de los datos de la tarjeta 
+          gr&aacute;fica</a><br>
+          <a href="#5.1.5">5.1.5 Funcionamiento de XFree86</a><br>
+          <a href="#5.1.6">5.1.6 Ejecuci&oacute;n con problemas</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#5.2">5.2 Acceso a ficheros MS-DOS&nbsp;</a></font></p>
+    <p><font color="#000000" size="2"><a href="#5.3">5.3 Redes con TCP/IP</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#5.3.1">5.3.1 Hardware requerido</a><br>
+          <a href="#5.3.2">5.3.2 Configuraci&oacute;n de TCP/IP</a><br>
+          <a href="#5.3.3">5.3.3 Configuraci&oacute;n de SLIP</a><br>
+          <a href="#5.3.4">5.3.4 Utilizaci&oacute;n de dip</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#5.4">5.4 Red con UUCP</a></font></p>
+    <p><font color="#000000" size="2"><a href="#5.5">5.5 Correo Electr&oacute;nico</a></font></p>
+    <p><font color="#000000" size="2"><a href="#5.6">5.6 News y USENET</a></font></p>
+  </dir>
+</dir>
+<P><font size="2" color="#000000"><b><u><a name="avanzadas"></a><font size="3">Caracter&iacute;sticas 
+  avanzadas<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2">Anterior- 
+  <a href="#5.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u><b><u><font size="2" color="#000000"><u><br>
+  </u></font><font size="3"><br>
+  </font></u></b></font><font color="#000000" size="2">En este capitulo nos introduciremos 
+  en ciertas caracter&iacute;sticas avanzadas, pero interesantes de Linux. Se 
+  asume que ya se tiene cierta experiencia en Unix, y se entiende la informaci&oacute;n 
+  contenida en los cap&iacute;tulos precedentes.<br>
+  </font><font color="#000000" size="2">El aspecto m&aacute;s importante que distingue 
+  a Linux de otras implementaciones de Unix es su dise&ntilde;o abierto a nuevas 
+  ideas y su filosof&iacute;a. Linux no fue desarrollado por un peque&ntilde;o 
+  equipo de programadores liderado por una empresa con un objetivo comercial. 
+  Fue desarrollado por un grupo creciente de "hackers" quienes aportaban todo 
+  lo que sab&iacute;an en desarrollo de Unix. Por ello, es enorme la cantidad 
+  de software adicional disponible.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="5.1"></a><font size="3">5.1 El 
+  sistema X Window<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#avanzadas">Anterior</a>- 
+  <a href="#5.1.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">X Windows es un enorme entorno gr&aacute;fico 
+  para sistemas Unix, potente y tambi&eacute;n complejo. Originalmente fue desarrollado 
+  por el MIT, y desde entonces los desarrolladores de sistemas comerciales han 
+  convertido a las X en un est&aacute;ndar de las plataformas Unix. Pr&aacute;cticamente 
+  todas las estaciones de trabajo Unix del mundo utilizan X Window en alguna de 
+  sus variantes.<br>
+  </font><font color="#000000" size="2">Existe, desarrollada por un equipo de 
+  programadores inicialmente liderados por David Wexelblat1, una implementaci&oacute;n 
+  gratuita de las X Windows versi&oacute;n 11, release 6 (X11R6) para sistemas 
+  Unix con 80386/80486/Pentium. Esta implementaci&oacute;n, llamada XFree862, 
+  se encuentra disponible en Unix x86 como System V/386, 386BSD y por supuesto 
+  Linux. Incluye todos los binarios necesarios, ficheros de soporte, librer&iacute;as 
+  y utilidades.<br>
+  </font><font color="#000000" size="2">Configurar y utilizar a fondo las X Windows 
+  se sale de los objetivos de este libro. Le animamos a leer The X Window System: 
+  A User's Guide, vea el ap&eacute;ndice A para mas informaci&oacute;n sobre el 
+  libro.<br>
+  </font><font color="#000000" size="2">En esta secci&oacute;n, le daremos 
+  una descripci&oacute;n de como instalar y configurar paso a paso XFree86 en 
+  Linux, pero necesitara completar la informaci&oacute;n con otra disponible en 
+  la documentaci&oacute;n propia de XFree86 (documentaci&oacute;n que comentaremos 
+  mas adelante). Otra fuente interesante de informaci&oacute;n es la XFree86 HOWTO.</font></P>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">1 Se puede contactar con David en Internet mediante 
+  la direcci&oacute;n dwex@XFree86.org<br>
+  </font><font color="#000000" size="2">2 XFree86 es marca registrada de The XFree86 
+  Project, Inc.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.1.1"></a>5.1.1 Requisitos de hardware<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.1">Anterior</a>- 
+  <a href="#5.1.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Al igual que la versi&oacute;n XFree86 3.1 de 
+  Septiembre de 1994, est&aacute;n soportados los siguientes "chipsets".<br>
+  </font><font color="#000000" size="2">La documentaci&oacute;n que se incluye 
+  con su adaptador de v&iacute;deo deber&iacute;a especificar cual es el "chipset" 
+  que utiliza. Si esta a punto de comprarse una nueva tarjeta gr&aacute;fica, 
+  conviene pedir al vendedor el modelo exacto de tarjeta y "chipset" de v&iacute;deo. 
+  Esto supondr&aacute;, casi siempre, recurrir al servicio t&eacute;cnico, pero 
+  normalmente los vendedores no pondr&aacute;n inconvenientes. La mayor parte 
+  de los vendedores de PCs se limitan a decir que sus ordenadores tienen tarjetas 
+  gr&aacute;ficas "SVGA est&aacute;ndar" que "tiene que funcionar" en su sistema. 
+  Expl&iacute;queles que su software (nombrando a Linux y XFree86, por supuesto) 
+  no soporta todos los "chipsets" y que usted necesita por eso informaci&oacute;n 
+  mas detallada.<br>
+  </font><font color="#000000" size="2">De todas formas, puede determinar su "chipset" 
+  ejecutando el programa SuperProbe incluido con la distribuci&oacute;n de XFree86. 
+  De esto hablamos mas abajo.<br>
+  </font><font color="#000000" size="2">Est&aacute;n 
+  soportados los siguientes "chipsets" SVGA:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> Tseng ET3000, ET4000AX, ET4000/W32<br>
+      </font><font size="2" color="#000000"><B>o</b> Western Digital/Paradise 
+      PVGA1<br>
+      </font><font size="2" color="#000000"><B>o</b> Western Digital WD90C00, 
+      WD90C10, WD90C11, WD90C24, WD90C30, WD90C31, WD90C33<br>
+      </font><font size="2" color="#000000"><B>o</b> Genoa GVGA<br>
+      </font><font size="2" color="#000000"><B>o</b> Trident TVGA8800CS, TVGA8900B, 
+      TVGA8900C, TVGA8900CL, TVGA9000, TVGA9000i, TVGA9100B, TVGA9200CX, TVGA9320, 
+      TVGA9400CX, TVGA9420<br>
+      </font><font size="2" color="#000000"><B>o</b> ATI 18800, 18800-1, 28800-2, 
+      28800-4, 28800-5, 28800-6, 68800-3, 68800-6, 68800AX, 68800LX, 88800<br>
+      </font><font size="2" color="#000000"><B>o</b> NCR 77C22, 77C22E, 77C22E+<br>
+      </font><font size="2" color="#000000"><B>o</b> Cirrus Logic CLGD5420, CLGD5422, 
+      CLGD5424, CLGD5426, CLGD5428, CLGD5429, CLGD5430, CLGD5434, CLGD6205, CLGD6215, 
+      CLGD6225, CLGD6235, CLGD6420<br>
+      </font><font size="2" color="#000000"><B>o</b> Compaq AVGA<br>
+      </font><font size="2" color="#000000"><B>o</b> OAK OTI067, OTI077<br>
+      </font><font size="2" color="#000000"><B>o</b> Avance Logic AL2101<br>
+      </font><font size="2" color="#000000"><B>o</b> MX MX68000, MX680010<br>
+      </font><font size="2" color="#000000"><B>o</b> 
+      V&iacute;deo 7/Headland Technologies HT216-32</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Tambi&eacute;n est&aacute;n soportados los siguientes, 
+  con acelerador:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> 8514/A (y clonicos)<br>
+      </font><font size="2" color="#000000"><B>o</b> ATI Mach8, Mach32<br>
+      </font><font size="2" color="#000000"><B>o</b> Cirrus CLGD5420, CLGD5422, 
+      CLGD5424, CLGD5426, CLGD5428, CLGD5429, CLGD5430, CLGD5434, CLGD6205, CLGD6215, 
+      CLGD6225, CLGD6235<br>
+      </font><font size="2" color="#000000"><B>o</b> S3 86C911, 86C924, 86C801, 
+      86C805, 86C805i, 86C928, 86C864, 86C964<br>
+      </font><font size="2" color="#000000"><B>o</b> Western Digital WD90C31, 
+      WD90C33<br>
+      </font><font size="2" color="#000000"><B>o</b> Weitek P9000<br>
+      </font><font size="2" color="#000000"><B>o</b> IIT AGX-014, AGX-015, AGX-016<br>
+      </font><font size="2" color="#000000"><B>o</b> 
+      Tseng ET4000/W32, ET4000/W32i, ET4000/W32p</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Todas las tarjetas gr&aacute;ficas que usan 
+  estos "chipsets" est&aacute;n soportadas, incluso para bus local Vesa o PCI.<br>
+  </font><font color="#000000" size="2">El soporte incluye los modos monocrom&aacute;ticos 
+  y de 256 colores, con la excepci&oacute;n de Avance Logic, MX y V&iacute;deo 
+  7, que est&aacute;n soportadas solo en 256 colores. Si su tarjeta gr&aacute;fica 
+  tiene suficiente memoria DRAM, la mayor parte de los "chipsets" anteriores tambi&eacute;n 
+  est&aacute;n soportados para los modos de 16 y 32 bits por pixel (en concreto, 
+  algunas Mach32, P9000, S3 y Cirrus). Lo habitual, sin embargo, es usar 8 bits 
+  por pixel, es decir, 256 colores.<br>
+  </font><font color="#000000" size="2">El servidor monocrom&aacute;tico tambi&eacute;n 
+  soporta las tarjetas VGA gen&eacute;ricas, la Hercules, la Hyundai HGC1280, 
+  Sigma LaserView y Apollo. Para la Compaq AVGA, solo est&aacute;n soportadas 
+  64Kb de memoria de v&iacute;deo en el servidor monocrom&aacute;tico, y la GVGA 
+  no ha sido probada con mas de 64 Kb.<br>
+  </font><font color="#000000" size="2">Indudablemente, esta lista seguir&aacute; 
+  creciendo conforme pase el tiempo. Las notas que encontrara junto a la versi&oacute;n 
+  actual de XFree86 contendr&aacute;n probablemente una completa lista de "chipsets" 
+  soportados en ese momento.<br>
+  </font><font color="#000000" size="2">Un problema que se encuentran con frecuencia 
+  los desarrolladores de XFree86 es que algunos fabricantes de tarjetas gr&aacute;ficas 
+  utilizan mecanismos no est&aacute;ndares para determinar las frecuencias de 
+  reloj a usar en la tarjeta. Algunos de esos fabricante tampoco editan especificaciones 
+  que describan como programar la tarjeta, o exigen a los desarrolladores que 
+  firmen un documento de no divulgaci&oacute;n para poder obtener la informaci&oacute;n. 
+  Esto, obviamente, dificulta la libre distribuci&oacute;n del software de XFree86. 
+  Durante mucho tiempo esto ha impedido trabajar con las tarjetas Diamond, pero 
+  desde la versi&oacute;n 3.1 de XFree86, Diamond ya ha comenzado a colaborar 
+  con el equipo de desarrollo para la realizaci&oacute;n de drivers para esas 
+  tarjetas.<br>
+  </font><font color="#000000" size="2">La configuraci&oacute;n que se sugiere 
+  para ejecutar XFree86 con Linux es una m&aacute;quina 486 con 8 megabytes de 
+  RAM por lo menos, y una tarjeta gr&aacute;fica con un "chipset" de los listados 
+  antes.<br>
+  </font><font color="#000000" size="2">Para obtener un rendimiento &oacute;ptimo, 
+  se sugiere utilizar una tarjeta acelerada, como las basadas en el "chipset" 
+  S3. Usted debe comprobar sobre la documentaci&oacute;n de XFree86 que su tarjeta 
+  est&aacute; soportada antes de proceder al gasto que supone el nuevo hardware. 
+  Se han comparado rendimientos de diversos modelos de tarjetas, y sus resultados 
+  son enviados peri&oacute;dicamente a los grupos de news USENET comp.windows.x.i386unix 
+  y comp.os.linux.misc.<br>
+  </font><font color="#000000" size="2">Como nota adicional, mi sistema personal 
+  con Linux es un 486DX2-66 con 20 megabytes de RAM y equipado con una tarjeta 
+  BLV con el "chipset" S3-864 y 2 megabytes de DRAM. He tenido rendimientos en 
+  X superiores a los de una Sun Sparc IPX. El sistema Linux resulta unas siete 
+  veces m&aacute;s r&aacute;pido que el Sparc IPX (para el curioso, XFree86-3.1 
+  bajo Linux, con esta tarjeta gr&aacute;fica, consigue unos 171,000 xstones mientras 
+  que la Sparc IPX consigue solo 24,000). En general, XFree86 en un sistema Linux 
+  con una tarjeta SVGA acelerada le dar&aacute; mucho m&aacute;s rendimiento que 
+  el que se encuentra en estaciones de trabajo Unix comerciales (que suelen emplear 
+  solo "framebuffers").<br>
+  </font><font color="#000000" size="2">Su m&aacute;quina necesitara al menos 
+  4 megabytes de memoria f&iacute;sica en RAM y 16 de memoria virtual (por ejemplo, 
+  8 megabytes en RAM y otros 8 en swap). Recuerde que cuanta m&aacute;s RAM tenga, 
+  menos tendr&aacute; el sistema que acudir al disco duro cuando no hay memoria 
+  suficiente. Dado que el swapping es inherentemente lento, tener 8 megabytes 
+  de RAM o m&aacute;s es necesario si quiere correr XFree86 de forma confortable. 
+  Un sistema con 4 megabytes de RAM correr&aacute; mucho mas lento (hasta 10 veces) 
+  que uno con 8 megabytes o m&aacute;s.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.1.2"></a>5.1.2 Instalaci&oacute;n 
+  de XFree86<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.1.1">Anterior</a>- 
+  <a href="#5.1.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">La distribuci&oacute;n en binario de XFree86 
+  para Linux puede encontrarse en muchos servidores de FTP. En sunsite.unc.edu 
+  se encuentra en el directorio /pub/Linux/X11. (En el momento de escribir este 
+  libro, la versi&oacute;n era la 3.1; aunque peri&oacute;dicamente aparecen nuevas 
+  versiones).<br>
+  </font><font color="#000000" size="2">Es com&uacute;n que usted haya obtenido 
+  XFree86 como parte de una distribuci&oacute;n de Linux, en cuyo caso no necesitara 
+  obtener el software del servidor anterior.<br>
+  </font><font color="#000000" size="2">Si en cambio los obtiene por esta v&iacute;a, 
+  la siguiente tabla le informara de los ficheros de los que consta la distribuci&oacute;n 
+  XFree86-3.1.<br>
+  </font><font color="#000000" size="2">Se requiere uno de los siguientes 
+  servidores:</font></P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=633>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><font color="#000000"><b><u><font size="3">Fichero</font> 
+        </u></b></font>
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><font color="#000000"><b><u><font size="3">Descripci&oacute;n</font> 
+        </u></b></font>
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-8514.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas tipo 8514.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-AGX.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas tipo AGX.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-Mach32.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas tipo Mach32.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-Mach8.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas tipo Mach8.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-Mono.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor monocromo.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-P9000.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas tipo P9000.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-S3.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas tipo S3.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-SVGA.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas SVGA.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-VGA16.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para VGA en 16 colores.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-W32.tar.gz</font> 
+    </TD>
+    <TD WIDTH="54%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Servidor para tarjetas tipo ET4000/W32.</font> 
+    </TD>
+  </TR>
+</TABLE>
+<P><font color="#000000" size="2">Adem&aacute;s, son necesarios todos los ficheros 
+  siguientes:</font></P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=633>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><font size="3" color="#000000"><b><u>Fichero </u></b></font>
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><font size="3" color="#000000"><b><u>Descripci&oacute;n 
+        </u></b></font>
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-bin.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Binarios de X11R6.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-cfg.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Ficheros de configuraci&oacute;n para 
+        xdm, xinit y fs.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-doc.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Documentaci&oacute;n y p&aacute;ginas 
+        de manual.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-inc.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Ficheros include.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-lib.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Ficheros de soporte y librer&iacute;as 
+        compartidas.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-fnt.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Fuentes b&aacute;sicas.&nbsp;</font> 
+    </TD>
+  </TR>
+</TABLE>
+<P><font color="#000000" size="2">Los siguientes ficheros son opcionales:</font></P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=633>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><font color="#000000"><b><u><font size="3">Fichero</font> 
+        </u></b></font>
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><font color="#000000"><b><u><font size="3">Descripci&oacute;n</font> 
+        </u></b></font>
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-ctrb.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Diversas contribuciones.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-extra.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Otros servidores y binarios.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-lkit.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Kit para personalizaci&oacute;n de servidores.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-fnt75.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Fuentes de 75 ppp.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-fnt100.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Fuentes de 100 ppp.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-fntbig.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Otras fuentes (Kanji...).</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-fntscl.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Fuentes escalables (Speedo, Type1).</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-man.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">P&aacute;ginas de manual.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-pex.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Binarios PEX y librer&iacute;as.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-slib.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Librer&iacute;as est&aacute;ticas de X.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-usrbin.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Daemons que residen en /usr/bin.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="37%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">XF86-3.1-xdmshdw.tar.gz</font> 
+    </TD>
+    <TD WIDTH="63%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Versi&oacute;n de xdm para shadow password.&nbsp;</font> 
+    </TD>
+  </TR>
+</TABLE>
+<P><font color="#000000" size="2">El directorio de XFree86 deber&iacute;a contener 
+  los ficheros README y otras notas acerca de la instalaci&oacute;n de la versi&oacute;n 
+  actual.<br>
+  </font><font color="#000000" size="2">Todo lo que se necesita para instalar 
+  XFree86 es obtener los ficheros anteriores, crear el directorio /usr/X11R6 (como 
+  root), y desempaquetar los ficheros desde ese directorio con un comando como 
+  el siguiente:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># gzip -dc XF86-3.1-bin.tar.gz | tar xfB 
+      -</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Recuerde que esos ficheros tar se empaquetan 
+  con directorios relativos a /usr/X11R6, con lo que es imprescindible desempaquetarlos 
+  en el lugar indicado.<br>
+  </font><font color="#000000" size="2">Despu&eacute;s de 
+  desempaquetar los ficheros, necesitara hacer un enlace del nombre /usr/X11R6/bin/X 
+  al servidor que vaya a utilizar. Por ejemplo, si desea usar el servidor SVGA 
+  color, /usr/bin/X11/X debe ser un enlace a /usr/X11R6/bin/XF86_SVGA. Si desea 
+  utilizar el servidor monocromo en su lugar, el enlace apuntara a XF86_MONO con 
+  el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># ln -sf /usr/X11R6/bin/XF86_MONO /usr/X11R6/bin/X</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El mecanismo es similar para cualquier otro 
+  servidor que quiera usar.<br>
+  </font><font color="#000000" size="2">Si no esta seguro de que servidor debe 
+  usar, o no conoce el "chipset" de su tarjeta gr&aacute;fica, puede ejecutar 
+  SuperProbe, un programa del directorio /usr/X11R6/bin (incluido en el fichero 
+  XF86-3.1-bin), que intentara identificar su "chipset" y otras informaciones. 
+  Anote su salida para posterior referencia.<br>
+  </font><font color="#000000" size="2">Necesita asegurarse de que /usr/X11R6/bin 
+  se encuentra en el path. Esto puede hacerse editando el fichero /etc/profile 
+  o /etc/csh.login (seg&uacute;n que shell utilice). O simplemente puede a&ntilde;adir 
+  el directorio a su path personal modificando su propio .bashrc o .cshrc.<br>
+  </font><font color="#000000" size="2">Adem&aacute;s, 
+  hay que asegurarse que /usr/X11R6/lib es localizable por ld.so, el enlazador 
+  din&aacute;mico. Para ello, a&ntilde;ada la l&iacute;nea</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">/usr/X11R6/lib</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">al fichero /etc/ld.so.conf, y ejecute /sbin/ldconfig, 
+  como root.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.1.3"></a>5.1.3 Configuraci&oacute;n 
+  de XFree86<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.1.2">Anterior</a>- 
+  <a href="#5.1.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Poner a punto XFree86 no suele ser dif&iacute;cil. 
+  Sin embargo, si va a usar manejadores de "chipsets" aun en desarrollo o desea 
+  obtener el mejor rendimiento o resoluci&oacute;n de una tarjeta aceleradora, 
+  en configurar a la perfecci&oacute;n XFree86 puede tardar bastante.<br>
+  </font><font color="#000000" size="2">En esta secci&oacute;n vamos a describir 
+  como crear y editar el fichero XF86Config, que configura al servidor. En muchos 
+  casos lo mejor es comenzar con una configuraci&oacute;n "b&aacute;sica", de 
+  baja resoluci&oacute;n, como 640x480 puntos, que es soportada por todas las 
+  tarjetas y monitores. Una vez comprobado su funcionamiento a baja resoluci&oacute;n, 
+  puede pasar a modificar la configuraci&oacute;n para explotar toda la capacidad 
+  de su tarjeta de v&iacute;deo.<br>
+  </font><font color="#000000" size="2">Adem&aacute;s 
+  de la informaci&oacute;n que nosotros le damos, deber&iacute;a leerse la siguiente 
+  documentaci&oacute;n:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> La documentaci&oacute;n propia 
+      de XFree86 en /usr/X11R6/lib/X11/doc (viene con el paquete XFree86-3.1-doc). 
+      Debe prestar especial atenci&oacute;n al fichero README.Config, que es un 
+      tutorial sobre la configuraci&oacute;n de XWindows.<br>
+      </font><font size="2" color="#000000"><B>o</b> Diferentes "chipsets" de 
+      v&iacute;deo tendr&aacute;n sus propios ficheros README en el directorio 
+      anterior (por ejemplo, README.Cirrus). L&eacute;ase el que le corresponda.<br>
+      </font><font size="2" color="#000000"><B>o</b> Las p&aacute;ginas de manual 
+      para XFree86.<br>
+      </font><font size="2" color="#000000"><B>o</b> Las p&aacute;ginas de manual 
+      para XF86Config.<br>
+      </font><font size="2" color="#000000"><B>o</b> Las p&aacute;ginas 
+      de manual para el servidor concreto que utilice (como XF86_SVGA o XF86_S3).</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El fichero de configuraci&oacute;n principal 
+  debe ser /usr/X11R6/lib/X11/XF86Config. Este fichero contiene informaci&oacute;n 
+  acerca del rat&oacute;n, par&aacute;metros de la tarjeta gr&aacute;fica, etc. 
+  El fichero XF86Config.ed es un ejemplo que incluye la distribuci&oacute;n. Copie 
+  este fichero como XF86Config y modif&iacute;quelo para su sistema.<br>
+  </font><font color="#000000" size="2">Las p&aacute;ginas de manual para XF86Config 
+  explican el formato del fichero con detalles. Lea ahora esas p&aacute;ginas 
+  si aun no lo ha hecho.<br>
+  </font><font color="#000000" size="2">Le vamos a presentar un ejemplo de XF86Config. 
+  No tiene por que coincidir con el ejemplo que incluye la distribuci&oacute;n, 
+  pero en todo caso tendr&aacute;n estructura parecida.<br>
+  </font><font color="#000000" size="2">3 Observe que el formato del fichero puede 
+  cambiar algo entre versiones de XFree86. La informaci&oacute;n que le damos 
+  solo vale para la versi&oacute;n 3.1.<br>
+  </font><font color="#000000" size="2">3 Adem&aacute;s, no debe limitarse a copiar 
+  este fichero e intentar probarlo en su sistema. Si lo hace, y, por error, env&iacute;a 
+  a su monitor una frecuencia demasiado alta para &eacute;l puede producir una 
+  aver&iacute;a. No seria el primer caso. Esto ha ocurrido especialmente con monitores 
+  de frecuencia fija. En definitiva, aseg&uacute;rese de que su fichero XF86Config 
+  se corresponde con su hardware antes de intentar utilizarlo.<br>
+  </font><font color="#000000" size="2">Cada 
+  secci&oacute;n del siguiente ejemplo de XF86Config se enmarca en un par de l&iacute;neas 
+  Section &lt;section-name&gt;. . . EndSection. La primera parte del fichero es 
+  la secci&oacute;n de Ficheros, que tendr&aacute; el siguiente aspecto:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Section "Files"<br>
+      </font><font color="#000000" size="2">RgbPath "/usr/X11R6/lib/X11/rgb"<br>
+      </font><font color="#000000" size="2">FontPath "/usr/X11R6/lib/X11/fonts/misc/"<br>
+      </font><font color="#000000" size="2">FontPath "/usr/X11R6/lib/X11/fonts/75dpi/"<br>
+      </font><font color="#000000" size="2">EndSection</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">La l&iacute;nea RgbPath pone la ruta de acceso 
+  a la base de datos de colores RGB para X11R6, y cada l&iacute;nea FontPath pone 
+  rutas de acceso a directorios con fuentes X11. Por lo general no tendr&aacute; 
+  que modificar estas l&iacute;neas. Tan solo debe comprobar que en los directorios 
+  correspondientes se encuentran los ficheros implicados (fuentes, etc.).<br>
+  </font><font color="#000000" size="2">La 
+  siguiente secci&oacute;n es ServerFlags, que especifica algunos "flags" generales 
+  para el servidor. Por lo general la secci&oacute;n suele ir vac&iacute;a.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Section "ServerFlags"<br>
+      </font><font color="#000000" size="2"># Si quita el comentario siguiente, 
+      la llegada de una se&ntilde;al al<br>
+      </font><font color="#000000" size="2"># provocara el volcado de su memoria. 
+      Esto puede dejar la consola en<br>
+      </font><font color="#000000" size="2"># un estado inutilizable pero el volcado 
+      puede servirle en la depuraci&oacute;n.<br>
+      </font><font color="#000000" size="2"># NoTrapSignals</font></P>
+    <P><font color="#000000" size="2"># Quitando este comentario se desactiva 
+      la secuencia &lt;Crtl&gt;&lt;Alt&gt;&lt;BS&gt;<br>
+      </font><font color="#000000" size="2"># DontZap<br>
+      </font><font color="#000000" size="2">EndSection</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">La siguiente secci&oacute;n es Keyboard. Su 
+  significado es claro.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Section "Keyboard"<br>
+      </font><font color="#000000" size="2">Protocol "Standard"<br>
+      </font><font color="#000000" size="2">AutoRepeat 500 5<br>
+      </font><font color="#000000" size="2">ServerNumLock<br>
+      </font><font color="#000000" size="2">EndSection</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Existen otras opciones. Vea su fichero XF86Config 
+  si desea modificar las opciones de teclado. Las que trae por defecto suelen 
+  funcionar bien en casi todos los sistemas.<br>
+  </font><font color="#000000" size="2">La 
+  siguiente secci&oacute;n es Pointer, y especifica los par&aacute;metros para 
+  el rat&oacute;n.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Section "Pointer"</font></P>
+    <P><font color="#000000" size="2">Protocol "MouseSystems"<br>
+      </font><font color="#000000" size="2">Device "/dev/mouse"</font></P>
+    <P><font color="#000000" size="2"># Los dos par&aacute;metros siguientes solo 
+      son necesarios en algunos Logitech.<br>
+      </font><font color="#000000" size="2"># BaudRate 9600<br>
+      </font><font color="#000000" size="2"># SampleRate 150</font></P>
+    <P><font color="#000000" size="2"># La siguiente opci&oacute;n es &uacute;til 
+      para ratones Microsoft de dos botones.<br>
+      </font><font color="#000000" size="2"># Emulate3Buttons</font></P>
+    <P><font color="#000000" size="2"># La siguiente opci&oacute;n es &uacute;til 
+      para algunos ratones con tres botones Logitech.<br>
+      </font><font color="#000000" size="2"># ChordMiddle</font></P>
+    <P><font color="#000000" size="2">EndSection</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Le pueden interesar las opciones Protocol y 
+  Device. Protocol especifica el protocolo que utiliza su rat&oacute;n (no se 
+  trata de su marca o modelo). Bajo Linux los protocolos validos son:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> BusMouse<br>
+      </font><font size="2" color="#000000"><B>o</b> Logitech<br>
+      </font><font size="2" color="#000000"><B>o</b> Microsoft<br>
+      </font><font size="2" color="#000000"><B>o</b> MMSeries<br>
+      </font><font size="2" color="#000000"><B>o</b> Mouseman<br>
+      </font><font size="2" color="#000000"><B>o</b> MouseSystems<br>
+      </font><font size="2" color="#000000"><B>o</b> PS/2<br>
+      </font><font size="2" color="#000000"><B>o</b> 
+      MMHitTab</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">BusMouse es el que se usa para rat&oacute;n 
+  Logitech en bus. Observar que los ratones antiguos de Logitech usan Logitech 
+  pero los m&aacute;s modernos usan Microsoft o Mouseman. Este es un caso en el 
+  que el protocolo no coincide con la marca.<br>
+  </font><font color="#000000" size="2">Device especifica el dispositivo donde 
+  esta el rat&oacute;n. En muchos sistemas Linux se encuentra en /dev/mouse, que 
+  suele ser un enlace al dispositivo verdadero (puerto serie como /dev/cua0, etc.). 
+  Por supuesto, debe asegurarse de que el dispositivo que corresponda este en 
+  /dev.</font><font color="#000000" size="2">La siguiente secci&oacute;n es Monitor, 
+  que especifica las caracter&iacute;sticas de su pantalla TRC. La secci&oacute;n 
+  Monitor de XF86Config puede no ser &uacute;nica, como sucede con otras secciones. 
+  Es &uacute;til si hay varios monitores conectados al sistema, o si se quiere 
+  usar el mismo XF86Config en diferentes configuraciones hardware. Por lo general, 
+  sin embargo, solo necesitara una secci&oacute;n Monitor.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Section "Monitor"<br>
+      </font><font color="#000000" size="2">Identifier "CTX 5468 NI"</font></P>
+    <P><font color="#000000" size="2"># !! Estos valores son validos solo para 
+      un monitor "CTX 5468 NI"<br>
+      </font><font color="#000000" size="2"># No intente usarlo en su monitor 
+      si no es este mismo.</font></P>
+    <P><font color="#000000" size="2">Bandwidth 60<br>
+      </font><font color="#000000" size="2">HorizSync 30-38,47-50<br>
+      </font><font color="#000000" size="2">VertRefresh 50-90</font></P>
+    <P><font color="#000000" size="2"># Modos: Nombre reloj horiz vert</font></P>
+    <P><font color="#000000" size="2">ModeLine "640x480" 25 640 664 760 800 480 
+      491 493 525<br>
+      </font><font color="#000000" size="2">ModeLine "800x600" 36 800 824 896 
+      1024 600 601 603 625<br>
+      </font><font color="#000000" size="2">ModeLine "1024x768" 65 1024 1088 1200 
+      1328 768 783 789 818<br>
+      </font><font color="#000000" size="2">EndSection</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">La l&iacute;nea Identifier se usa para dar a 
+  la secci&oacute;n un nombre. Puede ser cualquier cadena de caracteres y se usara 
+  despu&eacute;s para referirse a ese monitor.<br>
+  </font><font color="#000000" size="2">HorizSync 
+  es el valor de frecuencia de sincronismo horizontal valida, en KHz. Si tiene 
+  un monitor "multisync", puede tratarse de un rango (o diversos rangos separados 
+  por comas). Si se trata de un monitor de frecuencia fija, ser&aacute; un conjunto 
+  discreto de valores como el siguiente:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">HorizSync 31.5, 35.2, 37.9, 35.5, 48.95</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El manual de su monitor deber&iacute;a incluir 
+  estos datos en las especificaciones t&eacute;cnicas. Si no tiene esta informaci&oacute;n, 
+  contacte con el vendedor o fabricante para obtenerla. Por supuesto, hay otras 
+  fuentes de informaci&oacute;n.<br>
+  </font><font color="#000000" size="2">VertRefresh especifica las frecuencias 
+  de refresco vertical validas (o sincronismo vertical), en Hz. Como HorizSync 
+  puede ser uno o m&aacute;s rangos o valores discretos. Tambi&eacute;n deben 
+  indicarse en su manual.<br>
+  </font><font color="#000000" size="2">Los dos par&aacute;metros 
+  anteriores solo se utilizan para comprobar que los modos gr&aacute;ficos pedidos 
+  van a ser tolerados por su monitor. Esos modos se especifican en las entradas 
+  Modeline que tienen el formato siguiente:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ModeLine &lt;nombre&gt; &lt;reloj&gt; &lt;valores-horiz&gt; 
+      &lt;valores-vert&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">&lt;nombre&gt; es un nombre cualquiera que le 
+  damos al modo. &lt;reloj&gt; es la frecuencia de reloj o "dot clock" asociada 
+  al modo. Se suele especificar siempre en Mhz, y es la frecuencia de env&iacute;o 
+  de pixels al monitor para esa resoluci&oacute;n. &lt;valores-horiz&gt; y &lt;valores-vert&gt; 
+  son cuatro n&uacute;meros que especifican cuando el haz de electrones del monitor 
+  debe dispararse y cuando se env&iacute;an los pulsos de sincronismo.<br>
+  </font><font color="#000000" size="2">Se preguntara como determinar esos valores 
+  para su monitor. El fichero Videomodes.doc, incluido en la distribuci&oacute;n 
+  de XFree86 describe en detalle como obtener los valores requeridos. En primer 
+  lugar, &lt;reloj&gt; debe corresponderse con un valor de los que pueda producir 
+  su tarjeta de v&iacute;deo. Por lo tanto solo usara modos con valores de reloj 
+  soportados.<br>
+  </font><font color="#000000" size="2">En la distribuci&oacute;n se incluyen 
+  dos ficheros que pueden darle los datos para Modeline de su monitor. Estos ficheros 
+  son modeDB.txt y Monitors, ambos en /usr/X11R6/lib/X11/doc.<br>
+  </font><font color="#000000" size="2">Deber&iacute;a 
+  comenzar con valores para el est&aacute;ndar VESA, que la mayor parte de los 
+  monitores soportan. Estos valores est&aacute;n incluidos en modeDB.txt. En este 
+  fichero encontrara entradas como &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># 640x480@60Hz Non-Interlaced mode<br>
+      </font><font color="#000000" size="2"># Horizontal Sync = 31.5kHz<br>
+      </font><font color="#000000" size="2"># Timing: H=(0.95us, 3.81us, 1.59us), 
+      V=(0.35ms, 0.064ms, 1.02ms)<br>
+      </font><font color="#000000" size="2">#<br>
+      </font><font color="#000000" size="2"># name clock horizontal timing vertical 
+      timing flags<br>
+      </font><font color="#000000" size="2">"640x480" 25.175 640 664 
+      760 800 480 491 493 525</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Esta es una temporizaci&oacute;n est&aacute;ndar 
+  VESA para modo 640x480. Utiliza un reloj de 25.175, que debe ser soportado por 
+  la tarjeta (esto lo veremos luego). Para incluir esta entrada en el fichero 
+  XF86Config usar&iacute;a la l&iacute;nea</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ModeLine "640x480" 25.175 640 664 760 800 
+      480 491 493 525</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Observe que el argumento &lt;nombre&gt; (en 
+  este caso, "640x480") es una cadena de caracteres arbitraria, aunque se suele 
+  seguir la convenci&oacute;n de indicar la resoluci&oacute;n del modo.<br>
+  </font><font color="#000000" size="2">Para cada Modeline indicado, el servidor 
+  comprobara que sus valores caen dentro de los rangos permitidos de frecuencias 
+  (especificados antes), anulando el modo si no ocurre as&iacute;. Principalmente, 
+  el valor de reloj no debe ser mayor que el indicado en Bandwidth. Sin embargo, 
+  usar valores ligeramente superiores no suele dar problemas.<br>
+  </font><font color="#000000" size="2">Si los tiempos est&aacute;ndares en VESA 
+  no le funcionan correctamente (lo sabr&aacute; cuando despu&eacute;s los pruebe) 
+  mire los ficheros modeDB.txt y Monitors, que incluyen valores espec&iacute;ficos 
+  para muchos modelos de monitores. Puede crear entradas Modeline a partir de 
+  lo que vea en estos ficheros.<br>
+  </font><font color="#000000" size="2">Aseg&uacute;rese de que solo usa valores 
+  validos en su monitor. Vea que muchos monitores de 14 o 15 pulgadas no soportan 
+  modos de alta resoluci&oacute;n como 1024x768 con se&ntilde;ales de reloj lentas. 
+  Esto significa que si no encuentra modos de alta resoluci&oacute;n para su monitor 
+  en esos ficheros, no podr&aacute; usar dicha resoluci&oacute;n.<br>
+  </font><font color="#000000" size="2">Si se encuentra perdido, y no encuentra 
+  ning&uacute;n modo que funcione en su monitor, puede seguir las instrucciones 
+  de VideoModes.doc, que le ayudaran a calcular las entradas ModeLine adecuadas 
+  a partir de las especificaciones que se digan en el manual de su monitor. El 
+  mismo fichero VideoModes.doc explica tambi&eacute;n otros aspectos del servidor 
+  de XFree86 como el formato de la directiva ModeLine.<br>
+  </font><font color="#000000" size="2">Por ultimo, si obtiene valores para ModeLine 
+  que son aceptables pero no del todo correcto, puede modificarlos ligeramente 
+  para obtener el resultado deseado. Por ejemplo, si cuando ejecuta XFree86 la 
+  imagen se desplaza ligeramente, o parece girar, puede seguir las instrucciones 
+  de VideoModes.doc para intentar corregir esas deficiencias. Adem&aacute;s, utilice 
+  tambi&eacute;n los propios controles del monitor.<br>
+  </font><font color="#000000" size="2">Muchas veces es necesario ajustarlos despu&eacute;s 
+  de cambiar de modo gr&aacute;fico. Tener esos controles en la parte frontal 
+  del monitor le har&aacute; la vida m&aacute;s f&aacute;cil.<br>
+  </font><font color="#000000" size="2">3 Nunca debe usar valores de tiempo o 
+  de Modeline pensados para monitores diferentes al suyo. Si lo intenta hacer, 
+  y env&iacute;a al monitor una frecuencia para la que no fue dise&ntilde;ado, 
+  puede producirle una aver&iacute;a.<br>
+  </font><font color="#000000" size="2">La 
+  siguiente secci&oacute;n del fichero XF86Config es Device, que especifica los 
+  par&aacute;metros de su tarjeta gr&aacute;fica. Por ejemplo, &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Section "Device"<br>
+      </font><font color="#000000" size="2">Identifier "#9 GXE 64"</font></P>
+    <P><font color="#000000" size="2"># Todav&iacute;a nada; a&ntilde;adiremos 
+      los valores despu&eacute;s.</font></P>
+    <P><font color="#000000" size="2">EndSection</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Esta secci&oacute;n establece las propiedades 
+  de su tarjeta gr&aacute;fica. Identifier es una cadena de caracteres usada para 
+  identificar su tarjeta, cadena que usara para referirse a las caracter&iacute;sticas 
+  que en esta secci&oacute;n se detallen.<br>
+  </font><font color="#000000" size="2">Inicialmente no necesita incluir nada 
+  mas a la secci&oacute;n Device que la identificaci&oacute;n de la tarjeta. Esto 
+  es as&iacute; pues usaremos el servidor X para probar las propiedades de su 
+  tarjeta, para incluirlas luego en esta secci&oacute;n. El servidor X es capaz 
+  de obtener el "chipset", "RAMDAC" y memoria RAM de su tarjeta.<br>
+  </font><font color="#000000" size="2">Antes 
+  de hacer esto, sin embargo, necesitamos terminar el fichero XF86Config. La siguiente 
+  secci&oacute;n es Screen, que especifica que combinaci&oacute;n monitor/tarjeta 
+  usar para un servidor concreto.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Section "Screen"<br>
+      </font><font color="#000000" size="2">Driver "Accel"<br>
+      </font><font color="#000000" size="2">Device "#9 GXE 64"<br>
+      </font><font color="#000000" size="2">Monitor "CTX 5468 NI"<br>
+      </font><font color="#000000" size="2">Subsection "Display"<br>
+      </font><font color="#000000" size="2">Depth 16<br>
+      </font><font color="#000000" size="2">Modes "1024x768" "800x600" "640x480"<br>
+      </font><font color="#000000" size="2">ViewPort 0 0<br>
+      </font><font color="#000000" size="2">Virtual 1024 768<br>
+      </font><font color="#000000" size="2">EndSubsection<br>
+      </font><font color="#000000" size="2">EndSection</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">La l&iacute;nea Driver indica que servidor X 
+  utiliza. Los valores validos son:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> Accel: Para servidores XF86_S3, 
+      XF86_Mach32, XF86_Mach8, XF86_8514, XF86_P9000, XF86_AGX, y XF86_W32;<br>
+      </font><font size="2" color="#000000"><B>o</b> SVGA: Para el servidor XF86_SVGA;<br>
+      </font><font size="2" color="#000000"><B>o</b> VGA16: Para el servidor XF86_VGA16;<br>
+      </font><font size="2" color="#000000"><B>o</b> VGA2: Para el servidor XF86_Mono;<br>
+      </font><font size="2" color="#000000"><B>o</b> 
+      Mono: Para manejadores monocrom&aacute;ticos no VGA que se encuentran en 
+      los servidores XF86_Mono y XF86_VGA16.</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Debe asegurarse de que /usr/X11R6/bin/X es un 
+  enlace simb&oacute;lico al servidor que va a usar. La l&iacute;nea Device especifica 
+  el valor Identifier de la secci&oacute;n Device que corresponda a la tarjeta 
+  de v&iacute;deo que se va a usar con este servidor. Antes, hemos creado una 
+  secci&oacute;n Device con la l&iacute;nea &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Identifier "#9 GXE 64"</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">As&iacute; pues, utilizaremos "#9 GXE 64" en 
+  la l&iacute;nea Device de aqu&iacute;.<br>
+  </font><font color="#000000" size="2">De forma parecida, la l&iacute;nea Monitor 
+  especifica el nombre de la secci&oacute;n Monitor que se va a usar en este servidor. 
+  Aqu&iacute;, "CTX 5468 NI" es el identificador Identifier utilizado en la secci&oacute;n 
+  Monitor vista antes.<br>
+  </font><font color="#000000" size="2">Subsection "Display" define distintas 
+  caracter&iacute;sticas del XFree86 con su particular combinaci&oacute;n de monitor 
+  y tarjeta gr&aacute;fica. El fichero XF86Config describe todas las opciones 
+  en detalle. La mayor&iacute;a no son necesarias para que el sistema funcione.<br>
+  </font><font color="#000000" size="2">Las 
+  opciones que deber&iacute;a conocer son:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> Depth. Define el n&uacute;mero 
+      de bits por pixel (o planos de color), que normalmente valdr&aacute; 8 (supone 
+      256 colores). Para el servidor VGA16 se usara una profundidad de 4, y para 
+      el monocromo, una profundidad de 1. Si se utiliza una tarjeta acelerada 
+      con suficiente memoria, se puede subir la profundidad a 16, 24 o 32. Si 
+      le da problemas, vuelva a profundidad 8 e intente corregir el problema despu&eacute;s.<br>
+      </font><font size="2" color="#000000"><B>o</b> Modes. Es la lista de modos 
+      de v&iacute;deo que estar&aacute;n entre los definidos con ModeLine para 
+      su monitor. Los nombres usados antes para identificarlos ("1024x768", etc.) 
+      se usaran ahora para expresar los modos de la siguiente manera:</font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#000000" size="2">Modes "1024x768" "800x600" "640x480"</font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#000000" size="2">De esta forma, XFree86 intentara arrancar 
+      en el primero de los modos. Una vez que ha arrancado, con las teclas |_ctrl_|-|_alt_|-|_numeric_+_| 
+      y |_ctrl_|-|_alt_|-|_numeric_-_| podr&aacute; cambiar a otro modo.<br>
+      </font><font color="#000000" size="2">La mejor forma de empezar, cuando 
+      se esta configurando XFree86, es usar modos de baja resoluci&oacute;n (como 
+      640x480) que suelen funcionar siempre. Una vez que se tenga una configuraci&oacute;n 
+      b&aacute;sica que va bien, puede pasarse a modificar XF86Config para soportar 
+      resoluciones mayores.<br>
+      </font><font size="2" color="#000000"><B>o</b> Virtual. Pone el tama&ntilde;o 
+      del &aacute;rea de trabajo virtual. XFree86 es capaz de usar la memoria 
+      sobrante de su tarjeta gr&aacute;fica para extender el tama&ntilde;o de 
+      su &aacute;rea de trabajo. Cuando mueve el rat&oacute;n a extremos de la 
+      pantalla, vera como la pantalla se desplaza, accediendo as&iacute; a toda 
+      el &aacute;rea virtual. As&iacute; pues, si usted trabaja con una resoluci&oacute;n 
+      inferior, como 800x600 y pone un &aacute;rea de 1024x768 (propia para 1 
+      Mbyte de DRAM y 8 bits por pixel) podr&aacute; usar un &aacute;rea de trabajo 
+      mas grande que la que cabe en pantalla.<br>
+      </font><font color="#000000" size="2">El mecanismo Virtual resulta interesante 
+      para aprovechar toda la memoria de la tarjeta gr&aacute;fica, pero es limitado. 
+      Si quiere usar un &aacute;rea de trabajo virtual, el autor recomienda usar 
+      las facilidades que al respecto dan gestores de ventanas como fvwm. El mecanismo 
+      aqu&iacute; se implementa a base de ocultar ventanas, etc. en lugar de ocupar 
+      toda la memoria de la tarjeta.<br>
+      </font><font color="#000000" size="2">Para mas detalle, vea las p&aacute;ginas 
+      de manual de fvwm, gestor de ventanas que suelen traer los sistemas Linux 
+      por defecto.<br>
+      </font><font size="2" color="#000000"><B>o</b> ViewPort. Si usted utiliza 
+      la opci&oacute;n Virtual descrita antes, puede usar ViewPort para indicar 
+      en que coordenadas virtuales comenzar XFree86. Se suele usar ViewPort 0 
+      0 que pone el &aacute;rea de trabajo en la esquina superior izquierda. Pero 
+      si no se indica se pondr&aacute; centrado, algo que quiz&aacute;s le interese 
+      mas.</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Hay muchas otras opciones en esta secci&oacute;n; 
+  vea las p&aacute;ginas de manual para XF86Config para mas detalle. En la practica 
+  no son necesarias esas otras opciones para que funcione el sistema.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.1.4"></a>5.1.4 Introducci&oacute;n 
+  de los datos de la tarjeta gr&aacute;fica<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.1.3">Anterior</a>- 
+  <a href="#5.1.5">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Su fichero XF86Config esta ya casi listo para 
+  usar, aunque aun falta la informaci&oacute;n de su tarjeta gr&aacute;fica. Lo 
+  que vamos a hacer ahora es usar el servidor X para obtener la informaci&oacute;n 
+  que falta, e introducirla en XF86Config.<br>
+  </font><font color="#000000" size="2">A veces se puede encontrar esa informaci&oacute;n 
+  en los ficheros modeDB.txt, AccelCards y Devices, que se encuentran en /usr/X11R6/lib/X11/doc. 
+  Adem&aacute;s, existen numerosos ficheros README para algunos "chipsets". Debe 
+  mirar esos ficheros para buscar su tarjeta y usar los valores que aparezcan 
+  en ellos (de reloj, tipo de "chipset" y otros) en la secci&oacute;n correspondiente 
+  de XF86Config. Si falta alguna informaci&oacute;n puede intentar obtenerla con 
+  el procedimiento siguiente.<br>
+  </font><font color="#000000" size="2">En estos ejemplos vamos a ver como configurar&iacute;amos 
+  el sistema para una tarjeta #9 GXE 64, que usa el servidor XF86_S3. Es la tarjeta 
+  que utiliza el autor, aunque el procedimiento es igualmente aplicable a cualquier 
+  otra.<br>
+  </font><font color="#000000" size="2">Lo primero que debe hacerse es determinar 
+  el "chipset" que lleva la tarjeta. Ejecutando /usr/X11R6/bin/SuperProbe lo averiguaremos, 
+  aunque tambi&eacute;n hay que conocer el nombre con el que el servidor X conoce 
+  a ese "chipset". Para conseguir esto &uacute;ltimo, ejecutar:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">X -showconfig</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Esto le dar&aacute; los nombres de "chipsets" 
+  que conoce el servidor X (esto tambi&eacute;n se encuentra en las p&aacute;ginas 
+  de manual). Por ejemplo, con el servidor XF86_S3 obtendremos:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">XFree86 Versi&oacute;n 3.1 / X Window System<br>
+      </font><font color="#000000" size="2">(protocol Versi&oacute;n 11, revisi&oacute;n 
+      0, vendor release 6000)<br>
+      </font><font color="#000000" size="2">Operating System: Linux<br>
+      </font><font color="#000000" size="2">Configured drivers:<br>
+      </font><font color="#000000" size="2">S3: accelerated server for S3 graphics 
+      adaptors (Patchlevel 0)<br>
+      </font><font color="#000000" size="2">mmio_928, s3_generic</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">As&iacute; pues los nombres de "chipsets" que 
+  este servidor tiene son mmio_928 y s3_generic. En la p&aacute;gina de manual 
+  para XF86_S3 encontrara la descripci&oacute;n de estos "chipsets" junto a algunas 
+  tarjetas que los utilizan. Para la #9 GXE 64 el "chipset" es mmio_928.<br>
+  </font><font color="#000000" size="2">Si 
+  no conoce que "chipset" usar, el servidor X puede intentar averiguarlo. Para 
+  ello, ejecutar &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">X -probeonly &gt; /tmp/x.out 2&gt;&amp;1</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">si usa bash como shell. Si usa csh, intente:</font></P>
+<DIR> 
+  <DIR>
+    <P><font color="#000000" size="2">X -probeonly &amp;&gt; /tmp/x.out</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El comando anterior debe ejecutarse solo cuando 
+  no hay otras actividades en el sistema (otros usuarios, procesos, etc.) Este 
+  comando obtiene tambi&eacute;n los valores para los relojes y si el sistema 
+  esta cargado se calcularan incorrectamente.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, esto es lo que sale para la tarjeta del autor:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">XFree86 Versi&oacute;n 3.1 / X Window System<br>
+      </font><font color="#000000" size="2">(protocol Versi&oacute;n 11, revisi&oacute;n 
+      0, vendor release 6000)<br>
+      </font><font color="#000000" size="2">Operating System: Linux<br>
+      </font><font color="#000000" size="2">Configured drivers:<br>
+      </font><font color="#000000" size="2">S3: accelerated server for S3 graphics 
+      adaptors (Patchlevel 0)<br>
+      </font><font color="#000000" size="2">mmio_928, s3_generic<br>
+      </font><font color="#000000" size="2">algunas l&iacute;neas borradas . . 
+      .<br>
+      </font><font color="#000000" size="2">(--) S3: card type: 386/486 localbus<br>
+      </font><font color="#000000" size="2">(--) S3: chipset: 864 rev. 0<br>
+      </font><font color="#000000" size="2">(--) 
+      S3: chipset driver: mmio_928</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Aqu&iacute; vemos los dos "chipsets" validos 
+  (mmio_928 y s3_generic) del servidor. Este probo ambos y determino que la tarjeta 
+  usa el "chipset" mmio_928.<br>
+  </font><font color="#000000" size="2">En la secci&oacute;n 
+  Device del fichero XF86Config, a&ntilde;ada una l&iacute;nea Chipset con el 
+  nombre obtenido antes. Por ejemplo,</font></P>
+<DIR> 
+  <DIR> 
+    <p><font color="#000000" size="2">Section "Device"<br>
+      </font><font color="#000000" size="2"># Este es el identificador que le 
+      pusimos...<br>
+      </font><font color="#000000" size="2">Identifier "#9 GXE 64"<br>
+      </font><font color="#000000" size="2"># A&ntilde;adimos esta l&iacute;nea:<br>
+      </font><font color="#000000" size="2">Chipset "mmio_928"<br>
+      </font><font color="#000000" size="2">EndSection</font></p>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Ahora hay que determinar las frecuencias de 
+  reloj. Cada una de estas es simplemente la frecuencia con la que la tarjeta 
+  puede enviar pixeles al monitor. Como ya sabemos, estas frecuencias dependen 
+  de la resoluci&oacute;n usada.<br>
+  </font><font color="#000000" size="2">En primer 
+  lugar debe echar un vistazo a los ficheros mencionados antes (como modeDB.txt) 
+  y ver si los relojes de su tarjeta est&aacute;n listados. En su caso vera una 
+  lista de 8o 16 valores, todos ellos dados en Mhz. Por ejemplo, en modeDB.txt 
+  encontramos lo siguiente para la tarjeta Cardinal ET4000:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># chip ram virtual clocks default-mode flags<br>
+      </font><font color="#000000" size="2">ET4000 
+      1024 1024 768 25 28 38 36 40 45 32 0 "1024x768"</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Como vemos, los relojes son 25, 28, 38, 36, 
+  40, 45, 32 y 0 MHz.<br>
+  </font><font color="#000000" size="2">En la secci&oacute;n 
+  Devices del fichero XF86Config debe a&ntilde;adir una l&iacute;nea Clocks como 
+  la siguiente (para nuestro ejemplo):</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Clocks 25 28 38 36 40 45 32 0</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Esto estar&aacute; en la secci&oacute;n Devices, 
+  despu&eacute;s de Chipset. Observe la importancia del orden de los relojes. 
+  No los cambie.<br>
+  </font><font color="#000000" size="2">Si no encuentra las frecuencias 
+  de reloj para su tarjeta en los ficheros, el servidor X tambi&eacute;n los puede 
+  intentar averiguar. Con el comando ya visto X -probeonly obtendr&aacute; una 
+  l&iacute;nea como la siguiente:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">(--) S3: clocks: 25.18 28.32 38.02 36.15 
+      40.33 45.32 32.00 00.00</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Con esta l&iacute;nea podemos hacer la l&iacute;nea 
+  Clocks en XF86Config. Si hay muchos valores y no caben en una l&iacute;nea puede 
+  crear mas l&iacute;neas Clock, pero respete el orden de todas formas.<br>
+  </font><font color="#000000" size="2">Aseg&uacute;rese de que no hay ninguna 
+  l&iacute;nea Clocks en la secci&oacute;n Devices cuando use el comando X -probeonly 
+  puesto que en este caso no har&aacute; pruebas reales de los relojes, sino que 
+  probara solo los valores que haya en el fichero XF86Config.<br>
+  </font><font color="#000000" size="2">Observe que algunas tarjetas aceleradas 
+  tienen chip de reloj programable (vea las p&aacute;ginas de manual de XF86_Accel 
+  para mas detalle. Estas son aplicables a las tarjetas S3, AGX y XGA-2).<br>
+  </font><font color="#000000" size="2">Este chip viene a permitir que el servidor 
+  X diga a la tarjeta que relojes usar. Si este es el caso, no debe haber una 
+  lista de valores validos de reloj en el fichero XF86Config. Si no, la lista 
+  de valores de reloj que devuelve X -probeonly contendr&aacute; solo uno o dos 
+  valores discretos de reloj, dejando el resto copiados de los primeros o a cero.<br>
+  </font><font color="#000000" size="2">Para 
+  placas con reloj programable, deber&aacute; usar una l&iacute;nea ClockChip 
+  en lugar de Clocks. Esta l&iacute;nea da el nombre del chip correspondiente 
+  a la tarjeta. Esos nombres se encuentran en las p&aacute;ginas de manual. Por 
+  ejemplo, en el fichero README.S3, veremos que diversas tarjetas S3-864 utilizan 
+  un chip "ICD2061A", y deber&aacute; existir la l&iacute;nea</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ClockChip "icd2061a"</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">en lugar de la l&iacute;nea Clocks en el fichero 
+  XF86Config. Como sucede con Clocks, la l&iacute;nea formara parte de la secci&oacute;n 
+  Devices e ira a continuaci&oacute;n de Chipset.<br>
+  </font><font color="#000000" size="2">De manera similar, algunas tarjetas aceleradas 
+  requieren que se especifique el tipo de chip RAM-DAC del fichero XF86Config, 
+  con una l&iacute;nea Ramdac. Esta opci&oacute;n se describe en XF86_Accel. Normalmente, 
+  el servidor X ya se ocupa de tomar un valor correcto para el RAMDAC.<br>
+  </font><font color="#000000" size="2">Algunas 
+  tarjetas gr&aacute;ficas necesitan que se especifiquen diversas opciones en 
+  la secci&oacute;n Devices. Estas opciones se describen en ficheros como README.cirrus 
+  o p&aacute;ginas de manual, y se integran en una l&iacute;nea Option del fichero 
+  XF86Config. Por ejemplo, una tarjeta #9 GXE 64 necesita dos opciones:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Option "number_nine"<br>
+      </font><font color="#000000" size="2">Option 
+      "dac_8_bit"</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Normalmente, el servidor X funcionara sin las 
+  opciones, pero conviene ponerlas para aumentar el rendimiento de la tarjeta. 
+  Hay muchas opciones y muchas particulares de cada tarjeta. Para utilizarlas, 
+  mire los ficheros del directorio /usr/X11R6/lib/X11/doc.<br>
+  </font><font color="#000000" size="2">As&iacute; 
+  pues, cuando haya acabado, tendr&aacute; una secci&oacute;n Devices como la 
+  siguiente:</font></P>
+<DIR> 
+  <DIR> 
+    <p><font color="#000000" size="2">Section "Device"<br>
+      </font><font color="#000000" size="2"># Solo valida para la tarjeta #9 GXE 
+      64 !<br>
+      </font><font color="#000000" size="2">Identifier "#9 GXE 64"<br>
+      </font><font color="#000000" size="2">Chipset "mmio_928"<br>
+      </font><font color="#000000" size="2">ClockChip "icd2061a"<br>
+      </font><font color="#000000" size="2">Option "number_nine"<br>
+      </font><font color="#000000" size="2">Option "dac_8_bit"<br>
+      </font><font color="#000000" size="2">EndSection</font></p>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Observe que en muchos casos se requiere una 
+  l&iacute;nea Clocks en lugar de Clockchip, etc. Lo anterior es solo un ejemplo.<br>
+  </font><font color="#000000" size="2">Hay otras opciones para la secci&oacute;n 
+  Devices. Los detalles los vera en las p&aacute;ginas de manual correspondientes.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.1.5"></a>5.1.5 Funcionamiento 
+  de XFree86<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.1.4">Anterior</a>- 
+  <a href="#5.1.6">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Con el fichero XF86Config terminado, puede probar 
+  ya el servidor X. En primer lugar, debe asegurarse de que /usr/X11R6/bin esta 
+  en el path.<br>
+  </font><font color="#000000" size="2">El comando para iniciar XFree86 
+  es</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">startx</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Que es un programa que llama a xinit (en el 
+  caso de que usted haya usado xinit para iniciar XWindows en otros sistemas).<br>
+  </font><font color="#000000" size="2">Este comando arrancara el servidor X y 
+  ejecutara los comandos encontrados en el fichero<br>
+  </font><font color="#000000" size="2">.xinitrc 
+  de su directorio home. .xinitrc es un shell-script que contiene los clientes 
+  a ejecutar. Si no existe se buscara un equivalente en /usr/X11R6/lib/X11/xinit/xinitrc. 
+  Un t&iacute;pico .xinitrc seria el siguiente:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">#!/bin/sh</font></P>
+    <P><font color="#000000" size="2">xterm -fn 7x13bold -geometry 80x32+10+50 
+      &amp;<br>
+      </font><font color="#000000" size="2">xterm -fn 9x15bold -geometry 80x34+30-10 
+      &amp;<br>
+      </font><font color="#000000" size="2">oclock -geometry 70x70-7+7 &amp;<br>
+      </font><font color="#000000" size="2">xsetroot -solid midnightblue &amp;</font></P>
+    <P><font color="#000000" size="2">exec twm</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Este script arrancara dos clientes xterm y un 
+  oclock, y pondr&aacute; el fondo (root window) en color midnightblue. Entonces 
+  arrancara el gestor de ventanas twm. Observe que twm se ejecuta con la sentencia 
+  exec. Esto quiere decir que el proceso de xinit ser&aacute; reemplazado por 
+  twm. Por lo tanto, al ordenar la terminaci&oacute;n de twm desde los men&uacute;s 
+  el servidor X tambi&eacute;n terminara. Para hacerlo pulse el bot&oacute;n 1 
+  del rat&oacute;n sobre el fondo de la pantalla (no en las ventanas) y vera un 
+  men&uacute; con la opci&oacute;n de terminar twm entre otras.<br>
+  </font><font color="#000000" size="2">Aseg&uacute;rese que el ultimo comando 
+  de .xinitrc se arranca con exec, y no se le pone en background (con el "&amp;"). 
+  Si no, el servidor X terminara tan pronto se arranquen los clientes de .xinitrc.<br>
+  </font><font color="#000000" size="2">Otra forma de salir de X es pulsando a 
+  la vez |_ctrl_-||_alt_|-|_backspace_|. Esto detendr&aacute; el servidor X y 
+  se saldr&aacute; del sistema XWindows.<br>
+  </font><font color="#000000" size="2">Lo anterior es una configuraci&oacute;n 
+  de desktop muy sencilla. Hay otros muchos programas X disponibles que pueden 
+  especificarse en el fichero .xinitrc. Por ejemplo, puede usar fvwm en lugar 
+  de twm, para obtener un desktop virtual, posibilidad de personalizar colores, 
+  fuentes, ventanas...<br>
+  </font><font color="#000000" size="2">En principio puede parecer muy simple 
+  el sistema X Windows, aunque con las personalizaciones se descubre lo potente 
+  que es. Si usted es nuevo en X Windows, le sugerimos que consulte libros como 
+  "The X Window System: A User's Guide." Aqu&iacute; se tratan los temas de X 
+  Windows en profundidad, que se completaran con las p&aacute;ginas de manual 
+  para xterm, twm, etc.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.1.6"></a>5.1.6 Ejecuci&oacute;n 
+  con problemas<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.1.5">Anterior</a>- 
+  <a href="#5.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">No siempre le saldr&aacute; perfecta la primera 
+  prueba con el servidor X. Suele venir causado por un error en el fichero XF86Config. 
+  Normalmente, los valores de reloj del monitor o de la tarjeta han sido mal puestos. 
+  Si su pantalla "gira" o los lados est&aacute;n difusos, se trata de un error 
+  en los valores para los relojes del monitor. Otra fuente de problemas es especificar 
+  mal el "chipset" de la tarjeta de v&iacute;deo as&iacute; como otras opciones 
+  de la secci&oacute;n Device de XF86Config. Compruebe tambi&eacute;n que el nombre 
+  /usr/X11R6/bin/X es un enlace simb&oacute;lico al servidor X que quiera usar.<br>
+  </font><font color="#000000" size="2">Si 
+  todo lo anterior no le sirve, prueba a iniciar X en modo "bare", o sea, con 
+  el comando:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">X &gt; /tmp/x.out 2&gt;&amp;1</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">A continuaci&oacute;n puede matar el servidor 
+  X (con la combinaci&oacute;n de teclas |_ctrl_-||_alt_|-|_backspace_| y ver 
+  el contenido del fichero /tmp/x.out, en el que el servidor X habr&aacute; puesto 
+  todo tipo de avisos y errores, como los correspondientes a valores de reloj 
+  no encontrados en la tarjeta, etc.<br>
+  </font><font color="#000000" size="2">El fichero VideoModes.doc incluido en 
+  la distribuci&oacute;n contiene muchas ayudas para calcular los valores para 
+  su fichero XF86Config.<br>
+  </font><font color="#000000" size="2">Recuerde que puede conmutar entre modos 
+  de v&iacute;deo con las combinaciones de teclas |_ctrl_|-|_alt_|-|_numeric_+_| 
+  y |_ctrl_|-|_alt_|-|_numeric_-_|. Si la m&aacute;xima resoluci&oacute;n no sale 
+  bien, es porque alguna parte del fichero XF86Config se ha puesto mal.<br>
+  </font><font color="#000000" size="2">Compruebe tambi&eacute;n los mandos de 
+  tama&ntilde;o de imagen del monitor. Muchas veces hay que retocarlos cuando 
+  se entra en X. Por ejemplo, si la pantalla se ve desplazada, act&uacute;e sobre 
+  el mando correspondiente.<br>
+  </font><font color="#000000" size="2">En el grupo de news USENET comp.windows.x.i386unix 
+  encontrara mas ayuda sobre la utilizaci&oacute;n de XFree86. Puede ser una buena 
+  idea comprobar si en el grupo alguien ha enviado mensajes con configuraciones 
+  para un sistema similar al suyo.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="5.2"></a><font size="3">5.2 Acceso 
+  a ficheros MS-DOS<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.1.6">Anterior</a>- 
+  <a href="#5.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Si, por alguna extra&ntilde;a raz&oacute;n, 
+  necesitara acceder a ficheros MS-DOS, es f&aacute;cil de hacer en Linux. La 
+  forma habitual de acceder a los ficheros MS-DOS es montar una partici&oacute;n 
+  o disquete con un sistema MSDOS, permiti&eacute;ndole as&iacute; que acceda 
+  a los ficheros a trav&eacute;s del sistema de ficheros de Linux. Por ejemplo, 
+  si tiene un disquete MSDOS en /dev/fd0, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># mount -t msdos /dev/fd0 /mnt</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">lo montara en /mnt. Vea la secci&oacute;n 4.6.2 
+  para mas informaci&oacute;n acerca del montaje de disquetes.<br>
+  </font><font color="#000000" size="2">Tambi&eacute;n 
+  puede montar una partici&oacute;n del disco duro con MS-DOS. Si se encuentra 
+  en /dev/hda1, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># mount -t msdos /dev/hda1 /mnt</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">lo montara. Aseg&uacute;rese de desmontar (umount) 
+  la partici&oacute;n o el disquete cuando ya no los necesite.<br>
+  </font><font color="#000000" size="2">Tambi&eacute;n 
+  puede pedir a Linux que monte las particiones DOS durante el arranque, para 
+  lo que se usa /etc/fstab. Vea la secci&oacute;n 4.8 para mas detalle. Por ejemplo, 
+  la siguiente l&iacute;nea de /etc/fstab provocara el montaje de la partici&oacute;n 
+  de DOS en el directorio /dos:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">/dev/hda1 /dos msdos defaults</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Las Mtools pueden usarse tambi&eacute;n para 
+  acceder a ficheros DOS en disquetes, con comandos mcd, mdir, mcopy, etc. Vea 
+  las p&aacute;ginas de manual correspondientes.<br>
+  </font><font color="#000000" size="2">Una cosa es acceder a ficheros MS-DOS. 
+  Otra es ejecutarlos en Linux. Existe un emulador de DOS bajo Linux en desarrollo, 
+  que se puede encontrar f&aacute;cilmente incluso en algunas distribuciones como 
+  SLS. El emulador se porta bien para bastantes aplicaciones, incluyendo Wordperfect. 
+  Pero dado lo diferentes que son Linux y MS-DOS, la potencia del emulador siempre 
+  estar&aacute; limitada.<br>
+  </font><font color="#000000" size="2">Adem&aacute;s, se esta trabajando en un 
+  emulador de Microsoft Windows para funcionar en X Windows. Vea los grupos de 
+  news y servidores de FTP para mas informaci&oacute;n.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="5.3"></a><font size="3">5.3 Redes 
+  con TCP/IP<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.2">Anterior</a>- 
+  <a href="#5.3.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Linux soporta una implementaci&oacute;n completa 
+  de los protocolos de red TCP/IP (Transport Control Protocol/Internet Protocol). 
+  TCP/IP ha resultado ser hasta ahora el mejor mecanismo de comunicaci&oacute;n 
+  entre ordenadores de todo el mundo. Con Linux y una tarjeta Ethernet podr&aacute; 
+  introducir su m&aacute;quina en una red local o (si se tienen las conexiones 
+  apropiadas) a InterNet, la red TCP/IP de &aacute;mbito mundial.<br>
+  </font><font color="#000000" size="2">Poner en marcha una peque&ntilde;a red 
+  local de maquinas Unix es f&aacute;cil. Solo requiere una tarjeta Ethernet en 
+  cada m&aacute;quina y los cables adecuados as&iacute; como hardware accesorio 
+  (terminadores, etc). Y si su universidad o empresa tiene acceso a InterNet, 
+  podr&aacute; insertar su m&aacute;quina Linux en esta red.<br>
+  </font><font color="#000000" size="2">La implementaci&oacute;n actual de TCP/IP 
+  y los protocolos relacionados para Linux se llama "NET-2". No tiene que ver 
+  con la versi&oacute;n NET-2 para BSD. En realidad, se refiere a que es la segunda 
+  implementaci&oacute;n que se hace para Linux.<br>
+  </font><font color="#000000" size="2">NET-2 de Linux soporta tambi&eacute;n 
+  SLIP (Serial Line Internet Protocol). SLIP le permitir&aacute; acceder a InterNet 
+  con un m&oacute;dem. Si su universidad o empresa proporciona accesos por SLIP, 
+  podr&aacute; llamar desde su casa al servidor SLIP y conectarse as&iacute; a 
+  la Red. Rec&iacute;procamente, si posee en Linux una tarjeta de Red y un m&oacute;dem 
+  podr&aacute; configurar un servidor SLIP en el.<br>
+  </font><font color="#000000" size="2">Para obtener mas informaci&oacute;n de 
+  configuraci&oacute;n de TCP/IP en Linux, le animamos a que lea el documento 
+  NET-2 HOWTO, disponible mediante FTP an&oacute;nimo en sunsite.unc.edu. Se trata 
+  de una gu&iacute;a completa de configuraci&oacute;n, que incluye conexiones 
+  mediante Ethernet y SLIP. Otro documento relacionado es el Ethernet HOWTO, que 
+  se centra en como configurar diversos modelos de tarjetas Ethernet. Adem&aacute;s, 
+  en el Proyecto de Documentaci&oacute;n de Linux, al que pertenece este libro, 
+  se ha desarrollado otro sobre este tema, Linux Network Administrator's Guide. 
+  Vea, para mas informaci&oacute;n el ap&eacute;ndice A.<br>
+  </font><font color="#000000" size="2">Encontrara mas ayuda en el libro TCP/IP 
+  Network Administration, de Craig Hunt. Contiene informaci&oacute;n completa 
+  acerca del uso y la configuraci&oacute;n de TCP/IP en maquinas Unix.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.3.1"></a>5.3.1 Hardware requerido<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.3">Anterior</a>- 
+  <a href="#5.3.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Puede utilizar el TCP/IP para Linux sin hardware 
+  de red. As&iacute; podr&aacute; usar el dispositivo "loopback" para conectarse 
+  con usted mismo. Aunque parezca poco serio, hay algunos programas que necesitan 
+  conexiones de red "loopback" para funcionar.<br>
+  </font><font color="#000000" size="2">Sin embargo, si quiere usar Linux en una 
+  red TCP/IP Ethernet, necesitara una de las tarjetas soportadas: 3com 3c503, 
+  3c503/16; Novell NE1000, NE2000; Western Digital WD8003, WD8013; Hewlett Packard 
+  HP27245, HP27247, HP27250.<br>
+  </font><font color="#000000" size="2">Se ha comprobado que tambi&eacute;n funcionan 
+  las siguientes tarjetas cl&oacute;nicas:<br>
+  </font><font color="#000000" size="2">Clonicas de WD-80x3:<br>
+  </font><font color="#000000" size="2">LANNET LEC-45; clonicas de NE2000: Alta 
+  Combo, Artisoft LANtastic AE-2, Asante Etherpak 2001/2003, D-Link Ethernet II, 
+  LTC E-NET/16 P/N 8300-200-002, Network Solutions HE-203, SVEC 4 Dimension Ethernet, 
+  4-Dimension FD0490 EtherBoard 16, D-Link DE-600 y SMC Elite 16.<br>
+  </font><font color="#000000" size="2">Sobre este tema encontrara mas informaci&oacute;n 
+  en el documento Ethernet HOWTO.<br>
+  </font><font color="#000000" size="2">Linux tambi&eacute;n funciona con SLIP, 
+  que permite acceder a la red InterNet por tel&eacute;fono. En este caso, necesitara 
+  un m&oacute;dem compatible con el servidor SLIP. Muchos servidores requieren 
+  m&oacute;dems de alta velocidad, a 14400 bits por segundo (norma V.32bis).</font></P>
+<P><font size="2" color="#000000"><u><a name="5.3.2"></a>5.3.2 Configuraci&oacute;n 
+  de TCP/IP<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.3.1">Anterior</a>- 
+  <a href="#5.3.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">En esta secci&oacute;n intentaremos explicar 
+  como configurar una conexi&oacute;n TCP/IP con Ethernet. N&oacute;tese que este 
+  m&eacute;todo funcionara en muchos sistemas, pero no siempre. Nuestra explicaci&oacute;n 
+  deber&iacute;a ser suficiente para aclararle el camino en la configuraci&oacute;n 
+  de red en su m&aacute;quina, pero hay adem&aacute;s otros detalles que no mencionaremos 
+  aqu&iacute; por su extensi&oacute;n. Le aconsejamos que consulte los documentos 
+  Linux Network Administrator's Guide y NET-2 HOWTO para mas informacion.3<br>
+  </font><font color="#000000" size="2">En primer lugar, vamos a asumir que su 
+  sistema Linux ha sido instalado con el software TCP/IP. Esto incluye clientes 
+  como telnet y ftp, comandos de administraci&oacute;n como ifconfig y route (que 
+  suelen estar en /etc) y ficheros de configuraci&oacute;n de red, como /etc/hosts. 
+  Los documentos adicionales que hemos mencionado explican como instalar todo 
+  ese software si aun no lo ha hecho.<br>
+  </font><font color="#000000" size="2">Tambi&eacute;n vamos a suponer que el 
+  n&uacute;cleo esta compilado con el soporte TCP/IP. Vea la secci&oacute;n 4.7 
+  para informarse de como recompilar el n&uacute;cleo. Para incluir el soporte 
+  de red, tendr&aacute; que contestar afirmativamente a la pregunta correspondiente 
+  que se le har&aacute; durante el comando make config.<br>
+  </font><font color="#000000" size="2">Una vez hecho esto, se deben modificar 
+  los ficheros de configuraci&oacute;n que usa NET-2. Esta parte suele ser bastante 
+  simple, pero suele haber bastante desacuerdo entre las diferentes distribuciones 
+  de Linux. Los ficheros pueden estar en /etc o en /usr/etc o incluso /usr/etc/inet. 
+  En el peor caso puede usar el comando find para localizar los ficheros. A veces 
+  los ficheros est&aacute;n tambi&eacute;n repartidos por varios directorios y 
+  no en uno solo.<br>
+  </font><font color="#000000" size="2">Lo siguiente es fundamentalmente aplicable 
+  a conexiones Ethernet. Si lo que va a usar es SLIP, l&eacute;ase esta secci&oacute;n 
+  para ir entendiendo los conceptos y luego vea las instrucciones especificas 
+  para SLIP.</font></P>
+<P><font size="2" color="#000000"><i>5.3.2.1 La configuraci&oacute;n de red</i></font></P>
+<P><font color="#000000" size="2">Antes de configurar su sistema con TCP/IP necesita 
+  conocer cierta informaci&oacute;n sobre la red. En muchos casos, el administrador 
+  local se la proporcionara.</font></P>
+<P><font color="#000000" size="2">o Direcci&oacute;n IP. Es la direcci&oacute;n 
+  &uacute;nica de cada m&aacute;quina, formada por n&uacute;meros separados por 
+  puntos. Por ejemplo, 128.253.153.54. El administrador de red le dar&aacute; 
+  este n&uacute;mero. Si esta configurando el modo "loopback" &uacute;nicamente 
+  (esto es, no tiene conexi&oacute;n a la red mediante SLIP o Ethernet) su direcci&oacute;n 
+  IP ser&aacute; la 127.0.0.1.<br>
+  </font><font color="#000000" size="2">o Mascara de red ("netmask"). Es un n&uacute;mero 
+  similar a la direcci&oacute;n IP, que determina que parte de la direcci&oacute;n 
+  IP determina el n&uacute;mero de subred, y que parte especifica el host en la 
+  subred (si todo esto no lo comprende bien, le sugerimos que lea documentos sobre 
+  administraci&oacute;n de red).<br>
+  </font><font color="#000000" size="2">La mascara de red es un patr&oacute;n 
+  de bits, que al ser superpuesto a una direcci&oacute;n de la red, le dir&aacute; 
+  en que subred se encuentra esa direcci&oacute;n. Esto es muy importante para 
+  el rutado y, si usted nota que puede comunicar con gente de redes externas pero 
+  no con gente de su misma red, es un buen motivo para pensar que tiene mal puesta 
+  la mascara.</font></P>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">3 Algunas de las cosas que aqu&iacute; se exponen 
+  proceden del documento NET-2 HOWTO de Terry Dawson y Matt Welsh.</font></P>
+<P><font color="#000000" size="2">Los administradores de la subred habr&aacute;n 
+  seleccionado las mascaras en tiempo de dise&ntilde;o de la red, y ser&aacute;n 
+  quienes deban darle esa informaci&oacute;n. Muchas subredes son de "clase C" 
+  y usan la mascara 255.255.255.0. Otras subredes de "clase B" usan la 255.255.0.0. 
+  El c&oacute;digo de NET-2 seleccionara automaticamente una mascara que asume 
+  que no hay subred.<br>
+  </font><font color="#000000" size="2">Todo esto debe aplicarse tambi&eacute;n 
+  a la configuraci&oacute;n "loopback". Dado que la direcci&oacute;n "loop-back" 
+  es siempre la 127.0.0.1, las mascara ser&aacute; la 255.0.0.0. Puede especificarla 
+  de forma expl&iacute;cita o dejar que el sistema la ponga por defecto.<br>
+  </font><font size="2" color="#000000"><B>o</b> Direcci&oacute;n de red. Es el 
+  resultado de la operaci&oacute;n l&oacute;gica AND entre su direcci&oacute;n 
+  IP y la mascara. Por ejemplo, si su direcci&oacute;n IP es la 128.253.154.32 
+  y la mascara es 255.255.255.0, su direcci&oacute;n de red ser&aacute; la 128.253.154.0. 
+  Con una mascara 255.255.0.0, la direcci&oacute;n seria 128.253.0.0. Si utiliza 
+  solo la configuraci&oacute;n en "loopback", la direcci&oacute;n de red no existe.<br>
+  </font><font size="2" color="#000000"><B>o</b> Direcci&oacute;n de "broadcast". 
+  Se utiliza para lanzar paquetes que deben recibir todas las maquinas de la subred. 
+  As&iacute; pues, si el n&uacute;mero de host de la subred se obtiene mediante 
+  el &uacute;ltimo octeto de la direcci&oacute;n IP (o sea, la mascara es la 255.255.255.0), 
+  su direcci&oacute;n de "broadcast" ser&aacute; su direcci&oacute;n de red operado 
+  en OR con 0.0.0.255.<br>
+  </font><font color="#000000" size="2">Por ejemplo, si su n&uacute;mero IP es 
+  el 128.253.154.32, y la mascara es la 255.255.255.0, la direcci&oacute;n de 
+  "broadcast" seria la 128.253.154.255.<br>
+  </font><font color="#000000" size="2">Observe que por motivos hist&oacute;ricos, 
+  algunas subredes est&aacute;n configuradas para usar la direcci&oacute;n de 
+  red como direcci&oacute;n de "broadcast". Si tiene dudas, consulte con el administrador 
+  de la red.<br>
+  </font><font color="#000000" size="2">En muchos casos, bastara con copiar la 
+  configuraci&oacute;n que tengan otras maquinas de la subred y cambiar &uacute;nicamente 
+  el valor IP, por supuesto.<br>
+  </font><font color="#000000" size="2">La direcci&oacute;n "broadcast" tampoco 
+  tiene utilidad en una configuraci&oacute;n en "loopback".<br>
+  </font><font size="2" color="#000000"><B>o</b> Direcci&oacute;n de pasarela. 
+  Se trata de la direcci&oacute;n de la m&aacute;quina que va a ser su pasarela 
+  a otras maquinas que no est&eacute;n en su misma subred. Muchas veces es una 
+  direcci&oacute;n IP como la suya, solo que terminada en ".1". Por ejemplo, si 
+  su direcci&oacute;n IP es la 128.253.154.32, la de la pasarela podr&iacute;a 
+  ser la 128.253.154.1. El administrador se la dir&aacute; en cualquier caso.<br>
+  </font><font color="#000000" size="2">En ocasiones puede tener varias pasarelas. 
+  Una pasarela o gateway es simplemente una m&aacute;quina que se encuentra a 
+  la vez en dos subredes (tiene una direcci&oacute;n IP por cada una), y reparte 
+  los paquetes entre ellas. En muchas subredes existe una sola pasarela para comunicarse 
+  con las redes externas, pero en otras hay varias, una para cada subred adicional.<br>
+  </font><font color="#000000" size="2">Si su red esta aislada de otras, o su 
+  m&aacute;quina se encuentra en configuraci&oacute;n "loopback", no necesitara 
+  direcci&oacute;n de pasarela.<br>
+  </font><font size="2" color="#000000"><B>o</b> Direcci&oacute;n del servidor 
+  de nombres. Suele existir un servidor que traduce nombres de maquinas a direcciones 
+  IP. El administrador le facilitara su direcci&oacute;n. Puede usted mismo ejecutar 
+  en su m&aacute;quina un servidor de nombres, el programa named, en cuyo caso 
+  su direcci&oacute;n ser&aacute; la 127.0.0.1. A menos que realmente lo necesite, 
+  le recomendamos que procure siempre usar otra m&aacute;quina distinta. La configuraci&oacute;n 
+  de named es otro tema; y lo primordial aqu&iacute; es que comunique con la red. 
+  Puede tratar estos asuntos mas tarde.<br>
+  </font><font color="#000000" size="2">En una configuraci&oacute;n "loopback" 
+  no es necesario este dato.<br>
+  </font><font color="#000000" size="2">Nota para usuarios de SLIP: La informaci&oacute;n 
+  anterior puede necesitarla o no. Cuando use SLIP su direcci&oacute;n IP ser&aacute; 
+  determinada de dos formas: bien "est&aacute;tica", lo que significa que ser&aacute; 
+  siempre la misma, o bien "din&aacute;mica", lo que indica que le ser&aacute; 
+  asignada una de las disponibles cada vez que conecte con el servidor SLIP. En 
+  la secci&oacute;n sobre SLIP ampliaremos el tema.<br>
+  </font><font color="#000000" size="2">NET-2 implementa rutado completo, m&uacute;ltiples 
+  rutas, subredes... Lo anterior describe las configuraciones mas b&aacute;sicas. 
+  Pero la suya puede ser diferente: cuando tenga alguna duda, consulte al administrador 
+  de la red, y eche un vistazo a las p&aacute;ginas del manual para route e ifconfig. 
+  La configuraci&oacute;n completa de redes TCP/IP supera ampliamente las intenciones 
+  de este libro, y con lo anterior solo pretendemos posibilitar que todo el mundo 
+  pueda poner en marcha su sistema en una red ya configurada.</font></P>
+<P><font size="2" color="#000000"><i>5.3.2.2 Los ficheros de inicio rc para trabajo 
+  en redes</i></font></P>
+<P><font color="#000000" size="2">Los ficheros rc son shell scripts que se ejecutan 
+  durante el arranque del sistema para configurarlo.<br>
+  </font><font color="#000000" size="2">Son ejecutados por el proceso init, y 
+  ponen en marcha los demonios basicos como sendmail o cron y adem&aacute;s configuran 
+  par&aacute;metros de la red como la direcci&oacute;n IP y el nombre del host. 
+  Estos scripts se suelen encontrar en /etc/rc.d o en /etc.<br>
+  </font><font color="#000000" size="2">Lo que vamos a hacer aqu&iacute; es describir 
+  los ficheros rc que configuran TCP/IP. En Linux son dos: rc.inet1 y rc.inet2. 
+  El primero configura par&aacute;metros basicos como direcciones IP e informaci&oacute;n 
+  de rutado. El segundo lanza los demonios TCP/IP, principalmente inetd, quien 
+  se encargara de lanzar cuando haga falta los telnetd y demas.<br>
+  </font><font color="#000000" size="2">En muchos sistemas se juntan los dos ficheros 
+  en uno, el rc.inet o rc.net. No tiene importancia el nombre, siempre que se 
+  ejecuten en el momento adecuado durante el arranque. Para conseguirlo, init 
+  tiene que saberlo, y para ello existen entradas especificas en el fichero inittab. 
+  En el peor caso tendria usted que crear las entradas para rc.inet1 y rc.inet2 
+  en dicho fichero.<br>
+  </font><font color="#000000" size="2">Como hemos dicho, rc.inet1 configura los 
+  par&aacute;metros basicos de red. Esto incluye el n&uacute;mero IP y direcci&oacute;n 
+  de red, y la tabla de rutado. Estas tablas se usan para rutar los datagramas 
+  entrantes y salientes de otras maquinas. Lo mas simple es tener tres rutas: 
+  una para enviar paquetes a su propia m&aacute;quina, otra para enviarlos a otra 
+  m&aacute;quina de la subred y una tercera para enviarlos a maquinas de otras 
+  subredes (a trav&eacute;s de una pasarela). Para configurar esto se usan los 
+  programas ifconfig y route, programas que suelen estar en /etc.<br>
+  </font><font color="#000000" size="2">ifconfig se utiliza para configurar el 
+  dispositivo interfaz de red con los parametros que necesita, como la direcci&oacute;n 
+  IP, la mascara, direcci&oacute;n de broadcast y otros. route, por su lado, se 
+  utiliza para crear o modificar entradas de la tabla de rutado.<br>
+  </font><font color="#000000" size="2">Para 
+  muchas configuraciones, el siguiente rc.inet1 puede valer, aunque, por supuesto, 
+  necesitara poner sus propias direcciones IP y demas.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">#!/bin/sh<br>
+      </font><font color="#000000" size="2"># /etc/rc.d/rc.inet1 -- Configuracion 
+      de TCP/IP</font></P>
+    <P><font color="#000000" size="2"># Configuracion del dispositivo 'loopback'<br>
+      </font><font color="#000000" size="2">HOSTNAME=`hostname`</font></P>
+    <P><font color="#000000" size="2">/etc/ifconfig lo 127.0.0.1 # utiliza por 
+      defecto la mascara 255.0.0.0<br>
+      </font><font color="#000000" size="2">/etc/route add 127.0.0.1 # una ruta 
+      apunta al dispositivo 'loopback'</font></P>
+    <P><font color="#000000" size="2"># Configuracion del dispositivo ethernet. 
+      Si solo se usa el 'loopback',<br>
+      </font><font color="#000000" size="2"># comentar las lineas siguientes.</font></P>
+    <P><font color="#000000" size="2"># EDITELO con sus propios datos.<br>
+      </font><font color="#000000" size="2">IPADDR="128.253.154.32" # PONGA aqui 
+      su direcci&oacute;n IP<br>
+      </font><font color="#000000" size="2">NETMASK="255.255.255.0" # PONGA aqui 
+      su mascara de red<br>
+      </font><font color="#000000" size="2">NETWORK="128.253.154.0" # PONGA aqui 
+      su direcci&oacute;n de red<br>
+      </font><font color="#000000" size="2">BROADCAST="128.253.154.255" # PONGA 
+      aqui su direcci&oacute;n 'broadcast' si<br>
+      </font><font color="#000000" size="2"># la tiene. Si no, elimine la linea.<br>
+      </font><font color="#000000" size="2">GATEWAY="128.253.154.1" # PONGA aqui 
+      su direcci&oacute;n de pasarela</font></P>
+    <P><font color="#000000" size="2">/etc/ifconfig eth0 ${IPADDR} netmask ${NETMASK} 
+      broadcast ${BROADCAST}</font></P>
+    <P><font color="#000000" size="2"># Si no tiene direcci&oacute;n de 'broadcast', 
+      ponga la anterior linea asi:<br>
+      </font><font color="#000000" size="2"># /etc/ifconfig eth0 ${IPADDR} netmask 
+      ${NETMASK}</font></P>
+    <P><font color="#000000" size="2">/etc/route add ${NETWORK}</font></P>
+    <P><font color="#000000" size="2"># Lo que sigue solo hace falta si hay pasarela, 
+      o sea, si su subred esta<br>
+      </font><font color="#000000" size="2"># conectada a otra red.<br>
+      </font><font color="#000000" size="2">/etc/route add default gw ${GATEWAY} 
+      metric 1</font></P>
+    <P><font color="#000000" size="2"># Fin de la configuracion de ethernet</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Quizas tenga que estudiarse un poco mas el tema 
+  para su instalacion particular, aunque en la mayor parte de los casos el fichero 
+  anterior sera suficiente.<br>
+  </font><font color="#000000" size="2">rc.inet2 arranca servidores usados por 
+  TCP/IP. El mas importante es inetd, que queda en segundo plano y escucha por 
+  varios puertos de la red. Cuando una m&aacute;quina intenta conectarse por uno 
+  de ellos (por ejemplo, por el de telnet), inetd envia una copia del servidor 
+  correspondiente (en este caso, in.telnetd) para que controle el puerto afectado. 
+  Esto es mejor que mantener en ejecucion todos los servidores de red necesarios 
+  (multiples copias de in.telnetd, in.ftpd y demas).<br>
+  </font><font color="#000000" size="2">inetd los arranca conforme se van necesitando.<br>
+  </font><font color="#000000" size="2">Pero en rc.inet2 se arrancan tambi&eacute;n 
+  otros demonios. syslogd se ocupa de acumular los mensajes generados por el nucleo 
+  y diversas aplicaciones y tratarlos segun diga el fichero /etc/syslogd.conf 
+  (guardarlos en ficheros, sacarlos por consola,. . . ). routed se ocupa de la 
+  informaci&oacute;n de rutado dinamica. Cuando su sistema intenta enviar paquetes 
+  a otra red, puede requerir nuevas entradas en las tablas de rutado, que routed 
+  trata sin necesidad de intervencion del usuario.<br>
+  </font><font color="#000000" size="2">El ejemplo siguiente solo arranca un n&uacute;mero 
+  minimo de servidores. Existen otros que pueden interesarle, como el NFS. Cuando 
+  instale TCP/IP en su sistema, es mejor empezar con una configuracion sencilla 
+  y luego complicarla segun sus necesidades.<br>
+  </font><font color="#000000" size="2">Observe 
+  que en el fichero siguiente se asume que los servidores de red se encuentran 
+  en /etc, pero pueden estar en otro sitio (en /sbin, por ejemplo).</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">#! /bin/sh<br>
+      </font><font color="#000000" size="2"># Ejemplo de /etc/rc.d/rc.inet2</font></P>
+    <P><font color="#000000" size="2"># Arrancar syslogd<br>
+      </font><font color="#000000" size="2">if [ -f /etc/syslogd ]<br>
+      </font><font color="#000000" size="2">then<br>
+      </font><font color="#000000" size="2">/etc/syslogd<br>
+      </font><font color="#000000" size="2">fi</font></P>
+    <P><font color="#000000" size="2"># Arrancar inetd<br>
+      </font><font color="#000000" size="2">if [ -f /etc/inetd ]<br>
+      </font><font color="#000000" size="2">then<br>
+      </font><font color="#000000" size="2">/etc/inetd<br>
+      </font><font color="#000000" size="2">fi</font></P>
+    <P><font color="#000000" size="2"># Arrancar routed<br>
+      </font><font color="#000000" size="2">if [ -f /etc/routed ]<br>
+      </font><font color="#000000" size="2">then<br>
+      </font><font color="#000000" size="2">/etc/routed -q<br>
+      </font><font color="#000000" size="2">fi</font></P>
+    <P><font color="#000000" size="2"># Hecho!</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Otro servidor que puede interesarle es named, 
+  servidor de nombres, que traducira nombres (locales) a direcciones IP y viceversa. 
+  Si no hay servidor de nombres en su subred o quiere proporcionar nombres nuevos 
+  a la misma, necesitara arrancar named. Su configuracion es mas compleja y requiere 
+  cierto cuidado y planificacion, por lo que le recomendamos consultar bibliografia 
+  especifica. Sin embargo, no es habitual tener que instalar un servidor de nombres 
+  en su sistema.</font></P>
+<P><font size="2" color="#000000"><i>5.3.2.3 /etc/hosts</i></font></P>
+<P><font color="#000000" size="2">/etc/hosts lleva una lista de direcciones IP 
+  y nombres de maquinas que les corresponden. En general, /etc/hosts solo contiene 
+  entradas para su m&aacute;quina y quizas alguna otra "importante", como servidores 
+  de nombres o pasarelas. Su servidor de nombres local proporciona a otras maquinas 
+  traduccion automatica del nombre de su host a su direcci&oacute;n IP.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, si su m&aacute;quina es loomer.vpizza.com con la direcci&oacute;n IP 
+  128.253.154.32, su /etc/hosts seria como este:</font></P>
+<DIR> 
+  <DIR> 
+    <p><font color="#000000" size="2">127.0.0.1 localhost<br>
+      </font><font color="#000000" size="2">128.253.154.32 loomer.vpizza.com loomer</font></p>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Si solo usa el "loopback", la unica linea necesaria 
+  es la que tiene el n&uacute;mero 127.0.0.1, a&ntilde;adiendo tras localhost 
+  el nombre de su m&aacute;quina.</font></P>
+<P><font size="2" color="#000000"><i>5.3.2.4 /etc/networks</i></font></P>
+<P><font color="#000000" size="2">El fichero /etc/networks tiene direcciones de 
+  su red y otras, y es usado por el comando route. Permite dar nombre a las redes.<br>
+  </font><font color="#000000" size="2">Cada subred que quiera a&ntilde;adir a 
+  route debe aparecer en /etc/networks.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo,</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">default 0.0.0.0 # rutado por defecto - obligatorio<br>
+      </font><font color="#000000" size="2">loopnet 127.0.0.0 # red de 'loopback' 
+      - obligatorio<br>
+      </font><font color="#000000" size="2">mynet 128.253.154.0 # 
+      Ponga aqui su direcci&oacute;n de red</font></P>
+  </DIR>
+</DIR>
+<P><font size="2" color="#000000"><i>5.3.2.5 /etc/host.conf</i></font></P>
+<P><font color="#000000" size="2">Este fichero dice a su sistema como resolver 
+  los nombres de los hosts. Debe contener dos lineas:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">order hosts,bind<br>
+      </font><font color="#000000" size="2">multi 
+      on</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Estas lineas indican a los mecanismos de resolucion 
+  que empiezen buscando en el fichero /etc/hosts y luego pregunten al servidor 
+  de nombres, si existe. La entrada multi permite que para un nombre de m&aacute;quina 
+  haya varias direcciones IP en /etc/hosts.</font></P>
+<P><font size="2" color="#000000"><i>5.3.2.6 /etc/resolv.conf</i></font></P>
+<P><font color="#000000" size="2">En este fichero se configura el mecanismo de 
+  resolucion, especificando la direcci&oacute;n del servidor de nombres y el nombre 
+  del dominio de su m&aacute;quina. El dominio es como un nombre de host "mutilado".<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, si su m&aacute;quina se llama loomer.vpizza.com, el dominio sera vpizza.com. 
+  Como fichero /etc/resolv.conf de ejemplo, veremos el caso de la m&aacute;quina 
+  goober.norelco.com cuyo servidor de nombres es el 127.253.154.5:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">domain norelco.com<br>
+      </font><font color="#000000" size="2">nameserver 
+      127.253.154.5</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Con lineas nameserver adicionales podra especificar 
+  la existencia de varios servidores de nombres.</font></P>
+<P><font size="2" color="#000000"><i>5.3.2.7 Ajuste del nombre de su host</i></font></P>
+<P><font color="#000000" size="2">Para activar el nombre de su host debe usar 
+  el comando hostname. Esto suele hacerse en un fichero como /etc/rc.local. Busque 
+  en sus ficheros rc y busque una llamada a hostname como la siguiente:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">/bin/hostname loomer.vpizza.com</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Vea que hay que especificar el nombre completo 
+  (dominio incluido).</font></P>
+<P><font size="2" color="#000000"><i>5.3.2.8 Problemas con la configuracion</i></font></P>
+<P><font color="#000000" size="2">Una vez que haya preparado los ficheros anteriores, 
+  habra que reiniciar Linux para que reconozca las nuevas configuraciones. Luego 
+  tendra que hacer pruebas, para las que lo mas indicado es probar aspectos individuales 
+  de la red y no tratar de empezar, por ejemplo, lanzando un proceso Mosaic con 
+  una conexion X.<br>
+  </font><font color="#000000" size="2">Con el comando netstat puede ver las tablas 
+  de rutado. Esta suele ser la principal fuente de problemas. En la p&aacute;gina 
+  del manual para este comando encontrara la sintaxis adecuada. Para comprobar 
+  que funciona su conexi&oacute;n, le sugerimos probar un cliente como telnet 
+  para ver si puede conectarse a maquinas de su subred y de otras redes. Esto 
+  puede ponerle sobre la pista del problema.<br>
+  </font><font color="#000000" size="2">Por ejemplo, si puede conectarse a maquinas 
+  de otras subredes pero no de la suya propia, puede tratarse de un problema con 
+  la mascara de red o las tablas de rutado. Ejecutando route como root podr&aacute; 
+  jugar directamente con las entradas de la tabla.<br>
+  </font><font color="#000000" size="2">Para 
+  hacer estas pruebas de conectividad, utilice direcciones IP y no nombres. As&iacute;, 
+  si tiene problemas para ejecutar</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">$ telnet shoop.vpizza.com</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">la causa puede ser una configuraci&oacute;n 
+  incorrecta del servidor de nombres. Si funciona usando la direcci&oacute;n IP, 
+  se puede casi asegurar que el resto de la configuraci&oacute;n esta bien hecha. 
+  Solo falta que funcione bien el servicio de nombres (probablemente haya que 
+  especificar correctamente la direcci&oacute;n del servidor de nombres).<br>
+  </font><font color="#000000" size="2">La depuraci&oacute;n de configuraciones 
+  de red puede ser tarea dif&iacute;cil, y no podemos tratarla aqu&iacute;. Le 
+  sugerimos, si no consigue otra ayuda, que consulte el libro Linux Network Administrator's 
+  Guide de esta misma serie.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.3.3"></a>5.3.3 Configuraci&oacute;n 
+  de SLIP<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.3.2">Anterior</a>- 
+  <a href="#5.3.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Con SLIP (Serial Line Internet Protocol) usted 
+  puede conectarse a una red TCP/IP mediante una l&iacute;nea serie, como puede 
+  ser un m&oacute;dem o una l&iacute;nea dedicada as&iacute;ncrona. Por supuesto, 
+  para usar SLIP tiene que tener acceso a un servidor SLIP. Muchas empresas y 
+  universidades proporcionan acceso por poco dinero.<br>
+  </font><font color="#000000" size="2">Podemos destacar dos programas relacionados 
+  con SLIP: dip y slattach. Ambos se usan para iniciar una conexi&oacute;n SLIP 
+  y por lo tanto son necesarios. No es suficiente con llamar al servidor SLIP 
+  con programas como kermit y despu&eacute;s usar los comandos ifconfig y route. 
+  Esto se debe a que dip y slattach realizan una llamada especial ioctl() para 
+  convertir el control de un dispositivo serie a la interfaz de SLIP.<br>
+  </font><font color="#000000" size="2">Con dip puede llamarse a un servidor SLIP, 
+  hacer ciertas negociaciones de entrada con el mismo (intercambio de usuario 
+  y password, por ejemplo) y despu&eacute;s iniciar la conexi&oacute;n SLIP. Por 
+  su lado, slattach se limita pr&aacute;cticamente a modificar la l&iacute;nea 
+  serie para SLIP, por lo que esta indicado para l&iacute;neas dedicadas que no 
+  requieren interacci&oacute;n con el m&oacute;dem o similar. Casi todo el mundo, 
+  sin embargo, usa dip.<br>
+  </font><font color="#000000" size="2">Con dip tambi&eacute;n puede configurar 
+  su sistema como servidor SLIP, permitiendo a otras maquinas conectarse a la 
+  red a trav&eacute;s de su m&oacute;dem y su conexi&oacute;n Ethernet. Vea los 
+  manuales en l&iacute;nea de dip para mas informaci&oacute;n.<br>
+  </font><font color="#000000" size="2">A SLIP se le llama conexi&oacute;n "punto 
+  a punto" (point-to-point) pues a ambos lados de la l&iacute;nea existen solo 
+  las dos maquinas involucradas (no como sucede en una ethernet). Esta idea se 
+  generaliza y mejora con el protocolo PPP (point-to-point protocol) que tambi&eacute;n 
+  se ha portado a Linux. Cuando inicia una conexi&oacute;n al servidor SLIP, se 
+  le asignara una direcci&oacute;n IP, bien de forma "est&aacute;tica" (su direcci&oacute;n 
+  IP es siempre la misma) o "din&aacute;mica" (su direcci&oacute;n puede ser diferente 
+  de un d&iacute;a para otro). Por lo general, los valores de la direcci&oacute;n 
+  y pasarela asignados ser&aacute;n impresos por el servidor SLIP al conectarse. 
+  El programa dip es capaz de capturar esos valores y configurar su sistema para 
+  adaptarse a ellos.<br>
+  </font><font color="#000000" size="2">Esencialmente, configurar una conexi&oacute;n 
+  SLIP es como configurar la conexi&oacute;n en "loopback" o con ethernet. En 
+  las siguientes l&iacute;neas le mostramos las diferencias. Es importante que 
+  vea lo que hemos explicado antes sobre configuraci&oacute;n en general, y aplique 
+  ahora las modificaciones que le vamos a contar.</font></P>
+<P><font size="2" color="#000000"><i>5.3.3.1 Conexiones SLIP con asignaci&oacute;n 
+  de IP est&aacute;tica usando dip</i></font></P>
+<P><font color="#000000" size="2">Si su servidor SLIP le permite tener la direcci&oacute;n 
+  IP est&aacute;tica, lo mas adecuado es insertar la direcci&oacute;n y el nombre 
+  del host en el fichero /etc/hosts. Adem&aacute;s, debe configurar los ficheros 
+  rc.inet2, hosts.conf y resolv.conf como se ha dicho antes.<br>
+  </font><font color="#000000" size="2">En el fichero rc.inet1 tambi&eacute;n 
+  tendr&aacute; que introducir cambios, ejecutando ifconfig y route<br>
+  </font><font color="#000000" size="2">solo para el dispositivo "loopback", puesto 
+  que dip har&aacute; lo propio con el dispositivo SLIP. Pero si usa slattach 
+  si tendr&aacute; que incluir comandos ifconfig/route en rc.inet1 para el dispositivo 
+  SLIP (en breve veremos como).<br>
+  </font><font color="#000000" size="2">El programa dip deber&iacute;a configurar 
+  sus tablas de rutado para la conexi&oacute;n SLIP. Sin embargo, puede no hacerlo 
+  bien, y tendr&aacute; que corregirlo ejecutando por su cuenta ifconfig o route 
+  cuando se haya conectado. Quiz&aacute;s le convenga entonces escribirse un shell 
+  script para hacerlo autom&aacute;ticamente. En muchos casos, la pasarela es 
+  el propio servidor SLIP. De todas formas, el comando dip puede deducirlo de 
+  la informaci&oacute;n que env&iacute;a el servidor al conectarse.<br>
+  </font><font color="#000000" size="2">Puede 
+  que necesite el argumento pointopoint en ifconfig si ve que dip no lo configura 
+  bien. Por ejemplo, si la direcci&oacute;n del servidor SLIP es 128.253.154.2 
+  y la suya es 128.253.154.32, el comando a ejecutar (como root) podr&iacute;a 
+  ser:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ifconfig sl0 128.253.154.32 pointopoint 
+      128.253.154.2</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">tras conectar con dip. La documentaci&oacute;n 
+  en l&iacute;nea de este comando le ser&aacute; &uacute;til.<br>
+  </font><font color="#000000" size="2">Observe que los dispositivos SLIP que 
+  se usan en ifconfig y route son sl0, sl1, etc. (y no como en ethernet, que es 
+  eth0, eth1, etc.)<br>
+  </font><font color="#000000" size="2">En la secci&oacute;n posterior 5.3.4 le 
+  explicaremos como configurar dip para conectarse a un servidor SLIP.</font></P>
+<P><font size="2" color="#000000"><i>5.3.3.2 Conexiones SLIP con asignaci&oacute;n 
+  de IP est&aacute;tica usando slattach</i></font></P>
+<P><font color="#000000" size="2">Si tiene una l&iacute;nea dedicada o un cable 
+  conectado directamente al servidor SLIP, no necesitara usar dip para iniciar 
+  la conexi&oacute;n. En su lugar puede usar slattach.<br>
+  </font><font color="#000000" size="2">En 
+  este caso, el fichero /etc/rc.inet1 puede quedar como sigue:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">#!/bin/sh<br>
+      </font><font color="#000000" size="2">IPADDR="128.253.154.32" # Ponga aqu&iacute; 
+      su direcci&oacute;n IP<br>
+      </font><font color="#000000" size="2">REMADDR="128.253.154.2" # Ponga aqu&iacute; 
+      la del servidor de SLIP</font></P>
+    <P><font color="#000000" size="2"># Modifique lo siguiente para su dispositivo 
+      serie<br>
+      </font><font color="#000000" size="2">slattach -p cslip -s 19200 /dev/ttyS0<br>
+      </font><font color="#000000" size="2">/etc/ifconfig sl0 $IPADDR pointopoint 
+      $REMADDR up<br>
+      </font><font color="#000000" size="2">/etc/route add default 
+      gw $REMADDR</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">slattach asigna el primer dispositivo SLIP disponible 
+  (sl0, etc.) a la l&iacute;nea serie especificada.<br>
+  </font><font color="#000000" size="2">Observe que el primer par&aacute;metro 
+  de slattach es el protocolo SLIP a utilizar. Actualmente solo valen slip y cslip. 
+  El segundo es un SLIP que incluye compresi&oacute;n de las cabeceras de los 
+  datagramas. Por ello su elecci&oacute;n habitual ser&aacute; cslip a menos que 
+  tenga alg&uacute;n problema con la conexi&oacute;n.<br>
+  </font><font color="#000000" size="2">Si hay mas de un dispositivo SLIP tendr&aacute; 
+  que considerar algunas cosas respecto al rutado. Tiene que decidir que rutas 
+  a&ntilde;adir, y esto debe hacerse en funci&oacute;n de la configuraci&oacute;n 
+  de la red a la que se conecte. Le ser&aacute;n de ayuda los libros sobre configuraci&oacute;n 
+  de TCP/IP, la documentaci&oacute;n en l&iacute;nea del comando route, etc.</font></P>
+<P><font size="2" color="#000000"><i>5.3.3.3 Conexiones SLIP con asignaci&oacute;n 
+  de IP din&aacute;mica usando dip</i></font></P>
+<P><font color="#000000" size="2">Si el servidor SLIP le asigna din&aacute;micamente 
+  las direcciones IP, no sabr&aacute;, evidentemente, su direcci&oacute;n IP antes 
+  de conectarse, con lo que no puede incluir esa informaci&oacute;n en /etc/hosts 
+  (aunque si incluir&aacute; la informaci&oacute;n de "loopback", 127.0.0.1).<br>
+  </font><font color="#000000" size="2">Muchos 
+  servidores SLIP env&iacute;an al terminal la direcci&oacute;n IP y la del propio 
+  servidor. Por ejemplo, un servidor SLIP podr&iacute;a decirle esto al conectarse:&nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Your IP address is 128.253.154.44.<br>
+      </font><font color="#000000" size="2">Server 
+      address is 128.253.154.2.</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">dip puede capturar ese texto y configurar as&iacute; 
+  el sistema.<br>
+  </font><font color="#000000" size="2">Vea la secci&oacute;n 5.3.3.1 para informarse 
+  sobre la configuraci&oacute;n de los ficheros de TCP/IP con SLIP. Ahora le indicaremos 
+  como se configura SLIP para conectarse al servidor SLIP.</font></P>
+<P><font size="2" color="#000000"><u><a name="5.3.4"></a>5.3.4 Utilizaci&oacute;n 
+  de dip<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.3.3">Anterior</a>- 
+  <a href="#5.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">dip puede facilitar el proceso de conexi&oacute;n 
+  a un servidor SLIP, pues se ocupara de entrar en el sistema remoto y configurar 
+  el dispositivo SLIP seg&uacute;n la informaci&oacute;n recibida del servidor. 
+  Este programa es el mas indicado a menos que su l&iacute;nea sea dedicada.<br>
+  </font><font color="#000000" size="2">Para utilizar dip tendr&aacute; que escribir 
+  un "script" que contendr&aacute; comandos para comunicar con el servidor SLIP 
+  durante la entrada en el sistema remoto. Por ejemplo, incluir&aacute; env&iacute;o 
+  autom&aacute;tico de usuario y password al servidor as&iacute; como lo necesario 
+  para asignar la direcci&oacute;n IP.<br>
+  </font><font color="#000000" size="2">Lo 
+  que sigue es un ejemplo de script para asignaci&oacute;n din&aacute;mica de 
+  direcci&oacute;n IP. Para asignaci&oacute;n est&aacute;tica puede poner al principio 
+  del script los valores fijos a $local y $remote (direcciones IP local y remota, 
+  respectivamente). Vea los manuales de dip para mas informaci&oacute;n.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">main:<br>
+      </font><font color="#000000" size="2"># MTU es 'Maximum Transfer Unit' o 
+      tama&ntilde;o maximo de los paquetes<br>
+      </font><font color="#000000" size="2"># transmitidos por el dispositivo 
+      SLIP. En muchos servidores este<br>
+      </font><font color="#000000" size="2"># valor debe ser 1500 o 1506. Hable 
+      con el administrador de la red<br>
+      </font><font color="#000000" size="2"># si no esta seguro.<br>
+      </font><font color="#000000" size="2">get $mtu 1500</font></P>
+    <P><font color="#000000" size="2"># Hacer que el rutado de SLIP sea el de 
+      su sistema por defecto.<br>
+      </font><font color="#000000" size="2">default</font></P>
+    <P><font color="#000000" size="2"># Elegir puerto serie y velocidad.<br>
+      </font><font color="#000000" size="2">port cua03<br>
+      </font><font color="#000000" size="2">speed 38400</font></P>
+    <P><font color="#000000" size="2"># Reiniciar el modem y la linea del terminal. 
+      Si le da problemas,<br>
+      </font><font color="#000000" size="2"># comente la linea.<br>
+      </font><font color="#000000" size="2">reset</font></P>
+    <P><font color="#000000" size="2"># Ponga aqui su cadena de inicio del modem.<br>
+      </font><font color="#000000" size="2">send ATT&amp;C1&amp;D2\\N3&amp;Q5%M3%C1N1W1L1S48=7\r<br>
+      </font><font color="#000000" size="2">wait OK 2<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error<br>
+      </font><font color="#000000" size="2"># Llamar al servidor SLIP (ponga aqui 
+      el telefono).<br>
+      </font><font color="#000000" size="2">dial 2546000<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error<br>
+      </font><font color="#000000" size="2">wait CONNECT 60<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error</font></P>
+    <P><font color="#000000" size="2"># En este punto estaremos conectados. Entrar 
+      en el sistema.<br>
+      </font><font color="#000000" size="2">login:<br>
+      </font><font color="#000000" size="2">sleep 3<br>
+      </font><font color="#000000" size="2">send \r\n\r\n<br>
+      </font><font color="#000000" size="2"># Esperar el 'prompt' de entrada (login).<br>
+      </font><font color="#000000" size="2">wait login: 10<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error</font></P>
+    <P><font color="#000000" size="2"># Enviar su nombre de usuario.<br>
+      </font><font color="#000000" size="2">send 
+      USERNAME\n</font></P>
+  </DIR>
+</DIR>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># Esperar el 'prompt' de password.<br>
+      </font><font color="#000000" size="2">wait ord: 5<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error</font></P>
+    <P><font color="#000000" size="2"># Enviar su password.<br>
+      </font><font color="#000000" size="2">send PASSWORD\n</font></P>
+    <P><font color="#000000" size="2"># Esperar el 'prompt' del servidor que indica 
+      que esta preparado.<br>
+      </font><font color="#000000" size="2">wait annex: 30<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error</font></P>
+    <P><font color="#000000" size="2"># Enviar un comando al servidor para empezar 
+      la conexion.<br>
+      </font><font color="#000000" size="2">send slip\n<br>
+      </font><font color="#000000" size="2">wait Annex 30</font></P>
+    <P><font color="#000000" size="2"># Obtener la direccion IP desde el servidor. 
+      El comando 'get...remote'<br>
+      </font><font color="#000000" size="2"># lee un texto de la forma xxx.xxx.xxx.xxx 
+      y lo asigna a la variable<br>
+      </font><font color="#000000" size="2"># dada como segundo argumento (aqui 
+      es $remote).<br>
+      </font><font color="#000000" size="2">get $remote remote<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error<br>
+      </font><font color="#000000" size="2">wait Your 30</font></P>
+    <P><font color="#000000" size="2"># Obtener la direccion local IP desde el 
+      servidor y asignarla a $local.<br>
+      </font><font color="#000000" size="2">get $local remote<br>
+      </font><font color="#000000" size="2">if $errlvl != 0 goto error</font></P>
+    <P><font color="#000000" size="2"># Establecer la conexion SLIP.<br>
+      </font><font color="#000000" size="2">done:<br>
+      </font><font color="#000000" size="2">print CONNECTED to $remote at $rmtip<br>
+      </font><font color="#000000" size="2">print GATEWAY address $rmtip<br>
+      </font><font color="#000000" size="2">print LOCAL address $local<br>
+      </font><font color="#000000" size="2">mode SLIP<br>
+      </font><font color="#000000" size="2">goto exit<br>
+      </font><font color="#000000" size="2">error:<br>
+      </font><font color="#000000" size="2">print SLIP to $remote failed.</font></P>
+    <P><font color="#000000" size="2">exit:</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">dip ejecuta autom&aacute;ticamente los programas 
+  ifconfig y route seg&uacute;n los valores asignados a $local y $remote. Aqu&iacute;, 
+  esas variables son asignadas con el comando get...remote, que obtiene el texto 
+  de la direcci&oacute;n del servidor SLIP y lo asigna a la variable.<br>
+  </font><font color="#000000" size="2">Si los comandos ifconfig y route que dip 
+  ejecuta no funcionan, siempre puede llamarlos por su cuenta desde un shell script 
+  tras ejecutar dip o modificar las fuentes del propio dip. La opci&oacute;n -v 
+  de dip le dar&aacute; informaci&oacute;n para depuraci&oacute;n generada durante 
+  la conexi&oacute;n y le ayudara a averiguar la(s) causa(s) del problema(s).<br>
+  </font><font color="#000000" size="2">Ahora, 
+  para probar dip y abrir la conexi&oacute;n SLIP, escriba un comando como:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">/etc/dip/dip -v /etc/dip/mychat 2&gt;&amp;1</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Estando los ficheros de dip, incluyendo el script 
+  mychat.dip en /etc/dip.<br>
+  </font><font color="#000000" size="2">Las explicaciones de esta secci&oacute;n 
+  le deber&iacute;an haber permitido conectarse a la red, bien sea por Ethernet 
+  o por SLIP. De nuevo le volvemos a recomendar que consulte un libro sobre configuraci&oacute;n 
+  de redes TCP/IP, en especial si en la red hay configuraciones especiales de 
+  rutado o similar.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="5.4"></a><font size="3">5.4 Red 
+  con UUCP<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.3.4">Anterior</a>- 
+  <a href="#5.5">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">UUCP (UNIX-to-UNIX Copy) es un viejo mecanismo 
+  usado para transferir informaci&oacute;n entre sistemas Unix. Mediante UUCP, 
+  los sistemas Unix se comunican con otros (v&iacute;a m&oacute;dem), transfiriendo 
+  mensajes de correo, news, ficheros y dem&aacute;s. Si no tiene acceso TCP/IP 
+  o SLIP, puede usar UUCP para comunicarse con el mundo. Casi todo el software 
+  de correo puede ser configurado para usar transferencias UUCP. De hecho, si 
+  tiene alg&uacute;n servidor InterNet cercano, puede recibir correo en su sistema 
+  de esa red mediante UUCP.<br>
+  </font><font color="#000000" size="2">El libro Linux Network Administrator's 
+  Guide le dar&aacute; informaci&oacute;n completa para configurar y utilizar 
+  UUCP en Linux. Tambi&eacute;n encontrara informaci&oacute;n en el documento 
+  UUCP-HOWTO, que puede obtener por FTP an&oacute;nimo de sunsite.unc.edu. Otra 
+  fuente de informaci&oacute;n sobre UUCP es el libro Managing UUCP and USENET, 
+  de Tim O'Reilly y Grace Todino. Vea el ap&eacute;ndice A para mas informaci&oacute;n.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="5.5"></a><font size="3">5.5 Correo 
+  Electr&oacute;nico<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.4">Anterior</a>- 
+  <a href="#5.6">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Como casi todos los UNIX, Linux dispone de paquetes 
+  de software para tener correo electr&oacute;nico. Este puede ser tanto local 
+  (entre usuarios de su sistema) como remoto (mediante una red TCP/IP o UUCP). 
+  El software de E-Mail consta normalmente de dos partes: un agente de usuario 
+  o mailer y un programa de transporte. El agente de usuario es el software que 
+  el usuario utiliza para crear mensajes, leerlos, etc. Podemos destacar aqu&iacute; 
+  los programas elm, pine y mailx. El programa de transporte es quien se ocupa 
+  de entregar correo tanto remoto como local, conociendo protocolos de comunicaciones 
+  y dem&aacute;s. El usuario nunca interact&uacute;a directamente con este programa, 
+  sino que lo hace a trav&eacute;s del agente de usuario. Sin embargo, el administrador 
+  del sistema debe conocer como funciona el programa de transporte, con el fin 
+  de configurarlo seg&uacute;n sus necesidades.<br>
+  </font><font color="#000000" size="2">En Linux, el mas conocido de los programas 
+  de transporte es Smail. Es f&aacute;cil de configurar y capaz de enviar tanto 
+  correo local como remoto v&iacute;a UUCP o TCP/IP. En otros sistemas Unix se 
+  suele usar con mas frecuencia el programa sendmail, que es bastante mas complicado 
+  de configurar, por lo que no se suele usar en Linux.<br>
+  </font><font color="#000000" size="2">En el documento Linux Mail HOWTO se expone 
+  mas informaci&oacute;n sobre el software disponible para correo y como configurarlo. 
+  Si pretende tener correo remoto, necesitara entender los conceptos de TCP/IP 
+  o UUCP (seg&uacute;n la red utilizada) (vea las secciones 5.3 y 5.4). Los documentos 
+  de UUCP y TCP/IP indicados en el ap&eacute;ndice A tambi&eacute;n le ayudaran.<br>
+  </font><font color="#000000" size="2">Casi todo el software de correo para Linux 
+  puede obtenerse mediante FTP an&oacute;nimo de sunsite.unc.edu en el directorio 
+  /pub/Linux/system/Mail.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="5.6"></a><font size="3">5.6 News 
+  y USENET<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#5.5">Anterior</a>- 
+  Siguiente - <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Linux proporciona tambi&eacute;n todo lo necesario 
+  para tratar las news. Puede elegir configurar un servidor de news local, que 
+  permitir&aacute; a los usuarios poner "art&iacute;culos" a los diversos "grupos" 
+  del sistema. . . en cierto modo, es una forma de discutir. Sin embargo, si tiene 
+  acceso a una red UUCP o TCP/IP, podr&aacute; participar realmente en USENET, 
+  una red de news de &aacute;mbito mundial.<br>
+  </font><font color="#000000" size="2">En el software de news hay dos partes, 
+  el servidor y el cliente. El servidor de news es el software que controla los 
+  grupos de news y se ocupa de enviar los art&iacute;culos a otras maquinas (si 
+  estamos en una red). El cliente, o lector de news, es el software que conecta 
+  al servidor para permitir que los usuarios lean y escriban art&iacute;culos.<br>
+  </font><font color="#000000" size="2">Hay varios tipos de servidores de news 
+  para Linux. Todos siguen un dise&ntilde;o y esquema de protocolos parecido. 
+  Principalmente, tenemos los servidores "C News" e "INN". En cuanto a clientes, 
+  destacamos rn y tin. La selecci&oacute;n del cliente es cuesti&oacute;n de gustos, 
+  y, por supuesto, es independiente del servidor elegido.<br>
+  </font><font color="#000000" size="2">Si solo pretende leer y escribir art&iacute;culos 
+  localmente (no como parte de USENET), necesitara<br>
+  </font><font color="#000000" size="2">un servidor que corra en su sistema, as&iacute; 
+  como el lector para los usuarios. El servidor guardara los art&iacute;culos 
+  en un directorio como /usr/spool/news, y el lector se compilara para buscar 
+  los art&iacute;culos en ese directorio.<br>
+  </font><font color="#000000" size="2">Sin embargo, si desea tener news en red, 
+  tendr&aacute; ahora varias opciones mas. Para redes basadas en TCP/IP se usa 
+  el protocolo NNTP (Network News Transmission Protocol). NNTP permite al cliente 
+  leer los art&iacute;culos a trav&eacute;s de la red, desde una m&aacute;quina 
+  remota. NNTP tambi&eacute;n permite a los servidores enviarse art&iacute;culos 
+  por la red. En esto se basa USENET. Casi todas las empresas y universidades 
+  conectadas cuentan con uno o mas servidores NNTP para controlar todas las news 
+  USENET en ese lugar. Cualquier otra m&aacute;quina de esa empresa o universidad 
+  tendr&aacute; un lector de news que acceder&aacute; al servidor con NNTP. Por 
+  ello, solo el servidor NNTP guarda art&iacute;culos en disco.<br>
+  </font><font color="#000000" size="2">Los 
+  clientes no lo hacen, y siempre tienen que conectar con el servidor para leerlos. 
+  A continuaci&oacute;n mostramos algunas situaciones t&iacute;picas de configuraci&oacute;n.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> News locales. No hay conexi&oacute;n 
+      a red o no se desea tener news en red. En este caso, hay que ejecutar C 
+      News o INN en su m&aacute;quina, e instalar el lector para leer las news 
+      locales.<br>
+      </font><font size="2" color="#000000"><B>o</b> Con acceso a red TCP/IP y 
+      servidor NNTP. Si existe un servidor NNTP ya configurado, puede leer y escribir 
+      art&iacute;culos desde su m&aacute;quina Linux instalando un lector basado 
+      en NNTP (casi todos los lectores tienen opciones de configuraci&oacute;n 
+      para leer news en NNTP). Por lo tanto, no necesita preocuparse de instalar 
+      el servidor o guardar art&iacute;culos en su sistema. El lector se ocupara 
+      de enviarlos a la red. Por supuesto, necesitara configurar TCP/IP y tener 
+      acceso a la red (vea la secci&oacute;n 5.3).<br>
+      </font><font size="2" color="#000000"><B>o</b> Tiene acceso a la red TCP/IP 
+      pero no hay un servidor NNTP. En este caso, puede instalar un servidor NNTP 
+      en su sistema. Adem&aacute;s, puede instalarlo para comunicarse con otros 
+      servidores NNTP para intercambiar art&iacute;culos.<br>
+      </font><font size="2" color="#000000"><B>o</b> 
+      Desea transferir news con UUCP. Si tiene acceso a UUCP (ver la secci&oacute;n 
+      5.4), puede participar en USENET de la misma forma. Necesitara instalar 
+      un servidor de news y un lector. </font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Adem&aacute;s necesitara configurar su software 
+  UUCP para transferir los art&iacute;culos peri&oacute;dicamente a otra m&aacute;quina 
+  con UUCP. En UUCP no se usa el protocolo NNTP, sino que posee su propio mecanismo 
+  para transferir art&iacute;culos.<br>
+  </font><font color="#000000" size="2">El &uacute;nico inconveniente de muchos 
+  clientes y servidores de news es que deben ser compilados a mano, es decir, 
+  no usan ficheros de configuraci&oacute;n, sino que se configuran en el momento 
+  de compilarlos.<br>
+  </font><font color="#000000" size="2">Muchos programas de news "est&aacute;ndares" 
+  (disponibles por FTP an&oacute;nimo en ftp.uu.net, directorio /news) podr&iacute;an 
+  no compilarse en Linux. Los parches que hagan falta se encuentran en sunsite.unc.edu, 
+  directorio /pub/Linux/system/Mail (aqu&iacute; se encuentra tambi&eacute;n todo 
+  el software de correo para Linux). Pueden encontrarse tambi&eacute;n versiones 
+  ya compiladas.<br>
+  </font><font color="#000000" size="2">Para mas informaci&oacute;n, 
+  l&eacute;ase el documento Linux News HOWTO que encontrara en sunsite.unc.edu. 
+  Tambi&eacute;n encontrara ayuda en el manual Linux Network Administrator's Guide 
+  de la misma serie de este libro. Tambi&eacute;n puede consultar el libro Managing 
+  UUCP and Usenet, de Tim O'Reilly y Grace Todino. Una &uacute;ltima posibilidad 
+  es el documento "How to become a USENET site", disponible en ftp.uu.net, directorio 
+  /usenet/news.announce.newusers.</font></P>
+</BODY>
+</HTML>

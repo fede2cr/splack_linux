@@ -1,0 +1,795 @@
+<HTML>
+<HEAD>
+<TITLE>guide9</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide08.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide10.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 9</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>¡Tengo que ser yo mismo!</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si Dios hubiera sabido que necesitar&iacute;amos previsi&oacute;n, nos la habr&iacute;a dado.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>9.1 Personalizaci&oacute;n del bash</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Una de las cosas que distinguen la filosof&iacute;a de Unix es que los dise&ntilde;adores de sistemas no intentaron predecir cada necesidad que los usuarios podr&iacute;an tener; en lugar de eso, intentaron hacer f&aacute;cil para cada usuario individual la configuraci&oacute;n del entorno a sus necesidades particulares. Esto se consigue principalmente a trav&eacute;s de ficheros de configuraci&oacute;n. Tambi&eacute;n son conocidos como "ficheros de inicio" , "ficheros rc" (por "run control", control de arranque), o incluso "ficheros punto (dot files)", porque los nombres de los ficheros siempre empiezan con ".". Recordemos que los ficheros que empiezan por "." no se visualizan normalmente con ls.</P>
+<P>Los ficheros de configuraci&oacute;n m&aacute;s importantes son los usados por el shell. El shell por defecto de Linux es el bash, y &eacute;ste es el shell que cubre este cap&iacute;tulo. Antes de empezar a explicar c&oacute;mo personalizar el bash, tenemos que saber cuales son los archivos que mira.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.1.1 Arranque del shell</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Hay diferentes modos de funcionamiento del bash. Puede funcionar como shell de ingreso, que es el modo en que arranca cuando se ingresa por primera vez. El shell de ingreso deber&iacute;a ser el primer shell que vea.</P>
+<P>Otro modo en que puede funcionar bash es como shell interactivo. Este es un shell que presenta un prompt a un humano y espera una entrada de datos. Un shell de ingreso tambi&eacute;n es un shell interactivo. Una manera de conseguir un shell interactivo sin ingresar en el sistema es, por ejemplo, un shell dentro de xterm. Cualquier shell que sea creado por otro medio distinto del ingreso registrado en el sistema es un shell de no-ingreso.</P>
+<P>Finalmente, hay shells no interactivos. Estos shells se usan para ejecutar un archivo de comandos, muy parecidos a los ficheros de procesamiento por lotes del MS-DOS, los archivos que acaban en .BAT. Estas macros de shell funcionan como mini-programas. Aunque son usualmente mucho m&aacute;s lentos que un programa normal compilado, suele ser cierto tambi&eacute;n que son mucho m&aacute;s f&aacute;ciles de escribir. Dependiendo del tipo de shell, se usar&aacute;n distintos tipos de archivo al arrancarlo:</P></FONT>
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=633>
+<TR><TD WIDTH="40%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<P ALIGN="CENTER"><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">Tipo de Shell</B></FONT></TD>
+<TD WIDTH="60%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P ALIGN="CENTER">Acci&oacute;n</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Ingreso interactivo</FONT></TD>
+<TD WIDTH="60%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Se lee y ejecuta el archivo .bash_profile</FONT></TD>
+</TR>
+<TR><TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Interactivo</FONT></TD>
+<TD WIDTH="60%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Se lee y ejecuta el archivo .bashrc</FONT></TD>
+</TR>
+<TR><TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>No_interactivo</FONT></TD>
+<TD WIDTH="60%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Se lee y ejecuta la macro de shell</FONT></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.1.2 Ficheros de arranque</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Como muchos usuarios quieren tener mayormente el mismo entorno, sin importar que tipo de shell interactivo acaben teniendo, y sea o no un shell de ingreso, empezaremos nuestra configuraci&oacute;n poniendo un comando muy simple en nuestro archivo .bash_profile: "source ~/.bashrc". El comando source ordena al shell que interprete el argumento como una macro de shell. Lo que significa para nosotros es que cada vez que .bash_profile se ejecuta, tambi&eacute;n se ejecuta .bashrc. Ahora, s&oacute;lo a&ntilde;adiremos comandos a nuestro archivo .bashrc. Si alguna vez queremos que se ejecute un comando &uacute;nicamente cuando hemos hecho un ingreso registrado, lo a&ntilde;adiremos a nuestro .bash_profile.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.1.3 Creando alias</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>¿Cuales son algunas de las cosas que interesar&iacute;a personalizar? Esto es algo que creo que el 90% de los usuarios de Bash han puesto en su .bashrc:</P><DIR>
+<DIR>
+
+<P>alias ll="ls -l"</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Este comando define un alias de shell llamado ll que "expande" el comando normal de shell "ls -l" cuando se invoca por el usuario. De modo que, asumiendo que Bash ha le&iacute;do este comando del fichero .bashrc, podemos teclear ll para conseguir el efecto de "ls__-l"_ con solo la mitad de pulsaciones. Lo que ocurre es que cuando tecleamos "ll" y pulsamos |_Intro_|, Bash lo intercepta, lo reemplaza por "ls -l" , y ejecuta &eacute;ste en su lugar. No hay ning&uacute;n programa llamado ll en el sistema, pero el shell autom&aacute;ticamente traduce el alias a un programa v&aacute;lido.</P>
+<P>Hay algunos alias de ejemplo en la figura 9.1.3. Puede ponerlos en su propio .bashrc. Uno especialmente interesante es el primero. Con &eacute;l, cada vez que alguien teclea "ls" , automaticamente tiene una opci&oacute;n "-F" a&ntilde;adida. (El alias no intenta expandirse a s&iacute; mismo otra vez). Este es un modo muy com&uacute;n de a&ntilde;adir opciones que se usan constantemente al llamar a un programa.</P>
+<P>N&oacute;tese los comentarios con el caracter "#" en la figura 9.1.3. Cada vez que aparece un "#", el shell ignora el resto de la l&iacute;nea.</P>
+<P>Quiz&aacute; haya notado unas cuantas cosas sueltas sobre los ejemplos. Primero, me he dejado las comillas en algunos de los alias como pu. Estrictamente hablando, las comillas no son necesarias cuando s&oacute;lo se tiene una palabra a la derecha del signo igual.</P>
+<P>&nbsp;</P>
+<P>Figura 9.1 Algunos alias de ejemplo para bash.</P></FONT>
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=666>
+<TR><TD WIDTH="33%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<P ALIGN="CENTER"><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">Alias</B></FONT></TD>
+<TD WIDTH="67%" VALIGN="TOP" COLSPAN=2 BGCOLOR="#c0c0c0">
+<B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P ALIGN="CENTER">Comentario</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="33%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>alias ls="ls -F" </P>
+<P>alias ll="ls -l" </P>
+<P>alias la="ls -a"</P>
+<P>alias ro="rm *~; rm .*~" </P>
+<P>alias rd="rmdir" </P>
+<P>alias md="mkdir"</P>
+<P>alias pu=pushd </P>
+<P>alias po=popd </P>
+<P>alias ds=dirs </FONT></TD>
+<TD WIDTH="67%" VALIGN="TOP" COLSPAN=2>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P># muestra los caracteres al final del listado</P>
+<P># ls especial</P>
+<P>&nbsp;</P>
+<P># este borra las copias de seguridad creadas por Emacs</P>
+<P># ahorra teclas!</P>
+<P>&nbsp;</P>
+<P># pushd, popd, y dirs no estan incluidos en este</P>
+<P># manual---quiza quiera echarles un vistazo</P>
+<P># en la pagina man de Bash</FONT></TD>
+</TR>
+<TR><TD WIDTH="53%" VALIGN="TOP" COLSPAN=2>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>alias to="telnet cs.oberlin.edu"</P>
+<P>alias ta="telnet altair.mcs.anl.gov"</P>
+<P>alias tg="telnet wombat.gnu.ai.mit.edu"</P>
+<P>alias tko="tpalk kold@cs.oberlin.edu"</P>
+<P>alias tjo="talk jimb@cs.oberlin.edu"</P>
+<P>alias mroe="more" </P>
+<P>alias moer="more"</P>
+<P>alias email="emacs -f rmail" </P>
+<P>alias ed2="emacs -d floss:0 -fg ""grey95"" -bg ""grey50""" </FONT></TD>
+<TD WIDTH="47%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P># estos solo son atajos de teclado</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P># correcion ortografica!</P>
+<P>&nbsp;</P>
+<P># mi lector de correo</P>
+<P># asi llamo a Emacs</FONT></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>Pero no hace da&ntilde;o poner comillas, as&iacute; que no me dej&eacute;is crearos malos h&aacute;bitos. Ciertamente habr&aacute; que usarlas si se va a crear un alias de un comando con opciones y/o argumentos:</P><DIR>
+<DIR>
+
+<P>alias rf="refrobnicate -verbose -prolix -wordy -o foo.out"</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Adem&aacute;s, el &uacute;ltimo alias tiene alg&uacute;n entrecomillado gracioso:</P><DIR>
+<DIR>
+
+<P>alias ed2="emacs -d floss:0 -fg ""grey95"" -bg ""grey50"""</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como es f&aacute;cil suponer, he querido pasar entrecomillados dentro de las opciones, as&iacute; que tengo que anteponerles una contrabarra para que bash no crea que ya ha llegado al final del alias.</P>
+<P>Finalmente, he creado dos alias de dos errores de escritura comunes, "mroe" y "moer", apuntando al comando que pretend&iacute;a escribir, more. Los alias no interfieren con el paso de argumentos a un programa. Lo siguiente funciona bien:</P><DIR>
+<DIR>
+
+<P>/home/larry$ mroe hurd.txt</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>De hecho, saber como crear sus propios alias es probablemente por lo menos la mitad de las personalizaciones que har&aacute; jam&aacute;s. Experimente un poco, descubra cu&aacute;les son los comandos largos que teclea frecuentemente, y cree alias para ellos. De esta manera, le resultar&aacute; m&aacute;s confortable trabajar con el prompt del shell.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.1.4 Variables de entorno</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Otra cosa que uno hace frecuentemente en .bashrc es definir variables de entorno. Y &gt;qu&eacute; son las variables de entorno? Vamos a mirarlo desde otra direcci&oacute;n: Supongamos que est&aacute; leyendo la documentaci&oacute;n del programa fruggle, y se encuentra con una de estas expresiones:</P>
+<P>Fruggle normalmente busca su fichero de configuraci&oacute;n, .frugglerc, en el directorio ra&iacute;z del usuario. Sin embargo si la variable de entorno FRUGGLEPATH indica un nombre de archivo diferente, mirar&aacute; ah&iacute; en su lugar.</P>
+<P>Cada programa se ejecuta en un entorno, y ese entorno es definido por el shell que llam&oacute; al programa1. Se puede decir que el entorno existe "dentro" del shell. Los programadores tienen una rutina especial para interrogar al entorno, y el programa fruggle usa esa rutina. Comprueba el valor de la variable de entorno FRUGGLEPATH. Si esa variable no est&aacute; definida, sencillamente usar&aacute; el archivo .frugglerc del directorio ra&iacute;z. Si est&aacute; definida, usar&aacute; el valor de esa variable (que debe ser el nombre de un archivo que fruggle pueda usar) en lugar del archivo por defecto .frugglerc. As&iacute; es como se puede cambiar el entorno en bash:</P><DIR>
+<DIR>
+
+<P>/home/larry$ export PGPPATH=/home/larry/secrets/pgp</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Hay que pensar en el comando export con este significado: "Por favor exporta esta variable fuera del entorno donde estar&eacute; llamando programas, de modo que su valor sea visible para ellos." Realmente hay razones para llamarlo export, como se ver&aacute; despu&eacute;s.</P>
+<P>Esta variable en particular es usada por el infame programa de encriptaci&oacute;n mediante clave p&uacute;blica de Phil Zimmerman, pgp. Por defecto, pgp usa el directorio ra&iacute;z como lugar para encontrar determinados archivos que necesita (que contienen claves de encriptaci&oacute;n), y tambi&eacute;n un lugar para guardar archivos temporales que crea mientras est&aacute; en marcha. Al darle este valor a la variable PGPPATH, le he dicho que use el directorio /home/larry/secrets/pgp en lugar de /home/larry.</P>
+<P>He tenido que leer el manual de pgp para encontrar el nombre exacto de la variable y lo que hace, pero es bastante est&aacute;ndar el uso del nombre del programa en may&uacute;sculas, seguido del sufijo "PATH". Tambi&eacute;n es &uacute;til saber como preguntar al entorno:</P><DIR>
+<DIR>
+
+<P>/home/larry$ echo $PGPPATH</P>
+<P>/home/larry/.pgp</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>N&oacute;tese el "$"; se precede la variable de entorno con un signo de d&oacute;lar para extraer el valor de la variable. Si lo hubiera escrito sin el signo de d&oacute;lar, echo simplemente habr&iacute;a mostrado su(s) argumento(s):</P><DIR>
+<DIR>
+
+<P>/home/larry$ echo PGPPATH</P>
+<P>PGPPATH</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El "$" se usa para evaluar variables de entorno, pero s&oacute;lo lo hace dentro del contexto del shell, o sea, cuando el shell est&aacute; interpretando. ¿Cuando est&aacute; el shell interpretando? Bueno, cuando se escriben comandos en el prompt, o cuando bash est&aacute; leyendo comandos de un archivo como .bashrc, se puede decir que est&aacute; "interpretando" los comandos.</P>
+<P>_____________________________________________</P>
+<P>1 Ahora se puede comprobar porqu&eacute; los shells son tan importantes. &lt;No hay que andar pasando un entorno completo a mano cada vez que se llame a un programa!</P>
+<P>&nbsp;</P>
+<P>Figura 9.2 Algunas variables de entorno importantes.</P></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=685>
+<TR><TD WIDTH="10%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<P ALIGN="CENTER"><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">Nombre</B></FONT></TD>
+<TD WIDTH="40%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P ALIGN="CENTER">Contenido</B></FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P ALIGN="CENTER">Ejemplo</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="10%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>HOME</FONT></TD>
+<TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Directorio principal del usuario</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>/home/larry</FONT></TD>
+</TR>
+<TR><TD WIDTH="10%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>TERM</FONT></TD>
+<TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Tipo de terminal del usuario</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>xterm, vt100, o console</FONT></TD>
+</TR>
+<TR><TD WIDTH="10%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>SHELL</FONT></TD>
+<TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Path del shell del usuario</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>/bin/bash</FONT></TD>
+</TR>
+<TR><TD WIDTH="10%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>USER</FONT></TD>
+<TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Nombre de ingreso</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>larry</FONT></TD>
+</TR>
+<TR><TD WIDTH="10%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>PATH</FONT></TD>
+<TD WIDTH="40%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Lista de b&uacute;squeda de programas</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>/bin:/usr/bin:/usr/local/bin:/usr/bin/X11</FONT></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>Hay otro comando muy &uacute;til para preguntar al entorno: env". env ense&ntilde;ar&aacute; un listado de todas las variables de entorno. Es posible, especialmente si se usa X, que la lista se salga de la pantalla.</P>
+<P>Si esto ocurre, hay que canalizar env a trav&eacute;s de more: "env _ more".</P>
+<P>Unas cuantas de estas variables pueden ser muy &uacute;tiles, as&iacute; que las comentaremos. Mire la Figura 9.1.4. Estas cuatro variables est&aacute;n definidas autom&aacute;ticamente cuando se ingresa en el sistema: no se definen en .bashrc o .bash_login.</P>
+<P>Vamos a echar un vistazo m&aacute;s de cerca a la variable TERM. Para comprenderla, vamos a mirar hacia atr&aacute;s en la historia del Unix: El sistema operativo necesita conocer ciertos datos sobre su consola para poder realizar funciones b&aacute;sicas, como escribir un car&aacute;cter en la pantalla, mover el cursor a la l&iacute;nea siguiente, etc. En los primeros d&iacute;as de los ordenadores, los fabricantes estaban continuamente a&ntilde;adiendo nuevas caracter&iacute;sticas a sus terminales: primero el v&iacute;deo inverso, luego quiz&aacute;s juegos de caracteres europeos, eventualmente incluso primitivas funciones de dibujo (hay que recordar que &eacute;stos eran los tiempos anteriores a los sistemas de ventanas y el rat&oacute;n). Pero todas estas funciones representaban un problema para los programadores: ¿C&oacute;mo iban a saber lo que un terminal pod&iacute;a soportar y lo que no? Y ¿c&oacute;mo pod&iacute;an emplear nuevas caracter&iacute;sticas sin convertir los viejos terminales en inservibles?</P>
+<P>En Unix, la respuesta a estas cuestiones fue /etc/termcap . /etc/termcap es una lista de todos los terminales que un sistema conoce, y como controlan el cursor. Si un administrador de sistema consigue un terminal nuevo, todo lo que tiene que hacer es a&ntilde;adir una entrada para ese terminal en /etc/termcap en lugar de recompilar todo el Unix. A veces es incluso m&aacute;s simple. Al pasar el tiempo, el vt100 de Digital Equipment Corporation se convirti&oacute; en un pseudo-est&aacute;ndar, y muchos nuevos terminales fueron construidos para que pudieran emularlo, o comportarse como si fueran un vt100.</P>
+<P>Bajo Linux, el valor de TERM es a veces console, un cl&oacute;nico de vt-100 con algunas caracter&iacute;sticas a&ntilde;adidas.</P>
+<P>Otra variable, PATH, es tambi&eacute;n crucial para el funcionamiento correcto del shell. Aqu&iacute; est&aacute; la m&iacute;a:</P><DIR>
+<DIR>
+
+<P>/home/larry$ env _ grep ^PATH</P>
+<P>PATH=/home/larry/bin:/bin:/usr/bin:/usr/local/bin:/usr/bin/X11:/usr/TeX/bin</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El PATH es una lista, separada por el car&aacute;cter dos puntos ":", de los directorios donde el shell buscar&aacute; el nombre del programa a ejecutar. Cuando yo tecleo "ls" y pulso |_Intro_|, por ejemplo, Bash primero busca en /home/larry/bin, un directorio que he hecho para guardar los programas que escribo. Pero yo no he escrito ls (de hecho, ¡creo que se escribi&oacute; antes de que yo naciera!). Como no lo encuentra en /home/larry/bin, Bash mira despu&eacute;s en /bin ¡y ah&iacute; hay una coincidencia! /bin/ls existe y es ejecutable, de modo que Bash deja de buscar un programa llamado ls y lo arranca. Podr&iacute;a haber habido perfectamente otro ls esperando en el directorio /usr/bin, pero bash nunca lo ejecutar&aacute; si no lo pido especificando una ruta de directorios expl&iacute;cita:</P><DIR>
+<DIR>
+
+<P>/home/larry$ /usr/bin/ls</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La variable PATH existe para no tener que teclear rutas de directorio completas para cada comando. Cuando se escribe un comando, Bash lo busca en los directorios nombrados en el PATH, en orden, y si lo encuentra, lo ejecuta. Si no lo encuentra, devuelve un descort&eacute;s mensaje de error:</P><DIR>
+<DIR>
+
+<P>/home/larry$ clubly</P>
+<P>clubly: command not found</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Notar que en mi PATH no existe el directorio actual, ".". Si estuviera, tendr&iacute;a este aspecto:</P><DIR>
+<DIR>
+
+<P>/home/larry$ echo $PATH</P>
+<P>.:/home/larry/bin:/bin:/usr/bin:/usr/local/bin:/usr/bin/X11:/usr/TeX/bin</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Esto es asunto de debate en los c&iacute;rculos de Unix (de los cuales ahora es miembro, le guste o no). El problema es que tener el directorio actual en el path puede ser un agujero en la seguridad. Supongamos que entramos en un directorio en el que alguien ha dejado un "Caballo de Troya" llamado ls, y hacemos un ls, como es natural despu&eacute;s de entrar en un directorio nuevo. Como el directorio actual, ".", viene primero en nuestro PATH, el shell encontrar&aacute; esta versi&oacute;n de ls y la ejecutar&aacute;. Sea cual sea el da&ntilde;o que hayan puesto en ese programa, lo acabamos de activar (y puede ser un mont&oacute;n de da&ntilde;o). Quien fuera no necesita permisos de root para hacerlo; s&oacute;lo hace falta permisos de escritura en el directorio donde se encuentra el "falso" ls. Incluso podr&iacute;a ser su propio directorio home, si sabe que vamos a estar husmeando por ah&iacute; en alg&uacute;n momento.</P>
+<P>En su propio sistema, es muy improbable que las personas se est&eacute;n dejando trampas unas a otras. Pero en un gran sistema multiusuario (como muchos ordenadores de universidades), hay un mont&oacute;n de programadores hostiles con los que nunca se ha encontrado. Que quiera tentar a la suerte o no teniendo "." en el path depende de la situaci&oacute;n; no voy a ser dogm&aacute;tico en ning&uacute;n sentido, s&oacute;lo quiero informar de los riesgos impl&iacute;citos2. Los sistemas multiusuario son verdaderas comunidades, donde la gente puede hacerles cosas a los dem&aacute;s en todo tipo de maneras nunca vistas.</P>
+<P>El modo en que he dejado mi PATH incluye la mayor&iacute;a de lo que se ha aprendido hasta ahora sobre variables de entorno. Esto es lo que hay actualmente en mi .bashrc:</P>
+<P>export PATH=$-PATH":.:$-HOME"/bin:/bin:/usr/bin:/usr/local/bin:/usr/bin/X11:/usr/TeX/bin</P>
+<P>_____________________________________________</P>
+<P>2 Recu&eacute;rdese que siempre se puede ejecutar un programa en el directorio actual siendo expl&iacute;cito, p.ej.: "./foo".</P>
+<P>&nbsp;</P>
+<P>Me aprovecho de que la variable HOME se activa antes de que Bash lea el fichero .bashrc, usando su valor en la construcci&oacute;n del PATH. Las llaves ("{...}") son un nivel a&ntilde;adido de cita; delimitan el tama&ntilde;o de lo que va a evaluar "$", de modo que el shell no se confunda por culpa del texto inmediatamente posterior ("/bin" en este caso). Aqu&iacute; hay otro ejemplo del efecto que tienen:</P><DIR>
+<DIR>
+
+<P>/home/larry$ echo $-HOME"foo</P>
+<P>/home/larryfoo</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Sin las llaves, no connseguir&iacute;a nada, porque no hay ninguna variable de entorno llamada HOMEfoo.</P><DIR>
+<DIR>
+
+<P>/home/larry$ echo $HOMEfoo</P>
+<P>&nbsp;</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Quisiera aclarar una cosa en este path: el significado de "$PATH". Lo que hace es incluir el valor de cualquier variable PATH previamente activada en mi nuevo PATH. ¿D&oacute;nde se habr&aacute; activado la variable anterior? El archivo /etc/profile sirve como una especie de .bash_profile global, com&uacute;n a todos los usuarios. Tener un archivo centralizado como este hace m&aacute;s sencillo para el administrador del sistema a&ntilde;adir un directorio nuevo al PATH de todo el mundo, sin que cada uno tenga que hacerlo individualmente. Si se incluye el path antiguo en el nuevo, no se perder&aacute;n ninguno de los directorios que el sistema ya haya preparado.</P>
+<P>Tambi&eacute;n se puede controlar como aparece el prompt. Esto se consigue mediante la variable de entorno PS1. Personalmente, quiero un prompt que me indique el path del directorio actual as&iacute; es "como lo hago en mi .bashrc:</P><DIR>
+<DIR>
+
+<P>export PS1='$PWD"$ '</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como se puede ver, en realidad se usan dos variables. La que se activa es PS1, y toma el valor de PWD, que puede ser interpretada como "Print Working Directory" (imprime el directorio de trabajo) o "Path to Working Directory"(trayectoria al directorio de trabajo). Pero la evaluaci&oacute;n de PWD tiene lugar entre ap&oacute;strofos agudos. Estos ap&oacute;strofos sirven para evaluar la expresi&oacute;n en su interior, la cual a su vez eval&uacute;a la variable PWD. Si s&oacute;lo hubi&eacute;ramos hecho "export PS1=$PWD" , nuestro prompt nos habr&iacute;a mostrado constantemente el path del directorio de trabajo en el momento en que PS1 fue activada, en lugar de actualizarse constantemente mientras cambiamos de directorios. Bueno, es un poco confuso, y no muy importante en realidad. S&oacute;lo hay que tener en cuenta que se necesita esa clase de ap&oacute;strofos si se quiere mostrar el directorio actual en el prompt.</P>
+<P>Quiz&aacute; se prefiera "export PS1='$PWD&gt;'" , o incluso el nombre del sistema:</P><DIR>
+<DIR>
+
+<P>export PS1=`hostname`'&gt;'</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Diseccionemos este ejemplo un poco m&aacute;s. Aqu&iacute; se usa un nuevo tipo de literal, el ap&oacute;strofo grave. Esta clase de literal no protege nada, de hecho, 'hostname' no aparece en ninguna parte del prompt cuando intentamos arrancarlo. Lo que sucede realmente es que se eval&uacute;a el comando dentro de los ap&oacute;strofos graves, y el resultado se guarda en lugar del nombre del comando entrecomillado.</P>
+<P>Probemos con "echo `ls`" o "wc `ls`" . A medida que se consiga m&aacute;s experiencia usando el shell, esta t&eacute;cnica se hace m&aacute;s y m&aacute;s potente.</P>
+<P>Hay mucho m&aacute;s por comentar de como se configura el fichero .bashrc, y aqu&iacute; no hay bastante espacio para hacerlo. Se puede aprender m&aacute;s leyendo la p&aacute;gina man de bash, o preguntando a usuarios experimentados. Aqu&iacute; hay un .bashrc completo para poder estudiarlo; es razonablemente est&aacute;ndar, aunque el path es un poco largo.</P><DIR>
+<DIR>
+
+<P># Algunas cosas al azar:</P>
+<P>ulimit -c unlimited</P>
+<P>export history_control=ignoredups</P>
+<P>export PS1='$PWD&gt;'</P>
+<P>umask 022</P>
+<P>&nbsp;</P>
+<P># paths espec&iacute;ficos de aplicaciones:</P>
+<P>export MANPATH=/usr/local/man:/usr/man</P>
+<P>export INFOPATH=/usr/local/info</P>
+<P>export PGPPATH=$-HOME"/.pgp</P>
+<P>&nbsp;</P>
+<P># PATH principal:</P>
+<P>homepath=$-HOME":~/bin</P>
+<P>stdpath=/bin:/usr/bin:/usr/local/bin:/usr/ucb/:/etc:/usr/etc:/usr/games</P>
+<P>pubpath=/usr/public/bin:/usr/gnusoft/bin:/usr/local/contribs/bin</P>
+<P>softpath=/usr/bin/X11:/usr/local/bin/X11:/usr/TeX/bin</P>
+<P>export PATH=.:$-homepath":$-stdpath":$-pubpath":$-softpath"</P>
+<P># T&eacute;cnicamente, las llaves no eran necesarias, porque los dos puntos son</P>
+<P># delimitadores v&aacute;lidos; pero las llaves son una buena costumbre,</P>
+<P># y no hacen da&ntilde;o.</P>
+<P>&nbsp;</P>
+<P># alias</P>
+<P>alias ls="ls -CF"</P>
+<P>alias fg1="fg %1"</P>
+<P>alias fg2="fg %2"</P>
+<P>alias tba="talk sussman@tern.mcs.anl.gov"</P>
+<P>alias tko="talk kold@cs.oberlin.edu"</P>
+<P>alias tji="talk jimb@totoro.bio.indiana.edu"</P>
+<P>alias mroe="more"</P>
+<P>alias moer="more"</P>
+<P>alias email="emacs -f vm"</P>
+<P>alias pu=pushd</P>
+<P>alias po=popd</P>
+<P>alias b="~/.b"</P>
+<P>alias ds=dirs</P>
+<P>alias ro="rm *~; rm .*~"</P>
+<P>alias rd="rmdir"</P>
+<P>alias ll="ls -l"</P>
+<P>alias la="ls -a"</P>
+<P>alias rr="rm -r"</P>
+<P>alias md="mkdir"</P>
+<P>alias ed2="emacs -d floss:0 -fg ""grey95"" -bg ""grey50"""</P>
+<P>&nbsp;</P>
+<P>function gco</P>
+<P>-</P>
+<P>gcc -o $1 $1.c -g</P>
+<P>"</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>9.2 Los ficheros de inicio de X Window</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Mucha gente prefiere trabajar dentro de un entorno gr&aacute;fico, y para las m&aacute;quinas bajo Unix eso suele significar usar X. Si se est&aacute; acostumbrado al Macintosh o al Microsoft Windows, puede costar un poco acostumbrarse al sistema X Window, especialmente al modo en que se configura.</P>
+<P>Con Macintosh o Microsoft Windows, se personaliza el entorno desde dentro: si se quiere cambiar el fondo, por ejemplo, se pulsa con el rat&oacute;n sobre el nuevo color en alg&uacute;n programa gr&aacute;fico especial de configuraci&oacute;n. En X, las opciones por defecto del sistema se controlan mediante ficheros de texto, que se editan directamente, en otras palabras, se escribe el nombre del color en un fichero para cambiar el color del fondo.</P>
+<P>No se puede negar que este m&eacute;todo no es tan llano como el de algunos sistemas de ventanas comerciales. Creo que esta tendencia a permanecer basado en texto, incluso en un entorno gr&aacute;fico, tiene mucho que ver con el hecho de que X fu&eacute; creado por un pu&ntilde;ado de programadores que simplemente no estaban tratando de escribir un software que pudieran usar sus abuelos. Esta tendencia puede cambiar en futuras versiones de X (por lo menos as&iacute; lo espero3), pero por ahora, hay que aprender como entenderse con unos cuantos ficheros de texto m&aacute;s. Por lo menos nos da un control muy flexible y preciso de nuestra configuraci&oacute;n.</P>
+<P>Aqu&iacute; est&aacute;n los ficheros m&aacute;s importantes para configurar X:</P><DIR>
+<DIR>
+
+<P>.xinitrc Un script arrancado por X cuando se inicia.</P>
+<P>.twmrc Leido por el gestor de X Window, twm.</P>
+<P>.fvwmrc Leido por el gestor de X Window, fvwm.</P></DIR>
+</DIR>
+
+<P>Todos estos ficheros deber&iacute;an estar en el directorio $HOME, si es que existen.</P>
+<P>.xinitrc es una macro de shell muy simple que se ejecuta cuando invocamos a X. Puede hacer cualquiera de las cosas que pueden hacer otras macros de shell, pero por supuesto su uso principal es arrancar varios programas de X y establecer par&aacute;metros del sistema de ventanas. El &uacute;ltimo comando en .xinitrc es usualmente el nombre de un gestor de ventanas a ejecutar, por ejemplo /usr/bin/X11/twm.</P>
+<P>¿Qu&eacute; tipo de cosas nos gustar&iacute;a poner en .xinitrc? Quiz&aacute; algunas llamadas al programa xsetroot, para hacer que la ventana de fondo (escritorio) y el rat&oacute;n tengan el aspecto que deseamos. Llamadas a xmodmap, que informa al servidor4 de como interpretar las se&ntilde;ales del teclado.</P>
+<P>_____________________________________________</P>
+<P>3 N. del T.: Yo tambi&eacute;n ;-)</P>
+<P>4 El "servidor" s&oacute;lo se refiere al proceso principal en la m&aacute;quina, con el que todos los dem&aacute;s programas de X tienen que comunicar para usar la pantalla. Estos otros programas se conocen como "clientes", y todo el paquete se llama "sistema cliente-servidor".</P>
+<P>&nbsp;</P>
+<P>O cualquier otro programa que se quiera iniciar cada vez que se arranque X (por ejemplo, xclock). Aqu&iacute; est&aacute; una parte de mi .xinitrc; el suyo seguramente ser&aacute; distinto, as&iacute; que hay que tom&aacute;rselo s&oacute;lo como ejemplo:</P><DIR>
+<DIR>
+
+<P>#!/bin/sh</P>
+<P># La primera l&iacute;nea le dice al sistema operativo que shell usar para</P>
+<P># interpretar esta macro. La macro en s&iacute; misma debe estar marcada como</P>
+<P># ejecutable; se puede hacer con "chmod +x ~/.xinitrc".</P>
+<P>&nbsp;</P>
+<P># xmodmap es un programa que informa al servidor X de como interpretar las</P>
+<P># se&ntilde;ales del teclado. Es *definitivamente* aconsejable aprender como</P>
+<P># funciona. Se puede probar con "man xmodmap", "xmodmap -help",</P>
+<P># "xmodmap -grammar", y otras opciones.</P>
+<P># No garantizo que las expresiones abajo escritas signifiquen nada en tu</P>
+<P># sistema (ni siquiera garantizo que signifiquen algo en el m&iacute;o):</P>
+<P>xmodmap -e 'clear Lock'</P>
+<P>xmodmap -e 'keycode 176 = Control_R'</P>
+<P>xmodmap -e 'add control = Control_R'</P>
+<P>xmodmap -e 'clear Mod2'</P>
+<P>xmodmap -e 'add Mod1 = Alt_L Alt_R'</P>
+<P>&nbsp;</P>
+<P># xset es un programa para establecer otros par&aacute;metros del servidor X:</P>
+<P>xset m 3 2 &amp; # par&aacute;metros del rat&oacute;n</P>
+<P>xset s 600 5 &amp; # preferencias del salvapantallas</P>
+<P>xset s noblank &amp; # lo mismo</P>
+<P>xset fp+ /home/larry/x/fonts # para cxterm</P>
+<P># Para aprender m&aacute;s, "xset -help".</P>
+<P>&nbsp;</P>
+<P># Ordena al servidor X que sobreponga fish.cursor sobre fish.mask, y use</P>
+<P># el patr&oacute;n resultante como cursor del rat&oacute;n:</P>
+<P>xsetroot -cursor /home/lab/larry/x/fish.cursor /home/lab/larry/x/fish.mask &amp;</P>
+<P>&nbsp;</P>
+<P># Un placentero patr&oacute;n y color de fondo:</P>
+<P>xsetroot -bitmap /home/lab/larry/x/pyramid.xbm -bg tan</P>
+<P>&nbsp;</P>
+<P># para hacer: xrdb aqu&iacute;? Y que hay del fichero .Xdefaults?</P>
+<P>&nbsp;</P>
+<P># Hay que mirar "man xsetroot", o "xsetroot -help" para m&aacute;s</P>
+<P># informaci&oacute;n sobre el programa usado arriba.</P>
+<P>&nbsp;</P>
+<P># Un programa cliente, el imponente reloj circular de color de Jim Blandy:</P>
+<P>/usr/local/bin/circles &amp;</P>
+<P>&nbsp;</P>
+<P># Quiz&aacute; os gustar&iacute;a tener un reloj en la pantalla a todas horas?</P>
+<P>/usr/bin/X11/xclock -digital &amp;</P>
+<P>&nbsp;</P>
+<P># Permite a programas cliente de X ejecut&aacute;ndose en occs.cs.oberlin.edu</P>
+<P># mostrarse a s&iacute; mismos aqu&iacute;, y lo mismo para juju.mcs.anl.gov:</P>
+<P>xhost occs.cs.oberlin.edu</P>
+<P>xhost juju.mcs.anl.gov</P>
+<P>&nbsp;</P>
+<P># Se puede simplemente decirle al servidor X que permita usar aqu&iacute;</P>
+<P># a clientes que est&eacute;n ejecut&aacute;ndose en cualquier otra m&aacute;quina,</P>
+<P># pero esto es un agujero en la seguridad -- &lt;estos clientes pueden ser</P>
+<P># usados por cualquier otro, que puede vigilar lo que se teclea cuando se</P>
+<P># entra una contrase&ntilde;a, o algo as&iacute;!</P>
+<P># Si se quiere hacerlo de todos modos, se puede usar un "+" para indicar</P>
+<P># cualquier nombre de host posible, en lugar de un nombre espec&iacute;fico,</P>
+<P># as&iacute;:</P>
+<P># xhost +</P>
+<P>&nbsp;</P>
+<P># Y finalmente arrancar el gestor de ventanas:</P>
+<P>/usr/bin/X11/twm</P>
+<P># Alguna gente prefiere otros gestores de ventanas. Yo uso twm, pero fvwm se</P>
+<P># distribuye tambi&eacute;n muchas veces con Linux:</P>
+<P># /usr/bin/X11/fvwm</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>N&oacute;tese que algunos comandos son iniciados en segundo plano (p.ej.: los que van seguidos de "&amp;"), mientras que otros no lo son. La distinci&oacute;n est&aacute; en que algunos programas se iniciar&aacute;n cuando arranquemos X y seguir&aacute;n en marcha hasta que salgamos. Los otros se ejecutan una vez y se cierran inmediatamente. xsetroot es uno de &eacute;stos; s&oacute;lo establece la ventana principal o el cursor a lo que sea, y luego se cierra.</P>
+<P>Una vez que el gestor de ventanas ha arrancado, leer&aacute; su propio fichero de inicio, que controla cosas como la composici&oacute;n de los men&uacute;s, en qu&eacute; posiciones se presentan las ventanas cuando se abren, control de iconos, y otros asuntos terriblemente importantes. Si se usa twm, el fichero es .twmrc en nuestro directorio home. Si se usa fvwm, el fichero es .fvwmrc, etc. Explicaremos s&oacute;lo estos dos, ya que son los gestores de ventanas que m&aacute;s frecuentemente se encontrar&aacute;n con Linux.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.2.1 Configuraci&oacute;n de twm</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>.twmrc no es una macro de shell_est&aacute; escrito en un lenguaje especialmente hecho para twm, ¡cr&eacute;alo o no!5 Principalmente, a la gente en su .twmrc le gusta jugar con los estilos de la ventana (colores y dem&aacute;s), y hacer interesantes men&uacute;s, as&iacute; que ah&iacute; va un .twmrc de ejemplo:</P><DIR>
+<DIR>
+
+<P># Indica colores para varias partes de una ventanas. Tiene un gran impacto</P>
+<P># en la "sensaci&oacute;n" que transmite el entorno.</P>
+<P>Color</P>
+<P>-</P>
+<P>BorderColor "OrangeRed"</P>
+<P>BorderTileForeground "Black"</P>
+<P>BorderTileBackground "Black"</P>
+<P>TitleForeground "black"</P>
+<P>TitleBackground "gold"</P>
+<P>MenuForeground "black"</P>
+<P>MenuBackground "LightGrey"</P>
+<P>MenuTitleForeground "LightGrey"</P>
+<P>MenuTitleBackground "LightSlateGrey"</P>
+<P>MenuShadowColor "black"</P>
+<P>IconForeground "DimGray"</P>
+<P>IconBackground "Gold"</P>
+<P>IconBorderColor "OrangeRed"</P>
+<P>IconManagerForeground "black"</P>
+<P>IconManagerBackground "honeydew"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Espero que no tengas un sistema monocromo, pero si lo tienes...</P>
+<P>Monochrome</P>
+<P>-</P>
+<P>BorderColor "black"</P>
+<P>BorderTileForeground "black"</P>
+<P>BorderTileBackground "white"</P>
+<P>TitleForeground "black"</P>
+<P>TitleBackground "white"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># He creado beifang.bmp con el programa "bitmap". Aqu&iacute; le digo a twm</P>
+<P># que lo use como el patr&oacute;n por defecto para destacar las barras de</P>
+<P># t&iacute;tulo de las ventanas:</P>
+<P>Pixmaps</P>
+<P>-</P>
+<P>TitleHighlight "/home/larry/x/beifang.bmp"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># No os preocup&eacute;is por estas cosas, son s&oacute;lo para usuarios avanzados :-)</P>
+<P>BorderWidth 2</P>
+<P>TitleFont "-adobe-new century schoolbook-bold-r-normal--14-140-75-75-p-87-iso8859-1"</P>
+<P>MenuFont "6x13"</P>
+<P>IconFont "lucidasans-italic-14"</P>
+<P>ResizeFont "fixed"</P>
+<P>Zoom 50</P>
+<P>RandomPlacement</P>
+<P>&nbsp;</P>
+<P># Estos programas no tendr&aacute;n una barra de t&iacute;tulo por defecto</P>
+<P>NoTitle</P>
+<P>-</P>
+<P>"stamp"</P>
+<P>"xload"</P>
+<P>"xclock"</P>
+<P>"xlogo"</P>
+<P>"xbiff"</P>
+<P>"xeyes"</P>
+<P>"oclock"</P>
+<P>"xoid"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># "AutoRaise" significa que una ventana aparece al frente cuando el rat&oacute;n</P>
+<P># entra en ella. Lo encuentro desconcertante, as&iacute; que lo he desactivado.</P>
+<P># Como puedes ver, he heredado mi .twmrc de otra gente a quien tampoco le</P>
+<P># gustaba Autoraise.</P>
+<P>AutoRaise</P>
+<P>-</P>
+<P>"nothing" # No me gusta auto-raise # Ni a mi # A mi tampoco</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Aqu&iacute; es donde se define la funci&oacute;n de los botones del mouse.</P>
+<P># N&oacute;tese el patr&oacute;n: Un bot&oacute;n del rat&oacute;n pulsado en la ventana</P>
+<P># principal, si no se est&aacute; pulsando ninguna tecla modificadora, siempre</P>
+<P># hace aparecer un men&uacute;. Otras posiciones usualmente producen</P>
+<P># modificaciones de la ventana en alg&uacute;n modo, y las teclas modificadoras</P>
+<P># se usan junto con los botones del rat&oacute;n para acceder a las funciones</P>
+<P># m&aacute;s avanzadas de manipulaci&oacute;n de ventanas.</P>
+<P>#</P>
+<P># No hay porqu&eacute; seguir este patr&oacute;n en .twmrc -- el c&oacute;mo</P>
+<P># establecer el entorno es un asunto totalmente personal</P>
+<P>&nbsp;</P>
+<P># Button = KEYS : CONTEXT : FUNCTION</P>
+<P># ----------------------------------</P>
+<P>Button1 = : root : f.menu "main"</P>
+<P>Button1 = : title : f.raise</P>
+<P>Button1 = : frame : f.raise</P>
+<P>Button1 = : icon : f.iconify</P>
+<P>Button1 = m : window : f.iconify</P>
+<P>&nbsp;</P>
+<P>Button2 = : root : f.menu "stuff"</P>
+<P>Button2 = : icon : f.move</P>
+<P>Button2 = m : window : f.move</P>
+<P>Button2 = : title : f.move</P>
+<P>Button2 = : frame : f.move</P>
+<P>Button2 = s : frame : f.zoom</P>
+<P>Button2 = s : window : f.zoom</P>
+<P>&nbsp;</P>
+<P>Button3 = : root : f.menu "x"</P>
+<P>Button3 = : title : f.lower</P>
+<P>Button3 = : frame : f.lower</P>
+<P>Button3 = : icon : f.raiselower</P>
+<P>&nbsp;</P>
+<P># Puedes escribir tus propias funciones; esta se usa en el men&uacute;</P>
+<P># "windowops" cerca del final de este fichero:</P>
+<P>Function "raise-n-focus"</P>
+<P>-</P>
+<P>f.raise</P>
+<P>f.focus</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Muy bien, abajo est&aacute;n los men&uacute;s a los que me refer&iacute;a en la</P>
+<P># secci&oacute;n de los botones del rat&oacute;n. N&oacute;tese que muchas de estas</P>
+<P># entradas de men&uacute; llaman a submen&uacute;s a su vez. Se pueden tener tantos</P>
+<P># niveles como se quiera, pero no se pueden tener men&uacute;s recursivos. Ya</P>
+<P># lo he probado.</P>
+<P>&nbsp;</P>
+<P>menu "main"</P>
+<P>-</P>
+<P>"Vanilla" f.title</P>
+<P>"Emacs" f.menu "emacs"</P>
+<P>"Logins" f.menu "logins"</P>
+<P>"Xlock" f.menu "xlock"</P>
+<P>"Misc" f.menu "misc"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Esto me permite llamar a emacs desde varias m&aacute;quinas diferentes. Ver</P>
+<P># la secci&oacute;n sobre ficheros .rhosts para m&aacute;s informaci&oacute;n sobre</P>
+<P># como funciona:</P>
+<P>menu "emacs"</P>
+<P>-</P>
+<P>"Emacs" f.title</P>
+<P>"here" !"/usr/bin/emacs &amp;"</P>
+<P>"" f.nop</P>
+<P>"phylo" !"rsh phylo ""emacs -d floss:0"" &amp;"</P>
+<P>"geta" !"rsh geta ""emacs -d floss:0"" &amp;"</P>
+<P>"darwin" !"rsh darwin ""emacs -d floss:0"" &amp;"</P>
+<P>"ninja" !"rsh ninja ""emacs -d floss:0"" &amp;"</P>
+<P>"indy" !"rsh indy ""emacs -d floss:0"" &amp;"</P>
+<P>"oberlin" !"rsh cs.oberlin.edu ""emacs -d floss.life.uiuc.edu:0"" &amp;"</P>
+<P>"gnu" !"rsh gate-1.gnu.ai.mit.edu ""emacs -d floss.life.uiuc.edu:0"" &amp;"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Esto me permite llamar a xterms desde varias m&aacute;quinas diferentes. Ver</P>
+<P># la secci&oacute;n sobre ficheros .rhosts para m&aacute;s informaci&oacute;n sobre</P>
+<P># como funciona:</P>
+<P>menu "logins"</P>
+<P>-</P>
+<P>"Logins" f.title</P>
+<P>"here" !"/usr/bin/X11/xterm -ls -T `hostname` -n `hostname` &amp;"</P>
+<P>"phylo" !"rsh phylo ""xterm -ls -display floss:0 -T phylo"" &amp;"</P>
+<P>"geta" !"rsh geta ""xterm -ls -display floss:0 -T geta"" &amp;"</P>
+<P>"darwin" !"rsh darwin ""xterm -ls -display floss:0 -T darwin"" &amp;"</P>
+<P>"ninja" !"rsh ninja ""xterm -ls -display floss:0 -T ninja"" &amp;"</P>
+<P>"indy" !"rsh indy ""xterm -ls -display floss:0 -T indy"" &amp;"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># El salvapantallas xlock, llamado con varias opciones (cada una de</P>
+<P># ellas da una bonita imagen):</P>
+<P>menu "xlock"</P>
+<P>-</P>
+<P>"Hop" !"xlock -mode hop &amp;"</P>
+<P>"Qix" !"xlock -mode qix &amp;"</P>
+<P>"Flame" !"xlock -mode flame &amp;"</P>
+<P>"Worm" !"xlock -mode worm &amp;"</P>
+<P>"Swarm" !"xlock -mode swarm &amp;"</P>
+<P>"Hop NL" !"xlock -mode hop -nolock &amp;"</P>
+<P>"Qix NL" !"xlock -mode qix -nolock &amp;"</P>
+<P>"Flame NL" !"xlock -mode flame -nolock &amp;"</P>
+<P>"Worm NL" !"xlock -mode worm -nolock &amp;"</P>
+<P>"Swarm NL" !"xlock -mode swarm -nolock &amp;"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Programas de todo tipo que uso ocasionalmente:</P>
+<P>menu "misc"</P>
+<P>-</P>
+<P>"Xload" !"/usr/bin/X11/xload &amp;"</P>
+<P>"XV" !"/usr/bin/X11/xv &amp;"</P>
+<P>"Bitmap" !"/usr/bin/X11/bitmap &amp;"</P>
+<P>"Tetris" !"/usr/bin/X11/xtetris &amp;"</P>
+<P>"Hextris" !"/usr/bin/X11/xhextris &amp;"</P>
+<P>"XRoach" !"/usr/bin/X11/xroach &amp;"</P>
+<P>"Analog Clock" !"/usr/bin/X11/xclock -analog &amp;"</P>
+<P>"Digital Clock" !"/usr/bin/X11/xclock -digital &amp;"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Esto es para lo que uso el bot&oacute;n central del rat&oacute;n:</P>
+<P>menu "stuff"</P>
+<P>-</P>
+<P>"Chores" f.title</P>
+<P>"Sync" !"/bin/sync"</P>
+<P>"Who" !"who _ xmessage -file - -columns 80 -lines 24 &amp;"</P>
+<P>"Xhost +" !"/usr/bin/X11/xhost + &amp;"</P>
+<P>"Rootclear" !"/home/larry/bin/rootclear &amp;"</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Funciones de X que a veces conviene usar:</P>
+<P>menu "x"</P>
+<P>-</P>
+<P>"X Stuff" f.title</P>
+<P>"Xhost +" !"xhost + &amp;"</P>
+<P>"Refresh" f.refresh</P>
+<P>"Source .twmrc" f.twmrc</P>
+<P>"(De)Iconify" f.iconify</P>
+<P>"Move Window" f.move</P>
+<P>"Resize Window" f.resize</P>
+<P>"Destroy Window" f.destroy</P>
+<P>"Window Ops" f.menu "windowops"</P>
+<P>"" f.nop</P>
+<P>"Kill twm" f.quit</P>
+<P>"</P>
+<P>&nbsp;</P>
+<P># Este es un submen&uacute; del de arriba:</P>
+<P>menu "windowops"</P>
+<P>-</P>
+<P>"Window Ops" f.title</P>
+<P>"Show Icon Mgr" f.showiconmgr</P>
+<P>"Hide Icon Mgr" f.hideiconmgr</P>
+<P>"Refresh" f.refresh</P>
+<P>"Refresh Window" f.winrefresh</P>
+<P>"twm version" f.version</P>
+<P>"Focus on Root" f.unfocus</P>
+<P>"Source .twmrc" f.twmrc</P>
+<P>"Cut File" f.cutfile</P>
+<P>"(De)Iconify" f.iconify</P>
+<P>"DeIconify" f.deiconify</P>
+<P>"Move Window" f.move</P>
+<P>"ForceMove Window" f.forcemove</P>
+<P>"Resize Window" f.resize</P>
+<P>"Raise Window" f.raise</P>
+<P>"Lower Window" f.lower</P>
+<P>"Raise or Lower" f.raiselower</P>
+<P>"Focus on Window" f.focus</P>
+<P>"Raise-n-Focus" f.function "raise-n-focus"</P>
+<P>"Destroy Window" f.destroy</P>
+<P>"Kill twm" f.quit</P>
+<P>"</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>5 &Eacute;ste es uno de los problemas de los ficheros de configuraci&oacute;n: normalmente usan su propio lenguaje de comandos. Esto significa que los usuarios se vuelven muy buenos a la hora de aprender lenguajes nuevos r&aacute;pidamente. Supongo que habr&iacute;a estado bien que los primeros programadores de Unix se hubieran puesto de acuerdo en alg&uacute;n est&aacute;ndar de fichero de inicio, pero para ser justo es dif&iacute;cil de predecir que tipo de informaciones necesitar&aacute;n los programas.</P>
+<P>&nbsp;</P>
+<P>¡Guau! Creedme, este no es el .twmrc m&aacute;s largo que he llegado a ver. Es probable que con vuestra versi&oacute;n de X vinieran algunos ejemplos de archivos .twmrc bastante decentes. Se pueden buscar dentro del directorio /usr/lib/X11/twm/ o en /usr/X11/lib/X11/twm.</P>
+<P>Un defecto de programa que hay que vigilar en los ficheros .twmrc es no olvidarse de poner el "&amp;" despu&eacute;s de un comando en un men&uacute;. Si se nota que X se cuelga cuando se usan ciertos comandos, lo m&aacute;s probable es que &eacute;sta sea la causa. Hay que salir de X con |_Ctrl_|-|_Alt_|-|_Retroceso_|, editar .twmrc, y probar otra vez.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.2.2 Configuraci&oacute;n de fvwm</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si se usa fvwm, el directorio /usr/lib/X11/fvwm/ (o /usr/X11/lib/X11/fvwm/) tiene algunos ejemplos de ficheros de configuraci&oacute;n.</P>
+<P>[Compa&ntilde;eros: No s&eacute; nada sobre fvwm, aunque supongo que sacar&eacute; algo en claro de los ficheros de ejemplo, igual que el lector :-). Adem&aacute;s, dado el peque&ntilde;o pero decente system.twmrc en el directorio arriba mencionado, me pregunto si vale la pena que de este largo ejemplo con mi propio .twmrc. De momento est&aacute; aqu&iacute;, pero no s&eacute; si lo dejaremos o no.-Karl]</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>9.3 Otros ficheros de inicio</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Otros ficheros de inicio dignos de menci&oacute;n son:</P><DIR>
+<DIR>
+
+<P>.emacs Le&iacute;do por el editor de texto Emacs cuando arranca.</P>
+<P>.netrc Da los nombres y contrase&ntilde;as por defecto para ftp.</P>
+<P>.rhosts Hace una cuenta accesible remotamente.</P>
+<P>.forward Para redirecci&oacute;n autom&aacute;tica del correo.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.3.1 El fichero de configuraci&oacute;n de Emacs</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si se usa emacs como editor principal, entonces el fichero .emacs es muy importante. Se discute con extensi&oacute;n en el Cap&iacute;tulo 8.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.3.2 Configuraci&oacute;n por defecto del FTP</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El fichero .netrc permite tener ciertas configuraciones por defecto cada vez que se arranca ftp. Aqu&iacute; hay un peque&ntilde;o .netrc de ejemplo:</P><DIR>
+<DIR>
+
+<P>machine floss.life.uiuc.edu login larry password fishSticks</P>
+<P>machine darwin.life.uiuc.edu login larry password fishSticks</P>
+<P>machine geta.life.uiuc.edu login larry password fishSticks</P>
+<P>machine phylo.life.uiuc.edu login larry password fishSticks</P>
+<P>machine ninja.life.uiuc.edu login larry password fishSticks</P>
+<P>machine indy.life.uiuc.edu login larry password fishSticks</P>
+<P>&nbsp;</P>
+<P>machine clone.mcs.anl.gov login fogel password doorm@</P>
+<P>machine osprey.mcs.anl.gov login fogel password doorm@</P>
+<P>machine tern.mcs.anl.gov login fogel password doorm@</P>
+<P>machine altair.mcs.anl.gov login fogel password doorm@</P>
+<P>machine dalek.mcs.anl.gov login fogel password doorm@</P>
+<P>machine juju.mcs.anl.gov login fogel password doorm@</P>
+<P>machine sunsite.unc.edu login anonymous password larry@cs.oberlin.edu</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Cada l&iacute;nea de .netrc especifica un nombre de m&aacute;quina, un nombre de cuenta de acceso a usar por defecto con esa m&aacute;quina, y una contrase&ntilde;a. Esto es muy &uacute;til si se usa ftp continuamente y se est&aacute; harto de teclear el nombre de acceso y la contrase&ntilde;a en cada uno. El programa de ftp intentar&aacute; acceder autom&aacute;ticamente usando los datos del fichero .netrc, si se hace ftp a una de las m&aacute;quinas listadas all&iacute;.</P>
+<P>Se puede obligar a ftp a ignorar el fichero .netrc y no intentar acceder de manera autom&aacute;tica, arranc&aacute;ndolo con la opci&oacute;n "-n" : "ftp -n" .</P>
+<P>Hay que asegurarse de que el fichero .netrc s&oacute;lo es legible por el usuario. Se puede usar el programa chmod para establecer los permisos de lectura. Si otra gente puede leerlo, significa que pueden encontrar su contrase&ntilde;a de acceso a varios otros ordenadores. Esto es un agujero en la seguridad tan grande como uno pueda tenerlo. Como recomendaci&oacute;n para ser cuidadoso, ftp y otros programas que miran el fichero .netrc no funcionar&aacute;n si los permisos de lectura del fichero son incorrectos.</P>
+<P>Hay mucho m&aacute;s sobre el fichero .netrc de lo que se ha explicado aqu&iacute;. Cuando se tenga una oportunidad, hay que probar "man .netrc" o "man ftp".</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.3.3 Permitiendo un acceso remoto sencillo a su cuenta</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si tiene un fichero .rhosts en su directorio $HOME, le permitir&aacute; usar programas en esta m&aacute;quina de forma remota. Por ejemplo, se puede estar registrado en la m&aacute;quina cs.oberlin.edu, pero con un .rhosts correctamente configurado en floss.life.uiuc.edu, se puede usar un programa en floss y presentar el resultado en cs, sin tener que registrarse o teclear una contrase&ntilde;a frente a floss.</P>
+<P>El archivo .rhosts se ve m&aacute;s o menos as&iacute;:</P><DIR>
+<DIR>
+
+<P>frobnozz.cs.knowledge.edu jsmith</P>
+<P>aphrodite.classics.hahvaahd.edu wphilps</P>
+<P>frobbo.hoola.com trixie</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El formato es muy directo: un nombre de m&aacute;quina, seguido de un nombre de usuario. Supongamos que este ejemplo es en realidad mi archivo .rhosts en floss.life.uiuc.edu. Esto significar&iacute;a que puedo usar programas en floss, y ver el resultado en cualquiera de las m&aacute;quinas listadas, siempre y cuando yo est&eacute; tambi&eacute;n registrado como el usuario correspondiente a cada m&aacute;quina cuando intento ejecutar el programa.</P>
+<P>El mecanismo exacto con el que uno usa un programa remoto es normalmente el programa rsh. Significa "remote shell"(shell remoto), y lo que hace es iniciar un shell en la m&aacute;quina remota y ejecutar el comando especificado. Por ejemplo:</P><DIR>
+<DIR>
+
+<P>frobbo$ whoami</P>
+<P>trixie</P>
+<P>frobbo$ rsh floss.life.uiuc.edu "ls ~"</P>
+<P>foo.txt mbox url.ps snax.txt</P>
+<P>frobbo$ rsh floss.life.uiuc.edu "more ~/snax.txt"</P>
+<P>[snax.txt aparece pagina a pagina aqui]</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El usuario "trixie" en "floss.life.uiuc.edu", que ten&iacute;a el fichero .rhosts de ejemplo mostrado antes, permite expl&iacute;citamente a "trixie" en "frobbo.hoola.com" usar programas como si fuera "trixie" de "floss".</P>
+<P>No hay porqu&eacute; tener el mismo nombre de usuario en todas las m&aacute;quinas para que .rhosts funcione. Se puede usar la opci&oacute;n "-l" con rsh para especificar a la m&aacute;quina remota cual nombre de usuario se quiere usar para registrarse. Si ese nombre existe en la m&aacute;quina remota, y tiene un fichero .rhosts con el nombre de la m&aacute;quina local y el nombre de usuario correspondiente, entonces la orden incluida con rsh se ejecutar&aacute;.</P><DIR>
+<DIR>
+
+<P>frobbo$ whoami</P>
+<P>trixie</P>
+<P>frobbo$ rsh -l larry floss.life.uiuc.edu "ls ~"</P>
+<P>[Inserta aqui un listado de mi directorio en floss]</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Esto funcionar&aacute; si el usuario "larry" en "floss.life.uiuc.edu" tiene un fichero .rhosts que permite a "trixie" de "frobbo.hoopla.com" usar programas en su cuenta. Si son o no la misma persona es irrelevante: la &uacute;nica cosa importante son los nombres de usuario, los nombres de las m&aacute;quinas y la fila referente a "floss" en el .rhosts de Larry. N&oacute;tese que el fichero .rhosts de Trixie en frobbo no importa, s&oacute;lo cuenta el de la m&aacute;quina remota.</P>
+<P>Hay otras combinaciones que se pueden poner en un fichero .rhosts, por ejemplo, se puede dejar en blanco el nombre de usuario detr&aacute;s del nombre de una m&aacute;quina remota, para permitir a cualquier usuario de esa m&aacute;quina que ejecute programas en la m&aacute;quina local. Esto es, por supuesto, un riesgo en la seguridad: alguien podr&iacute;a ejecutar remotamente un programa que borre mis archivos, por el simple hecho de tener una cuenta en cierta m&aacute;quina. Si se va a hacer cosas como esta, entonces hay que asegurarse de que el fichero .rhosts es legible s&oacute;lo por el usuario implicado, y por nadie m&aacute;s.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>9.3.4 Redirecci&oacute;n de correo</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Tambi&eacute;n se puede tener un fichero .forward, el cual no es un fichero de configuraci&oacute;n estrictamente hablando. Si contiene direcciones de e-mail, entonces todo el correo que llegue al usuario se redirigir&aacute; a esas direcciones. Esto es &uacute;til cuando se tienen cuentas en varios sistemas, pero se quiere leer el correo desde un solo sitio.</P>
+<P>Hay una gran cantidad de otros ficheros de configuraci&oacute;n posibles. La cantidad exacta variar&aacute; de sistema a sistema, y depende de los programas instalados. Una manera de saber m&aacute;s es mirar todos los archivos en el directorio $HOME que empiecen por ".". No es seguro que todos sean ficheros de configuraci&oacute;n, pero seguro que la mayor&iacute;a s&iacute; lo es.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>9.4 Veamos algunos ejemplos</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El ejemplo definitivo que puedo dar es mostrar un sistema Linux en funcionamiento. As&iacute; que, si ten&eacute;is acceso a Internet, est&aacute;is invitados a hacer telnet a floss.life.uiuc.edu. Registr&aacute;os como "guest", contrase&ntilde;a "explorer", y husmead por dentro. Muchos de los archivos de ejemplo se pueden encontrar en /home/kfogel, pero tambi&eacute;n hay otros directorios de usuarios. Sois libres de copiar cualquier cosa que se pueda leer. Por favor tened cuidado: floss no es un sitio terriblemente seguro, y ciertamente se puede conseguir acceso como 'root' si uno lo intenta lo suficiente. Prefiero creer en la confianza, m&aacute;s que en la vigilancia constante, para mantener la seguridad.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

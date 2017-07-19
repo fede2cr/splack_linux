@@ -1,0 +1,550 @@
+  call-back mini HOWTO
+  by Pawel Skonecki, stona@fizyka.umcs.lublin.pl
+  v1.1a, June 2000
+
+  This document describes how to set up call-back by using the Linux
+  system and modem. I would like to thank Anna for her patience.
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+  1. Introduction
+
+     1.1 OPINION
+     1.2 PUBLISHING
+
+  2. Procedure
+
+     2.1 PART I: Net at home ?
+     2.2 PART II: The first steps with modem.
+     2.3 PART III Call Linux
+     2.4 PART IV Linux calls us
+     2.5 PART V Summary
+
+
+  ______________________________________________________________________
+
+  1.  Introduction
+
+  1.1.  OPINION
+
+  I'll will be waiting for all opinions about this document. I have
+  tried to gather information as complete as possible. Tell me when your
+  find any mistakes. I'll be grateful to people who will send me any
+  suggestions or corrections. Their contributions will make this
+  document better.  I don't mind answering your questions but I'd rather
+  you read the whole article first.
+
+
+  1.2.  PUBLISHING
+
+  This document can by published under the conditions of Linux
+  Documentation Project. Get in touch with the author if you can't get
+  this license.  This document is free.
+
+
+  2.  Procedure
+
+  2.1.  PART I: Net at home ?
+
+  Most of us use the Internet in a place of work. However we offen need
+  the net at home or outside the place of work. It may be possible that
+  the work from home is cheaper then from a company building. I think
+  that the best solution is to install call-back software on the Linux
+  server. Call-back makes it possible to re-call index number at the
+  cost of the company. I'll try to present how it works. An entitled
+  person calls modem is varied for the first time in Linux server. Then
+  on the user's side the "hang up modem" is switched on. At the same
+  time Linux calls the user. User is verified again. We have connection
+  and the server is charged. The user pays only for the initiation of
+  connection. The double verification and extra options in the call-back
+  program unable the unsuitable persons to charge our bill. We can
+  restrict the access to the connection only to corporation network or
+  Internet.  Call-back is very flexible. Below, I'll try to present the
+  configuration of a call-back server on Linux system and I'll show you
+  how to set up your computer for re-calling the connection.
+  2.2.  PART II: The first steps with modem.
+
+  The administrators prefer different modem but while buying a modem we
+  should remember about certain rules:
+
+
+  ·  Don't buy the Win-Modem because it doesn't work with Linux
+
+  ·  The external modem works faster than the modem which is inside your
+     computer
+
+  ·  The internal modem with ISA slot is better then the are with PCI
+     slot (you can use your PCI slot for something different)
+
+  ·  Don't use Plug&Play modem. If you have it set off, Plug&Play
+     options and set up modem on free com (read Plug&Play-HOWTO).
+
+
+  When we have the suitable modem we have to set it up in our system.
+  We have to check on which com our modem is. Then we have to make a
+  symbolic link to this hardware and /dev/modem. For example, if we have
+  the modem for the 2nd com we write:
+
+
+  ln -s /dev/cua1 /dev/modem
+
+
+
+  We check it
+
+
+  lrwxrwxrwx 1 root uucp 9 Sep 19 19:10 /dev/modem -> /dev/cua1
+
+
+
+  If we have the modem on different com we have to remember that
+
+
+  /dev/cua0 is com1
+
+  /dev/cua1 is com2
+
+  /dev/cua2 is com3
+
+  /dev/cua3 is com4
+
+
+
+  For new kernels:
+
+
+  /dev/ttyS0 is com1
+
+  /dev/ttyS1 is com2
+
+  /dev/ttyS2 is com3
+
+  /dev/ttyS3 is com4
+
+
+
+  Now, we check our configuration using the program minicom.
+
+
+
+  2.3.  PART III Call Linux
+
+  The first step to make the call-back on Linux accessible is to set up
+  a suitable parameter in kernel. Then we check whether our kernel
+  serves the protocol ppp. If you don't have ppp in your kernel or in
+  module you will have to compile your kernel and add ppp. You will find
+  more information in Kernel-HOWTO. OK. We have a good kernel.  Now, we
+  have to set up software to our system. The call-back program is a part
+  of mgetty-sendfax and ppp. You will find it all in your distribution.
+  Because call-back system we have double verification and we create a
+  user who will be running ppp on the side of server.
+
+
+  pppuser:klkIOM89mn65H:230:PPP Dialin:/home/pppuser:/etc/ppp/ppplogin
+
+
+
+  Then change the password. We have to add information abut password in
+  the file /etc/ppp/pap-secrets (more in man pppd)
+
+
+  pppuser * password_for_pppuser *
+
+
+
+  This user doesn't have a usual shell but a file /etc/ppp/ppplogin.  We
+  have to make it ourselves. for example vi /etc/ppp/ppplogin and we
+  type:
+
+
+  #!/bin/sh
+
+  exec /usr/sbin/pppd -detach 192.168.1.1:192.168.1.2
+
+
+
+  where the address 192.168.1.1 is the address of server with modem and
+  the address 192.168.1.2 is the address which we assigned to our modem.
+  We set up executable options for this file. Because we will use the
+  ppp demon we have to set up the options for this demon. We edit file
+  /etc/ppp/options:
+
+
+  netmask 255.255.255.0
+
+  proxyarp
+
+  lock
+
+  crtscts
+
+  modem
+
+
+
+  Proxyarp is the most important from the above options, because you can
+  go to Internet by the modem in the server. The remaining options are
+  used control your modem. Your user can work only in local network if
+  you remove proxyarp option. You have to see PPP-HOWTO and man pppd for
+  more information. We will set up our modem now. Our server must be
+  ready to receive a connection after start. We edit file /etc/inittab
+  and we add it's to modem on the 2en com.
+
+
+  s1:2345:respawn:/sbin/mgetty ttyS1 -D /dev/ttyS1 vt100
+
+  For the 1st com line looks as follows:
+
+
+  s0:2345:respawn:/sbin/mgetty ttyS1 -D /dev/ttyS1 vt100
+
+
+
+  We make init q. If we don't have information about any mistakes in
+  logs we go to the next step. We come back to directory /etc/ppp and
+  create options.ttyS1 (for modem com1 options.ttyS0)
+
+
+  IP_local: IP_remote
+
+
+
+  for our net it will be
+
+
+  192.168.1.1:192.168.1.2
+
+
+
+  We have done a lot work so far. Now, we check the file
+  /etc/mgetty+sendfax/login.config. The most important line is:
+
+
+  /AutoPPP/ - a_ppp /usr/sbin/pppd auth -chap +pap login detach kdebug 7 debug
+
+
+
+  The remaining lines can be marked #.
+
+
+  We have to set up suid for ppp demon, because pppuser has to run pppd
+  and make interface work.
+
+
+  chmod u+s /usr/sbin/pppd
+
+
+
+  and its effect is:
+
+
+  -rwsr-xr-x 1 root root 106892 Jan 11 1999 /usr/sbin/pppd
+
+
+
+  I think that it is a good idea is to add it to cron becouse I had a
+  problem after restart of my server pppd changed preference.  Our
+  server will work as router. We have to enable IP forwarding and we add
+  this line for the file /etc/rc.d/rc.local :
+
+
+  echo "1" > /proc/sys/net/ipv4/ip_forward
+
+
+
+  If you are RedHat user you can change in /etc/sysconfig/network from
+  FORWARD_IPV4=false to FORWARD_IPV4=true.
+
+
+  For verification we call to Linux. We use scripts for it. If we do
+  this in MS Windows we mark options "call out a terminal after
+  connection".  We login as pppuser with its password. I hope that all
+  is OK.
+
+
+  2.4.  PART IV Linux calls us
+
+  We can already call our Linux. Now it's time Linux called us. It's not
+  very diffucalt. We have to edit only two files. We create a file
+  /etc/mgetty+sendfax/callback.conf and we leave it empty.
+
+
+  Then we have to ask our users for their phone number. It's time to
+  write the numbers we have connected earlier. In order to do it we edit
+  /etc/mgetty+sendfax/login.conf and add line:
+
+
+  call - - /usr/sbin/callback - S 123456
+
+
+
+  where call is a pseudo-user needed to initiate the connection. The
+  line in the /etc/mgetty+sendfax/login.conf puts in motion the program
+  calling the given number (in this case it's 123456). The same
+  procedures can be applied to other users. I'll try to explain how it
+  works. When we call a server. It asks us to give verification. We
+  login as pseudo-user, in this case it calls. The script in our
+  computer hangs up the modem.  We wait and the connection is cut off.
+  The program call-back starts working and recalls us. We verify
+  ourselves again as pppuser with password. We combine the connection
+  and interface ppp. That's all. The configuration of work-stations is
+  very simple. When you have MS Windows, you have to install dial-up for
+  your number. In the modem propriety we find "
+  propriety--->extended---> extra options" where we write.
+
+
+  &c0s0=1
+
+
+
+  We close the window and call. We log in according to the description
+  given above. If we want to use Linux, we must refer to the script.
+  It's difficult to give only one good script for our Linux. A good
+  configuration of ppp in the system is of primary importance. (You can
+  call it as pppuser through the scripts first).The scripts below were
+  whiten by A. Gozdz. I suggest putting everything to catalogue.  It is
+  only my suggestion & you don't have to start the scripts here.
+  Detailed information cocernig writing scripts on Linux can found in
+  PPP-HOWTO.
+
+
+  THESE SCRIPTS WORK WELL WITH SLACKWARE
+
+
+  The configuration file of daemon ppp (an example for modem on com2)
+  /etc/options
+
+
+
+  lock
+
+  defaultroute
+
+  noipdefault
+
+  modem
+
+  /dev/cua1
+
+  33600
+
+  crtscts
+
+  debug
+
+  passive
+
+  asyncmap 0
+
+
+
+  and the specific scripts
+
+
+  ·  the first named /etc/ppp/ppp-call
+
+
+     #!/bin/bash
+
+     teksta="Connection failed"
+
+     tekstb="Probably, You will be connect"
+
+     # /sbin/setserial /dev/cua1 spd_vhi
+
+     killall -INT pppd 2>/dev/null
+
+     rm -f /var/lock/LCK* /var/run/ppp*.pid
+
+     (/usr/sbin/pppd -detach /dev/ttyS1 115200 \
+
+     connect "/usr/sbin/chat -v -f /etc/ppp/pppcallback" &) || \
+
+     (echo $teksta; ls marsss >/dev/null; exit 1)
+
+     echo $tekstb
+
+     exit 0
+
+
+
+  ·  the second file called /etc/ppp/pppcallback
+
+
+
+     TIMEOUT 60
+
+     ABORT 'ERROR'
+
+     ABORT 'BUSY'
+
+     ABORT 'NO ANSWER'
+
+     ABORT 'NO DIALTONE'
+
+     ABORT '\nVOICE\r'
+
+     ABORT '\nRINGING\r\n\r\nRINGING\r'
+
+     ´
+     TIMEOUT 75
+
+     OK ATDT123456
+
+     CONNECT ''
+
+     ogin:-ogin: ppp_pseudouser
+
+
+     TIMEOUT 180
+
+
+     CONNECT ''
+
+     TIMEOUT 20
+
+     ogin:-ogin: pppuser
+
+     sword:-sword password_for_pppuser
+
+
+
+  ·  You can ppp-call, now. :)
+
+
+  THESE SCRIPTS WORK GOOD WITH LINUX RED HAT 6.x
+
+
+  ·  /etc/ppp/options
+
+
+     lock
+
+     defaultroute
+
+     noipdefault
+
+     modem
+
+     33600
+
+     crtscts
+
+     debug
+
+     passive
+
+     asyncmap 0
+
+
+
+  ·  /etc/ppp/pppcallback
+
+
+     TIMEOUT 5
+
+     ABORT 'ERROR'
+
+     ABORT 'BUSY'
+
+     ABORT 'NO ANSWER'
+
+     ABORT 'NO DIALTONE'
+
+     ABORT '\nVOICE\r'
+
+     ABORT '\nRINGING\r\n\r\nRINGING\r'
+
+     ´
+     TIMEOUT 40
+
+     OK ATDT5376443 CONNECT ''
+
+     ogin:-ogin: ppp-pseudo-user
+
+
+     TIMEOUT 180
+
+
+     CONNECT ''
+
+     TIMEOUT 20
+
+     ogin:-ogin: pppuser
+
+     sword:-sword password_for_ppuser
+
+
+
+  ·  /usr/bin/ppp-call
+
+
+     #!/bin/bash
+
+     teksta="Connection failed"
+
+     tekstb="Probably, You will be connect"
+
+     # /sbin/setserial /dev/cua1 spd_vhi
+
+     killall -INT pppd 2>/dev/null
+
+     rm -f /var/lock/LCK* /var/run/ppp*.pid
+
+     (/usr/sbin/pppd -detach call ppp_call &) || \
+
+     (echo $teksta; ls marsss >/dev/null; exit 1)
+
+     echo $tekstb
+
+     exit 0
+
+
+
+  ·  You can run ppp-call, now. :)
+
+
+  If you have M$ Windows you can use this script for conection. I don't
+  test it (I use terminal) you can ask some more Adrian Debkowski
+  (adrian@cr-media.pl).
+
+
+  proc main
+
+  delay 1
+
+  waitfor "ogin:"
+
+  transmit "call^M"
+
+  waitfor "RING"
+
+  transmit "ATA^M"
+
+  waitfor "CONNECT"
+
+  waitfor "ogin:"
+
+  transmit "pppuser^M"
+
+  waitfor "word:"
+
+  transmit "ppp^M"
+
+  endproc
+
+
+
+  2.5.  PART V Summary
+
+  The Configuration of call-back is not complicated. The most important
+  thing is a proper arrangement of ppp server on Linux. I don't know a
+  better way of setting up an access - server. The configuration
+  presented above is a result of numerous attempts and it can be done in
+  a different way. That's way I suggest reading all documents concerning
+  this issue man pppd, NET4-HOWTO, PPP-HOWTO.
+
+
+

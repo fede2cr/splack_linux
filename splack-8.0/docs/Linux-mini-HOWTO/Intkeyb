@@ -1,0 +1,3483 @@
+  How to setup international keyboard in X Window System with
+  Xmodmap
+  by Juraj Sipos, xvudpapc@savba.sk
+  v1.3, 05 February 2001
+
+  How to setup international keyboard in Linux or Unix with Xmodmap. The
+  Xmodmap is a file that XFree86 reads in order to give you a keyboard
+  layout. This solution will work for you in setting up any interna­
+  tional keyboard for (Debian, RedHat, Mandrake, CorelLinux) Linux,
+  FreeBSD, OpenBSD, NetBSD and possibly every Unix that uses XFree86 and
+  KDE. This howto is a little experimental in that that it bypasses some
+  standardized XFree86 solutions (with respect to its older versions),
+  although a standard form of internationalization is included too.
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+  1. Introduction
+
+     1.1 Copyright
+     1.2 Revision history
+     1.3 Introduction
+
+  2. Setting up international keyboard in X Window System with Xmodmap
+
+     2.1 Quick start
+     2.2 How to do it
+     2.3 This experimental or nonstandard solution is not necessary for newer versions of XFree86
+     2.4 Xmodmap theory and standard Xmodmap solution
+     2.5 Experimental .Xmodmap sample file for the Slovak language typewriter layout _______________________cut_here_________________________
+     2.6 Character sets
+     2.7 ISO-8859-2 (ISO Latin2) character set
+     2.8 The standard ISO8859-2 definitions in the Xmodmap file
+     2.9 ISO* specifications
+
+  3. How this Xmodmap solution works on various systems
+
+     3.1 SuSE
+        3.1.1 SuSE 6.4
+        3.1.2 SuSE 7.0 with XFree86 version 3.3.6 and KDE 2.0
+     3.2 Mandrake Linux
+        3.2.1 Mandrake Linux 7.2 with KDE 2.0
+     3.3 RedHat
+        3.3.1 RedHat 5.1, 5.2, 6.0, 6.1 and 6.2 (XFree86 3.3.6 and older)
+        3.3.2 RedHat 7.0 with KDE 2.0 and XFree86 4.x
+     3.4 FreeBSD
+        3.4.1 FreeBSD 3.1 and 3.2
+        3.4.2 FreeBSD 4.1
+     3.5 Corel Linux
+        3.5.1 Corel Linux 1.0 and 1.2
+
+  4. Some national Xmodmap files
+
+     4.1 German
+     4.2 Hungarian
+     4.3 Czech
+     4.4 Polish
+     4.5 French
+     4.6 Croatian/Slovenian
+     4.7 Lithuanian keyboard (AZERTY layout)
+     4.8 Polish
+
+  5. Some Xmodmap tips
+
+
+  ______________________________________________________________________
+
+  1.  Introduction
+
+
+
+  1.1.  Copyright
+
+  This documentation is free documentation; you can redistribute it
+  and/or modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of the
+  License, or (at your option) any later version.
+
+  This documentation is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  General Public License for more details.
+
+
+  1.2.  Revision history
+
+
+     Version 1.0.0
+        Initial version Summer 1999
+
+     Version 1.1
+        Added copyright information and slight modifications pertaining
+        to newer systems
+
+     Version 1.2
+        Completely rebuilt, added the possibility to force the system to
+        read Xmodmap; some national Xmodmap files added, more
+        information included on building up the standard Xmodmap files
+
+     Version 1.3
+        Minor corrections, spell checking and editation made, few more
+        Xmodmap files added; list of what all ISO8859* specifications
+        mean
+
+
+  1.3.  Introduction
+
+  The international keyboard Xmodmap HOWTO. Copyright (C) 1999, 2001
+  Juraj Sipos (xvudpapc@savba.sk). Imagine you use a Linux or BSD OS and
+  want to write a business letter to a person that has a foreign name
+  with a slash or idiaresis. Danish language uses signs like ø and
+  Spanish like ñ.
+
+
+
+  This is the Xmodmap Howto. With this information you can make your own
+  international keyboard layout without installing any additional
+  packages. The following information will help you set up German,
+  Spanish, Italian, Slovak, Czech, Polish, Slovenian, Croatian, Danish,
+  Dutch, French, Finnish, Norwegian, Estonian, Latvian, Swedish and
+  other keyboards. You can also alternatively look at my homepage at
+  http://freebsd.nfo.sk to see layouts of various keyboards. In case you
+  want to install Greek, Hebrew or Russian language, follow my
+  information and apply changes pertinent to these languages also with
+  respect to other documentation (e.g., install Greek fonts, etc., see
+  the Cyrillic, Hebrew, or Danish howto). This howto does not cover the
+  /etc/X11/XF86Config file XKB configuration and don't mail me with
+  questions regarding this matter. There are other howtos in Linux
+  Documentation project, so please look there.
+
+
+  2.  Setting up international keyboard in X Window System with Xmodmap
+
+
+  2.1.  Quick start
+
+  Make your own .Xmodmap file according to information in this file.
+
+
+
+  Alternatively, write the following in your .bash_profile in home
+  directory:
+
+  export LANG=language export LC_ALL=language
+
+  and/or LANG=language (which can be LANG="sk_SK", for example) in your
+  /etc/sysconfig/i18n file
+
+  Here "language" is the language you want to use. The languages can be
+  found in the file locale.alias in /usr/X11R6/lib/X11/locale.  Run
+  "exit" command on the console or reboot and log in again.
+
+
+  Install fonts (best are ISO8859-2 Type1 fonts for Czech or Slovak),
+  put them in path to your XF86Config. Start X Server.
+
+  Please note that KDE 2.0 editors don't display ISO8859-2 fonts even if
+  you have them in path. The modification of /etc/sysconfig/i18n file is
+  necessary here to use the international keyboard.
+
+
+  Run the command "xmodmap  /.Xmodmap" from an X terminal window to
+  force the system to read the Xmodmap file.
+
+
+  Switch the keyboard and enjoy.
+
+
+  The other, XKB solution, which is not covered in this file but
+  mentioned at least as it pertains to internationalization too, is
+  another way of configuring international keyboard, and both the XKB
+  and XMODMAP solutions are independent of one another. You may
+  alternatively edit the /etc/X11/Xf86Config file as explained in a
+  Danish Howto, or issue this command in an X terminal window for the
+  Slovak keyboard:
+
+
+  setxkbmap -model pc102 -symbols 'czsk(us_sk_qwertz)' setxkbmap cs
+  -option grp:shift_toggle
+
+
+  qwerty or qwertz means that letters z Z and y Y are swapped.  The
+  "grp:shift_toggle" gives you an option to switch between keyboards.
+  You may also try to write Option "XkbOptions"  "grp:ctrl_shift_toggle"
+  to your XF86Config file, which will change keyboards by pressing Ctrl
+  and Shift at the same time.
+
+
+  To see a variety of languages (symbols), look in the file symbols.dir
+  in /usr/X11R6/lib/X11/xkb directory. Note that some symbols are only
+  in sources and not in binaries (of XFree86).
+
+
+  As you see, this looks quite complicated too and it gets even more
+  difficult when you realize that many national keymaps are not included
+  in the standard XFree86 binary distribution, although they are
+  included in its sources.  The kikbd utility for handling international
+  keyboard layouts was removed from KDE 2.0 and documentation is quite
+  insufficient. A simple way would be to start KDE, change the
+  international keyboard settings and immediately write in the language
+  you chose (this will work for German and other languages maybe, but in
+  Eastern European keyboards some letters may not function).
+
+
+  Moreover, the KDE 2.0 command "kcmshell Personalization/kcmlayout"
+  will not show you a Croatian or Macedonian keyboard unless you modify
+  the /etc/sysconfig/i18n file. And although it shows a Czechoslovakian
+  keyboard, Czechoslovakia does not exist as a country anymore and users
+  may be confused with how to define Czech or Slovak language.
+
+
+  Some X Window System managers override .Xmodmap setting. If .Xmodmap
+  doesn't work immediately, a good way is to force the system to read it
+  from your root (home) directory. You will do this by issuing the
+  following command from an X terminal window:
+
+
+  xmodmap  /.Xmodmap
+
+  After I installed the Slovak keyboard in FreeBSD 4.1 in KDE with
+  Xmodmap file that used the standard definitions for ISO8859-2 keycode
+  entities (lcaron, scaron, etc.), I couldn't write in Slovak or Czech,
+  so I made few changes to the Xmodmap file explained later in this
+  file. After applying these changes, no other changes were necessary.
+
+
+  2.2.  How to do it
+
+
+
+  2.3.  This experimental or nonstandard solution is not necessary for
+  newer versions of XFree86
+
+  Put the following in your .bash_profile:
+
+
+  export LC_ALL=language
+
+  export LANG=language
+
+  OR
+
+  export LC_CTYPE=sk_SK export LC_ALL=sk_SK
+
+  OR for csh shell
+
+  setenv LC_ALL=language setenv LANG=language
+
+  and have the standard Xmodmap file in your home directory. If you ask
+  me where you may obtain such "standard" Xmodmap files, go to GNOME
+  ../share directory. The file /usr/X11R6/lib/X11/locale/locale.alias
+  contains the aliases for languages, so look there in order to find out
+  what is ca_ES or br_FR, or to find out the exact syntax for your
+  language (you cannot write "croatia" but you must write "croatian",
+  not "Croatian"; this is very important, as Unix is case sensitive).
+
+
+  Now you must install the pertinent fonts and put path in XF86Config
+  file for these fonts. If you want to internationalize your keyboard,
+  use the standard Xmodmap definitions first and use right alt to switch
+  between keyboards (if you use GNOME Xmodmap files). If it does not
+  work, do the following:
+
+  a) Copy the "Compose" file from: /usr/X11R6/lib/X11/locale/iso8859-2
+  to: /usr/X11R6/lib/X11/locale/iso8859-1 directory (yes, iso8859-1, not
+  iso8859-2). Back up the original "Compose" file if you want
+  (alternatively, copy other iso885*** Compose files to the iso8859-1
+  directory).
+
+
+  b) Put the included .Xmodmap file to your root directory (Slovak
+  language, or make your own .Xmodmap file, or choose from the ones
+  listed here).
+
+
+  c) Install ISO8859-2 fonts (or other pertinent fonts).
+
+  You may try to issue the command from X:
+
+  xset q
+
+  to see which fonts are in your path.
+
+  If you want to add fonts in your path from X, issue the command:
+
+  xset fp+ /usr/fonts_path
+
+  xset fp rehash
+
+  d) Disable every "Scroll Lock" uncommented line in your XF86Config,
+  because our .Xmodmap for the Slovak language uses the Scroll Lock to
+  switch between keyboards (you can modify this .Xmodmap for any
+  keyboard).
+
+
+  e) Put the appropriate fontpath for your newly installed fonts in the
+  XF86Config file, if necessary (some systems may not require this, the
+  FontPath "unix/:7100" may be sufficient). The .Xmodmap solution may be
+  applied to all X keyboards; .Xmodmap file overrides all settings of
+  keyboard layouts as defined in /usr/X11R6/lib/X11/xkb/symbols/, where
+  are symbols for many international keyboards.
+
+
+  First, I must say that in my solution (in older XFree86 versions),
+  different mapping is used for .Xmodmap keycodes for some ISO8859-2
+  keycode entities. ISO8859-2 definitions (keycode entities) like
+  lcaron, zcaron actually do not work (without modification of
+  /etc/sysconfig/i18n file).  This means that the ISO8859-1 definitions
+  must be used instead and they will either give you what they say they
+  are (aacute [á], eacute [é], etc.), or they will not give you what
+  they say they are (using ISO8859-2 fonts, putting "threequarters" in
+  your .Xmodmap file will not give you "3/4" but "z" with a caron, a
+  reveres ^ above it). For example, "mu" will give lcaron (L'), "oslash"
+  rcaron, etc.
+
+
+  However, other key definitions, for example, adieresis (a with two
+  dots above it), uacute (u with a slash above it), as well as
+  dead_diaeresis do not require a substitution of other definitions and
+  work pretty well, as they're defined everywhere (a dead key is a key
+  you press, hold it, yet nothing happens, but after pressing another
+  key you will get a special letter).
+
+
+  The original "Compose" file in ../iso8859-1 directory can be fully
+  utilized for English, Slovak or Czech keyboard layouts (Polish,
+  Hungarian, Slovenian, Croatian) in some older XFree86 distributions,
+  but there is only one problem - dead keys do not work. That's why you
+  have to copy the "Compose" file from the iso8859-2 directory to
+  iso8859-1 directory, or alternatively, you can edit the "Compose" file
+  in iso8859-1 directory.
+
+
+  You can leave the Keyboard section in your XF86Config file without
+  much change. Put (if it's not already there) the following in the
+  "Keyboard" section:
+
+  Section "Keyboard"
+
+  Protocol "Standard"
+
+  XkbRules "xfree86"
+
+  XkbModel "pc101"
+
+  XkbLayout "us"
+
+
+  Some X managers and/or environments override .Xmodmap settings, so if
+  you use KDE and .Xmodmap doesn't work, force the system to read it by
+  issuing the command "xmodmap  /.Xmodmap". Alternatively, you can have
+  60 .Xmodmap files like .Xmo1, .Xmo2, .Xmo3, .Xmo4, etc., and you may
+  force the system to read them (xmodmap  /.Xmo1). The dot means it is a
+  hidden file and it is not necessary. You may also have xmo1, xmo2, or
+  xmo3 Xmodmap files.
+
+
+  You may write in a national keyboard only with applications that have
+  access to your ISO8859-2 fonts (or other fonts), but this may not work
+  with StarOffice or with other applications that have their own built-
+  in fonts.  StarOffice has its own fonts directory - for afm fonts in
+  StarOffice/share/xp3/fontmetrics/afm, and for ps fonts in
+  StarOffice/share/xp3/pssoftfonts, so you must add the ISO8859-2 fonts
+  to these directories (to tell StarOffice to use these fonts too) and
+  edit fonts.dir file and add the symlinked fonts there. Here is a
+  script that will do it for you. Cut it, name it "so52", make it
+  executable (chmod +x so52), copy it to the StarOffice/share/xp3
+  directory and execute it there.
+
+
+  -------------------------------cut_here-----------------------------------
+  #!/bin/sh
+
+  STAR_OFFICE_ROOT=/StarOffice52
+
+  FONTS_DIR=/usr/X11R6/lib/X11/fonts/ISO8859-2/Type1
+
+  # The above fonts directory is for SuSE 7.0 and previous
+
+  # If you have Soffice instead of StarOffice52, change the second line
+  to Soffice
+
+  # FONTS_DIR=/usr/share/fonts/ISO8859-2/Type1
+
+  # The above fonts directory is for RedHat and Mandrake
+
+  # uncomment it if you use those systems
+
+  #
+  -----------------------------------------------------------------------
+
+  # Don't edit the following script!
+
+  #
+  -----------------------------------------------------------------------
+  XP3_DIR=$STAR_OFFICE_ROOT/share/xp3
+
+  if [ -e $XP3_DIR/psstd.fonts.il2 ]; then
+
+  echo "Changes were already made."
+
+  echo "If you want to do it, delete the file"
+
+  echo "  $XP3_DIR/psstd.fonts.il2"
+
+  exit 1
+
+  fi
+
+
+  if [ -e $FONTS_DIR/afm ]; then
+
+  AFM_DIR=$FONTS_DIR/afm
+
+  else
+
+  AFM_DIR=$FONTS_DIR
+
+  fi
+  ------------------------------------cut_here-----------------------------
+
+  StarOffice 5.2 fully recognizes Word97 documents even written in other
+  languages, but for the older versions or other editors, you may use a
+  converter from iso8859-2 to win1250 encoding.
+
+
+  StarOffice 5.2 can be thus used by professional translators who may
+  translate in any languages and give outputs in MS Word97 or rtf
+  format.
+
+
+
+  2.4.  Xmodmap theory and standard Xmodmap solution
+
+  If you want to edit and make your own .Xmodmap keyboard layout
+  definitions, I'll explain one line of the .Xmodmap file to make clear
+  what you should do.
+
+
+  This explanation can be used for all keycodes. For example, the line:
+
+  keycode 0x11 = 8 asterisk aacute 8
+
+  (note: keycode 0x11 is derived from the "xkeycaps" utility; you can
+  also use the X "xev" utility to explore keyboard puzzles.)
+
+
+  says that the first pair, the default one, (number "8" and "asterisk")
+  will display number "8" when you press keycode 0x11 ("8"), will
+  display asterisk when a "shift" key is pressed. After pressing the
+  scroll lock, there's another definition: ISO_NEXT_GROUP, which means
+  that when you press the default "8" key, no "8" will be displayed, but
+  aacute ("á"); when you press the "shift" key, number "8" will be
+  displayed. So if you change "aacute" and "8", anything you put instead
+  of "aacute" and "8" will be displayed, for example:
+
+  keycode 0x11 = 8 asterisk semicolon colon
+
+  will give you "semicolon" and "colon" in your 0x11 keycode after
+  pressing  the Scroll Lock.
+
+  The ISO_NEXT_GROUP is defined by another line. If this line is not
+  defined, you will be able to use only two definitions ("8" and
+  "asterisk") - look at my .Xmodmap file. If you delete the
+  ISO_NEXT_GROUP (the next pair of definitions on the right), you will
+  have only one group of keyboard definitions ("8" and "asterisk"). Be
+  careful when editing the .Xmodmap file. You mustn't delete definitions
+  that enable utilization of the Scroll Lock unless you know what you
+  are doing (or you map the second keyboard by right Alt). These are the
+  lines such as:
+
+  keycode 0x4e = ISO_Next_Group
+
+  add mod5 = ISO_Next_Group,
+
+  etc. You must also keep in mind that Unixes are case sensitive. If you
+  want to find out more about keycodes, install the package "xkeycaps"
+  or use "xev".
+
+
+  2.5.  _______________________cut_here_________________________ Experi­
+  mental .Xmodmap sample file for the Slovak language typewriter layout
+
+  keycode 0x09 = Escape
+
+  keycode 0x43 = F1 F11 F1 Multi_key
+
+  keycode 0x44 = F2 F12 F2 F12
+
+  keycode 0x45 = F3 F13 F3 F13 idiaeresis
+
+  keycode 0x46 = F4 F14 F4 F14 mu yen
+
+  keycode 0x47 = F5 F15 F5 F15 guillemotright guillemotleft
+
+  keycode 0x48 = F6 F16 F6 F16 ograve
+
+  keycode 0x49 = F7 F17 F7 dead_abovedot oacute
+
+  keycode 0x4A = F8 F18 F8 dead_breve acute
+
+  keycode 0x4B = F9 F19 F9 dead_cedilla ugrave
+
+  keycode 0x4C = F10 F20 F10 dead_ogonek
+
+  keycode 0x5F = F11 F21 dead_acute dead_caron
+
+  keycode 0x60 = F12 F22 dead_abovering dead_diaeresis
+
+  keycode 0x6F = Print Execute dead_iota
+
+  keycode 0x4E = ISO_Next_Group
+
+  keycode 0x6E = Pause
+
+  keycode 0x31 = grave asciitilde semicolon dead_diaeresis
+
+  keycode 0x0A = 1 exclam plus 1
+
+  keycode 0x0B = 2 at mu 2
+
+  keycode 0x0C = 3 numbersign onesuperior 3
+
+  keycode 0x0D = 4 dollar egrave 4
+
+  keycode 0x0E = 5 percent 0x0bb 5
+
+  keycode 0x0F = 6 asciicircum threequarters 6
+
+  keycode 0x10 = 7 ampersand yacute 7
+
+  keycode 0x11 = 8 asterisk aacute 8
+
+  keycode 0x12 = 9 parenleft iacute 9
+
+  keycode 0x13 = 0 parenright eacute 0
+
+  keycode 0x14 = minus underscore equal percent
+
+  keycode 0x15 = equal plus dead_acute dead_caron
+
+  keycode 0x33 = backslash bar ograve parenright
+
+  keycode 0x16 = BackSpace
+
+  keycode 0x6A = Insert
+
+  keycode 0x61 = Home
+
+  keycode 0x63 = Prior
+
+  keycode 0x4D = Num_Lock Pointer_EnableKeys
+
+  keycode 0x70 = KP_Divide slash
+
+  keycode 0x3F = KP_Multiply asterisk
+
+  keycode 0x52 = KP_Subtract minus
+
+  keycode 0x17 = Tab ISO_Left_Tab
+
+  keycode 0x18 = q Q
+
+  keycode 0x19 = w W
+
+  keycode 0x1A = e E
+
+  keycode 0x1B = r R
+
+  keycode 0x1C = t T
+
+  keycode 0x1D = y Y z Z
+
+  keycode 0x1E = u U
+
+  keycode 0x1F = i I
+
+  keycode 0x20 = o O
+
+  keycode 0x21 = p P
+
+  keycode 0x22 = bracketleft braceleft acute slash
+
+  keycode 0x23 = bracketright braceright diaeresis parenleft
+
+  keycode 0x24 = Return
+
+  keycode 0x6B = Delete
+
+  keycode 0x67 = End
+
+  keycode 0x69 = Next
+
+  keycode 0x4F = KP_Home 7 KP_Home
+
+  keycode 0x50 = KP_Up 8
+
+  keycode 0x51 = KP_Prior 9
+
+  keycode 0x56 = KP_Add plus
+
+  keycode 0x42 = Caps_Lock
+
+  keycode 0x26 = a A
+
+  keycode 0x27 = s S
+
+  keycode 0x28 = d D
+
+  keycode 0x29 = f F
+
+  keycode 0x2A = g G
+
+  keycode 0x2B = h H
+
+  keycode 0x2C = j J
+
+  keycode 0x2D = k K
+
+  keycode 0x2E = l L
+
+  keycode 0x2F = semicolon colon ocircumflex quotedbl
+
+  keycode 0x30 = apostrophe quotedbl section exclam
+
+  keycode 0x53 = KP_Left 4
+
+  keycode 0x54 = KP_Begin 5
+
+  keycode 0x55 = KP_Right 6
+
+  keycode 0x32 = Shift_L ISO_Next_Group
+
+  keycode 0x34 = z Z y Y
+
+  keycode 0x35 = x X
+
+  keycode 0x36 = c C
+
+  keycode 0x37 = v V
+
+  keycode 0x38 = b B
+
+  keycode 0x39 = n N
+
+  keycode 0x3A = m M
+
+  keycode 0x3B = comma less comma question
+
+  keycode 0x3C = period greater period colon
+
+  keycode 0x3D = slash question minus underscore
+
+  keycode 0x3E = Shift_R
+
+  keycode 0x62 = Up
+
+  keycode 0x57 = KP_End 1
+
+  keycode 0x58 = KP_Down 2
+
+  keycode 0x59 = KP_Next 3
+
+  keycode 0x6C = KP_Enter Return
+
+  keycode 0x25 = Control_L ISO_Next_Group
+
+  !keycode 0x40 = Alt_L Meta_L
+
+  keycode 0x40 = Meta_L Alt_L
+
+  keycode 0x41 = space
+
+  keycode 0x71 = Alt_R Meta_R
+
+  keycode 0x6D = Control_R
+
+  keycode 0x64 = Left
+
+  keycode 0x68 = Down
+
+  keycode 0x66 = Right
+
+  keycode 0x5A = KP_Insert 0
+
+  keycode 0x5B = KP_Delete period
+
+  !keysym Alt_L = Meta_L
+
+  !keysym F12 = Multi_key
+
+  clear Shift
+
+  !clear Lock
+
+  clear Control
+
+  clear Mod1
+
+  clear Mod2
+
+  clear Mod3
+
+  clear Mod4
+
+  clear Mod5
+
+  add Shift = Shift_L Shift_R
+
+  add Control = Control_L Control_R
+
+  !add Mod1 = Alt_L Alt_R
+
+  add Mod1 = Meta_L Alt_R
+
+  add Mod2 = Num_Lock
+
+  add Mod5 = ISO_Next_Group
+
+  !add Mod1 =
+
+  !add Mod2 = Alt_R Alt_L Mode_switch
+
+  keycode 0x73 = ISO_Next_Group
+
+  keycode 0x74 = dead_acute dead_diaeresis
+
+  keycode 0x75 = dead_caron dead_abovering
+
+
+
+  _____________________________cut_here_____________________________
+
+
+  You may find almost any xmodmap file in the GNOME directory in (SuSE)
+  /opt/gnome/share/xmodmap (with standard ISO8859-1, ISO8859-2 and other
+  definitions). If GNOME is not installed in the /opt directory, look in
+  /usr/share. To switch between the keyboards, use right Alt. It is
+  defined in these Xmodmap files already.
+
+
+
+  2.6.  Character sets
+
+  The purpose of the following info is to help you build any .Xmodmap
+  keyboard layout with ISO8859-2 or other fonts. The ISO8859-2 Character
+  Set definitions are included here for you to know which names are used
+  for which keys. You should not bother about the numbers, but notice
+  how keys are named. Much of this information is useful to build a
+  keyboard with ISO8859-1 characters only, or a combination of Eastern
+  European characters and Western characters. If you're going to use
+  other languages than the Central European or Western European ones,
+  find a pertinent table for your ISO*** character set on Internet. The
+  gdkkeysyms.h file, that contains all the crazy names for keycode
+  entities including hexcodes, is in (RedHat) /usr/include/gdk/
+  directory. If no gdkkeysyms.h file is on your system, see the file
+  /usr/X11R6/include/X11/keysymdef.h, or try to look in
+  /lib/perl5/site_perl/5.6.0/i386-linux/GTK/keysyms.pm (it also contains
+  names of keycode entities including hex codes). If you have a newer
+  version of PERL, the "5.6.0" may differ. The similar should apply to
+  other systems (FreeBSD), as all these use PERL.
+
+
+
+  2.7.  ISO-8859-2 (ISO Latin2) character set
+
+  Xmodmap entity
+
+  ----------------------------------------------------------------------
+
+  space
+
+  exclam                          !
+
+  quotedbl                        "
+
+  numbersign                      #
+
+  dollar                          $
+
+  percent
+
+  ampersand                       &
+
+  quoteright                      '
+
+  parenleft                       (
+
+  parenright                      )
+
+
+  asterisk                        *
+
+  plus                            +
+
+  comma                           ,
+
+  hyphen                          -
+
+  period                          .
+
+  slash                           /
+
+  zero                            0
+
+  one                             1
+
+  two                             2
+
+  three                           3
+
+  four                            4
+
+  five                            5
+
+  six                             6
+
+  seven                           7
+
+  eight                           8
+
+  nine                            9
+
+  colon                           :
+
+  semicolon                       ;
+
+  less            <       <
+
+  equal                           =
+
+  greater         >       >
+
+  question                        ?
+
+  at                              @
+
+  A                               A
+
+  B                               B
+
+  C                               C
+
+  D                               D
+
+  E                               E
+
+  F                               F
+
+  G                               G
+
+  H                               H
+
+  I                               I
+
+  J                               J
+
+  K                               K
+
+  L                               L
+
+  M                               M
+
+  N                               N
+
+  O                               O
+
+  P                               P
+
+  Q                               Q
+
+  R                               R
+
+  S                               S
+
+  T                               T
+
+  U                               U
+
+  V                               V
+
+  W                               W
+
+  X                               X
+
+  Y                               Y
+
+  Z                               Z
+
+  bracketleft                     [
+
+  backslash                       \
+
+  bracketright                    ]
+
+  asciicircum                     ^
+
+  underscore                      _
+
+  quoteleft                       `
+
+  a                               a
+
+  b                               b
+
+  c                               c
+
+  d                               d
+
+  e                               e
+
+  f                               f
+
+  g                               g
+
+  h                               h
+
+  i                               i
+
+  j                               j
+
+  k                               k
+
+  l                               l
+
+  m                               m
+
+  n                               n
+
+  o                               o
+
+  p                               p
+
+  q                               q
+
+  r                               r
+
+  s                               s
+
+  t                               t
+
+  u                               u
+
+  v                               v
+
+  w                               w
+
+  x                               x
+
+  y                               y
+
+  z                               z
+
+  braceleft                       {
+
+  bar                             |
+
+  braceright                      }
+
+  tilde
+
+  space
+
+  Aogonek
+
+  breve
+
+  Lslash
+
+  currency
+
+  Lcaron
+
+  Sacute
+
+  section
+
+  dieresis
+
+  Scaron
+
+  Scedilla
+
+  Tcaron
+
+  Zacute
+
+  hyphen
+
+  Zcaron
+
+  Zdotaccent
+
+  degree
+
+  aogonek
+
+  ogonek
+
+  lslash
+
+  acute
+
+  lcaron
+
+  sacute
+
+  caron
+
+  cedilla
+
+  scaron
+
+  scedilla
+
+  tcaron
+
+  zacute
+
+  hungarumlaut
+
+  zcaron
+
+  zdotaccent
+
+  Racute
+
+  Aacute
+
+  Acircumflex
+
+  Abreve
+
+  Adieresis
+
+  Lacute
+
+  Cacute
+
+  Ccedilla
+
+  Ccaron
+
+  Eacute
+
+  Eogonek
+
+  Edieresis
+
+  Ecaron
+
+  Iacute
+
+  Icircumflex
+
+  Dcaron
+
+  Eth
+
+  Nacute
+
+  Ncaron
+
+  Oacute
+
+  Ocircumflex
+
+  Ohungarumlaut
+
+  Odieresis
+
+  multiply
+
+  Rcaron
+
+  Uring
+
+  Uacute
+
+  hungarumlaut
+
+  Udieresis
+
+  Yacute
+
+  Tcedilla
+
+  germandbls
+
+  racute
+
+  aacute
+
+  acircumflex
+
+  abreve
+
+  adieresis
+
+  lacute
+
+  cacute
+
+  ccedilla
+
+  ccaron
+
+  eacute
+
+  eogonek
+
+  edieresis
+
+  ecaron
+
+  iacute
+
+  icircumflex
+
+  dcaron
+
+  dbar
+
+  nacute
+
+  ncaron
+
+  oacute
+
+  ocircumflex
+
+  ohungarumlaut
+
+  odieresis
+
+  divide
+
+  rcaron
+
+  uring
+
+  uacute
+
+  uhungarumlaut
+
+  udieresis
+
+  yacute
+
+  tcedilla
+
+  dotaccent
+
+
+  ----------------------------------------------------------------------
+
+  First, try to see if standard definitions will give you (after
+  installing pertinent fonts and building Xmodmap with keyboard
+  definitions for X) what they say they are. If they will not give you
+  what they say they are (some keycodes will be unfunctional), then put
+  to your bash_profile the "export LANG=language" and "export
+  LC_ALL=language" statements and if you are still unsuccessful, you
+  must make a substitution. Definitions which will not give you what
+  they say they are can be traced by their visual shape in Western Latin
+  1 encoding. If you are a Czech, for example, you may issue a command:
+
+  setxkbmap -model pc102 -symbols 'czsk(us_cz_qwertz)' setxkbmap cs
+  -option grp:shift_toggle
+
+  and see what will give you an X terminal window (press both Shift keys
+  or press alt and hold it to see the other keyboard layout). This means
+  that by pressing a letter "3" you will get a real "onesuperior" key.
+  It is good that X terminal window does not make use of ISO8859-2 fonts
+  now, so you will see what you must use instead of scaron (scaron =
+  onesuperior).  By putting "onesuperior" in an .Xmodmap file you will
+  get a REAL "scaron", but obviously, only with use of ISO8859-2 fonts
+  (with use of ISO8859-1 fonts, you will get a REAL "onesuperior").
+
+
+  Thus, the X terminal window will show you fonts like micron,
+  onesuperior, threequarters, and so on. You will see what you must
+  substitute. But if you don't know what "?" is called in ISO
+  terminology, find and download an appropriate character set table for
+  ISO8859-1, or look in gdkkeysyms.h file,
+  /lib/perl5/site_perl/5.6.0/i386-linux/GTK/keysyms.pm file, or
+  ../ISO8859-1/Compose file. Alternatively, you may experiment with all
+  codes defined in /usr/X11R6/lib/X11/locale/ISO8859-1/Compose file.
+  You must use the ISO8859-1 entities when the system refuses to display
+  the ISO8859-2 entities correctly.
+
+
+  The following symbols on your right is what I found out through my
+  research.  This is just an example. When you use a "Pound" definition
+  in the Xmodmap file, the X will display you a Lslash instead (in
+  relation to using iso8859-2 fonts, of course). When you choose some
+  easy KDE text editor, select iso8859-2 fonts charset from the fonts
+  menu. NOTE: vowel *acute (uacute, eacute, etc.) signs require no
+  substitution, therefore I omitted iacute, aacute, etc., here.
+
+  ISO8859-1 entity will give you the:     ISO8859-2 entity
+
+  in our nonstandard or experimental Xmodmap keycode definition
+
+  egrave                                  ccaron
+
+  ugrave                                  uring
+
+  agrave                                  racute
+
+  ecircumflex                             "c" with something at the
+  bottom of it
+
+  ucircumflex Lslash                                  "Pound" in Xmodmap
+  gives you Lslash.
+
+  Lcaron                                  Writing "yen" will give us
+  Lcaron
+
+  Scaron                                  copyright (will give us
+  Scaron)
+
+  Tcaron                                  guillemotleft (will give us
+  Tcaron)
+
+  Zcaron                                  registered
+
+  lcaron                                  mu
+
+  scaron                                  onesuperior
+
+  tcaron                                  guillemotright
+
+  zcaron                                  threequarters
+
+  Cacute                                  AE
+
+  Eogonek                                 find out yourself
+
+  Edieresis                               Edieresis
+
+  ecaron                                  igrave
+
+  onequarter                              zacute
+
+  questiondown                            z with a ring above it
+
+  Dcaron                                  find out yourself
+
+  Ooblique                                Rcaron
+
+  thorn                                   t with something at the bottom
+  of it
+
+  Sterling                                Lstroke
+
+  yen                                     Lcaron
+
+  copyright                               Scaron
+
+  brokenbar                               Sacute
+
+  macron                                  Z with something above it
+
+  paragraph                               sacute
+
+  periodcentered                          caron
+
+  masculine                               s with something at the bottom
+  of it
+
+  onequarter                              zacute
+
+  ecircumflex                             d with a line above it
+
+  ETH                                     Dstroke
+
+  Ntilde                                  Nacute
+
+  Otilde                                  O with two dots above it
+
+  registered                              Zcaron
+
+  Nacute                                  Ograve
+
+  nacute                                  ograve
+
+  Ocircumflex                             Ocircumflex
+
+  ccaron                                  egrave
+
+  nacute                                  ntilde
+  ------------------------------------------------------------------------
+
+
+
+  2.8.  The standard ISO8859-2 definitions in the Xmodmap file
+
+  The example of a standard .Xmodmap file from keycode 0x31 to 0x33.
+  This file will make X Server correctly display lcaron, scaron, etc.,
+  if you use a newer version of XFree86 and/or have a LC_LANG=language
+  and LC_ALL=language statements in your bash_profile or in
+  /etc/sysconfig/i18n.  Just copy the following text from keycode 0x31
+  to 0x33 to the above-listed Xmodmap file (delete the experimental
+  definitions from keycode 0x31 to 0x33).
+
+
+  keycode 0x31 =  grave           asciitilde      semicolon
+  dead_diaeresis
+
+  keycode 0x0A =  1               exclam          plus            1
+
+  keycode 0x0B =  2               at              lcaron          2
+
+  keycode 0x0C =  3               numbersign      scaron          3
+
+  keycode 0x0D =  4               dollar          ccaron          4
+
+
+  keycode 0x0E =  5               percent         tcaron          5
+
+  keycode 0x0F =  6               asciicircum     scaron          6
+
+  keycode 0x10 =  7               ampersand       yacute          7
+
+  keycode 0x11 =  8               asterisk        aacute          8
+
+  keycode 0x12 =  9               parenleft       iacute          9
+
+  keycode 0x13 =  0               parenright      eacute          0
+
+  keycode 0x14 =  minus           underscore      equal
+  percent
+
+  keycode 0x15 =  equal           plus            dead_acute
+  dead_caron
+
+  keycode 0x33 =  backslash
+
+  bar             ograve          parenright
+
+
+
+  2.9.  ISO* specifications
+
+
+  ISO8859-0 old, replaced by ISO 8859-14 and ISO 8859-15.
+
+  ISO8859-1 Western Europe: Danish, Dutch, English, Faeroese, Finnish,
+  Flemish, French, German, Icelandic, Irish, Italian, Norwegian,
+  Portuguese, Spanish, and Swedish. Many other languages can be written
+  with this.
+
+  ISO8859-2 Eastern Europe: Czech, Slovak, English, German, Hungarian,
+  Polish, Romanian, Serbo-Croatian, Slovak, Slovene. (Please note that
+  Serbian language uses both Latin ISO8859-2 and Cyrillic ISO8859-5).
+
+  ISO8859-3 English, Esperanto, Galician, Maltese and Turkish.
+
+  ISO8859-4 English, Baltic languages - Estonian, Latvian, Lithuanian,
+  and Scandinavian languages - Danish, Faeroese, Icelandic, Lappish,
+  Norwegian, and Swedish.
+
+  ISO8859-5 Latin/Cyrillic alphabet: Bulgarian, Byelorussian, English,
+  Macedonian, Russian, Serbian, Ukrainian.
+
+  ISO8859-6 Latin/Arabic alphabet: English, Arabic.
+
+  ISO8859-7 Latin/Greek alphabet: English, Greek.
+
+  ISO8859-8 Latin/Hebrew alphabet: English, Hebrew.
+
+  ISO8859-9 Latin alphabet: Danish, Dutch, English, Finnish, French,
+  German, Irish, Italian, Norwegian, Portuguese, Spanish, Swedish,
+  Turkish, formed by extending ISO8859-1.
+
+  ISO8859-10 Latin alphabet: Modification of ISO8859-4
+
+  ISO8859-11 Latin/Thai alphabet.
+
+  ISO8859-12 Reserved.
+
+  ISO8859-13 Baltic.
+
+
+  ISO8859-14 Celtic
+
+  ISO8859-15 Similar to Latin-1
+
+  ISO8859-16 Albanian, Croatian, English, Finnish, French, German,
+  Hungarian, Irish Gaelic, Italian, Latin, Polish, Romanian, Slovenian,
+  Lithuanian, and Scandinavian languages (Danish, Faeroese, Icelandic.
+
+
+  3.  How this Xmodmap solution works on various systems
+
+
+
+  3.1.  SuSE
+
+
+  3.1.1.  SuSE 6.4
+
+  Everything works well with Xmodmap standard definitions. GNOME, KDE
+  1.x and other X Window managers, too, nicely display ISO8859-2
+  characters. No modification of other system files is required. The
+  problematic here is KDE 2.0, if you install it for this system.
+
+
+  3.1.2.  SuSE 7.0 with XFree86 version 3.3.6 and KDE 2.0
+
+  No LANG=language and LC_ALL=language statements are necessary in your
+  bash_profile. You may use the Xmodmap file with standard ISO8859-2
+  keycode definitions (not "threequarters" but "scaron", etc.).
+  Unfortunately, although you may immediately start writing with
+  ISO8859-2 keycodes, the dead keys are not working properly and export
+  LANG=language does not work here in order to make these dead keys
+  work. Internal KDE 2.0 editors do not properly display ISO8859-2 fonts
+  unless the i18n file, or its equivalent, is modified. You may also try
+  to modify the KDE 2.0 settings in Preferences > Personalization >
+  Country & Language, where you change the charset to ISO8859-2
+  characters. Old kedit, newest GNOME's gedit and StarOffice work well
+  without modification of system files. Other X Window managers like
+  GNOME work well, too.
+
+  After copying the Compose file from
+  /usr/X11R6/lib/X11/locale/iso8859-2/ to the
+  /usr/X11R6/lib/X11/locale/iso8859-1/, you may start elegantly working
+  with dead keys. This was also tested on StarOffice 5.2.  The FontPath
+  must be in /etc/XF86Config, not in /etc/X11/Xf86Config.
+
+  The following is the FontPath section for ISO8859-2 fonts from my SuSE
+  7.0 /etc/XF86Config file (these ISO8859-2 fonts are on your Linux CD):
+
+  FontPath      "/usr/X11R6/lib/X11/fonts/ISO8859-2/Type1"
+
+  FontPath      "/usr/X11R6/lib/X11/fonts/ISO8859-2/Type1/afm"
+
+  FontPath      "/usr/X11R6/lib/X11/fonts/ISO8859-2/Type1/pfm"
+
+
+
+  3.2.  Mandrake Linux
+
+
+  3.2.1.  Mandrake Linux 7.2 with KDE 2.0
+
+  GNOME and other X Window managers work well even without modification
+  of /etc/sysconfig/i18n file. KDE 2.0 is a little bit harder, as this
+  file needs to be modified. I used the "kcmshell
+  Personalization/kcmlayout" command, (or go to menu Configuration > KDE
+  > Personalization > keyboard layout) to select the keyboard, and after
+  putting the LANG=language in the /etc/sysconfig/i18n file (and
+  rebooting afterwards), KDE 2.0 works nicely and StarOffice works
+  immediately (with ISO8859-2 fonts in its directory) with dead keys. I
+  chose Czechoslovakian as the second language and could write in Czech
+  with ISO8859-2 characters on my screen even without the Xmodmap file.
+  However, after using the Xmodmap file (standard definitions), I could
+  use the Slovak keyboard layout.
+
+  The following is my Mandrake /etc/sysconfig/i18n file (I commented the
+  previous definitions for English):
+
+  #LC_MONETARY=en_US
+
+  #LC_CTYPE=sk_SK
+
+  #LC_NUMERIC=en_US
+
+  #LC_MESSAGES=en_US
+
+  LANGUAGE=sk_SK
+
+  #LC_TIME=en_US
+
+  #RPM_INSTALL_LANG=en
+
+  #LC_COLLATE=en_US
+
+  The maps in /usr/X11R6/lib/X11/xkb/symbols can be modified on the fly
+  while in X; you only switch keyboards from the panel (clicking on
+  icon).  You can edit those maps and modify them for your choice. After
+  changing some Czech definitions in the "cs" file to Slovak ones
+  StarOffice displayed them well.
+
+
+
+  3.3.  RedHat
+
+
+  3.3.1.  RedHat 5.1, 5.2, 6.0, 6.1 and 6.2 (XFree86 3.3.6 and older)
+
+  No LANG=language and LC_ALL=language statements are necessary in your
+  bash_profile. Here the "experimental" .Xmodmap solution works well
+  ("mu" instead of "lcaron", etc., unless you modify the
+  /etc/sysconfig/i18n file; then you may try to use the "standard"
+  entities) and you must copy the Compose file from ../IS08859-2 to
+  ../ISO8859-1 directory to make dead keys work. The XF86Config file may
+  remain untouched.
+
+
+  3.3.2.  RedHat 7.0 with KDE 2.0 and XFree86 4.x
+
+  GNOME and other X Window managers work well. You do not have to copy
+  the Compose file from ../ISO8859-2 to ../ISO8859-1 directory. KDE 1.x
+  works well, too, but KDE 2.0 requires modification of
+  /etc/sysconfig/i18n file.  The following is syntax of my i18n file
+  from RedHat 7.0:
+
+  LANG="sk_SK"
+
+  I changed nothing in the Menu in Preferences > Personalization except
+  that I added the additional keyboard (Czechoslovakian) layout. Please
+  note that some other systems may require a different attitude.  The
+  following is the syntax from my KDE kxkbrc file in
+  /root/.kde/share/config directory: [Layout]
+
+  Additional=cs
+
+  AdditionalEncodings=ISO8859-2
+
+  Encoding=ISO8859-1
+
+  Layout=us
+
+  Model=pc104
+
+  Test=Test
+
+  Use=true
+
+  However, this file is generated automatically after you add a keyboard
+  layout.
+
+
+
+  3.4.  FreeBSD
+
+
+  3.4.1.  FreeBSD 3.1 and 3.2
+
+  Same as with RedHat 5.1, 5.2, 6.0, 6.1, 6.2.
+
+
+  3.4.2.  FreeBSD 4.1
+
+  No LANG=language and LC_ALL=language statements are necessary in your
+  bash_profile. However, you can use two strategies:
+
+  a) either you modify the /etc/profile file and put there a statement
+  like: LANG=sk_SK.ISO8859-2; export LANG
+
+  After you reboot, you will have a Slovak keyboard in KDE immediately
+  and you can use the right Alt key to use ISO8859-1 keycodes. But dead
+  keys will not work and you have to copy the ../ISO8859-2/Compose file
+  to ../ISO8859-1 directory to make them work. Irritating may be using
+  the right Alt to switch to keycodes like "@", if you use an email
+  client often, for example.
+
+  b) Same strategy as for FreeBSD 3.1, 3.2 with nonstandard xmodmap
+  definitions and copying the ../ISO8859-2/Compose file to ../ISO8859-1
+  directory.
+
+
+
+  3.5.  Corel Linux
+
+
+  3.5.1.  Corel Linux 1.0 and 1.2
+
+  Same as with FreeBSD.
+
+
+
+  4.  Some national Xmodmap files
+
+  Please note: I am not the author of these files and don't mail me if
+  you find something incorrect in them. These files were taken from the
+  GNOME distribution and the main focus of this howto is to tell you how
+  to map various keycode entities, so that you can make your own
+  keyboard layouts.  Use right Alt to switch the keyboard.
+
+
+
+  4.1.  German
+
+
+
+  clear Mod1
+
+  clear Mod2
+
+  keycode   9 = Escape Escape
+
+  keycode  10 = 1 exclam
+
+  keycode  11 = 2 quotedbl twosuperior
+
+  keycode  12 = 3 section threesuperior
+
+  keycode  13 = 4 dollar dollar
+
+  keycode  14 = 5 percent
+
+  keycode  15 = 6 ampersand
+
+  keycode  16 = 7 slash braceleft
+
+  keycode  17 = 8 parenleft bracketleft
+
+  keycode  18 = 9 parenright bracketright
+
+  keycode  19 = 0 equal braceright
+
+  keycode  20 = ssharp question backslash
+
+  keycode  21 = dead_acute dead_grave
+
+  keycode  22 = BackSpace Delete
+
+  keycode  23 = Tab Tab
+
+  keycode  24 = q Q at
+
+  keycode  25 = w
+
+  keycode  26 = e
+
+  keycode  27 = r
+
+  keycode  28 = t
+
+  keycode  29 = z
+
+  keycode  30 = u
+
+  keycode  31 = i
+
+  keycode  32 = o
+
+  keycode  33 = p
+
+
+  keycode  34 = udiaeresis Udiaeresis
+
+  keycode  35 = plus asterisk dead_tilde
+
+  keycode  36 = Return
+
+  keycode  37 = Control_L
+
+  keycode  38 = a
+
+  keycode  39 = s
+
+  keycode  40 = d
+
+  keycode  41 = f
+
+  keycode  42 = g
+
+  keycode  43 = h
+
+  keycode  44 = j
+
+  keycode  45 = k
+
+  keycode  46 = l
+
+  keycode  47 = odiaeresis Odiaeresis
+
+  keycode  48 = adiaeresis Adiaeresis
+
+  keycode  49 = dead_circumflex degree
+
+  keycode  50 = Shift_L
+
+  keycode  51 = numbersign apostrophe
+
+  keycode  52 = y
+
+  keycode  53 = x
+
+  keycode  54 = c
+
+  keycode  55 = v
+
+  keycode  56 = b
+
+  keycode  57 = n
+
+  keycode  58 = m
+
+  keycode  59 = comma semicolon
+
+  keycode  60 = period colon Multi_key
+
+  keycode  61 = minus underscore
+
+  keycode  62 = Shift_R
+
+  keycode  63 = KP_Multiply
+
+  keycode  64 = Alt_L Meta_L
+
+  keycode  65 = space space
+
+  keycode  66 = Caps_Lock
+
+  keycode  67 = F1 F11
+
+  keycode  68 = F2 F12
+
+  keycode  69 = F3 F13
+
+  keycode  70 = F4 F14
+
+  keycode  71 = F5 F15
+
+  keycode  72 = F6 F16
+
+  keycode  73 = F7 F17
+
+  keycode  74 = F8 F18
+
+  keycode  75 = F9 F19
+
+  keycode  76 = F10 F20
+
+  keycode  77 = Num_Lock
+
+  keycode  78 = Scroll_Lock
+
+  keycode  79 = KP_7
+
+  keycode  80 = KP_8
+
+  keycode  81 = KP_9
+
+  keycode  82 = KP_Subtract
+
+  keycode  83 = KP_4
+
+  keycode  84 = KP_5
+
+  keycode  85 = KP_6
+
+  keycode  86 = KP_Add
+
+  keycode  87 = KP_1
+
+  keycode  88 = KP_2
+
+  keycode  89 = KP_3
+
+  keycode  90 = KP_0
+
+  keycode  91 = KP_Decimal
+
+  keycode  94 = less greater bar
+
+  keycode  95 = F11 F11
+
+  keycode  96 = F12 F12
+
+  keycode 108 = KP_Enter
+
+  keycode 109 = Control_R
+
+  keycode 112 = KP_Divide
+
+  keycode 113 = Mode_switch
+
+  keycode 114 = Break
+
+  keycode 110 = Find
+
+  keycode  98 = Up
+
+  keycode  99 = Prior
+
+  keycode 100 = Left
+
+  keycode 102 = Right
+
+  keycode 115 = Select
+
+  keycode 104 = Down
+
+  keycode 105 = Next
+
+  keycode 106 = Insert
+
+  ! right windows-logo key
+
+  ! in "windows" keyboards the position of the key is annoying, is where
+  AltGr
+
+  ! usually resides, so go define it as AltGr
+
+  keycode 116 = Mode_switch
+
+  ! right windows-menu key
+
+  keycode 117 = Multi_key
+
+  add Mod1 = Alt_L
+
+  add Mod2 = Mode_switch
+
+
+
+  4.2.  Hungarian
+
+
+
+  clear Mod1
+
+  clear Mod2
+
+  !charset "iso-8859-2"
+
+  keycode   9 = Escape
+
+  keycode  10 = 1 apostrophe asciitilde
+
+  keycode  11 = 2 quotedbl dead_caron
+
+  keycode  12 = 3 plus dead_circumflex
+
+  keycode  13 = 4 exclam dead_breve
+
+  keycode  14 = 5 percent degree
+
+  keycode  15 = 6 slash dead_ogonek
+
+  keycode  16 = 7 equal dead_grave
+
+
+  keycode  17 = 8 parenleft dead_abovedot
+
+  keycode  18 = 9 parenright dead_acute
+
+  keycode  19 = odiaeresis Odiaeresis dead_doubleacute
+
+  keycode  20 = udiaeresis Udiaeresis dead_diaeresis
+
+  keycode  21 = oacute Oacute dead_cedilla
+
+  keycode  22 = BackSpace Delete
+
+  keycode  23 = Tab Tab
+
+  keycode  24 = q Q backslash
+
+  keycode  25 = w W bar
+
+  keycode  26 = e E currency
+
+  keycode  27 = r
+
+  keycode  28 = t
+
+  keycode  29 = z
+
+  keycode  30 = u
+
+  keycode  31 = i I iacute Iacute
+
+  keycode  32 = o
+
+  keycode  33 = p
+
+  keycode  34 = odoubleacute Odoubleacute division
+
+  keycode  35 = uacute Uacute
+
+  keycode  36 = Return
+
+  keycode  37 = Control_L
+
+  keycode  38 = a
+
+  keycode  39 = s S dstroke
+
+  keycode  40 = d D Dstroke
+
+  keycode  41 = f F bracketleft
+
+  keycode  42 = g G bracketright
+
+  keycode  43 = h
+
+  keycode  44 = j J Iacute iacute
+
+  keycode  45 = k K lstroke Lstroke
+
+  keycode  46 = l L Lstroke lstroke
+
+  keycode  47 = eacute Eacute dollar
+
+  keycode  48 = aacute Aacute ssharp
+
+  keycode  49 = 0 section
+
+  keycode  50 = Shift_L
+
+  keycode  51 = udoubleacute Udoubleacute currency
+
+  keycode  52 = y Y greater
+
+  keycode  53 = x X numbersign
+
+  keycode  54 = c C ampersand
+
+  keycode  55 = v V at
+
+  keycode  56 = b B braceleft
+
+  keycode  57 = n N braceright
+
+  keycode  58 = m
+
+  keycode  59 = comma question semicolon
+
+  keycode  60 = period colon Multi_key
+
+  keycode  61 = minus underscore asterisk
+
+  keycode  62 = Shift_R
+
+  keycode  63 = KP_Multiply
+
+  keycode  64 = Alt_L Meta_L
+
+  keycode  65 = space space
+
+  keycode  66 = Caps_Lock
+
+  keycode  67 = F1 F11
+
+  keycode  68 = F2 F12
+
+  keycode  69 = F3 F13
+
+  keycode  70 = F4 F14
+
+  keycode  71 = F5 F15
+
+  keycode  72 = F6 F16
+
+  keycode  73 = F7 F17
+
+  keycode  74 = F8 F18
+
+  keycode  75 = F9 F19
+
+  keycode  76 = F10 F20
+
+  keycode  77 = Num_Lock
+
+  keycode  78 = Scroll_Lock
+
+  keycode  79 = KP_7
+
+  keycode  80 = KP_8
+
+  keycode  81 = KP_9
+
+  keycode  82 = KP_Subtract
+
+  keycode  83 = KP_4
+
+  keycode  84 = KP_5
+
+  keycode  85 = KP_6
+
+  keycode  86 = KP_Add
+
+  keycode  87 = KP_1
+
+  keycode  88 = KP_2
+
+  keycode  89 = KP_3
+
+  keycode  90 = KP_0
+
+  keycode  91 = KP_Decimal
+
+  keycode  94 = iacute Iacute less
+
+  keycode  95 = F11 F11
+
+  keycode  96 = F12 F12
+
+  keycode 108 = KP_Enter
+
+  keycode 109 = Control_R
+
+  keycode 112 = KP_Divide
+
+  keycode 113 = Mode_switch
+
+  keycode 114 = Break
+
+  keycode 110 = Find
+
+  keycode  98 = Up
+
+  keycode  99 = Prior
+
+  keycode 100 = Left
+
+  keycode 102 = Right
+
+  keycode 115 = Select
+
+  keycode 104 = Down
+
+  keycode 105 = Next
+
+  keycode 106 = Insert
+
+  keycode 107 = Delete
+
+  !  as dead_ogonek, dead_caron, dead_breve and dead_doubleacute doesn't
+  exist
+
+  !  (yet), I put also compose lines for use with respectively
+  dead_cedilla,
+
+  !  dead_circumflex, dead_tilde and dead_tilde
+
+  add Mod1 = Alt_L
+
+  add Mod2 = Mode_switch
+
+  4.3.  Czech
+
+
+
+  ! Converted keytable file to xmodmap file
+
+  clear Mod1
+
+  clear Mod2
+
+  keycode   9 = Escape Escape
+
+  keycode  10 = plus 1 asciitilde
+
+  keycode  11 = ecaron 2 dead_caron
+
+  keycode  12 = scaron 3 asciicircum
+
+  keycode  13 = ccaron 4 dead_breve
+
+  keycode  14 = rcaron 5 degree
+
+  keycode  15 = zcaron 6 dead_ogonek
+
+  keycode  16 = yacute 7 dead_grave
+
+  keycode  17 = aacute 8 dead_abovedot
+
+  keycode  18 = iacute 9 dead_acute
+
+  keycode  19 = eacute 0 dead_doubleacute
+
+  keycode  20 = equal percent dead_diaeresis
+
+  keycode  21 = dead_acute dead_caron dead_cedilla
+
+  keycode  22 = BackSpace Delete
+
+  keycode  23 = Tab Tab
+
+  keycode  24 = q Q backslash
+
+  keycode  25 = w W bar
+
+  keycode  26 = e E currency
+
+  keycode  27 = r
+
+  keycode  28 = t
+
+  keycode  29 = z
+
+  keycode  30 = u
+
+  keycode  31 = i
+
+  keycode  32 = o
+
+  keycode  33 = p
+
+  keycode  34 = uacute slash division
+
+  keycode  35 = parenright parenleft
+
+  keycode  36 = Return
+
+  keycode  37 = Control_L
+
+  keycode  38 = a
+
+  keycode  39 = s S dstroke Dstroke
+
+  keycode  40 = d D Dstroke dstroke
+
+  keycode  41 = f F bracketleft
+
+  keycode  42 = g G bracketright
+
+  keycode  43 = h
+
+  keycode  44 = j
+
+  keycode  45 = k K lstroke Lstroke
+
+  keycode  46 = l L Lstroke lstroke
+
+  keycode  47 = uring quotedbl dollar
+
+  keycode  48 = section exclam ssharp
+
+  keycode  49 = semicolon degree
+
+  keycode  50 = Shift_L
+
+  keycode  51 = dead_diaeresis dead_acute currency
+
+  keycode  52 = y Y greater
+
+  keycode  53 = x X numbersign
+
+  keycode  54 = c
+
+  keycode  55 = v V at
+
+  keycode  56 = b B braceleft
+
+  keycode  57 = n N braceright
+
+  keycode  58 = m
+
+  keycode  59 = comma question
+
+  keycode  60 = period colon Multi_key
+
+  keycode  61 = minus underscore
+
+  keycode  62 = Shift_R
+
+  keycode  63 = KP_Multiply
+
+  keycode  64 = Alt_L Meta_L
+
+  keycode  65 = space space
+
+  keycode  66 = Caps_Lock
+
+  keycode  67 = F1 F11
+
+  keycode  68 = F2 F12
+
+  keycode  69 = F3 F13
+
+  keycode  70 = F4 F14
+
+  keycode  71 = F5 F15
+
+  keycode  72 = F6 F16
+
+  keycode  73 = F7 F17
+
+  keycode  74 = F8 F18
+
+  keycode  75 = F9 F19
+
+  keycode  76 = F10 F20
+
+  keycode  77 = Num_Lock
+
+  keycode  78 = Scroll_Lock
+
+  keycode  79 = KP_7
+
+  keycode  80 = KP_8
+
+  keycode  81 = KP_9
+
+  keycode  82 = KP_Subtract
+
+  keycode  83 = KP_4
+
+  keycode  84 = KP_5
+
+  keycode  85 = KP_6
+
+  keycode  86 = KP_Add
+
+  keycode  87 = KP_1
+
+  keycode  88 = KP_2
+
+  keycode  89 = KP_3
+
+  keycode  90 = KP_0
+
+  keycode  94 = ampersand asterisk less
+
+  keycode  95 = F11 F11
+
+  keycode  96 = F12 F12
+
+  keycode 108 = KP_Enter
+
+  keycode 109 = Control_R
+
+  keycode 112 = KP_Divide
+
+  keycode 113 = Mode_switch
+
+  keycode 114 = Break
+
+  keycode 110 = Find
+
+  keycode  98 = Up
+
+  keycode  99 = Prior
+
+  keycode 100 = Left
+
+  keycode 102 = Right
+
+  keycode 115 = Select
+
+  keycode 104 = Down
+
+  keycode 105 = Next
+
+  keycode 106 = Insert
+
+  ! right windows-logo key
+
+  ! in "windows" keyboards the position of the key is annoying, is where
+  AltGr
+
+  ! usually resides, so go define it as AltGr
+
+  keycode 116 = Mode_switch
+
+  ! right windows-menu key
+
+  keycode 117 = Multi_key
+
+  add Mod1 = Alt_L
+
+  add Mod2 = Mode_switch
+
+
+
+  4.4.  Polish
+
+
+
+  ! The "AltGr" (right Alt) key generates Mode_switch
+
+  keycode 0x09 =  Escape
+
+  keycode 0x43 =  F1
+
+  keycode 0x44 =  F2
+
+  keycode 0x45 =  F3
+
+  keycode 0x46 =  F4
+
+  keycode 0x47 =  F5
+
+  keycode 0x48 =  F6
+
+  keycode 0x49 =  F7
+
+  keycode 0x4A =  F8
+
+  keycode 0x4B =  F9
+
+  keycode 0x4C =  F10
+
+  keycode 0x5F =  F11
+
+  keycode 0x60 =  F12
+
+  keycode 0x6F =  Print
+
+
+  keycode 0x4E =  Multi_key
+
+  keycode 0x6E =  Pause
+
+  keycode 0x31 =  grave           asciitilde
+
+  keycode 0x0A =  1               exclam
+
+  keycode 0x0B =  2               at
+
+  keycode 0x0C =  3               numbersign
+
+  keycode 0x0D =  4               dollar
+
+  keycode 0x0E =  5               percent
+
+  keycode 0x0F =  6               asciicircum
+
+  keycode 0x10 =  7               ampersand       section
+
+  keycode 0x11 =  8               asterisk
+
+  keycode 0x12 =  9               parenleft
+
+  keycode 0x13 =  0               parenright
+
+  keycode 0x14 =  minus           underscore
+
+  keycode 0x15 =  equal           plus
+
+  keycode 0x33 =  backslash       bar
+
+  keycode 0x16 =  BackSpace
+
+  keycode 0x6A =  Insert
+
+  keycode 0x61 =  Home
+
+  keycode 0x63 =  Prior
+
+  keycode 0x4D =  Num_Lock
+
+  keycode 0x70 =  KP_Divide
+
+  keycode 0x3F =  KP_Multiply
+
+  keycode 0x52 =  KP_Subtract
+
+  keycode 0x17 =  Tab
+
+  keycode 0x18 =  Q
+
+  keycode 0x19 =  W
+
+  keycode 0x1A =  e               E               eogonek
+  Eogonek
+
+  keycode 0x1B =  R
+
+  keycode 0x1C =  T
+
+  keycode 0x1D =  Y
+
+  keycode 0x1E =  U
+
+
+  keycode 0x1F =  I
+
+  keycode 0x20 =  o               O               oacute          Oacute
+
+  keycode 0x21 =  P
+
+  keycode 0x22 =  bracketleft     braceleft
+
+  keycode 0x23 =  bracketright    braceright
+
+  keycode 0x24 =  Return
+
+  keycode 0x6B =  Delete
+
+  keycode 0x67 =  End
+
+  keycode 0x69 =  Next
+
+  keycode 0x4F =  KP_7
+
+  keycode 0x50 =  KP_8
+
+  keycode 0x51 =  KP_9
+
+  keycode 0x56 =  KP_Add
+
+  keycode 0x42 =  Caps_Lock
+
+  keycode 0x26 =  a               A               aogonek
+  Aogonek
+
+  keycode 0x27 =  s               S               sacute          Sacute
+
+  keycode 0x28 =  D
+
+  keycode 0x29 =  F
+
+  keycode 0x2A =  G
+
+  keycode 0x2B =  H
+
+  keycode 0x2C =  J
+
+  keycode 0x2D =  K
+
+  keycode 0x2E =  l               L               lstroke
+  Lstroke
+
+  keycode 0x2F =  semicolon       colon
+
+  keycode 0x30 =  apostrophe      quotedbl
+
+  keycode 0x53 =  KP_4
+
+  keycode 0x54 =  KP_5
+
+  keycode 0x55 =  KP_6
+
+  keycode 0x32 =  Shift_L
+
+  keycode 0x34 =  z               Z               zabovedot
+  Zabovedot
+
+  keycode 0x35 =  x               X               zacute          Zacute
+
+
+  keycode 0x36 =  c               C               cacute          Cacute
+
+  keycode 0x37 =  V
+
+  keycode 0x38 =  B
+
+  keycode 0x39 =  n               N               nacute          Nacute
+
+  keycode 0x3A =  M
+
+  keycode 0x3B =  comma           less
+
+  keycode 0x3C =  period          greater         Multi_key
+
+  keycode 0x3D =  slash           question
+
+  keycode 0x3E =  Shift_R
+
+  keycode 0x62 =  Up
+
+  keycode 0x57 =  KP_1
+
+  keycode 0x58 =  KP_2
+
+  keycode 0x59 =  KP_3
+
+  keycode 0x6C =  KP_Enter
+
+  keycode 0x25 =  Control_L
+
+  keycode 0x40 =  Alt_L           Meta_L
+
+  keycode 0x41 =  space
+
+  keycode 0x71 =  Mode_switch
+
+  keycode 0x6D =  Control_R
+
+  keycode 0x64 =  Left
+
+  keycode 0x68 =  Down
+
+  keycode 0x66 =  Right
+
+  keycode 0x5A =  KP_0
+
+  keycode 0x5B =  KP_Decimal
+
+  ! right windows-logo key
+
+  ! in "windows" keyboards the position of the key is annoying, is where
+  AltGr
+
+  ! usually resides, so go define it as AltGr
+
+  keycode 116 = Mode_switch
+
+  ! right windows-menu key
+
+  keycode 117 = Multi_key
+
+  clear Shift
+
+  clear Lock
+
+
+  clear Control
+
+  clear Mod1
+
+  clear Mod2
+
+  clear Mod3
+
+  clear Mod4
+
+  clear Mod5
+
+  add    Shift   = Shift_L Shift_R
+
+  add    Lock    = Caps_Lock
+
+  add    Control = Control_L Control_R
+
+  add    Mod1    = Alt_L
+
+  !Mode_switch
+
+  add    Mod2    = Mode_switch
+
+
+
+  4.5.  French
+
+
+
+  clear Mod1
+
+  clear Mod2
+
+  keycode   9 = Escape Escape
+
+  keycode  10 = ampersand 1
+
+  keycode  11 = eacute 2 dead_tilde
+
+  keycode  12 = quotedbl 3 numbersign
+
+  keycode  13 = apostrophe 4 braceleft
+
+  keycode  14 = parenleft 5 bracketleft
+
+  keycode  15 = minus 6 bar
+
+  keycode  16 = egrave 7 dead_grave
+
+  keycode  17 = underscore 8 backslash
+
+  keycode  18 = ccedilla 9 asciicircum
+
+  keycode  19 = agrave 0 at
+
+  keycode  20 = parenright degree bracketright
+
+  keycode  21 = equal plus braceright
+
+  keycode  22 = BackSpace
+
+  keycode  23 = Tab Tab
+
+  keycode  24 = a
+
+  keycode  25 = z
+
+  keycode  26 = e E currency
+
+  keycode  27 = r
+
+  keycode  28 = t
+
+  keycode  29 = y
+
+  keycode  30 = u
+
+  keycode  31 = i
+
+  keycode  32 = o
+
+  keycode  33 = p
+
+  keycode  34 = dead_circumflex  dead_diaeresis
+
+  keycode  35 = dollar sterling currency
+
+  keycode  36 = Return
+
+  keycode  37 = Control_L
+
+  keycode  38 = q
+
+  keycode  39 = s
+
+  keycode  40 = d
+
+  keycode  41 = f
+
+  keycode  42 = g
+
+  keycode  43 = h
+
+  keycode  44 = j
+
+  keycode  45 = k
+
+  keycode  46 = l
+
+  keycode  47 = m M
+
+  keycode  48 = ugrave percent
+
+  keycode  49 = twosuperior
+
+  keycode  50 = Shift_L
+
+  keycode  51 = asterisk mu
+
+  keycode  52 = w
+
+  keycode  53 = x
+
+  keycode  54 = c
+
+  keycode  55 = v
+
+  keycode  56 = b
+
+  keycode  57 = n
+
+  keycode  58 = comma question dead_cedilla
+
+  keycode  59 = semicolon period
+
+  keycode  60 = colon slash Multi_key
+
+  keycode  61 = exclam section
+
+  keycode  62 = Shift_R
+
+  keycode  63 = KP_Multiply
+
+  keycode  64 = Alt_L Meta_L
+
+  keycode  65 = space space
+
+  keycode  66 = Caps_Lock
+
+  keycode  67 = F1 F11
+
+  keycode  68 = F2 F12
+
+  keycode  69 = F3 F13
+
+  keycode  70 = F4 F14
+
+  keycode  71 = F5 F15
+
+  keycode  72 = F6 F16
+
+  keycode  73 = F7 F17
+
+  keycode  74 = F8 F18
+
+  keycode  75 = F9 F19
+
+  keycode  76 = F10 F20
+
+  keycode  77 = Num_Lock
+
+  keycode  78 = Scroll_Lock
+
+  keycode  79 = KP_7
+
+  keycode  80 = KP_8
+
+  keycode  81 = KP_9
+
+  keycode  82 = KP_Subtract
+
+  keycode  83 = KP_4
+
+  keycode  84 = KP_5
+
+  keycode  85 = KP_6
+
+  keycode  86 = KP_Add
+
+  keycode  87 = KP_1
+
+  keycode  88 = KP_2
+
+  keycode  89 = KP_3
+
+  keycode  90 = KP_0
+
+  keycode  92 = Sys_Req
+
+  keycode  94 = less greater bar
+
+  keycode  95 = F11 F11
+
+  keycode  96 = F12 F12
+
+  keycode 107 = Delete
+
+  keycode 108 = KP_Enter
+
+  keycode 109 = Control_R
+
+  keycode 112 = KP_Divide
+
+  keycode 113 = Mode_switch
+
+  keycode 114 = Break
+
+  keycode 110 = Find
+
+  keycode  98 = Up
+
+  keycode  99 = Prior
+
+  keycode 100 = Left
+
+  keycode 102 = Right
+
+  keycode 104 = Down
+
+  keycode 105 = Next
+
+  keycode 106 = Insert
+
+  ! right windows-logo key
+
+  ! in "windows" keyboards the position of the key is annoying, is where
+  AltGr
+
+  ! usually resides, so go define it as AltGr
+
+  keycode 116 = Mode_switch
+
+  ! right windows-menu key
+
+  keycode 117 = Multi_key
+
+  add Mod1 = Alt_L
+
+  add Mod2 = Mode_switch
+
+
+
+  4.6.  Croatian/Slovenian
+
+
+
+  clear Mod1
+
+
+  clear Mod2
+
+  keycode   9 = Escape
+
+  keycode  10 = 1 exclam asciitilde
+
+  keycode  11 = 2 quotedbl caron
+
+  keycode  12 = 3 numbersign asciicircum
+
+  keycode  13 = 4 dollar breve
+
+  keycode  14 = 5 percent degree
+
+  keycode  15 = 6 ampersand ogonek
+
+  keycode  16 = 7 slash grave
+
+  keycode  17 = 8 parenleft abovedot
+
+  keycode  18 = 9 parenright acute
+
+  keycode  19 = 0 equal doubleacute
+
+  keycode  20 = apostrophe question diaeresis
+
+  keycode  21 = plus asterisk cedilla
+
+  keycode  22 = Delete Delete
+
+  keycode  23 = Tab Tab
+
+  keycode  24 = q Q backslash
+
+  keycode  25 = w W bar
+
+  keycode  26 = e
+
+  keycode  27 = r
+
+  keycode  28 = t
+
+  keycode  29 = z
+
+  keycode  30 = u
+
+  keycode  31 = i
+
+  keycode  32 = o
+
+  keycode  33 = p
+
+  keycode 34 = scaron Scaron division
+
+  keycode 35 = dstroke Dstroke multiply
+
+  keycode  36 = Return
+
+  keycode  37 = Control_L
+
+  keycode  38 = a
+
+  keycode  39 = s
+
+  keycode  40 = d
+
+  keycode  41 = f F bracketleft
+
+  keycode  42 = g G bracketright
+
+  keycode  43 = h
+
+  keycode  44 = j
+
+  keycode 45 = k K lstroke
+
+  keycode 46 = l L Lstroke
+
+  keycode 47 = ccaron Ccaron
+
+  keycode 48 = cacute Cacute ssharp
+
+  keycode  49 = cedilla diaeresis
+
+  keycode  50 = Shift_L
+
+  keycode 51 = zcaron Zcaron currency
+
+  keycode  52 = y
+
+  keycode  53 = x
+
+  keycode  54 = c
+
+  keycode  55 = v V at
+
+  keycode  56 = b B braceleft
+
+  keycode  57 = n N braceright
+
+  keycode  58 = m M section
+
+  keycode  59 = comma semicolon
+
+  keycode  60 = period colon
+
+  keycode  61 = minus underscore
+
+  keycode  62 = Shift_R
+
+  keycode  63 = KP_Multiply
+
+  keycode  64 = Alt_L Meta_L
+
+  keycode  65 = space space
+
+  keycode  66 = Caps_Lock
+
+  keycode  67 = F1 F11
+
+  keycode  68 = F2 F12
+
+  keycode  69 = F3 F13
+
+  keycode  70 = F4 F14
+
+  keycode  71 = F5 F15
+
+  keycode  72 = F6 F16
+
+  keycode  73 = F7 F17
+
+  keycode  74 = F8 F18
+
+  keycode  75 = F9 F19
+
+  keycode  76 = F10 F20
+
+  keycode  77 = Num_Lock
+
+  keycode  78 = Scroll_Lock
+
+  keycode  79 = KP_7
+
+  keycode  80 = KP_8
+
+  keycode  81 = KP_9
+
+  keycode  82 = KP_Subtract
+
+  keycode  83 = KP_4
+
+  keycode  84 = KP_5
+
+  keycode  85 = KP_6
+
+  keycode  86 = KP_Add
+
+  keycode  87 = KP_1
+
+  keycode  88 = KP_2
+
+  keycode  89 = KP_3
+
+  keycode  90 = KP_0
+
+  keycode  91 = KP_Decimal
+
+  keycode  92 = X386Sys_Req
+
+  keycode  94 = less greater
+
+  keycode  95 = F11 F1
+
+  keycode  96 = F12 F12
+
+  keycode 108 = KP_Enter
+
+  keycode 109 = Control_R
+
+  keycode 112 = KP_Divide
+
+  keycode 113 = Mode_switch
+
+  keycode 114 = Break
+
+  keycode 110 = Find
+
+  keycode  98 = Up
+
+  keycode  99 = Prior
+
+  keycode 100 = Left
+
+  keycode 102 = Right
+
+  keycode 104 = Down
+
+  keycode 105 = Next
+
+  keycode 106 = Insert
+
+  add Mod1 = Alt_L
+
+  add Mod2 = Mode_switch
+
+
+
+  4.7.  Lithuanian keyboard (AZERTY layout)
+
+
+
+  clear Mod1
+
+  clear Mod2
+
+  keycode   9 = Escape Escape
+
+  keycode  10 = exclam 1
+
+  keycode  11 = quotedbl 2 at
+
+  keycode  12 = slash 3 numbersign
+
+  keycode  13 = semicolon 4 dollar
+
+  keycode  14 = colon 5 percent
+
+  keycode  15 = comma 6 asciicircum
+
+  keycode  16 = period 7 ampersand
+
+  keycode  17 = question 8 asterisk
+
+  keycode  18 = parenleft 9
+
+  keycode  19 = parenright 0
+
+  keycode  20 = underscore minus minus underscore
+
+  keycode  21 = plus equal equal plus
+
+  keycode  22 = BackSpace
+
+  keycode  23 = Tab Tab
+
+  keycode  24 = aogonek Aogonek q Q
+
+  keycode  25 = zcaron Zcaron w W
+
+  keycode  26 = e E currency
+
+  keycode  27 = r
+
+  keycode  28 = t
+
+  keycode  29 = y
+
+  keycode  30 = u
+
+
+  keycode  31 = i
+
+  keycode  32 = o
+
+  keycode  33 = p
+
+  keycode  34 = iogonek Iogonek bracketleft braceleft
+
+  keycode  35 = leftdoublequotemark doublelowquotemark bracketright
+  braceright
+
+  keycode  36 = Return
+
+  keycode  37 = Control_L
+
+  keycode  38 = a
+
+  keycode  39 = s
+
+  keycode  40 = d
+
+  keycode  41 = f
+
+  keycode  42 = g
+
+  keycode  43 = h
+
+  keycode  44 = j
+
+  keycode  45 = k
+
+  keycode  46 = l
+
+  keycode  47 = uogonek Uogonek semicolon colon
+
+  keycode  48 = eabovedot Eabovedot apostrophe quotedbl
+
+  keycode  49 = grave asciitilde
+
+  keycode  50 = Shift_L
+
+  keycode  51 = backslash bar
+
+  keycode  52 = z
+
+  keycode  53 = umacron Umacron x X
+
+  keycode  54 = c
+
+  keycode  55 = v
+
+  keycode  56 = b
+
+  keycode  57 = n
+
+  keycode  58 = m
+
+  keycode  59 = ccaron Ccaron comma less
+
+  keycode  60 = scaron Scaron period greater
+
+  keycode  61 = eogonek Eogonek slash question
+
+  keycode  62 = Shift_R
+
+
+  keycode  63 = KP_Multiply
+
+  keycode  64 = Alt_L Meta_L
+
+  keycode  65 = space space
+
+  keycode  66 = Caps_Lock
+
+  keycode  67 = F1 F11
+
+  keycode  68 = F2 F12
+
+  keycode  69 = F3 F13
+
+  keycode  70 = F4 F14
+
+  keycode  71 = F5 F15
+
+  keycode  72 = F6 F16
+
+  keycode  73 = F7 F17
+
+  keycode  74 = F8 F18
+
+  keycode  75 = F9 F19
+
+  keycode  76 = F10 F20
+
+  keycode  77 = Num_Lock
+
+  keycode  78 = Scroll_Lock
+
+  keycode  79 = KP_7
+
+  keycode  80 = KP_8
+
+  keycode  81 = KP_9
+
+  keycode  82 = KP_Subtract
+
+  keycode  83 = KP_4
+
+  keycode  84 = KP_5
+
+  keycode  85 = KP_6
+
+  keycode  86 = KP_Add
+
+  keycode  87 = KP_1
+
+  keycode  88 = KP_2
+
+  keycode  89 = KP_3
+
+  keycode  90 = KP_0
+
+  keycode  94 = less greater bar
+
+  keycode  95 = F11 F11
+
+  keycode  96 = F12 F12
+
+  keycode 108 = KP_Enter
+
+  keycode 109 = Control_R
+
+  keycode 112 = KP_Divide
+
+  keycode 113 = Mode_switch
+
+  keycode 114 = Break
+
+  keycode 110 = Find
+
+  keycode  98 = Up
+
+  keycode  99 = Prior
+
+  keycode 100 = Left
+
+  keycode 102 = Right
+
+  keycode 115 = Select
+
+  keycode 104 = Down
+
+  keycode 105 = Next
+
+  keycode 106 = Insert
+
+  ! right windows-logo key
+
+  ! in "windows" keyboards the position of the key is annoying, is where
+  AltGr
+
+  ! usually resides, so go define it as AltGr
+
+  keycode 116 = Mode_switch
+
+  ! right windows-menu key, redefined as Compose key
+
+  keycode 117 = Multi_key
+
+  add Mod1 = Alt_L
+
+  add Mod2 = Mode_switch
+
+
+
+  4.8.  Polish
+
+
+
+  ! The "& 7" key generates 7, ampersand, and section
+
+  ! The "E" key generates e, E, eogonek, and Eogonek
+
+  ! The "O" key generates o, O, oacute, and Oacute
+
+  ! The "A" key generates a, A, aogonek, and Aogonek
+
+  ! The "S" key generates s, S, sacute, and Sacute
+
+  ! The "L" key generates l, L, lstroke, and Lstroke
+
+  ! The "Z" key generates z, Z, zabovedot, and Zabovedot
+
+
+  ! The "X" key generates x, X, zacute, and Zacute
+
+  ! The "C" key generates c, C, cacute, and Cacute
+
+  ! The "N" key generates n, N, nacute, and Nacute
+
+  ! The "AltGr" key generates Mode_switch
+
+  keycode 0x09 =  Escape
+
+  keycode 0x43 =  F1
+
+  keycode 0x44 =  F2
+
+  keycode 0x45 =  F3
+
+  keycode 0x46 =  F4
+
+  keycode 0x47 =  F5
+
+  keycode 0x48 =  F6
+
+  keycode 0x49 =  F7
+
+  keycode 0x4A =  F8
+
+  keycode 0x4B =  F9
+
+  keycode 0x4C =  F10
+
+  keycode 0x5F =  F11
+
+  keycode 0x60 =  F12
+
+  keycode 0x6F =  Print
+
+  keycode 0x4E =  Multi_key
+
+  keycode 0x6E =  Pause
+
+  keycode 0x31 =  grave           asciitilde
+
+  keycode 0x0A =  1               exclam
+
+  keycode 0x0B =  2               at
+
+  keycode 0x0C =  3               numbersign
+
+  keycode 0x0D =  4               dollar
+
+  keycode 0x0E =  5               percent
+
+  keycode 0x0F =  6               asciicircum
+
+  keycode 0x10 =  7               ampersand       section
+
+  keycode 0x11 =  8               asterisk
+
+  keycode 0x12 =  9               parenleft
+
+  keycode 0x13 =  0               parenright
+
+  keycode 0x14 =  minus           underscore
+
+  keycode 0x15 =  equal           plus
+
+  keycode 0x33 =  backslash       bar
+
+  keycode 0x16 =  BackSpace
+
+  keycode 0x6A =  Insert
+
+  keycode 0x61 =  Home
+
+  keycode 0x63 =  Prior
+
+  keycode 0x4D =  Num_Lock
+
+  keycode 0x70 =  KP_Divide
+
+  keycode 0x3F =  KP_Multiply
+
+  keycode 0x52 =  KP_Subtract
+
+  keycode 0x17 =  Tab
+
+  keycode 0x18 =  Q
+
+  keycode 0x19 =  W
+
+  keycode 0x1A =  e               E               eogonek
+  Eogonek
+
+  keycode 0x1B =  R
+
+  keycode 0x1C =  T
+
+  keycode 0x1D =  Y
+
+  keycode 0x1E =  U
+
+  keycode 0x1F =  I
+
+  keycode 0x20 =  o               O               oacute          Oacute
+
+  keycode 0x21 =  P
+
+  keycode 0x22 =  bracketleft     braceleft
+
+  keycode 0x23 =  bracketright    braceright
+
+  keycode 0x24 =  Return
+
+  keycode 0x6B =  Delete
+
+  keycode 0x67 =  End
+
+  keycode 0x69 =  Next
+
+  keycode 0x4F =  KP_7
+
+  keycode 0x50 =  KP_8
+
+  keycode 0x51 =  KP_9
+
+  keycode 0x56 =  KP_Add
+
+  keycode 0x42 =  Caps_Lock
+
+  keycode 0x26 =  a               A               aogonek
+  Aogonek
+
+  keycode 0x27 =  s               S               sacute          Sacute
+
+  keycode 0x28 =  D
+
+  keycode 0x29 =  F
+
+  keycode 0x2A =  G
+
+  keycode 0x2B =  H
+
+  keycode 0x2C =  J
+
+  keycode 0x2D =  K
+
+  keycode 0x2E =  l               L               lstroke
+  Lstroke
+
+  keycode 0x2F =  semicolon       colon
+
+  keycode 0x30 =  apostrophe      quotedbl
+
+  keycode 0x53 =  KP_4
+
+  keycode 0x54 =  KP_5
+
+  keycode 0x55 =  KP_6
+
+  keycode 0x32 =  Shift_L
+
+  keycode 0x34 =  z               Z               zabovedot
+  Zabovedot
+
+  keycode 0x35 =  x               X               zacute          Zacute
+
+  keycode 0x36 =  c               C               cacute          Cacute
+
+  keycode 0x37 =  V
+
+  keycode 0x38 =  B
+
+  keycode 0x39 =  n               N               nacute          Nacute
+
+  keycode 0x3A =  M
+
+  keycode 0x3B =  comma           less
+
+  keycode 0x3C =  period          greater         Multi_key
+
+  keycode 0x3D =  slash           question
+
+  keycode 0x3E =  Shift_R
+
+  keycode 0x62 =  Up
+
+  keycode 0x57 =  KP_1
+
+  keycode 0x58 =  KP_2
+
+  keycode 0x59 =  KP_3
+
+  keycode 0x6C =  KP_Enter
+
+  keycode 0x25 =  Control_L
+
+  keycode 0x40 =  Alt_L           Meta_L
+
+  keycode 0x41 =  space
+
+  keycode 0x71 =  Mode_switch
+
+  keycode 0x6D =  Control_R
+
+  keycode 0x64 =  Left
+
+  keycode 0x68 =  Down
+
+  keycode 0x66 =  Right
+
+  keycode 0x5A =  KP_0
+
+  keycode 0x5B =  KP_Decimal
+
+  ! right windows-logo key
+
+  ! in "windows" keyboards the position of the key is annoying, is where
+  AltGr
+
+  ! usually resides, so go define it as AltGr
+
+  keycode 116 = Mode_switch
+
+  ! right windows-menu key keycode 117 = Multi_key
+
+  clear Shift
+
+  clear Lock
+
+  clear Control
+
+  clear Mod1
+
+  clear Mod2
+
+  clear Mod3
+
+  clear Mod4
+
+  clear Mod5
+
+  add    Shift   = Shift_L Shift_R
+
+  add    Lock    = Caps_Lock
+
+  add    Control = Control_L Control_R
+
+  add    Mod1    = Alt_L
+
+  !Mode_switch add    Mod2    = Mode_switch
+
+
+
+  5.  Some Xmodmap tips
+
+  If you want to list the current keymap table, issue the command:
+  xmodmap -pk | more
+
+  The xkeycaps program is a sort of graphical front-end for xmodmap.
+  Start it and see which numbers mean which keycode.
+
+  To make the mouse buttons left-handed, use a command: xmodmap -e
+  "pointer = 3 2 1"
+
+  To remove the CapsLock and change it to control key, write this in
+  your Xmodmap file:
+  remove Lock = Caps_Lock keysym Caps_Lock = Control_L add Control =
+  Control_L
+
+
+

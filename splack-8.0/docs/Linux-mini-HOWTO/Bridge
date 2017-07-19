@@ -1,0 +1,272 @@
+  Bridging mini-Howto
+  Christopher Cole, cole@coledd.com
+  v1.21, March 7, 2001
+
+  This document describes how to setup an ethernet bridge.  What is an
+  ethernet bridge? An ethernet bridge is a device that controls data
+  packets within a subnet in an attempt to cut down the amount of traf­
+  fic. A bridge is usually placed between two separate groups of comput­
+  ers that talk within themselves, but not so much with the computers in
+  the other group.  A good example of this is to consider a cluster of
+  Macintoshes and a cluster of unix machines.  Both of these groups of
+  machines tend to be quite chatty amongst themselves, and the traffic
+  they produce on the network causes collisions for the other machines
+  who are trying to speak to one another.  A bridge would be placed
+  between these groups of computers.  The job of the bridge is then to
+  examine the destination of the data packets one at a time and decide
+  whether or not to pass the packets to the other side of the ethernet
+  segment.  The result is a faster, quieter network with less colli­
+  sions.
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+  1. Setup
+
+  2. Common problems
+
+
+
+  ______________________________________________________________________
+
+  1.  Setup
+
+
+  1. Get ``Bridge Config'':
+
+       <ftp://ftp.tux.org/people/alan-cox/BRCFG.tgz>
+
+
+
+  BRCFG may also be found at:
+
+
+
+       <http://coledd.com/networking/bridge/>
+
+
+
+  2. Enable multiple ethernet devices on your machine by adding this to
+     your /etc/lilo.conf, and re-run lilo:
+
+
+       append = "ether=0,0,eth1"
+
+
+
+  If you have three interfaces on your bridge, use this line instead:
+
+
+       append = "ether=0,0,eth1 ether=0,0,eth2"
+
+
+  More interfaces can be found by adding more ether statements.  By
+  default a stock Linux kernel probes for a single ethercard, and once
+  one is found the probe ceases.  The above append statement tells the
+  kernel to keep probing for more ethernet devices after the first one
+  is found.
+
+  Alternatively, the boot parameter can be used instead:
+
+
+       linux ether=0,0,eth1
+
+
+
+  Or, with 3 interfaces, use:
+
+
+       linux ether=0,0,eth1 ether=0,0,eth2
+
+
+
+  3. Recompile the kernel with BRIDGING enabled.
+
+  4. A bridge should not have an IP address.  It CAN, but a plain bridge
+     doesn't need one.  To remove the IP address from your bridge, go to
+     /etc/sysconfig/network-scripts/ (for a RedHat system) and copy
+     ifcfg-lo0 to ifcfg-eth0 & ifcfg-eth1.  In these 2 eth files, change
+     the line containing ``DEVICE=lo'' to ``DEVICE=eth0'' and
+     ``DEVICE=eth1''.  Other distributions may deviate from this, do
+     what you need to do!  If there are more than 2 interfaces to this
+     bridge, be sure to make the corresponding configurations to those,
+     as well.
+
+  5. Reboot, so you are running the new kernel with bridging in it, and
+     also to make sure that an IP addresses are not bound to the network
+     interfaces.
+
+  6. Once the system is back up, put the ethernet cards into promiscuous
+     mode, so they will look at every packet that passes by its
+     interface:
+
+
+       ifconfig eth0 promisc ; ifconfig eth1 promisc
+
+
+
+  All interfaces which are connected to network segments to be bridged
+  are to be put into promiscuous mode.
+
+  7. Turn bridging ON using the brcfg program:
+
+
+       brcfg -ena
+
+
+
+  8. Verify that there is different traffic on each interface:
+
+
+       tcpdump -i eth0      (in one window)
+       tcpdump -i eth1      (in another window)
+
+
+
+  9. Run a sniffer or tcpdump on another machine to verify the bridge is
+     separating the segment correctly.
+
+  2.  Common problems
+
+
+  1.
+
+     Question
+        I get the message
+
+
+          ioctl(SIOCGIFBR) failed: Package not installed
+
+
+
+     What does this mean?
+
+     Answer
+        You don't have bridging capability in your kernel.  Get a 2.0 or
+        greater kernel, and recompile with the BRIDGING option enabled.
+
+
+  2.
+
+     Question
+        Machines on one side cannot ping the other side!
+
+     Answer
+
+     ·  Did you enable bridging using ``brcfg -ena''?  (brcfg should say
+        ``bridging is ENABLED'')
+
+     ·  Did you put the interfaces into promiscuous mode?  (issue the
+        ``ifconfig'' command.  The ``PROMISC'' flag should be on for
+        both interfaces.)
+
+     ·  If using multiple-media interface adapters, make sure that the
+        correct one is enabled.  You may need to use the config/setup
+        program that came with the network interface card.
+
+
+  3.
+
+     Question
+        I cannot telnet/ftp from the bridge! Why?
+
+     Answer
+        This is because there is no IP address bound to any of bridge
+        interfaces.  A bridge is to be a transparent part of a network.
+
+
+
+  4.
+
+     Question
+        What do I need to set up in the way of routing?
+
+     Answer
+        Nothing!  All routing intelligence is handled by the bridging
+        code in the kernel.  To see the ethernet addresses as they are
+        learned by the bridge, use the brcfg program in debug mode:
+
+
+          brcfg -deb
+
+
+
+  5.
+
+     Question
+        The bridge appears to work, but why doesn't ``traceroute'' show
+        the bridge as a part of the path?
+
+     Answer
+        Due to the nature of a bridge, a ``traceroute'' should NOT show
+        the bridge as a part of the path. A bridge is to be a
+        transparent component of the network.
+
+
+  6.
+
+     Question
+        Is it necessary to compile IP_FORWARD into the kernel?
+
+     Answer
+        No. The bridging code in the kernel takes care of the packet
+        transport.  IP_FORWARD is for a gateway which has IP addresses
+        bound to its interfaces.
+
+
+  7.
+
+     Question
+        Why are the physical ethernet addresses for port 1 and port 2
+        the same according to the ``brcfg'' program?  Shouldn't they be
+        different?
+
+     Answer
+        No. Every port on a bridge intentionally is assigned the same
+        physical ethernet address by the bridging code.
+
+
+  8.
+
+     Question
+        Bridging does not appear to be an option when performing a make
+        config on the kernel.  How does one enable it?
+
+     Answer
+        During the kernel config, answer 'Y' to the question, ``Prompt
+        for development and/or incomplete code/drivers
+        (CONFIG_EXPERIMENTAL) [Y/n/?]''.
+
+
+
+  9.
+
+     Question
+        Too many hubs (4 or more) chained one after another (in series)
+        cause timing problems on an ethernet.  What effect does a bridge
+        have in a subnet that is layered with hubs?
+
+     Answer
+        A bridge resets the 3/4/5 hubs rule.  A bridge does not deal
+        with packets the way a hub does, and is therefore not a
+        contributor to timing problems on a network.
+
+
+  10.
+
+     Question
+        Can a bridge interface to both 10Mb and 100Mb ethernet segments?
+        Will such a configuration slow down the rest of the traffic on
+        the high speed side?
+
+     Answer
+        Yes, a bridge can tie together a 10Mb segment with a 100Mb
+        segment.  As long as the network card on the fast network is
+        100Mb capable, TCP takes care of the rest.  While it's true that
+        the packets from a host in the 100Mb network communicating to a
+        host in the 10Mb network are moving at only 10Mb/s, the rest of
+        the traffic on the fast ethernet is not slowed down.
+
+
+

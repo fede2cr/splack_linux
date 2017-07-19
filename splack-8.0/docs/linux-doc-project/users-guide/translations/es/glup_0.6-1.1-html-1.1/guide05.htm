@@ -1,0 +1,212 @@
+<HTML>
+<HEAD>
+<TITLE>guide5</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=735>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide04.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide06.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 5</P>
+</B></U></FONT><P><HR></P>
+<P>&nbsp;</P>
+<B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080">
+<P>El sistema de ventanas X</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Lo mejor de los est&aacute;ndares es que haya tantos para elegir. Andrew S. Tanenbaum</P>
+<P>Este cap&iacute;tulo s&oacute;lo es aplicable para aquellos que usen el sistema de ventanas X. Si se encuentra con una pantalla con m&uacute;ltiples ventanas, colores o un cursor que s&oacute;lo se mueve con el rat&oacute;n, est&aacute; usted usando X. (Si su pantalla contiene caracteres blancos sobre fondo negro no est&aacute; usando X. Para arrancarlo, refi&eacute;rase a la Secci&oacute;n 5.1.)</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>5.1 Ejecuci&oacute;n y salida del sistema de ventanas X</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.1.1 Ejecuci&oacute;n de X</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Incluso cuando X no arranque de forma autom&aacute;tica durante el ingreso en el sistema, es posible arrancarlo desde la l&iacute;nea de comandos del int&eacute;rprete en modo texto. Hay dos comandos que arrancan X, bien startx o bien xinit. Debe intentar startx primero. Si el int&eacute;rprete de comandos se queja de que ese comando no existe, entonces pruebe con xinit a ver si arranca X de ese modo. Si no funciona ninguno de los comandos anteriores, puede que no tenga X instalado en su sistema, refi&eacute;rase a la documentaci&oacute;n local de su distribuci&oacute;n.</P>
+<P>Si el comando se ejecuta pero regresa al int&eacute;rprete en modo texto tras un rato, X est&aacute; instalado pero no ha sido configurado todav&iacute;a. En ese caso debe consultar la documentaci&oacute;n que acompa&ntilde;aba su distribuci&oacute;n en lo referente a como configurar X.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.1.2 Saliendo de X</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Dependiendo de c&oacute;mo se haya configurado X, puede haber dos modos diferentes de salir de X. El primero es que su gestor de ventanas controle la ejecuci&oacute;n de X. En ese caso, deber&aacute; salir de X usando un men&uacute; (ver Secci&oacute;n 5.4.8 en la p&aacute;gina 41). Para ver el men&uacute;, basta apretar un bot&oacute;n del rat&oacute;n sobre el fondo.</P>
+<P>La entrada del men&uacute; que busca debe ser algo as&iacute; como "Exit Window Manager"1 o "Exit X"2. Trate de encontrar esa entrada (puede que haya m&aacute;s de un men&uacute;, intente usar diferentes botones) y el&iacute;jala.</P>
+<P>El otro m&eacute;todo utiliza una ventana xterm especial para controlar X. En este caso, seguramente existir&aacute; una ventana cuyo t&iacute;tulo sea "login"3 o "system xterm"4. Para salir de X, mueva el cursor a esa ventana y escriba "exit"5.</P>
+<P>Si X arranc&oacute; autom&aacute;ticamente tras su ingreso en el sistema, uno de estos m&eacute;todos probablemente le sacar&aacute; de &eacute;l. Basta conectarse de nuevo para regresar a &eacute;l. Si ejecut&oacute; X de forma manual, al salir volver&aacute; al interprete de comandos en modo texto. (Si quiere salir del sistema, bastar&aacute; con escribir "logout" .)</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>5.2 ¿Qu&eacute; es el sistema de ventanas X?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El Sistema de Ventanas X es un m&eacute;todo de trabajo gr&aacute;fico y distribuido, desarrollado principalmente en el Instituto Tecnol&oacute;gico de Massachusetts. Actualmente est&aacute; a cargo de un consorcio de fabricantes (debidamente llamado "El Consorcio X") y es mantenido por ellos.</P>
+<P>El Sistema de Ventanas X (que a partir de ahora abreviaremos como "X"6 tiene revisiones cada pocos a&ntilde;os, conocidas como lanzamientos. La &uacute;ltima revisi&oacute;n ha sido X11R6, o sexto lanzamiento7. </P>
+<P>El n&uacute;mero 11 indica la versi&oacute;n oficial pero no ha habido cambios en los &uacute;ltimos a&ntilde;os y tampoco hay planes para cambiarla en un futuro pr&oacute;ximo.</P>
+<P>Al ser cliente y servidores programas diferentes, es posible ejecutar cada uno en en m&aacute;quinas completamente diferentes. Adem&aacute;s de constituir un m&eacute;todo est&aacute;ndar para aplicaciones gr&aacute;ficas, es posible ejecutar un programa en una m&aacute;quina remota (¡incluso al otro lado del pa&iacute;s, si quiere!) y que los resultados aparezcan en la estaci&oacute;n de trabajo que tiene enfrente suyo.</P>
+<P>Un tercer concepto con el que debe familiarizarse es el de gestor de ventanas. El gestor de ventanas es un cliente especial que le dice al servidor en que posici&oacute;n deben colocarse las diferentes ventanas y permite al usuario moverlas. El servidor, por s&iacute; mismo, no interacciona con el usuario. Se trata de un medio que conecta el usuario y el cliente.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>5.3 ¿Qu&eacute; es esto que hay en mi pantalla?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Al arrancar X, varios programas son ejecutados. Primero, arranca el servidor. Luego, generalmente arrancan varios clientes. Desgraciadamente no hay un est&aacute;ndar com&uacute;n entre las diferentes distribuciones. Es bastante probable que entre los clientes se encuentre un gestor de ventanas, bien fvwm o twm, un int&eacute;rprete de comandos, xterm, y un reloj, xclock.</P>
+<P>_____________________________________________</P>
+<P>1 N.T.: En ingl&eacute;s, salir del gestor de ventanas</P>
+<P>2 N.T.: En ingl&eacute;s, salir de X.</P>
+<P>3 N.T.: En ingl&eacute;s, ingreso en el sistema o autenticaci&oacute;n.</P>
+<P>4 N.T.: En ingl&eacute;s, xterm del sistema o terminal X del sistema.</P>
+<P>5 N.T.: En ingl&eacute;s, salir.</P>
+<P>6 Existen varias formas de referirse al Sistema de Ventanas X. Una forma que aunque com&uacute;n es incorrecta es "X Window" o "Ventanas X".</P>
+<P>7 N.T.: La palabra inglesa es "release". Por ello los lanzamientos se diferencian a&ntilde;adiendo una R y el n&uacute;mero correspondiente.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.3.1 XClock</P>
+</U></FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>- xclock [-digital] [-analog] [-update segundos] [-hands color]</P>
+</B><P>Primero explicaremos el m&aacute;s simple: xclock funciona ex&aacute;ctamente como se puede esperar. Marca los segundos, minutos y horas en una ventana peque&ntilde;a.</P>
+<P>Ni usar los botones del rat&oacute;n, ni escribir en la ventana xclock produce efecto alguno- eso es todo lo que hace. ¿O quiz&aacute; no? En realidad hay varias opciones diferentes que permiten hacer que el programa se comporte de modos diferentes. As&iacute;, por ejemplo, "xclock -digital" crea un reloj digital. "xclock -update 1" hace que el segundero se mueva cada segundo y "xclock -update 5" hace que se mueva cada cinco segundos.</P>
+<P>Para obtener m&aacute;s informaci&oacute;n sobre las opciones de xclock puede consultar la p&aacute;gina del manual correspondiente, "man xclock". Si piensa ejecutar varias copias de xclock, probablemente deber&iacute;a consultar la Secci&oacute;n 6.4 (Multitarea) para saber como se ejecutan a la vez que sus otros programas.</P>
+<P>(Si ejecuta una copia de xclock en primer plano, que es la forma usual en la que se ejecuta un programa, y quiere salir de &eacute;l, basta teclear |_Ctrl-c_|).</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.3.2 XTerm</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La ventana que muestra el prompt del int&eacute;rprete de comandos (podr&aacute; ver algo parecido a /home/larry$) es controlada por un programa llamado xterm. xterm es un programa enga&ntilde;osamente complicado. A primera vista, no parece que haga mucho pero realmente hace much&iacute;simo trabajo. xterm emula una terminal de forma que las aplicaciones de modo texto de Unix funcionen correctamente. Tambi&eacute;n mantiene en memoria informaci&oacute;n de forma que se pueden consultar comandos usados previamente. (Para ver como hace uso de esto, refi&eacute;rase a la Secci&oacute;n 5.6.3.)</P>
+<P>Gran parte de este libro est&aacute; dedicada a aprender como usar el interprete de comandos de Unix que se encuentra dentro de la ventana xterm. Para poder escribir en la xterm, generalmente es necesario mover el cursor (que posiblemente aparece en forma de "X" o de flecha) al interior de la ventana xterm. De todos modos este comportamiento es dependiente del gestor de ventanas.</P>
+<P>Uno de los modos en los que se puede arrancar un programa bajo X es a trav&eacute;s de una xterm. Al tratarse los programas X de programas Unix est&aacute;ndar, pueden ser arrancados a trav&eacute;s de un int&eacute;rprete de comandos como el de las xterms. Para evitar bloquear la xterm ejecutando un programa largo desde ella, generalmente se prefiere arrancar los programas X en segundo plano. Para consultar este tema puede referirse a la Secci&oacute;n 6.4.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>5.4 Gestores de ventanas</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Bajo Linux, los gestores de ventanas m&aacute;s comunes son dos. El primero, llamado twm que viene de "Tab Window Manager". Es un programa mayor que el segundo, fvwm. (fvwm viene de "F(?) Virtual Window Manager", el autor nunca explic&oacute; que significaba la "f"8.). Ambos gestores de ventanas son altamente configurables lo cual impide dar instrucciones espec&iacute;ficas sobre que teclas usar para hacer algo en particular.</P>
+<P>Si le interesa saber algo sobre la configuraci&oacute;n de twm, refi&eacute;rase a la Secci&oacute;n 9.2.1. La configuraci&oacute;n de fvwm se describe en la Secci&oacute;n 9.2.2.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.1 Cuando se crean nuevas ventanas</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Hay tres tipos de cosas que un gestor de ventanas puede hacer cuando se crea una nueva ventana. Es posible configurar el gestor de ventanas de manera que aparezca la forma de la ventana, permiti&eacute;ndole colocarla en la posici&oacute;n que prefiera en la pantalla. Este modo se llama colocaci&oacute;n manual. Si ve aparecer la forma de la ventana, puede moverla con el rat&oacute;n y colocarla presionando el bot&oacute;n izquierdo.</P>
+<P>_____________________________________________</P>
+<P>8 N. del T.: En el Linux Journal N.o 43, Noviembre 1997, hay una entrevista a Robert Nation, p&aacute;gs. 46-47, y &eacute;ste dice que la "F" est&aacute; por "Feeble" (Gracias Jos&eacute; Luis Gurpegui por la aclaraci&oacute;n).</P>
+<P>A veces es posible que el gestor de ventanas las coloque por s&iacute; mismo. Se trata de la colocaci&oacute;n aleatoria.</P>
+<P>Finalmente, a veces, la aplicaci&oacute;n pregunta por el lugar preciso en el que el quiere que se sit&uacute;e. Tambi&eacute;n el gestor de ventanas puede configurarse de forma que siempre sit&uacute;e las ventanas de ciertas aplicaciones en lugares fijos. (As&iacute; por ejemplo, se puede especificar que xclock siempre aparezca en la esquina superior derecha de la pantalla.)</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.2 Foco</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El gestor de ventanas controla otras cosas importantes. Lo que probablemente le interesa m&aacute;s es el foco. El foco del servidor determina que ventana recibe los car&aacute;cteres introducidos mediante el teclado. Generalmente, en X, el foco es determinado por la posici&oacute;n del cursor del rat&oacute;n. Si mueve el cursor del rat&oacute;n dentro de una ventana xterm9, esa xterm recibe los caracteres tecleados. Se trata de un comportamiento diferente al de otros sistemas de ventanas como, Windows de Microsoft, OS/2, o Macintosh, donde debe pinchar con el rat&oacute;n en una ventana para que adquiera el foco.</P>
+<P>Generalmente bajo X, si el cursor del rat&oacute;n se sale de una ventana, se pierde el foco y le resultar&aacute; imposible escribir en ella.</P>
+<P>Debe notar, sin embargo, que es posible configurar tanto twm como fvwm de forma que para cambiar el foco necesite pinchar la ventana correspondiente, y pinchar fuera para desenfocarla, de forma que se comporten igual que Windows de Microsoft. Una de dos, trate de averiguar como funciona su gestor de ventanas probando o consulte la documentaci&oacute;n local.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.3 Moviendo ventanas</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Otro aspecto de X que es altamente configurable es el m&eacute;todo para mover ventanas. Yo tengo configurados tres m&eacute;todos para mover ventanas en twm. El m&aacute;s obvio es mover el cursor del rat&oacute;n sobre la barra del t&iacute;tulo y arrastrar la ventana. Desgraciadamente, la configuraci&oacute;n permite definir el movimiento usando cualquiera de los tres botones10 (Para arrastrar, sit&uacute;e el cursor sobre la barra del t&iacute;tulo, y mantenga presionado el bot&oacute;n del rat&oacute;n correspondiente mientras se mueve). Lo m&aacute;s probable es que su configuraci&oacute;n use el bot&oacute;n izquierdo para mover ventanas.</P>
+<P>Otra forma de mover ventanas puede ser manteniendo una tecla pulsada mientras mueve el rat&oacute;n. As&iacute;, en mi caso, si mantengo pulsada la tecla |_Alt_| y muevo el cursor sobre una ventana, puedo arrastrarla usando el bot&oacute;n izquierdo de mi rat&oacute;n.</P>
+<P>Por supuesto, para ver como funciona en su caso puede probar igual que antes o referirse a la documentaci&oacute;n local. Alternativamente, si quiere tratar de interpretar los ficheros de configuraci&oacute;n de los gestores de ventanas puede referirse a la Secci&oacute;n 9.2.1 para twm o 9.2.2 para fvwm.</P>
+<P>_____________________________________________</P>
+<P>9 ¡Puede ejecutar varias copias de xterm al mismo tiempo!</P>
+<P>10 Muchos ratones de PCs tienen dos botones &uacute;nicamente. En este caso, generalmente es posible emular el bot&oacute;n central presionando ambos botones simult&aacute;neamente.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.4 Profundidad</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Dado que las ventanas pueden solaparse en X, necesitamos el concepto de profundidad. A pesar de que tanto las ventanas como la pantalla son bidimensionales, unas ventanas pueden estar delante de otras, de forma que cubren total o parcialmente aquella situada detr&aacute;s.</P>
+<P>Existen varias operaciones que manejan la profundidad:</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Subir o poner una ventana delante. Generalmente se hace pinchando con alguno de los botones en la barra de t&iacute;tulo de la ventana en cuesti&oacute;n. El bot&oacute;n usado depende de la configuraci&oacute;n del gestor de ventanas. (Es posible que sean varios los botones que produzcan este efecto).</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Bajar o empujar una ventana hacia atr&aacute;s. Generalmente se hace pinchando igualmente en la barra de t&iacute;tulo pero usando otro bot&oacute;n. Tambi&eacute;n es posible configurar el gestor de ventanas de forma que pinchar traiga la ventana hacia delante siempre que haya algo encima de ella y la lleve hacia atr&aacute;s si no hay nada delante.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Alzar en ciclo, de forma que el gestor de ventanas va alzando las ventanas una a una, en orden.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.5 Iconizar</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Existen otras operaciones que pueden tapar ventanas o hacerlas desaparecer completamente. La primera es "iconizaci&oacute;n". Dependiendo del gestor de ventanas que use, este proceso puede realizarse de varias formas. Con twm, muchas personas configuran un gestor de iconos. Se trata de una ventana especial que contiene una lista con las dem&aacute;s ventanas en uso en la pantalla. Pinchando con el rat&oacute;n en uno de los nombres (o, dependiendo de la configuraci&oacute;n en uno de los botones) la ventana desaparece, es iconizada. La ventana est&aacute; a&uacute;n activa, pero no puede verse. Pinchando otra vez en el gestor de iconos, la ventana vuelve a aparecer en la pantalla.</P>
+<P>Se trata de algo muy &uacute;til. Se podr&iacute;a, por ejemplo tener xterm remotas en diferentes m&aacute;quinas que use ocasionalmente al mismo tiempo. Dado, sin embargo, que s&oacute;lo las usa raramente, puede mantenerlas iconizadas mientras trabaja con un peque&ntilde;o grupo. El &uacute;nico problema es que resulta f&aacute;cil "perder" alguna ventana. Generalmente eso lleva a crear nuevas ventanas que dupliquen la funcionalidad de las que est&aacute;n iconizadas.</P>
+<P>Otros gestores de ventanas crean verdaderos iconos en la parte inferior de la pantalla o simplemente en la ventana ra&iacute;z.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.6 Variando el tama&ntilde;o</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Existen diversos m&eacute;todos para variar el tama&ntilde;o de las ventanas bajo X. De nuevo, esto depende de su gestor de ventanas y de c&oacute;mo haya sido configurado. El m&eacute;todo al que est&aacute;n acostumbrados los usuarios de Windows de Microsoft consiste en pinchar en el borde de la ventana y arrastrarlo. Si las ventanas que produce su gestor tienen un borde gordo que hace que el cursor del rat&oacute;n cambie al pasar por encima de &eacute;l, seguramente tambi&eacute;n puede usar ese m&eacute;todo.</P>
+<P>Otra forma es crear un bot&oacute;n de "variaci&oacute;n de tama&ntilde;o" en la barra del t&iacute;tulo. Es el bot&oacute;n visible en la parte derecha de las barras de los t&iacute;tulos de la Figura 5.3. Para usarlo, pinche con el bot&oacute;n izquierdo del rat&oacute;n en &eacute;l y manteni&eacute;ndolo presionado, mu&eacute;valo fuera de la ventana para variar el tama&ntilde;o. Para fijar el nuevo tama&ntilde;o basta soltar el bot&oacute;n del rat&oacute;n.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.7 Maximizaci&oacute;n</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La mayor&iacute;a de los gestores de ventanas soportan maximizaci&oacute;n. En twm, por ejemplo, puede maximizar la altura de una ventana, su ancho o ambos a la vez. Aunque twm llama a este proceso "zooming" yo prefiero usar maximizaci&oacute;n. Las aplicaciones pueden responder de modo diferente a un cambio de tama&ntilde;o. (Por ejemplo, xterm no cambia el tama&ntilde;o de letra pero aumenta el espacio de trabajo.)</P>
+<P>Desgraciadamente no hay un modo est&aacute;ndar de maximizar ventanas.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.4.8 Men&uacute;s</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los gestores de ventanas tambi&eacute;n proporcionan al usuario un sistema de men&uacute;s para realizar tareas de forma r&aacute;pida una y otra vez. Por ejemplo, podr&iacute;a tener una opci&oacute;n que ejecute Emacs de forma autom&aacute;tica o una xterm adicional. De ese modo no tendr&iacute;a que ejecutar el comando dentro de una xterm, ¡esto es especialmente bueno si no hay ninguna xterm ejecut&aacute;ndose en la que pueda escribir para ejecutar un programa nuevo!</P>
+<P>De forma general, se puede acceder a los men&uacute;s pinchando en la ventana ra&iacute;z, que es una ventana inm&oacute;vil que siempre est&aacute; debajo de las dem&aacute;s. Por defecto esta ventana es de color gris, pero puede tener cualquier aspecto.11 Si quiere probar a ver un men&uacute;, pinche y mantenga cualquier bot&oacute;n del rat&oacute;n sobre la ventana ra&iacute;z. Deber&iacute;a aparecer un men&uacute;. Para seleccionar una opci&oacute;n, mantenga presionado el bot&oacute;n y mueva el rat&oacute;n hasta marcar la opci&oacute;n deseada. Entonces suelte el bot&oacute;n.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>5.5 Atributos X</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Hay muchos programas que usan X. Algunos, como emacs, puede ejecutarse tanto en modo texto como en una ventana X que &eacute;l mismo crea autom&aacute;ticamente. Pero en general, la mayor&iacute;a de los programas para X s&oacute;lo funcionan bajo X.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.5.1 Geometr&iacute;a</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Existe una serie de cosas que son comunes a todos los programas que se ejecutan bajo X. En X el concepto de geometr&iacute;a engloba el lugar y el tama&ntilde;o de la ventana. La geometr&iacute;a de una ventana tiene cuatro componentes, a saber:</P>
+<P>_____________________________________________</P>
+<P>11 Un programa divertido que puede probar se llama xfishtank. Este programa crea un peque&ntilde;o acuario en el fondo de su pantalla.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> La dimensi&oacute;n horizontal, generalmente medida en pixels. (Un pixel es la unidad m&aacute;s peque&ntilde;a que puede colorearse y representarse en la pantalla. Muchas configuraciones X en PCs basados en un procesador Intel tienen una resoluci&oacute;n de 1024 pixels horizontalmente por 768 pixels verticalmente.) Algunas aplicaciones como xterm o emacs, miden su tama&ntilde;o en caracteres. (Por ejemplo, ochenta caracteres por l&iacute;nea.)</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> La dimensi&oacute;n vertical, tambi&eacute;n medida en pixels generalmente. Al igual que antes, en algunos casos se puede medir en l&iacute;neas.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> La distancia horizontal a uno de los bordes de la pantalla. Por ejemplo, +35 significa a treinta y cinco pixels desde la izquierda. Sin embargo, -50 significa que el extremo derecho de la ventana est&aacute; a cincuenta pixels del borde derecho de la pantalla. Generalmente no es posible lanzar una ventana fuera de la pantalla, aunque si se puede mover fuera. (La principal excepci&oacute;n es cuando la ventana es demasiado grande.)</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> La distancia vertical desde la parte superior o inferior de la pantalla; la distancia se mide desde la parte superior si es positiva o desde la inferior si es negativa.</P>
+<P>&nbsp;</P>
+<P>Los cuatro componentes se unen formando la cadena de geometr&iacute;a: 503x73-78+0. (Esto marca la geometr&iacute;a de una ventana de 503 pixels de largo, 73 pixels de alto, situada cerca de la esquina superior derecha de la pantalla.) O de otro modo, tendremos tama&ntilde;oh x tama&ntilde;ov -situaci&oacute;nh + situaci&oacute;nv.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.5.2 Presentaci&oacute;n</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Toda aplicaci&oacute;n X tiene asociada una presentaci&oacute;n. &Eacute;sta determina cu&aacute;l es la pantalla controlada por el servidor X. La presentaci&oacute;n est&aacute; formada por tres elementos:</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> El nombre de la m&aacute;quina en la que se ejecuta el servidor. En el caso de sistemas Linux aislados, el nombre de la m&aacute;quina que ejecuta el servidor coincide con la que ejecuta los clientes. En ese caso se puede omitir el nombre por completo.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> El n&uacute;mero del servidor de dicha m&aacute;quina que debe responder a las peticiones de los clientes. Dado que una m&aacute;quina puede estar corriendo diferentes servidores a la vez (es algo improbable pero posible en m&aacute;quinas Linux) cada uno tiene que tener un n&uacute;mero propio.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> El n&uacute;mero del monitor. X permite que un servidor controle m&aacute;s de un monitor a la vez. Por ejemplo, puede que alguien quiera tener m&aacute;s espacio, de forma que use dos monitores a la vez. Para evitar que el rendimiento de la m&aacute;quina sea muy malo, en vez de tener dos servidores, hacen que sea el mismo servidor el que controle las dos m&aacute;quinas.</P>
+<P>&nbsp;</P>
+<P>Si ponemos estas tres cosas juntas obtendremos: m&aacute;quina:n&uacute;mero-de-servidor.n&uacute;mero-de-pantalla. Por ejemplo, en mousehouse, todas mis aplicaciones tienen la presentaci&oacute;n fijada en :0.0, lo que significa que la salida aparece en la primera pantalla del primer servidor local. Sin embargo si uso una computadora remota, tendr&iacute;a que ser mousehouse:0.0.</P>
+<P>&nbsp;</P>
+<P>Figura 5.1 Opciones Est&aacute;ndar para Programas X</P></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=656>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<P><FONT FACE="Courier New" SIZE=2 COLOR="#000000">Nombre</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Seguido de</FONT></TD>
+<TD WIDTH="36%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Ejemplo</FONT></TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>-geometry</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Geometr&iacute;a de la ventana</FONT></TD>
+<TD WIDTH="36%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>xterm -geometry 80x24+0+90</FONT></TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>-display</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>A d&oacute;nde quiere que el programa env&iacute;e la salida</FONT></TD>
+<TD WIDTH="36%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>xterm -display lionsden:0.0</FONT></TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>-fg</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Color primario en primer plano</FONT></TD>
+<TD WIDTH="36%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>xterm -fg yellow</FONT></TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>-bg</FONT></TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Color primario en el segundo plano</FONT></TD>
+<TD WIDTH="36%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>xterm -bg blue</FONT></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>Por defecto, la presentaci&oacute;n se toma de una variable de entorno (ver Secci&oacute;n 9.1.4) llamada DISPLAY12, pero puede ser fijada mediante una opci&oacute;n desde el int&eacute;rprete de comandos (ver Figura 5.2). Para ver cu&aacute;l es el valor de la variable DISPLAY, basta ejecutar "echo $DISPLAY".</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>5.6 Caracter&iacute;sticas comunes</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>A pesar de que X es una interfaz gr&aacute;fica de usuario, se trata de una interfaz muy desequilibrada.</P>
+<P>Resulta imposible predecir como va a comportarse cualquier elemento del sistema porque se pueden reconfigurar, cambiar o incluso sustituir muy f&aacute;cilmente. Eso significa que es muy dif&iacute;cil explicar como se han de usar los distintos elementos de la interfaz. Una de las razones que ya conocemos es la posibilidad de utilizar diferentes gestores de ventanas que a su vez son altamente configurables.</P>
+<P>Otra explicaci&oacute;n para el desequilibrio de la interfaz es que las aplicaciones X se pueden construir mediante "conjuntos de chismes13". La distribuci&oacute;n X est&aacute;ndar incluye los "widgets Athena" desarrollados en el MIT. Las aplicaciones gratuitas suelen hacer uso de este conjunto. Tienen la desventaja de que su aspecto no es particularmente atrayente y resultan algo m&aacute;s dif&iacute;ciles de usar en un programa que los otros.</P>
+<P>Otro conjunto de widget popular es "Motif". Motif es un conjunto no gratuito similar a la interfaz de usuario usada por Windows de Microsoft. Muchas aplicaciones comerciales as&iacute; como algunas gratuitas usan el conjunto de widget Motif. El popular Browser de World Wide Web netscape, por ejemplo, usa Motif.</P>
+<P>Veamos cuales son algunas de las cosas m&aacute;s habituales que puede encontrar.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.6.1 Botones</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los botones son generalmente los componentes de la interfaz m&aacute;s f&aacute;ciles de usar. Un bot&oacute;n se invoca situando el cursor del rat&oacute;n sobre el bot&oacute;n en cuesti&oacute;n y pinchando (pulsando y soltando inmediatamente) el bot&oacute;n izquierdo. Los botones Athena y Motif son funcionalmente equivalentes pero tienen diferencias de apariencia.</P>
+<P>_____________________________________________</P>
+<P>12 N.T. DISPLAY significa presentaci&oacute;n en ingl&eacute;s.</P>
+<P>13 N.T. Se trata de la traducci&oacute;n de la palabra inglesa widget.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.6.2 Barras de men&uacute;</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Una barra de men&uacute; es una colecci&oacute;n de comandos accesibles mediante el rat&oacute;n. Cada palabra es la cabecera de una categor&iacute;a. File14 contiene comandos que permiten cargar o grabar ficheros. Por convenci&oacute;n, esta categor&iacute;a incluye tambi&eacute;n el comando que termina la aplicaci&oacute;n.</P>
+<P>Para utilizar un comando, mueva el cursor del rat&oacute;n sobre la categor&iacute;a correspondiente (como por ejemplo File) y apriete el bot&oacute;n izquierdo. Sin soltarlo, arrastre el rat&oacute;n hacia abajo para ver los diferentes comandos de esa categor&iacute;a. Para seleccionar uno, mueva el cursor sobre el mismo y suelte el bot&oacute;n del rat&oacute;n. Algunas barras de men&uacute; le permiten pinchar sobre la categor&iacute;a, si este es su caso, pinche sobre la categor&iacute;a para ver el men&uacute; que se mantendr&aacute; hasta que pinche de nuevo para seleccionar un comando, otro men&uacute;, o pinche fuera (indicando que no est&aacute; interesado en ning&uacute;n comando en particular).</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>5.6.3 Barras de desplazamiento</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Una barra de desplazamiento es un m&eacute;todo que permite ver s&oacute;lo una parte de un documento, mientras que mantiene el resto fuera de la pantalla. Por ejemplo, en la Figura 5.4, la ventana de xterm s&oacute;lo presenta el tercio inferior del texto disponible. Es muy f&aacute;cil ver cual parte del texto es el que se puede ver en cualquier momento: la franja oscura de la barra est&aacute; situada y tiene una longitud relativa a la porci&oacute;n de texto que se puede ver. Cuando no hay m&aacute;s que lo que se puede ver, toda la barra aparece de color oscuro. Si se trata de la mitad, ser&aacute; la mitad la que aparezca oscurecida.</P>
+<P>Puede tener una barra de desplazamiento vertical a la derecha o la izquierda de su texto y una horizontal en la parte superior o inferior, dependiendo de la aplicaci&oacute;n de que se trate.</P>
+<P>&nbsp;</P>
+<P>Barras de desplazamiento Athena</P>
+<P>Las barras de desplazamiento Athena funcionan de forma diferente a las de otros sistemas de ventanas. Cada uno de los tres botones del rat&oacute;n tiene una funci&oacute;n diferente. Para desplazarse hacia arriba (es decir, para que ver el material situado por encima de lo que se puede ver en ese momento) puede pinchar en cualquier lugar de la barra con el bot&oacute;n derecho. Para desplazarse hacia abajo, puede usar el bot&oacute;n izquierdo de forma an&aacute;loga.</P>
+<P>Tambi&eacute;n puede saltar a cualquier lugar en particular usando el bot&oacute;n central del rat&oacute;n y pinchando en el lugar de la barra que corresponde a la posici&oacute;n del texto que le interesa. Esto hace a la ventana presentar el material situado en ese punto del documento.</P>
+<P>_____________________________________________</P>
+<P>14 N.T. Del ingl&eacute;s fichero o archivo.</P>
+<P>&nbsp;</P>
+<P>Barras de desplazamiento Motif</P>
+<P>Una barra Motif act&uacute;a de un modo m&aacute;s parecido al acostumbrado en Windows de Microsoft o en un Macintosh. La parte derecha de la Figura 5.4 muestra un ejemplo. Debe notar que adem&aacute;s de la barra en s&iacute; misma, hay unas flechas tanto en la parte superior como en la inferior. Estas flechas se pueden usar para ajuste fino de la pantalla: pinchando tanto el bot&oacute;n izquierdo como el central mueve la ventana ligeramente (por ejemplo una l&iacute;nea); el bot&oacute;n derecho no hace nada.</P>
+<P>El comportamiento asociado a pinchar en la barra de desplazamiento es completamente diferente en las barras Motif del que exhiben las barras Athena. El bot&oacute;n derecho no tiene efecto. Asociado al bot&oacute;n izquierdo, la ventana se mover&aacute; hacia arriba si pincha sobre la posici&oacute;n actual o hacia abajo en el caso contrario. Si pincha sobre la barra en el lugar actual y la arrastra podr&aacute; moverse a cualquier posici&oacute;n a voluntad. Al soltar el bot&oacute;n se fija cual es la posici&oacute;n final de la ventana.</P>
+<P>Pinchando el bot&oacute;n central en cualquier lugar de la barra hace que la ventana se desplace hacia ese lugar de forma inmediata igual que ocurre en barras Athena. Sin embargo el punto elegido se convierte en el centro de la nueva pantalla de datos.</P></FONT></BODY>
+</HTML>

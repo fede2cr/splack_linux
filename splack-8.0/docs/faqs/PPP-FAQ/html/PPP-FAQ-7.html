@@ -1,0 +1,440 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Problems running pppd</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-6.html">Previous</A>
+<A HREF="PPP-FAQ-8.html">Next</A>
+<A HREF="PPP-FAQ.html#toc7">Table of Contents</A>
+<HR>
+<H2><A NAME="s7">7. Problems running pppd</A></H2>
+
+
+
+<H2><A NAME="ss7.1">7.1 pppd says that version 0.0.0 is out of date</A></H2>
+
+<P>There are several reasons which will generate this message.
+<UL>
+<LI>You are attempting to run the 2.1 version of pppd with the 2.2
+kernel drivers.<P> This may occur if you are using the 2.x series
+kernels and did not see the notice in the Changes file that you need
+the 2.2.0 version of pppd.</P>
+<P>It may also occur if you are using a script which has a fixed location
+for the pppd process. The 2.1 version of pppd was stored in the
+default location of /usr/lib/ppp/pppd. The 2.2 version moved to the
+more \standard\ location of /usr/sbin/pppd. If you have a
+script which is using the /usr/lib/pppd then it is probable that you
+are actually using the wrong version of pppd.</P>
+<P>This may also require that you re-compile front end programs such as
+dip or diald. These programs have the location of pppd embedded within
+them.</P>
+</LI>
+<LI>You are attempting to run the pppd process from an account other
+than the root user and the process is not secured setuid to root.
+<P>What happens is that the pppd process attempts to issue a request to
+find the version of the driver in the kernel. This request is only
+acceptable if the calling process is the root account. Since you are
+not running as the root user and have not secured the program to be
+setuid to root, then the request fails. Since the request to fetch the
+driver version fails, the default value is 0.0.0. This is the wrong
+version and the message is generated.</P>
+<P>Additional information is in the next question.</P>
+</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.2">7.2 pppd says that that the kernel is not configured for PPP. I know that I enabled the option and built the kernel.</A></H2>
+
+<P>Make sure that you did rebuild the kernel and that
+you are running it.</P>
+<P>Make sure that you don't have an old copy of pppd on your disk and you
+are running that version. The previous version of pppd was stored on
+/usr/lib/ppp. Many people objected to this location. The 2.2 code has
+moved the <EM>pppd</EM>, <EM>chat</EM>, and <EM>pppstats</EM> to the
+/usr/sbin directory. If your scripts still reference
+<B>/usr/lib/ppp</B> then you will probably run the old code.</P>
+
+
+<H2><A NAME="ss7.3">7.3 pppd wont run unless you are root</A></H2>
+
+<P>The pppd process needs to make changes to the networking
+system and this can only be done if you are the root user. If
+you wish to run <EM>pppd</EM> from other than
+the root user then the pppd program needs to be secured \suid
+to root\.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+chown root /usr/sbin/pppd
+chmod 4755 /usr/sbin/pppd
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>If you wish to control the pppd access to a select
+group of people, then make the <EM>pppd</EM>
+process owned by the group and do not permit all others to run
+the program.</P>
+
+
+<H2><A NAME="ss7.4">7.4 unable to create pid file: no such file or directory</A></H2>
+
+<P>You need to create the directory <EM>/var/run</EM>.
+On earlier Slackware distributions, this was a symbolic link to
+the <EM>/etc</EM> directory.</P>
+<P>This is a warning. The PPP software will work normally
+in spite of this message. However, the <EM>ppp-off</EM>
+script depends upon this file. It is a good idea to create the
+directory or make the link to the appropriate location.</P>
+<P>The posix header, <EM>paths.h</EM>,
+defines the location for the pid file under the name \<EM>_VAR_RUN</EM>\.
+If you wish to use a different directory for PPP and others, change
+the value for this define and rebuild the software.</P>
+
+
+<H2><A NAME="ss7.5">7.5 /etc/ppp/options: no such file or directory</A></H2>
+
+<P>You must create the directory <EM>/etc/ppp</EM>
+and have a file called \<EM>options</EM>\
+in that directory. It needs to be readable by the <EM>pppd</EM>
+process (root).</P>
+<P>The file may be empty. To make an empty file use
+the \<EM>touch</EM>\ command.</P>
+<P>See the <EM>pppd</EM> man page, <EM>pppd.8</EM>, for a description of
+this file.</P>
+
+
+<H2><A NAME="ss7.6">7.6 Could not determine local IP address</A></H2>
+
+<P>This happens with many configurations of the Telebit
+Netblazer. The problem is not the terminal server, but the site
+which has not configured the terminal server with a set of IP
+addresses.</P>
+<P>The Netblazer does not have your IP address. You
+do not have your IP address. The link will not work unless both
+IP addresses are known.
+<UL>
+<LI>The Netblazer does not have your IP address and you do not
+have your IP address.</LI>
+<LI>The Netblazer does know its IP address and you do not have
+its IP address.</LI>
+</UL>
+</P>
+<P>The link will not work unless both IP addresses are known.</P>
+<P>You must tell the Netblazer the IP addresses to be
+used. Use the local IP address and the remote IP address as a
+parameter to the pppd process.</P>
+<P>Use the pppd option format of:</P>
+<P>
+<PRE>
+local_ip:remote_ip
+</PRE>
+</P>
+<P>(That is the local IP address, a colon, and the remote IP address.)</P>
+
+
+<H2><A NAME="ss7.7">7.7 Could not determine remote IP address</A></H2>
+
+<P>See the previous answer.</P>
+
+
+<H2><A NAME="ss7.8">7.8 I keep getting the message to the effect that the magic number is always NAKed. The system will not connect.</A></H2>
+
+<P>There is a one in over four billion chance that the
+two systems have chosen the same magic number. If you get a continual
+failure about the magic number, the chances that this is a fluke
+will geometrically reduce.</P>
+<P>The two most common reasons for this failure are:
+<UL>
+<LI>The remote PPP software is not running when you think it is. Is
+the remote system configured to run PPP? Did you use the proper
+account? Did you use the proper password for this account? If you are
+using a scripting tool such as chat, then did you miss a prompt and
+are really talking to the logon process and not the PPP code? Is the
+PPP process in the expected location? Is the privileges suitable so
+that you may run it?
+<P>This would indicate that the shell is doing the local echo of
+the data. This is the more common reason.</P>
+</LI>
+<LI>The modem has disconnected immediately upon making the connection
+and logging you on to the remote. Most modems are configured to
+echo the data sent to them and you are seeing the local echo from
+the modem.</LI>
+</UL>
+</P>
+<P>In either case, the Linux system is sending data to the remote which
+is being fed immediately back into the serial receiver. This is not an
+acceptable condition. You have what is called a
+\<EM>loop</EM>\.</P>
+
+
+<H2><A NAME="ss7.9">7.9 protocol reject for protocol fffb</A></H2>
+
+<P>This usually occurs when you are trying to connect
+to a Xyplex terminal server. Version 5.1 of the Xyplex terminal
+server software, according to Xyplex, has numerous problems with
+PPP. It is strongly recommended that you update the Xyplex software
+to at least version 5.3.</P>
+<P>If you must use Xyplex version 5.1, then use the pppd option
+\<EM>vj-max-slots 3</EM>\ to limit the number of slots to
+three. The problem on the Xyplex server is that it will accept the
+request for the default 16 slots, but fail to operate beyond the third
+slot. It should have return a NAK frame with the limit, but it does
+not.</P>
+<P>Alternately, you can disable the Van Jacobson header compression with
+the option \<EM>-vj</EM>\.</P>
+
+
+<H2><A NAME="ss7.10">7.10 The PPP software connects, sends quite a few frames, but still does not seem to connect. Why is that?</A></H2>
+
+<P>Linux does not support RPI modems. If your modem is RPI then you will
+have to find a different modem. This is not likely to change in the
+future given the statements made by Rockwell\s management.</P>
+<P>Examine the system log when you use the \<EM>debug</EM>\
+option. (You will need the system log data anyway if you are going to
+ask for help.) If the trace shows that it is sending the
+<EM>LCP</EM>-request frame over and over again and the id number is
+not incrementing then you are not exchanging frames with the remote
+PPP software.</P>
+<P>The common reasons for this for this are:
+<UL>
+<LI>You don't have the PPP software running on the other end.
+You are sending the PPP frames to some other program which is
+probably saying \What is this #$%percent;^ ?\</LI>
+<LI>Please make sure that you have the PPP software started on
+the other end before you enter the PPP protocol sequence. Try
+to use a normal modem program and go through the logon sequence
+that you would normally do. Do you see the PPP frames being sent
+to you?
+<P>The PPP frames are fairly distinctive. They will be about 40 characters
+in length and contain several <EM>{</EM> characters. They should
+not have a carriage return character after them and are sent out
+in a burst with a pause between the bursts.</P>
+</LI>
+<LI>The line is not \eight bit clean\. This means that
+you need to have eight data bits, no parity, and one stop bit.
+The PPP link absolutely requires eight data bits.
+<P>The pppd software will automatically put the line into eight data
+bits, no parity, and one stop bit. The remote must match this
+configuration or framing and parity errors may occur.</P>
+<P>PPP will escape characters. It is not possible for it to escape
+bits as kermit does. PPP will <EM>not</EM> work with a seven bit
+communications link.</P>
+</LI>
+<LI>The remote is configured to require authentication such as
+<EM>PAP</EM> or <EM>CHAP</EM>. You have not configured the local
+system to use this feature. Therefore, the remote is discarding
+all of your frames until it sees a valid authentication frame
+from you. Since you are not configured to generate the frames,
+the <EM>IPCP</EM> frames which you send are being ignored.
+<P>In this case, either configure the remote to not expect authentication
+or configure the local system to do authentication and supply
+the proper secrets.</P>
+<P>Examine the receipt of the LCP configure frame. If it shows an
+\auth\ type, then the remote is configured for authentication.</P>
+</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.11">7.11 The /etc/ppp/ip-up scripts won't work.</A></H2>
+
+<P>The pppd process launches the program at the location
+/etc/ppp/ip-up when the IP layer goes up. It gives it parameters
+which define the line status. Such things include the device name,
+communications speed, and IP addresses.</P>
+<P>However, what may not be clear is that it treats
+this file as a <EM>program</EM>. It is not
+a script. The program is started by using the exec() function
+of Linux.</P>
+<P>What this means is that if you wish to use a script
+for these programs, then you must do two things.
+<UL>
+<LI>You need to have the file marked as executable with chmod.
+The proper mode for the file should be mode 100. Mode 500 is acceptable
+if you wish to read the file and mode 700 is acceptable if you
+wish to write to the file. The file should be owned by the root
+user.</LI>
+<LI>The file must have as the first line the sequence:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#!/bin/sh
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>The # character must be in the first character position
+of the very first line of the file. The interpreter program, /bin/sh
+in this case, may be any program which is expected to run the
+script. Most people will use the Bourne shell for this purpose.
+It is commonly stored in the location /bin/sh. Other commonly
+used interpreters are perl and csh. What is important is that
+the first two characters of the file be the # and ! characters
+respectively.</P>
+</LI>
+</UL>
+</P>
+
+
+
+<H2><A NAME="ss7.12">7.12 I can't execute /etc/ppp/ip-up: Exec format error</A></H2>
+
+<P>Please refer to the answer to the previous question.</P>
+
+
+<H2><A NAME="ss7.13">7.13 How do I use PPP with a system which uses dynamic IP assignments? It assigns a different IP address to me with each call.</A></H2>
+
+<P>The assignment of the local IP address is a function
+of the options given to pppd and the IPCP protocol. You should
+use the \magic\ IP address of 0.0.0.0 if you must specify the
+local IP address. Most people simply leave the local IP address
+out of the option list.</P>
+<P>The other option which is closely tied to this is
+called \noipdefault\. The noipdefault option instructs the pppd
+process to not attempt to guess the local IP address from your
+hostname and the IP addresses in the /etc/hosts file. Most people
+use this option when the IP address is dynamically assigned. However,
+this option does not mean \use dynamic IP addresses\. The use
+of dynamic IP addresses is automatic when the local IP address
+is not given.</P>
+
+
+<H2><A NAME="ss7.14">7.14 How do I know what IP address was given to me when it is dynamically assigned?</A></H2>
+
+<P>Use the /etc/ppp/ip-up hook. The local IP address
+is the fourth parameter. This will be executed when pppd knows
+the IP address for the local system. The fifth parameter is the
+remote IP address if you should wish to know this value as well.</P>
+<P>If you are curious about the value assigned then
+you may use the <EM>ifconfig</EM> program
+to display the current settings. It will show you the current
+values for both the local IP address and the IP address assigned
+to the remote under the P-t-P heading.</P>
+
+
+<H2><A NAME="ss7.15">7.15 I just upgraded my system and now pppd reports that the option -v is not supported. Why?</A></H2>
+
+<P>Did you just upgrade to Linux \96 from Walnut Creek CDROM? It
+is also known as the Slackware 3.1 package. The problem is that the pppd
+executable in the /usr/sbin directory was renamed in that distribution
+and a script was installed in its place. This script was to find
+the version of the operating system and then either run the 2.2
+or 2.1 version of pppd.</P>
+<P>Unfortunately, the script does not work properly with the pppd
+process when you use the connect option.</P>
+<P>So, to correct the problem, remove the script and replace it with
+the proper pppd executable.</P>
+
+
+<H2><A NAME="ss7.16">7.16 The pppd process reports that it won't replace the existing default route. How do I get it to use the default route?</A></H2>
+
+<P>This is another Slackware \enhancement\. The Slackware package
+added a default route to the ethernet controller during the startup
+sequence in the /etc/rc.init1 script. This statement is:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+/usr/bin/route add default dev eth0
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>The problem is that the statement has absolutely no functionality
+with the proper routing. A default route is designed to be sent
+to a router, not just dumped on the ethernet controller.</P>
+<P>The pppd process is configured to not replace a default route
+if a default route is currently used before it starts. It does
+this for security reasons. Since Slackware uses the default route
+incorrectly, the pppd process is unable to install a new default
+route.</P>
+<P>To correct the problem you need to replace the default route statement
+in the /etc/rc.init1 script with a proper network route. See the
+Net-2-HOWTO for the instructions on what should be used.</P>
+
+
+<H2><A NAME="ss7.17">7.17 When I run pppd it says that support is not in the kernel.</A></H2>
+
+<P>There are a few reasons for this to be generated.
+<UL>
+<LI>You are running the pppd process from an account other than
+the root account and the pppd process is not secured as being
+setuid to root. To correct for this, issue the command \chmod
+4555 /usr/sbin/pppd\ while you are signed on as the root
+user.</LI>
+<LI>You are using modules and have not loaded the ppp.o module.
+This may require that you first load the slhc.o module to provide
+for the VJ header compression logic.</LI>
+<LI>You are not running the proper pppd process. If you are using
+the 2.x series kernels then you must use at least the 2.2.0 version
+of the pppd process. The 2.1 version is not supported with the
+2.x series kernels.</LI>
+<LI>Likewise, if you are running the 1.2.13 kernel and have built
+the 2.1 version of the drivers into the kernel then you must run
+the 2.1.2d version of pppd.</LI>
+<LI>The pppd process as moved from /usr/lib/ppp/pppd used in the
+2.1 version of the pppd process, to the \new\ home of /usr/sbin/pppd.
+It is expected that all future versions of pppd will be stored
+in this location. The change was in response to the FSSTND document
+for Linux. This change may require that you rebuild the dip or
+diald programs to reflect the new location of pppd.</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.18">7.18 How do I use PPP and a local network at the same time?</A></H2>
+
+<P>Break the problem into two parts. The first part
+is to get the ethernet network working properly. See the question
+about the default route concerning a problem with the Slackware
+\96 package.</P>
+<P>Once you have the ethernet network working, then
+get the PPP link between the one system running pppd and the internet
+provider working. Do not concern yourself with the local network
+at this time. Just get the PPP link working.</P>
+<P>Then, once you have the two pieces working, you can
+get the two of them working together. Use either a firewall system
+on the computer with the PPP link or use the IP masquerading software.</P>
+<P>For more instructions on the firewall code, see the Firewall-HOWTO.</P>
+<P>For more instructions on the masquerading code, see the Net-2-HOWTO.</P>
+
+
+<H2><A NAME="ss7.19">7.19 Can I use the same local IP address for each line of a PPP server?</A></H2>
+
+<P>Yes, you may use the same IP address for all of the
+local addresses on each of your PPP devices. You may even use
+the same IP address as one of your ethernet or token ring controllers.</P>
+<P>However, you must use a unique IP address for each
+of your remote IP addresses.</P>
+<P>The routing for a point-to-point link is to the remote
+IP address, not to the local IP address.</P>
+
+
+<H2><A NAME="ss7.20">7.20 How do I find my local IP address??</A></H2>
+
+<P>The local IP address is one of the parameters given
+to the /etc/ppp/ip-up program. It is the 4th (counting
+from the first) argument. The easiest method is to simply save
+the value at the time that the ip-up program is executed.</P>
+<P>If you don't wish to do this then you can use the
+ifconfig program to display the parameters for the specific PPP
+device. One of the values is the IP address.</P>
+<P>If you don't wish to do this then you can obtain
+the information from the system log. This is the least desirable
+method as parsing the standard log file is much more complicated
+than parsing the output from ifconfig.</P>
+<P>The easiest solution is to simply store the value
+during the ip-up program in some specific file which you may access
+at a later date.</P>
+
+
+<H2><A NAME="ss7.21">7.21 I can't connect to the merit network.</A></H2>
+
+<P>Some users of the merit network have indicated that
+it needs PAP. Did you try PAP authentication?</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-6.html">Previous</A>
+<A HREF="PPP-FAQ-8.html">Next</A>
+<A HREF="PPP-FAQ.html#toc7">Table of Contents</A>
+</BODY>
+</HTML>

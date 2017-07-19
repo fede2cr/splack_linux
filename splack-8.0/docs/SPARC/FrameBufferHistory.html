@@ -1,0 +1,414 @@
+<TITLE>Frame Buffer History Lesson. For Internal Use Only</TITLE>
+<H2><a href="index.html">
+<IMG ALIGN=bottom SRC="images/FAQ.gif"></a>
+Frame Buffer History Lesson
+<a href="index.html">
+<IMG ALIGN=bottom SRC="images/FAQ.gif"></a></H2>
+<H5>Last Updated: 24th November 1998</H5>
+
+This document was created by
+<CITE> David Tong.</CITE><P>
+
+It's amazing what people keep. Bob Mitton forwarded me this 
+collection of frame buffer history files from the late 1980s.
+It's more for curiosity than actual useful value,
+but if you ever need to know your <CITE>TAAC</CITE>
+from your <CITE>Flamingo</CITE>, then here you go.<P>
+
+If you hang around the multimedia ambassador alias for long enough,
+periodically it will turn into a version of Monty Python's "Four Yorkshiremen"
+sketch. <CITE>"Eee, when I were a lad we 'ad none o' that fancy
+double buffering. Twenty four bits? We were 'appy wi' one!"</CITE><P>
+This is an insight into those halcyon days, when frame buffers
+were the size of motherboards, cursors could be as big as you like,
+and the Sparc chip was only used for graphics processing.<P>
+
+Updated in 1998 with input from another former Sun graphics veteran
+and colleague - Craig Alsop. I know it's a mess and needs a rewrite.
+I'd be happy to let someone else to do it.<P>
+
+<H2>The Frame Buffer Museum</H2>
+
+This is a brief rundown of what was what in those days.
+The 'X' following the device name is a digit,
+or a digit followed by a letter.<P>
+
+<STRONG>cg1/bw1: device name : "/dev/cgoneX" "/dev/bwoneX"</STRONG><BR>
+The color and monochrome framebuffer of sun100u. 
+It is not a crime not knowing anything about these.
+<CITE>(and this was 7 years ago!)</CITE><P>
+
+<STRONG>bw2: device name : "/dev/bwtwoX"</STRONG><BR>
+The standard monochrome framebuffer for almost
+every workstations. Most likely on the cpu board.<P>
+
+(bwtwo0)128K; 66hz 3/50, 3/60 .. common mono fb
+The obmem entry in the kernel config file distinguishes
+bwtwo on different machines. This is generally true
+for all framebuffers. <P>
+
+(bwtwo1) overlay plane on P4 fb's<P>
+
+<STRONG>gp: device name: "/dev/gponeX"</STRONG><BR>
+The famous graphics processor using the GPSI software interface.
+Use GB to do z-buffering. A VME-16 device.<P>
+
+<STRONG>gp+: device name: "/dev/gponeX"</STRONG><BR>
+A gp with a bigger microstore.<P>
+
+<STRONG>gp2: device name: "/dev/gponeX"</STRONG><BR>
+A better version of GP+ with GB on the same board.<P>
+
+<STRONG>cg2: device name: "/dev/cgtwoX"</STRONG><BR>
+The 8-bit color board with hardware ropping. Another VME device.<P>
+
+The CG2 was was introduced in April 1985.  It has rasterop
+capabilities.  It was the main color frame buffer used in
+Sun-2/160's.  A CG2 has 4 BNC connectors on the back of the
+board. The CG2 has hardware capable of doing full screen pan
+and zoom. However, this hardware needs consulting special software.<P>
+
+CG2 supports 16bit access only so its not supported on Sun4.<P>
+
+<STRONG>cg3: 501-1116 Sun3/4 VME. Primarily Sun3. device name: "/dev/cgtwoX"</STRONG><BR>
+Introduced April 1986. The CG3 is sometimes
+referred to as the "Sun-3 color frame buffer board".<P>
+
+The CG3 behaves like the CG2, but has a couple of extras. 
+E.g. the CG3 be populated with an extra frame buffer to make it
+double-buffered. Double buffering is fully supported in
+pixrects and SunView 1 in releases 3.5 and 4.0. Double
+buffered CG3s are software compatible with double buffered CG5s.<P>
+
+The CG3 is much faster than the CG2 because it uses video RAMs.
+The performance difference is > 50% for some common operations.<P>
+
+Almost all of the CG3 boards have 5 BNC connectors, though some
+of the early ones have only four.<P>
+
+Only have one CG2 or CG3 is supported in a system at one time.
+To put more than one in a system needs a hardware special to
+cut traces on the board.<P>
+
+<STRONG>cg3 (ECD): device name: "/dev/cgthreeX"</STRONG><BR>
+The cgthree is the name of the Roadrunner frame buffer.
+This is a simple 8 bit indexed colour frame buffer.
+The cgthree ONLY occurs on the Roadrunner.  It isn't
+compatible with any other machine, and must use the
+"cgthree" device driver.<P>
+
+<CODE>device      cgthree0 at obmem ? csr 0xA0400000  # 386i</CODE><P>
+
+<STRONG>cg4: device name: "/dev/cgfour0"</STRONG><BR>
+<CITE>Project name: Prism</CITE>
+The dumb 8-bit color frame buffer with overlay and enable planes.
+Found in 3/110C, 3/60C, 4/110C and 4/150C. This is the first
+one using the "P4" bus.<P>
+
+The 10-bit deep frame buffer found on the CPU board of
+the Sun-3/110, and as an option to the Sun-3/60 and Sun-4/110.
+The 10 bits on the frame buffer are:  8-bits color frame
+buffer, 1 bit monochrome frame buffer and 1 bit enable plane,
+which determines which bits of the colour and mono planes are
+displayed.<P>
+
+For a Sun-4/110, Sun-3/60 and other machines with a P4 connector
+the CG4 frame buffer is a daughter-board.
+Note that no GP can be added to the CG4.
+There is no rasterop hardware on the CG4 frame buffer.
+The CG4 will "probably" be on all desktop P4 type products.
+The device driver for the CG4 is called "cgfour".<P>
+
+<CODE>device          cgfour0 at obmem 4 csr 0xff000000 priority 4</CODE><BR>
+Color frame buffer built into the 3/110 cpu board<P>
+
+<CODE>device          cgfour0 at obmem 7 csr 0xff300000 priority 4</CODE><BR>
+This is the P4 bus color frame buffer for the 3/60 and 4/110<P>
+
+<CODE>device          cgfour0 at obmem 7 csr 0xff400000 priority 4</CODE><BR>
+The color frame buffer normally found on the 3/60<P>
+
+<STRONG>cg5: device name: "/dev/cgtwoX"</STRONG><BR>
+The 8-bit color board with hardware ropping and double buffering
+option. Design to work with GP2 thru the P2 connector of the VME
+bus. Binary compatible with cg3 and cg2.<P>
+
+Has been shipping since March 14 88. (Only CG5 and
+CG9 work with GP2). The CG5 is also compatible with the GP/GP+.
+It can be put in slots 7-12 without the GP2, or in slots 10-12
+if it is being used with the GP2 (needs P2 bus)
+It has h/w double buffering on-board.
+It uses the "cgtwo" device driver.<P>
+
+<STRONG>cg5 (ECD): device name: "/dev/cgfiveX"</STRONG><BR>
+<CITE>Project name: RoadRacer</CITE>
+The accelerated frame buffer (2D/3D) for Sun386i systems.<P>
+Roadracer - frame buffer accelerator for the Intel
+architectures. Specifically accelerates windows and 2D vectors
+via pixrects. Very good text aceleration - 10x, most graphics
+2 - 3x cgthree performance. Combines Sun's own SPRINT ASIC and
+the Ti34010 graphics processor at 50Mhz. Marketing designation
+is GXi. This is not the same as LEGO. Needs PROM rev 4.3 or later.
+Shipped autumn 89.<P>
+
+Accelerated frame buffer driver, dynamically loaded
+from the rc.local file:<BR>
+<CODE> modload cgfive.o -exec cgfive.script </CODE>
+
+<STRONG>cg6: device name: "/dev/cgsix0"</STRONG><BR>
+<CITE>Project name: LEGO (Low End Graphics Option)</CITE>
+The accelerated 2D framebuffer, the future of Sun graphics.
+A P4 or/and S4 device.<P>
+
+<STRONG>cg7: device name: "/dev/cgseven0"</STRONG><BR>
+<CITE>Project name: LEGO-3D</CITE>
+The 3D version of cg6. Also P4/S4.<P>
+
+<STRONG>cg8: device name: "/dev/cgeight0"</STRONG><BR>
+<CITE>Project name: Ibis</CITE>
+The dumb 24-bit framebuffer with overlay and enable planes.
+Avaiable only on 4/110TC or 4/150TC. Another P4 device. No S4
+version considered.<P>
+Shipped summer 89 with SunOS4.0.2_CG8, code named IBIS.
+Will work with all P4 machines except 3/60's - psu
+problem here. In fact 32 bit fb but offers 24 bits colour,
+1 bit mono and 1 bit enable. No acceleration or Rop support.<P>
+
+<CODE>device    cgeight0 at obmem ? csr 0x50300000 priority 4</CODE>
+
+<STRONG>cg9: device name: "/dev/cgnineX"</STRONG><BR>
+<CITE>Project name: Crane</CITE>
+The VME version of cg8 with hardware bitblting. Designed to work
+with GP2 to get accelerated 24-bit performance.<P>
+
+VME size CG8 with Rop support and interpolation support.
+(Helps drawing Gouraud shaded polygons etc.) h/w double
+buffering. Marketed with GP2 as GXP. GP2/CG9 is THE h/w
+support for Phigs+ features. Its the device that accelerates
+more of Phigs+ than any other. It still has problems however.
+Really an interim product until combined GP2/CG9, code name
+FALCON, could be produced. This never happened. Shipped autumn 89.<P>
+
+<CODE>device          cgnine0 at vme32d32 ? csr 0x08000000 priority 4
+vector cgnineintr 0xaa</CODE><BR>
+like cg8, but talks to GP2 sun3,sun4 VME. With GP2 is called GXP machine.
+24 (really 32) bit frame buffer. ie 16million different
+colours available simultaneously . Why ? Dunno - you
+only have a million pixels ! This thing is  TROUBLE.<P>
+
+<STRONG>cg10: device name: "/dev/cgthreeX"</STRONG><BR>
+8-bit colour fb on the Campus.<P>
+
+<STRONG>tv1: device name: "/dev/tvoneX"</STRONG><BR>
+<CITE>Project name: Flamingo</CITE>
+The first video mixing board allowing live video under windowing
+environment. A VME-32 device.<P>
+
+<STRONG>TAAC	501-1383/1447 Sun3/4</STRONG><BR>
+VX, MVX	Expensive VME IP parallel pipe board
+Never worked properly, recalled after a year in the field<P>
+
+The TAAC-1 will work with the CG3, CG4, CG6 or CG5 ONLY for
+single monitor configurations (that is, when TAAC-1 video
+appears in a Sun window). TAAC can run without a Sun Framebuffer
+and its also possible to have both TAAC and Sun Frame buffer
+displaying to different monitors within the same machine.
+Note TAAC consists of two VME slots BUT, owing to size
+it takes up 3 slots.<P>
+
+<CODE>device          taac0 at vme32d32 ? csr 0x28000000</CODE><BR>
+
+<H2>So what were these dinosaurs like?</H2>
+These were all the supported resolutions circa 1988<P>
+
+<PRE>
+                      Bits/           Compatible
+Resolution/Timing     Pixel     Bus  Workstations
+-----------------     -----     ---  ------------
+1152x900x66.7Hz         1       VME  3E(6U card)
+
+1152x900x66.7Hz         8       VME  3E(6U card)
+
+1600x1280x66.7Hz (<STRONG>1</STRONG>)    1       "P2" 386i
+
+1152x900x66.7Hz         1        P4  3/60, Cobra, Stingray,
+& 1600x1280x66.7Hz                   Sunray, Pegasus, Hydra
+
+1152x900x66.7Hz       8+1+1      P4  3/60, Cobra, Stingray,
+(cg4)                                Sunray, Pegasus
+
+1152x900x66.7Hz         1        P4  Hydra
+(SEAM)
+
+1152x900x66.7Hz       8+1+1      P4  3/60, Cobra, Stingray,
+(cg4 + 13W3 conn.)                   Sunray, Pegasus, Hydra
+
+1024x768x66.7Hz (<STRONG>2</STRONG>)     1       "P2" 386i
+
+1152x900x66.7Hz (<STRONG>2</STRONG>)     1       "P2" 386i
+
+1024x768x66.7Hz (<STRONG>3</STRONG>)     8       "P2" 386i
+
+1152x900x66.7Hz (<STRONG>3</STRONG>)     8       "P2" 386i
+
+1024x768x66.7Hz (<STRONG>4</STRONG>)     8       "P2" 386i
+& 1152x900x66.7Hz (RoadRacer)
+
+1600x1280x66.7Hz (<STRONG>5</STRONG>)    1       Sbus Campus
+<CITE>This is an ECL frame buffer.</CITE>
+
+1152x900x66.7Hz (<STRONG>5</STRONG>)     1       Sbus Campus
+<CITE>This is an analog frame buffer for use with new analog monochrome monitors.</CITE>
+
+1152x900x66.7Hz (<STRONG>5</STRONG>)     8       Sbus Campus
+
+1152x900x66.7Hz         8        P4  3/60, Cobra, Stingray,
+(Lego P4)                            Sunray, Pegasus
+
+1152x900x66.7Hz         8       Sbus Campus
+(Lego Sbus)
+
+1152x900x66.7Hz      24+1+1      P4  Cobra, Stingray,
+(Ibis P4)                            Sunray, Pegasus
+
+1152x900x66.7Hz         8       VME  lots
+(cg2, cg3)
+
+1152x900x66.7Hz       8 DB      VME  lots
+(cg5)
+
+1152x900x66.7Hz      24+1+1     VME  lots
+(Crane)
+
+1152x900x72Hz        24+1+1     Sbus Campus
+& 1152x900x66.7Hz & others TBD (Ibis Sbus)
+
+1280x1024x72Hz         24+      VME  Stingray et al
+& 1152x900x66.7Hz (Falcon)
+
+1280x1024x72Hz        24++      Moon Sunray
+(Hawk)                         shine+
+
+1152x900x66.7Hz        24       VME  Sirius et al
+& others (programmable) (TAAC 1)
+
+1152x900x66.7Hz        24       VME  Sirius et al
+& others (programmable) (JET)
+</PRE>
+<STRONG>Notes:</STRONG><BR>
+<STRONG>1.</STRONG> Not a current project, being considered pending program win.<BR>
+
+<STRONG>2.</STRONG> These are the same board with different stuff option.
+Could also support 1600x1280x1 with yet another stuff option.<BR>
+
+<STRONG>3.</STRONG> These are the same board with different stuff option.<BR>
+
+<STRONG>4.</STRONG> Roadracer will probably be viewed as two separate boards
+(stuff option difference) by manufacturing.<BR>
+
+<STRONG>5.</STRONG> Resolution is fully programmable resolution up to the stated
+maximum. Sync is also fully programmable. Uses 13W3 connector. <BR>
+
+<H2>A more in-depth history on some of the above boards.</H2>
+
+<CITE>Side notes provided by another contributor.</CITE><P>
+
+<STRONG>CG1</STRONG><BR>
+ Used in Multibus systems - both Sun-1s and Sun-2s.<P>
+
+<STRONG>CG2, cgtwo and CG3</STRONG><BR>
+ The CG2 and CG3 are big Sun-standard-sized VME boards.  The
+ "CG2" is sometimes written "cgtwo".<P>
+
+ The CG2 was was introduced in April 1985.  It has some rasterop
+ capabilities.  It was the main color frame buffer used in Sun-2s.  A
+ CG2 has 4 BNC connectors on the back of the board.  (BNC connectors
+ are those round connectors that connect the frame buffer board to the
+ monitor.)  The CG2 has hardware capable of doing full screen pan and
+ zoom.  However, this hardware was disabled because of a legal issue.<P>
+
+<CITE> The zoom/pan hardware was not disabled.  It works fine with appropriate
+software (which was not released).
+Note that the CG2 is not supported on Sun-4s (since it doesn't support 32
+bit accesses).</CITE><P>
+
+ Approximately a year later (around April 1986?), a new frame buffer
+ was released, named the CG3 (NOT cgthree - that's different).  The CG3
+ is sometimes referred to as the "Sun-3 color frame buffer board".
+ Most Sun-3s with color frame buffers use this board.<P>
+
+ The CG3 behaves pretty much the same as the CG2, but the CG3 has a
+ couple of extra features the CG2 doesn't have.  For example, you can,
+ by special order, have the CG3 be populated with an extra frame buffer
+ to make it double-buffered.  However, there is currently no software
+ supplied by Sun which uses this feature.<P>
+
+<CITE>Double buffering is fully supported (well, modulo bugs) in pixrects and
+SunView 1 in releases 3.5 and 4.0.  Double buffered CG3s are software
+compatible with double buffered CG5s.</CITE><P>
+
+<CITE>More importantly, the CG3 is much faster than the CG2 because it is built
+out of video RAMs.  The performance difference is > 50% for some common
+operations.</CITE><P>
+
+ Almost all of the CG3 boards have 5 BNC connectors, though some of the
+ early ones have 4 BNC connectors.  If you know your frame buffer is
+ either a CG2 or a CG3, and it has 5 BNC connectors, then it's a CG3.<P>
+
+ You can only have one CG2 or CG3 in a system at one time.  To put more
+ than one in a system, you need a hardware special since you need to
+ cut traces on the board (to change addressing).<P>
+
+ You can also put a CG2 or CG3 in Sun-4/110 and Sun-4/2XX systems.<P>
+
+ The CG2 and CG3 both use the "cgtwo" device driver.<P>
+
+<STRONG>cgthree</STRONG><BR>
+ The cgthree is the name of the Roadrunner frame buffer.  The cgthree
+ frame buffer is ONLY on the Roadrunner.  It isn't compatible with any
+ other frame buffer, and must use the "cgthree" device driver.  I'm not
+ sure the reason it was called "cgthree", when there was already a
+ "CG3".<P>
+
+<CITE>cgthree was the next available name.
+CG3 was a hardware code name, with no customer significance.</CITE><P>
+
+<STRONG>CG4, cgfour</STRONG><BR>
+ The 10-bit deep frame buffer found on the CPU board of the Sun-3/110,
+ and is an option to the Sun-3/60 and Sun-4/110.  The 10 bits on the
+ frame buffer are:  8-bits color frame buffer, 1 bit monochrome frame
+ buffer, and 1 bit that tells it which (between the color and
+ monochrome) frame buffer to display (this bit is called the "enable" bit).<P>
+
+ For a Sun-4/110 and Sun-3/60, the CG4 frame buffer is a daughter-board
+ that connects to the CPU board off the P4 bus.<P>
+
+ Note that no GP can be added to the CG4.<P>
+
+ There is no rasterop hardware on the CG4 frame buffer.<P>
+
+ The CG4 will "probably" be on all desktop P4 type products.<P>
+
+ The device driver for the CG4 is called "cgfour".<P>
+
+<STRONG>CG5</STRONG><BR>
+ Has been shipping since March 14 1988.  Can work with the GP2 (the CG2,
+ CG3, and CG4 don't work with the GP2).<P>
+The CG5 is also compatible with the GP/GP+.<P>
+
+ It can be put in slots 7-12 without the GP2, or in slots 10-12 if it
+ is being used with the GP2.<P>
+
+ It has double buffering on-board.<P>
+
+ It uses the "cgtwo" device driver.<P>
+
+<HR>
+<a href="index.html">
+<IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+Edited and maintained by
+<a href="http://skaro.eng/~davet">
+<CITE> David.Tong@eng.sun.com </CITE></a>
+SunSoft CTE - Solaris User Environment
+<a href="index.html">
+<IMG ALIGN=bottom SRC="images/FAQ.gif"></A>

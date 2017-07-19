@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Compatibility</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-3.html">Previous</A>
+<A HREF="PPP-FAQ-5.html">Next</A>
+<A HREF="PPP-FAQ.html#toc4">Table of Contents</A>
+<HR>
+<H2><A NAME="s4">4. Compatibility</A></H2>
+
+
+
+<H2><A NAME="ss4.1">4.1 Can PPP talk to a SLIP interface?</A></H2>
+
+<P>No. SLIP works with SLIP. PPP works with PPP.</P>
+<P>Some vendors may offer products which work both as
+SLIP and PPP. However, they must be configured to run in one mode
+or the other. There is no present method to determine, based upon
+the protocol passed at the time of a connection, which combination
+of SLIP protocols or PPP is being requested.</P>
+
+
+<H2><A NAME="ss4.2">4.2 Which is better? PPP or SLIP?</A></H2>
+
+<P><B>IT DEPENDS UPON MANY FACTORS</B>.</P>
+<P>The people who post this type of question have usually not read
+the <EM>Net-2-HOWTO</EM> document.</P>
+<P>A good technical discussion is available at Morning
+Star\s www server, <EM>www.morningstar.com</EM>.</P>
+
+
+<H2><A NAME="ss4.3">4.3 Is CHAP or PAP better for authentication?</A></H2>
+
+<P>If you have the choice, use CHAP. Failing that, PAP is better than nothing.</P>
+
+
+<H2><A NAME="ss4.4">4.4 What about CHAP which Microsoft uses with Windows NT?</A></H2>
+
+<P>CHAP is a Cryptographic Handshake Authentication Protocol.
+It means that it takes some form of a key and will encrypt the
+response using a one-way encryption algorithm. The algorithm is
+negotiated at the time that the CHAP protocol is requested. The
+most common is called MD5. It has an encryption code of 05 in
+the CHAP request.</P>
+<P>Microsoft uses a DES algorithm which, until
+recently, was incompatible with the pppd process. If you wish
+to connect to a Windows NT server, there are a set of patches
+which are included with the pppd source code to support the DES
+style used by Microsoft.</P>
+<P><EM>Contrary to what some un-informed people believe
+at Stanford University believe, Microsoft did not just go against
+the recommendations of the IETF working group. The code values
+were properly requested and the implementation has been fully
+documented.</EM></P>
+
+
+<HR>
+<A HREF="PPP-FAQ-3.html">Previous</A>
+<A HREF="PPP-FAQ-5.html">Next</A>
+<A HREF="PPP-FAQ.html#toc4">Table of Contents</A>
+</BODY>
+</HTML>

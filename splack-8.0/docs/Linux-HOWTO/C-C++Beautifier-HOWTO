@@ -1,0 +1,518 @@
+  C-C++ Beautifier HOW-TO
+  Al Dev (Alavoor Vasudevan)        alavoor@yahoo.com
+  v14.0, 27 April 2001
+
+  This document will help you to format (beautify) the C/C++ programs so
+  that it is more readable and confirms to your site C/C++ coding stan­
+  dards.  The information in this document applies to all the operating
+  sytems that is - Linux, MS DOS, Windows 95/NT, BeOS, OS/2, IBM OSes,
+  all flavors of Unix like Solaris, HPUX, AIX, SCO, Sinix, BSD,
+  UnixWare, SCO, etc.. and to all other operating systems which support
+  "C" compiler (it means almost all the operating systems on this
+  planet!).
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+  1. Introduction
+
+  2. How can I trust Beautifier programs??!!
+
+  3. Beautifiers for other Languages
+
+  4. Verification Script
+
+  5. Related URLs
+
+  6. Other Formats of this Document
+
+  7. Copyright
+
+
+
+  ______________________________________________________________________
+
+  1.  Introduction
+
+  Coding standards for C/C++ or any language is required in order to
+  make the programs more readable/understandable by programmers. There
+  are C/C++ beautifiers (formating tools) to accomplish this goal.
+  Formatted (beautified) code improves the productivity of programmers
+  by 2 times!!
+
+  On Linux/Unixes there is a command called "indent" and "cb" . Refer to
+  'man indent' and 'man cb'. Note that indent and cb work for only "C"
+  programs. For "C++" programs use "bcpp".
+
+  Important NOTE: To compile bcpp under unix, unpack bcpp.tar.gz and you
+  MUST change directory to "code" and give a make. Do not change to
+  "unix" directory and give a make. That will give lots of errors.
+
+  Download the beautifier program from one of the following
+
+  ·  If you are having trouble downloading software from any of the
+     sites below, then download from my site at
+     <http://www.aldev.8m.com/cppbeautifier>
+
+
+  ·  C++ : BCPP site is at <http://dickey.his.com/bcpp/bcpp.html> or at
+     <http://www.clark.net/pub/dickey>.  BCPP ftp site is at
+     <ftp://dickey.his.com/bcpp/bcpp.tar.gz>
+
+  ·  C++ :  <http://www.consultix-inc.com/c++b.html>
+
+  ·  C :  <http://www.chips.navy.mil/oasys/c/> and mirror at Oasys
+     <http://oasys.nctamslant.navy.mil/oasys/c>
+  ·  C++ :  <http://www.semdesigns.com/Products/DMS/DMSToolkit.html>
+
+  ·  C++, C, Java and Oracle Pro-C Beautifier
+     <http://www.geocities.com/~starkville/main.html>
+
+  ·  C++, C beautifier
+     <http://users.erols.com/astronaut/vim/ccb-1.07.tar.gz> and site at
+     <http://users.erols.com/astronaut/vim/#vimlinks_src>
+
+  ·  C++, C, Java, Perl beautifier CBP  <http://www.prismtk.de/docs/cbp>
+
+  ·  GC! GreatCode! is a powerful C/C++ source code beautifier Windows
+     95/98/NT/2000  <http://perso.club-internet.fr/cbeaudet>
+
+  ·  CbVan for C, C++ and Java at
+     <http://www.geocities.com/~starkville/main.html>
+
+     I used BCPP to format the C++ programs and it worked fine for me.
+     You may want to check other tools and use the one which you may
+     like the most.
+
+  BCPP was written by Steven De Toni at steve@alpha.ocbbs.gen.nz
+
+  2.  How can I trust Beautifier programs??!!
+
+  For 100% assurance you need a SCIENTIFIC way to validate and trust a
+  beautifier program. The method described in this section will enable
+  the beautifier program to be accepted as "trust-worthy" and reliable.
+
+  In order to verify that beautifier programs like bcpp, indent or cb is
+  not damaging or changing the input source-code after formatting, you
+  can use the shell script ``verification program'' or use the following
+  technique -
+
+  Generate the object code from the original input source code using the
+  compiler -
+
+  ______________________________________________________________________
+    g++ -c myprogram.cpp
+  ______________________________________________________________________
+
+
+  Here g++ is GNU C++ compiler. This will create object output mypro­
+  gram.o
+
+  Save this file -
+
+  ______________________________________________________________________
+     mv myprogram.o myprogram_orig.o
+  ______________________________________________________________________
+
+
+
+  Now run bcpp -
+
+  ______________________________________________________________________
+     bcpp myprogram.cpp
+  ______________________________________________________________________
+
+
+  This will create the formatted output program file myprogram.cpp and
+  move the original file to myprogram.cpp.orig. Compile the new file
+  with  -
+
+
+
+  ______________________________________________________________________
+     g++ -c myprogram.cpp
+  ______________________________________________________________________
+
+
+
+  Now use the unix 'diff' command to compare the two object files -
+
+  ______________________________________________________________________
+     diff myprogram.o myprogram_orig.o
+  ______________________________________________________________________
+
+
+  Both these files MUST BE IDENTICAL. This verifies that bcpp is working
+  perfectly. On DOS or Windows 95 you may want to use the free Cygnus
+  <http://www.cygnus.com> Cygwin
+
+  Also you can use the assembler output instead of object output in
+  compiler. Like -
+
+  ______________________________________________________________________
+      g++ -S myprogram.cpp
+  ______________________________________________________________________
+
+
+  This creates myprogram.s. Verify with -
+
+  ______________________________________________________________________
+      diff myprogram.s myprogram_orig.s
+  ______________________________________________________________________
+
+
+  This step gives 100% guarantee that your valuable source code is
+  intact and bcpp is JUST doing ONLY formatting and is NOT changing or
+  damaging your code in any way.  This method gives you 100% quality
+  assurance and life term or long term WARRANTY on beautifier programs
+  like 'bcpp',
+
+  It is strongly recommended that you do these two steps every time you
+  run beautifier programs like bcpp, indent or cb.
+
+  3.  Beautifiers for other Languages
+
+  Visit the following sites to get beautifiers for other languages like
+  HTML, SQL, Java, Perl, Fortran.
+
+  ·  HTML :  <http://www.digital-mines.com/htb/>
+
+  ·  HTML :
+     <http://www.datacomm.ch/mwoog/software/perl/beautifier.html>
+
+  ·  HTML :  <http://www.watson-net.com/free/perl/s_fhtml.asp>
+
+
+  ·  SQL :  <http://www.netbula.com/products/sqlb>
+
+  ·  Oracle PLSQL : http://www.revealnet.com
+     <http://www.revealnet.com/Products/Formatter_Plus/formatter_plus.htm>
+
+
+  ·  Java, SQL, HTML, C++ :
+     <http://www.semdesigns.com/Products/DMS/DMSToolkit.html>
+
+  ·  Java :  <http://home.wtal.de/software-
+     solutions/jindent/frameset.html>
+
+  ·  Java JPretty :  <http://www.mmsindia.com/index.html>
+
+  ·  Java JIndent  <http://home.wtal.de/software-solutions/jindent>
+
+  ·  Java Pat  <http://javaregex.com/cgi-bin/pat/jbeaut.asp>
+
+  ·  Java JStyle  <http://www.redrival.com/greenrd/java/jstyle>
+
+  ·  Java JPrettyPrinter
+     <http://www.epoch.com.tw/download/ms/java/java.htm>
+
+  ·  Java JxBeauty
+     <http://members.nextra.at/johann.langhofer/download/jxbeauty> and
+     the JxBeauty Home
+     <http://members.magnet.at/johann.langhofer/products/jxbeauty/overview.html>
+
+  ·  Java beautify percolator <http://www2.blaze.ca/~jspeton/percolator>
+
+  ·  Java list
+     <http://www.java.about.com/compute/java/library/weekly/aa102499.htm>
+
+  ·  Java html present VasJava2HTML
+     <http://www.chez.com/vasile/java2/VasJava2HTML.html>
+
+
+  ·  Perl :  <http://www.consultix-inc.com/www.consultix-
+     inc.com/talk.htm>
+
+  ·  Perl :  <http://www.consultix-inc.com/www.consultix-
+     inc.com/perl_beautifier.html>
+
+
+  ·  Fortran beautifier :
+     <http://www.aeem.iastate.edu/Fortran/tools.html>
+
+
+  ·  C++ : BCPP site is at <http://dickey.his.com/bcpp/bcpp.html> or at
+     <http://www.clark.net/pub/dickey>.  BCPP ftp site is at
+     <ftp://dickey.his.com/bcpp/bcpp.tar.gz>
+
+  ·  C++ :  <http://www.consultix-inc.com/c++b.html>
+
+  ·  C :  <http://www.chips.navy.mil/oasys/c/> and mirror at Oasys
+     <http://oasys.nctamslant.navy.mil/oasys/c>
+
+  ·  C++, C, Java, Oracle Pro-C Beautifier
+     <http://www.geocities.com/~starkville/main.html>
+
+  ·  C++, C beautifier
+     <http://users.erols.com/astronaut/vim/ccb-1.07.tar.gz> and site at
+     <http://users.erols.com/astronaut/vim/#vimlinks_src>
+
+  ·  GC! GreatCode! is a powerful C/C++ source code beautifier Windows
+     95/98/NT/2000  <http://perso.club-internet.fr/cbeaudet>
+
+
+  ·  White paper on beautifier :  <http://www.consultix-
+     inc.com/www.consultix-inc.com/talk.htm>
+
+  To create presentation of codes to display using HTML -
+
+  ·  Presentation (C,C++,Java) to html :
+     <http://www.perlstudio.de/cbindex.html>
+
+     Also search the search engines like  <http://www.yahoo.com> or
+     <http://www.lycos.com> and search for keyword "beautfier".
+  4.  Verification Script
+
+  This is a Korn shell script to verify beautifier program. Requires
+  "pdksh*.rpm" from Linux 'contrib' cdrom. Save this file as 'text' file
+  and chmod a+rx on it. You can re-write this shell script in PERL so
+  that you can use it on Window 95/NT or MSDOS. Uncomment the PRGM
+  variable to point to bcpp, cb or indent
+
+
+
+  ______________________________________________________________________
+  #!/bin/ksh
+
+  # Verification program to check C++ Beautifiers 'bcpp', 'indent' or cb
+  ############################################################
+  # Copyright
+  # The copyright policy is GNU/GPL.
+  # Author: Al Dev (Alavoor Vasudevan) alavoor@yahoo.com
+  ############################################################
+
+  check_beautify_now()
+  {
+          # Remove all the temp files....
+          \rm -f ${TMP_FILE}
+          \rm -f ${TMP_CPPFILE}*.*
+
+          FNAME=$1
+          if [ ! -f ${FNAME} ]; then
+                  print "\nError: The file ${FNAME} does not exist!!. Aborting now ...."
+                  exit
+          fi
+          \cp  -f ${FNAME} ${TMP_CPPFILE}.cpp
+          ${COMPILER} -c ${TMP_CPPFILE}.cpp
+          if [ ! -f ${TMP_CPPFILE}.o ]; then
+                  print "Fatal Error: Failed to compile ${FNAME}. Aborting now... "
+                  exit
+          fi
+          \mv -f ${TMP_CPPFILE}.o ${TMP_CPPFILE}_orig.o
+
+          aa=`basename $PRGM`
+          print "\nRunning, verifying $aa on ${FNAME}"
+          ${PRGM} ${TMP_CPPFILE}.cpp
+          ${COMPILER} -c ${TMP_CPPFILE}.cpp
+          \rm -f $TMP_FILE
+          diff ${TMP_CPPFILE}.o ${TMP_CPPFILE}_orig.o 1> $TMP_FILE 2>> $TMP_FILE
+          result=""
+          result=`wc -c $TMP_FILE | awk '{print $1}' `
+          if [ "$result" = "0" ]; then
+                  print "Success!! Beautifier $aa is working properly!!\n"
+          else
+                  print "Fatal Error: Something wrong!! Beautifier is not working!!"
+                  exit
+          fi
+  #       ${COMPILER} -S ${TMP_CPPFILE}.cpp
+  #       diff ${TMP_CPPFILE}.s ${TMP_CPPFILE}_orig.s
+
+          # Remove all the temp files....
+          \rm -f ${TMP_FILE}
+          \rm -f ${TMP_CPPFILE}*.*
+  }
+
+  ########## Main of program begins here ##################3
+  #PRGM=/usr/bin/bcpp
+  #PRGM=/usr/bin/cb
+  PRGM=/usr/bin/indent
+  COMPILER=/usr/bin/g++
+
+  TMP_FILE=beautify.tmp
+  TMP_CPPFILE=beautify-tmp_cppfile
+
+  print -n "Enter the C++ file name <default is *.cpp> : "
+  read ans
+  if [ "$ans" = "" -o "$ans" = " " ]; then
+          ans="ALL"
+  else
+          FILENAME=$ans
+  fi
+
+  # Remove all the temp files....
+  \rm -f ${TMP_FILE}
+  \rm -f ${TMP_CPPFILE}*.*
+
+  if [ "$ans" != "ALL" ]; then
+          check_beautify_now ${FILENAME}
+  else
+          ls *.cpp |
+          while read FILENAME
+          do
+                  check_beautify_now ${FILENAME}
+          done
+  fi
+  ______________________________________________________________________
+
+
+
+  5.  Related URLs
+
+  Visit following locators which are related to C, C++ -
+
+  ·  Vim color text editor for C++, C
+     <http://metalab.unc.edu/LDP/HOWTO/Vim-HOWTO.html>
+
+  ·  C++ Programming HOWTO
+     <http://metalab.unc.edu/LDP/HOWTO/C++Programming-HOWTO.html>
+
+  ·  CVS HOWTO for C++ programs <http://metalab.unc.edu/LDP/HOWTO/CVS-
+     HOWTO.html>
+
+  ·  Linux goodies  <http://www.aldev.8m.com> and mirrors at webjump
+     <http://aldev.webjump.com>, angelfire
+     <http://www.angelfire.com/nv/aldev>, geocities
+     <http://www.geocities.com/alavoor/index.html>, virtualave
+     <http://aldev.virtualave.net>, bizland <http://aldev.bizland.com>,
+     theglobe <http://members.theglobe.com/aldev/index.html>, spree
+     <http://members.spree.com/technology/aldev>, infoseek
+     <http://homepages.infoseek.com/~aldev1/index.html>, bcity
+     <http://www3.bcity.com/aldev>, 50megs <http://aldev.50megs.com>
+
+  6.  Other Formats of this Document
+
+  This document is published in 12 different formats namely - DVI,
+  Postscript, Latex, Adobe Acrobat PDF, LyX, GNU-info, HTML, RTF(Rich
+  Text Format), Plain-text, Unix man pages, single HTML file and SGML.
+
+  ·  You can get this HOWTO document as a single file tar ball in HTML,
+     DVI, Postscript or SGML formats from -
+     <ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/other-formats/> and
+     <http://www.linuxdoc.org/docs.html#howto>
+
+  ·  Plain text format is in:
+     <ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO> and
+     <http://www.linuxdoc.org/docs.html#howto>
+
+  ·  Single HTML file format is in:
+     <http://www.linuxdoc.org/docs.html#howto>
+
+  ·  Translations to other languages like French, German, Spanish,
+     Chinese, Japanese are in
+     <ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO> and
+     <http://www.linuxdoc.org/docs.html#howto> Any help from you to
+     translate to other languages is welcome.
+
+     The document is written using a tool called "SGML-Tools" which can
+     be got from - <http://www.sgmltools.org> Compiling the source you
+     will get the following commands like
+
+  ·  sgml2html C-C++Beautifier-HOWTO.sgml     (to generate html file)
+
+  ·  sgml2rtf  C-C++Beautifier-HOWTO.sgml     (to generate RTF file)
+
+  ·  sgml2latex C-C++Beautifier-HOWTO.sgml    (to generate latex file)
+
+  LaTeX documents may be converted into PDF files simply by producing a
+  Postscript output using sgml2latex ( and dvips) and running the output
+  through the Acrobat distill ( <http://www.adobe.com>) command as
+  follows:
+
+  ______________________________________________________________________
+  bash$ man sgml2latex
+  bash$ sgml2latex filename.sgml
+  bash$ man dvips
+  bash$ dvips -o filename.ps filename.dvi
+  bash$ distill filename.ps
+  bash$ man ghostscript
+  bash$ man ps2pdf
+  bash$ ps2pdf input.ps output.pdf
+  bash$ acroread output.pdf &
+  ______________________________________________________________________
+
+
+  Or you can use Ghostscript command ps2pdf.  ps2pdf is a work-alike for
+  nearly all the functionality of Adobe's Acrobat Distiller product: it
+  converts PostScript files to Portable Document Format (PDF) files.
+  ps2pdf is implemented as a very small command script (batch file) that
+  invokes Ghostscript, selecting a special "output device" called
+  pdfwrite. In order to use ps2pdf, the pdfwrite device must be included
+  in the makefile when Ghostscript was compiled; see the documentation
+  on building Ghostscript for details.
+
+  This howto document is located at -
+
+  ·  <http://sunsite.unc.edu/LDP/HOWTO/C-C++Beautifier-HOWTO.html>
+
+  Also you can find this document at the following mirrors sites -
+
+  ·  <http://www.caldera.com/LDP/HOWTO/C-C++Beautifier-HOWTO.html>
+
+  ·  <http://www.WGS.com/LDP/HOWTO/C-C++Beautifier-HOWTO.html>
+
+  ·  <http://www.cc.gatech.edu/linux/LDP/HOWTO/C-C++Beautifier-
+     HOWTO.html>
+
+  ·  <http://www.redhat.com/linux-info/ldp/HOWTO/C-C++Beautifier-
+     HOWTO.html>
+
+  ·  Other mirror sites near you (network-address-wise) can be found at
+     <http://sunsite.unc.edu/LDP/hmirrors.html> select a site and go to
+     directory /LDP/HOWTO/C-C++Beautifier-HOWTO.html
+
+
+  In order to view the document in dvi format, use the xdvi program. The
+  xdvi program is located in tetex-xdvi*.rpm package in Redhat Linux
+  which can be located through ControlPanel | Applications | Publishing
+  | TeX menu buttons.  To read dvi document give the command -
+
+
+
+          xdvi -geometry 80x90 howto.dvi
+          man xdvi
+
+
+
+  And resize the window with mouse.  To navigate use Arrow keys, Page
+  Up, Page Down keys, also you can use 'f', 'd', 'u', 'c', 'l', 'r',
+  'p', 'n' letter keys to move up, down, center, next page, previous
+  page etc.  To turn off expert menu press 'x'.
+
+  You can read postscript file using the program 'gv' (ghostview) or The
+  ghostscript program is in ghostscript*.rpm package and gv program is
+  in gv*.rpm package in Redhat Linux which can be located through
+  ControlPanel | Applications | Graphics menu buttons. The gv program is
+  much more user friendly than ghostscript.  Also ghostscript and gv are
+  available on other platforms like OS/2, Windows 95 and NT, you view
+  this document even on those platforms.
+
+
+  ·  Get ghostscript for Windows 95, OS/2, and for all OSes from
+     <http://www.cs.wisc.edu/~ghost>
+
+  To read postscript document give the command -
+
+
+                       gv howto.ps
+                       ghostscript howto.ps
+
+
+
+  You can read HTML format document using Netscape Navigator, Microsoft
+  Internet explorer, Redhat Baron Web browser or any of the 10 other web
+  browsers.
+
+  You can read the latex, LyX output using LyX a X-Windows front end to
+  latex.
+
+  7.  Copyright
+
+  Copyright policy is GNU/GPL as per LDP (Linux Documentation project).
+  LDP is a GNU/GPL project.  Additional restrictions are - you must
+  retain the author's name, email address and this copyright notice on
+  all the copies. If you make any changes or additions to this document
+  then you should intimate all the authors of this document.
+
+
+

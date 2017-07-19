@@ -1,0 +1,302 @@
+<HTML>
+<HEAD>
+<TITLE>guide3</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide02.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide04.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 3</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>En el principio</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>This login session: $13.99, but for you $11.88.</P>
+<P>Tal vez ha tenido experiencia con MS-DOS u otro sistema operativo monousuario, como OS/2 o el de Macintosh. En esos sistemas operativos, Ud. no tiene que identificarse frente a la computadora antes de poder utilizarla; siempre se supone que es el &uacute;nico usuario en el sistema y que puede acceder a todo lo que quiera. Por el contrario, Unix es un sistema operativo multiusuario, no s&oacute;lo puede utilizarlo m&aacute;s de una persona a la vez, sino que las distintas personas recibir&aacute;n distinto trato.</P>
+<P>Para poder identificar las personas, Unix necesita un usuario para que el proceso denominado ingreso1 pueda identificarlo o identificarla2. Apenas se enciende una computadora, tiene lugar un complejo proceso antes que la misma est&eacute; lista para ser usada. Como esta gu&iacute;a est&aacute; orientada a Linux, les dir&eacute; que es lo que sucede durante la secuencia de arranque3.</P>
+<P>Debe advertir Ud. que si est&aacute; utilizando Linux en alguna clase de ordenador distinto a una PC Intel, algunos temas de este cap&iacute;tulo no se aplicar&aacute;n a su caso. En su mayor&iacute;a, dichos temas se encontrar&aacute;n en la Secci&oacute;n 3.1.</P>
+<P>Si Ud. est&aacute; interesado &uacute;nicamente en utilizar su computadora, puede saltearse toda la informaci&oacute;n de este cap&iacute;tulo, excepto la de la Secci&oacute;n 3.3.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>3.1 La computadora despierta</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Lo primero que sucede cuando se conecta la alimentaci&oacute;n a su computadora es la ejecuci&oacute;n de un programa denominado BIOS. Su nombre proviene de las iniciales de Basic Input/Output System, que significa Sistema de Entrada/Salida B&aacute;sico. Este programa est&aacute; almacenado de manera permanente dentro de la computadora en chips que normalmente son del tipo de lectura solamente. Para nuestros prop&oacute;sitos, el BIOS es un programa que nunca se puede cambiar. Al funcionar, realiza ciertas comprobaciones m&iacute;nimas y luego se fija si hay un disquete en la primer disquetera. Si encuentra alguno, mira en su "sector de arranque" y comienza a ejecutar su c&oacute;digo, si lo hay. Si hay un disquete pero no contiene un sector de arranque, el BIOS mostrar&aacute; el siguiente mensaje:</P><DIR>
+<DIR>
+
+<P>Non-system disk or disk error</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>1 N. del T.: ingreso en ingl&eacute;s logging in</P>
+<P>2 Desde ahora en adelante, utilizar&eacute; los pronombres masculinos para identificar a todas las personas. Esta es la convenci&oacute;n est&aacute;ndar en ingl&eacute;s (N. del T.: y en castellano), y con esto no quiero decir que s&oacute;lo los hombres pueden utilizar computadoras.</P>
+<P>3 N. del T.: arranque, del ingl&eacute;s boot-up.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>Si quitamos el disquete y apretamos una tecla, el proceso de arranque continuar&aacute;. Si no existe un disquete en la disquetera, el BIOS se fija si existe un registro maestro de arranque (MBR: master boot record) en el disco r&iacute;gido. Si es as&iacute; comienza a ejecutar el c&oacute;digo que all&iacute; encuentra, que se ocupa de cargar el sistema operativo. En los sistemas Linux, el cargador se llama LILO (por LInux LOader), puede ocupar el MBR y en ese caso cargar&aacute; el Linux. (La distribuci&oacute;n en particular que est&eacute; utilizando puede manejar el arranque desde el disco r&iacute;gido de otra manera, as&iacute; que debe controlar esto en la documentaci&oacute;n que se incluye con la distribuci&oacute;n. Otra buena referencia es la documentaci&oacute;n de LILO, [1 ].)</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>3.2 Linux despierta</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Luego que el BIOS le pasa el control a LILO, LILO a su vez le pasa el control al n&uacute;cleo de Linux. El n&uacute;cleo es el programa central del sistema operativo, que controla a todos los dem&aacute;s. Lo primero que hace Linux una vez que comienza su ejecuci&oacute;n es cambiar la CPU a modo protegido. El procesador 803864 que controla su computadora tiene dos modos que se denominan "modo real" y "modo protegido". El sistema operativo DOS corre en modo real, al igual que el BIOS. Sin embargo, los sistemas operativos m&aacute;s avanzados necesitan correr en modo protegido. Por ello, cuando Linux arranca, descarta el BIOS.</P>
+<P>Los procesadores distintos al 386 llegan a este estado de manera diferente. Ning&uacute;n otro procesador necesita cambiar a modo protegido, y s&oacute;lo unos pocos tienen un contexto tan pesado de carga, como LILO y el BIOS. Una vez que arranca el n&uacute;cleo, Linux trabaja casi de la misma manera.</P>
+<P>A continuaci&oacute;n, Linux mira que clase de hardware tiene debajo. Necesita saber que clase de discos r&iacute;gidos tiene, si hay o no un rat&oacute;n de bus, si est&aacute; conectado a una red, y otras trivialidades como esas. Linux no puede recordar ciertas cosas luego de apagado, de manera que las pregunta cada vez que arranca. Afortunadamente, no se las pregunta a Ud.: ¡se las pregunta al hardware! Durante el arranque, el n&uacute;cleo de Linux muestra unos cuantos mensajes, aunque con ciertas variaciones.</P>
+<P>Puede leer acerca de esos mensajes en la Secci&oacute;n 3.4. Este proceso de consulta puede causar algunos problemas con el sistema, pero si lo hace, lo har&aacute; probablemente cuando instale Linux por primera vez. Si tiene problemas, consulte la documentaci&oacute;n de la distribuci&oacute;n.</P>
+<P>El n&uacute;cleo solamente se ocupa de administrar los otros programas, entonces cuando est&aacute; satisfecho con que todo anda bien debe arrancar otro programa para que haga los trabajos &uacute;tiles. El programa que el n&uacute;cleo arranca se llama init. _____________________________________________</P>
+<P>4 Cuando hable del 80386, tambi&eacute;n hago referencia a computadoras basadas en 80486, Pentium, y Pentium Pro a menos que espec&iacute;ficamente indique lo contrario. Adem&aacute;s, abreviar&eacute; 80386 mediante el t&eacute;rmino 386.</P>
+<P>&nbsp;</P>
+<P>Figura 3.1 El camino que sigue un PC Intel hasta que nos muestra el indicativo del int&eacute;rprete de comandos. Init puede o no arrancar X. Si lo hace, corre xdm. Si no, corre getty.&nbsp;</P>
+<P>&nbsp;</P>
+<P>Una vez que el n&uacute;cleo arranca init, no lanza ning&uacute;n otro programa. El n&uacute;cleo se transforma as&iacute; en un administrador y proveedor, no en un programa activo.</P>
+<P>Por lo tanto, para saber que es lo que hace la computadora luego que el n&uacute;cleo arranca, deberemos examinar init. La complicada secuencia de arranque por la que atraviesa init no es id&eacute;ntica en todas las computadoras. Para Linux existen varias versiones de init, y cada una hace las cosas a su manera. Adem&aacute;s tambi&eacute;n influye si su m&aacute;quina est&aacute; en red, e incluso cual distribuci&oacute;n utiliz&oacute; para instalar Linux. Algunas de las cosas que pueden suceder cuando init arranca son:</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> El control de integridad del sistema de archivos. ¿Pero qu&eacute; es un sistema de archivos?, se estar&aacute; preguntando Ud. . Un sistema de archivos es la disposici&oacute;n de los archivos en el disco r&iacute;gido. Adem&aacute;s permite que Unix sepa cuales partes del disco r&iacute;gido est&aacute;n ocupadas y cuales no. Desafortunadamente, ciertos factores como los cortes en el suministro de energ&iacute;a hacen que la informaci&oacute;n que el sistema de archivos tiene sobre la disposici&oacute;n en el disco de los archivos no coincida con la disposici&oacute;n real. En estos casos se ve la utilidad de un programa llamado fsck, que es capaz de encontrar estas situaciones y (con suerte) corregirlas.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Se lanzan programas especiales de encaminamiento para las redes. Estos programas informan a su computadora c&oacute;mo se supone que puede comunicarse con las otras.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Se borran los archivos temporales que crean ciertos programas.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Se actualiza correctamente el reloj del sistema. Esto es m&aacute;s complicado de lo que puede parecer, pues Unix de manera predeterminada, necesita la hora en UCT (Universal Coordinated Time), tambi&eacute;n conocido como hora de Greenwich, y el reloj de la CMOS (que es alimentado por una bater&iacute;a dentro de la computadora) muy probablemente estar&aacute; configurado con la hora local. Esto significa que debe tener alg&uacute;n programa que lea la hora del reloj de la CMOS y la corrija transform&aacute;ndola en hora UCT.</P>
+<P>Despu&eacute;s que init termina con sus actividades de arranque, comienza con sus tareas planificadas.</P>
+<P>init se convierte as&iacute; en el padre de todos los procesos del sistema Unix. Un proceso es simplemente un programa que est&aacute; corriendo; como cualquier programa puede correr m&aacute;s de una vez, entonces puede haber m&aacute;s de un proceso para un programa dado en particular.</P>
+<P>En Unix, los procesos (instancias de un programa) se crean mediante una llamada al sistema5 (que es un servicio provisto por el n&uacute;cleo) denominada fork. (Se lo llama "fork" o bifurcaci&oacute;n pues un proceso se bifurca en dos independientes.) init forkea (bifurca) unos cuantos procesos, los que a su vez forkean6 otros. En su sistema Linux con toda seguridad init corre varias instancias de un programa llamado getty. getty es el programa que le permitir&aacute; iniciar el ingreso al usuario, y que a continuaci&oacute;n lanzar&aacute; el programa login.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>3.3 La actuaci&oacute;n del usuario</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>3.3.1 El ingreso</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Lo primero que hay que hacer para poder utilizar una m&aacute;quina con Unix es identificarse frente a la misma. Este proceso, conocido en ingl&eacute;s como logging in (registro de ingreso), es la manera que tiene Unix de saber cuales son los usuarios autorizados para utilizar el sistema. Durante el ingreso se le preguntar&aacute; un nombre de cuenta y una contrase&ntilde;a7. Los nombres de las cuentas son por lo general parecidos a los nombres de las personas, y se lo asignar&aacute; el administrador del sistema. Si Ud. es el administrador del sistema deber&aacute; crearse una cuenta para poder trabajar sin los cuidados especiales que requiere la cuenta root. (La informaci&oacute;n necesaria para llevar a cabo dicha tarea podr&aacute; encontrarla en Installation and Getting Started 8 o en The Linux System Administrator's Guide.)</P>
+<P>Luego de que tenga lugar la secuencia de procedimientos durante el arranque, Ud. ver&aacute; en la pantalla algo como lo que se muestra a continuaci&oacute;n: (la primer l&iacute;nea es meramente un saludo (podr&iacute;a ser alguna advertencia legal, o cualquier otra cosa)</P><DIR>
+<DIR>
+
+<P>Welcome to the mousehouse. Please, have some cheese.</P>
+<P>mousehouse login:</P></DIR>
+</DIR>
+
+<P>Sin embargo, puede ser que lo que el sistema le presente al arrancar no se parezca a esto. Por ejemplo, puede que en lugar de una aburrida pantalla de texto nos muestre una pantalla gr&aacute;fica. A&uacute;n en este caso, la computadora le pedir&aacute; sus datos al ingreso y m&aacute;s o menos de la misma manera. Si &eacute;ste es el caso en su sistema, entonces el entorno de trabajo que utilizar&aacute; es el sistema X. El X Window</P>
+<P>System es un sistema de ventanas y en el cap&iacute;tulo 5 se discutir&aacute;n algunas de las diferencias con las que se enfrentar&aacute;. De cualquier manera, el proceso de ingreso ser&aacute; similar en ambos casos. </P>
+<P>_____________________________________________</P>
+<P>5 N. del T.: llamada al sistema del ingl&eacute;s system call.</P>
+<P>6 N. del T.: Mis disculpas por el t&eacute;rmino, prometo no usarlo m&aacute;s :-).</P>
+<P>7 N. del T.: contrase&ntilde;a, palabra clave del ingl&eacute;s password</P>
+<P>8 N. del T.: Puede consultar la versi&oacute;n en castellano ya existente</P>
+<P>&nbsp;</P>
+<P>Esta es, por supuesto, la invitaci&oacute;n que Ud. buscaba para ingresar (login). A lo largo de este manual utilizaremos el usuario ficticio (o no tan ficticio, dependiendo de su m&aacute;quina) larry9. Donde Ud. vea larry debe poner el nombre de su propia cuenta. Los nombres de las cuentas se basan en general en los nombres reales; los sistemas Unix m&aacute;s grandes y serios tienen cuentas que usan el apellido del usuario, alguna combinaci&oacute;n de nombre y apellido, y a&uacute;n se da el caso que deban agregarle algunos d&iacute;gitos. Por ejemplo, nombres de cuentas posibles para Larry Greenfield podr&iacute;an ser: larry, greenfie, lgreenfi, lg19.</P>
+<P>mousehouse ser&aacute;, de la misma manera, el "nombre" de la m&aacute;quina sobre la que trabajar&eacute;.</P>
+<P>Es posible que cuando Ud. instale Linux se le pregunte el nombre que desea asignarle. Esto no es demasiado importante, pero cada vez que haga falta utilizar&eacute; mousehouse o, m&aacute;s raramente, lionsden cuando necesite de un segundo sistema por razones de claridad o de contraste.</P>
+<P>Luego de teclear larry y apretar |_Intro_|, nos encontramos con lo siguiente:</P><DIR>
+<DIR>
+
+<P>mousehouse login: larry</P>
+<P>Password:</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Linux est&aacute; solicitando su contrase&ntilde;a10. Cuando escriba su contrase&ntilde;a no podr&aacute; ver lo que est&aacute; tecleando, en raz&oacute;n de la privacidad necesaria a dicha palabra. Escriba cuidadosamente: puede borrar caracteres, pero no podr&aacute; ver lo que est&aacute; editando. No escriba muy despacio si hay gente mir&aacute;ndole, podr&iacute;an llegar a descubrirla. En cualquier caso, si se equivoca no se haga problemas, pues el sistema le dar&aacute; otra oportunidad de ingresar.</P>
+<P>Luego que ingrese correctamente su nombre de cuenta o nombre de usuario y su contrase&ntilde;a, aparecer&aacute; un corto mensaje denominado "mensaje del d&iacute;a"11 que se obtiene del archivo /etc/motd.</P>
+<P>Este archivo se utiliza para dar a conocer cualquier clase de informaci&oacute;n a los usuarios con respecto al estado del sistema y es responsabilidad del administrador del sistema fijar su contenido. Despu&eacute;s de todo esto aparece un prompt. Un prompt es un s&iacute;mbolo que nos indica que la computadora est&aacute; lista para recibir un comando. Debe parecerse a la siguiente figura:</P><DIR>
+<DIR>
+
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Si Ud. est&aacute; utilizando X Window, el prompt aparecer&aacute; en alguna de las "ventanas" que hay en pantalla. (Las "ventanas" son simples cajas rectangulares.) Para escribir en el prompt, mediante el rat&oacute;n, mueva el cursor del mismo (probablemente se ve como una gran "X" o una flecha) dentro de la ventana.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>3.3.2 Al abandonar la computadora</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>¡No apague la computadora directamente! ¡Se arriesga a perder valiosos datos!</P>
+<P>A diferencia de la mayor&iacute;a de las versiones de DOS, no es una buena idea apagar la llave de alimentaci&oacute;n de la computadora as&iacute; como as&iacute;, cuando termine de utilizarla. Si reinicia la m&aacute;quina (con el bot&oacute;n de reset) sin antes tomar las debidas precauciones ser&aacute; igual de pernicioso. Linux tiene una antememoria o cach&eacute; que mejora el rendimiento del disco. Esto significa que temporalmente guarda en RAM informaci&oacute;n perteneciente al sistema de almacenamiento permanente12.</P>
+<P>_____________________________________________</P>
+<P>9 N. del T.: He dejado aqu&iacute; sin traducir ni cambiar el nombre del autor de la versi&oacute;n en ingl&eacute;s, y lo mismo vale para otros nombres como el de la m&aacute;quina, etc. .</P>
+<P>10N. del T.: contrase&ntilde;a del ingl&eacute;s password.</P>
+<P>11N. del T.: mensaje del d&iacute;a del ingl&eacute;s Message Of The Day(motd).</P>
+<P>&nbsp;</P>
+<P>Las diferencias entre lo que Linux cree que hay en el disco y lo que efectivamente est&aacute; almacenado en el disco se sincronizan cada 30 segundos. Si desea apagar o reiniciar la computadora, necesitar&aacute; ejecutar alg&uacute;n procedimiento que indique a Linux que debe detener el sistema de cach&eacute; y actualizar la informaci&oacute;n en el disco.</P>
+<P>Si ya ha terminado sus tareas con la computadora, pero a&uacute;n est&aacute; dentro del sistema (ya tecle&oacute; su nombre de usuario y su palabra clave), lo primero que debe hacer es registrar la salida (logout) del sistema. Para ello, teclee el comando logout. Todos los comandos se env&iacute;an oprimiendo la tecla marcada como |_Enter_|, |_Return_| &oacute; |_Intro_|. Hasta que no aprieta |_Intro_| no pasa nada, y por lo tanto, puede borrar lo que escribi&oacute; y recomenzar.</P><DIR>
+<DIR>
+
+<P>/home/larry$ logout</P>
+<P>Welcome to the mousehouse. Please, have some cheese.</P>
+<P>mousehouse login:</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Ahora puede ingresar otro usuario.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>3.3.3 Como apagar la computadora</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si el suyo se trata de un sistema en el cual trabaja un &uacute;nico usuario (Ud., :-)) puede desear apagar la computadora cuando haya finalizado su trabajo con ella13. Para "bajar el sistema"14, o sea, apagarlo ordenadamente, deber&aacute; ingresar a una cuenta especial denominada root. La cuenta del root es la cuenta del administrador del sistema y puede acceder a todos los archivos que existen en el sistema. Si desea apagar la computadora, primero debe bajar el sistema, y para ello deber&aacute; obtener la palabra clave que utiliza el administrador del sistema. Por favor, ingrese Ud. Entonces como root:</P><DIR>
+<DIR>
+
+<P>mousehouse login: root</P>
+<P>Password:</P>
+<P>Linux version 1.3.55 (root@mousehouse) #1 Sun Jan 7 14:56:26 EST 1996</P>
+<P>/# shutdown now</P>
+<P>Why? fin del dia de trabajo</P>
+<P>URGENT: message from the sysadmin:</P>
+<P>System going down NOW</P>
+<P>... fin del dia de trabajo ...</P>
+<P>Now you can turn off the power...</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>12 La diferencia entre "RAM" y un disco r&iacute;gido es como la diferencia entre la memoria de corto plazo y la de largo plazo. Al quitar la alimentaci&oacute;n de la computadora es como si le di&eacute;ramos un fort&iacute;simo golpe en la cabeza olvidar&aacute; todo lo que ten&iacute;a en la memoria de corto plazo. Pero las cosas guardadas en la memoria de largo plazo, el disco r&iacute;gido, estar&aacute;n bien. El disco es miles de veces m&aacute;s lento que la RAM.</P>
+<P>13 Para evitar el debilitamiento prematuro de ciertos componentes de hardware, es mejor que apague la computadora s&oacute;lo cuando ya no la vaya a utilizar por el resto del d&iacute;a. Encender y apagar una vez al d&iacute;a la computadora probablemente es el mejor compromiso entre ahorrar energ&iacute;a y machacar el sistema.</P>
+<P>14 N. del T.: bajar el sistema del ingl&eacute;s shutdown.</P>
+<P>&nbsp;</P>
+<P>El comando "shutdown now" prepara al sistema para que pueda apagarse o reiniciarse. Debe esperar por el mensaje que dice que es seguro apagar o reiniciar el sistema. (Cuando el sistema le pregunta "Why?"15, s&oacute;lo le est&aacute; preguntando una raz&oacute;n para decirle a los otros usuarios. Como no hay otra persona utilizando el sistema cuando Ud. lo baja, puede responderle con lo que se le ocurra, o con nada.)</P>
+<P>Un peque&ntilde;o dato para el perezoso: como alternativa al enfoque de logout/login se puede utilizar el comando su. Mientras est&aacute; trabajando con su nombre de cuenta habitual (larry a nuestros efectos) escriba "su" y luego |_Intro_|. Se le solicitar&aacute; la palabra clave del administrador del sistema, y si la ingresa correctamente tendr&aacute; a partir de dicho momento los privilegios que le corresponden al mismo. Ahora, con estos privilegios agregados, podr&aacute; bajar el sistema mediante el comando "shutdown now".</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>3.4 Mensajes del n&uacute;cleo</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Cuando se conecta la alimentaci&oacute;n a su computadora, aparece una serie de mensajes en la pantalla, que describe el hardware conectado al ordenador. Estos mensajes son producto de la actividad del n&uacute;cleo de Linux. En esta secci&oacute;n, intentaremos describir y explicar esos mensajes. </P>
+<P>Naturalmente, estos mensajes var&iacute;an de m&aacute;quina a m&aacute;quina. Describir&eacute; entonces los mensajes que aparecen en la m&iacute;a. El siguiente ejemplo contiene todos los mensajes est&aacute;ndar y algunos espec&iacute;ficos. (En general, la m&aacute;quina sobre la que voy a realizar la descripci&oacute;n est&aacute; m&iacute;nimamente configurada: no ver&aacute; por lo tanto mucha informaci&oacute;n relacionada con la configuraci&oacute;n de dispositivos.)</P>
+<P>Se utiliz&oacute; Linux versi&oacute;n 1.3.55, uno de los m&aacute;s recientes al momento de escribir.</P>
+<P>1. Lo primero que hace Linux es decidir que clase de tarjeta de v&iacute;deo y pantalla tiene conectado, de manera de seleccionar un tama&ntilde;o de letra apropiado. (Cuanto m&aacute;s peque&ntilde;o es el tama&ntilde;o, m&aacute;s caben en una pantalla a la vez.) Linux puede consultarle si desea alg&uacute;n tipo de letra en particular, o puede que tenga una selecci&oacute;n ya compilada en su interior16.</P><DIR>
+<DIR>
+
+<P>Console: 16 point font, 400 scans Console: colour VGA+ 80x25, 1 virtual console (max 63)</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>En este ejemplo, el due&ntilde;o de la m&aacute;quina decidi&oacute;, al momento de compilar, que utilizar&iacute;a el tipo de letra est&aacute;ndar tama&ntilde;o grande. Adem&aacute;s, notar&aacute; que la palabra "color" est&aacute; mal escrita. Evidentemente, Linus aprendi&oacute; la versi&oacute;n incorrecta de idioma ingl&eacute;s17.</P>
+<P>_____________________________________________</P>
+<P>15 N. del T.: why? significa ¿por qu&eacute;?.</P>
+<P>16 "Compilada" se refiere al proceso mediante el cual un programa de computadora escrito por una persona se traduce a algo que entiende la computadora. Si una caracter&iacute;stica se ha "compilado en su interior" significa que est&aacute; incluida en el programa.</P>
+<P>17 N. del T.: "colour" es la variante ortogr&aacute;fica del ingl&eacute;s insular y "color" la norteamericana.</P>
+<P>&nbsp;</P>
+<P>2. La pr&oacute;xima tarea del n&uacute;cleo es informar acerca de la velocidad de su sistema, medida en "BogoMIPS". Un "MIP" equivale a un mill&oacute;n de instrucciones por cada segundo, mientras que un "BogoMIP" es un "bogus MIP"18: cuantas veces la computadora puede hacer absolutamente nada por cada segundo. (Como este bucle no hace nada en realidad, el n&uacute;mero calculado no es tampoco una medida de la velocidad del sistema.) Linux utiliza este n&uacute;mero cuando necesita esperar por alg&uacute;n dispositivo de hardware.</P><DIR>
+<DIR>
+
+<P>Calibrating delay loop.. ok - 33.28 BogoMIPS</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>3. El n&uacute;cleo de Linux tambi&eacute;n nos comenta acerca de la utilizaci&oacute;n de la memoria:</P><DIR>
+<DIR>
+
+<P>Memory: 23180k/24576k available (544k kernel code, 384k reserved, 468k data)</P></DIR>
+</DIR>
+
+<P>Esto significa que la m&aacute;quina tiene 24 megabytes de memoria. Parte de esta memoria est&aacute; reservada por el n&uacute;cleo. El resto puede ser utilizada por los programas. &Eacute;ste es el lugar temporal conocido como RAM que se utiliza s&oacute;lo como almacenamiento de corto plazo. Su computadora tambi&eacute;n dispone de una memoria permanente denominada disco r&iacute;gido. El contenido del disco r&iacute;gido se mantiene intacto a&uacute;n luego de quitar la alimentaci&oacute;n del ordenador.</P>
+<P>&nbsp;</P>
+<P>4. A lo largo del proceso de arranque, Linux controla distintas partes del hardware y nos muestra mensajes indicativos de las mismas.</P><DIR>
+<DIR>
+
+<P>This processor honours the WP bit even when in supervisor mode. Good.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>5. Ahora Linux pasa a la configuraci&oacute;n de red. Lo que veremos a continuaci&oacute;n est&aacute; mejor explicado en The Linux Networking Guide19 , y est&aacute; fuera del alcance de este documento.</P><DIR>
+<DIR>
+
+<P>Swansea University Computer Society NET3.033 for Linux 1.3.50</P>
+<P>IP Protocols: ICMP, UDP, TCP</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>6. Linux soporta la FPU, la unidad de punto flotante20 &Eacute;sta es un chip especial (o parte de un chip en el caso del procesador 80486DX) que se ocupa de la aritm&eacute;tica con n&uacute;meros no enteros.</P>
+<P>Algunos de esos chips no est&aacute;n en buenas condiciones, y cuando Linux trata de identificarlos la m&aacute;quina "se cuelga"21. La m&aacute;quina deja de funcionar. Si esto sucede, Ud. ver&aacute; en su pantalla lo siguiente:</P><DIR>
+<DIR>
+
+<P>Checking 386/387 coupling...</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Sino, el mensaje ser&aacute;:</P><DIR>
+<DIR>
+
+<P>Checking 386/387 coupling... Ok, fpu using exception 16 error reporting.</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>si est&aacute; utilizando un 486DX. Si tiene un 386 con un 387, le aparecer&aacute;:</P><DIR>
+<DIR>
+
+<P>Checking 386/387 coupling... Ok, fpu using irq13 error reporting.</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>18 N. del T.: bogus significa espurio (para los argentinos: trucho).</P>
+<P>19 N. del T.: Disponible en castellano. Vea el ap&eacute;ndice D.</P>
+<P>20 N. del T.: unidad de punto flotante del ingl&eacute;s Floating Point Unit.</P>
+<P>21 N. del T.: se cuelga del ingl&eacute;s crashes.</P>
+<P>&nbsp;</P>
+<P>7. Y ahora se controla la instrucci&oacute;n "halt".</P><DIR>
+<DIR>
+
+<P>Checking 'hlt' instruction... Ok.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>8. Luego de esta configuraci&oacute;n inicial, Linux escribe una l&iacute;nea identific&aacute;ndose a s&iacute; mismo. En ella explica cual es la versi&oacute;n del n&uacute;cleo, la del compilador de C de GNU que se utiliz&oacute; para compilarlo, y la fecha de dicha compilaci&oacute;n.</P><DIR>
+<DIR>
+
+<P>Linux version 1.3.55 (root@mousehouse) (gcc version 2.7.0) #1 Sun Jan 7 14:56:26 EST 1996</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>9. El controlador serie comienza a consultar acerca del hardware instalado. Un controlador es una parte del n&uacute;cleo que controla un dispositivo, normalmente un perif&eacute;rico. Se hace responsable por los detalles de la comunicaci&oacute;n entre la CPU y el dispositivo. Esto permite que la gente que escribe aplicaciones de usuario se pueda concentrar en la aplicaci&oacute;n, pues no tiene que preocuparse por como trabaja exactamente la computadora.</P><DIR>
+<DIR>
+
+<P>Serial driver version 4.11 with no serial options enabled</P>
+<P>tty00 at 0x03f8 (irq = 4) is a 16450</P>
+<P>tty01 at 0x02f8 (irq = 3) is a 16450</P>
+<P>tty02 at 0x03e8 (irq = 4) is a 16450</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Aqu&iacute; vemos que ha encontrado tres puertos serie. Un puerto serie es el equivalente del puerto COM en DOS; es el dispositivo que se utiliza normalmente para comunicarse con modems y ratones.</P>
+<P>Lo que significan las l&iacute;neas anteriores es que el puerto serie 0 (COM1) tiene la direcci&oacute;n 0x03f8.</P>
+<P>Cuando dicho puerto interrumpe al n&uacute;cleo, usualmente para decir que tiene datos listos, utiliza la IRQ 422. Las IRQ son un medio que tienen los perif&eacute;ricos de hablarse con el software. Cada puerto serie tambi&eacute;n tiene un chip controlador, que usualmente se denomina 16450; aunque tambi&eacute;n puede ser el 8250 o el 16550.</P>
+<P>&nbsp;</P>
+<P>10. A continuaci&oacute;n viene el puerto paralelo, que normalmente se conecta a la impresora. Los puertos paralelos en Linux tienen nombres que comienzan con lp. lp son las iniciales de Line Printer23, aunque en los tiempos actuales parece m&aacute;s apropiado usar las iniciales de Laser Printer. (Sin embargo, Linux se comunica sin problemas con cualquier clase de impresora conectada al puerto paralelo: de matriz de puntos, chorro de tinta, o laser.)</P><DIR>
+<DIR>
+
+<P>lp0 at 0x03bc, (polling)</P></DIR>
+</DIR>
+
+<P>Este mensaje dice que ha encontrado un puerto paralelo, y que usar&aacute; el controlador de dispositivo est&aacute;ndar.</P>
+<P>_____________________________________________</P>
+<P>22 N. del T.: IRQ, Interrupt ReQuest (petici&oacute;n de interrupci&oacute;n).</P>
+<P>23 N. del T.: Impresora de l&iacute;neas.</P>
+<P>&nbsp;</P>
+<P>11. Linux identifica luego las unidades de disco r&iacute;gido. En el sistema que le estoy mostrando, mousehouse, tengo instalados dos unidades de disco r&iacute;gido IDE.</P><DIR>
+<DIR>
+
+<P>hda: WDC AC2340, 325MB w/127KB Cache, CHS=1010/12/55</P>
+<P>hdb: WDC AC2850F, 814MB w/64KB Cache, LBA, CHS=827/32/63</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>12. El n&uacute;cleo ahora busca las unidades de disco flexible. En este ejemplo, la m&aacute;quina tiene dos unidades: la "A" es una unidad de 5 1=4 ", y la "B" es una de 3 1=2 ". Linux denomina fd0 a la unidad "A", y fd1 a la unidad "B".</P><DIR>
+<DIR>
+
+<P>Floppy drive(s): fd0 is 1.44M, fd1 is 1.2M</P>
+<P>floppy: FDC 0 is a National Semiconductor PC87306</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>13. El pr&oacute;ximo controlador que arranca en mi sistema ejemplo es el controlador SLIP. Escribe un mensaje acerca de su configuraci&oacute;n.</P><DIR>
+<DIR>
+
+<P>SLIP: version 0.8.3-NET3.019-NEWTTY (dynamic channels, max=256) (6 bit encapsulation enabled)</P>
+<P>CSLIP: code copyright 1989 Regents of the University of California</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>14. El n&uacute;cleo explora dentro de los discos r&iacute;gidos que ha encontrado. Busca las distintas particiones que tiene cada uno. Una partici&oacute;n es una secci&oacute;n l&oacute;gica de una unidad que se utiliza para evitar que interfieran entre s&iacute; distintos sistemas operativos coexistentes. En este ejemplo, la computadora tiene dos discos (hda y hdb) con cuatro y una particiones, respectivamente.</P><DIR>
+<DIR>
+
+<P>Partition check:</P>
+<P>hda: hda1 hda2 hda3 hda4</P>
+<P>hdb: hdb1</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>15. Finalmente, Linux monta la partici&oacute;n ra&iacute;z. &Eacute;sta es la partici&oacute;n del disco en la cual reside el sistema operativo Linux. Cuando Linux "monta" esta partici&oacute;n, hace que est&eacute; disponible para los usuarios.</P><DIR>
+<DIR>
+
+<P>VFS: Mounted root (ext2 filesystem) readonly.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

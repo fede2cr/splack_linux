@@ -1,0 +1,1124 @@
+Nvidia OpenGL Configuration mini-HOWTO
+
+Robert B Easter
+
+        reaster@comptechnews.com
+        
+Revision History                                                             
+Revision v1.9            2001-03-20           Revised by: rbe                
+
+
+This mini-HOWTO is about how to install the [http://www.opengl.org/] OpenGL
+drivers for [http://www.nvidia.com/] Nvidia graphics cards on [http://
+www.linux.org/] Linux. In addition to just installing the Nvidia drivers,
+this mini-HOWTO also explains how to install [http://www.XFree86.org/]
+XFree86, the OpenGL Utility library (part of [http://www.mesa3d.org/] Mesa),
+the OpenGL Utility Toolkit ([http://reality.sgi.com/mjk/glut3/] glut), the
+full set of OpenGL manpages, [http://www.trolltech.com/] Qt and its OpenGL
+extension, and [http://www.blackdown.org/] Java and its Java 3D extension so
+that a user can have a complete runtime and development environment for
+OpenGL applications on Linux.
+
+-----------------------------------------------------------------------------
+Table of Contents
+1. Introduction
+    1.1. New Versions of this Document
+    1.2. Copyright and Licenses
+    1.3. Disclaimer
+   
+   
+2. Download the software packages
+    2.1. Linux Kernel >= 2.2.12 Required
+    2.2. XFree86 4.0 or later
+    2.3. OpenGL man pages
+    2.4. Mesa 3D
+    2.5. Qt
+    2.6. NVIDIA drivers (Mesa libGL replacement)
+    2.7. Java 2 SDK, Java 3D extension, and Java PlugIn for Netscape
+        (optional)
+   
+   
+3. Install Software
+    3.1. Install XFree86
+    3.2. Install Mesa
+    3.3. Install Nvidia OpenGL drivers
+    3.4. Install Qt
+    3.5. Install GLUT 3.7 Distribution (optional)
+    3.6. Install Java 3D (optional)
+   
+   
+4. Final Comments
+A. GNU Free Documentation License
+    0. PREAMBLE
+    1. APPLICABILITY AND DEFINITIONS
+    2. VERBATIM COPYING
+    3. COPYING IN QUANTITY
+    4. MODIFICATIONS
+    5. COMBINING DOCUMENTS
+    6. COLLECTIONS OF DOCUMENTS
+    7. AGGREGATION WITH INDEPENDENT WORKS
+    8. TRANSLATION
+    9. TERMINATION
+    10. FUTURE REVISIONS OF THIS LICENSE
+    How to use this License for your documents
+   
+   
+
+-----------------------------------------------------------------------------
+1. Introduction
+
+1.1. New Versions of this Document
+
+The latest version of this mini-HOWTO can be found at:
+
+[http://www.linuxdoc.org/HOWTO/mini/Nvidia-OpenGL-Configuration/] http://
+www.linuxdoc.org/HOWTO/mini/Nvidia-OpenGL-Configuration/
+-----------------------------------------------------------------------------
+
+1.2. Copyright and Licenses
+
+    Copyright (c) 2001 Robert B. Easter. Permission is granted to copy,
+    distribute and/or modify this document under the terms of the GNU Free
+    Documentation License, Version 1.1 or any later version published by the
+    Free Software Foundation; with no Invariant Sections, with no Front-Cover
+    Texts, and with no Back-Cover Texts. A copy of the license is included in
+    the section entitled "GNU Free Documentation License".
+   
+-----------------------------------------------------------------------------
+1.3. Disclaimer
+
+No liability for the contents of this documents can be accepted. Use the
+concepts, examples and other content at your own risk.
+
+All copyrights are held by their respective owners, unless specifically noted
+otherwise. Use of a term in this document should not be regarded as affecting
+the validity of any trademark or service mark.
+
+Naming of particular products or brands should not be seen as endorsements.
+-----------------------------------------------------------------------------
+
+2. Download the software packages
+
+2.1. Linux Kernel >= 2.2.12 Required
+
+First of all, the OpenGL drivers for the Nvidia cards currently require a
+system with Linux kernel 2.2.12 or later. Release versions of kernel 2.4.x
+are supported. If you don't have it, then you will have to upgrade your
+system's Linux kernel; see [http://www.linuxdoc.org/HOWTO/Kernel-HOWTO.html]
+The Linux Kernel HOWTO for details.
+
+The Linux kernel can be downloaded at: [http://www.kernel.org/] http://
+www.kernel.org/
+-----------------------------------------------------------------------------
+
+2.2. XFree86 4.0 or later
+
+XFree86 4.0 or later, preferably 4.0.2 as of this writing, is also required.
+Its installation will be covered later.
+
+XFree86 source code comes in three files:
+
+  * X402src-1.tgz
+   
+  * X402src-2.tgz
+   
+  * X402src-3.tgz
+   
+  * doctools-1.2.tgz
+   
+
+Doctools is something it uses to prepare the X documentation. Binary
+distributions of XFree86 are available for many platforms and can be used
+instead of compiling the sources. This howto talks about compiling the
+source.
+
+[ftp://ftp.xfree86.org/] ftp://ftp.xfree86.org/
+
+XFree86 includes [http://www.sgi.com/software/opensource/glx/] GLX, the
+OpenGL X interface functions. Each window system has to provide the
+platform-specific interfaces between OpenGL and the window system for mapping
+a GL rendering context to a window system widget.
+-----------------------------------------------------------------------------
+
+2.3. OpenGL man pages
+
+XFree86 comes with only the GLX man pages. If you want a full set of OpenGL
+man pages, you have to get them yourself.
+
+  * mangl.tar.Z
+   
+  * manglu.tar.Z
+   
+  * manglx.tar.Z (don't need this one)
+   
+
+[ftp://ftp.sgi.com/sgi/opengl/doc/] ftp://ftp.sgi.com/sgi/opengl/doc/
+
+These man pages are in a format ready to be unpacked into the XFree86 source
+distributions, see below.
+-----------------------------------------------------------------------------
+
+2.4. Mesa 3D
+
+  * MesaLib-3.4.tar.gz
+   
+  * MesaDemos-3.4.tar.gz
+   
+
+[http://mesa3d.sourceforge.net/] http://mesa3d.sourceforge.net/
+
+Mesa is the library that provides the foundation for the 3D support included
+in XFree86, which comes only with the libGL OpenGL core library component.
+Mesa is a software renderer. To enable hardware accelerated performance, many
+3D hardware manufacturers provide a drop-in replacement for Mesa's standard
+software-only libGL rendering library. For this document, we are only
+interested in NVIDIA's libGL drop-in replacement library.
+
+MesaLib provides a software OpenGL implementation consisting of libGL. It
+also provides libGLU (GL Utility). libGLU is a library built on top of libGL
+to provide some higher-level functions for applications. OpenGL itself,
+libGL, is considered a low-level library. GLU is a standard part of most
+OpenGL installations and many programs make use of it.
+
+MesaDemos provides many OpenGL demo programs and, more importantly, the
+[http://www.opengl.org/developers/documentation/glx.html] GL Utility Toolkit
+(libglut) library. GLUT provides a window system independent interface
+between OpenGL and any supported window system. For instance, on the X Window
+System, it hides the details of using glX functions to setup a window.
+Programmers can write code once and can compile it to work on MS Windows or
+X, etc provided that a GLUT library is available on the target platform. Like
+libGLU, libglut is a standard part of most OpenGL installations and is
+required by many programs even though it is not packaged with XFree86.
+
+While GLUT is bundled with MesaDemos, it is also available as a separate
+package from its original project website:
+
+glut-3.7.tar.gz glut_data-3.7.tar.gz
+
+[http://reality.sgi.com/mjk/glut3/] http://reality.sgi.com/mjk/glut3/
+
+You may use either the GLUT included with MesaDemos (preferred and easier) or
+the GLUT from its project website. Don't install both! It's recommended at
+this time to go with the GLUT packaged with MesaDemos, but instructions on
+how to install the other GLUT are still provided in the next section as an
+option. Note that MesaDemos does not include the glut manpages, so you may
+want to download the project GLUT package just to install its manpages.
+-----------------------------------------------------------------------------
+
+2.5. Qt
+
+qt-x11-2.2.4.tar.gz or later version
+
+[http://www.troll.no/] http://www.troll.no/
+
+Qt is a cross-platform GUI library that makes it easy to create X
+applications with standard GUI elements (widgets) like menubars, scollbars,
+dropdown lists, checkboxes, buttons, multiple document interface, and many
+other GUI things. Using Qt, a program can be compiled for both MS Windows and
+X without changing any code. Its a very popular GUI library and is used to
+create the core libraries of KDE ([http://www.kde.org/] http://www.kde.org/).
+
+Qt has functions (previously as an extension in $QTDIR/extensions/opengl) for
+OpenGL that provides for creating OpenGL rendering contexts in Qt windows.
+This provides some alternative to both GLUT and using the glX functions
+directly, plus the added benefit of full access to the excellent qt widgets
+and cross-platform portability.
+
+This is useful if you want to compile or develop programs based on Qt (e.g.,
+KDE2 and its apps).
+-----------------------------------------------------------------------------
+
+2.6. NVIDIA drivers (Mesa libGL replacement)
+
+  * NVIDIA_kernel-0.9-769.tar.gz
+   
+  * NVIDIA_GLX-0.9-769.tar.gz
+   
+
+Note that XFree86 4.0.1 and later is required with driver 0.9-6 and later. If
+you have XFree86 4.0.0, then you'll have to download the older 0.9-4 version.
+
+[http://www.nvidia.com/] http://www.nvidia.com/
+
+   
+    Tip: See the updated faq at Nvidia.com while you are downloading. It may
+    have some important information not in this HOWTO.
+   
+The NVIDIA drivers provide a kernel driver: /lib/modules/2.2.16/video/
+NVdriver and libGL.so and libGLcore.so files that go into /usr/lib/ to
+replace and Mesa ones that might be in there. libGL.so is OpenGL. These files
+are Nvidia's own hardware accelerated OpenGL implementation.
+-----------------------------------------------------------------------------
+
+2.7. Java 2 SDK, Java 3D extension, and Java PlugIn for Netscape (optional)
+
+The following files are available at [http://www.blackdown.org/] http://
+www.blackdown.org/:
+
+  * j2sdk-1.2.2-FCS-linux-i386-glibc-2.1.3.tar.bz2
+   
+  * java3d1_2-FCS-linux-i386-sdk.tar.bz2
+   
+  * JavaPlugIn-1.2.2-FCS-linux-i386-glibc-2.1.3.run
+   
+
+Note that to install these Java files, your system needs to have glibc 2.1.3
+or better. To check your version of glibc:
+                ls -l /lib/libc*                                             
+                                                                             
+On rpm-based systems (like RedHat and Mandrake), you can try:
+                rpm -q glibc                                                 
+                                                                             
+
+Java2 1.3.0 FCS can also be used and it includes the JavaPlugin. If you use
+it, you don't have to get JavaPlugin-1.2.2-FCS. Installation of this Plugin
+is different and you'll have to see its documentation. Installation of Java2
+1.3.0 itself, and Java3D, is the same as with Java2 1.2.2.
+
+The [http://java.sun.com/products/java-media/3D/index.html] Java 3D media
+extension contains many 3D demo programs/applets and takes advantage of the
+OpenGL hardware acceleration on the system. The Java 3D API uses the OpenGL
+API internally. The demos run as normal Java applications and also as applets
+inside Netscape (4.7x) via the Java PlugIn, or inside [http://www.kde.org/]
+KDE's [http://www.konqueror.org/] Konqueror 2.1 or later!
+-----------------------------------------------------------------------------
+
+3. Install Software
+
+3.1. Install XFree86
+
+Installation of the software packages requires root login, which can be
+obtained easily via the superuser/setuser command: su - (see, man su).
+
+If you have a version of XFree86 installed already, you may want to move it
+or delete it. However, installing over an existing X is generally OK and
+preserves any programs or libraries you might have installed into the X
+directories (not that you should really do that):
+        cd /usr                                                              
+        mv X11R6 X11R6-old                                                   
+        cd /etc                                                              
+        mv X11 X11-old                                                       
+                                                                             
+        -- you may have an X directory in /var also                          
+        cd /var                                                              
+        mv X11R6 X11R6-old                                                   
+                                                                             
+
+If these locations are not correct for your distribution of Linux, you will
+have to look around your filesystem a bit - try looking in /var
+
+        cd /usr/src                                                          
+        mkdir release                                                        
+        cd release                                                           
+        tar -xvzf X402src-1.tgz                                              
+        tar -xvzf X402src-2.tgz                                              
+        tar -xvzf X402src-3.tgz                                              
+        tar -xvzf doctools-1.2.tar.gz                                        
+                                                                             
+        -- unpack the man pages (actually, glx pages are already present)    
+        cd /usr/src                                                          
+        tar -xvzf mangl.tar.Z                                                
+        tar -xvzf manglu.tar.Z                                               
+                                                                             
+
+A file has to be edited to allow these man pages to compile/install with the
+rest of the distribution:
+        cd /usr/src/release/xc/doc/man/GL                                    
+        Edit the file: Imakefile                                             
+                SUBDIRS = glx gl glu                                         
+                                                                             
+
+When you unpacked the man*.tar.Z files above, two new directories where
+added: gl glu
+
+        cd /usr/src/release                                                  
+        cd doctools                                                          
+                                                                             
+        -- Having this variable set confuses the sgml docs build.            
+        -- With it unset, the build uses the proper defaults.                
+        unset $SGML_CATALOG_FILES                                            
+                                                                             
+        make                                                                 
+        make install                                                         
+                                                                             
+        -- Note: doctools installs the perl program sgmlfmt to               
+        -- /usr/local/bin.  It looks for the perl executable                 
+        -- at /usr/local/bin/perl.  If perl is installed                     
+        -- on your system at /usr/bin/perl, then it will not                 
+        -- find perl and the sgml docs build will fail!                      
+        -- Make a symlink if needed (or edit the script):                    
+        cd /usr/local/bin                                                    
+        ln -s /usr/bin/perl perl                                             
+                                                                             
+        cd /usr/src/release                                                  
+        cd xc/config/cf                                                      
+        vi host.def                                                          
+        -- add the following three lines to host.def:                        
+        --      #define HasSgmlFmt YES                                       
+        --      #define BuildAllDocs YES                                     
+        --      #define HasZlib YES                                          
+        -- See the README file in doctools and xc/config/cf.                 
+        -- HasZlib YES instructs XFree86 not to build and install            
+        -- it's own old zlib.  If you do not have zlib installed             
+        -- (check /usr/lib/libz*), then omit the HasZlib line or             
+        -- go download it and install it first:                              
+        --       http://www.info-zip.org/pub/infozip/zlib/                   
+        -- A common zlib conflict occurs when a system already               
+        -- has zlib installed and XFree86 installs it's also.                
+        -- In this case, deleting /usr/X11R6/lib/libz.a fixes                
+        -- the problem.                                                      
+                                                                             
+        cd /usr/src/release/xc                                               
+        make World                                                           
+        -- before installing, make sure you have moved                       
+        -- or deleted prior installation of X                                
+        -- unless you are sure you want to just overwrite                    
+        make install                                                         
+        make install.man                                                     
+                                                                             
+        -- make symlinks                                                     
+        cd /usr/include                                                      
+        ln -s ../X11R6/include/DPS DPS                                       
+        ln -s ../X11R6/include/GL GL                                         
+        ln -s ../X11R6/include/X11 X11                                       
+        ln -s ../X11R6/include/bitmaps bitmaps                               
+        cd ..                                                                
+        ln -s X11R6 X11                                                      
+                                                                             
+
+Add /usr/X11R6/lib to your /etc/ld.so.conf file, then run the command 
+ldconfig to update /etc/ld.so.cache so the libraries will be visible.
+
+The GL/GLX/GLU HTML documentation is located at /usr/src/release/xc/doc/
+hardcopy/GL. This directory can be copied as follows:
+                cd /usr/src/release/xc/doc/hardcopy                          
+                cp -r GL /usr/X11R6/lib/X11/doc/html                         
+                                                                             
+The index.html file in the docs points to manindex5x.html, but the filename
+may actually be manindex5.html. Just make a symlink to fix it:
+                cd /usr/X11R6/lib/X11/doc/html                               
+                ln -s manindex5.html manindex5x.html                         
+                                                                             
+
+When X is up and running (later), try using the xman program to see that the
+gl,glx,glu and glut man pages are in section 3. If you have KDE2, khelpcenter
+allows man-page browsing.
+-----------------------------------------------------------------------------
+
+3.2. Install Mesa
+
+Note: This gives you the libGLU* and libglut* files that are missing in 
+XFree86. XFree86 only comes with the OpenGL core library, libGL (based on
+Mesa). This also installs Mesa's libGL, but we will delete that since it is
+to be replaced by the Nvidia libGL.
+
+It's best to uninstall any old Mesa version you may have installed before
+installing a new Mesa. Uninstalling software can be a dangerous operation, so
+know what you are doing!
+
+To completely uninstall any Mesa libs that may have come with Slackware:
+                removepkg mesa                                               
+                                                                             
+For rpm-based systems (like RedHat and Mandrake), try:
+                -- see what will be removed first                            
+                rpm -e --test Mesa | less                                    
+                -- if ok, proceed                                            
+                rpm -e Mesa                                                  
+                                                                             
+For Debian, you can try:
+                apt-get remove Mesa                                          
+                                                                             
+Procedures vary for other distributions. If there is no clear way to
+uninstall an existing Mesa, then at least confirm where it is installed:
+normally either under /usr or /usr/local. The example below assumes that Mesa
+is installed (or going to get installed) under /usr. Installing over an old
+version is probably harmless. Look for /usr/lib/libMesa* or /usr/local/lib/
+libMesa* and delete them unless you have programs that need them.
+
+        -- IF you are going to use the project GLUT distribution of GLUT, then  
+        -- unpack the Glut-3.7 packages ...                                     
+        -- Mesa's compile looks for it                                          
+        cd /usr/src                                                             
+        tar -xvzf glut-3.7.tar.gz                                               
+        tar -xvzf glut_data-3.7.tar.gz                                          
+        -- IF you are using this GLUT, use the --with-glut=/usr/src/glut-3.7    
+        -- parameter with Mesa's ./configure below in addition to the --prefix  
+                                                                                
+        cd /usr/src                                                             
+        tar -xvzf MesaLib-3.4.tar.gz                                            
+        tar -xvzf MesaDemos-3.4.tar.gz                                          
+        cd Mesa-3.4                                                             
+        ./configure --prefix=/usr                                               
+        make                                                                    
+        make install                                                            
+        ldconfig                                                                
+                                                                                
+
+At this point, Mesa installed its own version of the glx.h include files over
+the ones that XFree86 installed. This will cause some programs to fail to
+compile and is corrected by copying the XFree86 GL include files from the X
+source back to your system:
+        cp /usr/src/release/xc/include/GL/*.h /usr/X11R6/include/GL          
+                                                                             
+-----------------------------------------------------------------------------
+
+3.3. Install Nvidia OpenGL drivers
+
+        -- delete the libGL.* files that come with XFree86 / Mesa 3.4 ...    
+        -- the nvidia libGL.* should replace them                            
+        cd /usr/X11R6/lib                                                    
+        rm libGL.*                                                           
+        cd modules/extensions                                                
+        rm libGL*                                                            
+        rm libglx*                                                           
+        cd /usr/lib                                                          
+        rm libGL.*                                                           
+                                                                             
+        cd /usr/src                                                          
+        tar -xvzf NVIDIA_kernel-0.9-769.tar.gz                               
+        tar -xvzf NVIDIA_GLX-0.9-769.tar.gz                                  
+        cd NVIDIA_kernel-0.9-769                                             
+                                                                             
+
+   
+    Tip: If you experience problems starting X, see the files
+    TNT_USERS_README and M64_USERS_README. These files explain how to tweak
+    the kernel driver. They were written to fix problems with TNT and TNT2
+    M64 cards but these tweaks are reported to help the GeForce2 MX also. Try
+    bypassing the BIOS as explained in M64_USERS_README.
+   
+        make                                                                           
+        cd ..                                                                          
+        cd NVIDIA_GLX-0.9-769                                                          
+        make                                                                           
+        ldconfig                                                                       
+                                                                                       
+        -- Make a basic XF86Config file using the "nv" driver:                         
+        cd /etc/X11                                                                    
+        xf86config                                                                     
+        -- Follow the prompts and fill in the information xf86config asks for.         
+        -- Select the Nvidia GeForce or appropriate name.                              
+        -- You can test X with this XF86Config file, or continue for OpenGL:           
+                                                                                       
+        -- You must edit XF86Config and set the following:                             
+        vi XF86Config                                                                  
+                Load "glx"                                                             
+                Replace 'driver "nv"' with 'driver "nvidia"'                           
+                Put "1600x1200" first (or your preferred screen resolution)            
+                Copy ttf fonts from Windows into a font directory and add a font path. 
+                Use ttmkfdir (check freshmeat.net) to a fonts.dir file.                
+                A good place to keep your own fonts is /usr/local/share/fonts ...      
+                                                                                       
+        -- Nvidia drivers do NOT use the dri module - don't load it.                   
+                                                                                       
+        -- You may like to edit /etc/X11/xinit/xinitrc to have run "startkde"          
+        -- or "gnome-session" instead of twm.                                          
+                                                                                       
+        -- Note: /usr/include/GL should be a symlink to /usr/X11R6/include/GL          
+                                                                                       
+
+Specifying "nvidia" for the driver in the XF86Config makes that take effect
+each time you startx. But the NVdriver kernel driver will have to be loaded
+each time your system boots using:
+                insmod NVdriver                                              
+                                                                             
+You can place this command in one of the system startup files, like /etc/rc.d
+/rc.modules. But this may not be necessary if the following line is present
+in /etc/modules.conf (or conf.modules):
+                alias char-major-195 NVdriver                                
+                                                                             
+If this line is present, NVdriver is loaded automatically when X is started
+(autoclean). You can check if its loaded using the command, lsmod.
+-----------------------------------------------------------------------------
+
+3.4. Install Qt
+
+        -- for Qt, there is no "make install", just place the source         
+        -- where you want it to live:                                        
+        cd /usr/local                                                        
+        tar -xvzf qt-x11-2.2.4.tar.gz                                        
+        ln -s qt-2.2.4 qt                                                    
+        cd qt                                                                
+                                                                             
+
+Read the INSTALL file about environment variables to setup before you try to
+build Qt. You can add the following to /etc/profile:
+                QTDIR=/usr/local/qt                                          
+                PATH=$PATH:$QTDIR/bin                                        
+                MANPATH=$MANPATH:$QTDIR/man                                  
+                LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QTDIR/lib                  
+                export QTDIR PATH MANPATH LD_LIBRARY_PATH                    
+                                                                             
+LD_LIBRARY_PATH is optional if you include an entry in /etc/ld.so.conf for
+the library path: /usr/local/qt/lib, then run ldconfig to update /etc/
+ld.so.cache.
+
+        -- note: configure has some options you can try, to see them                     
+        -- see ./configure --help                                                        
+        ./configure                                                                      
+                                                                                         
+        -- NOTE: when you run make as suggested on the next line, you may                
+        -- encounter a make error that halts the build IF you run make                   
+        -- from outside X.  The program $QTDIR/bin/uic (the User Interface Compiler)     
+        -- may Segmentation Fault when run from a Linux console.  You can run            
+        -- "startx" and use the twm (tiny window manager) and xterm (or whatever you     
+        -- might have setup for X) to run the rest of the Qt build.  If for some         
+        -- reason twm is not even available, then you can run "XFree86 &", use           
+        -- "CTRL-ALT-F1" to get to a console, start an xterm as                          
+        --  "xterm -display localhost:0.0 &", then switch back to X with "ALT-F7".       
+                                                                                         
+        make                                                                             
+                                                                                         
+    -- Only for old versions of Qt before 2.1.0 or so ...                                
+        -- compile the opengl extension                                                  
+        -- Note that in qt 2.2.0 on, the OpenGL support has been moved out of extensions 
+        -- and is now a standard part of the library that is installed if configure      
+        -- finds OpenGL installed on your system.  If you were to not want OpenGL        
+        -- support in Qt, you'd have to pass the -no-opengl option to configure.         
+        cd extensions/opengl/src                                                         
+        -- Check the Makefile and ensure there are not Mesa references.                  
+        make                                                                             
+                                                                                         
+                                                                                         
+        ldconfig                                                                         
+        cd ../examples                                                                   
+        -- Try compiling and running the examples.                                       
+                                                                                         
+-----------------------------------------------------------------------------
+
+3.5. Install GLUT 3.7 Distribution (optional)
+
+If you installed the MesaDemos package along with the Mesa 3.4, then you have
+already installed GLUT 3.7 since it is included with MesaDemos. However, you
+may be interested in installing the GLUT manpages and you can skip right to
+the "Install GLUT manual pages", below ...
+
+Installing GLUT is a bit tricky. I'm not too familiar with imake, the program
+that it uses to manage the Makefiles, and didn't quite see how to get GLUT to
+install to where I wanted it (/usr/lib, but MesaDemos will do this without
+any trouble though). It can be done manually anyhow:
+
+        cd /usr/src                                                          
+        tar -xvzf glut-3.7.tar.gz                                            
+        cd glut-3.7                                                          
+                                                                             
+        Read the file: README.linux                                          
+        cd linux                                                             
+        READ the file: README                                                
+        cp Glut.cf ..                                                        
+        cd ..                                                                
+        Edit Glut.cf: remove any Mesa references.                            
+        Replace any -lMesaGL -lMesaGLU with -lGL -lGLU if needed.            
+        In particular, replace:                                              
+                OPENGL = $(TOP)/../lib/libMesaGL.so                          
+                GLU = $(TOP)/../lib/libMesaGLU.so                            
+        with:                                                                
+                OPENGL = -lGL                                                
+                GLU = -lGLU                                                  
+                                                                             
+        ./mkmkfiles.imake                                                    
+        cd lib/glut                                                          
+        cp /usr/src/glut-3.7/linux/Makefile .                                
+        Edit the Makefile: remove any Mesa references.                       
+        Replace any -lMesaGL -lMesaGLU with -lGL -lGLU if needed.            
+        In particular, replace:                                              
+                OPENGL = $(TOP)/../lib/libMesaGL.so                          
+                GLU = $(TOP)/../lib/libMesaGLU.so                            
+        with:                                                                
+                OPENGL = -lGL                                                
+                GLU = -lGLU                                                  
+                                                                             
+        make                                                                 
+        ln -s libglut.so.3.7 libglut.so                                      
+        ln -s libglut.so.3.7 libglut.so.3                                    
+        cp -d libglut.* /usr/lib                                             
+        cd ..                                                                
+        cd gle                                                               
+        -- make a shared lib for libgle                                      
+        make                                                                 
+        gcc -shared -o libgle.so.3.7 *.o                                     
+        ln -s libgle.so.3.7 libgle.so                                        
+        ln -s libgle.so.3.7 libgle.so.3                                      
+        cp -d libgle.* /usr/lib                                              
+        cd ..                                                                
+        cd mui                                                               
+        -- make a shared lib for libmui                                      
+        make                                                                 
+        gcc -shared -o libmui.so.3.7 *.o                                     
+        ln -s libmui.so.3.7 libmui.so                                        
+        ln -s libmui.so.3.7 libmui.so.3                                      
+        cp -d libmui.* /usr/lib                                              
+                                                                             
+        -- Install the GLUT manual pages (not included with MesaDemos)       
+        cd /usr/src/glut-3.7                                                 
+        make SUBDIRS=man Makefile                                            
+        cd man/glut                                                          
+        make install.man                                                     
+        ldconfig                                                             
+                                                                             
+        cd ../../progs/demos/ideas                                           
+        -- edit the Makefile, change OPENGL = -lGL and GLU = -lGLU           
+        make                                                                 
+        ./ideas                                                              
+        -- test compiling some demos                                         
+        -- take a look at which libraries have to be linked (-lX11 ...) in   
+        -- the Makefiles.  Qt's tmake program available at www.troll.no      
+        -- is a quick way to make a Makefile but you have to edit it         
+        -- and add the -l needed.                                            
+                                                                             
+-----------------------------------------------------------------------------
+
+3.6. Install Java 3D (optional)
+
+If you already have a Java JDK/SDK or JRE, that is, a Java/Software
+Development Kit or Java Runtime Environment, installed, then you may have to
+take care to uninstall them or leave them alone!
+
+It is recommended that you have the lastest version of Netscape 4.7x, which
+at this time of writing, is 4.76, if you plan to install the Java PlugIn for 
+netscape. It works, but you may (or may not) experience Segmentation Faults
+when leaving a page that contained a Java 3D applet - KDE [http://
+www.konqueror.org/] Konqueror 2.1 works well.
+
+Assuming you are logged in as root and have downloaded the Java packages from
+blackdown.org into the root home directory, /root, do:
+
+Install the Java 2 SDK (1.2.2) and Java 3D (1.2) extension:
+                cd /usr/local                                                
+                tar -xvyf ~/j2sdk-1.2.2-FCS-linux-i386-glibc-2.1.3.tar.bz2   
+                ln -s jdk1.2.2 jdk                                           
+                cd jdk                                                       
+                tar -xvyf ~/java3d1_2-FCS-linux-i386-sdk.tar.bz2             
+                cd jre/lib/ext                                               
+                cp j3d* ..                                                   
+                cp vecmath.jar ..                                            
+                cd /usr/local                                                
+                chown -R root:root jdk1.2.2                                  
+                                                                             
+
+Edit /etc/profile, add:
+                JAVA_HOME=/usr/local/jdk                                     
+                PATH=$PATH:$JAVA_HOME/bin                                    
+                export JAVA_HOME PATH                                        
+                                                                             
+This completes the installation of the Java 2 SDK, which includes the JRE,
+and the Java 3D 1.2 extension.
+
+Install the Java PlugIn for netscape:
+                -- source profile to set JAVA_HOME and PATH                  
+                source /etc/profile                                          
+                cd                                                           
+                chmod u+x JavaPlugIn-1.2.2-FCS-linux-i386-glibc-2.1.3.run    
+                ./JavaPlugIn-1.2.2-FCS-linux-i386-glibc-2.1.3.run            
+                -- each user has to run this file to install the plugin      
+                -- it is per user, not global                                
+                netscape &                                                   
+                                                                             
+When netscape loads, go to Edit+Preferences->Advanced and Enable Java and
+Enable Java Plugin, then exit Netscape.
+
+The next step is to configure the Java PlugIn. It comes with a configuration
+applet.
+                netscape ~/.netscape/java/ControlPanel.html &                
+                -- the Control Panel for JavaPlugIn should load              
+                                                                             
+Again, netscape will load. Click the "Advanced" tab, select "Other ..." and
+type for Path:
+                /usr/local/jdk1.2.2/jre                                      
+                                                                             
+Then click "Apply" and exit Netscape. By changing this, it tells the Plugin
+to use the system Java Runtime Environment instead of the JRE it installed
+under ~/.netscape. The system JRE is where the Java 3D API extension is
+installed.
+
+Test Java 3D demos:
+                cd $JAVA_HOME/demo/java3d/GearTest                           
+                java GearBox &                                               
+                -- runs as normal java application                           
+                netscape GearBox_plugin.html &                               
+                -- runs in netscape as an applet                             
+                                                                             
+
+If you experience trouble with Java, you can try deleting ~/.java and related
+files in your home directory, then try again. These files left over from a
+prior Java installation can cause problems.
+
+If all works well, you should have a complete Java Developement and Runtime
+Environment for both normal apps and high-performance 3D apps. See [http://
+java.sun.com/] http://java.sun.com/ for further information about Java and
+the Java 3D extension.
+-----------------------------------------------------------------------------
+
+4. Final Comments
+
+I believe that is about it! At this point you should have a fully functioning
+OpenGL system for running and developing OpenGL apps.
+
+You can try building the demos in /usr/src/Mesa-3.4/{demos,xdemos} by using
+the Makefile.X11 as Makefile and running "make targets" or "make teapot" etc.
+They should build and link with the hardware accelerated libGL and run very
+fast! Qt has a OpenGL example in $QTDIR/examples/gear, that you should be
+able to run as simply as "make;./gear".
+
+Just about any standard GL/GLX/GLU/glut app should run fine, such as WolfGL,
+GLQuake, glqwcl.glx (GLQuakeWorld), quake2, and of course ... quake3!!!
+
+HAVE FUN!
+-----------------------------------------------------------------------------
+
+A. GNU Free Documentation License
+
+Version 1.1, March 2000
+
+   
+    Copyright (C) 2000 Free Software Foundation, Inc. 59 Temple Place, Suite
+    330, Boston, MA 02111-1307 USA Everyone is permitted to copy and
+    distribute verbatim copies of this license document, but changing it is
+    not allowed.
+   
+-----------------------------------------------------------------------------
+0. PREAMBLE
+
+The purpose of this License is to make a manual, textbook, or other written
+document "free" in the sense of freedom: to assure everyone the effective
+freedom to copy and redistribute it, with or without modifying it, either
+commercially or noncommercially. Secondarily, this License preserves for the
+author and publisher a way to get credit for their work, while not being
+considered responsible for modifications made by others.
+
+This License is a kind of "copyleft", which means that derivative works of
+the document must themselves be free in the same sense. It complements the
+GNU General Public License, which is a copyleft license designed for free
+software.
+
+We have designed this License in order to use it for manuals for free
+software, because free software needs free documentation: a free program
+should come with manuals providing the same freedoms that the software does.
+But this License is not limited to software manuals; it can be used for any
+textual work, regardless of subject matter or whether it is published as a
+printed book. We recommend this License principally for works whose purpose
+is instruction or reference.
+-----------------------------------------------------------------------------
+
+1. APPLICABILITY AND DEFINITIONS
+
+This License applies to any manual or other work that contains a notice
+placed by the copyright holder saying it can be distributed under the terms
+of this License. The "Document", below, refers to any such manual or work.
+Any member of the public is a licensee, and is addressed as "you".
+
+A "Modified Version" of the Document means any work containing the Document
+or a portion of it, either copied verbatim, or with modifications and/or
+translated into another language.
+
+A "Secondary Section" is a named appendix or a front-matter section of the
+Document that deals exclusively with the relationship of the publishers or
+authors of the Document to the Document's overall subject (or to related
+matters) and contains nothing that could fall directly within that overall
+subject. (For example, if the Document is in part a textbook of mathematics,
+a Secondary Section may not explain any mathematics.) The relationship could
+be a matter of historical connection with the subject or with related
+matters, or of legal, commercial, philosophical, ethical or political
+position regarding them.
+
+The "Invariant Sections" are certain Secondary Sections whose titles are
+designated, as being those of Invariant Sections, in the notice that says
+that the Document is released under this License.
+
+The "Cover Texts" are certain short passages of text that are listed, as
+Front-Cover Texts or Back-Cover Texts, in the notice that says that the
+Document is released under this License.
+
+A "Transparent" copy of the Document means a machine-readable copy,
+represented in a format whose specification is available to the general
+public, whose contents can be viewed and edited directly and
+straightforwardly with generic text editors or (for images composed of
+pixels) generic paint programs or (for drawings) some widely available
+drawing editor, and that is suitable for input to text formatters or for
+automatic translation to a variety of formats suitable for input to text
+formatters. A copy made in an otherwise Transparent file format whose markup
+has been designed to thwart or discourage subsequent modification by readers
+is not Transparent. A copy that is not "Transparent" is called "Opaque".
+
+Examples of suitable formats for Transparent copies include plain ASCII
+without markup, Texinfo input format, LaTeX input format, SGML or XML using a
+publicly available DTD, and standard-conforming simple HTML designed for
+human modification. Opaque formats include PostScript, PDF, proprietary
+formats that can be read and edited only by proprietary word processors, SGML
+or XML for which the DTD and/or processing tools are not generally available,
+and the machine-generated HTML produced by some word processors for output
+purposes only.
+
+The "Title Page" means, for a printed book, the title page itself, plus such
+following pages as are needed to hold, legibly, the material this License
+requires to appear in the title page. For works in formats which do not have
+any title page as such, "Title Page" means the text near the most prominent
+appearance of the work's title, preceding the beginning of the body of the
+text.
+-----------------------------------------------------------------------------
+
+2. VERBATIM COPYING
+
+You may copy and distribute the Document in any medium, either commercially
+or noncommercially, provided that this License, the copyright notices, and
+the license notice saying this License applies to the Document are reproduced
+in all copies, and that you add no other conditions whatsoever to those of
+this License. You may not use technical measures to obstruct or control the
+reading or further copying of the copies you make or distribute. However, you
+may accept compensation in exchange for copies. If you distribute a large
+enough number of copies you must also follow the conditions in section 3.
+
+You may also lend copies, under the same conditions stated above, and you may
+publicly display copies.
+-----------------------------------------------------------------------------
+
+3. COPYING IN QUANTITY
+
+If you publish printed copies of the Document numbering more than 100, and
+the Document's license notice requires Cover Texts, you must enclose the
+copies in covers that carry, clearly and legibly, all these Cover Texts:
+Front-Cover Texts on the front cover, and Back-Cover Texts on the back cover.
+Both covers must also clearly and legibly identify you as the publisher of
+these copies. The front cover must present the full title with all words of
+the title equally prominent and visible. You may add other material on the
+covers in addition. Copying with changes limited to the covers, as long as
+they preserve the title of the Document and satisfy these conditions, can be
+treated as verbatim copying in other respects.
+
+If the required texts for either cover are too voluminous to fit legibly, you
+should put the first ones listed (as many as fit reasonably) on the actual
+cover, and continue the rest onto adjacent pages.
+
+If you publish or distribute Opaque copies of the Document numbering more
+than 100, you must either include a machine-readable Transparent copy along
+with each Opaque copy, or state in or with each Opaque copy a
+publicly-accessible computer-network location containing a complete
+Transparent copy of the Document, free of added material, which the general
+network-using public has access to download anonymously at no charge using
+public-standard network protocols. If you use the latter option, you must
+take reasonably prudent steps, when you begin distribution of Opaque copies
+in quantity, to ensure that this Transparent copy will remain thus accessible
+at the stated location until at least one year after the last time you
+distribute an Opaque copy (directly or through your agents or retailers) of
+that edition to the public.
+
+It is requested, but not required, that you contact the authors of the
+Document well before redistributing any large number of copies, to give them
+a chance to provide you with an updated version of the Document.
+-----------------------------------------------------------------------------
+
+4. MODIFICATIONS
+
+You may copy and distribute a Modified Version of the Document under the
+conditions of sections 2 and 3 above, provided that you release the Modified
+Version under precisely this License, with the Modified Version filling the
+role of the Document, thus licensing distribution and modification of the
+Modified Version to whoever possesses a copy of it. In addition, you must do
+these things in the Modified Version:
+
+ A. Use in the Title Page (and on the covers, if any) a title distinct from
+    that of the Document, and from those of previous versions (which should,
+    if there were any, be listed in the History section of the Document). You
+    may use the same title as a previous version if the original publisher of
+    that version gives permission.
+   
+ B. List on the Title Page, as authors, one or more persons or entities
+    responsible for authorship of the modifications in the Modified Version,
+    together with at least five of the principal authors of the Document (all
+    of its principal authors, if it has less than five).
+   
+ C. State on the Title page the name of the publisher of the Modified
+    Version, as the publisher.
+   
+ D. Preserve all the copyright notices of the Document.
+   
+ E. Add an appropriate copyright notice for your modifications adjacent to
+    the other copyright notices.
+   
+ F. Include, immediately after the copyright notices, a license notice giving
+    the public permission to use the Modified Version under the terms of this
+    License, in the form shown in the Addendum below.
+   
+ G. Preserve in that license notice the full lists of Invariant Sections and
+    required Cover Texts given in the Document's license notice.
+   
+ H. Include an unaltered copy of this License.
+   
+ I. Preserve the section entitled "History", and its title, and add to it an
+    item stating at least the title, year, new authors, and publisher of the
+    Modified Version as given on the Title Page. If there is no section
+    entitled "History" in the Document, create one stating the title, year,
+    authors, and publisher of the Document as given on its Title Page, then
+    add an item describing the Modified Version as stated in the previous
+    sentence.
+   
+ J. Preserve the network location, if any, given in the Document for public
+    access to a Transparent copy of the Document, and likewise the network
+    locations given in the Document for previous versions it was based on.
+    These may be placed in the "History" section. You may omit a network
+    location for a work that was published at least four years before the
+    Document itself, or if the original publisher of the version it refers to
+    gives permission.
+   
+ K. In any section entitled "Acknowledgements" or "Dedications", preserve the
+    section's title, and preserve in the section all the substance and tone
+    of each of the contributor acknowledgements and/or dedications given
+    therein.
+   
+ L. Preserve all the Invariant Sections of the Document, unaltered in their
+    text and in their titles. Section numbers or the equivalent are not
+    considered part of the section titles.
+   
+ M. Delete any section entitled "Endorsements". Such a section may not be
+    included in the Modified Version.
+   
+ N. Do not retitle any existing section as "Endorsements" or to conflict in
+    title with any Invariant Section.
+   
+
+If the Modified Version includes new front-matter sections or appendices that
+qualify as Secondary Sections and contain no material copied from the
+Document, you may at your option designate some or all of these sections as
+invariant. To do this, add their titles to the list of Invariant Sections in
+the Modified Version's license notice. These titles must be distinct from any
+other section titles.
+
+You may add a section entitled "Endorsements", provided it contains nothing
+but endorsements of your Modified Version by various parties--for example,
+statements of peer review or that the text has been approved by an
+organization as the authoritative definition of a standard.
+
+You may add a passage of up to five words as a Front-Cover Text, and a
+passage of up to 25 words as a Back-Cover Text, to the end of the list of
+Cover Texts in the Modified Version. Only one passage of Front-Cover Text and
+one of Back-Cover Text may be added by (or through arrangements made by) any
+one entity. If the Document already includes a cover text for the same cover,
+previously added by you or by arrangement made by the same entity you are
+acting on behalf of, you may not add another; but you may replace the old
+one, on explicit permission from the previous publisher that added the old
+one.
+
+The author(s) and publisher(s) of the Document do not by this License give
+permission to use their names for publicity for or to assert or imply
+endorsement of any Modified Version.
+-----------------------------------------------------------------------------
+
+5. COMBINING DOCUMENTS
+
+You may combine the Document with other documents released under this
+License, under the terms defined in section 4 above for modified versions,
+provided that you include in the combination all of the Invariant Sections of
+all of the original documents, unmodified, and list them all as Invariant
+Sections of your combined work in its license notice.
+
+The combined work need only contain one copy of this License, and multiple
+identical Invariant Sections may be replaced with a single copy. If there are
+multiple Invariant Sections with the same name but different contents, make
+the title of each such section unique by adding at the end of it, in
+parentheses, the name of the original author or publisher of that section if
+known, or else a unique number. Make the same adjustment to the section
+titles in the list of Invariant Sections in the license notice of the
+combined work.
+
+In the combination, you must combine any sections entitled "History" in the
+various original documents, forming one section entitled "History"; likewise
+combine any sections entitled "Acknowledgements", and any sections entitled
+"Dedications". You must delete all sections entitled "Endorsements."
+-----------------------------------------------------------------------------
+
+6. COLLECTIONS OF DOCUMENTS
+
+You may make a collection consisting of the Document and other documents
+released under this License, and replace the individual copies of this
+License in the various documents with a single copy that is included in the
+collection, provided that you follow the rules of this License for verbatim
+copying of each of the documents in all other respects.
+
+You may extract a single document from such a collection, and distribute it
+individually under this License, provided you insert a copy of this License
+into the extracted document, and follow this License in all other respects
+regarding verbatim copying of that document.
+-----------------------------------------------------------------------------
+
+7. AGGREGATION WITH INDEPENDENT WORKS
+
+A compilation of the Document or its derivatives with other separate and
+independent documents or works, in or on a volume of a storage or
+distribution medium, does not as a whole count as a Modified Version of the
+Document, provided no compilation copyright is claimed for the compilation.
+Such a compilation is called an "aggregate", and this License does not apply
+to the other self-contained works thus compiled with the Document, on account
+of their being thus compiled, if they are not themselves derivative works of
+the Document.
+
+If the Cover Text requirement of section 3 is applicable to these copies of
+the Document, then if the Document is less than one quarter of the entire
+aggregate, the Document's Cover Texts may be placed on covers that surround
+only the Document within the aggregate. Otherwise they must appear on covers
+around the whole aggregate.
+-----------------------------------------------------------------------------
+
+8. TRANSLATION
+
+Translation is considered a kind of modification, so you may distribute
+translations of the Document under the terms of section 4. Replacing
+Invariant Sections with translations requires special permission from their
+copyright holders, but you may include translations of some or all Invariant
+Sections in addition to the original versions of these Invariant Sections.
+You may include a translation of this License provided that you also include
+the original English version of this License. In case of a disagreement
+between the translation and the original English version of this License, the
+original English version will prevail.
+-----------------------------------------------------------------------------
+
+9. TERMINATION
+
+You may not copy, modify, sublicense, or distribute the Document except as
+expressly provided for under this License. Any other attempt to copy, modify,
+sublicense or distribute the Document is void, and will automatically
+terminate your rights under this License. However, parties who have received
+copies, or rights, from you under this License will not have their licenses
+terminated so long as such parties remain in full compliance.
+-----------------------------------------------------------------------------
+
+10. FUTURE REVISIONS OF THIS LICENSE
+
+The Free Software Foundation may publish new, revised versions of the GNU
+Free Documentation License from time to time. Such new versions will be
+similar in spirit to the present version, but may differ in detail to address
+new problems or concerns. See [http://www.gnu.org/copyleft/] http://
+www.gnu.org/copyleft/.
+
+Each version of the License is given a distinguishing version number. If the
+Document specifies that a particular numbered version of this License "or any
+later version" applies to it, you have the option of following the terms and
+conditions either of that specified version or of any later version that has
+been published (not as a draft) by the Free Software Foundation. If the
+Document does not specify a version number of this License, you may choose
+any version ever published (not as a draft) by the Free Software Foundation.
+-----------------------------------------------------------------------------
+
+How to use this License for your documents
+
+To use this License in a document you have written, include a copy of the
+License in the document and put the following copyright and license notices
+just after the title page:
+
+   
+    Copyright (c) YEAR YOUR NAME. Permission is granted to copy, distribute
+    and/or modify this document under the terms of the GNU Free Documentation
+    License, Version 1.1 or any later version published by the Free Software
+    Foundation; with the Invariant Sections being LIST THEIR TITLES, with the
+    Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST. A
+    copy of the license is included in the section entitled "GNU Free
+    Documentation License".
+   
+If you have no Invariant Sections, write "with no Invariant Sections" instead
+of saying which ones are invariant. If you have no Front-Cover Texts, write
+"no Front-Cover Texts" instead of "Front-Cover Texts being LIST"; likewise
+for Back-Cover Texts.
+
+If your document contains nontrivial examples of program code, we recommend
+releasing these examples in parallel under your choice of free software
+license, such as the GNU General Public License, to permit their use in free
+software.

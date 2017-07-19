@@ -1,0 +1,1322 @@
+XFree86 Font Deuglification HOWTO
+
+Hal Burgiss
+
+         hal@foobox.net
+      
+
+Original Author: Doug Holland
+
+         meldroc@frii.com
+      
+
+v1.70, 18 April 2001
+
+
+How to improve ugly and unreadable X Window fonts. Various tips for improving
+font handling for XFree86, including sections on font servers, TrueType
+fonts, Netscape, and related topics.
+
+-----------------------------------------------------------------------------
+Table of Contents
+1. Introduction
+    1.1. Conventions Used in this Document
+    1.2. Change Log and What's New
+    1.3. New Versions
+    1.4. Copyright
+    1.5. Credits
+    1.6. Translations
+   
+   
+2. X Server Configuration
+    2.1. Setting The FontPath
+    2.2. X Server Command Line Options
+   
+   
+3. TrueType Fonts (One of the few things Windows is good for)
+    3.1. Making TrueType Fonts Available
+    3.2. Font Servers
+        3.2.1. xfstt
+            3.2.1.1. Installation
+            3.2.1.2. Adjusting the Default Font Size
+           
+           
+        3.2.2. Redhat's xfs
+            3.2.2.1. Setting the xfs FontPath
+            3.2.2.2. Getting the Fonts Ready
+           
+           
+       
+       
+    3.3. xfsft
+    3.4. The fonts.alias File
+   
+   
+4. XFree86 4.x
+    4.1. Anti-aliasing
+        4.1.1. Requirements
+        4.1.2. Installation
+        4.1.3. Configuration
+        4.1.4. Afterword
+       
+       
+    4.2. Redhat 7.0 Differences
+   
+   
+5. Adjusting Fonts in Specific Applications
+    5.1. KDE
+        5.1.1. Applying KDE Fonts and Colors to non-KDE Applications
+       
+       
+    5.2. Netscape
+   
+   
+6. Odds and Ends
+    6.1. Notes
+    6.2. Links
+   
+   
+
+1. Introduction
+
+One of the most annoying problems many of us are faced with is the poor
+default fonts and font settings of X as implemented by many distributions.
+I'm talking specifically about [http://www.xfree.org] XFree86, other versions
+of X may be better. Many programs use fixed width default fonts when a
+variable width font would be more appropriate. Other programs use fonts that
+are so small as to be practically unreadable. The fonts that are bundled with
+XFree86 are not of the same quality as found on some other platforms. XFree86
+does come with a halfway decent courier font, but its Times and Helvetica
+fonts are simple bitmap fonts that pixelize when they are scaled. Yuck!  
+
+This HOWTO attempts to show how to adjust various font settings, install new
+fonts, and do other things that should greatly improve the appearance and
+readability of fonts on the X Window Desktop. This is done by adjusting the
+FontPath in the XF86Config file, by adding switches to X server command line
+in startx or xdm (and variants), by adding new fonts, and by installing a
+TrueType font server and fonts. TrueType does indeed make a huge difference.
+
+Comments, corrections, additions and critiques are always welcome. You can
+reach the authors at <meldroc@frii.com>, or <hal@foobox.net>. Contributions
+are also welcomed. Especially anyone who really stays current with KDE and/or
+Gnome issues!  
+-----------------------------------------------------------------------------
+
+1.1. Conventions Used in this Document
+
+  * Where examples of commands are used, a "#" character is used to denote
+    where typically the command would be run as the root user. A "$" is used
+    where typically a non-root user would be executing the command.
+   
+  * The examples use /usr/local/share/fonts/ttfonts as our TrueType font
+    directory. There is no magic to this location, and could conceivably just
+    as well be in any number of other locations.
+   
+  * References to "xfs" are to the xfs as packaged by Redhat for versions 6.x
+    and later. This differs significantly in some respects from the stock
+    XFree86 xfs.
+   
+  * References to "Netscape" are to the entire suite of programs from
+    Netscape: Communicator, Navigator, Messenger, etc. For all intents and
+    purposes, font configuration in Mozilla is very similar.
+   
+  * 'XF86Config' is the X configuration file. For Redhat based distros, as of
+    Redhat 7.0, this is now 'XF86Config-4' for XFree86 4.x. For the most
+    part, we'll just use 'XF86Config' here.
+   
+    Also, while some aspects of XFree86 4.x configuration are the same as
+    3.3.x, there are some significant differences. We'll only highlight the
+    differences. So unless noted otherwise, any comments or examples will
+    apply to both 3.x and 4.x versions.
+   
+  * File system layout varies somewhat from distribution to distribution. It
+    is impossible to stay on top of every conceivable variation of who keeps
+    which files where. So take the examples here with a grain of salt if the
+    PATHs don't seem to match your system.
+   
+
+-----------------------------------------------------------------------------
+1.2. Change Log and What's New
+
+ 
+
+  * 1.70: April 18, 2001: Added links for converting Mac TrueType Fonts
+    (thanks to Karl A. Krueger), links to Unicode TrueType fonts (thanks to
+    Tzafrir Cohen for suggestions and URLs), and added a section on
+    anti-aliasing with X 4.0.2 (or greater). Also, included a reference to
+    [http://www.kyz.uklinux.net/cabextract.php3] cabextract, a utility that
+    is now available for extracting Win32 Fonts (among other things) from a
+    Window's "cab" archive.
+   
+  * 1.60: March 21, 2001: A few very minor changes. Most notable news is
+    anti-aliasing support now in XFree 4.02 (referenced in the Notes section
+    only). Chinese translation URL added.
+   
+  * 1.55: Oct 11, 2000: Additional info on XFree86 4.x, especially Redhat's
+    changes for RH7.0. A few other minor updates and additions. Also adding a
+    neglected credit to Kristin Aanestad for his insight into much of what
+    this document is all about.
+   
+  * 1.5: July 25, 2000: New sections added on fonts.alias, XFree86 4.x, and
+    xfsft. Miscellaneous other changes and additions. Also, includes new
+    Links and Notes sections, as well as a rewrite of the xfs sections.
+    Various other changes and additions.
+   
+  * 1.0: Nov. 23, 1999: Converted document to SGML, for submission to the
+    Linux Documentation Project. Removed Plea for Help.
+   
+  * 0.1: Feb. 21, 1999: First release.
+   
+
+-----------------------------------------------------------------------------
+1.3. New Versions
+
+The pre-release versions of this document can be found at [http://
+feenix.burgiss.net/ldp/fdu/index.html] http://feenix.burgiss.net/ldp/fdu/
+index.html. 
+-----------------------------------------------------------------------------
+
+1.4. Copyright
+
+Copyright © 1999 by Doug Holland.
+
+Unless otherwise stated, Linux HOWTO documents are copyrighted by their
+respective authors. Linux HOWTO documents may be reproduced and distributed
+in whole or in part, in any medium physical or electronic, as long as this
+copyright notice is retained on all copies. Commercial redistribution is
+allowed and encouraged; however, the author would like to be notified of any
+such distributions.
+
+All translations, derivative works, or aggregate works incorporating any
+Linux HOWTO documents must be covered under this copyright notice. That is,
+you may not produce a derivative work from a HOWTO and impose additional
+restrictions on its distribution. Exceptions to these rules may be granted
+under certain conditions; please contact the Linux HOWTO coordinator for more
+information.
+
+In short, we wish to promote dissemination of this information through as
+many channels as possible. However, we do wish to retain copyright on the
+HOWTO documents, and would very much like to be notified of any plans to
+redistribute the HOWTOs, this one in particular! Web page authors are free to
+link to this HOWTO without restriction, though the author would appreciate an
+email informing him of this, just so he can boost his ego by knowing who else
+reads and links to this document.
+
+Many of the terms mentioned in this document are trade names. Unless
+otherwise stated, all trademarks are property of their respective owners.
+-----------------------------------------------------------------------------
+
+1.5. Credits
+
+ Created by Doug Holland.
+  Email: [mailto:meldroc@frii.com] meldroc@frii.com
+  WWW: [http://www.frii.com/~meldroc/] http://www.frii.com/~meldroc/
+ 
+
+ 
+ Updated and maintained by Hal Burgiss.
+  Email: [mailto:hal@foobox.net] hal@foobox.net
+  WWW: [http://feenix.burgiss.net/ldp/fdu] http://feenix.burgiss.net/ldp/fdu/
+ 
+
+Special thanks go to:
+
+  * The developers of the [http://www.xfree86.org] XFree86 Project, for all
+    the hard work and time they have given. Also, Juliusz Chroboczek for his
+    work with xfsft, and XFree86 4.x to help bring TrueType to the hungry
+    masses. And Keith Packard for his anti-aliasing, and other work. This is
+    not to slight the many, many other XFree86 volunteers.
+   
+  * Font wizard Kristin Aanestad, whose legwork and insight on much of the
+    xfs, TrueType, Netscape, and especially, the fonts.alias sections are
+    much appreciated. More from Kristin at [http://home.c2i.net/dark/
+    linux.html] Some Linux for Beginners on a wide range of topics.
+   
+  * The folks at [news:comp.os.linux.x] comp.os.linux.x who gave me a hand in
+    figuring all of this out in the first place.
+   
+  * The Linux community in general who made all of this possible in the first
+    place. Especially those who have offered suggestions and comments that
+    help to make this HOWTO a better resource.
+   
+  * Microsoft and Apple: for providing the fonts that adorn my desktop.
+   
+
+ 
+-----------------------------------------------------------------------------
+
+1.6. Translations
+
+ Chinese: [http://www.linux.org.tw/CLDP/mini/FDU.html] http://
+www.linux.org.tw/CLDP/mini/FDU.html by Yu-Chia Chang. 
+-----------------------------------------------------------------------------
+
+2. X Server Configuration
+
+There are a few easy steps that can be taken that will help X do its job
+better.
+-----------------------------------------------------------------------------
+
+2.1. Setting The FontPath
+
+The first place to look for curing font problems is the XF86Config file. /usr
+/X11/lib/X11/XF86Config or /etc/X11/XF86Config are the common locations.
+(This may be XF86Config-4 for XFree86 4.x.) If you haven't guessed already,
+the most important part of this file relating to fonts is the FontPath.
+Before we get into that, this would be a good time to check the other parts
+of your X configuration. Bad monitor settings can be even more of a headache
+than bad fonts, so make sure your refresh rate is as high as your monitor can
+handle (85 Hz is great, 75 Hz is OK, 60 Hz is painful.)  
+
+Use your favorite text editor and edit XF86Config. Near the top of the file
+in the "Files" section, you should see something vaguely like this:
+
+   
+    FontPath        "/usr/X11R6/lib/X11/fonts/misc/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Type1/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Speedo/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/75dpi/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/100dpi/"
+       
+   
+This much should be the same, or at least similar, for both XFree86 3.x and
+4.x. The FontPath tells X where to find the fonts it uses to render text on
+your display. Order is important -- when an X application asks X to render
+some text, the X server usually has some leeway to choose the font that is
+used. The X server then goes through the FontPath and grabs the first font it
+sees that matches the X client's criteria, and then displays. (Note that
+Redhat's xfs for versions 6.x and later has a different way of setting the
+FontPath. See the Section 3.2.2 below for more on xfs.) 
+
+If the 100dpi fonts are not listed, they probably did not get installed for
+whatever reason, so you may want install them now. Default installations may
+put 75dpi fonts before the 100dpi fonts. If you have a high resolution
+display (1024x768 or higher), this means very tiny fonts. If this is the
+case, the first tweak you'll use is to switch the 75dpi and 100dpi FontPath
+lines:
+
+   
+    FontPath        "/usr/X11R6/lib/X11/fonts/misc/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Type1/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Speedo/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/100dpi/"
+    FontPath        "/usr/X11R6/lib/X11/fonts/75dpi/"
+        
+   
+Next, specify that you prefer to use unscaled bitmap fonts. If you've ever
+used Netscape or any other program that displays titles using big fonts,
+you'll likely notice that those fonts are pixelized. This is ugly and needs
+to be corrected. So add :unscaled to the ends of the misc, 100dpi and 75dpi
+fonts. You can even use both unscaled and scaled fonts if you want, just put
+the unscaled FontPath lines first to tell X you prefer unscaled fonts if
+possible:
+
+   
+    FontPath        "/usr/X11R6/lib/X11/fonts/misc:unscaled"
+    FontPath        "/usr/X11R6/lib/X11/fonts/100dpi:unscaled"
+    FontPath        "/usr/X11R6/lib/X11/fonts/75dpi:unscaled"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Type1"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Speedo"
+    FontPath        "/usr/X11R6/lib/X11/fonts/misc"
+    FontPath        "/usr/X11R6/lib/X11/fonts/100dpi"
+    FontPath        "/usr/X11R6/lib/X11/fonts/75dpi"
+        
+   
+After making these changes, restart X. Doesn't the desktop look better
+already?
+-----------------------------------------------------------------------------
+
+2.2. X Server Command Line Options
+
+The next thing you need to do is adjust the command line options for the X
+server. You'll want to use the -dpi switch which specifies the display
+resolution in dots per inch. As a lot of systems use high resolution displays
+these days, chances are they'll be working at 100 dpi.
+
+If you start X from the console command prompt, type:
+
+$ startx -dpi 100 -depth 16 -bestRefresh
+
+Or these options can be stored in ~/.xserverrc. See the startx and xinit man
+pages for more on this.
+
+If you use xdm (or friends such as gdm) for graphical logins, you'll want to
+edit your /usr/X11/lib/X11/xdm/Xservers file (or possibly /etc/X11/xdm/
+Xservers) which will have the command line for the Xserver in it. Mine has
+the line:
+
+:0 local /usr/X11R6/bin/X -dpi 100 -gamma 1.6
+
+Note that there is no magic to "-dpi 100". Choose something higher if your
+hardware will support it -- like "-dpi 120".
+
+More information is in the X, Xserver, xdm, xinit, and startx man pages.
+-----------------------------------------------------------------------------
+
+3. TrueType Fonts (One of the few things Windows is good for)
+
+Because the boys at Redmond are very concerned with the appearance of their
+software (as opposed to the internal workings ;) they built TrueType font
+support into Windows. And of course no big surprise, but they got the idea
+from Apple. In fact, TrueType is a registered trademark of Apple Computer,
+Inc. Windows 9x and nearly every other incarnation of Windows comes with
+Arial, Times New Roman, and Courier New, which are roughly equivalent to
+Helvetica, Times and Courier. TrueType fonts are scalable, so they look good
+in large sizes, and they are well hinted, so they are readable at small
+sizes. Many windows applications come with dozens more TrueType fonts. Don't
+microwave your Windows CD yet, you'll want to get those fonts first!
+
+Unfortunately, XFree86 3.x does not come with built in TrueType support, so
+you'll have to add it yourself (see below). This will mean installing a font
+server that does support TrueType and, of course, installing the fonts
+themselves. XFree86 4.x does have built in support however (see Section 4).
+You won't find many decent TrueType fonts included with any distribution. The
+likely reason is that there are not many quality TrueType fonts available
+under a suitable license at this time.  
+-----------------------------------------------------------------------------
+
+3.1. Making TrueType Fonts Available
+
+Let's start with the fonts first. Any TrueType font included with the various
+MS Windows incarnations should work. Don't forget word processors and other
+apps that may include their own fonts. MacOS fonts will only work if
+converted to a usable format. (See the links section for converter packages.)
+There are also some 'free' TrueType fonts available for download if you have
+already nuked that CD (see links section).
+
+In order to use TrueType, the fonts will have to be always accessible to the
+font server. This means they will have to be on a filesystem that is always
+mounted. This can conceivably be a Windows partition on a dual boot system.
+Alternately, the fonts can be copied to Linux. First su to root:
+
+ # su -
+ # mkdir -p /usr/local/share/fonts/ttfonts
+   
+
+Now, change to the new font directory:
+
+  # cd  /usr/local/share/fonts/ttfonts
+   
+
+Then, add the fonts to this directory, either by copying them from your
+Windows system:
+
+ # cp /mnt/<path_to_fonts>/*ttf  .
+   
+
+or by downloading those available directly from [http://www.microsoft.com/
+typography/fontpack/default.htm] Microsoft. These fonts are in
+self-extracting zip archives. The ones labeled for use with Windows 3.1 can
+indeed be unpacked under Linux with the Linux zip utility:
+
+ # ls *exe | xargs -n 1 unzip -L
+   
+
+The '-L' option will convert to lower case font names (this may be necessary
+for some versions of xfsft and Redhat's xfs). Note that the current Linux zip
+utility does not work with the 32 bit Win9x font archives. (It also looks
+like Microsoft no longer has the 16 bit Arial, Courier and Times-Roman on
+this site.) But these can be unarchived under Linux with cabextract, which
+can be found [http://www.kyz.uklinux.net/cabextract.php3] http://
+www.kyz.uklinux.net/cabextract.php3. This would now seem to be the best way
+to go since there is a better selection of fonts.
+
+Or you can get an RPM of WebFonts that contains some of the MS TrueTypes
+[http://rpmfind.net/linux/RPM/contrib/noarch/noarch/webfonts-1-3.noarch.html]
+here. This has enough basic fonts to keep Netscape and other web browsers
+happy.
+
+You will also have to include the new TrueType directory(s) in the X server's
+fontpath. So with your text editor of choice add the line(s) as appropriate:
+
+   
+    FontPath        "/usr/local/share/fonts/ttfonts"
+    FontPath        "/usr/X11R6/lib/X11/fonts/misc:unscaled"
+    FontPath        "/usr/X11R6/lib/X11/fonts/100dpi:unscaled"
+    FontPath        "/usr/X11R6/lib/X11/fonts/75dpi:unscaled"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Type1"
+    FontPath        "/usr/X11R6/lib/X11/fonts/Speedo"
+    FontPath        "/usr/X11R6/lib/X11/fonts/misc"
+    FontPath        "/usr/X11R6/lib/X11/fonts/100dpi"
+    FontPath        "/usr/X11R6/lib/X11/fonts/75dpi"
+        
+   
+-----------------------------------------------------------------------------
+3.2. Font Servers
+
+There are several font servers available that will do the job: xfstt, xfsft,
+and Redhat's patched version of xfs based on xfsft. While these names are all
+too similar, these are different packages. One, or more, of these should be
+included with any recent Linux distribution, and you may have one installed
+already.  
+
+Historically, font servers were used to serve fonts over a network. Font
+resources could then reside on one host, and clients could access them as
+needed. But, the developers have enhanced these to include features such as
+the ability to render TrueType fonts. (XFree86 4.x has this ability included
+already, and thus an additional font server is not really needed solely for
+the purpose of having TrueType support.) 
+-----------------------------------------------------------------------------
+
+3.2.1. xfstt
+
+One such font server is xfstt. xfstt was designed specifically with TrueType
+fonts in mind.
+-----------------------------------------------------------------------------
+
+3.2.1.1. Installation
+
+xfstt is very easy to install and configure. If it isn't already installed,
+you'll want to download the tarball, or check your CD. The most current
+version can be found at [http://metalab.unc.edu/pub/Linux/X11/fonts/] http://
+metalab.unc.edu/pub/Linux/X11/fonts/ 
+
+Once you have the tarball, unpack it:
+
+ $ tar -zxvf xfstt-*tgz
+   
+
+Then build and install it. Read the INSTALL file for quick instructions, but
+it's a no brainer.  
+
+From the xfstt directory is all you have to do.
+
+ # make
+ # make install
+   
+
+Then start xfstt with:
+
+ # xfstt --sync            # updates xfstt's font database
+ # xfstt &                 # runs xfstt in the background.
+    
+
+xfstt should be started before the X server starts. Once you have this
+working correctly, you can add the above lines to /etc/rc.d/rc.local, or
+other suitable start up file. Then type:
+
+ $ xset +fp unix/:7101     #
+ tells X about xfstt, and where to look for fonts.
+    
+
+or add:
+
+   
+    FontPath "unix/:7101"
+   
+to your XF86Config to tell X about the font server. Rerun xfstt --sync any
+time the FontPath, or contents, change.
+-----------------------------------------------------------------------------
+
+3.2.1.2. Adjusting the Default Font Size
+
+If your TrueType fonts appear to be very tiny, the following commands may
+help.
+
+Add the -dpi switch to your X server command line (see section 3 above to do
+this.)
+
+Use the --res switch to tell xfstt to increase the default resolution. Use
+the following command line.
+
+ # xfstt --res 120
+    
+-----------------------------------------------------------------------------
+
+3.2.2. Redhat's xfs
+
+As of Redhat Linux 6.0, Redhat based distributions (Mandrake, etc) have
+included a specially patched version of xfs, the XFree86 Font Server, and
+patched X servers as well. Redhat's xfs includes the xfsft patch set which in
+turn is built upon the FreeType Font library. Redhat's xfs provides similar
+functionality to xfstt. xfs is able to serve both TrueType and Type 1 fonts,
+as well as legacy X fonts.
+
+If you are using a Redhat based distro, you should have xfs installed
+already. If not, it is in the XFree86-xfs*rpm. To make sure it runs as one of
+the default services, either use ntsysv or:
+
+# chkconfig --add xfs
+
+Now xfs will start every time you boot.
+-----------------------------------------------------------------------------
+
+3.2.2.1. Setting the xfs FontPath
+
+The default Redhat installation of xfs serves fonts via a Unix Domain Socket.
+We'll need to tell the X server where to look for xfs, and thus fonts. The
+FontPath in /etc/X11/XF86Config must include for Redhat 6.x:
+
+   
+     FontPath   "unix/:-1" 
+        
+   
+This is changed for Redhat 7.x to:
+
+   
+     FontPath   "unix/:7100" 
+        
+   
+At least for a default configurations. This is a reference to the socket
+where xfs is listening. You may include additional FontPaths, but these will
+be handled by the X server, and not xfs. A clean install of Redhat 6/7 should
+have this already set up, but if you are upgrading from an older version, you
+may have to change this yourself!  
+
+xfs then has its own, separate FontPath stored in /etc/X11/fs/config. This is
+where it will look to find fonts. This is over and above the X server's
+FontPath in XF86Config. You can either add the new path(s) with a text
+editor, or use the chkfontpath command:  
+
+# chkfontpath --add /new/font/path
+
+The FontPath must exist before running chkfontpath. The relevant section of /
+etc/X11/fs/config should now look something like this:
+
+   
+   
+    catalogue = /usr/X11R6/lib/X11/fonts/misc:unscaled,
+                /usr/X11R6/lib/X11/fonts/100dpi:unscaled,
+                /usr/X11R6/lib/X11/fonts/75dpi:unscaled,
+                /usr/X11R6/lib/X11/fonts/Type1,
+                /usr/X11R6/lib/X11/fonts/Speedo,
+                /usr/X11R6/lib/X11/fonts/misc,
+                /usr/X11R6/lib/X11/fonts/100dpi,
+                /usr/X11R6/lib/X11/fonts/75dpi,
+                /new/font/path
+   
+        
+   
+When adding a new FontPath for TrueType fonts, you will want to do this step
+after installing and preparing the fonts. See the next section.
+-----------------------------------------------------------------------------
+
+3.2.2.2. Getting the Fonts Ready
+
+We still have a bit of work to do before we can actually use any TrueType
+fonts. xfs requires a few things to be in order. First, all font files must
+have lower case names for xfs. Secondly, they shouldn't have embedded spaces.
+And then, we will need to create a couple of files to make things go.
+
+Su to root, and change to the directory where the TrueType fonts are.
+
+ # su -
+ # cd /usr/local/share/fonts/ttfonts
+   
+
+If there are any upper case font names, you can use the following script to
+convert all names to lower case:
+
+ 
+
+ #!/bin/sh
+ #
+ ## -------- convert upper to lower case ---------
+ 
+ ls * | while read f
+  do
+    if [ -f $f ]; then
+      if [ "$f" != "`echo \"$f\" | tr A-Z a-z`" ]; then
+       #Note that 'This' will overwrite 'this'!
+       mv -iv "$f" "`echo \"$f\" | tr A-Z a-z`"
+      fi
+    fi
+  done
+
+ ## eof
+ 
+   
+
+Note the punctuation -- the backquotes are important! Remove any spaces from
+font names too. Once the TrueType fonts are properly installed, you must
+create both fonts.dir and fonts.scale files. The following commands do this:
+
+ # ttmkfdir -o fonts.scale
+ # mkfontdir
+   
+
+You should now have fonts.dir and fonts.scale files in your TrueType font
+directory. ttmkfdir is in the Freetype RPM, and must be run before mkfontdir.
+With Debian based distros, there is a similar utility called mkttfdir, and is
+in the fttools Deb package. Though this apparently does not generate as many
+encodings as ttmkfdir. These commands may not always report errors, so verify
+that they were created and are not empty files: 
+
+ $ ls -l fonts.*
+  -rw-r--r--  1 root   root    11657 Aug 17 10:31 fonts.dir
+  -rw-r--r--  1 root   root    11657 Aug 17 10:31 fonts.scale
+   
+
+If you encounter any problems, try ttmkfdir with the - m switch. This will
+discard bad characters from the font file. Specify a number such as 50 or l00
+(ttmkfdir -m 50). The files themselves are text files. Have a look: 
+
+ 
+ $ less  fonts.dir
+  114
+  webdings.ttf  -microsoft-Webdings-medium-r-normal--0-0-0-0-p-0-microsoft-symbol
+  verdanaz.ttf  -microsoft-Verdana-bold-i-normal--0-0-0-0-p-0-ascii-0
+  verdanaz.ttf  -microsoft-Verdana-bold-i-normal--0-0-0-0-p-0-fcd8859-15
+  verdanaz.ttf  -microsoft-Verdana-bold-i-normal--0-0-0-0-p-0-iso8859-15
+  verdanaz.ttf  -microsoft-Verdana-bold-i-normal--0-0-0-0-p-0-iso8859-9
+  verdanaz.ttf  -microsoft-Verdana-bold-i-normal--0-0-0-0-p-0-iso8859-1
+ [...]
+   
+
+Next, update the FontPath and xfs:
+
+ # chkfontpath --add /usr/local/share/fonts/ttfonts
+ # /etc/rc.d/init.d/xfs restart
+   
+
+You should now be in business. You can check which fonts are available to X:
+
+$ xlsfonts | less
+
+or check them out further with xfontsel, or gfontsel. If they are visible to 
+xlsfonts, then they are available to X and vice versa. If they are not there,
+try restarting X with Ctrl-Alt-BS.
+-----------------------------------------------------------------------------
+
+3.3. xfsft
+
+[http://www.dcs.ed.ac.uk/home/jec/programs/xfsft/] xfsft is a TrueType
+solution from Juliusz Chroboczek. xfsft is based on the FreeType font library
+as developed by Mark Leisher and others. It is essentially is a patch for
+XFree86's xfs and related libraries -- xfs + ft. Redhat's xfs is essentially
+xfsft with a few minor modifications. Also, XFree86 4.x includes the freetype
+font module which is also the result of Juliusz's work, and is one of the
+TrueType solutions available for XFree86 4.x. 
+
+Building xfsft requires having at least some of the XFree86 source available,
+in addition to xfsft itself, so this is not for the faint of heart.
+Instructions for building and configuring xfsft are in the tarball, so I
+won't go into details here. They are pretty straight forward. There are links
+to binaries available at the xfsft home page (see above).
+
+Note that you must also create fonts.scale and fonts.dir files for xfsft.
+fonts.scale can be created manually (ugh!), or with the ttmkfdir utility.
+This is not included with xfsft but you can get it here: [http://
+www.joerg-pommnitz.de/TrueType/ttmkfdir.tar.gz] http://www.joerg-pommnitz.de/
+TrueType/ttmkfdir.tar.gz, or probably on many Linux archives sites too.
+Redhat has this as part of the Freetype RPM. And for Debian it is called 
+mkttfdir and is in the fttools package.  
+
+You will also need a configuration file. Here is a sample: 
+
+   
+    -----------------------------------------------------
+   
+    clone-self = off
+    use-syslog = off
+   
+    client-limit = 20
+   
+    catalogue = /usr/local/share/font/ttfonts
+   
+    error-file = /home/jec/fonts/xfs.errors
+   
+    # in decipoints
+    default-point-size = 120
+   
+    # x,y
+    default-resolutions = 100,100,75,75
+   
+    -----------------------------------------------------
+   
+        
+   
+You can then run start xfsft: 
+
+# xfs -port 7100 -config /path/to/your/config/file &
+
+You can then add xfsft to the X server's FontPath: 
+
+$ xset +fp tcp/localhost:7100
+
+If all goes well, you could then add this FontPath to XF86Config.
+-----------------------------------------------------------------------------
+
+3.4. The fonts.alias File
+
+fonts.alias is yet another font configuration file that can be used to tweak
+how fonts are handled. Like fonts.scale and fonts.dir, fonts.alias must be in
+the same directory as the fonts you are aliasing. It is not mandatory
+however, but does solve certain potential problems.Here is an example from
+the first line of/usr/X11R6/lib/X11/fonts/misc/fonts.alias on a Redhat
+system:
+
+ fixed    -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-1
+   
+
+fixed is the 'alias' here. Any time this is requested, we actually get the
+font definition from the second column. Font too small? Just change the
+definition. (Warning: this is a critical file, at least on Redhat.) The same
+principle applies to all fonts, including TrueType. In fact, if you don't
+have TrueType, you could conceivably use this trick to have a comparable Type
+1, or other, font aliased as a TrueType.
+
+fonts.alias is important for some applications that don't handle the data
+provided by fonts.scale well. Most notably here is Netscape. Without a
+fonts.alias you will find that Netscape will only show point sizes of 0 and
+12 available. fonts.alias fixes this. You might also find that if you a
+specify another size with the scalable font option under Preferences,
+Netscape will not remember this setting. Annoying! This is also fixed. So we
+really need this file. Sample excerpt from a fonts.scale: 
+
+ 
+ arial.ttf   -monotype-Arial-medium-r-normal--0-0-0-0-p-0-ascii-0
+ arial.ttf   -monotype-Arial-medium-r-normal--0-0-0-0-p-0-fcd8859-15
+ arial.ttf   -monotype-Arial-medium-r-normal--0-0-0-0-p-0-iso8859-15
+ arial.ttf   -monotype-Arial-medium-r-normal--0-0-0-0-p-0-iso8859-1
+   
+
+These are scalable so we don't get any predefined point sizes. We will need
+to create our fonts.alias something like this excerpt for Arial:
+
+
+ -monotype-Arial-medium-r-normal--6-60-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--9-90-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--7-70-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--9-90-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--8-80-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--10-100-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--9-90-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--11-110-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--10-100-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--12-120-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--11-110-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--12-120-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--12-120-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--12-120-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--13-130-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--13-130-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--14-140-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--14-140-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--15-150-0-0-p-0-iso8859-1 \
+             -monotype-Arial-medium-r-normal--15-150-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--18-180-0-0-p-0-iso8859-1 \
+            -monotype-Arial-medium-r-normal--18-180-75-75-p-0-iso8859-1
+
+ -monotype-Arial-medium-r-normal--24-240-0-0-p-0-iso8859-1 \
+            -monotype-Arial-medium-r-normal--24-240-75-75-p-0-iso8859-1
+
+   
+
+(Please note that I have split each line for readability. There should be two
+columns all on one line, without the "\", and separated by at least one
+space.) This will keep Netscape happy. Also, if font names should have
+embedded spaces, then you should enclose the filename in quotes. You might
+also note the pointsize discrepancy between the first and second columns of
+the first few rows. The first column of the first entry has a '6', whereas
+this is aliased to a '9' in the second column, and thus '9' point. This is by
+design and is an excellent way to overcome the Netscape 'damn tiny fonts'
+syndrome. Adjust to suit your tastes, resolution, and eyesight.  
+
+This file can be created manually with a text editor, or conceivably with
+some fancy sed or awk scripting. There is an excellent discussion of this
+file, and other font related topics at Kristin Aanestad's site at [http://
+home.c2i.net/dark/linux.html#ttf] http://home.c2i.net/dark/linux.html. There
+is also a link to a python script which can reportedly automatically generate
+a fonts.alias file at this same site. Thanks to Kristin whose work and
+insight was the inspiration for this section! 
+-----------------------------------------------------------------------------
+
+4. XFree86 4.x
+
+[http://www.xfree86.org/4.0/] XFree86 4.0 introduced native support for
+TrueType fonts, along with other new features. The enhanced font support is
+based on xfsft from Juliusz Chroboczek, which in turn is based on the
+FreeType font library originally from Mark Leisher, so the configuration is
+similar to xfsft and Redhat's patched xfs. As of 4.0.2, XFree86 begins to
+support anti-aliasing which is a technique for smoothing font outlines (see
+section below). 
+
+The FontPath is still in XF86Config, as always. For Redhat 6/7 using a stock
+XFree86 4.x (i.e. NOT the Redhat 7.x supplied version), this will mean moving
+the Redhat xfs FontPath from /etc/X11/fs/config back to XF86Config. A
+separate font server is no longer needed just for TrueType support. You may
+disable it, unless it is needed to serve fonts to other clients in a network
+environment. See the section below for Redhat 7.x specific configuration
+issues. 
+
+   
+     Section "Files"
+      FontPath "/usr/X11R6/lib/X11/fonts/misc:unscaled"
+      FontPath "/usr/X11R6/lib/X11/fonts/100dpi:unscaled"
+      FontPath "/usr/X11R6/lib/X11/fonts/75dpi:unscaled"
+      FontPath "/usr/X11R6/lib/X11/fonts/misc"
+      FontPath "/usr/X11R6/lib/X11/fonts/Type1"
+      FontPath "/usr/X11R6/lib/X11/fonts/Speedo"
+      FontPath "/usr/share/fonts/default/Type1"
+      FontPath "/usr/local/share/fonts/ttfonts"
+      FontPath "/usr/X11R6/lib/X11/fonts/100dpi"
+      FontPath "/usr/X11R6/lib/X11/fonts/75dpi"
+     EndSection
+        
+   
+In order to use TrueType, you must also specify which font module the X
+server should be using in the "Module" section:
+
+   
+     Section "Module"
+      Load  "freetype"
+      Load  "speedo"
+      Load  "type1"
+      <load other modules....>
+     EndSection
+        
+   
+Note that there can be only one 'Module' section, so include any other
+modules here as well.
+
+You also must to create fonts.scale and fonts.dir file for each TrueType font
+directory, just like for xfsft and Redhat's xfs. [http://
+www.joerg-pommnitz.de/TrueType/ttmkfdir.tar.gz] ttmkfdir will come in handy
+for fonts.scale. See the xfs Section 3.2.2 above for more details and
+examples. 
+
+xtt is another available TrueType module that is best known for supporting
+ideographic (Oriental) type fonts. You can use either, but only one at a
+time.
+
+X server command line options are still the same as previous versions of X:
+
+$ startx -dpi 100
+-----------------------------------------------------------------------------
+
+4.1. Anti-aliasing
+
+Anti-aliasing is a technique for producing even smoother, crisper looking
+fonts by subtly softening the sharp, jagged edges. This has long been a
+feature of Apple and Microsoft font rendering, and is now making it's way
+into X via the X Rendering Extension specification thanks to Keith Packard.
+The new extensions provide other benefits as well. This is all still somewhat
+experimental at this time (April 2001), and no distributions have released
+binary packages that support anti-aliasing with their stable/official
+versions yet (AFAIK!). But it shouldn't be long.
+
+That is the good news. The bad news is that not all drivers support
+anti-aliasing yet. This is a moving target, so you will have to dig around to
+find whether your chipset is supported or not. By the time 4.1 is out, near
+universal support should be available. More not-so-good news is that few
+applications are actually taking advantage of this yet.
+
+If you are reading this long after the publication date (April 2001),
+hopefully most of these shortcomings will have been overcome. All hardware
+will eventually be supported, mainstream distros will have shipped releases
+that include the new extensions, and they will be enabled by default. Many
+apps will look better since they will be "AA" aware, and we won't have to
+jump through any configuration hoops just to make it work. In the meantime,
+read on ... 
+-----------------------------------------------------------------------------
+
+4.1.1. Requirements
+
+Minimum requirements for anti-aliasing:
+
+  * XFree86 4.0.2 or later.
+   
+  * You graphic card's driver has to support anti-aliasing. If 4.0.2 (or
+    greater) is already installed, you can get this information direct from
+    the driver with xdpyinfo. Run this and look for "Number of Extensions:".
+    If this lists "RENDER" among them, then you should be good to go. If not,
+    well, it isn't going to work, and you will have to wait for an updated
+    driver.
+   
+  * The Freetype2 library available from [http://www.freetype.org] http://
+    www.freetype.org, and also now bundled with XFree86. XFree needs to be
+    linked against this, so install and build first if building from scratch.
+    Your distro should have Freetype packages as well. Just make sure it is
+    freetype-2.
+   
+  * TrueType fonts are best for display purposes. See above sections.
+   
+  * For KDE users, KDE supports anti-aliasing as of 2.x. This will require
+    QT-2.3.0 or later, and built with Xft support. A nice font HOWTO from
+    Troll Tech for KDE and QT can be found: [http://trolls.troll.no/~lars/
+    fonts/qt-fonts-HOWTO.html] http://trolls.troll.no/~lars/fonts/
+    qt-fonts-HOWTO.html.
+   
+    Gnome does not support anti-aliasing at this time (as of 1.4). Awaiting
+    GTK implemention (probably for GTK 2.o). Apparently this will be
+    available later this year, so stay tuned.
+   
+  * Applications that "know" about anti-aliasing. Not necessarily at the
+    individual application level, but the libraries and toolkits (gtk, TK,
+    etc.) that the application are built against, must be able to use the new
+    features. At this time, there are scant few. KDE/QT is perhaps first out
+    of the box. Also, xterm supports the new extensions.
+   
+  * The new rendering extensions configuration file, XftConfig, must be
+    configured for the fonts you want to use.
+   
+
+-----------------------------------------------------------------------------
+4.1.2. Installation
+
+Keith Packard has brief summary of the steps required for building,
+installing and configuring from source at [http://www.xfree86.org/~keithp/
+render/aafont.txt] http://www.xfree86.org/~keithp/render/aafont.txt. No need
+to reprint it here.
+
+Also, most distros that have unstable, or pre-release, versions are likely to
+have the foundation support for anti-aliasing available now. Redhat, for
+instance, has it in their 'rawhide' release. So this would be a good approach
+to take at this time if you want to be on the cutting edge, and may be more
+palatable for some than building each package from source.
+
+To verify the necessary components, first make sure the "freetype" module
+(and any others) are loaded. Check the X server output:
+
+
+ (II) LoadModule: "freetype"
+ (II) Loading /usr/X11R6/lib/modules/fonts/libfreetype.a
+ (II) Module freetype: vendor="The XFree86 Project"
+        compiled for 4.0.3, module version = 1.1.9
+        Module class: XFree86 Font Renderer
+        ABI class: XFree86 Font Renderer, version 0.2
+ (II) Loading font FreeType
+ 
+
+Then verify if the "RENDER" extension is available, either check with 
+xdpyinfo, or check the X server log, typically /var/log/XFree86.0.log:
+
+ 
+ (II) Initializing built-in extension MIT-SHM
+ (II) Initializing built-in extension XInputExtension
+ (II) Initializing built-in extension XTEST
+ (II) Initializing built-in extension XKEYBOARD
+ (II) Initializing built-in extension LBX
+ (II) Initializing built-in extension XC-APPGROUP
+ (II) Initializing built-in extension SECURITY
+ (II) Initializing built-in extension XINERAMA
+ (II) Initializing built-in extension XFree86-Bigfont
+ (II) Initializing built-in extension RENDER
+ 
+
+If "RENDER" is there, anti-aliasing and the other advanced rendering
+extensions should be enabled.
+-----------------------------------------------------------------------------
+
+4.1.3. Configuration
+
+The rendering engine that provides the advanced rendering features is
+configured with the XftConfig file. This would typically be installed as /usr
+/X11R6/lib/X11/XftConfig. This file provides Font Path information, etc., and
+is a requirement over and above XF86Config. If your PATH to your TrueType or
+Type1 fonts is different, be sure to modify as needed. And of course, you
+need to have XFree86 configured for TrueType support (see the above section).
+
+Keith Packard's sample configuration file:
+
+
+  #
+  # XftConfig
+  #
+  # Use with Type1 and TrueType fonts
+  #
+
+  dir "/usr/X11R6/lib/X11/fonts/Type1"
+  dir "/usr/X11R6/lib/X11/fonts/truetype"
+
+  #
+  # alias 'fixed' for 'mono'
+  #
+  match any family == "fixed" edit family =+ "mono";
+
+  #
+  #Check users config file
+  #
+  includeif "~/.xftconfig"
+
+  #
+  # Substitute TrueType fonts for Type1 versions
+  #
+  match any family == "Times" edit family += "Times New Roman";
+  match any family == "Helvetica" edit family += "Verdana";
+  match any family == "Courier" edit family += "Courier New";
+
+  #
+  # Use TrueType fonts for defaults
+  #
+  match any family == "serif"  edit family += "Times New Roman";
+  match any family == "sans"  edit family += "Verdana";
+
+  #
+  # Use monotype.com (andale) face where possible
+  #
+  match 
+       any family == "mono" 
+       all slant == roman 
+       all weight < bold
+  edit
+       family += "monotype.com";
+  #
+  # otherwise, use courier
+  #
+  match any family == "mono" edit family += "Courier New";
+
+  #
+  # Alias between XLFD families and font file family name, prefer local fonts
+  #
+  match any family == "Charter" edit family += "Bitstream Charter";
+  match any family == "Bitstream Charter" edit family =+ "Charter";
+
+  match any family == "Lucidux Serif" edit family += "LuciduxSerif";
+  match any family == "LuciduxSerif" edit family =+ "Lucidux Serif";
+
+  match any family == "Lucidux Sans" edit family += "LuciduxSans";
+  match any family == "LuciduxSans" edit family =+ "Lucidux Sans";
+
+  match any family == "Lucidux Mono" edit family += "LuciduxMono";
+  match any family == "LuciduxMono" edit family =+ "Lucidux Mono";
+      
+  #
+  # TrueType font aliases
+  #
+  match any family == "Comic Sans" edit family += "Comic Sans MS";
+  match any family == "Comic Sans MS" edit family =+ "Comic Sans";
+  match any family == "Trebuchet"  edit family += "Trebuchet MS";
+  match any family == "Trebuchet MS"  edit family =+ "Trebuchet";
+  match any family == "Monotype"  edit family =+ "Monotype.com";
+  match any family == "Andale Mono" edit family += "Monotype.com";
+  match any family == "Monotype.com" edit family =+ "Andale Mono";
+
+   
+-----------------------------------------------------------------------------
+
+4.1.4. Afterword
+
+You've gone through all the steps, and verified that the "RENDER" extension
+is available, but you don't perceive a difference? Well, maybe the
+applications themselves just aren't there yet, and are not able to utilize
+these new features. Mozilla and Netscape, for instance, are not able to yet
+(as of this writing).
+
+So how to know what does and does not make use of anti-aliasing? A quick test
+is to use something like xmag, or gimp, and enlarge the text considerably.
+Look for diagonal lines, and if they are clearly stair-stepped with no
+softened edges. If so, then while anti-aliasing is technically available, it
+is not being used. With anti-aliasing you should see gradients instead of
+well defined sharp edges. You can compare this with xterm and "AA":
+
+$xterm -fa charter -fs 14
+-----------------------------------------------------------------------------
+
+4.2. Redhat 7.0 Differences
+
+Redhat 7.0 introduces some changes to X configuration over previous Redhat
+versions. It is also different from the stock XFree86 configuration as
+addressed above. Notable differences:
+
+  * Both XFree86 3.3.6 and 4.01 are included. If upgrading you may wind up
+    with 3.3.6. The X configuration file is XF86Config for 3.3.6 and
+    XF86Config-4 for 4.x. Of course, you'll need to know which is which for
+    editing and configuration purposes.
+   
+  * xfs is still handling all font duties. A default Redhat 7.x installation
+    does not use the 'modules' section of XF86Config. Instead it relies on
+    xfs. This is different from a stock installation of XFree86 4.x where the
+    X server does all the font work -- including TrueType.
+   
+  * The socket for xfs is "unix/:7100" with RH 7.x, as opposed to "unix/:-1"
+    in previous versions.
+   
+
+-----------------------------------------------------------------------------
+5. Adjusting Fonts in Specific Applications
+
+5.1. KDE
+
+KDE is one of the best things that have happened to Linux and X in a long
+time. It provides a consistent user interface that goes a long way towards
+making Linux accessible to the average non-geek. More information about KDE
+can be found at [http://www.kde.org/] http://www.kde.org/. So why am I
+singing it's praises here? This is because KDE 1.1 has a new feature that
+will make the fonts and colors in your programs, including non-KDE
+applications consistent with KDE's current style.
+-----------------------------------------------------------------------------
+
+5.1.1. Applying KDE Fonts and Colors to non-KDE Applications
+
+This is very easy. Simply start up the KDE Control Center, go to Desktop, and
+go to Style inside Desktop. In there, there will be a toggle switch labeled
+"Apply fonts and colors to non-KDE apps". Turn it on, click OK, and your
+done! The next time you start up many X applications, they will use the same
+colors and fonts that your KDE applications do. Some people may like this
+feature better than others, but if you don't like it you can always turn it
+off.
+-----------------------------------------------------------------------------
+
+5.2. Netscape
+
+Let's face it, Netscape is an important application in Linux. We all use it,
+and we all need it, so let's look at it specifically for a minute. An out of
+the box Netscape installation is prone to the font problems we've discussed
+-- large fonts that get pixelized, splotchy looking fonts, fonts so small
+they are unreadable. In short, ugly. Maybe this is why you are here? 
+
+Hopefully, at this point you have followed the above suggestions. These steps
+can help greatly. TrueType font availability is almost a necessity, and you
+need a TrueType font server for this. Many web pages specify font families --
+like Arial -- that are not typically available to Linux users. This is bad
+design, but having some of the basic TrueType fonts available will help
+greatly in overcoming the short-sightedness of some designers. Microsoft --
+can't live with 'em, can't live without 'em. 
+
+Assuming you have TrueType working, from the Netscape menu select Edit ->
+Preferences -> Fonts. Open the Variable Width Font droplist on the right side
+of the window. Your TrueTypes should be there along with other fonts. Choose
+which ever one suits your fancy as the default. Check the Allow Scaling
+checkbox too. If the available point sizes are 0 and 12, you can go down and,
+and enter your desired point size in the box to the right and click on the OK
+button. The downside to this is that Netscape will not remember these
+settings, and you will have to do this each time you start Netscape. Unless
+-- you have fonts.alias set up already. Then this will solve these problems.
+See Section 3.4 for more on fonts.alias. 
+
+You might consider experimenting with some ~/.Xdefaults (or perhaps it's~
+/.Xresources on your system) settings too:
+
+   
+     Netscape*DocumentFonts.sizeIncrement: 10
+     Netscape*documentFonts.xResolution*iso-8859-1: 120
+     Netscape*documentFonts.yResolution*iso-8859-1: 120
+        
+   
+The 'sizeIncrement' controls how much of a jump Netscape makes when different
+'basefont' sizes are specified ala: 
+
+<basefont size=7>
+
+for instance. The default is '20', which is a pretty good jump. Changing this
+can help Netscape from scaling to too large and too small of a font. The x
+and y resolutions are roughly equivalent to 'dpi' settings. Any random number
+within reason can be used here. Experiment.  
+
+Then run:
+
+$ xrdb -load ~/.Xdefaults
+
+(or .Xresources as the case may be) and restart Netscape. There are many
+settings that can be tweaked or altered this way. Look at the Netscape.ad
+(app defaults) file that should be included with Netscape packages.
+
+If this approach does not get the job done as far as the 'tiny fonts' problem
+in Netscape, then see the fonts.alias section above. You can really fine tune
+many things with this approach.  
+
+Mozilla configuration should be roughly the same. You might find, however,
+that Mozilla does a better job of handling fonts in X, and pages will look
+better overall.
+-----------------------------------------------------------------------------
+
+6. Odds and Ends
+
+6.1. Notes
+
+  * Unfortunately there is no unified font handling system for Linux. You
+    will have to configure each individual program so you can use TrueType,
+    Type 1 or fonts that pique your fancy. And each program may well have its
+    own way of doing this so you will have to RTFM.
+   
+  * Most GUI apps should be able to use TrueType, and Type 1 fonts too.
+    Wordperfect for Linux, however, cannot use TrueType. (See the links
+    section below for more on Wordperfect.) Text editors, terminal programs
+    and the like need fixed width fonts, and do not play well with TrueType
+    or other scalable fonts.
+   
+  * Though not discussed here, Type 1 fonts provide many of the same benefits
+    as TrueType. You likely have many of these installed already.
+    Unfortunately however, Type 1 are not a web standard like TrueType. But
+    they are suitable for many other purposes. They are where it's at for
+    printing. See [http://www.ghostscript.com/] ghostscriptfor more on this.
+   
+  * While it is possible to specify a default point size for the xfs font
+    server, very few applications will actually use this value.
+   
+
+-----------------------------------------------------------------------------
+6.2. Links
+
+  * The Video Timings HOWTO, the ins and outs of getting the most from your
+    monitor.
+   
+  * [http://www.linuxdoc.org/HOWTO/Font-HOWTO.html] Font HOWTO Many good tips
+    for installing fonts and for applications such as StarOffice, Applixware,
+    Wordperfect, Ghostscript, TeX/LaTeX.
+   
+  * A [http://www.moisty.org/~brion/linux/TrueType-HOWTO.html] TrueType
+    HOWTO, good tips for printing, and a few application specific tips.
+   
+  * [http://www.dcs.ed.ac.uk/home/jec/programs/xfsft/] xfsft Homepage,
+    TrueType font support for X. This is the origin of the "freetype" font
+    module for XFree86 4.x, and Redhat's xfs. Good site, and good links to
+    other information related to fonts and TrueType.
+   
+  * [http://home.c2i.net/dark/linux.html] Some Linux for Beginners. Great
+    font site, and other Linux topics. Covers many of the topics discussed
+    here in more detail.
+   
+  * [http://X-TT.dsl.gr.jp/] X-TrueType Homepage, and yet another TrueType
+    Font server, especially good for Japanese, Chinese and Korean character
+    sets.
+   
+  * Tips on font size problems from [http://help.netscape.com/kb/consumer/
+    19960513-54.html] Netscape.
+   
+  * Wordperfect for Linux -- Fonts and Printers by Rod Smith, the author of
+    Using Corel Wordperfect 8 for Linux from Que. Excellent information on
+    Wordperfect and where TrueType fits in.
+   
+  * [http://www.xfree86.org] XFree86 Project, the guys and gals who do an
+    incredible amount of work to give us a killer GUI environment. Some info
+    on fonts in [http://www.xfree86.org/4.0/fonts.html] XFree86 4.x.
+   
+  * Microsoft Web Fonts direct from the Lion's den -- and they are free!
+    These can be unpacked in Linux (see above).
+   
+  * [http://rpmfind.net/linux/RPM/contrib/noarch/noarch/
+    webfonts-1-3.noarch.html] Web Fonts RPM package, contains a few of the MS
+    web browser fonts.
+   
+  * Freeware Connection -- Free Fonts Sites lots of links to lots of sites.
+   
+  * Bitstream's Geometric Slabserif TrueType Font.
+   
+  * Two converters for converting a Mac Font "suitcase" to a *nix compatible
+    font: [http://www.macinsearch.com/infomac2/font/util/
+    tt-converter-15.html] http://www.macinsearch.com/infomac2/font/util/
+    tt-converter-15.html and [http://www.netmagic.net/~evan/shareware/#
+    TTFontConvert] http://www.netmagic.net/~evan/shareware/#TTFontConvert
+   
+  * The Unicode HOWTO: [http://linuxdoc.org/HOWTO/Unicode-HOWTO.html] http://
+    linuxdoc.org/HOWTO/Unicode-HOWTO.html
+   
+  *   Two sources of 'free' TrueType fonts with large Unicode support are
+    Bitstream Cyberbit, which covers Roman, Cyrillic, Greek, Hebrew, Arabic,
+    combining diacritical marks, Chinese, Korean, Japanese, and more, and is
+    available from [ftp://ftp.netscape.com/pub/communicator/extras/fonts/
+    windows/Cyberbit.ZIP] ftp://ftp.netscape.com/pub/communicator/extras/
+    fonts/windows/Cyberbit.ZIP. And Lucida Sans Unicode, which is included in
+    IBM's JDK 1.3.0beta for Linux, and covers Roman, Cyrillic, Greek, Hebrew,
+    combining diacritical marks. This can be downloaded from [ftp://
+    ftp.maths.tcd.ie/Linux/opt/IBMJava2-13/jre/lib/fonts/] ftp://
+    ftp.maths.tcd.ie/Linux/opt/IBMJava2-13/jre/lib/fonts/ as
+    LucidaSansRegular.ttf and LucidaSansOblique.ttf. Thanks to Tzafrir Cohen
+    for these references. He also has a nice page on Hebrew fonts and related
+    topics at [http://www.iglu.org.il/faq/?file=133] http://www.iglu.org.il/
+    faq/?file=133.
+   
+

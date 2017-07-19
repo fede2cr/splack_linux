@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: DIP</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-7.html">Previous</A>
+<A HREF="PPP-FAQ-9.html">Next</A>
+<A HREF="PPP-FAQ.html#toc8">Table of Contents</A>
+<HR>
+<H2><A NAME="s8">8. DIP</A></H2>
+
+
+
+<H2><A NAME="ss8.1">8.1 DIP does not have support for PPP\s mode</A></H2>
+
+<P>The current version of dip-uri supports PPP in that
+it will execute the pppd process when you execute \mode PPP\.
+However, there are many options which are needed for the proper
+operation of pppd. Since dip does not pass these to the program,
+they must be stored in the /etc/ppp/options file.</P>
+<P>The dip program controls the establishment of the
+SLIP link. It controls the SLIP link with the aid of slattach,
+ifconfig, and route. These programs may be used to establish a
+SLIP link. They are not useful for the establishment of a PPP
+link.</P>
+<P>The dip program may be used to dial the telephone
+and start the <EM>PPP</EM> software on the
+remote system. It is best used in this mode as the parameter to
+the \<EM>connect</EM>\ option. However, you
+have the option to use dip to control the link. It
+is not important how pppd be executed to run the PPP link. It
+is only important that it be executed as it is a mandatory program
+for the PPP protocol.</P>
+<P>While this is not a FAQ for dip, there is a common
+problem with dip and pppd. The dip process has the absolute pathname
+to the pppd process embedded within it. Until recently, the location
+for pppd was /usr/lib/ppp/pppd. It has moved to the /usr/sbin/pppd
+location. So, if you are unable to get dip to start pppd then
+check the pathnames in dip.</P>
+<P>Additional information about the dip process is in
+the Net-2-HOWTO document.</P>
+
+
+<H2><A NAME="ss8.2">8.2 DIP dies immediately when I do \mode ppp\</A></H2>
+
+<P>The location of the pppd program file is stored within dip.</P>
+<P>The 2.1 version of pppd was stored in /usr/lib/ppp/pppd. The 2.2
+version has moved to the more \standard\ location of
+/usr/sbin/pppd. That is well and good. However, the problem is that
+now dip has the wrong location for pppd. When it attempts to run the
+pppd process as you do \mode ppp\, the dip program attempts
+to run the pppd program and it can\t because it isn\
+there.</P>
+<P>You can temporarily make a symbolic link from the /usr/lib/ppp/pppd
+location to the /usr/sbin/pppd file. However, a better solution is to
+rebuild the dip program so that it knows that pppd is at
+/usr/sbin/pppd.</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-7.html">Previous</A>
+<A HREF="PPP-FAQ-9.html">Next</A>
+<A HREF="PPP-FAQ.html#toc8">Table of Contents</A>
+</BODY>
+</HTML>

@@ -1,0 +1,356 @@
+<HTML>
+<HEAD>
+<TITLE>guide8</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide07.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide09.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 8</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>Editando archivos con Emacs</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>FUNNY SOMETHING OR OTHER</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.1 ¿Qu&eacute; es Emacs?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Para obtener algo en una computadora, necesita una forma de introducir texto en los archivos, y una manera de cambiar el texto que ya est&aacute; en los archivos. Un editor es un programa para este tipo de tareas. emacs es uno de los editores m&aacute;s populares, en parte porque es muy f&aacute;cil para un principiante hacer trabajos con &eacute;l. (El editor de Unix cl&aacute;sico, el vi, se trata en el Ap&eacute;ndice A).</P>
+<P>Para aprender emacs, tiene que encontrar un archivo de texto (letras, n&uacute;meros, etc.) c&oacute;pielo a su directorio de usuario 1 (no queremos modificar el archivo original, si &eacute;ste contiene informaci&oacute;n importante), y luego llame a Emacs con el archivo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ emacs LEAME</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>(Por supuesto, si decide copiar /etc/rc, /etc/inittab, o cualquier otro archivo, sustituya ese nombre de archivo por LEAME. Por ejemplo, si "cp /etc/rc ~/rc" , entonces "emacs rc").</P>
+<P>"Llamar" a Emacs puede tener efectos diferentes dependiendo en d&oacute;nde lo haga. Desde una consola que muestra s&oacute;lo caracteres de texto Emacs se apoderar&aacute; de toda la consola. Si lo llama desde X, Emacs abrir&aacute; su propia ventana. Asumir&eacute; que lo est&aacute; haciendo desde una consola de texto, pero todo sucede de la misma manera en la versi&oacute;n de X, l&oacute;gicamente simplemente sustituya la palabra "ventana" en los lugares en donde lea "pantalla". ¡Adem&aacute;s, recuerde que debe mover el puntero del rat&oacute;n a la ventana de Emacs para escribir!</P>
+<P>Su pantalla (o ventana, si est&aacute; usando X) deber&iacute;a parecerse a la Figura 8.1. La mayor parte de la pantalla contiene su documento de texto, pero las dos &uacute;ltimas l&iacute;neas son especialmente interesantes si est&aacute; tratando de aprender Emacs. La pen&uacute;ltima l&iacute;nea (la que tiene una cadena larga de guiones) se denomina l&iacute;nea de modo ("mode line" en ingl&eacute;s).</P>
+<P>_____________________________________________</P>
+<P>1 Por ejemplo, "cp /usr/src/linux/LEAME ./LEAME"</P>
+<P>&nbsp;</P>
+<P>En mi l&iacute;nea de modo, ve "Top". Deber&iacute;a decir "All", y puede haber otras peque&ntilde;as diferencias.</P>
+<P>(A muchas personas les aparece la hora actual en la l&iacute;nea de modo). La l&iacute;nea inmediatamente inferior a la l&iacute;nea de modo se denomina minibuffer, o a veces el &aacute;rea de eco. Emacs usa el minibuffer para enviar mensajes al usuario, y ocasionalmente cuando es necesario, para leer informaci&oacute;n que introduce el usuario. De hecho, ahora mismo Emacs le est&aacute; diciendo "Para obtener informaci&oacute;n acerca del Proyecto GNU y sus objetivos, teclee C-h C-p." (s&oacute;lo que en ingl&eacute;s). Ign&oacute;relo por ahora; no vamos a usar mucho el minibuffer por un tiempo.</P>
+<P>Antes de realizar cualquier cambio en el texto del archivo, necesita aprender c&oacute;mo moverse. El cursor deber&aacute; estar al principio del archivo, en la esquina superior izquierda de la pantalla.</P>
+<P>Para avanzar, presione |_C-f_| (reteniendo la tecla |_Control_| mientras presiona "f", para "forward" (avanzar). Avanzar&aacute; un car&aacute;cter cada vez, y si retiene ambas teclas, la repetici&oacute;n autom&aacute;tica de teclas de su sistema deber&aacute; surtir efecto en medio segundo aproximadamente. Notar&aacute; como, cuando llega al fin de la l&iacute;nea, el cursor autom&aacute;ticamente se mueve a la pr&oacute;xima l&iacute;nea. |_C-b_| (para "backward" (retroceder) tiene el comportamiento opuesto. Y, ya que estamos en ello, |_C-n_| y ||_C-p_|| le llevan a las l&iacute;neas siguiente y anterior, respectivamente. 2</P>
+<P>Usar las teclas de control es com&uacute;nmente la manera m&aacute;s r&aacute;pida de moverse cuando est&aacute; editando.</P>
+<P>El objetivo de Emacs es mantener sus manos sobre las teclas alfa-num&eacute;ricas del teclado, donde se realiza la mayor&iacute;a del trabajo. Sin embargo, si quiere, las teclas de movimiento deber&aacute;n funcionar tambi&eacute;n.</P>
+<P>De hecho, cuando usa X, deber&iacute;a ser capaz de ubicar el puntero del rat&oacute;n y hacer "click" con el bot&oacute;n izquierdo para mover el cursor donde quiera. Sin embargo, esto es muy lento, ¡tiene que mover la mano hasta el rat&oacute;n! La mayor&iacute;a de la gente que usa Emacs usa principalmente el teclado para moverse por el texto.</P>
+<P>_____________________________________________</P>
+<P>2 En caso de que a&uacute;n no lo haya notado, muchos de los comandos de movimiento de emacs consisten en combinar |_Control_| con una &uacute;nica letra mnemot&eacute;cnica.</P>
+<P>&nbsp;</P>
+<P>Use ||_C-p_|| y |_C-b_| para ir a la esquina superior izquierda. Ahora mantenga |_C-b_| un poco m&aacute;s.</P>
+<P>Deber&iacute;a o&iacute;r un sonido molesto de campana, y ver el mensaje "Beginning of buffer" (Principio del buffer) que aparece en el minibuffer. En este punto se puede preguntar, "¿Pero qu&eacute; es un buffer?". Cuando Emacs trabaja sobre un archivo, no trabaja realmente sobre el archivo en s&iacute;. En vez de eso, copia los contenidos del archivo en un &aacute;rea de trabajo especial de Emacs llamada buffer, donde puede modificar el contenido. Cuando ha acabado de trabajar, debe decirle a Emacs que guarde los buffers, en otras palabras, que escriba el contenido de los buffers en el archivo correspondiente.</P>
+<P>Hasta que haga esto, el archivo permanece sin cambiar, y el contenido de los buffers existe &uacute;nicamente dentro de Emacs.</P>
+<P>Con esto en mente, prep&aacute;rese a insertar su primer car&aacute;cter en el buffer. Hasta ahora, todo lo que hemos hecho ha sido "no destructivo", este es un gran momento. Puede escoger cualquier car&aacute;cter que quiera, pero si quiere hacer esto con estilo, yo sugiero usar una bonita y s&oacute;lida, "X" may&uacute;scula.</P>
+<P>Mientras lo teclea, eche un vistazo al principio de la l&iacute;nea de modo al pie de la pantalla. Cuando cambia los buffer de modo que sus contenidos no sean iguales que los del archivo sobre el disco, Emacs muestra dos asteriscos a principios de la l&iacute;nea de modo, para hacerle saber que el buffer ha sido modificado: &nbsp;</P><DIR>
+<DIR>
+
+<P>--**- Emacs: algun_archivo.txt (Fundamental)--Top------------------------</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Estos dos asteriscos se muestran tan pronto como modifica el buffer, y permanecen visibles hasta que guarde el buffer. Puede guardar los buffer muchas veces durante una sesi&oacute;n de edici&oacute;n, el comando para hacerlo es simplemente |_C-x_C-s_| (presione |_Control_| y pulse "x" y "s" mientras la mantiene apretada, ¡probablemente ya se lo imagin&oacute;!). Es deliberadamente f&aacute;cil de escribir, porque lo mejor es salvar sus buffers al principio y frecuentemente.</P>
+<P>Ahora voy a enumerar m&aacute;s comandos, adem&aacute;s de los que ya ha aprendido, y los puede practicar del modo que prefiera. Yo sugiero familiarizarse con ellos antes de proseguir:</P><DIR>
+<DIR>
+
+<P>C-f Avanza un car&aacute;cter.</P>
+<P>C-b Retrocede un car&aacute;cter.</P>
+<P>C-n Va a la pr&oacute;xima l&iacute;nea.</P>
+<P>C-p Va a la l&iacute;nea anterior.</P>
+<P>C-a Va al comienzo de la l&iacute;nea.</P>
+<P>C-e Va al final de la l&iacute;nea.</P>
+<P>C-v Va a la pr&oacute;xima p&aacute;gina/pantalla de texto.</P>
+<P>C-l Redibuja la pantalla, con la l&iacute;nea actual en el centro.</P>
+<P>C-d Borra este car&aacute;cter (practica este).</P>
+<P>C-k Borra el texto desde aqu&iacute; hasta el fin de l&iacute;nea.</P>
+<P>C-x C-s Salva el buffer en su archivo correspondiente.</P>
+<P>|_Retroceso_| Borra el car&aacute;cter anterior (el &uacute;ltimo que escribiste).</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.2 Comenzar r&aacute;pidamente en X</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si est&aacute; interesado en editar unos archivos r&aacute;pidamente, un usuario de X no tiene que ir mucho m&aacute;s all&aacute; de los men&uacute;s en la parte superior de la pantalla. Estos men&uacute;s no est&aacute;n disponibles en el modo texto.</P>
+<P>Cuando ejecute por primera vez Emacs, habr&aacute; cuatro men&uacute;s en la parte superior de la pantalla: Buffers, File, Edit, y Help. Para usar un men&uacute;, simplemente mueva el puntero del rat&oacute;n sobre el nombre (como File, haga click y retenga el bot&oacute;n izquierdo). Entonces, mueva el puntero a la acci&oacute;n que quiere y libere el bot&oacute;n del rat&oacute;n. Si cambia de idea, retire el puntero del rat&oacute;n del men&uacute; y libere el bot&oacute;n.</P>
+<P>El men&uacute; Buffers enumera los diferentes archivos que han sido editados en esta instancia de Emacs.</P>
+<P>El men&uacute; Files muestra un grupo de comandos para cargar y guardar archivos, muchos de ellos se describir&aacute;n m&aacute;s adelante. El men&uacute; Edit muestra algunos comandos para editar un buffer, y el men&uacute; Help deber&iacute;a dar la documentaci&oacute;n en l&iacute;nea.</P>
+<P>Notar&aacute; que las equivalencias del teclado se enumeran junto a las opciones del men&uacute;. Puesto que, a largo plazo, &eacute;stas ser&aacute;n m&aacute;s r&aacute;pidas, podr&iacute;a quererlas aprender. Tambi&eacute;n, para bien o para mal, la mayor&iacute;a de la funcionalidad de Emacs est&aacute; &uacute;nicamente disponible mediante el teclado, as&iacute; que puede que le interese leer el resto de este cap&iacute;tulo.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.3 Editando varios archivos al mismo tiempo</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Emacs puede trabajar sobre m&aacute;s de un de archivo a la vez. De hecho, el &uacute;nico l&iacute;mite sobre cuantos buffers puede contener Emacs es la cantidad real de memoria disponible en la m&aacute;quina. El comando para traer un nuevo archivo a un buffer de Emacs es |_C-x_C-f_|. Cuando lo teclee, se le pedir&aacute; un nombre de archivo en el minibuffer:</P><DIR>
+<DIR>
+
+<P>Find file (Buscar archivo):~/</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La sintaxis, aqu&iacute;, es la misma que la usada para especificar archivos desde la l&iacute;nea de comandos; las barras representan subdirectorios, ~ es su directorio de usuario. Tambi&eacute;n consigue terminaci&oacute;n autom&aacute;tica de nombre de archivo, significa que si ha escrito suficiente de un nombre de archivo en la l&iacute;nea de comandos para identificar el archivo singularmente, puede simplemente presionar |_Tab_| para completarlo (o para ver las terminaciones posibles, si hay m&aacute;s de una). ||_Espacio_|| tambi&eacute;n tiene un papel en la terminaci&oacute;n autom&aacute;tica de nombres de ficheros en el minibuffer, parecido a |_Tab_|, pero dejar&eacute; que experimente para que averig&uuml;e c&oacute;mo difieren las dos. Una vez que tiene el nombre completo en el minibuffer, presione |_Intro_|, y Emacs crear&aacute; un buffer mostrando el archivo. En Emacs, este proceso es conocido como encontrar un archivo. Siga adelante y busque ahora alg&uacute;n otro archivo de texto sin importancia y tr&aacute;igalo a Emacs (haga esto desde nuestro buffer original algun_archivo.txt). Ahora tiene un nuevo buffer; Supondr&eacute; que se llama otro_archivo.txt, ya que no puedo ver su l&iacute;nea de modo.</P>
+<P>Su buffer original parece haber desaparecido (probablemente) se pregunta d&oacute;nde fue. Est&aacute; todav&iacute;a dentro de Emacs, y puede volver a &eacute;l con |_C-x_b_|. Cuando teclee esto, ver&aacute; que en el minibuffer le pide el nombre un buffer al que cambiar, y nombra uno por defecto. El buffer por defecto lo consigue s&oacute;lo con presionar |_Intro_| en la l&iacute;nea de comandos, sin escribir un nombre de buffer. El buffer por defecto al que cambiar, es siempre el m&aacute;s recientemente usado, para que cuando est&eacute; haciendo mucho trabajo entre dos buffers, |_C-x_b_| tenga por defecto el "otro" buffer (salv&aacute;ndole de tener que escribir el nombre del buffer). Incluso si el buffer por defecto es el que quiere, deber&iacute;a probar a teclear su nombre de todos modos.</P>
+<P>Note que consigue el mismo tipo de terminaci&oacute;n autom&aacute;tica que obtuvo al buscar un archivo: al pulsar |_Tab_| completa todo lo que puede del nombre de un buffer y as&iacute; sucesivamente. Cada vez que se le pida algo en el minibuffer, es una buena idea ver si Emacs hace terminaci&oacute;n autom&aacute;tica.</P>
+<P>Aprovechando la terminaci&oacute;n autom&aacute;tica cuando se le ofrezca, ahorrar&aacute; teclear mucho. Emacs com&uacute;nmente hace la terminaci&oacute;n autom&aacute;tica cuando elige un elemento de alguna lista predefinida.</P>
+<P>Todo lo que ha aprendido para moverse y editar texto en el primer buffer se aplica a los nuevos. Siga adelante y cambie alg&uacute;n texto en el nuevo buffer, pero no lo guarde (es decir, no teclee |_C-x_C-s_|).</P>
+<P>D&eacute;jeme asumir que quiere desechar los cambios sin guardarlos en el archivo. El comando para esto es C-x k, que "mata" (kill) el buffer. Tecl&eacute;elo ahora. Primero se le preguntar&aacute; qu&eacute; buffer matar, pero por defecto es el buffer actual, y casi siempre es el que se quiere matar, simplemente presione |_Intro_|. Entonces le preguntar&aacute; si realmente quiere matar el buffer, Emacs siempre controla antes de matar un buffer que tiene cambios sin salvar. Simplemente escriba "yes" (s&iacute;) y presione |_Intro_|, si quiere matarlo.</P>
+<P>Siga adelante y practique cargar archivos, modificarlos, guardarlos, y matar sus buffers. Por supuesto, cerci&oacute;rese de no modificar ning&uacute;n archivo de sistema importante de una forma que cause problemas 3, pero trate de tener por lo menos cinco buffers abiertos al mismo tiempo, para que se pueda dar el gusto de moverse entre ellos.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.4 Terminando una sesi&oacute;n de edici&oacute;n</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Cuando haya hecho su trabajo en Emacs, aseg&uacute;rese de que se guarden todos los buffers que deben guardarse, y salga de Emacs con |_C-x_C-c_|.</P>
+<P>A veces |_C-x_C-c_| le har&aacute; una pregunta o dos en el minibuffer antes de dejarle salir, no se alarme, simplemente conteste en las maneras obvias. Si piensa que podr&iacute;a volver a Emacs luego, no use |_C-x_C-c_|; use |_C-z_|, que suspender&aacute; Emacs. Puede volver luego con el comando "fg" del shell.</P>
+<P>Esto es m&aacute;s eficiente que detener a Emacs y comenzar varias veces, especialmente si tiene que editar los mismos archivos nuevamente.</P>
+<P>Bajo X, presionar |_C-z_| reducir&aacute; a icono la ventana. Mire la secci&oacute;n sobre minimizar en el Capitulo 5. Esto le da dos formas de minimizar Emacs, la manera normal que ofrece el gestor de ventanas, y |_C-z_|. Recuerde, cuando minimice, un simple "fg" no traer&aacute; la ventana anterior, tendr&aacute; que usar el gestor de ventanas.</P>
+<P>_____________________________________________</P>
+<P>3 De cualquier manera, si no es el usuario "root" de la m&aacute;quina, no deber&iacute;a ser capaz de da&ntilde;ar el sistema, pero tenga cuidado igualmente.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.5 La tecla Meta</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Ha aprendido ya sobre una "tecla modificadora" en Emacs, la tecla |_Control_|. Hay una segunda, llamada la tecla Meta, que se usa casi tan frecuentemente. Sin embargo, no todos los teclados tienen su tecla Meta en el mismo lugar, y algunos ni siquiera la tienen. Lo primero que necesita hacer es encontrar d&oacute;nde se encuentra su tecla Meta. Es probable que las teclas |_Alt_| de su teclado sean tambi&eacute;n teclas Meta, si usa un PC IBM o alg&uacute;n otro teclado que tenga una tecla |_Alt_|.</P>
+<P>La forma de probar esto es mantener presionada una tecla que crea que puede ser una tecla Meta y teclear "x". Si ve que un peque&ntilde;o prompt aparece en el minibuffer (como esto: |_M-x_|), entonces la ha encontrado. Para librarse del prompt y regresar al buffer de Emacs, teclee ||_C-g_||.</P>
+<P>Si no consigue un prompt, entonces todav&iacute;a queda una soluci&oacute;n. Puede usar la tecla ||_Escape_|| como una tecla Meta. Pero en vez de mantenerla pulsada mientras teclea la pr&oacute;xima letra, tiene que pulsarla y soltarla r&aacute;pidamente, y entonces teclee la letra. Este m&eacute;todo funcionar&aacute; tenga o no una tecla Meta verdadera, tambi&eacute;n es la manera m&aacute;s segura para hacerlo. Intente ahora pulsar ligeramente ||_Escape_|| y entonces teclee "x". Deber&iacute;a conseguir otra vez ese peque&ntilde;o prompt.</P>
+<P>Simplemente use ||_C-g_|| para salir. ||_C-g_|| es la manera general en Emacs para salir de alg&uacute;n lugar donde no quiere estar. Los fastidiosos y comunes pitidos son para hacerle saber que ha interrumpido algo, pero est&aacute; bien, porque es lo que quer&iacute;a hacer cuando tecle&oacute; ||_C-g_||4</P>
+<P>La notaci&oacute;n |_M-x_| es an&aacute;loga a |_C-x_| (ponga cualquier car&aacute;cter en el lugar de la "x"). Si ha encontrado una verdadera tecla Meta, use &eacute;sta, de otra manera simplemente use la tecla ||_Escape_||. Yo escribir&eacute; simplemente |_M-x_| y ud. tendr&aacute; que usar su propia tecla Meta.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.6 Cortar, pegar, destruir y tirar</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Emacs, como cualquier buen editor, le permite cortar y pegar bloques de texto. A fin de hacer esto, necesita una forma de definir el comienzo y fin del bloque. En Emacs, se hace esto estableciendo dos ubicaciones en el buffer, conocidas como marca y puntero. Para colocar la marca, vaya al lugar donde quiere que comience el bloque y teclee |_C-SPC_| ("SPC" significa ||_Espacio_||, por supuesto).</P>
+<P>Deber&iacute;a ver el mensaje "Mark set" (Marca establecida) que aparece en el minibuffer5. Ahora la marca ha sido establecida en ese lugar. No habr&aacute; ning&uacute;n indicador especial destacando este hecho, pero Ud. sabe d&oacute;nde la ha puesto, y eso es lo que importa.</P>
+<P>¿Y qu&eacute; hay del puntero? Bien, resulta que ha colocado un puntero cada vez que ha movido el cursor, porque "puntero" simplemente se refiere a su ubicaci&oacute;n actual en el buffer. En t&eacute;rminos formales, el puntero es el punto donde se insertar&aacute; el texto si escribe algo. Al colocar la marca, y luego moverse al final del bloque, ha definido un bloque de texto. Este bloque es conocido como la regi&oacute;n. La regi&oacute;n siempre significa el &aacute;rea entre la marca y el puntero.</P>
+<P>El s&oacute;lo hecho de definir la regi&oacute;n no la deja disponible para pegar. Tiene que decirle a Emacs que lo copie para poder ser capaz de pegarlo. Para copiar la regi&oacute;n, aseg&uacute;rese de que la marca y el puntero est&aacute;n correctamente establecidos, y teclee |_M-w_|. Ahora ha sido grabada por Emacs. Para pegarlo en alguna otra parte, simplemente vaya all&iacute; y teclee ||C-y_||. Esto es conocido como tirar el texto en el buffer.</P>
+<P>______________________________________________</P>
+<P>4 Ocasionalmente, un C-g no es suficiente para persuadir a emacs que realmente quiere interrumpir lo que hace. Simplemente insista, y normalmente Emacs volver&aacute; a un modo m&aacute;s cuerdo.</P>
+<P>5 Sobre algunos terminales, |_C-SPC_| no funciona. Para estas m&aacute;quinas, debe usar |_C-@_|.</P>
+<P>&nbsp;</P>
+<P>Si quiere mover el texto de la regi&oacute;n a alguna otra parte, teclee |_C-w_| en vez de |_M-w_| Esto matar&aacute; la regi&oacute;n, todo el texto dentro de ella desaparecer&aacute;. De hecho, se ha guardado del mismo modo que si hubiera usado |_M-w_|. Puede tirar de nuevo con ||_C-y_||, como siempre. El lugar donde emacs guarda todo este texto es conocido como el c&iacute;rculo de muerte. Algunos editores lo llaman el "porta papeles" o el "buffer de pegado".</P>
+<P>Existe otra manera para cortar y pegar: cuando usa |_C-k_| para matar hasta el final de una l&iacute;nea, el texto matado se guarda en el c&iacute;rculo de muerte. Si mata m&aacute;s de una l&iacute;nea seguida, se guardar&aacute;n todas juntas en el c&iacute;rculo de muerte, para que la pr&oacute;xima tirada pegue todas las l&iacute;neas al mismo tiempo. Por ello, casi siempre es m&aacute;s r&aacute;pido usar repetidas veces |_C-k_| para matar alg&uacute;n texto, que establecer la marca y el puntero y usar |_C-w_|. Sin embargo, de una u otra manera funcionar&aacute;. Es realmente una cuesti&oacute;n de preferencia personal c&oacute;mo lo hace.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.7 Buscar y reemplazar</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Hay varias maneras para buscar texto en Emacs. Muchas son m&aacute;s bien complejas, y no merece la pena tratarlas aqu&iacute;. La m&aacute;s f&aacute;cil y la m&aacute;s entretenida es usar isearch.</P>
+<P>"Isearch" se refiere a "incremental search" (b&uacute;squeda incremental). Supongamos que quiere buscar la cadena "t&aacute;bano" en el siguiente buffer:</P><DIR>
+<DIR>
+
+<P>Yo estaba temeroso que nos qued&aacute;ramos sin gasolina, cuando mi t&aacute;cito pasajero</P>
+<P>exclam&oacute; ``Auch un aguij&oacute;n! Hay un t&aacute;bano aqu&iacute; dentro! ''.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Deber&iacute;a moverse al comienzo del buffer, o por lo menos a alg&uacute;n punto que sabe que est&aacute; antes de la primera aparici&oacute;n de la palabra, "t&aacute;bano", y teclear |_C-s_|. Eso le pondr&aacute; en el modo de b&uacute;squeda isearch. Ahora comience a escribir la palabra que est&aacute; buscando, "t&aacute;bano". Pero tan pronto como escribe la "t", ve que Emacs ha saltado a la primera aparici&oacute;n de "t" en el buffer. Si la cita de arriba es todo el contenido del buffer, entonces la primera "t" es de la palabra "temeroso". Ahora escriba la "&aacute;" de "t&aacute;bano", y Emacs saltar&aacute; sobre "t&aacute;cito", que contiene la primer ocurrencia de "t&aacute;". Y finalmente, "b" consigue "t&aacute;bano", sin haber tenido que escribir la palabra entera.</P>
+<P>Lo que hace en una isearch es definir una cadena para buscarla. Cada vez que agrega un car&aacute;cter al final de la cadena, el n&uacute;mero de posibles cadenas se reduce, hasta que haya escrito lo suficiente para definir la cadena singularmente. Una vez que ha encontrado la palabra, puede salir de la b&uacute;squeda con |_Intro_| o cualquiera de los comandos normales de movimiento. Si piensa que la cadena que buscas esta atr&aacute;s en el buffer, entonces deber&iacute;a usar |_C-r_|, que hace isearch hacia atr&aacute;s.</P>
+<P>Si encuentra una palabra, pero no es la que buscaba, entonces presione |_C-s_| nuevamente mientras todav&iacute;a est&eacute; en la b&uacute;squeda. Esto le mover&aacute; hasta la pr&oacute;xima palabra coincidente, cada vez que lo haga. Si no existe una pr&oacute;xima palabra, dir&aacute; que la b&uacute;squeda fracas&oacute;, pero si presiona |_C-s_| nuevamente en este punto, la b&uacute;squeda volver&aacute; a comenzar desde el principio del buffer. Se puede decir lo opuesto de |_C-r_| comienza al final del buffer.</P>
+<P>Intente introducir un buffer de texto en ingl&eacute;s y haga un isearch para la cadena "the". Primero teclee todos los "the" que quiera y luego use |_C-s_| para ir a todas las apariciones. Note que tambi&eacute;n aparecer&aacute;n palabras como " them", dado que tambi&eacute;n contiene la subcadena "the". Para buscar un &uacute;nico "the", deber&aacute; agregar un espacio al final de la cadena de b&uacute;squeda. Puede agregar nuevos caracteres a la cadena en cualquier punto de la b&uacute;squeda, despu&eacute;s tiene que presionar |_C-s_| repetidamente para encontrar las pr&oacute;ximas palabras coincidentes. Puede usar tambi&eacute;n la |_Retroceso_| o ||_Supr_|| para quitar caracteres de la cadena en cualquier punto de la b&uacute;squeda, y presionando |_Intro_| sale de la b&uacute;squeda, dej&aacute;ndole en la &uacute;ltima coincidencia.</P>
+<P>Emacs tambi&eacute;n permite reemplazar todas las apariciones de una cadena con alguna nueva cadena, esto es conocido como query-replace (preguntar-reemplazar). Para invocarlo, teclee query-replace y |_Intro_|.</P>
+<P>Como se hace terminaci&oacute;n autom&aacute;tica sobre el nombre del comando, una vez que has escrito "query-re", puede simplemente presionar |_Tab_| para terminarlo. Digamos que desea reemplazar todas las ocurrencias de "t&aacute;bano" por "mosca". En el prompt "Query replace: " (preguntar-reemplazar), escriba "t&aacute;bano", y presione |_Intro_|. Entonces aparecer&aacute; el prompt nuevamente, y deber&aacute; introducir "mosca". Entonces Emacs recorrer&aacute; el buffer, parando a cada aparici&oacute;n de la palabra "t&aacute;bano", y preguntando si quiere reemplazarla. Simplemente presione en cada instancia " y" o "n", por "Yes" o "No', hasta que termine. Si no entiende esto mientras lo lee, pru&eacute;belo.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.8 ¿Qu&eacute; es lo que ocurre realmente?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Realmente, todas estas teclas ligadas que ha aprendido son los atajos a funciones de Emacs. Por ejemplo, ||_C-p_|| es una manera abreviada de decirle a Emacs que ejecute la funci&oacute;n interna previous-line (l&iacute;nea_previa). Sin embargo, todas estas funciones internas pueden ser llamadas por el nombre, usando |_M-x_|. Si olvida que previous-line est&aacute; ligado a ||C-p_||, puede escribir simplemente |_M-x_| previous-line |_Intro_|, y se mover&aacute; una l&iacute;nea hacia arriba. Pruebe esto ahora, para que comprenda como |_M-x_| previous-line y ||_C-p_ || son realmente la misma cosa.</P>
+<P>El dise&ntilde;ador de Emacs comenz&oacute; desde la base hacia arriba, primero defini&oacute; un lote completo de funciones internas, y entonces les asoci&oacute; o lig&oacute; ciertas teclas a las m&aacute;s com&uacute;nmente usadas. A veces es m&aacute;s f&aacute;cil llamar a una funci&oacute;n expl&iacute;citamente con |_M-x_| que recordar a qu&eacute; tecla est&aacute; ligada.</P>
+<P>La funci&oacute;n query-replace, por ejemplo, est&aacute; ligada a ||_M-%_|| en algunas versiones de Emacs. Pero ¿qui&eacute;n puede recordar tan rara combinaci&oacute;n? A menos que use query-replace muy frecuentemente, es m&aacute;s f&aacute;cil simplemente llamarla con |_M-x_|.</P>
+<P>La mayor&iacute;a de las teclas que pulsa son letras, cuya funci&oacute;n es ser insertadas en el texto del buffer. Cada una de esas teclas est&aacute; ligada a la funci&oacute;n self-insert-command, que no hace nada m&aacute;s que insertar la letra en el buffer. Las combinaciones que usan la tecla |_Control_| con una letra generalmente est&aacute;n ligadas a funciones que hacen otras cosas, como mover el cursor. Por ejemplo, |_C-v_| est&aacute; ligada a una funci&oacute;n llamada scroll-up (avanzar p&aacute;gina), que mueve el buffer una pantalla hacia arriba (lo que quiere decir que su posici&oacute;n en el buffer se mueve hacia abajo, por supuesto).</P>
+<P>Si alguna vez quisiera realmente insertar un car&aacute;cter de Control en el buffer, entonces, ¿c&oacute;mo lo har&iacute;a? Despu&eacute;s de todo, los caracteres de Control son caracteres ASCII, aunque rara vez usados, y puede querer tenerlos en un archivo. Hay una manera para_impedir_que los caracteres de Control sean interpretados como comandos por Emacs. La tecla ||_C-q_||6 est&aacute; ligada a una funci&oacute;n especial llamada quoted-insert (insertar lo citado). Todo lo que quoted-insert hace es leer la pr&oacute;xima tecla e insertarla literalmente en el buffer, sin tratar de interpretarla como un comando. As&iacute; es c&oacute;mo puede poner los caracteres de Control en sus archivos usando Emacs. ¡Naturalmente, la manera de insertar un C-q es presionar ||C-q_|| dos veces!</P>
+<P>Emacs tambi&eacute;n tiene muchas funciones que no est&aacute;n ligadas a ninguna tecla. Por ejemplo, si escribe un mensaje largo, y no quiere tener que presionar |_Intro_| al final de cada l&iacute;nea. Puede hacer que emacs lo haga por Ud. (de hecho puede hacer que Emacs haga cualquier cosa por Ud.), el comando para hacerlo se llama auto-fill-mode (modo de auto llenado, pero no est&aacute; ligado a ninguna tecla por defecto. A fin de invocar este comando, debe escribir "M-x auto-fill-mode".</P>
+<P>"M-x" es la tecla usada para llamar a funciones por el nombre. Podr&iacute;a usarlo para llamar a funciones como next-line y previous-line, pero eso ser&iacute;a muy ineficaz, ya que esas funciones est&aacute;n ligadas a |_C-n_| y ||_C-p_||.</P>
+<P>A prop&oacute;sito, si mira su l&iacute;nea de modo despu&eacute;s de invocar auto-fill-mode, notar&aacute; que la palabra "Fill" se ha agregado al lado derecho. Mientras est&eacute; all&iacute;, Emacs llenar&aacute; (rellenar&aacute;) el texto autom&aacute;ticamente. Puede desactivarlo escribiendo "M-x auto-fill-mode" nuevamente, es un comando de palanca.</P>
+<P>La incomodidad de escribir largos nombres de funci&oacute;n en el minibuffer disminuye porque Emacs hace terminaci&oacute;n autom&aacute;tica en los nombres de funciones de la misma manera que lo hace en los nombres de archivo. Por lo tanto, rara vez deber&iacute;a encontrarse escribiendo el nombre entero de la funci&oacute;n letra a letra. Si no est&aacute; totalmente seguro de si puede o no usar la terminaci&oacute;n autom&aacute;tica, simplemente presione |_Tab_|. No puede hacer da&ntilde;o: lo peor que puede suceder es que consiga un car&aacute;cter Tab, y si es afortunado, resultar&aacute; que puede usar la terminaci&oacute;n autom&aacute;tica.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.9 Pidiendo ayuda a Emacs</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Emacs tiene extensas facilidades de ayuda, tan extensas de hecho, que s&oacute;lo podemos comentarlas un poco aqu&iacute;. A las facilidades de ayuda m&aacute;s b&aacute;sicas se accede tecleando |_C-h_| y luego una &uacute;nica letra. Por ejemplo, |_C-h_k_| muestra la ayuda sobre una tecla (le pide que presiones una tecla, y entonces le dice lo que esa tecla hace). |_C-h_t_| abre un breve manual sobre Emacs. M&aacute;s importante a&uacute;n, |_C-h_C-h_C-h_| le da ayuda sobre la ayuda, para decirle que est&aacute; disponible una vez que ha tecleado |_C-h_| por primera vez. Si sabe el nombre de una funci&oacute;n de Emacs (save-buffer (grabar el buffer), por ejemplo), pero no puede recordar cu&aacute;l es la combinaci&oacute;n de teclas a la que est&aacute; ligada, use |_C-h_w_|, para "where-is" (d&oacute;nde est&aacute;), y escriba el nombre de la funci&oacute;n. O, si quiere conocer qu&eacute; hace una funci&oacute;n con detalle, use |_C-h_f_|, que preguntar&aacute; por un nombre de funci&oacute;n.</P>
+<P>______________________________________________ </P>
+<P>6 Llamamos a C-q una "tecla", aunque se produce manteniendo presionada la tecla Controly presionando "q", porque es un &uacute;nico car&aacute;cter ASCII.</P>
+<P>&nbsp;</P>
+<P>Recuerde, que como Emacs hace terminaci&oacute;n autom&aacute;tica del nombre de la funci&oacute;n, realmente no tiene que estar seguro de c&oacute;mo se llama para pedir ayuda sobre ella. Si piensa que puedes adivinar la palabra con la que podr&iacute;a comenzar, teclee &eacute;sa y presione |_Tab_ |para ver si se completa. Si no, vuelva atr&aacute;s e intente otra cosa. Lo mismo ocurre con los nombres de archivo: a&uacute;n cuando no pueda recordar del todo como nombr&oacute; cierto archivo al que no ha accedido en tres meses, puede probar y usar la terminaci&oacute;n autom&aacute;tica para averiguar si est&aacute; en lo cierto. Usa la terminaci&oacute;n autom&aacute;tica como una forma de preguntar, y no s&oacute;lo como una manera de teclear menos.</P>
+<P>&nbsp;</P>
+<P>Hay otros caracteres que puede pulsar despu&eacute;s de |_C-h_|, y con cada uno consigue ayuda de una manera diferente. Los que usar&aacute; m&aacute;s frecuentemente son |_C-h_k_|, |_C-h_w_|, y |_C-h_f_|. Una vez que est&eacute; m&aacute;s familiarizado con Emacs, otra para probar es |_C-h_a_|, que le pregunta por una cadena y le comenta todas las funciones que tienen esa cadena como parte de su nombre (la "a" ser&iacute;a para "apropos" [a prop&oacute;sito], o "about"[acerca]).</P>
+<P>Otra fuente de informaci&oacute;n es el lector de documentaci&oacute;n Info. Info es demasiado complejo para tratarlo aqu&iacute;, pero si est&aacute; interesado en explorarlo por si mismo, teclee |_C-h_i_| y lea el p&aacute;rrafo en la parte superior de la pantalla. Le dir&aacute; c&oacute;mo conseguir m&aacute;s ayuda.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.10 Especializando buffers: Modos</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los buffers de Emacs tienen modos asociados7. La raz&oacute;n para esto, es que sus necesidades cuando escribe un mensaje de correo son muy diferentes de sus necesidades cuando, por ejemplo, escribe un programa. Mejor que tratar de crear un editor que satisfaga cada necesidad particular en todo momento (que ser&iacute;a imposible), el dise&ntilde;ador de Emacs8 eligi&oacute; hacer que Emacs se comporte de manera diferente dependiendo de qu&eacute; hace Ud. en cada buffer individual. As&iacute;, los buffers tienen modos, cada uno dise&ntilde;ado para alguna actividad espec&iacute;fica. Los aspectos principales que distinguen un modo de otros son las combinaciones de teclas, pero tambi&eacute;n pueden existir otras diferencias. </P>
+<P>El modo m&aacute;s b&aacute;sico es el modo Fundamental, que realmente no tiene ning&uacute;n comando especial.</P>
+<P>De hecho, esto es todo lo que Emacs dice sobre el Modo Fundamental:</P><DIR>
+<DIR>
+
+<P>Modo Fundamental:</P>
+<P>Modo mayor no especializado para nada en particular. Los otros modos mayores son definidos por comparaci&oacute;n con este.</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>Obtuve as&iacute; esa informaci&oacute;n: Teclee |_C-x_b_|, que es switch-to-buffer (cambiar al buffer), e introduje "foo" cuando se me pregunt&oacute; por un nombre de buffer al que cambiar. Como no hab&iacute;a anteriormente ning&uacute;n buffer llamado "foo", Emacs cre&oacute; uno y me cambio a &eacute;l. Estaba en el modo fundamental por defecto, pero si no lo hubiese estado, podr&iacute;a haber tecleado "M-x fundamental-mode" para que estuviese. Todos los nombres de modo tienen un comando llamado &lt;nombre-de-modo&gt;-mode que pone el buffer actual en ese modo. Entonces, para averiguar m&aacute;s sobre este modo mayor, tecle&eacute; |_C-h_m_|, que consigue ayuda sobre el modo mayor actual del buffer en que est&aacute;.</P>
+<P>_____________________________________________</P>
+<P>7 para colmo de males, hay "Modos Mayores" y "Modos Menores", pero en este momento no necesita conocer nada acerca de esto.</P>
+<P>8 Richard Stallman, a veces tambi&eacute;n conocido como "rms", porque es su login.</P>
+<P>&nbsp;</P>
+<P>Hay un modo ligeramente m&aacute;s &uacute;til llamado text-mode, (modo texto, que tiene los comandos especiales |_M-S_|, para centrar p&aacute;rrafo, y |_M-s_|, que invoca centrar l&iacute;nea. |_M-S_|, a prop&oacute;sito, significa exactamente lo que piensa: mantenga pulsadas la |_Meta__|y la tecla |_Shift_|, y presiona "S".</P>
+<P>Pero no me tome la palabra en esto, cree un nuevo buffer, p&oacute;ngalo en modo texto, y teclee |_C-h_m_|. Puede que no entienda todo lo que Emacs le diga cuando lo haga, pero deber&iacute;a ser capaz de conseguir sacar alguna informaci&oacute;n &uacute;til de ello.</P>
+<P>Esto es una introducci&oacute;n a algunos de los modos m&aacute;s com&uacute;nmente usados. Si los usa, aseg&uacute;rese de que teclea en cada uno |_C-h_m_| alguna vez, para averiguar m&aacute;s sobre cada modo.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.11 Modos de programaci&oacute;n</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>8.11.1 Modo C</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si usa Emacs para programar en el lenguaje C, puede conseguir que &eacute;l le haga toda la indentaci&oacute;n autom&aacute;ticamente. Los archivos cuyos nombres terminan en .c o .h se abrir&aacute;n autom&aacute;ticamente en el modo C. Esto significa que ciertos comandos especiales de edici&oacute;n, &uacute;tiles para escribir programas en C, est&aacute;n disponibles. En el modo C, |_Tab_| est&aacute; ligado a c-indent-command (indentar comandos C). Esto significa que presionando la tecla |_Tab_| no inserta realmente un car&aacute;cter de Tabulaci&oacute;n. En cambio, si presiona |_Tab_| en cualquier parte de una l&iacute;nea, Emacs autom&aacute;ticamente indenta esta l&iacute;nea correctamente para su ubicaci&oacute;n en el programa. Esto implica que Emacs sabe algo sobre la sintaxis de C, (aunque nada sobre sem&aacute;ntica (¡no puede asegurar que su programa no tenga errores!).</P>
+<P>Para hacer esto, asuma que las l&iacute;neas anteriores est&aacute;n indentadas correctamente. Esto significa que si en la l&iacute;nea anterior falta un par&eacute;ntesis, un punto y coma, llaves, o cualquier otra cosa, Emacs indentar&aacute; la l&iacute;nea actual de una manera peculiar inesperada. Cuando vea que hace esto, sabr&aacute; que debe buscar un error de puntuaci&oacute;n en la l&iacute;nea anterior.</P>
+<P>Puede usar esta caracter&iacute;stica para verificar que ha puntuado correctamente sus programas,</P>
+<P>en vez de leer el programa entero_buscado_problemas, simplemente comience a indentar las l&iacute;neas desde arriba hasta abajo con |_Tab_|, y cuando alguna se indenta de forma rara, verifique las l&iacute;neas inmediatamente anteriores. En otras palabras, ¡deje a Emacs hacer el trabajo por Ud!.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>8.11.2 Modo Scheme</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este es un modo mayor que no le servir&aacute; de nada a menos que tenga un compilador o un interprete para el lenguaje de programaci&oacute;n Scheme en su sistema. Tener uno no es tan normal como, digamos, un compilador de C, pero se est&aacute; haciendo cada vez m&aacute;s com&uacute;n, as&iacute; que lo trataremos tambi&eacute;n.</P>
+<P>Mucho de lo que es cierto para el modo Scheme es tambi&eacute;n cierto para el modo Lisp, si prefiere escribir en Lisp.</P>
+<P>Bien, para complicar las cosas, Emacs viene con dos modos Scheme diferentes, porque la gente no pod&iacute;a decidir c&oacute;mo quer&iacute;an que funcionara. El que estoy describiendo se llama cmuscheme, y luego, en la secci&oacute;n personalizando a Emacs, hablar&eacute; de c&oacute;mo puede haber dos modos Scheme diferentes y qu&eacute; hacer acerca de ello. Por ahora, no se preocupe si las cosas en su Emacs no coinciden con las que yo digo aqu&iacute;. Un editor personalizable significa un editor impredecible, ¡y no hay vuelta de hoja!.</P>
+<P>Puede ejecutar un proceso Scheme interactivo en Emacs con el comando M-x run-scheme. Esto crea un buffer llamado "*scheme*", que tiene el prompt habitual de Scheme. Puede teclear expresiones de Scheme en el prompt, presionar |_Intro_|, y Scheme las evaluar&aacute; y mostrar&aacute; la respuesta. As&iacute;, a fin de interactuar con el proceso de Scheme, podr&aacute; simplemente escribir todas sus aplicaciones y definiciones de funci&oacute;n en el prompt. Es posible que haya escrito previamente c&oacute;digo fuente Scheme en un alg&uacute;n archivo, y ser&iacute;a m&aacute;s f&aacute;cil hacer su trabajo en el archivo y enviar las definiciones al buffer de proceso Scheme seg&uacute;n sea necesario.</P>
+<P>Si el archivo fuente termina en .ss o .scm, autom&aacute;ticamente se abrir&aacute; en el modo Scheme cuando lo encuentre con |_C-x_C-f_|. Si por alguna raz&oacute;n, no surge en el modo Scheme, puede hacerlo a mano con M-x scheme-mode. Este modo scheme no es lo mismo que el buffer que ejecuta el proceso Scheme; m&aacute;s bien, el que el buffer de c&oacute;digo fuente est&eacute; en modo scheme significa que tiene comandos especiales para comunicar con el buffer de proceso.</P>
+<P>Si est&aacute; dentro de la definici&oacute;n de una funci&oacute;n en el buffer de c&oacute;digo fuente Scheme y teclea |_C-c_C-e_|, entonces esa definici&oacute;n ser&aacute; "enviada" al buffer de proceso, exactamente como si lo hubiera tecleado Ud. mismo. |_C-c_M-e_| env&iacute;a la definici&oacute;n y entonces le lleva al buffer de proceso para hacer algo de trabajo interactivo. |_C-c_C-l_| carga un archivo de c&oacute;digo Scheme (&eacute;ste funciona desde el buffer de proceso o el buffer de c&oacute;digo fuente). Y como otros modos de lenguajes de programaci&oacute;n, al presionar |_Tab_| en cualquier lugar de una l&iacute;nea de c&oacute;digo se indentar&aacute; correctamente esa l&iacute;nea.</P>
+<P>Si est&aacute; en el prompt del buffer de proceso, puede usar ||_M-p_|| y |_M-n_| para moverse entre sus comandos anteriores (tambi&eacute;n conocido como la historia de entrada). As&iacute; que si est&aacute; depurando la funci&oacute;n 'rotar', y ya lo ha aplicado a los argumentos en el buffer de proceso, como:</P><DIR>
+<DIR>
+
+<P>&gt;(rotar '(a b c d e))</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>entonces puede recuperar ese comando anterior tecleando ||_M-p_||en el prompt. Aqu&iacute; no deber&iacute;a ser necesario volver a escribir expresiones largas en el prompt de Scheme, habit&uacute;ese a usar la historia de entrada y ahorrar&aacute; mucho tiempo.</P>
+<P>Emacs conoce bastantes lenguajes de programaci&oacute;n: C, C++, Lisp, y Scheme son simplemente algunos. Generalmente, sabe c&oacute;mo indentarlos de forma intuitiva.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>8.11.3 Modo de correo</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Tambi&eacute;n puede editar y enviar correo en Emacs. Para entrar en un buffer de correo, teclee |_C-x_m_|. Necesita llenar los campos To: (A:) y Subjet: (Asunto:), y entonces use |_C-n_ | para ir, por debajo de la l&iacute;nea de separaci&oacute;n, al cuerpo del mensaje (que est&aacute; vac&iacute;o cuando comienza por primera vez). No cambie o borre la l&iacute;nea de separaci&oacute;n, o sino Emacs no ser&aacute; capaz de enviar su correo, use esa l&iacute;nea para distinguir el encabezamiento del correo, que le dice d&oacute;nde enviar el correo, de los contenidos del mensaje.</P>
+<P>Puede escribir lo que quiera por debajo de la l&iacute;nea de separaci&oacute;n. Cuando est&eacute; listo para enviar el mensaje, simplemente teclee |_C-c_C-c_|, y Emacs lo enviar&aacute; y har&aacute; que el buffer de correo desaparezca.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.12 Como ser m&aacute;s eficiente a&uacute;n</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los usuarios experimentados de Emacs son fan&aacute;ticos de la eficiencia. &lt;De hecho, frecuentemente acaban derrochando mucho tiempo buscando formas para ser m&aacute;s eficientes!. No quiero que le suceda esto, aunque hay algunas cosas f&aacute;ciles con las que puede llegar a ser un mejor usuario de Emacs. A veces los usuarios experimentados hacen que los novatos se sientan tontos por no saber todos estos trucos, por alguna raz&oacute;n, la gente llega a hacerse religiosas sobre el uso "correcto" de Emacs. All&aacute; vamos:</P>
+<P>Cuando se mueve de un lado a otro, usa los medios m&aacute;s r&aacute;pidos disponibles. Ud. sabe que |_C-f_| es forward-char (un car&aacute;cter hacia adelante) ¿supon&iacute;a que |_M-f_| es forward-word (una palabra hacia delante)? |_C-b_| es backward-char (un car&aacute;cter hacia atr&aacute;s). ¿Supone qu&eacute; hace |_M-b_|? Sin embargo, esto no es todo, puede avanzar una frase cada vez con |_M-e_ |, siempre que escriba sus frases de modo que haya siempre dos espacios despu&eacute;s del punto final, (de otra manera Emacs no puede distinguir donde termina una frase y comienza la siguiente). |_M-a_| es backward-sentence (una frase atr&aacute;s).</P>
+<P>Si ve que usa repetidamente |_C-f_| para llegar al final de la l&iacute;nea, averg&uuml;&eacute;ncese, y aseg&uacute;rese de usar |_C-e_| en su lugar, y |_C-a_| para ir al principio de la l&iacute;nea. Si usa muchos |_C-n_| para bajar pantallas de texto, averg&uuml;&eacute;ncese mucho, y usa |_C-v_| siempre. Si usa repetidamente ||_C-p_|| para avanzar pantallas, no se atreva a ense&ntilde;ar la cara, y use |_M-v_| en su lugar.</P>
+<P>Si se est&aacute; acercando al final de una l&iacute;nea y se da cuenta de que hay una palabra mal tecleada o de que se ha olvidado alguna en alg&uacute;n lugar anterior de la l&iacute;nea, no use la |_Retroceso_| o ||_Supr_|| para volver a ese punto. Eso requerir&iacute;a volver a escribir porciones enteras de texto perfecto. En vez de eso, use combinaciones de |_M-b_|, |_C-b_|, y |_C-f_| para moverse a la ubicaci&oacute;n precisa del error, arr&eacute;glelo, y entonces use |_C-e_| para moverse al fin de la l&iacute;nea nuevamente.</P>
+<P>Cuando tiene que escribir un nombre de archivo, nunca teclee el nombre completo. Solamente escriba lo suficiente para identificarlo singularmente, y deje que Emacs termine el trabajo presionando |_Tab_| o ||_Espacio_||. ¿Por qu&eacute; teclear de m&aacute;s cuando puede derrochar ciclos de CPU en su lugar?</P>
+<P>Si escribe alg&uacute;n tipo de texto simple, y de alg&uacute;n modo su auto-llenando (auto-filling)lo ha fastidiado, use |_|M-q_||, que es rellenado de p&aacute;rrafo en los modos de texto comunes. Esto "ajustar&aacute;" el p&aacute;rrafo en el que est&aacute;, como si hubiese sido llenado l&iacute;nea a l&iacute;nea, pero sin tener que liarse haci&eacute;ndolo a mano. ||_M-q_|| trabajar&aacute; desde dentro del p&aacute;rrafo, o desde su comienzo o final.</P>
+<P>A veces es &uacute;til usar |_C-x_u_|, (undo [deshacer]), que tratar&aacute; de "deshacer" el (los) &uacute;ltimo(s) cambio(s) que hizo. Emacs decidir&aacute; cuanto deshacer; habitualmente decide muy inteligentemente.</P>
+<P>Llam&aacute;ndolo repetidamente deshar&aacute; m&aacute;s y m&aacute;s, hasta que Emacs no pueda recordar qu&eacute; cambios se hicieron.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.13 Personalizando Emacs</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Emacs es tan grande, y tan complejo, que de hecho tiene ¡su propio lenguaje de programaci&oacute;n!. No bromeo: para personalizar Emacs ajust&aacute;ndolo a sus necesidades, tiene que escribir programas en este lenguaje. Se llama Emacs Lisp, y es un dialecto de Lisp, as&iacute; que si tiene experiencia previa en Lisp, le parecer&aacute; bastante amistoso. Si no, no se preocupe: no voy a profundizar mucho, porque definitivamente se aprende mejor practicando. Para aprender realmente a programar Emacs, deber&aacute; consultar las p&aacute;ginas de informaci&oacute;n de Emacs Lisp, y leer mucho c&oacute;digo fuente de Emacs Lisp.</P>
+<P>La mayor parte de la funcionalidad de Emacs est&aacute; definida en archivos de c&oacute;digo de Emacs Lisp9. La mayor&iacute;a de estos archivos se distribuyen con Emacs y colectivamente son conocidos como la "Biblioteca de Emacs Lisp". La ubicaci&oacute;n de esta biblioteca depende de c&oacute;mo se instal&oacute; Emacs en su sistema, son ubicaciones comunes /usr/lib/emacs/lisp, /usr/lib/emacs/19.19/lisp/, etc.</P>
+<P>El 19.19 es el n&uacute;mero de versi&oacute;n de Emacs, y podr&iacute;a ser diferente en su sistema.</P>
+<P>No necesita hurgar por su sistema de archivos buscando la biblioteca de lisp, porque Emacs tiene la informaci&oacute;n almacenada internamente, en una variable llamada load-path (trayectoria de carga). Para averiguar el valor de esta variable, es necesario evaluarla; esto es, hacer que el int&eacute;rprete de lisp de Emacs consiga su valor. Hay un modo especial para evaluar las expresiones de Lisp en Emacs, llamado modo lisp interactivo (lisp-interaction-mode). Com&uacute;nmente, hay un buffer llamado "*scratch*" que est&aacute; ya en este modo. Si no lo puede encontrar, cree un nuevo buffer con cualquier nombre, y escriba M-x lisp-interaction-mode dentro de &eacute;l.</P>
+<P>Ahora tiene un espacio de trabajo para interactuar con el int&eacute;rprete Lisp de Emacs. Teclee esto:</P><DIR>
+<DIR>
+
+<P>load-path</P></DIR>
+</DIR>
+
+<P>y entonces presione ||_C-j_|| al finalizar. En el modo Lisp interactivo, ||_C-j_|| est&aacute; ligado a eval-print-last-sexp (evaluar-imprimir-&uacute;ltima-sexp). Una "sexp" es una "s-expresion", lo que significa un grupo balanceado de par&eacute;ntesis, incluido el caso de que no haya ninguno. Bueno, esto es simplificarlo un poco, pero ir&aacute; entendiendo que son seg&uacute;n programe con Emacs Lisp. De cualquier manera, al evaluar load-path deber&iacute;a conseguir algo como esto:</P><DIR>
+<DIR>
+
+<P>load-path ||_C-j_||</P>
+<P>("/usr/lib/emacs/site-lisp/vm-5.35" "/home/kfogel/elithp"</P>
+<P>"/usr/lib/emacs/site-lisp" "/usr/lib/emacs/19.19/lisp")</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Por supuesto, no tendr&aacute; el mismo aspecto en cada sistema, puesto que es dependiente de c&oacute;mo se instal&oacute; Emacs. El ejemplo de arriba viene de mi PC 386 que funciona con Linux. Como indica lo anterior, load-path es una lista de cadenas. Cada cadena nombra un directorio que podr&iacute;a contener archivos de Emacs Lisp. Cuando Emacs necesita cargar un archivo de c&oacute;digo Lisp, va busc&aacute;ndolo en cada uno de estos directorios, en orden. Si un directorio se nombra pero no existe en el sistema de archivos, Emacs simplemente lo ignora.</P>
+<P>_____________________________________________</P>
+<P>9 A veces llamados no oficialmente "Elisp".</P>
+<P>&nbsp;</P>
+<P>Cuando Emacs arranca, autom&aacute;ticamente trata de cargar el archivo .emacs desde su directorio de usuario. Por lo tanto, si quiere hacer personalizaciones en Emacs, deber&aacute; ponerlas en .emacs. La personalizaci&oacute;n m&aacute;s com&uacute;n son las teclas ligadas, as&iacute; que aqu&iacute; est&aacute; c&oacute;mo hacerlo:</P><DIR>
+<DIR>
+
+<P>(global-set-key ""C-cl" 'goto-line)</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>global-set-key (fijar teclas globalmente) es una funci&oacute;n de dos argumentos: la tecla a la que ha de ser ligada, y la funci&oacute;n a la que ligarla. La palabra "global" significa que esta tecla ligada tendr&aacute; efecto en todos los modos mayores (hay otra funci&oacute;n, local-set-key, (fijar teclas localmente), que liga una tecla en un &uacute;nico buffer). Arriba, he ligado |_C-c_l_| a la funci&oacute;n goto-line (ir a tal l&iacute;nea).</P>
+<P>La tecla se describe usando una cadena. La sintaxis especial ""C-&lt;car&aacute;cter&gt;" significa mantener pulsada la tecla |_Control_| mientras se presiona &lt;car&aacute;cter&gt;. As&iacute; mismo, ""M-&lt;car&aacute;cter&gt;" indica la tecla |_Meta_|.</P>
+<P>Todo eso est&aacute; muy bien, ¿pero c&oacute;mo supe que el nombre de la funci&oacute;n era "goto-line"?. Puedo saber que quiero ligar |_C-c_l_| a alguna funci&oacute;n que pregunta por un n&uacute;mero de l&iacute;nea y mueve el cursor a esa l&iacute;nea, pero ¿c&oacute;mo hice para averiguar el nombre de esa funci&oacute;n?</P>
+<P>Aqu&iacute; es donde intervienen las facilidades de ayuda de Emacs. Una vez que ha decidido qu&eacute; tipo de funci&oacute;n busca, puede usar Emacs para rastrear su nombre exacto. He aqu&iacute; una manera r&aacute;pida y sucia para hacerlo: puesto que Emacs completa los nombres de funci&oacute;n, simplemente escriba |_C-h_f_| (que es describe-function (describir funci&oacute;n), recu&eacute;rdelo), y entonces presione |_Tab_| sin escribir nada m&aacute;s. Esto pide a Emacs que complete la cadena vac&iacute;a _en otras palabras, ¡la terminaci&oacute;n autom&aacute;tica se corresponder&aacute; con cada una de las funciones!. Puede tardar un momento en construir la lista de funciones, ya que Emacs tiene muchas funciones internas, pero mostrar&aacute; todo lo que entre en la pantalla cuando est&eacute; listo.</P>
+<P>En este momento presione ||_C-g_|| para abandonar la funci&oacute;n describir funci&oacute;n. Habr&aacute; un buffer llamado "*Completions*", que contiene la lista de terminaciones autom&aacute;ticas que acaba de generar. </P>
+<P>Cambie a este buffer. Ahora puede usar |_C-s_|, isearch, para buscar las funciones probables. Por ejemplo, es una suposici&oacute;n segura que una funci&oacute;n que pregunta por un n&uacute;mero de l&iacute;nea y entonces va a esa l&iacute;nea contendr&aacute; la cadena "line (l&iacute;nea)" en su nombre. Por lo tanto, simplemente comience buscando la cadena "line" , y acabar&aacute; encontrando lo que busca.</P>
+<P>Si quiere otro m&eacute;todo, puede usar |_C-h_a_|, command-apropos, para mostrar todas las funciones cuyos nombres se ajustan a la cadena dada. La salida de command-apropos es un poco m&aacute;s dif&iacute;cil de clasificar, que simplemente buscar una lista de terminaci&oacute;n autom&aacute;tica, en mi opini&oacute;n, pero puede encontrar que tiene distintas sensaciones. Pruebe ambos m&eacute;todos y a ver que opina.</P>
+<P>Siempre existe la posibilidad de que Emacs no tenga ninguna funci&oacute;n predefinida para hacer lo que est&aacute; buscando. En esta situaci&oacute;n, tiene que escribir la funci&oacute;n Ud. mismo. No voy a hablar de c&oacute;mo hacer eso, deber&iacute;a buscar en la biblioteca de Emacs Lisp ejemplos de definiciones de funci&oacute;n, y leer las paginas Info sobre Emacs Lisp. Si resulta que conoce a un gur&uacute; local de Emacs, preg&uacute;ntele c&oacute;mo hacerlo. Definir sus propias funciones de Emacs no es un gran asunto, para darle una idea, yo he escrito 131 de ellas durante m&aacute;s o menos el &uacute;ltimo a&ntilde;o. Requiere un poco de pr&aacute;ctica, pero la curva de aprendizaje no es empinada.</P>
+<P>Otra cosa que la gente hace a menudo en su .emacs es asignar a ciertas variables los valores preferidos. Por ejemplo, ponga esto en su .emacs y entonces inicie un nuevo Emacs:</P><DIR>
+<DIR>
+
+<P>(setq inhibit-startup-message t)</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Emacs verifica el valor de la variable inhibit-startup-message (bloquear mensaje de arranque) para decidir si muestra la informaci&oacute;n sobre la versi&oacute;n y la falta de garant&iacute;a cuando arranca. La expresi&oacute;n de Lisp de arriba usa el comando setq para asignar a esa variable el valor `t', que es un valor especial de Lisp que significa true (verdadero). Lo contrario de `t' es `nil' (nada o nulo), que es el valor false (falso) designado en Emacs Lisp. He aqu&iacute; dos cosas que est&aacute;n en mi |_.emacs_| que podr&iacute;a encontrar &uacute;tiles:</P><DIR>
+<DIR>
+
+<P>(setq case-fold-search nil); causa la insensibilidad a may&uacute;sculas y min&uacute;sculas para la b&uacute;squeda</P>
+<P>; ;; Hacer indentar los programas C de la manera que me gusta:</P>
+<P>(setq c-indent-level 2)</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La primera expresi&oacute;n hace que las b&uacute;squedas (incluyendo isearch) sean insensibles a may&uacute;sculas y min&uacute;sculas; esto es, la b&uacute;squeda encontrar&aacute; versiones de un mismo car&aacute;cter sea may&uacute;scula o min&uacute;scula aunque la cadena de b&uacute;squeda contenga &uacute;nicamente la versi&oacute;n en min&uacute;scula. La segunda expresi&oacute;n establece que la indentaci&oacute;n por defecto para las sentencias en lenguaje C sea un poco menor de lo normal, esto es solamente una preferencia personal; encuentro que esto hace el c&oacute;digo C m&aacute;s legible.</P>
+<P>El car&aacute;cter de comentario en Lisp es ";". Emacs ignora cualquier cosa que siga a uno de &eacute;stos, a menos que aparezca dentro de una cadena literal, como esta:</P><DIR>
+<DIR>
+
+<P>;;estas dos l&iacute;neas son ignoradas por el int&eacute;rprete de Lisp, pero la</P>
+<P>; ;; s-expression que le sigue se evaluar&aacute; totalmente:</P>
+<P>(setq alguna-cadena-literal "Una pausa torpe; sin ning&uacute;n prop&oacute;sito.")</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Es una buena idea comentar sus cambios en los archivos Lisp, porque seis meses despu&eacute;s no se acordar&aacute; en qu&eacute; estaba pensando cuando los modific&oacute;. Si el comentario aparece s&oacute;lo en una l&iacute;nea, prec&eacute;dalo con dos punto y coma. Esto ayuda a Emacs a indentar los archivos Lisp correctamente.</P>
+<P>Puede encontrar informaci&oacute;n sobre las variables internas de Emacs de las mismas formas que con las funciones. Use |_C-h_v_|, describe-variable para hacer una lista de terminaci&oacute;n autom&aacute;tica, o use |_C-h_C-a_|, apropos. Apropos difiere de |_C-h_a_|, command-apropos, en que muestra variables y funciones en vez de solamente funciones.</P>
+<P>La extensi&oacute;n por defecto para los archivos de Emacs Lisp es .el, como en c-mode.el. Sin embargo, para hacer que el c&oacute;digo Lisp se ejecute m&aacute;s r&aacute;pido, Emacs permite que sea byte-compiled (compilado a un formato interno), y estos archivos de c&oacute;digo Lisp compilado terminan en .elc en vez de .el. La excepci&oacute;n a esto es su archivo .emacs, que no necesita la extensi&oacute;n .el porque Emacs sabe buscarlo para arrancar.</P>
+<P>Para cargar un archivo de c&oacute;digo Lisp interactivamente, use el comando M-x load-file (cargar archivo). Le preguntar&aacute; por el nombre del archivo. Para cargar archivos Lisp desde dentro de otros archivos Lisp, haga esto:</P><DIR>
+<DIR>
+
+<P>(load "c-mode");fuerza a Emacs a cargar el contenido de c-mode.el o .elc</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Emacs a&ntilde;adir&aacute; la extensi&oacute;n .elc al nombre del archivo e intentar&aacute; encontrarlo en alg&uacute;n lugar del load-path. Si falla, lo intenta con la extensi&oacute;n .el; si falla esto, usa la cadena literal tal y como es pasada a load. Puede compilar (byte-compile) un archivo con el comando M-x byte-compile-file, pero si modifica el archivo a menudo, probablemente no merezca la pena. Sin embargo no deber&iacute;a compilar de esa manera su .emacs, ni siquiera darle la extensi&oacute;n .el.</P>
+<P>Despu&eacute;s de que .emacs se ha cargado, Emacs busca un archivo llamado default.el para cargarlo.</P>
+<P>Com&uacute;nmente se ubica en un directorio en la trayectoria de carga (load-path) llamado site-lisp o local-elisp o algo parecido (ver el ejemplo load-path que di hace un rato). La gente que mantiene Emacs en un sistema multiusuario usa default.el para hacer cambios que afectar&aacute;n los Emacs de todos, puesto que todos los Emacs lo cargan despu&eacute;s de los .emacs personales. default.el no deber&iacute;a ser compilado, ya que tiende a ser modificado frecuentemente.</P>
+<P>Si el .emacs de una persona contiene alg&uacute;n error, Emacs no intentar&aacute; cargar default.el, sino que simplemente se detendr&aacute;, destellando un mensaje diciendo "Error in init file." (Error en el archivo de inicio) o algo similar. Si ve este mensaje, probablemente algo vaya mal con su .emacs.</P>
+<P>Hay un tipo m&aacute;s de expresi&oacute;n que a menudo va en un .emacs. La libreria de Emacs Lisp a veces ofrece m&uacute;ltiples paquetes para hacer lo mismo de diferentes formas. Esto significa que tiene que especificar cu&aacute;l quiere usar (o tendr&aacute; el paquete por defecto, que no es siempre el mejor para todos los prop&oacute;sitos). Un &aacute;rea donde esto sucede es en las caracter&iacute;sticas de interacci&oacute;n del Scheme de Emacs. Hay dos interfaces diferentes de Scheme distribuidos con Emacs (al menos en la versi&oacute;n 19): xscheme y cmuscheme.</P><DIR>
+<DIR>
+
+<P>prompt&gt; ls /usr/lib/emacs/19.19/lisp/*scheme*</P>
+<P>/usr/lib/emacs/19.19/lisp/cmuscheme.el</P>
+<P>/usr/lib/emacs/19.19/lisp/cmuscheme.elc</P>
+<P>/usr/lib/emacs/19.19/lisp/scheme.el</P>
+<P>/usr/lib/emacs/19.19/lisp/scheme.elc</P>
+<P>/usr/lib/emacs/19.19/lisp/xscheme.el</P>
+<P>/usr/lib/emacs/19.19/lisp/xscheme.elc</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Resulta que el interfaz ofrecido por cmuscheme me gusta mucho m&aacute;s que el que ofrece xscheme, pero el que Emacs usar&aacute; por defecto es xscheme. ¿C&oacute;mo puedo hacer que Emacs act&uacute;e de acuerdo con mi preferencia?. Puse esto en mi .emacs:</P><DIR>
+<DIR>
+
+<P>;; note c&oacute;mo la expresi&oacute;n puede quebrarse en dos l&iacute;neas. Lisp</P>
+<P>;; ignora los espacios en blanco, generalmente:</P>
+<P>(autoload 'run-scheme "cmuscheme"</P>
+<P>"Corre un Scheme inferior, de la forma que me gusta." t)</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La funci&oacute;n autoload (auto carga) toma el nombre de una funci&oacute;n (citada con "'", por razones que tienen que ver con c&oacute;mo funciona Lisp) y le dice a Emacs que esta funci&oacute;n est&aacute; definida en un determinado archivo. El archivo es el segundo argumento, una cadena (sin la extensi&oacute;n .el o .elc) indicando el nombre del archivo a buscar en la trayectoria de carga load-path.</P>
+<P>Los argumentos restantes son opcionales, pero necesarios en este caso: el tercer argumento es una cadena de documentaci&oacute;n para la funci&oacute;n, de modo que si llama a describe-function (describir-funci&oacute;n), consigue alguna informaci&oacute;n &uacute;til. El cuarto argumento le dice a Emacs que esta funci&oacute;n autocargable puede ser llamada interactivamente (esto es, usando |_M-x_|). Esto es muy importante en este caso, porque uno deber&iacute;a poder teclear M-x run-scheme para comenzar un proceso de scheme que se ejecuta bajo Emacs.</P>
+<P>Ahora que run-scheme ha sido definido como una funci&oacute;n autocargable, ¿qu&eacute; sucede cuando tecleo M-x run-scheme?. Emacs mira la funci&oacute;n run-scheme, ve que est&aacute; establecida para ser autocargable, y carga el archivo nombrado por la autocarga (en este caso, cmuscheme). El archivo compilado cmuscheme.elc existe, as&iacute; que Emacs lo cargar&aacute;. Ese archivo debe definir la funci&oacute;n run-scheme, o habr&aacute; un error de autocarga. Por suerte, define run-scheme, as&iacute; que todo va sin tropiezos, y consigo mi interfaz preferida de Scheme10.</P>
+<P>Una autocarga es como una promesa a Emacs, de que cuando llegue el momento, puede encontrar la funci&oacute;n especificada en el archivo en el que le dice que mire. A cambio, consigue alg&uacute;n control sobre lo que se carga. Tambi&eacute;n, la autocarga ayuda a reducir el tama&ntilde;o de Emacs en la memoria, al no cargar ciertas caracter&iacute;sticas hasta que se pidan. Muchos comandos no est&aacute;n definidos realmente como funciones cuando Emacs se inicia. M&aacute;s bien, est&aacute;n simplemente preparados para autocargarse desde cierto archivo. Si nunca invoca el comando, nunca se carga. Este ahorro de espacio es vital para el funcionamiento de Emacs: si cargara todos los archivos disponibles en la biblioteca Lisp, Emacs tomar&iacute;a veinte minutos simplemente para arrancar, y una vez hecho, podr&iacute;a ocupar la mayor parte de la memoria disponible en su m&aacute;quina. No se preocupe, no tiene que establecer todas estas autocargas en su .emacs; ya se tomaron en cuenta cuando Emacs se desarroll&oacute;.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>8.14 Averiguando m&aacute;s</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>No le he contado todo lo que se puede saber sobre Emacs. De hecho, no creo haberle contado siquiera un 1% de lo que se puede saber sobre Emacs. Aunque sabe suficiente para proseguir, todav&iacute;a hay montones de comodidades y trucos que ahorran tiempo que deber&iacute;a averiguar. La mejor forma de hacerlo es esperar hasta que vea que necesita algo, y buscar entonces una funci&oacute;n que lo haga.</P>
+<P>La importancia de estar c&oacute;modo con las facilidades de ayuda en l&iacute;nea de Emacs no puede enfatizarse lo suficiente. Por ejemplo, suponga que quiere poder insertar los contenidos de alg&uacute;n archivo en un buffer que ya est&aacute; trabajando sobre un archivo diferente, para que el buffer contenga a ambos. Si intuyese que hay un comando llamado insert-file (insertar archivo), tendr&iacute;a raz&oacute;n. Para verificar su acertada suposici&oacute;n, teclee C-h f. En el prompt del minibuffer, introduzca el nombre de una funci&oacute;n sobre la que quiera ayuda. Puesto que sabe que hay terminaci&oacute;n autom&aacute;tica en los nombres de funciones,_y_puede suponer que el comando que busca comienza con "insert", escriba insert y presiona |_Tab_|. Esto le muestra todos los nombres de funci&oacute;n que comienzan con "insert", e "insert-file' es uno de ellos.</P>
+<P>De este modo completa el nombre de funci&oacute;n y lee sobre como trabaja, y entonces usa M-x insert-file._Si se est&aacute; preguntando si tambi&eacute;n est&aacute; ligado a una tecla, escribe C-h w insert-file |_Intro_|, y aver&iacute;g&uuml;elo. Cuanto m&aacute;s sepa de las facilidades de ayuda de Emacs, m&aacute;s f&aacute;cilmente podr&aacute; hacer preguntas a Emacs acerca de s&iacute; mismo. La capacidad de hacerlo, combinada con un esp&iacute;ritu de exploraci&oacute;n y un deseo de aprender nuevas formas de hacer las cosas, puede acabar por ahorrarle mucho tecleado.</P>
+<P>_____________________________________________</P>
+<P>10 A prop&oacute;sito, cmuscheme era la interfaz de la que hablaba antes, en la secci&oacute;n sobre el trabajo con Scheme, as&iacute; que si quiere usar algo de este manual, necesita asegurarse de que ejecuta cmuscheme.</P>
+<P>&nbsp;</P>
+<P>Para pedir una copia del manual de usuario de Emacs (Emacs user's manual) y/o el manual de Programaci&oacute;n en Emacs Lisp (Emacs Lisp Programming manual), debe escribir a:</P><DIR>
+<DIR>
+
+<P>Free Software Foundation</P>
+<P>675 Mass Ave</P>
+<P>Cambridge, MA 02139</P>
+<P>USA</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>Ambos manuales se distribuyen electr&oacute;nicamente con Emacs, en una forma legible usando el lector de documentaci&oacute;n Info (C-h i), pero puede encontrar m&aacute;s f&aacute;cil tratar con freeware que con las versiones en l&iacute;nea. Adem&aacute;s, sus precios son bastantes razonables, y el dinero va a una buena causa, ¡software gratuito de calidad!. En alg&uacute;n momento, deber&iacute;a teclear C-h C-c para leer las condiciones de copyright de Emacs. Es m&aacute;s interesante de lo que puede pensar, y le ayudar&aacute; a aclarar el concepto de software libre. Si cree que el termino "free software" simplemente significa que el programa no cuesta nada, por favor ¡lea el copyright en cuanto tenga tiempo!.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

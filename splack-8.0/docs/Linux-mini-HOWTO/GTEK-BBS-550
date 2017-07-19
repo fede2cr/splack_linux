@@ -1,0 +1,136 @@
+
+   _
+
+   GTEK BBS-550 with Linux mini-HOWTO _
+
+   by Wajihuddin Ahmed <wahmed@sdnp.org.pk>
+
+   v1.1, 20 August 1997
+
+
+     _________________________________________________________________
+
+   _
+
+   GTEK's BBS-550 is a 8-port serial card with 16C550 UARTS. Only one IRQ
+   can be used for all 8 ports. It does not require any driver on Linux
+   therefore the kernel does not have to be recompiled but the kernel
+   should have serial support. _
+
+
+     _________________________________________________________________
+
+
+
+   1. What I/O addresses to use?
+   2. The rc.serial file and IRQ selection
+   3. Setup of uugetty
+   4. Final checking...
+
+
+     _________________________________________________________________
+
+
+
+   1. For detailed information of configuring serial ports on Linux refer
+   to the Serial-HOWTO. Thats where I started from.
+
+   I have setup the BBS-550 to use I/O address from 0x100 to 0x140 on my
+   Linux box (Slackware 2.3, kernel 1.3.93). The main reason being that
+   the above _address space was vacant_ in my computer. Page 4 of the
+   manual gives the jumper settings. Also this range of I/O addresses is
+   seldom used by any other hardware. Just to make sure that this space
+   is available on your machine, use the IOMAP.EXE utility which is on
+   the GTEK floppy disk.
+
+
+     _________________________________________________________________
+
+
+
+   2. After you have installed the card on your computer _you need to
+   configure the serial ports_. This is quite easy since the rc.serial
+   file already has entries for BOCA 8 port card which can be used for
+   the GTEK. Here is my rc.serial file. _Don't forget_ to execute it from
+   the rc.S file by uncommenting the line that executes it.
+
+   --
+
+   #!/bin/sh
+   # /etc/rc.serial
+   # Initializes the serial ports on your system
+   # Version 2.01
+   cd /dev
+   SETSERIAL="/bin/setserial -a"
+   PORTS=`echo cua? cua??`
+   echo -n "Configuring serial ports...."
+   # Do wild interrupt detection
+   #
+   #${SETSERIAL} -W ${PORTS}
+   # Do AUTOMATIC_IRQ probing
+   #
+   #AUTO_IRQ=auto_irq
+   ${SETSERIAL} /dev/cua16 uart 16550A port 0x100 irq 5
+   ${SETSERIAL} /dev/cua17 uart 16550A port 0x108 irq 5
+   ${SETSERIAL} /dev/cua18 uart 16550A port 0x110 irq 5
+   ${SETSERIAL} /dev/cua19 uart 16550A port 0x118 irq 5
+   ${SETSERIAL} /dev/cua20 uart 16550A port 0x120 irq 5
+   #${SETSERIAL} /dev/cua21 uart 16550A port 0x128 irq 5
+   #${SETSERIAL} /dev/cua22 uart 16550A port 0x130 irq 5
+   #${SETSERIAL} /dev/cua23 uart 16550A port 0x138 irq 5
+   echo "done."
+   ${SETSERIAL} -bg ${PORTS}
+
+   -- _
+
+   Notice that i have used IRQ 5_. Refer to page 6 of the GTEK manual on
+   howto set the IRQ.
+
+
+     _________________________________________________________________
+
+
+
+   3. I am using uugetty for dial-in's. Here is an extract from my
+   /etc/inittab file (sys V).
+
+
+
+   s1:45:respawn:/sbin/uugetty ttyS16 38400 vt100
+   s2:45:respawn:/sbin/uugetty ttyS17 38400 vt100
+   s3:45:respawn:/sbin/uugetty ttyS18 38400 vt100
+   s4:45:respawn:/sbin/uugetty ttyS19 38400 vt100
+   s5:45:respawn:/sbin/uugetty ttyS20 57600 vt100
+   #s6:45:respawn:/sbin/uugetty ttyS21 38400 vt100
+   #s7:45:respawn:/sbin/uugetty ttyS22 38400 vt100
+   #s8:45:respawn:/sbin/uugetty ttyS23 38400 vt100
+
+
+
+   Make sure that you have the corresponding entries in the
+   /etc/gettydefs file. Also don't forget to make new uugetty
+   configuration files in the /etc/default directory.
+
+
+     _________________________________________________________________
+
+
+
+   4. At boot up the kernel _will not_ report the new tty's.
+
+   The serial ports are configured when the rc.serial script is run. You
+   can see that on the screen during boot up.
+
+   ps ax _should show the uugetty connected_. Here is part of my ps
+   output.
+
+   18208 ? S 0:00 /sbin/uugetty ttyS18 38400 vt100
+   18247 ? S 0:00 /sbin/uugetty ttyS20 57600 vt100
+   18254 ? S 0:00 /sbin/uugetty ttyS19 38400 vt100
+   18258 ? S 0:00 /sbin/uugetty ttyS17 38400 vt100
+   18260 ? S 0:00 /sbin/uugetty ttyS16 38400 vt100
+
+   Finally test the board by dialing out (using cuaXX) and then dialing
+   in (ttySXX).
+
+   Good Luck!

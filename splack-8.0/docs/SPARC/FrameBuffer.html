@@ -1,0 +1,2626 @@
+<TITLE>Frame Buffer FAQ.</TITLE>
+<H1><a href="index.html">
+<IMG ALIGN=bottom SRC="images/FAQ.gif"></a>
+Frame Buffer FAQ
+<a href="index.html">
+<IMG ALIGN=bottom SRC="images/FAQ.gif"></a></H1>
+<H5>Last Updated: 10-Feb-00.</H5>
+
+Copyright 1994-2000 Sun Microsystems, Inc.<P>
+
+I wrote this FAQ as a public service, because if I didn't it probably
+wouldn't get done.  If you've found it helpful, I'm pleased.
+However my job has changed over the last 6 or so years, and I don't
+get much time to maintain it or to answer questions.<P>
+I can be contacted by email as 
+<A HREF="mailto:david.tong@EBay.sun.com">David.Tong@EBay.Sun.COM</A>
+but I apologise if you don't get a response.<P>
+
+If you're interested to learn what I've been working on recently,
+see <A HREF=http://www.sun.com/srs>http://www.sun.com/srs</A><P>
+
+I do try to maintain the accuracy of the information.
+However no responsibility is taken - either by me or by
+Sun Microsystems Inc. - for any inaccuracies, or for any damage that
+may occur as a result of applying this information.<P>
+ 
+<H3>Hey! Where did the utilities go?</H3>
+I moved them into the main body of the FAQ.
+Check out <A href="#fbinfo">fbinfo</A> the Frame Buffer Info script,
+<A href="#fbconf">fbconf</A> the Frame Buffer configuration utility
+and the latest addition <A href="#noflash">libnoflash</A>, a library
+to help prevent colormap flashing on 8 bit frame buffers.<P>
+
+<HR>
+<A NAME="99">
+<H2> Contents </H2>
+<H6> Click on the "?" logo to get back to here</H6>
+</A>
+<A HREF="#AA">
+Where do I get the latest copy of the FAQ?</A> [Feb 00]<P>
+<A HREF="#00">
+So what is a frame buffer anyway?</A><P>
+<A HREF="#0a">
+Introduce me to Sun's frame buffers.</A><P>
+<A HREF="#0b">
+What's this frame buffer on the motherboard of my SS20?</A><P>
+<A HREF="#0c">
+Do any of Sun's frame buffers support 1600x1200?</A><P>
+<A HREF="#0">
+What's the bottom line on 1280 x 1024 on the SX?</A><P>
+<A HREF="#1">
+How do I start OpenWindows in a dual-headed configuration?</A><P>
+<A HREF="#1a">
+How do I change the default configuration for CDE?</A><P>
+<A HREF="#2a">
+How do I set the resolution of the primary frame buffer?</A><P>
+<A HREF="#2b">
+How do I set the resolution of a second frame buffer?</A><P>
+<A HREF="#2c">
+So, given that I can control all the parameters, can I program the TGX/TGX+ with an arbitrary resolution?</A><P>
+<A HREF="#3">
+How do I find what frame buffers I have available?</A> [Oct 98]<P>
+<A HREF="#4">
+What are the restrictions on multi-headed machines?</A> [Sept 99]<P>
+<A HREF="#4a">
+Can I drag a window from one screen to another?</A><P>
+<A HREF="#5">
+What resolutions do the various frame buffers support?</A> [May 99]<P>
+<A HREF="#6">
+What is the default resolution for each frame buffer?</A><P>
+<A HREF="#7">
+How do I change the console frame buffer?</A> [Feb 00]<P>
+<A HREF="#8">
+Will 4.1.3 run on a SS20/SX, SS5/S24 or SS4/TCX?</A><P>
+<A HREF="#9">
+How do I change the default depth or visual class in OpenWindows?</A><P>
+<A HREF="#10">
+Why does the screen look paler or darker in 24 bit mode?</A> [May 99]<P>
+<A HREF="#11">
+How can I display the same tool on multiple windows?</A><P>
+<A HREF="#12">
+Can I replace the monitor with an LCD display?</A> [May 99]<P>
+<A HREF="#13">
+What special purpose products are available from third parties? </A [Jan 99]><P>
+<A HREF="#14">
+Why does the Xsun server process appear to be so large? </A> [May 99]<P>
+<A HREF="#15">
+Can I use a Sun monitor with my PC?</A><P>
+<A HREF="#16">
+What frame buffers are/are not supported in the Ultra machines?</A><P>
+<A HREF="#17">
+Why are 24 bit Frame Buffers so expensive compared to a PC?</A><P>
+<A HREF="#18">
+How do I change the resolution on the SparcStation 4?</A><P>
+<A HREF="#19">
+How can I tell whether I have the 4Mb or 8Mb SX VSIMM installed?</A><P>
+<A HREF="#20">
+What is different about the "new" TGX and TGX+?</A><P>
+<A HREF="#5">
+What set of resolutions do the FFB series support?</A> [May 99]<P>
+<A HREF="#21a">
+Can the FFB1 be used with the 24" HDTV monitor?</A><P>
+<A HREF="#21b">
+What resolutions does the FFB2/2+ support with the 24" HDTV monitor?</A><P>
+<A HREF="#22">
+What set of visuals does the FFB support?</A><P>
+<A HREF="#23">
+I'm confused by all these Creator boards. What's the story, Morning Glory?</A><P>
+<A HREF="#23a">
+There are two speeds of Creator 3D Series 1. Which one do I need?</A><P>
+<A HREF="#24">
+Can I run two different window managers together on a dual headed machine?</A><P>
+<A HREF="#25">
+How can I capture the video output from a frame buffer?</A> [Jan 99]<P>
+<A HREF="#25a">
+Can I drive a TV from any of the frame buffers?</A> [Jan 99]<P>
+<A HREF="#26">
+Why does the console not sync correctly after using Stereo mode?</A><P>
+<A HREF="#27">
+How can I write to the frame buffer directly?</A><P>
+<A HREF="#28">
+What is gamma correction?</A><P>
+<A HREF="#29">
+What's that little round socket for on the back of the FFB2/2+?</A><P>
+<A HREF="#30">
+What's the story on PCI support?</A><P>
+<A HREF="#30a">
+So can I take a PCI card from my Sun and plug it in my PC (or vice-versa)?</A><P>
+<A HREF="#31">
+How do the FFB2/2+ and the PGX determine their default resolutions?</A><P>
+<A HREF="#32">
+Can I use a PC monitor on an Ultra 5 or Ultra 10?</A><P>
+<A HREF="#33">
+What are the pinouts for the 13W3 connectors? </A><P>
+<A HREF="#34">
+Is it possible to run a dual headed configuration under Solaris X86? </A> [Dec 98]<P>
+<A HREF="#35">
+What frame buffers are supported/work under Solaris 7? </A> [Jan 99]<P>
+
+<HR>
+
+<A HREF="#Parts">
+<H2>Useful Part Numbers</H2></A>
+
+<A HREF="#Cables">
+Cables and adapters</A><P>
+
+<HR>
+<H2>What utilities have you written that I might be interested in?</H2>
+<UL>
+<LI> <A href="#fbinfo">fbinfo</A> Frame Buffer Info script<P>
+<LI> <A href="#fbconf">fbconf</A> Frame Buffer configuration utility<P>
+<LI> <A href="#noflash">libnoflash</A> Library to reduce colormap flashing<P>
+</UL>
+
+<A NAME="Resources">
+<H2>Other Useful Resources</H2>
+</A>
+
+<H4> The Sci.Electronics.Repair FAQ</H4>
+The <A HREF="http://www.paranoia.com/~filipg/REPAIR/Repair.html">Sci.Electronics.Repair FAQ</A>
+maintained by Samuel M Goldwasser at
+<A HREF="http://www.paranoia.com/~filipg/HTML/REPAIR/F_fix_freq.html">
+http://www.paranoia.com/~filipg/HTML/REPAIR/F_fix_freq.html</A>
+has some useful information on using fixed-frequency (ie non-multisync)
+monitiors on PCs.<P>
+
+<H4>Gamma Correction</H4>
+
+<A HREF="http://www.vtiscan.com/~rwb/home.html">
+Robert W. Berger</A>
+has provided an excellent page discussing Gamma Correction at
+<A HREF="http://www.vtiscan.com/~rwb/gamma.html">
+http://www.vtiscan.com/~rwb/gamma.html</A>.<P>
+
+<A HREF="http://www.inforamp.net/~poynton">Charles Poynton</A>
+has also written some excellent
+<A HREF="ftp://ftp.inforamp.net/pub/users/poynton/doc/colour">FAQs</A> and
+<A HREF="http://www.inforamp.net/~poynton/Poynton-articles.html">articles</A>
+on the subjects of gamma and colour correction.<P>
+
+<HR>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="AA">
+Where do I get the latest copy of the FAQ?</H3>
+</A>
+
+<H3>Getting the latest copy of the FAQ</H3>
+From within Sun, go to
+<UL>
+<LI><A HREF="http://service.uk/FAQ/FrameBuffer.html">http://service.uk/FAQ/FrameBuffer.html</A><br>
+</UL>
+From outside Sun, try these official mirror sites:
+<UL>
+<LI><A HREF="http://www.sunhelp.org/faq/FrameBuffer.html">http://www.sunhelp.org/faq/FrameBuffer.html</A><br>
+<LI> http://bul.eecs.umich.edu/~crowej/sunfaq/FrameBuffer.html appears to be 404 as of February 2000<br>
+<LI> http://tarl.net/FAQ/FrameBuffer.html is offline as of May 1999<br>
+<LI> http://www.uark.edu/sunfaq/FrameBuffer.html appears to be 404 as of May 1999<br>
+<LI> http://c3-a.snvl1.sfba.home.com is permanently offline as of October 1998<br>
+</UL>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="00">
+So what is a frame buffer anyway?</H3>
+</A>
+
+In its simplest meaning, and as far as the Graphics hardware
+engineers are concerned, a frame buffer is simply that;
+the video memory that holds the pixels from which the video
+display (frame) is refreshed.<P>
+
+In the early days, Sun provided seperate "Graphics Processor" or
+"Graphics Accelerator" and "Graphics Buffer" boards - the
+processor/accelerator was an add-on (sometimes optional) that
+provided efficient, tuned hardware pipelines to support graphics
+functions normally done in software, for example shading,
+Z-buffering, picking and hidden surface removal.<P>
+
+Nowadays with ever-improving manufacturing techniques, the two are
+tightly linked on the same board. Since every graphics device
+incorporates a frame buffer, but not all have graphics
+processors, the term "frame buffer" has become synonymous
+(outside Engineering at least) for a graphics device of any type.<P>
+
+It is perhaps better to talk about "dumb" or unaccelerated
+frame buffers - devices such as the cgthree, which perform
+no real action other than to provide a video signal to a monitor -
+and "smart" frame buffers, which include additional hardware and/or
+microcode to accelerate 2D and 3D graphics, etc. But once again, 
+advancement in technology means that dumb frame buffers are the
+exception rather than the rule, and hardware acceleration is
+taken for granted. <P>
+
+So applying the rule of common usage, today's definition of a
+"frame buffer" is a graphics output device that provides
+accelerated 2D or 3D graphics, and a "dumb frame buffer" is a
+graphics output device that does not provide any acceleration.<P>
+
+As an aside, the PC world tends to refer to graphics devices
+as "video cards". In the workstation world, a Video card
+implies full-motion video, either in (as with Sun's VideoPix
+or SunVideo products) or out (as in Parallax's XVideo products).<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="0a">
+Introduce me to Sun's frame buffers.</H3>
+</A>
+Note: This section does not deal with the older VME bus frame buffers.
+If you're really interested in all that, take a look in
+<A HREF="FrameBufferHistory.html">the museum</A>.<P>
+
+<H4>bwtwo</H4>
+
+The bwtwo was the monochrome frame buffer found in the old Sun3 machines
+(remember those?). It was also available as an SBus card for Sparc machines
+up to the SS20. The MG1 (Monochrome Graphics) was capable of driving
+a high resolution (1600x1280) display, and looks similar to a cgthree.<P>
+<A HREF="images/501-1490.jpg">501-1419</A> - MG1 bwtwo with D type connector<BR>
+501-1455 - MG2 bwtwo with 13W3 connector<BR>
+
+<H4>cgthree</H4>
+
+When this document talks about the cgthree it refers to an un-accelerated
+8 bit SBus frame buffer. It is recognisable by a row of 8 SIL chips
+(Single In Line) which provide the Video memory
+and look rather like a heatsink.<P>
+
+The cgthree was built onto the motherboard of some entry level machines.<P>
+
+501-1415 - cgthree with 13W3 connector<BR>
+<A HREF="images/501-1718.jpg">501-1718</A> - cgthree with 13W3 connector.
+Distinguishable from 501-1415 by having 2 crystals (metal oblongs) instead of 1.
+<BR>
+
+<H4>cgsix</H4>
+
+Sometimes known as <CITE>LEGO</CITE> for Low End Graphics Option,
+the cgsix family includes the <STRONG>GX</STRONG>, <STRONG>GX+</STRONG>,
+<STRONG>TGX</STRONG> and <STRONG>TGX+</STRONG> boards. These are
+accelerated 2D 8 bit frame buffers. They are the reference point for
+graphics support, and are supported in all Sparc machines, subject
+to some restrictions on size and revision; for example the older GX/GX+
+cards are not supported in the newest Ultra hardware.<P>
+
+The early GX boards were double-width, as were the GX+ boards. 
+To distinguish the two visually, the double-width GX has several
+rows (2x16) of SIL chips, whereas the GX+ has convential DIL chips.<P>
+
+The TGX and TGX+ bear a large LSI chip and 8 RAM chips, and have the
+names of the design team printed above the SBus connector. 
+While there have been at least two versions of the TGX,
+the chip rev number has not changed. The TGX+ can be distinguished
+by the characters TGXA printed next to the 13W3 connector, and by having
+a row of 8 very low profile surface-mounted chips down one side,
+compared with the larger chips in an L configuration on the TGX and GX.<P>
+
+The TGX/TGX+ are compatible with the GX/GX+ but are faster and support
+more resolutions. (The T stands for Turbo).
+The GX/TGX have 1Mb of on-board memory, which gives
+them a maximum resolution of 1152x900. The GX+/TGX+ have 4Mb of memory,
+which is used for double-buffering and optimisation, and has a maximum
+supported resolution of 1600x1280. Note that unlike some PC graphics
+adaptors this memory CANNOT be used to give more than 8 bit colour.<P>
+
+The SparcStation LX has an on-board GX with a slot for a 1Mb VSIMM.
+This optional extra memory can be used to support higher display
+resolutions or for double-buffering.<P>
+
+For information on identifying the cgsix from software, see 
+<A HREF="#3">elsewhere</A> or use <A HREF="#fbinfo">fbinfo</A>.<P>
+
+<A HREF="images/501-1481.jpg">501-1481</A> - Double width GX: Rev 1<BR>
+<A HREF="images/501-1645.jpg">501-1645</A> - Double width GX: Rev 2<BR>
+<A HREF="images/501-1672.jpg">501-1672</A> - Single width GX: Rev 8<BR>
+501-1996 - Single width GX<BR>
+<A HREF="images/501-2325.jpg">501-2325</A> - TGX - Older model. Chip sometimes printed with Sun logo and TURBO XGX.<BR>
+<A HREF="images/501-2922.jpg">501-2922</A> - TGX - Newer model. New names (mixed case).<BR>
+501-2253 - TGX Plus. Older model. Same chip and names as TGX (501-2325)<BR>
+501-2955 - TGX Plus. Newer model. <BR>
+There is no functional difference between the older and newer versions
+of the TGX and TGXplus - see <A HREF="#20">Question 20</A>. <P>
+
+<H4>cgtwelve</H4>
+The cgtwelve is also known as the GS. This is a large card that takes up
+3 SBus slots, and thus can only be used in machines that have 3 slots
+horizontally, such as SparcStations 1, 1+ and 2. It provides 8 or 24 bit
+graphics, but is fairly slow. It is not supported in 2.5 or later.<P>
+
+<H4>GT</H4>
+The Graphics Tower is a 24 bit accelerated 3D graphics system.
+The tower itself is a seperate box, which is connected to the
+Sun through a single-width SBus interface card. As a console
+frame buffer it is unbearably slow. It is not supported in
+Solaris 2.5 and beyond, or in newer Sun machines.<P>
+
+<A NAME="cgfourteen">
+<H4>cgfourteen</H4>
+</A>
+Also known as the SX and <CITE>spam</CITE>, this is a very different
+kind of frame buffer. Built in to the motherboard on the SS20, it is
+also available as an add-on card for SS10 and SS20 (only one add-on card
+is allowed). For each display a VSIMM is required; two types are available,
+4Mb or 8Mb. The 8Mb VSIMM allows a resolution of 1280x1024 at a depth
+of 24 bits; the 4Mb VSIMM allows up to 1280x1024 at 8 bits or 1152x900
+at 24 bits. (For the reason why see <A HREF="#0">below</A>.)
+System memory can be reserved for use by the SX to improve
+performance using the command <CODE>sxconfig</CODE>.<P>
+It is not supported in SunOs 4.x, except as a console.<P>
+
+<H4>leo</H4>
+Also known as the ZX or T(urbo)ZX, this is a 24 bit accelerated 3D 
+graphics card. Both cards are double-width, but the TZX also requires
+extra cooling in the form of an additional double-width fan card,
+so effectively takes up 4 SBus slots.<P>
+The only way to distinguish the cards is visually; from a software
+viewpoint they appear identical - the TZX reports itself as a ZX.<P>
+
+<H4>tcx</H4>
+These frame buffers attach to the AFX bus (an early version of the UPA bus)
+rather than the SBus, and are only supported in the SparcStation 4 and 5.
+Also known as the S24, the version for the Sparc 5 is a 24 bit frame buffer
+and is a removeable card. The version for the Sparc 4 is 8 bits only
+and is built onto the motherboard.<P>
+
+<H4>FFB family</H4>
+The FFB was the first 24 bit frame buffer available for the Ultra machines.
+Several models exist; the FFB1 is available in single buffered (known as
+the Creator) and double buffered (known as the Creator 3D) formats;
+additionally the early Creator 3D is available in 66MHz and 75MHz forms.<P>
+
+The FFB2/2+ is also available in single and double buffered configs,
+and also in two physical packages, depending on whether it is mounted
+horizontally (for SBus based systems) or vertically (for PCI based systems).<P>
+
+The FFB2 and 2+ each incorporate substantial performance improvements
+over the earlier models, and the FFB2+ supports multiple hardware
+colormaps which effectively cures colour flashing.<P>
+
+<H4>PGX family</H4>
+The first PGX was based on the ATI Rage II chipset and had 2Mb SGRAM.
+It was built onto the motherboard of the Ultra 5 and 10,
+and is also available as a PCI card. Because of the memory limitation,
+and partly due to architecture restrictions, the official device driver
+only supported 8 bit graphics at resolutions up to 1280x1024.
+If an alternate driver were available the card could theoretically
+support 16 bit TrueColor at 1024x768 or 24 bit TrueColor at 800x600.<P>
+
+<H4>PGX24</H4>
+The second generation Ultras 5 and 10 (code-named Darwin Plus)
+have a revised version of the PGX based on the ATI Rage Pro chipset.
+Known as the PGX24 it has 4Mb of SGRAM memory and supports both seperate
+and composite sync formats. When in seperate sync mode they drive the
+VESA standard resolutions from 640x480 to 1280x1024.<P>
+
+The card features 2D Graphics Acceleration and supports
+8 bit visuals up to 1280x1024x85Hz and 24 bit TrueColor
+visuals up to 1152x900x76Hz, but due to the chipset architecture
+the card it cannot support both simultaneously.
+Thus any legacy applications that require an 8-bit color visual will
+be required to run in the 8-bit mode (disabling 24-bit visuals).
+Such applications need to be updated to take advantage of 24 bit visuals;
+users should contact the software vendor and request a patch.<P>
+
+<H4>AFB family</H4>
+The AFB or Elite 3D series is the current high-end 3D graphics card.
+It supports all the features of the Creator 3D and adds such features
+as hardware-accelerated lighting.<P>
+
+The problem is that as with the ZX the Elite is geared towards high-end
+applications. It's not a frame buffer for the casual user; in most cases
+I would prefer the Creator 3D running at 1600x1200 in 24 bit mode.<P>
+
+There is also some confusion as to whether the Elite 3D is supported with
+the 24" monitor. The answer is that yes it's supported, but for technical
+reasons the best resolution that you can get is 1280x800. Which considering
+how much the AFB and the monitor cost isn't a great bang for your buck.
+If you have a 24" monitor get a Creator 3D and run 1920x1200 - it looks
+magnificent and displays 6 good sized windows simultaneously.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="0b">
+What's this frame buffer on the motherboard of my SS20?</H3>
+</A>
+
+The on-board frame buffer is called the SX.
+It's a 24 bit frame buffer, but in order to use it you need
+to order the SS20/SX or purchase some video memory.
+For details see the section on the
+<A HREF="#cgfourteen">cgfourteen</A>, above.<P>
+
+<H5>The advantages of SX over TGX?</H5>
+The SX can have more video memory - up to 8Mb,
+compared to 1Mb on the TGX or 4Mb on the TGX+.<br>
+It can display 24 bit TrueColor<br>
+The on-board frame buffer does not take up an SBus slot.<P>
+
+<H5>The advantages of TGX over SX?</H5>
+The TGX is supported under 4.x, the SX is not.<br>
+Each SX takes up a SIMM slot, which reduces the maximum amount
+of system memory possible, but unless you really need to max out your RAM
+(and if you do, you should think about upgrading) this isn't a problem.<br>
+The TGX has fractionally better performance on some 2D operations,
+but by and large there's not much in it. Unless the system is running 4.x 
+I'd choose the SX. Or, better still, dual headed with the SX *and* a TGX+.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="0c">
+Do any of Sun's frame buffers support 1600x1200?</H3>
+</A>
+Yes. The Creator 3D with a PROM revision of 2.9 or later will support 1600x1200.
+Run the command <CODE>ffbconfig</CODE> and you should see something like this:
+
+<PRE>
+Type: double-buffered FFB2+ with Z-buffer
+Board: rev 2 (Vertical)
+PROM Information: @(#)ffb2p.fth 2.6 97/10/02
+FBC: version 0x3241906d
+DAC: Brooktree 9070, version 1 (Pac2)
+3DRAM: Mitsubishi 130a, version 1
+EDID Data: Available - EDID version 1 revision 1
+Monitor Sense ID: 2  (Sun 48x31cm RGB color monitor)
+Monitor possible resolutions: 1024x768x60, 1024x768x70, 1024x768x75,
+	640x480x60, 1440x900x76, 1600x1000x66, 1600x1000x76, 1920x1080x72,
+	1920x1200x70
+Current resolution setting: 1920x1200x70 Hi-res
+</PRE>
+
+If the TYPE indicated is as above, ie <CODE<double-buffered FFB2+ with Z-buffer</CODE>
+then the board is a Creator 3D, otherwise it is a Creator.<P>
+If the PROM Information indicates <CODE<@(#)ffb2p.fth 2.9</CODE> or greater then
+the board is capable of supporting 1600x1200x75.<P>
+
+However the current version of the ffbconfig utility does not recognise this as a valid resolution;
+<PRE> 
+# ffbconfig -res 1600x1200x75
+ffbconfig: Invalid value for -res option: 1600x1200x75
+</PRE>
+so to use this resolution you must set it at the PROM as described elsewhere.<P>
+
+<STRONG>Note:</STRONG>
+In 1600x1200 mode the Creator 3D will only operate in single buffered mode.
+
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="0">
+What's the bottom line on 1280 x 1024 on the SX?</H3>
+</A>
+<H4>1280x1024x76</H4>
+
+As detailed <A HREF="#SX">elsewhere</A> in this document, the SX does support
+1280x1024@76 resolution, but it's tricky to get.
+This is due to a restriction in the SX's prom.
+Under 2.3 you had to set the resolution in the EEPROM using the command:
+<UL><PRE>
+setenv output-device=screen:r1280x1024x76m</CODE><P>
+</PRE></UL>
+You could not use <CODE>cg14config</CODE></a>
+as the version supplied with 2.3 did not allow this resolution.<P>
+This was supposed to be fixed in 2.4 - early versions allowed both 1280x1024x76
+and 1280x1024x76m, but only 1280x1024x76m actually works. Unfortunately,
+this was broken at some stage, and not spotted until later in
+the beta phase. Bug ID 1164703 was logged, but at a low priority (4),
+so it was not fixed in time for FCS. This was fixed for 2.5 - see Bug ID
+1187375. For earlier releases you must set the resolution in the EEPROM.<P>
+
+<H4>24 bits at 1280x1024</H4>  
+
+Elementary mathematics says that a resolution of 1280 x 1024 
+and a depth of 24 bits per pixel takes 3.75 Mb. So why is it
+necessary to get the 8M VSIMM to support this depth?<P>
+ 
+Well, the main problem is that we need to provide 8 bit and 24 bit windows 
+side by side. The most reasonable way of doing this is to have control
+plane(s) that identify a pixel as being 8 or 24 bits. This means you need
+at least 25 bits per pixel. Now 1280 x 1024 x 25 is exactly 4Mb,
+which leaves no space at all for any other overhead, such as lookup tables.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="1">
+How do I start OpenWindows in a dual-headed configuration?</H3>
+</A>
+
+You will need a machine that has two frame buffers correctly installed,
+together with matching monitors. The frame buffers do not need to be
+identical; there are several advantages in having each screen
+running on entirely different frame buffers.<P>
+
+The component that controls the screen is the X server,
+<CODE>Xsun</CODE></a>. This is started automatically when you invoke
+<CODE>openwin</CODE></a>. Openwin will pass flags and options down to Xsun
+to tell it how to configure the displays. The flags needed are detailed
+in the Xsun manual page.<P>
+
+Take as an example a machine which has two GX's installed. Looking in /dev
+you should see the following:
+<UL>
+<LI><CODE>/dev/fb</CODE> is a symbolic link to the frame buffer entry in the dev
+ices directory: <CODE>/devices/sbus@1,f8000000/cgsix@1,0:cgsix0</CODE>.
+<LI><CODE>/dev/fb0</CODE> and <CODE>/dev/fb1</CODE> are links 
+to entries in the directory <CODE>/dev/fbs</CODE>, in this case
+<CODE>/dev/fbs/cgsix0</CODE> and < CODE>/dev/fbs/cgsix1</CODE>.
+</UL>
+
+To start up a multi headed configuration you must specify each device
+you wish to use using the option <CODE>-dev</CODE>, thus:
+<PRE>
+    openwin -dev /dev/fb0 -dev /dev/fb1
+</PRE>
+The order that you give them is important for two reasons;
+display zero <CODE><STRONG>machinename:0.0</STRONG></CODE> comes first,
+then display one <CODE><STRONG>machinename:0.1</STRONG></CODE> and so on.
+By default they are ordered left to right; to change the order you can
+use the keywords <CODE><STRONG>left</STRONG></CODE>,
+<CODE><STRONG>right</STRONG></CODE>, <CODE><STRONG>top</STRONG></CODE> or
+<CODE><STRONG>bottom</STRONG></CODE>.
+
+Thus the commands:
+<PRE>
+    openwin -dev /dev/fb0 -dev /dev/fb1 left
+    openwin -dev /dev/fb1 -dev /dev/fb0
+</PRE>
+will start up OpenWindows with fb1 on the left and fb0 on the right, but
+in the first instance fb0 will be logical screen 0, and in the second
+it will be screen 1.<P>
+
+The keyword tells the server where to position the current display relative to
+the previous one, so any keyword placed after the first device is ignored.
+If no keyword is given, the default is <CODE><STRONG>right</STRONG></CODE>.
+Thus the command:
+<PRE>
+    openwin -dev /dev/fb0 top -dev /dev/fb1
+</PRE>
+will not have the desired effect; you would need to use:
+<PRE>
+    openwin -dev /dev/fb0 -dev /dev/fb1 bottom
+</PRE>
+
+Other keywords can be used after the device name to control such things
+as default depth or visual; these are discussed in the manual page
+and elsewhere in this document.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="1a">
+How do I change the default configuration for CDE?</H3>
+</A>
+By default, CDE will usually start up in single headed mode
+with an 8 bit default visual. If you want to run your system
+multi-headed or with a different default visual then it's a little harder
+under CDE than it is under OpenWindows.<P>
+
+The easiest way to configure your system is to use <A href="#fbconf">fbconf</A>,
+the Frame Buffer configuration utility available for download from this site.
+This requires Java; if you don't have it then you may need to do it manually.<P>
+
+You will need to be root to execute these commands.
+<PRE>
+# mkdir -p /etc/dt/config
+# cp /usr/dt/config/Xconfig /etc/dt/config/Xconfig
+# cp /usr/dt/config/Xservers /etc/dt/config/Xservers
+</PRE>
+Edit the file <CODE>/etc/dt/config/Xconfig</CODE>. Look for the line that says
+<PRE>Dtlogin.servers:               Xservers</PRE>
+and change it to
+<PRE>Dtlogin.servers:	/etc/dt/config/Xservers</PRE>
+Then edit the file <CODE>/etc/dt/config/Xservers</CODE>.
+The last line should look something like 
+<PRE>:0	Local local_uid@console root /usr/openwin/bin/Xsun :0 -nobanner</PRE>
+Comment out this line and then create a new version that has the options you want.
+The following example is taken from a real machine. The user's left hand screen
+is the console at boot time, but he wanted the right hand screen to display the
+dtlogin window and the CDE front panel. The right hand screen is display :0.0
+and the default visual is 24 bit TrueColor. The left screen is :0.1 and the default
+visual is 8 bit PseudoColor. For further details see the man page for <CODE>Xsun</CODE>.
+<PRE> 0   Local local_uid@console root /usr/openwin/bin/Xsun -dev /dev/fbs/ffb1 defdepth 24 defclass TrueColor right -dev /dev/fbs/ffb0 defdepth 8 defclass PseudoColor left </PRE>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="2a">
+How do I set the resolution of the primary frame buffer?</H3>
+</A>
+First, verify that the resolution is supported - see
+<A HREF="#5"> Question 5</A>.<BR>
+The resolution is specified as <B>r</B>HORIZ<B>x</B>VERT<B>x</B>FREQ
+- the <B>r</B> and <B>x</B> characters are significant.<P>
+To set the resolution, run the following command as root:
+<UL> <PRE>
+# eeprom output-device=screen:r1280x1024x76
+</PRE> </UL>
+then reboot. Alternatively, halt the machine and type
+<UL> <PRE>
+ok setenv output-device screen:r1280x1024x76
+ok reset
+</PRE> </UL>
+Some frame buffers have their own configuration programs; 
+for the ZX you should use
+<CODE>leoconfig</CODE></a>:
+<UL><PRE> /usr/kvm/leoconfig -m 1280_67 </PRE></UL>
+while for the SX you should use
+<CODE>cg14config</CODE></a>:
+<UL><PRE> /usr/kvm/cg14config -r 1280x1024@66 </PRE></UL>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="2b">
+How do I set the resolution of a second frame buffer?</H3>
+</A>
+
+For the SX use the command
+You should NOT reboot, as this will reset the resolution. 
+To ensure that the resolution is set each time, place the command somewhere that it
+will be run each time you reboot (<CODE>/etc/init.d</CODE>) or start OpenWindows
+(<CODE>$HOME/.xinitrc</CODE>).
+<UL><PRE> /usr/kvm/cg14config -d /dev/fbs/cgfourteen1 -r 1280x1024@66 </PRE></UL>
+
+Be aware that the resolutions supported by
+<CODE>cg14config</CODE></a>
+differ between Solaris 2.3 and 2.4. For further details, see the
+<A HREF="#SX">SX</A> section in 
+<A HREF="#5">Question 5</A>.<P>
+
+<B>Note to Solaris 2.3 users:</B>
+Because of Bug 1119523
+you need a patched version of both the cgfourteen driver
+and the cg14config program. The driver is available as part of patch 101318
+(the kernel jumbo patch) but at the time of writing the modified cg14config
+doesn't seem to be available as part of any patch. The bug is fixed in Solaris 2.4<P>
+
+I have copies of the binaries available. Note that this is NOT AN OFFICIAL PATCH!
+To download, select the <B>Load to local disk</B> option, then click here for
+<A href="progs/cg14config">cg14config</A>,
+<A href="progs/cgfourteen">cgfourteen</A> and a
+<A href="progs/script">script</A> written by
+<CITE>Antoine Garric</CITE> to automatically set the resolution at boot time.<P>
+
+For other frame buffers, it is a little trickier.
+You have to set the resolution at boot time in the nvramrc.
+Here is a script that will set up the nvramrc so that it initialises
+the resolution to 1280x1024 @ 76Hz.<P>
+
+<A NAME="Custom Resolution"> <B>Note:</B> </A>
+This script is modified from one in Sun document No: 802-5011-10
+<CITE>Platform Notes: SMCC Frame Buffers</CITE>,
+available in the Answerbook volume
+<CITE>Solaris 2.5 on Sun Hardware</CITE> - search for the string
+<STRONG>"TurboGXplus Frame Buffer"</STRONG>.
+To download a PostScript copy of the document (1.75M) click
+<A HREF="psdocs/PlatformNotes.ps"><STRONG>here</STRONG></A>.<P>
+
+<UL> <PRE>
+#!/bin/sh
+# Configure the entries for "cgsix@0" and "cgsix@1"
+# to refer to each of your frame buffers.
+
+eeprom fcode-debug\?=true
+eeprom nvramrc='probe-all
+" /iommu/sbus/cgsix@0" select-dev
+r1280x1024x76
+" /iommu/sbus/cgsix@1" " set-resolution" execute-device-method drop
+device-end
+install-console
+banner
+'
+eeprom use-nvramrc\?=true
+</PRE> </UL>
+
+The script presumes sun4m architecture; for sun4c change
+<CODE>/iommu/sbus</CODE> to <CODE>/sbus</CODE><BR>
+The other information you will need to run the script is which
+sbus slot the second frame buffer card resides in - ie the one that
+will be used as the second head. In this instance, it assumes a cgsix
+frame buffer in sbus slot 3.<P>
+
+The script has the disadvantage that it makes the second TGX+ the console
+frame buffer. You may not want this; for example if you have a SS20/SX
+or Ultra Creator with an additional TGX+, you may wish to set the resolution
+of the TGX+ while maintaining the SX or FFB as the console. <P>
+In which case, try this script instead. It should set the resolution
+of the TGX+ to 1280x1024@76 while maintaining the default console.<P>
+
+<UL> <PRE>
+#!/bin/sh
+eeprom fcode-debug\?=true
+eeprom nvramrc='probe-all
+install-console
+banner
+: vsetup " 135000000,81128,76,32,64,288,1280,2,8,32,1024,COLOR,0OFFSET" ;
+vsetup 4
+" /sbus/cgsix@2" " override" execute-device-method drop
+'
+eeprom use-nvramrc\?=true
+</PRE> </UL>
+
+Note that the number 4 in <code>vsetup 4</CODE> refers to the sense code
+of the monitor. For an incomplete list of sense codes, <A HREF="#F">see below.</A><P>
+
+Here is the appropriate voodoo for several supported resolutions.
+Note also that this will only work for the TGX or TGX+. 
+
+<UL> <PRE>
+1024 x  768 at 60 Hz   64125000,48286,60,16,128,160,1024,2,6,29,768,COLOR
+1024 x  768 at 70 Hz   74250000,56593,70,16,136,136,1024,2,6,32,768,COLOR
+1024 x  768 at 77 Hz   84375000,62040,77,32,128,176,1024,2,4,31,768,COLOR
+1152 x  900 at 66 Hz   94500000,61845,66,40,128,208,1152,2,4,31,900,COLOR
+1152 x  900 at 76 Hz   108000000,71808,76,32,128,192,1152,2,4,31,900,COLOR,0OFFSET
+1280 x 1024 at 67 Hz   117000000,71691,67,16,112,224,1280,2,8,33,1024,COLOR,0OFFSET
+1280 x 1024 at 76 Hz   135000000,81128,76,32,64,288,1280,2,8,32,1024,COLOR,0OFFSET
+1600 x 1280 at 76 Hz   216000000,101890,76,24,216,280,1600,2,8,50,1280,COLOR,0OFFSET
+</PRE></UL>
+
+And this is what the numbers actually mean, taking 1280x1024@67 as an example:
+
+<UL> <PRE>
+117000000       Pixel frequency or dot clock    (in Hz)
+71691           Horizontal frequency            (in Hz)
+67              Vertical frequency              (in Hz)
+16              Horizontal Front Porch          (in pixels)
+112             Horizontal Sync Width           (in pixels)
+224             Horizontal Back Porch           (in pixels )
+1280            Horizontal Displayed pixels     (in pixels)
+2               Vertical Front Porch            (in lines)
+8               Vertical Sync Width             (in lines)
+33              Vertical Back Porch             (in lines)
+1024            Vertical Displayed lines        (in lines)
+COLOR           Color monitor flag
+0OFFSET         No sync pedestal flag
+</PRE></UL>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="2c">
+So, given that I can control all the parameters, can I program the TGX/TGX+ with an arbitrary resolution?</H3>
+</A>
+
+Kinda-sorta. The pixel clock is not a freely configurable parameter - 
+you can only use certain predefined values. I believe that the list given above is
+comprehensive, but cannot guarantee this. Given that limitation it is possible
+to program custom resolutions. For example, here are some suggested values for 
+1280x1024 @60Hz. (NB: To the best of my knowledge this has not been tested or
+authorised by anyone at Sun.)
+<PRE>
+108.0   # pixel clock in MHz
+48      # horiz front porch in pixels
+112     # horiz sync width in pixels
+248     # horiz back porch in pixels
+1280    # horizontal visible in pixels
+1576    # horiz sync width during vertical sync in pixels
+1       # vertical front porch in lines
+3       # vertical sync in lines
+38      # vertical back porch in lines
+1024    # vertical visible in lines
+</PRE>
+At the risk of starting to sound like a physics textbook,
+the Horizontal time is the time taken to draw one row of pixels -
+ie the number of pixels drawn divided by the pixel clock.
+The Horizontal frequency is the inverse of the horizontal time.
+So for this example,
+<PRE>
+Horiz freq = 1/(Horiz Time)
+           = (Pixel Clock) / (Horizontal pixel count)
+           = (Pixel Clock) / (Pixels + both porches + sync width)
+           = 108.0MHz / (1280 + 48 + 112 + 248)
+           = 63.98KHz
+</PRE>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="3">
+How do I find what frame buffers I have available?</H3>
+</A>
+
+You can usually find out what frame buffers are available by looking
+in the directory /dev/fbs, or examining the output from dmesg.
+Most frame buffers announce themselves as cg<CITE>number</CITE>0,
+eg cgthree0, cgsix0, cgtwelve0. A digit other than zero indicates
+that either a second frame buffer is present or it has been moved
+from its original sbus slot.<P>
+
+<STRONG>cgthree</STRONG> Boring old unaccelerated cgthree. 
+May also be a symlink to a more sophisticated device that is
+masquerading as a cgthree for backward compatibility.<BR>
+<STRONG>cgsix</STRONG> GX family. See below.<BR>
+<STRONG>cgtwelve</STRONG> GS. Older 24 bit frame buffer<BR>
+<STRONG>cgfourteen</STRONG> SX. Newer, on-board 24 bit frame buffer<BR>
+There are others, such as the cgeight, but they are by and large obsolete.<P>
+The exceptions to this rule are:<br>
+<STRONG>bwtwo</STRONG> the old monochrome buffer. Found in Sun3s, SLC, ELC,
+IPC and also available as an SBus card.<BR>
+<STRONG>leo</STRONG> the ZX or Turbo ZX 24 bit accelerated 3D graphics card.
+It's not possible to tell the ZX and Turbo ZX apart from software.<br>
+<STRONG>gt</STRONG> and <STRONG>gt0</STRONG> the GT - Graphics Tower.
+Very old, slow 3D graphics pipeline.<BR>
+<STRONG>tcx</STRONG> Can refer to the S24 24 bit frame buffer
+which runs on a SS5 or the 8 bit frame buffer on a SS4.<P>
+
+Another option is to use <A href="#fbinfo">fbinfo</A>, the Frame Buffer Info script.
+This uses the <CODE>prtconf</CODE> program to interrogate the system configuration. 
+It displays information about all the frame buffers that the system knows about.<P>
+
+A third option is to interrogate the frame buffer using IOCTL calls.<BR>
+<STRONG>WARNING!</STRONG> This is not recommended for several reasons:
+<UL>
+<LI>
+Any application that needs to know what kind of framebuffer it is running on
+is very likely broken, or will break in the future when new framebuffers come out.
+</LI>
+<LI>
+Not all ioctls defined in fbio.h are implemented for all sun framebuffers.
+Programs which call these should act as gracefully as possible when they fail.
+</LI>
+</UL>
+If you still want to go ahead, the approved method is to call VIS_GETIDENTIFIER
+to identify framebuffer. If VIS_GETIDENTIFIER fails you have an older framebuffer.
+Call FBIOGATTR or FBIOGTYPE and use the type field to identify the framebuffer
+using the #defines in fbio.h. Here is <A href="progs/fbinfo.c">a sample program</A>.
+Use at your own risk.<P>
+
+<H4>How do I work out if I have a GX, GX+, TGX or TGX+?</H4>
+
+Run the following command:
+<UL> <PRE> dmesg | grep cg
+</PRE> </UL> 
+You should see messages similar to this:
+<UL> <PRE>
+cgsix0 at sbus0: SBus slot 2 0x0 SBus level 5 sparc ipl 9
+cgsix0 is /iommu@f,e0000000/sbus@f,e0001000/cgsix@2,0
+cgsix0: screen 1152x900, single buffered, 1M mappable, rev 11
+cgsix1 at sbus0: SBus slot 1 0x0 SBus level 5 sparc ipl 9
+cgsix1 is /iommu@f,e0000000/sbus@f,e0001000/cgsix@1,0
+cgsix1: screen 1152x900, double buffered, 4M mappable, rev 6
+</PRE> </UL>
+If the rev number of the board is 11 or more then the board is a TGX/TGX+<BR>
+If the rev number is 9 or less, then it is a GX/GX+<BR>
+If you see the text <CODE>single buffered, 1M mappable</CODE> then it is a GX/TGX<BR>
+if you see <CODE>double buffered, 4M mappable</CODE> then it is a GX+/TGX+<P>
+Thus, in the example above, cgsix0 is a TGX, while cgsix1 is a GX+<P>
+Note: On a SPARCstation LX with the optional VSIMM, one will actually see
+2M mappable. This is equivalent to a TGX+.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="4">
+What are the restrictions on multi-headed machines?</H3>
+</A>
+
+As far as software restrictions go, until OpenWindows V3.2 (Solaris 2.2)
+you were limited to a maximum of 4 heads by the xnews server.
+For 3.2 this limit was raised to 16, so now you are effectively limited
+by how many frame buffers the machine can physically support.
+This is particularly true in the case of the PCI bus; there should be
+no reason why you cannot fill every PCI slot (except any PCI66 slots)
+with PGX or 3rd party PCI frame buffers.<P>
+
+I've recently heard from <CITE>Rich Pedano</CITE> who has configured
+a system using a SparcStation 20 with <STRONG>six</STRONG> TGX+ boards.
+This was accomplished using an SBus expansion unit.
+He was even able to get 8 heads running successfully.
+He reported that the system worked fine with all heads
+configured at 1152x900, but not at 1280x1024.
+The system used XbigX to manage the screen as a single unit.<P>
+(For SUN internal users, Rich has published some information on his
+<A HREF="http://mtlwww.east/~rpedano/CUSTOMER/bigscreen.html">web page</A>.)<P>
+
+The latest news (Feb 98) is that SMCC are planning to support
+up to 8 (eight) Elite 3D (AFB) frame buffers in the Ex000 series.<P>
+
+<H4>SparcStation 5</H4>
+The SS5 will support 3 heads - (2 SBus cards + 1 Afx or 3 SBus cards)<br>
+You cannot have more than 1 S24 card in an SS5 system because the S24
+card requires an AFX bus and the SS5 only has one AFX bus connector.<P>
+<H4>SparcStation 10</H4>
+The SS10 can have 4 heads - (4 SBus cards)<P>
+<H4>SparcStation 20</H4>
+
+Document 801-6186-10 states that 
+"Due to configuration restraints, a limit of two TGX or TGXplus
+SBus cards are permitted in a SPARCstation 20". 
+Additionally, the document states that double-width GX cards
+(which implies, but may not necessarily include the GX+) are not supported.<P>
+
+According to <CITE>Ken Won</CITE> the limitation is due to "capacitance
+loading issues". Some (un-named) SBus cards have a high capacitance rating, 
+which - in conjunction with 3 TGX/TGX+ cards - can overload the bus.
+4 TGX/TGX+ cards should not cause a problem, 
+but if 3 are used the 4th slot should be left vacant.<P>
+ 
+As far as I am aware there are no other limits on the number of heads
+that are supported beyond the number of SBus slots. 
+Thus supported 5 headed configurations are obtained by using additional
+SX and GX frame buffers (up to 2 TGX/TGX+ with up to 2 SX and up to 4 GX)
+
+For the SX, the first SX head simply requires a 4Mb or 8Mb VSIMM.
+The second SX head requires a VSIMM and an auxiliary video board,
+501-2488 that takes the place of one SBus card.<P>
+
+<H4>Ultra 1 and 2</H4>
+The Ultra 1 can have up to 3 heads. The Ultra 2 can have up to 5. 
+This has been tested and is fully supported.
+The Elite 3D M6 is supported only in the Ultra 2.<P>
+
+<H4>Ultra 5</H4>
+The Ultra 5 can support up to 4 heads - 3 PCI cards and the on-board PGX.
+For a 24 bit display you currently need a 3rd party graphics card,
+such as the Raptor GFX.<P>
+
+<H4>Ultra 5 and 10</H4>
+The Ultra 10 can support up to 6 heads -
+4 PCI cards, one FFB and the on-board PGX.<P>
+
+<A HREF="#techsource">TechSource</A> contacted me to confirm that
+they support multi-headed configurations on the Ultra 5 and 10
+using their Raptor GFX cards.<P>
+
+<H4>Ultra 30 and 60</H4>
+Up to 2 FFBs plus up to 3 PGXs (8-bit PCI graphics cards) are supported.
+
+You could add a 4th PCI graphics card if the card is a 3 volt
+('universal') PCI card type. Although Sun do not currently provide
+such a card, one may be available from third parties.<P>
+
+<H4>Ultra 150</H4>
+I believe that only one TGX is supported, but it has
+3 SBus slots, and can therefore theoretically take up to 3 heads.<P>
+
+<H4>Ultra 450</H4>
+4 PCI graphics cards is the maximum supported configuration.
+However there are documented instances of up to 10 PGX32s
+(with v1.9 firmware) being successfully stress-tested in an E450.<P>
+
+Only the Elite 3D m6 is supported in the Ultra 450 - you can have
+up to two of them. The FFB series is NOT supported.<P>
+
+<H4>High End Servers</H4>
+The latest news (Feb 98) is that SMCC are planning to support
+up to 8 (eight) Elite 3D (AFB) frame buffers in the Ex000 series.<P>
+
+Up to 4 Frame Buffers are supported in a SS1000 or Ex000.
+Only one Frame Buffer is supported in the SS2000.
+The Starfire E10K doesn't support any - it's all done via the SSP.<P>
+
+These configurations have been tested and are supported by Sun.
+It would be possible to create configurations with more frame buffers
+and there is no obvious reason why these configurations would not work.
+In fact, given the success reported with the SBus expander box (above)
+I would be very surprised indeed if it did not work.
+I would be grateful for any feedback from customers who have tried this.<P>
+
+<H4>ZX and Turbo ZX</H4>
+The ZX series cards impose their own set of restrictions on a machine.
+Because of the amount of power the ZX consumes, and consequently the heat
+that it produces, you can only have one ZX in a machine, which takes up
+two slots, though the remaining slots may be available for use by other
+SBUS cards, depending on cooling and power factors. The ZX is not
+supported in the SBus expansion unit.<P>
+
+The Turbo ZX card uses more power and produces even more heat than the ZX.
+As a result, two fan cards are needed. This takes up a total of 4 slots.
+Additionally, on a Sparc 20, the side vents must be replaced to improve
+the cooling. This is detailed in the TurboZX Graphics Accelerator
+installation manual, part number 801-7829-10.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="4a">
+Can I drag a window from one screen to another?</H3>
+</A>
+Not under OpenWindows or CDE. You can copy and paste across heads,
+or drag and drop text, but you can't move windows. Each display
+is handled individually.<P>
+A third-party product called
+<A HREF="http://www.x-software.com/Software/Xbigx/info.english.html">X/bigX</A>
+is available from <A HREF="http://www.x-software.com/">X/software</A>.
+It combines multiple screens to form a larger display area. <P>
+
+There is also a free product called Xmove, which lets you move windows 
+from one display to another, but not drag them. Xmove is available from
+<A HREF="ftp://ftp.cs.columbia.edu">ftp.cs.columbia.edu</A>.
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="5">
+What resolutions do the various frame buffers support?</H3>
+</A>
+
+<H4>FFB (AKA Creator)</H4>
+
+The supported resolutions for FFB can be found by the command
+<CODE>/usr/sbin/ffbconfig -res \?</CODE><P>
+The values will vary according to the card and driver in use.
+To set the resolution, run the ffbconfig program and restart
+OpenWindows or CDE. You do not need to reboot.<P>
+
+In November 1998 Sun announced an update to the Creator and Creator3D 
+series 3 with a new PROM. This new prom added several resolutions 
+including 1600x1200x75Hz (for Creator3D) which now fully supports all 
+resolutions available on the Sun 21" display.<P>
+
+<PRE>
+Resolution       	Refresh Rate   
+-----------      	------------   
+New Creator3D Series 3 resolutions with New Prom -06 (as of Nov 98)
+1600 x 1200		75Hz (VESA)  (Single Buffered)
+
+New Creator & Creator3D Series 3 resolutions with New Prom -06 (as of 
+Nov 98)
+1280 x 1024		60Hz, 75Hz, 85Hz (VESA)
+1024 x 768		60Hz, 75Hz (VESA)
+800 x 600		75Hz (VESA)
+640 x 480		60Hz (VESA)
+
+(Creator3D Series 3 only - in Single Buffered Mode)
+1920 x 1200		70Hz
+1920 x 1080		72Hz		
+1600 x 1280		76Hz
+1600 x 1000		66Hz, 76Hz
+1440 x 900  		76Hz		
+
+(Creator3D or Creator Series 3)						
+1280 x 1024		67Hz, 76Hz					
+1152 x 900		66Hz, 76Hz	
+1024 x 768		60Hz, 63Hz, 70Hz, 77Hz	
+1024 x 800		84Hz, 72Hz, 60Hz, 56Hz	
+960 x 680		112Hz Stereo, 108Hz Stereo		
+768 x 575		50Hz PAL		
+640 x 480		60Hz, NTSC		
+</PRE>
+<H4>PGX</H4>
+The PGX is the first of the new generation PCI frame buffers -
+for details on PCI <A HREF="#30">see below</A>.<P>
+
+It supports a very wide range of resolutions and
+can only be configured using the utility <STRONG>m64config</STRONG>,
+not using the boot NVRAM. Obviously having this software-configurable
+in this way means that support for resolutions can be added (or removed)
+very easily. At the last count, <STRONG>m64config</STRONG> reported
+the following supported resolutions:
+
+<PRE>
+ 640 x  480 @ 60   640 x  480 @ 67   640 x  480 @ 72   640 x  480 @ 75      
+ 720 x  400 @ 70   720 x  400 @ 88      
+ 800 x  600 @ 56   800 x  600 @ 60   800 x  600 @ 72   800 x  600 @ 75      
+ 832 x  624 @ 75      
+1024 x  768 @ 87  1024 x  768 @ 60  1024 x  768 @ 70  1024 x  768 @ 75     
+1152 x  870 @ 75     
+1152 x  900 @ 66  1152 x  900 @ 76     
+1280 x  800 @ 76     
+1280 x 1024 @ 60  1280 x 1024 @ 67  1280 x 1024 @ 75  1280 x 1024 @ 76
+1440 x  900 @ 76     
+1600 x 1280 @ 76    
+1600 x 1000 @ 66  1600 x 1000 @ 76    
+1920 x 1080 @ 72  
+1920 x 1200 @ 70    
+
+Stereo:            960 x  680 @112   960 x  680 @108    
+Interlaced:        640 x  480 @ 60   
+				   768 x  575 @ 50     
+</PRE>
+<STRONG>NB</STRONG>: the PGX only has 2Mb of on-board memory,
+so 1920 x 1200 is obviously unattainable.<P>
+
+<H4>PGX24</H4>
+The newer Ultras 5 and 10 (code-named Darwin Plus) have a revised version
+of the PGX based on the ATI Rage Pro chipset. Known as the PGX24
+it has 4Mb of SGRAM memory and support BOTH seperate and composite sync
+formats. When in seperate sync mode they drive the VESA standard resolutions
+from 640x480 to 1280x1024. The following chart shows the resolutions and
+available colour depths. Note that when in 24 bit mode the PGX24 only
+provides a 24 bit visual, so applications that *require* an 8 bit
+PseudoColor visual will not work.<P>
+
+<PRE>
+Resolution       Sync format      Color Depth
+-----------      -----------      ----------
+640x480x60       separate         8 or 24
+800x600x75       separate         8 or 24
+1024x768x60      separate         8 or 24
+1024x768x70      separate         8 or 24
+1024x768x75      separate         8 or 24
+1024x768x77      composite        8 or 24
+1024x800x84      composite        8 or 24
+1152x900x66      composite        8 or 24
+1152x900x76      composite        8 or 24
+1280x800x76      composite        8
+1280x1024x60     separate         8
+1280x1024x67     composite        8
+1280x1024x76     composite        8
+1280x1024x75     separate         8
+1280x1024x85     separate         8
+</PRE>
+
+The following resolution values are all taken from the
+Field Engineer's Handbook, except where stated otherwise.<P>
+
+These are supported resolutions. For ways to customise
+<A HREF="#Custom Resolution"> other resolutions </A>
+see the note in <A HREF="#2"> Question 2</A>.<P>
+
+<H4>Turbo GX</H4>
+<PRE>
+1024 x  768 @ 60	1024 x  768 @ 70	1024 x  768 @ 76
+1024 x  800 @ 74	1024 x  800 @ 85
+1152 x  900 @ 66	1152 x  900 @ 76
+</PRE>
+<H4>Turbo GXplus</H4>
+<PRE>
+1024 x  768 @ 60	1024 x  768 @ 70	1024 x  768 @ 76
+1024 x  800 @ 74	1024 x  800 @ 85
+1152 x  900 @ 66	1152 x  900 @ 76
+1280 x 1024 @ 67	1280 x 1024 @ 76
+1600 x 1280 @ 76
+</PRE>
+<H4>CG3</H4>
+<PRE>
+1024 x  768 @ 77
+1152 x  900 @ 66	1152 x  900 @ 76
+</PRE>
+The first boards (501-1415, 501-8044) only support 1152x900@66.
+Later boards (501-1718, 501-1909) support 1152x900@76 as well.
+On these boards, 76Hz is the default.<P>
+Furthermore there is another CG3 board, 501-2691 which only supports
+1024x768 @ 77Hz - it does not support 1152x900.
+This board is only supported in the SparcStation 5.<P>
+The on-board frame buffer in the SparcClassic is also a CG3.
+It supports all the resolutions listed above.<P>
+
+</PRE>
+<H4>GX</H4>
+<PRE>
+1022 x 1000 @ 76			<CITE>IPX only</CITE>
+1024 x  800 @ 85			<CITE>IPX only</CITE>
+1024 x  768 @ 77			<CITE>LX only</CITE>
+1152 x  900 @ 66  1152 x  900 @ 76
+1280 x 1024 @ 67  1280 x 1024 @ 76	<CITE>LX with 1Mb VSIMM only</CITE>
+1600 x 1280 @ 76			<CITE>LX with 1Mb VSIMM only</CITE>
+</PRE>
+Double width boards (501-1481, 501-1645) only support 1152x900@66.
+The single-slot boards (501-1672, 501-1996) support 1152x900@76 as well.
+On these boards, 76Hz is the default.<P>
+The on-board frame buffers in the IPX and LX are also GX.
+Each supports additional resolutions, as noted above.<P>
+
+<H4>GXplus</H4>
+<PRE>
+1024 x  800 @ 85
+1152 x  900 @ 66	1152 x  900 @ 76
+1280 x 1024 @ 67 <CITE>Default</CITE>
+</PRE>
+1600 x 1280 is not a supported resolution (but may work). <P>
+
+<H4>GS (CG12)</H4>
+<PRE>
+1152 x  900 @ 76
+</PRE>
+<H4>GT</H4>
+<PRE>
+1280 x  1024 @ 67	1280 x  1024 @ 76 <CITE>Default</CITE>
+</PRE>
+<H4>ZX (Leo)</H4>
+<PRE>
+ 640 x  480 @ 60
+ 770 x  575 @ 50
+ 960 x  680 @108	 960 x  680 @112
+1024 x  768 @ 60	1024 x  768 @ 76
+1152 x  900 @ 66	1152 x  900 @ 76
+1280 x 1024 @ 67	1280 x 1024 @ 76
+</PRE>
+<H4>TCX</H4>
+The default resolution for the TCX is 1152x900
+unless you are using <A HREF="#18">the 17" entry level monitor</A>,
+which defaults to 1024x768.
+By adding an optional 1Mb VSIMM to the slot on the motherboard
+this can be increased to 1280x1024.<P>
+
+The supported resolutions for the SS4 are:
+<PRE>
+1024 x  768 @ 66  1024 x  768 @ 76
+1152 x  900 @ 66  1152 x  900 @ 76
+1280 x 1024 @ 66  1280 x 1024 @ 76
+</PRE>
+
+For a SPARCStation 4, the commands used to set the resolution
+are slightly different since they address each resolution
+by the dot clock instead of the refresh rate. 
+
+<PRE>
+For 1152x 900@66 use 1152x900x94
+For 1152x 900@76 use 1152x900x108
+For 1280x1024@66 use 1280x1024x117
+For 1280x1024@76 use 1280x1024x135
+</PRE>
+
+<H4>S24</H4>
+The FE Handbook simply quotes a maximum resolution of 1152x900.
+No frequency is given. See also <A HREF="#6">Question 6</A>.<P>
+<H4><A NAME="SX">
+SX (CG14)</H4></A><P>
+There is an element of confusion as to what resolutions the SX is capable of.
+The cg14config manual page for Solaris 2.3 agrees with the 
+FE Handbook,
+whereas the cg14config manual page for Solaris 2.4 differs.
+<A HREF="#cg14config">See note</A>.<P>
+<PRE>
+<A HREF="#unsupported">1024 x  768 @ 60</A>	<A HREF="#unsupported">1024 x  768 @ 66</A>	<A HREF="#unsupported">1024 x  768 @ 70</A>
+<A HREF="#unsupported">1024 x  800 @ 84</A>
+1152 x  900 @ 66	1152 x  900 @ 76
+1280 x 1024 @ 66	<A HREF="#mutant">1280 x 1024 @ 76</A>
+<A HREF="#unsupported">1600 x 1280 @ 66
+<A HREF="#unsupported">1920 x 1080 @ 72</A>
+</PRE>
+<A NAME="mutant">(1)</A>
+Cgfourteen will support 1280x1024@76 but the tricky part is in
+telling it how to do it. You have to set the resolution with the command<P>
+<CODE> # /usr/sbin/eeprom output-device=screen:r1280x1024x76<B>m</B> </CODE>
+<UL>or</UL>
+<CODE> ok setenv output-device=screen:r1280x1024x76<B>m</B> </CODE><P>
+and reboot. Note the <B>m</B> after the 76 - this is significant, and
+allegedly stands for <B>mutant</B>(!)<P>
+ 
+<A NAME="unsupported">(2)</A>
+1024x768, 1024x800, 1600x1280 and 1920x1080 are available but are 
+unsupported. There is conflicting documentation on the subject.
+Although some of these are listed in the FE Handbook as supported
+there are a number of documents which state that they are not.
+One customer has reported that he was running an 8Mb SX clone at
+1600x1280@66HZ on a Hitachi Accuvue UX6821, and in 24 bit mode
+he noticed pixels "flickering" or "shimmering" when using some
+of the CDE backgrounds or viewing certain images.<P>
+
+<A NAME="cg14config">(3)</A>
+The cg14config man page under Solaris 2.4 reflects what values are supported
+in the cgfourteen driver. However it's still up to the prom to recognize
+them because the driver simply takes user's request and passes it
+to the prom to change the prom variable 'output-device'.
+Under 2.4 1024x800@84 was taken out and 1920x1080@72 added,
+for reasons unknown. Any information would be appreciated.<P>
+
+<H4>Voyager</H4>
+The monochrome display has a resolution of 1152x900 and is
+manufactured by Hosiden Electronics. <P>
+The colour display has a resolution of 1024x768 and is
+manufactured by Sharp.<P>
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="6">
+What is the default resolution for each frame buffer?</H3>
+</A>
+The default resolution depends on the attached monitor. 
+<CITE>Dave Kehlet</CITE> has supplied the following table
+which shows the resolution that will be selected for each
+detected sense code.<P>
+
+NB: See below for how the <A HREF="#31">FFB2/2+ and PGX</A>
+determine their default resolution.
+
+<H3>FRAMEBUFFER DEFAULT RESOLUTIONS BY SENSE CODE</H3>
+December 6th 1994, David C. Kehlet<P>
+
+<PRE>
+<B>Code	TGXplus(1)	TGX(2)		GXplus		GX (LSC chip)</B>
+-------------------------------------------------------------------
+7 	1152x900x66 	1152x900x66 	1152x900x66 	1152x900x66 	
+6	1152x900x76	1152x900x76	1152x900x76	1152x900x76	
+5	1024x768x60	1024x768x60	1152x900x66	1152x900x66
+4	1152x900x76	1152x900x76	1280x1024x67	1152x900x76	
+3	1152x900x66	1152x900x66	1152x900x66	1152x900x66	
+2	1280x1024x76	1152x900x66     mutant<B>(3)</B>	mutant<B>(3)</B>
+1	1600x1280x76	1152x900x66     mutant<B>(4)</B>	mutant<B>(4)</B>
+0	1024x768x77	1024x768x77	1152x900x66	1152x900x66
+</PRE>
+
+<B>(1)</B> SSLX with the extra VRAM SIMM is the same as the TGXplus.<P>
+<B>(2)</B> SSLX is the same as the TGX.  SS Voyager is the same as the TGX, except
+that code 7 is used to tell the system to use the internal LCD display.<P>
+<B>(3)</B> Sync timing matches 1280x1024x76, actual pixels displayed are less.  
+Use is not recommended.<P>
+<B>(4)</B> Sync timing matches 1600x1280x76, actual pixels displayed are less.  
+Use is not recommended.<P>
+
+<PRE>
+<B>Code	SX		ZX		S24		</B>
+------------------------------------------------------
+7	1152x900x66	1152x900x66	1152x900x66	
+6	1152x900x76	1152x900x76	1152x900x76
+5	1024x768x60	1152x900x66	1024x768x70
+4	1152x900x76	1280x1024x67	1152x900x76
+3	1152x900x66	1152x900x66	1152x900x66
+2	1280x1024x76<B>(5)</B>	1280x1024x76	1152x900x76
+1	1600x1280x76<B>(5)</B>	1152x900x66	1152x900x66
+0	1024x768x60	1024x768x76	1152x900x66
+</PRE>
+<B>(5)</B> The 4Mbyte VSIMM drops to 8 bits per pixel in these modes.<P>
+
+<A HREF="#6E">(13w3 pin 7)</A>.
+<PRE>
+<B>Code	Creator	and Creator3D</B>
+-----------------------------
+7	1152x900x66
+6	1152x900x76
+5	1024x768x60
+4	1280x1024 <B>(6)</B>
+3	1152x900x66
+2	1280x1024x76
+1	1152x900x66
+0	1024x768x77
+</PRE>
+<B>(6)</B> Early models of the Creator and Creator3D examined
+a 4th sense bit - 13w3 pin 7.
+If this bit was 1 (unconnected) then the resolution was set to
+<CODE>1280x1024x67</CODE>. If the bit was 0 then the resolution
+was set to <CODE>1280x1024x76</CODE>.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="7">
+How do I change the console frame buffer?</H3>
+</A>
+<H5>SBus devices</H5>
+
+The console is chosen from the set of devices whose device-type is "display".
+The first such device encountered during OpenBoot probing is chosen.
+SBus devices are probed in the order specified by the OpenBoot
+configuration parameter <CODE>sbus-probe-list</CODE>, and the conventional way
+to select one device over another as the console is to:
+<UL>
+<LI> install the preferred device in a lower-numbered SBus slot, or<BR>
+<LI> redefine the value of the <CODE>sbus-probe-list</CODE> variable.
+</UL>
+However neither of these will work to choose an SBus device as the console
+device in an SX-equipped system because the MBus-based SX is probed
+before any SBus slots.<P>
+A solution is to explicitly specify the console device in NVRAM.
+You can leave the SX VSIMM in place and still select your device
+to be the system console by making a few definitions in NVRAM:
+<UL>
+<LI> make a devalias for the intended device<BR>
+<LI> set the <CODE>output-device</CODE> configuration parameter to refer to that devalias<BR>
+<LI> set the <CODE>use-nvramrc?</CODE> configuration parameter to <CODE>true</CODE>
+</UL>
+Assume, for example, that there is a ZX in SBus slot 2 of a sun4m machine.
+First get into the OpenBoot monitor (L1-A), and
+<PRE>
+	ok  show-sbus
+</PRE> 
+Look at the list of devices and make sure you really have a ZX (leo) in
+SBus Slot 2. This is not really needed if you know what you have already.
+<PRE> 
+	ok  nvalias  zx-screen  /iommu/sbus/SUNW,leo@2,0
+	ok  setenv  output-device  zx-screen
+	ok  reset
+</PRE> 
+After the reset, the console output will go the ZX in SBus slot 2.
+In this scenario, The nvalias OpenBoot command creates the devalias
+(for zx-screen in this case) and sets use-nvramrc? to true.  The setenv
+command changes the console output device from the default "screen" to
+the explicitly-specified "zx-screen".<P>
+If you want to delete the devalias zx-screen and revert to
+the default console just type:
+<PRE>
+	ok  nvunalias zx-screen
+	ok  set-default output-device
+</PRE>
+
+<H5>UPA and PCI Devices</H5>
+
+Basically you follow the same steps as for SBus devices -
+the trick is finding the full device path.
+At the OK prompt you can use cd and ls to navigate the device tree
+until you find the devide you want, then set the alias as shown.<P>
+
+For UPA devices they will be at the top level, eg /SUNWffb@1d,0
+or /SUNWafb@1e,0. For PCI devices you'll need to cd through the
+device tree.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="8">
+Will 4.1.3 run on a SS20/SX or SS4/TCX?</H3>
+</A>
+
+<H4>SS20/SX</H4>
+<B>NO.</B> The SX frame buffer is only supported under Solaris 2.3 or greater.
+There is no support for it in SunOs 4.x/Solaris 1.1.1<BR>
+You can install 4.x on a 20SX, using the head as a console only, but you
+will not be able to start OpenWindows unless you add another frame buffer 
+and use that instead (see earlier questions for details of how to do this).<P>
+
+<H4>SS4/TCX</H4>
+Yes, but you don't want to. The TCX frame buffer will appear to the
+system to be an unaccelerated frame buffer, similar to a cgthree.
+To get the benefit of the accelerated graphics you wil need to run
+Solaris 2.4 or later.<P>
+
+<H4>SS5/S24</H4>
+Yes, but you <STRONG>really</STRONG> don't want to.
+As with the SS4, the S24 frame buffer will appear to the
+system to be an unaccelerated cgthree.
+That means no accelerated graphics plus no 24 bit visuals.<P>
+Theoretically you might be able to get it to behave as a cg8
+instead of a cgthree, which would provide 24 bit visuals,
+but this has never been tested and obviously is unsupportable.<P>
+
+There is a known bug in the cg3 emulation. Apparently a real cg3
+also emulates a cg4 for the benefit of old statically-linked software.
+Although the TCX and S24 emulate a cg3, they do not emulate a cg3
+emulating a cg4.<P>
+
+The standard MIT X11R5 and R6 do not have support for the TCX
+or S24 frame buffers. As a workaround, I am told that you can 
+create a symbolic link from /dev/cgthree0 to /dev/tcx0 
+but this is of course unsupported.
+Note that Solaris 2.6 is based on X11R6, and does have support.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="9">
+How do I change the default depth or visual class in OpenWindows?</H3>
+</A>
+
+In the past, OpenWindows would always use 8 bit PseudoColor as the  default visual,
+even when a 24 bit frame buffer is being used. However this rule is now changing.
+Starting with the S24, OpenWindows will default to 24 bit TrueColor.
+This rule is expected to continue as new graphics products are developed,
+however 8 bit PseudoColor will remain the default visual for the existing
+24 bit frame buffers, such as the SX, ZX, GT and GS.<P>
+
+A 24-bit TrueColor default reduces colormap flashing. DeskSet and
+other applications that are really visual-independent then don't take up
+entries in the colormap. Thus those applications that do care have more available.<P>
+
+It is expected that most applications will be able to use 24-bit TrueColor. 
+Fewer and fewer people should have to play colormap tricks such as 4/4
+double buffering or wierd plane masking as screen update rates go up. 
+Also, the data copy advantage of 8-bit pixels is going away with SX, S24
+and future Frame Buffers.<P>
+
+You can alter the default depth or class by using the <CODE>defdepth</CODE>
+or <CODE>defclass</CODE> options to the server, thus:
+<PRE>
+	openwin -dev /dev/fb0 defdepth 24
+	openwin -dev /dev/fb0 defclass TrueColor
+</PRE>
+Acceptable depths are 8 or 24; you cannot set a depth of 1.
+The nearest you can get to simulating a monochrome display is
+to select a greyscale visual (see below) and specifying the -2d flag to
+<CODE>olwm</CODE>.<P>
+Acceptable classes are: <CODE>GrayScale StaticGray PseudoColor
+StaticColor DirectColor </CODE> and <CODE>TrueColor</CODE>.<P>
+<B>NB:</B> 24 bit DirectColor visual is only supported on the S24 or ZX,
+and only under OpenWindows 3.4<BR>
+There is a bug logged, reference number 1168007
+which highlights colormap problems when this visual is used.
+In brief, areas that should be white appear black, notably the background
+of shelltool and cmdtool windows.
+As a workaround, use the option <CODE>-whitepixel 1</CODE> thus:
+<PRE>
+	openwin -dev /dev/leo0 defclass TrueColor defdepth 24 -whitepixel 1
+</PRE>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="10">
+Why does the screen look paler or darker in 24 bit mode?</H3>
+</A>
+
+If the screen appears pale and washed out, or too dark, you may wish
+to alter the <A HREF="#28">gamma correction</A> level.
+For the SX the default is 2.2; for the ZX it is 2.22 Use the -g option to
+<CODE>cg14config</CODE> or <CODE>leoconfig</CODE>
+to find level that is acceptable for your monitor. Increasing the value
+will make the screen lighter; decreasing it will make it darker.<P>
+
+For some versions of the Creator/Creator 3D you may find that the default 
+24 bit TrueColor visual is gamma corrected. If you want the uncorrected
+visual you may need to explicitly select the visual by its ID - some
+applications (for example the image viewer XV) allow you to specify
+the visual on the command line, thus:
+<PRE>
+% xv -visual 0x3e
+</PRE>
+Use the command <CODE>xdpyinfo</CODE> to find the various visual IDs that
+your system supports.<P>
+
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="11">
+How can I display the same tool on multiple windows?</H3>
+</A>
+
+There are two options: the hardware solution and the software solution.<P>
+The hardware solution involves taking the signal from the frame buffer, 
+amplifying it, then splitting it and sending it to multiple monitors.
+Amplification is necessary since the signal from the frame buffer is
+only designed to drive one monitor.<P>
+
+At least two software solutions are available: ShowMe, available from Sun,
+and XMX, a Public Domain product available from Brown University.
+These tools work by interposing a handler between the X client and server,
+and sending copies of the information to other remote screens.<P>
+Information on ShowMe is readily available from Sun.<P>
+XMX is available by FTP from a number of sites; use `Archie' to find the
+most convenient site, or try Brown University directly:
+<PRE>
+	wilma.cs.brown.edu:/pub:xmx.tar.Z
+</PRE>
+Note that this information may be out of date.<P>
+A <A href="XMX_ReadMe.text">ReadMe</A> for XMX V1.0 is available.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="12">
+Can I replace the monitor with an LCD display?</H3>
+</A>
+
+Early LCD panels had much stricter timing than CRTs.
+They often required a digital interface; the analog
+outputs from Sun's frame buffers probably wouldn't work.
+In addition, many were designed to be driven by PC 
+frame buffers which use very different timings and sync,
+and therefore could not be used with most of SUN's products.<P>
+
+These days cheaper LCD displays are becoming common and Sun's FFB, AFB
+and PGX product lines are becoming increasingly "PC Compatible"
+by supporting VESA standard timings and both composite and seperate sync.
+Bottom line: it depends a lot on the age of your hardware. Try it and see.
+If you need to connect an older LCD display to an older system you may
+need to purchase additional third-party hardware. Which leads us neatly to:
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="13">
+What special purpose products are available from third parties? </H3>
+</A>
+<H5>NB: This is not an exhaustive list, and no recommendation is implied 
+or should be inferred by the presence or absence of any vendor.</H5>
+
+<A NAME="quantum3d"></A>
+<H5><A HREF="http://www.quantum3d.com">Quantum 3D</A> (formerly Southland Media Systems)</H5>
+1200 Crossman Ave., Suite 200, Sunnyvale, California 94089<BR>
+Phone: 408 747-1020<BR>
+Fax: 408 747-1510<BR>
+Quantum 3D produce the <A HREF="http://www.quantum3d.com/obs_mgx/index.html">MGX</A>,
+family of 24 bit PCI and SBus frame buffers.<P>
+
+<A NAME="integrix"></A>
+<H5><A HREF="http://integrix.com">Integrix</A></H5>
+1200 Lawrence Drive, Suite 150 Newbury Park, California 91230<BR>
+Phone: 800 300-8288<BR>
+Email: <A HREF="mailto:sales@integrix.com">sales@integrix.com</A><P>
+Integrix sell
+<A HREF="http://integrix.com/graphics.html">various SBus cards</A>
+including the S20 series that will display at 640x480 at 60 or 72Hz.
+They have a <A HREF="http://integrix.com/fp.html">flat panel display</A>
+which can be connected to a SPARC20. They also sell digital
+frame buffers which will drive Sharp and NEC flat panel displays.<P>
+ 
+<A NAME="visicom"></A>
+<H5><A HREF="http://www.visicom.com">VisiCom</A></H5>
+10052 Mesa Ridge Ct., San Diego, CA 94947<BR>
+Tel: (619) 457-2111<BR>
+Fax: (619) 457-7080<BR>
+email: <A HREF="mailto:sales@visicom.com">sales@visicom.com</A> or
+<A HREF="mailto:support@visicom.com">support@visicom.com</A><P>
+In Europe: Worting House, Basingstoke, Hants, RG23 8PY UK<BR>
+Tel: +44 1256 330030<BR>
+Fax: +44 1256 816978<BR>
+
+Vigra and RasterFlex are both now owned by VisiCom.
+The RasterFlex and Vigra product line names have been retained.
+The RasterOps product was not acquired by VisiCom
+and is no longer available.<P>
+
+<H5><A HREF="http://www.pixelvision.com">PixelVision</A></H5>
+43 Nagog Park, Acton, MA 01720<BR>
+Phone: 508-264-9443 X7211<BR>
+Email: <A HREF="mailto:pvision@ultranet.com">pvision@ultranet.com</A>,
+<A HREF="mailto:jallen@pvision.com">jallen@pvision.com</A><P>
+ 
+PixelVision produce LCD displays capable of up to 1280x1024 @ 76Hz,
+that can be driven from Sun's frame buffers.<P>
+
+<A NAME="rdi"></A>
+<H5><A HREF="http://www.rdi.com">RDI Computer Corp</A></H5>
+Little Haining, Brockenhurst Rd., Ascot, Berks, SL5 9HB, UK<BR>
+Phone: 01344-25999<BR>
+2300 Faraday Avenue, Carlsbad, CA 92008<BR>
+Phone: 619 929 0992<P>
+ 
+RDI produce a 12" 1024x768 LCD monitor which can be 
+driven by Sun's frame buffers.<P>
+
+<A NAME="techsource"></A>
+<H5><A HREF="http://www.techsource.com">Tech Source Inc.</A></H5>
+442 S. North Lake Blvd., Altamonte Springs, FL 32701  U.S.A.<br>
+Phone: 407 262-7100<br>
+FAX: 407 339-2554<br>
+Email: <A HREF="mailto: sales@techsource.com">sales@techsource.com</A><P>
+TechSource manufacture a number of Sparc compatible graphics cards.<br>
+The Raptor GFX range are <A HREF="http://www.sun.com/sunready">SunReady</A>
+8 or 24 bit PCI cards for the Ultra range, with resolutions up to 1920x1200.<br>
+The STARS 2K range are PCI cards that provide 2048 x 2048 resolution (check
+<A HREF="http://www.sun.com/pci/pci.cards.ihv.html#cat20">http://www.sun.com/pci/pci.cards.ihv.html</A>
+for the latest information on whether this product has been verified by Sun)<br>
+The GXTRA range are 8 bit SBus cards providing 2D acceleration and 8 bit overlays.<P>
+
+<A NAME="viewsonic"></A>
+<H5><A HREF="http://viewsonic.com">ViewSonic</A></H5>
+Phone: 909 869-7976<BR>
+Email: <A HREF="mailto:mis@viewsonic.com">mis@viewsonic.com</A><P>
+
+ViewSonic say they have tested some of their monitors,
+model numbers 21PS, 17PS and 20G with the TGX+ at 1600x1280 resolution.
+They believe that models PT810 and PT770 should also work.
+A SW1152 adaptor is needed, costing $15. <P>
+
+<A NAME="ultraspec"></A>
+<H5><A HREF="http://www.ultraspec.com/">Ultra Spec Cables</A></H5>
+170 Oberlin Avenue North, Lakewood, New Jersey 08701-4548<BR>
+Phone: 1 800 622 2537 (1 800 6 CABLES)<BR>
+Fax: 1 800 222 5337 (1 800 CABLEES)
+Email: <A HREF="mailto:sales@ultraspec.com">sales@ultraspec.com</A><P>
+Ultra Spec manufacture a range of cables, including monitor cables and
+PC to 13W3 adaptors.<P>
+
+<A NAME="PCFixed"></A>
+<H5><A HREF="http://www.photonweb.com">Photon</A></H5>
+<H5><A HREF="http://www.mirage-mmc.com">Mirage</A></H5>
+<H5><A HREF="http://www.si87.com">Software Integrators Inc.</A></H5>
+51 Evergreen Drive, Suite A, Bozeman, MT 59715<BR>
+Phone: 800-547-2349, 406-586-8866<P>
+
+Photon, Mirage and Software Integrators all manufacturers graphics cards 
+which allow Sun and other fixed-frequency workstation monitors to run on a PC.<P>
+
+<A NAME="parallax"></A>
+<H5><A HREF="http://www.parallaxgraphics.com.">Parallax</A></H5>
+Unfortunately Parallax has gone out of business, and their 
+www.parallax.com site no longer works. However documentation,
+drivers, and source are all available at
+<A HREF="http://www.parallaxgraphics.com.">www.parallaxgraphics.com</A>.<P>
+
+You need a hack to run the framebuffer on solaris 2.6 (docmented on
+the web site) and I've heard the same hack works on solaris 7. (32 bit)<P>
+(Thanks to Bob Larson for this update)<P>
+
+
+<A NAME="extron"></A>
+<H5><A HREF="http://www.extron.com">Extron</A></H5>
+Extron provide a range of scan converters and trans converters,
+allowing you to take the output from a frame buffer and feed it
+into a TV or VCR, or VGA/SVGA device.<P>
+
+<A NAME="rgb"></A>
+<H5><A HREF="http://www.rgb.com">RGB</A></H5>
+RGB provide various video manipulation tools including scan converters
+and computer video signal synchronizers.<P>
+
+<A NAME="stereographics"></A>
+<H5><A HREF="http://www.stereographics.com">StereoGraphics</A></H5>
+StereoGraphics sell Stereo (3D) viewing equipment for use with
+the FFB (1 & 2) and ZX.  The system comes in 3 pieces: glasses,
+an IR emitter box, and a cable to hook up to the frame buffer.<P>
+
+For the FFB2/2+ the cable+emitter is StereoGraphics part number ESUN.
+For just the cable to hook FFB2/2+ to your existing emitter this
+is StereoGraphics part number 69967. The glasses are part number CE2.<P>
+  
+Incidentally, StereoGraphics made prototypes of lower cost glasses
+that have a wire that connects to the framebuffer
+(no cordless IR transmission).
+It is unclear if this ever made it into production.<P>
+
+<A NAME="dome"></A>
+<H5><A HREF="http://www.dome.com">Dome Imaging Systems</A></H5>
+Dome manufacture very high resolution video cards - up to 5 Megapixels -
+for medical imaging and other applications.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="14">
+Why does the Xsun server appear to be so large? </H3>
+</A>
+ 
+This information is taken from SRDB 11507, logged by <CITE>Phil Race</CITE><P>
+ 
+The "ps" command shows the Xsun server process to be very large on some systems,
+particularly those using the Creator 3D.
+Users may think that they are seeing performance degradation,
+and consider the problem a bug. In most cases there is NOT a problem.<P>
+ 
+What is happening is that <CODE><STRONG>ps</STRONG></CODE>
+is showing the sum of the mapped
+parts of the process's address space, and this does not have
+to correspond to either real memory, or to allocated swap space.
+That is what <CODE><STRONG>ps</STRONG></CODE> does -
+it tells you about a particular process.<P> 
+ 
+Access to many devices is often memory-mapped into the address
+space of a process. This is a common technique, and means that
+applications need not know the details of the device, instead they
+just do what they consider to be regular memory writes.<P>
+ 
+A process has a virtual address space, and cannot write into "real"
+memory at all - instead the kernel intercepts all such requests
+and handles them together with the MMU. 
+This phenonmenon is not new, nor specific to framebuffers.
+The cgsix, the mouse, the keyboard, are all mapped in the same way,
+but the amount of address space mapped for these devices is smaller 
+and so is less noticeable.<P>
+ 
+For a better idea of what is happening, find the PID of the Xsun process
+and run the command <CODE>/usr/proc/bin/pmap [PID] > /tmp/pmap</CODE>.
+(It's important to redirect the output to a file or you could lock up
+your system in a deadly embrace.)
+View the file created and you will see something like this:<P>
+
+<PRE>
+00010000    616K read/exec         /usr/openwin/bin/Xsun
+000B8000     32K read/write/exec   /usr/openwin/bin/Xsun
+000C0000  15656K read/write/exec     [ heap ]
+</PRE>
+
+In this case the heap is around 15MB; this is were memory leaks occur.<P>
+
+Further down you may find a line like this:
+
+<PRE>
+F6800000 114704K read/write
+</PRE>
+
+This means that the Creator 3D has mapped about 100Mb of virtual address space.
+It is not using actual memory (either physical or virtual), just address space.<P>
+
+<STRONG>NB:</STRONG> If you run your server in 24 bit mode then it WILL
+use more swap than in 8 bit mode. In such circumstances you may see unavoidable
+paging until you add more memory to compensate for your increased demands.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="15">
+Can I use a Sun monitor with my PC?</H3>
+</A>
+
+Newer Sun monitors have multiscan capability which allow them
+to be used with PC graphics cards. The latest monitors [Mid-1998],
+including the 24" [T-Rex], 21" [Hurricane] and 19" [Cyclone]
+have dual inputs and accept both 13W3 (SUN) and HD15 (PC) type connections.
+Some older monitors, notably the 17" and 20" N2 monitors will work, 
+but require a 13W3 to HD15 adaptor.<P>
+ 
+<A HREF="http://www.sun.com/sunexpress">SunExpress</A> have such an adaptor,
+part number 530-2357-01. This has been tested with the following monitors
+in both DOS and Windows modes:<P>
+<UL>
+<LI>365-1335 <CITE>New Multisync 20" Premium monitor</CITE>
+<LI>365-1338 <CITE>New Multisync 17" Premium monitor</CITE>
+<LI>365-1343 <CITE>New Multisync 17" Entry Level monitor</CITE> 
+</UL>
+
+<A HREF="#ultraspec">Ultra Spec Cables</A> manufacture two different adaptors.
+The part numbers are <STRONG>1396</STRONG> and <STRONG>1397</STRONG>; the
+catalog lists them as <STRONG>13W3 Female to HD15 Male converters</STRONG>.
+The 1397 is identical to the one sold by
+<A HREF="http://www.sun.com/sunexpress">SunExpress</A>,
+and works with the same monitors.<P>
+
+Ultra's catalog states that the 1396 is for use with three monitors;
+these are part numbers 365-1286, 365-1316 and 365-1324. These are
+all Sony monitors with the remote control, however this style of monitor
+also carries several other part numbers, such as 365-1330 and 365-1167;
+Ultra have not claimed to support these monitors.<P>
+
+These monitors support Windows hi-res drivers only. <STRONG>They do not work
+in DOS mode</STRONG> which is something like 640x480@60Hz. (According to
+<CITE>Ben Myers</CITE> this is actually the very old
+CGA mode 3, defined as 80 characters wide x 25 lines high, with vertical
+scan not too well defined. But most graphics cards, VGA and beyond, use 60Hz.)
+The monitors will not sync so low. The editor has tried using a 365-1324
+in 1024x768 and 1280x1024 mode with a S3 chipset PCI video card without
+success, but has heard positive reports from other users.<P>
+
+One user reported that it was possible to use a 17" Sony GDM17E10
+monitor; he used a standard 13W3 to HD15 cable with a small piece
+of wire inserted into the HD15 to short pins 13 and 14 - this provided
+the necessary sync signals.
+
+If you wish to use any other Sun monitor with a PC there are third party
+PCI/ISA card available. These work with windows but require drivers
+for DOS (that ship with them). Consult your favourite WWW search engine
+or check <A HREF="#PCFixed">Photon, Mirage or Software Integrators</A>
+in the <A HREF="#13">3rd party vendors</A> list.<P>
+
+For an introduction to the issues of using fixed frequency monitors on PCs,
+consult <A HREF="http://www.paranoia.com/~filipg/HTML/REPAIR/F_fix_freq.html">the
+sci.electronics.repair FAQ</A> maintained by Samuel M. Goldwasser.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="16">
+What frame buffers are/are not supported in the Ultra machines?</H3>
+</A>
+
+This information is taken from the Sun Ultra 1 Creator Series System Product Notes
+Part no: <STRONG>802-4149-10</STRONG>, Rev A, January 1996.
+This document contains the following information:
+<UL>
+Frame Buffers Not Supported in Ultra Series Systems:<br>
+<STRONG>GS, GT, GT2 (sbus adaptor card), GX, GX+, ZX2 (TZX)</STRONG>
+</UL>
+Not listed above, but also unsupported, are the CG3 and the SX expander card.<P>
+
+<H4>8 bit frame buffers</H4>
+The TGX and TGX+ are definitely supported in the Ultra series, and are
+the preferred solution for multi headed machines.<P>
+
+<H4>24 bit frame buffers</H4>
+The preferred option for 24 bit graphics on Ultra is the FFB.
+If users need a second 24 bit display they should look at the
+<A HREF="#visicom">Rasterflex-32</A> card, which is available
+through <A HREF="http://www.sun.com/sunexpress">SunExpress</A> 
+or from <A HREF="#visicom">VisiCom</A>.<P>
+
+As of October 1996, the ZX frame buffer will be supported
+in Ultra 1 and Ultra 2 machines. This is primarily intended to allow
+customers who are upgrading from older sun4m machines to keep the ZX;
+it is highly unlikely that new Ultra systems will be sold with ZXs.<P>
+
+The ZX is not a low cost alternative to the Creator; on the contrary,
+ZX is a much more expensive graphics option than the Creator graphics
+and has less than half the Creator graphics 3D performance and none of its
+image processing and video playback capabilities. Customers should 
+be encouraged to upgrade to Creator graphics if at all possible.<P>
+
+In order to install the ZX in an Ultra 1 system you will need the
+<CITE>ZX Ultra 1 Kit</CITE> part #595-4072.
+This includes a flexible power cable that goes from the bottom
+SBus connector on the ZX to the lower SBus slot in the Ultra 1.
+There is also a ferrite cable clamp that needs to be placed at the end of
+cables plugging into the stereo port in order to pass FCC Class B
+certification. <P>
+(The ZX kit is not required in Ultra 2 systems as Ultra 2 has side by side
+SBus slots and passes FCC Class B without the ferrite connector.)<P>
+
+Note that the <STRONG>Turbo ZX</STRONG> will not be supported in either
+Ultra 1 or Ultra 2 systems, since it requires additional power and cooling.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="17">
+Why are 24 bit Frame Buffers so expensive compared to a PC?</H3>
+</A>
+An often-heard complaint is <CITE>"Why can't Sun sell a 24 bit
+frame buffer for $200 like I can get for my PC?"</CITE>.
+Regular viewers will remember that this section of the document
+had a detailed explanation of why this wasn't a fair comparison.
+However Sun's announcement of support for PCI bus architecture
+should change all that. It will now be possible for manufacturers
+to release Sun versions of their graphics products.
+Whether this boost to competition in the marketplace will result
+in a $200 24 bit frame buffer remains to be seen.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="18">
+How do I change the resolution on the SparcStation 4?</H3>
+</A>
+
+The SparcStation 4 with the 17" entry level monitor has a default
+screen resolution of 1024x768. Both the monitor and the frame buffer
+will support 1152x900. With an additional VSIMM the TCX will support
+1280x1024, but I'm not certain that the monitor will.<P>
+
+As noted <A HREF="#5">above</A>, the timing parameters are different
+for the TCX. Here's an example of how to set the resolution to 1152x900
+on the entry level monitor. Halt the machine and type:
+<PRE>
+    ok> setenv output-device screen:r1152x900x94
+    ok> setenv fcode-debug? true
+    ok> reset
+</PRE>
+
+The following script was used to set a dual headed SparcStation 4
+with the extra VSIMM and a TGX+ to 1280x1024. The system used two
+20" premium monitors.
+<PRE>
+#!/bin/sh
+#
+#
+#
+/usr/sbin/eeprom nvramrc='devalias hightcx /iommu@0,10000000/sbus@0,10001000/SUNW,tcx@2,800000:r1280x1024x135
+probe-sbus
+" /iommu/sbus/cgsix@0" select-dev
+r1280x1024x76
+" /iommu/sbus/cgsix@0" " set-resolution" execute-device-method drop
+device-end
+install-console
+banner
+'
+/usr/sbin/eeprom output-device=hightcx
+</PRE>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="19">
+How can I tell whether I have the 4Mb or 8Mb SX VSIMM installed?</H3>
+</A>
+
+I've been advised that the SX VSIMMs look very similar to the PrestoServe SIMMs.
+The VSIMM has a surface-mounted chip with very fine pins and should have a protective
+plastic cover cvlipped over it; the latter has a small battery on it, usually surrounded
+by shrunk yellow plastic. Needless to say, the two are *not* interchangeable. <P>
+
+The easy way is to take the lid off - if the VSIMM has chips on both sides
+then it's 8Mb, if the chips are on one side only it's 4Mb.<P>
+However if you can't take the lid off you have more of a problem.
+dmesg, sxconfig and cg14config don't tell you anything useful about
+the VSIMM. The only way to get this information is to analyse the
+output from <CODE>prtconf</CODE>, thus:<P>
+<PRE>
+% prtconf -vp
+. . .
+            reg:  00000002.00000000.00010000.00000004.00000000.00400000
+            device_type:  'display'
+            name:  'cgfourteen'
+. . .
+</PRE>
+The important value is the final value on the <CODE>reg:</CODE> line.
+In this case the value is 00400000, which indicates a 4Mb VSIMM is present.
+If an 8Mb VSIMM is present the value will be 00800000.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="20">
+What is different about the "new" TGX and TGX+?</H3>
+</A>
+There's a line you're supposed to quote at this point that goes something
+like "In accordance with Sun's policy of constant improvement..."<P>
+The "old" TGX had the part number 501-2325; the new one has the part number
+501-2922. The only difference between them is that the packaging of
+the ASIC has changed from Ceramic PGA to Plastic BGA.
+There is no logic or performance change and it uses the same PROM
+which reports the old part and chip rev numbers. <P>
+Similarly, the old TGX+ had part number 501-2253, while the new one has part
+number 501-2955. Once again, only the packaging of the chips -
+in this case both the ASIC and the RAMDAC - has changed.<P>
+The only way to tell the difference is to visually inspect the boards.
+The new style has a smaller sleeker green and black package;
+the older style is the obvious purple-brown ceramic square.<P>
+These changes provide a significant cost reduction without impacting quality.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="21">
+What set of resolutions do the FFB series support?</H3>
+</A>
+
+This answer has moved. See <A HREF="#5">What resolutions do the various frame buffers support?</A><P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="21a">
+Can the FFB1 be used with the 24" HDTV monitor?</H3>
+</A>
+
+The FFB is supported on the 24" monitor at 1280x800 resolution.
+You should install the latest FFB patch (for Solaris 2.5.1 this is 103796).
+Higher resolutions (such as 1900x1080@72) can be achieved but do not work
+well and are not recommended or supported.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="21b">
+What resolutions does the FFB2/2+ support with the 24" HDTV monitor?</H3>
+</A>
+
+With the 24" HDTV monitor the FFB2/2+ Creator 3D
+will support these additional resolutions:
+<PRE>
+	1920 x 1200 single-buffered
+	1600 x 1000 single-buffered
+	1440 x  900 single-buffered
+	1280 x  800 single-buffered or double-buffered
+</PRE>
+
+This frame buffer has 15Mb RAM on board, normally used
+to provide 96 bits per pixel. That's roughly 32 bits each for
+each of the double buffers plus 32 for the Z buffer
+(it's more complex than that, but bear with me).<P>
+
+The two display buffers can be combined to give 10Mb
+to use as a single display buffer. However the Z buffer
+memory cannot be combined in this way, which is why you can't
+have double buffering at higher resolutions.<P>
+
+Be aware that the 24" monitor uses the same sense code as the
+regular 20"/21" monitors. (Sense codes use just 3 bits, and there
+are no unused combinations left.) Consequently the system may be
+unable to determine whether a specified resolution is supported
+by the monitor. If you are unsure as to whether the resolution
+you need is supported, use the "try" parameter to ffbconfig.<P>
+
+More information on this subject is available
+on the Sun Internal Only FAQ.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="22">
+What set of visuals does the FFB support?</H3>
+</A>
+The FFB supports the usual set of 8 and 24 bit visuals, 
+namely <CODE>GrayScale StaticGray PseudoColor StaticColor DirectColor</CODE>
+and <CODE>TrueColor</CODE>. 24 bit DirectColor visual is supported.<P>
+It also supports a complex set of 8 and 24 bit overlays/underlays,
+and both linear and nonlinear gamma correction. More information is needed.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="23">
+I'm confused by all these Creator boards. What's the story, Morning Glory?</H3>
+</A>
+You're not the only one. The difference between Creator
+and Creator 3D is the amount of on-board memory.
+Creator 3D has 15 MB of 3DRAM whereas Creator has only 5MB.
+This makes no difference to the raw geometry rendering speed,
+but double buffering and Z-buffering will be performed
+in software on the plain Creator, whereas Creator 3D will be
+hardware-assisted as it has the extra bit-planes to store this data.<P>
+
+The Series 2 has a 50% performance speedup and supports 
+1920x1200 in single buffer mode, YCC->BGR conversion 
+and OpenGL depth cueing.<P>
+
+The Series 3 has programmable gamma correction,
+has multiple hardware colormaps and management software
+and has hardware stencil support.<P>
+
+<H4>Graphics part number and system support matrix.</H4>
+<TABLE border=5 cellpadding=10>
+<tr><td> </td><td>Horizontal Form Factor</td><td>Vertical Form Factor</td></tr>
+<tr><td>Creator    Series 1</td><td>Ultra1, Ultra2<br>501-2634</td><td>NO</td></tr>
+<tr><td>Creator    Series 1<br>Server compatible</td><td>Ultra1, Ultra2, Ex000<br>501-4127</td><td>NO</td></tr>
+<tr><td>Creator 3D Series 1</td><td>Ultra1, Ultra2<br>501-2633</td><td>NO</td></tr>
+<tr><td>Creator 3D Series 1<br>Server compatible</td><td>Ultra1, Ultra2, Ex000<br>501-4126</td><td>NO</td></tr>
+<tr><td>Creator 3D Series 1<br>75 MHz</td><td>Ultra2, Ex000<br>501-3129</td><td>NO</td></tr>
+
+<tr><td>Creator    Series 2</td><td>NO</td><td>Ultra30<br>501-4174</td></tr>
+<tr><td>Creator 3D Series 2</td><td>Ultra2, Ex000<br>501-4173</td><td>Ultra30<br>501-4172</td></tr>
+
+<tr><td>Creator    Series 3</td><td>NO</td><td>Ultra10, 30, 60<br>501-4789</td></tr>
+<tr><td>Creator 3D Series 3</td><td>Ultra450, Ultra2, Ex000<br>501-4790</td><td>Ultra10, 30, 60<br>501-4788</td></tr>
+
+<tr><td>Elite 3D m3</td><td>NO</td><td>Ultra30, 60<br>595-4871</td></tr>
+<tr><td>Elite 3D m6</td><td>Ultra450, Ultra2<br>595-4878</td><td>Ultra30, 60<br>595-4870</td></tr>
+</TABLE>
+
+Note that this table only shows the configurations that are
+<strong>supported</strong> - ie have been formally qualified after
+extensive testing.
+Other configurations may work, for example FFB2/2+ or AFB in an Ultra 1,
+but are not officially supported.<P>
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="23a">
+There are two speeds of Creator 3D Series 1. Which one do I need?</H3>
+</A>
+
+For Ultra 1 and Ultra 2 machines with CPUs less than 200MHz
+(including dual CPU models) you should use the 66MHz model.
+For 200MHz and above and for all Ex000 series machines
+use the 75MHz model.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="24">
+Can I run two different window managers together on a dual headed machine?</H3>
+</A>
+Although not a frame buffer question, this one pops up time and again.<P>
+Yes, it is possible to run a different window manager on each display.
+The most common combination is to have CDE and OpenWindows side-by-side,
+thus achieving the best of both worlds. To do this, you must first set
+the resource <CODE>Dtwm*multiScreen</CODE> to <CODE>False</CODE>
+in your <CODE>.Xdefaults</CODE> file. You then add the following line
+to the file <CODE>$HOME/.dt/sessions/sessionetc</CODE>
+<PRE>
+	/usr/openwin/bin/olwm -single -display :0.1 &
+</PRE>
+If the file did not exist before, create it, and make sure that it is executable.
+It may also be necessary to copy the file to <CODE>$HOME/.dt/sessionetc</CODE>.
+Now restart dtlogin and you should have olwm on the second screen.<P>
+There is a drawback to this; attempting to change some of the properties
+using the Style Manager can cause the server to die.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="25">
+How can I capture the video output from a frame buffer?</H3>
+</A>
+
+Some frame buffers support "PAL" and "NTSC" resolutions,
+and provide Composite Sync with the appropriate timings.
+However converting from RGB + CSYNC to Composite Video
+may need additional equipment.<P>
+
+If your TV/VCR has a SCART connector (common enough in
+Europe, but very rare in North America) then it is fairly easy to make
+a cable to accomplish this. There is a web page at
+<A HREF="http://www.sm.go.dlr.de/~bob/scart/scart.html">http://www.sm.go.dlr.de/~bob/scart/scart.html</A>  
+that gives instructions on how to do this; it is written in German,
+but is not difficult to understand. There is also a
+<A HREF="images/scart.gif">GIF image</A> that shows the wiring.<P>
+
+Other Sun frame buffers do not support PAL or NTSC resolutions,
+so a converter of some kind is required.
+<A HREF="http://www.sun.com/sunexpress">SunExpress</A> sells the
+"HyperConverter-1280" (PCV-HYPER-1280) - contact them on 1 800 USE SUNX.
+<A HREF="#extron">Extron</A> and <A HREF="#rgb">RGB</A> also market a range of scan converters and
+"trans converters".<P>
+
+As far as 3rd party video cards go, the <A HREF="#parallax">Parallax</A>
+XVideo product seems to be well regarded.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="25a">
+Can I drive a TV from any of the frame buffers?</H3>
+</A>
+See <A HREF="#25">the previous answer</A>.
+
+There have been quite a few recent PC products that can change a 
+640x480x60 resolution screen into a tv viewable signal.
+These are readily availible at local pc stores and are cheap.
+The problem is that these devices generally require seperate sync
+(h/vsync) and most frame buffers use combined sync (csync).<P>
+
+The latest generation of FFB and PGX frame buffers support both
+composite and seperate sync, so may work with these devices.
+Older frame buffers will require <A HREF="#25">scan converters</A>.
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="26">
+Why does the ZX console not sync correctly after using Stereo mode?</H3>
+</A>
+
+There appears to be a problem with the ZX console after using Stereo mode.
+After reverting to Mono mode and exiting OpenWindows the console screen
+appears not to sync correctly.<P>
+
+This is due to the prom thinking the machine is in stereo mode (the
+prom draws the console mode text) and the machine really being in
+standard mode. <P>
+
+When you leoconfig the machine into stereo mode, the prom can detect
+the change from normal->stereo.  However it does not detect the change
+from stereo->normal.  The kernel always know what is going on, which is
+why OpenWindows comes up correctly regardless.<P>
+
+The solution is to keep the machine in stereo mode or to re-boot.<P>
+
+The root cause is that there is inadequate communication of this
+information to the prom.  ZX has implemented this one way, FFB another,
+and other framebuffers do yet other ways.  TGX by the way avoids the
+whole problem by not providing a config program!  Our engineering is
+proposing a mechanism from kernel to prom; still it will be a long time
+before our whole product line deals with this.<P>
+
+As an aside, Windows avoids all this because "console mode" is
+always VGA.  When the BIOS has to write something it knows to switch
+the screen to VGA mode.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="27">
+How can I write to the frame buffer directly?</H3>
+</A>
+
+This question comes up regularly, in various forms. Sun does not
+support direct access to ANY of our frame buffers. The frame buffer
+device drivers and interfaces are considered proprietary and are not
+publicly documented. The only supported way for a customer to access
+a frame buffer is through one of our foundation libraries: X, XIL, XGL
+or OpenGL. There are simply too many problems in allowing direct access
+by customers, most significantly the fact that the code will break
+whenever the hardware changes. By supporting a number of low-level
+interfaces, Sun performs any porting for you, so your code
+should continue to work regardless of the actual platform.<P>
+
+The supplementary question here is:
+<H4>Why aren't programming docs for Sun frame buffers
+at least available on a NDA basis?</H4>
+
+And the answer is: Programming docs for Sun frame buffers don't exist,
+full stop. The level of support and documentation needed to do this across the
+product line would be significant. There are several very subtle rules and
+restrictions for each device - all have individual differences beyond the
+register definitions. Many of these restrictions are not well documented
+except in the driver code. Some of them may hang the system if violated.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="28">
+What is gamma correction?</H3>
+</A>
+For a detailed explanation of gamma correction see the references by
+<A HREF="http://www.vtiscan.com/~rwb/home.html">
+Robert W. Berger</A> and
+<A HREF="http://www.inforamp.net/~poynton">Charles Poynton</A>
+in the <A HREF="#Resources">Other Useful Resources</A> section.<P>
+
+In simple terms, normal CRT monitors do not have a linear relationship
+between input voltage and output brightness. Consequently there is
+not a linear relationship between RGB values and the brightness
+of the colour on the screen. There are simple ways to demonstrate this
+in the references cited above.<P>
+
+Most 24 bit frame buffers provide a means to apply gamma correction.
+For the SX or ZX it is done by giving a -g flag to the appropriate
+configuration program, whereas on the FFB there is a seperate
+gamma corrected TrueColor visual, used by toolkits such as XGL
+and OpenGL.<P>
+
+The latter poses a problem in itself; since the same RGB value
+produces two completely different colours in different visuals,
+how can tools such as snapshot and imagetool know what the
+"correct" value is? <P>
+
+If your application has an image that you wish to apply gamma
+correction to, here is a simple algorithm to create a lookup table:
+
+<PRE>
+short gamma_table[256];
+
+void create_gamma_table(gamma_factor)
+double gamma_factor;
+{
+    int i;
+    double new;
+
+    for (i = 0; i < 256; i++) {
+        new = 255.0 * pow((i / 255.0), 1.0 / gamma_factor);
+        gamma_table[i] = (int) floor (new + 0.5);
+    }
+}
+</PRE>
+
+How the lookup table is applied to the image will depend on
+the visual. For 8 bit PseudoColor a transformation will be
+applied to the colormap; for 24 bit TrueColor it can be
+applied to the image itself. The 24 bit DirectColor case
+is left as an excercise for the reader.<P>
+
+<H4>8 bit case:</H4>
+NB: This code is incomplete; it's adapted from an example
+in the Colormap FAQ. It's here to demonstrate the principle.
+
+<PRE>
+	/* Create new colormap */
+	xcmap = XCreateColormap(display, win,
+        DefaultVisual(display, scrn), AllocNone);
+
+    ycmap = DefaultColormap(display, DefaultScreen(display));
+
+	/* Get all colours in default colormap */
+    for (n = 0; n &lt 256; n++)
+        xcolours[n].pixel = (long) n;
+    XQueryColors(display, ycmap, &amp;xcolours[0], OFFSET);
+
+	/* Allocate colours in new colormap */
+	if (!XAllocColorCells(display, xcmap, TRUE, NULL, 0,
+                        pixels, 256))
+		printf("Failed to allocate colour map info\n");
+
+	/* NB: Ordering of Red, Green and Blue *IS SIGNIFICANT* */
+	i = 0;
+    for (n = 0; n &lt; 256; n++) {
+        xcolours[n].red = gamma_table[cmap[i++] &lt;&lt; 8];
+        xcolours[n].blue = gamma_table[cmap[i++] &lt;&lt; 8];
+        xcolours[n].green = gamma_table[cmap[i++] &lt;&lt; 8];
+        xcolours[n].flags = DoRed | DoGreen | DoBlue;
+    }
+
+	XStoreColors(display, xcmap, &amp;xcolours[0], 256);
+</PRE>
+
+<H4>24 bit case</H4>
+
+Here's an example performing correction on a 24 bit XImage:
+
+<PRE>
+    if (ximage->depth == 24) {
+        int i, j;
+        long pixel;
+        int r, g, b;
+
+        for (j = 0; j < ximage->height; j++) {
+            for (i = 0; i < ximage->width; i++) {
+                pixel = ximage->f.get_pixel(ximage, i, j);
+				/* Ordering of r,g,b is not significant */
+				/* so long as the order is maintained */
+                r = pixel & 0xff;
+                g = (pixel >> 8) & 0xff;
+                b = (pixel >> 16) & 0xff;
+                pixel = gamma_table[r] + (gamma_table[g] << 8)
+                                         + (gamma_table[b] << 16);
+                ximage->f.put_pixel(xim, i, j, pixel);
+            }
+        }
+    }
+</PRE>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="29">
+What's that little round socket for on the back of the FFB2/2+?</H3>
+</A>
+
+That's the new stereo connector. With FFB2/2+ we moved to
+a DIN connector instead of the old RCA type connector.
+Here's a diagram showing the pinouts just in case you 
+need to setup the cable to connect Quark FFB2/2+ Stereo connector
+to the infra-red emitter. All the usual disclaimers apply.<P>
+
+<PRE>
+    Quark FFB2/2+                                    Stereo Emitter
+7 pin mini-din male                             DB9-S 9 pin female  
+                                                        __
+   _________                                           |  \
+ _|         |                6 FT +/-2"                |   \
+| |         |==========================================|    |
+|_|   P1    |==========================================|P2  |
+  |_________|                                          |   /
+                                                       |__/
+
+           CONNECTOR PIN ASSIGNMENT
+
++===========+===================+==========+
+|   signal  |       from P1     |   to P2  |
+|           |   7 pin mini-din  |   DB9-S  |
++===========+===================+==========+
+|    12V    |         3         |     6    |
++===========+===================+==========+
+|    DV     |         1         |     7    |
++===========+===================+==========+
+|    SYNC   |         4         |     8    |
++===========+===================+==========+
+|    SHIELD |     P1 HOOD       | P2 HOOD  |
++===========+===================+==========+
+</PRE>
+On P1 Connector: Pins 2,5,6,7  NOT USED<BR>
+On P2 Connector: Pins 1,2,3,4,5,9  NOT USED<BR>
+
+<A HREF="http://www.stereographics.com/">StereoGraphics</A>
+sells a setup that comes in 3 pieces: glasses,
+an IR emitter box, and a cable to hook up to the framebuffer.
+For the FFB2/2+ the cable+emitter is StereoGraphics part number ESUN.
+They also make versions that works with the FFB1 and the ZX.<P>
+
+For just the cable to hook FFB2/2+ to your existing emitter this 
+is StereoGraphics part number 69967. The glasses are part number CE2.<P>
+
+Incidentally, StereoGraphics made prototypes of lower cost glasses
+that have a wire that connects to the framebuffer
+(no cordless IR transmission).
+It is unclear if this ever made it into production.
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="30">
+What's the story on PCI?</H3>
+</A>
+
+PCI is a platform independent hardware standard;
+for details visit the PCI Special Interest Group at
+<A HREF="http://www.pcisig.com/">http://www.pcisig.com</A>.
+
+The intention is that future machines will be developed with PCI
+interfaces only. However this doesn't mean that SBus is going away -
+there is still a massive installed base which will be supported for
+many years to come.<P>
+
+The first PCI frame buffer from Sun is the PGX. This is an 8 bit
+device with features and performance comparable to the TGX.
+It supports a wide range of resolutions, and is configured
+using a program called m64config rather than the old prom-value
+method required by the TGX. Also unlike previous frame buffers
+it does not use sense codes to determine the resolution.<P>
+
+For full details of PCI cards that are supported in the Ultra 30
+series, including graphics and other products, see
+<A HREF="http://www.sun.com/pci">http://www.sun.com/pci</A>.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="30a">
+So can I take a PCI card from my Sun and plug it in my PC (or vice-versa)?</A></H3>
+
+As stated above, PCI is a HARDWARE standard. This doesn't mean that
+you can buy an Ultra 30 and plug in the video card from your PC;
+Nor can you take a PGX or other PCI card developed for an UltraSparc
+machine and plug it into a PC and expect it to work. Although the
+physical connections may be the same the Sun will require different
+device drivers and on-board firmware.<P>
+
+Having said that, I know of people who have developed basic drivers for PC cards,
+notably the Matrox Milennium II. And before anyone asks, they are not available
+for download. Because the card doesn't have OBP (Open Boot Prom) firmware
+it cannot be used as a console device, only as a second head, and without
+further information from the manufacturer it isn't possible to enable
+the advanced acceleration features.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="31">
+How do the FFB2/2+ and the PGX determine their default resolutions?</A></H3>
+
+Until recently, all frame buffers read a "sense code" from the 13W3
+connector or adaptor to determine what resolution the monitor supported.<P>
+
+This mechanism has now been superceded by a system called DDC
+(Display Data Channel). DDC is a Vesa standard which allows the
+frame buffer to read information known as EDID (Extended Display
+Identification Data) from the monitor. This information includes
+resolutions supported, max width, max refresh, sync type and so forth.<P>
+
+After reading the EDID upon bootup, the firmware looks at the EDID
+Standard Timing Identifiers. It compares each value against the list
+of supported resolutions. If there is a match, that resolution is set
+and the resolution selection process is complete. If not, this process
+continues until all of the Standard Timing Identifiers have been tested.
+At this point a resolution of 1152x900x66 is chosen.<P>
+
+The first Sun monitor to support DDC was the Sony "N2" or GDM 20E20.<P>
+
+<H3>
+<A HREF="#99"><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="32">
+Can I use a PC monitor on an Ultra 5 or Ultra 10?</A></H3>
+
+Any PC monitor that is "Plug And Play" should work with the PGX.
+Older multisync monitors that do not support "Plug and Play"
+can be used, but it may be necessary to reconfigure the card manually
+using m64config, since the default resolution (1152x900) may not be
+supported by a PC SVGA Monitor and the PGX <STRONG>does not support</STRONG>
+the "setenv output-device" EPROM command.<P>
+
+<H3>
+<A HREF="#99."><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="33">
+What are the pinouts for the 13W3 connectors? </H3>
+</A>
+
+<STRONG>NB:</STRONG>
+This interface is NOT formally documented or committed to.
+It is subject to change without notice.<P>
+<PRE>
+	  1   2   3   4   5
+	  o   o   o   o   o
+  (o)                         (o)   (o)
+   A1   o   o   o   o   o      A2    A3
+	6   7   8   9   10
+</PRE>
+
+Pins A1, A2 and A3 carry the Red, Green and Blue signals respectively.
+On a monochrome frame buffer the signal is carried on Pin A2 (Green).<P>
+
+The following is the configuration for the Creator and Creator 3D
+and all future Frame Buffers.
+<PRE>
+	1	SCL			 6	SDA
+	2	+5V			 7	Reserved [VSYNCH]
+	3	SENSE2			 8	SENSE1
+	4	Ground			 9	SENSE0
+	5	CSYNCH			10	Ground
+</PRE>
+<UL>
+Analog RGB is 0V (black) to 0.7V (full intensity) into a 75ohm load.
+CSYNC is a TTL signal into a 75ohm min, 1K typ load.  CSYNC is
+a negative composite sync.  Sync on green is not supported.<P>
+</UL>
+
+<H3>
+<A HREF="#99."><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="34">
+Is it possible to run a dual headed configuration under Solaris X86? </H3>
+</A>
+Most of the drivers for x86 are built by third party developers.
+SUN does some of the video drivers and gets some others from
+Xi Graphics - see <A HREF="http://w.xig.com">www.xig.com</A>
+This company also does its own drivers for various os platforms. 
+They also support dual monitors for x86 as SUN does not at this time.<P>
+
+<H3>
+<A HREF="#99."><IMG ALIGN=bottom SRC="images/FAQ.gif"></A>
+<A NAME="35">
+What frame buffers are supported/work under Solaris 7? </H3>
+</A>
+As usual, what works and what is supported are two different things.
+The main Sun supported devices are the FFB and AFB series, 
+the cgthree and cgsix series (but only TGX and TGX+ in Ultras)
+and the PGX series. The S24/TCX and SX are also believed to work.<P>
+
+<UL>
+<LI>ZX<BR>
+ZX is unsupported in 2.7. Users have reported mixed results in using
+drivers from 2.6; some were successful but others could not get it to work.
+
+<LI>MGX+<BR>
+[JAN 99]
+<STRONG>Rumour</STRONG>
+is that Quantum3D is to sell off the MGX family to a third party.
+If true, Quantum3D will probably not be providing support for the MGX.
+Certainly no drivers are available for download at the present time.
+</UL>
+
+<A NAME="Parts">
+<H2>Useful Part Numbers</H2></A>
+
+Having trouble finding a part number? Here are some useful numbers.
+If you have any suggestions for additions please let me know.<P>
+
+<A NAME="Cables">
+<H3>Cables and adapters</H3></A>
+
+<STRONG>130-3034</STRONG>
+The adapter to connect the 17-inch entry-level monitor
+to a SPARCstation - 13W3 male to HD15 female.<P>
+
+<STRONG>595-4072</STRONG>
+ZX Ultra 1 Kit - the full kit required to install the ZX in an Ultra 1<P>
+
+<HR>
+<A NAME="noflash">
+<H3><A href="progs/libnoflash.so.1">libnoflash</A>:
+Eliminate Colormap Flashing</H3>
+I've created a small library that will eliminate colormap flashing
+in many cases, though not all. It works by intercepting calls to
+XAllocColor, and checking the return.
+If the allocation failed, it returns the closest read-only match.
+Feedback is welcome.
+You can download <A href="progs/preload.c">the source</A>
+(freely distributable) and <A href="progs/libnoflash.so.1">the library</A>
+compiled for Solaris 2.5.1<P>
+To use, simply set the <STRONG>LD_PRELOAD</STRONG> environmental variable, thus:<PRE>
+    % setenv LD_PRELOAD /(mydir)/libnoflash.so.1
+</PRE>
+and the library will be picked up automagically.<P>
+<STRONG>NB:</STRONG> If you are using Java applications this library can cause
+Java to crash with a segmentation violation. This is related to bug 4028760,
+but fortunately there's a simple work-around; it does not crash if you also
+preload the Motif library, thus:
+<PRE>
+    % setenv LD_PRELOAD "/(mydir)/libnoflash.so.1 /usr/dt/lib/libXm.so.3"
+</PRE>
+
+<HR>
+
+<A NAME="fbinfo">
+<H3><A href="progs/fbinfo">fbinfo</A>: Frame Buffer Information</H3>
+This is a k-shell script that will determine what frame buffers
+are available on your system, what resolution they are running at
+and other useful information. Here's an example of the output from the script:
+<PRE>
+cgsix@0 is TGX Plus                     1280x1024@67 Monitor type 4
+ffb@1e  is FFB 75MHz Double buffered    1280x1024@67
+</PRE>
+
+<HR>
+
+<A NAME="fbconf">
+<H3><A href="progs/fbconf_tar.Z">fbconf</A>: Frame Buffer Configuration</H3>
+fbconf is a frame buffer configuration utility written in Java.
+It allows the user to change the resolution of each frame buffer
+and to configure CDE. It is currently in its 1.0 Beta release.<P>
+Please Note: This is a compressed tar file. Save it as fbconf_tar.Z and
+extract it by typing <CODE>zcat fbconf_tar.Z | tar xf -</CODE><P>
+<HR>
+Edited and maintained by <CITE>David.Tong@EBay.Sun.COM</CITE> SunService TS<br>
+Created and maintained using <STRONG>vi</STRONG>.

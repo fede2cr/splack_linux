@@ -1,0 +1,1780 @@
+  Linux Installation HOWTO
+  von Matt Welsh (mdw@sunsite.unc.edu) und Marco Budde 
+  (Budde@tu-harburg.d400.de)
+  v1.2, 20. Februar 1997
+
+  Dieser Text nennt Bezugsquellen fr Linux und beschreibt dessen
+  Installation. Diese Version konzentriert sich auf die beliebte Slackí
+  ware Distribution (Version 3.1). Dieses Dokument sollte jeder neuer
+  Linux Benutzer als erstes lesen, um erste Informationen ber dieses
+  System zu erhalten.
+
+  1.  Einleitung
+
+  Linux ist eine kostenlos kopierbare Implementation von UNIX fr
+  Rechner mit einer 80386, 80486 oder Pentium (Pro) CPU. Es untersttzt
+  eine groáe Anzahl von Programmen wie z.B. das X Window System, Emacs,
+  TCP/IP Netzwerke (inklusive SLIP). Diese Einfhrung in Linux geht
+  davon aus, daá der Leser bereits von Linux geh”rt hat und dieses nun
+  installieren m”chte.
+
+  1.1.  Andere Informationsquellen
+
+  Falls Sie vorher noch nicht von Linux geh”rt haben, gibt es mehrere
+  Quellen fr Grundlagen Informationen ber dieses System.  Eine ist die
+  Linux Frequently Asked Questions Liste (FAQ), die von
+
+       sunsite.unc.edu:/pub/Linux/docs/FAQ
+
+  bezogen werden kann. Dieses Dokument enth„lt h„ufig gestellte Fragen
+  und Antworten ber Linux; dieses sollte jeder neue Benutzer gelesen
+  haben.
+
+  In dem Verzeichnis
+
+       sunsite.unc.edu:/pub/Linux/docs
+
+  findet man eine Anzahl weiterer Dokumente ber Linux. Hier sind auch
+  das Linux INFO-SHEET und die META-FAQ zu finden, die man beide gelesen
+  haben sollte. Eine weitere Informationsquelle sind die USENET Newsí
+  groups de.comp.os.linux.misc und comp.os.linux.announce.
+
+  Eine weitere Quelle fr Linux Dokumentation ist das Linux HOWTO
+  Archiv, das unter
+
+       sunsite.unc.edu:/pub/Linux/docs/HOWTO
+
+  zu finden ist.  Die Datei HOWTO-INDEX enth„lt eine šbersicht der verí
+  schiedenen HOWTOs.
+
+  Das Linux Documentation Project schreibt eine Reihe von Anleitungen
+  und Bchern zu Linux, welche alle kostenlos ber das Internet zu
+  beziehen sind. Das Verzeichnis
+
+       sunsite.unc.edu:/pub/Linux/docs/LDP
+
+  enth„lt die aktuellen Bcher des LDP.
+
+  Das Buch Linux Installation and Getting Started ist eine komplette
+  Einfhrung, die den Bezug und die Installation von Linux beschreibt.
+  Auáerdem werden in diesem Ratschl„ge zur Benutzung gegeben, wenn das
+  System erst einmal installiert ist.  Diese HOWTO ist eine
+  Zusammenfassung einiger der wichtigsten Informationen aus diesem Buch.
+  Linux Installation and Getting Started ist im Verzeichnis
+
+       sunsite.unc.edu:/pub/Linux/docs/LDP/install-guide
+
+  zu finden.
+
+  1.2.  Neue Versionen dieses Dokuments
+
+  Die jeweils neuste Version diese HOWTO ist auf dem WWW Server des
+  Deutschen Linux HOWTO Projekts unter folgenden Adresse zu finden:
+
+       http://www.tu-harburg.de/~semb2204/dlhp/
+
+  Hier kann man die jeweils aktuelle Version auch gleich online lesen.
+  Auáerdem kann die HOWTO von folgendem Server bezogen werden:
+
+       ftp.uni-stuttgart:/pub/systems/linux/local/doc
+
+  1.3.  Feedback
+
+  Wenn Sie irgendwelche Frage oder Kommentare zu diesem Dokument haben,
+  erreichen Sie mich unter den e-mail Adressen
+
+  Internet: Budde@tu-harburg.d400.de
+  Fido: Marco Budde 2:240/5202.15
+
+  Ansonsten bin ich zu erreichen unter
+
+       Marco Budde
+       Vaenser Weg 73
+       D 21244 Buchholz i.d.N.
+
+  Ich freue mich ber alle Vorschl„ge und Kritiken zu dieser HOWTO. Wenn
+  Ihnen also irgendein Abschnitt in dieser HOWTO unklar sein sollte oder
+  Sie bei Ihrer Installation irgendwelche Probleme entdeckt und gel”st
+  haben sollten, die vielleicht auch fr andere Anf„nger interessant
+  sein sollten, dann schreiben Sie mir bitte. Fr den fortgeschrittenen
+  Anwender ist es n„mlich manchmal etwas schwierig, sich in die Probleme
+  eines Anf„ngers hineinzuversetzen.
+
+  1.4.  Copyright
+
+  Dieses Dokument ist urheberrechtlich geschtzt. Das Copyright fr die
+  englische Installation HOWTO, auf der dieses Dokument basiert, liegt
+  bei Matt Welsh. Das Copyright fr die deutsche Version liegt bei Marco
+  Budde.
+
+  Das Dokument darf gem„á der GNU General Public License verbreitet
+  werden. Insbesondere bedeutet dieses, daá der Text sowohl ber
+  elektronische wie auch physikalische Medien ohne die Zahlung von
+  Lizenzgebhren verbreitet werden darf, solange dieser Copyright
+  Hinweis nicht entfernt wird. Eine kommerzielle Verbreitung ist erlaubt
+  und ausdrcklich erwnscht. Bei einer Publikation in Papierform ist
+  das Deutsche Linux HOWTO Projekt hierber zu zu informieren.
+
+  2.  Hardware Anforderungen
+
+  Was fr ein System ben”tigt man, um Linux laufen lassen zu k”nnen?
+  Das ist eine wirklich gute Frage; die aktuellen Hardware Anforderungen
+  „ndern sich regelm„áig. Die Linux Hardware HOWTO enth„lt eine mehr
+  oder weniger komplette Liste der Hardware, die von Linux untersttzt
+  wird. Eine andere Liste ist in dem Linux INFO-SHEET zu finden.
+
+  Das nachfolgende ist die minimale Anforderung fr einen Linux Rechner:
+
+  Jeder ISA, EISA oder VESA Local Bus Rechner, der mindestens ber einen
+  80386SX Prozessor verfgt, kann verwendet werden. Zur Zeit wird die
+  MicroChannel (MCA) Architektur, die man in IBM PS/2 Rechnern findet,
+  nicht untersttzt. Viele Rechner mit PCI Bus werden ebenfalls
+  untersttzt (siehe Linux PCI HOWTO fr weitere Details).  Ein
+  mathematischer Coprozessor ist nicht notwendig, allerdings ist es sehr
+  sinnvoll, einen zu haben, da einige Programme ansonsten sehr langsam
+  laufen.
+
+  Ihr Rechner sollte mindestens ber 4 MB Speicher verfgen. Theoretisch
+  l„uft Linux auch mit 2 MB, allerdings ben”tigen die meisten
+  Installationen und Programme mindestens 4 MB. Je mehr Speicher Sie
+  besitzen, um so mehr Freude werden sie an Linux haben. Wenn man die
+  grafische Benutzeroberfl„che von Linux, das sogenannte X Window
+  System, einsetzen m”chten, sollte der Rechner ber mindestens 16 MB
+  RAM verfgen. Mehr kann natrlich auch nicht schaden.
+
+  Natrlich ben”tigt man eine Festplatte und einen Standardkontroller.
+  Alle MFM, RLL und (E)IDE Laufwerke und Kontroller sollten
+  funktionieren. Viele SCSI Laufwerke und Kontroller werden ebenfalls
+  untersttzt; weitere Informationen ber SCSI findet man in der SCSI
+  HOWTO.
+
+  Tats„chlich kann Linux sogar von einer einzigen 5.25" HD Diskette
+  gestartet werden, aber das ist nur zur Installation und zur Wartung
+  sinnvoll.
+
+  Natrlich wird auch freier Platz auf der Festplatte ben”tigt. Dessen
+  Gr”áe ist abh„ngig von der installierten Software. Die meisten
+  Installationen ben”tigen zwischen 40 und 80 MB. Dieses beinhaltet
+  Platz fr die Software, die Swapdatei, die als virtueller RAM benutzt
+  wird, und freien Platz fr die Benutzer.
+
+  Es ist denkbar, ein Linux System auf einer 10 MB groáen Partition zu
+  installieren, es ist aber auch denkbar, daá ein Linux System 100 MB
+  oder mehr belegt. Dieses ist abh„ngig von der Anzahl der installierten
+  Programme und deren Gr”áe. Neben dem Platz fr die Programme wird
+  weiterer fr die Daten der Benutzer ben”tigt. Weitere Informationen
+  hierzu befinden sich in den folgenden Kapiteln.
+
+  Linux kann neben anderen Betriebssystemen wie MS-DOS, Microsoft
+  Windows oder OS/2 auf der Festplatte installiert werden. Tats„chlich
+  kann man unter Linux sogar auf die MS-DOS Dateien zugreifen und manche
+  MS-DOS Programme starten. Das bedeutet, daá bei der Partitionierung
+  der Festplatte Linux, MS-DOS und OS/2 jeweils ihre eigene Partition
+  erhalten. Weitere Details hierzu folgen sp„ter.
+
+  Allerdings sind weder MS-DOS noch OS/2 eine Voraussetzung um Linux zu
+  benutzen. Linux ist ein komplett eigenst„ndiges Betriebssystem, das
+  weder fr die Installation noch fr den Betrieb ein anderes
+  Betriebssystem ben”tigt.
+
+  Zum Betrieb wird eine Hercules, CGA, EGA, VGA oder Super VGA
+  Grafikkarte und ein entsprechender Monitor ben”tigt. Im allgemeinen
+  sollten eine Grafikkarte und ein Monitor, die unter MS-DOS
+  funktionieren, auch unter Linux einwandfrei arbeiten. Fr den Betrieb
+  des X Window Systems gibt es allerdings andere Anforderungen an die
+  Grafikkarte. Die Linux XFree86 HOWTO enth„lt weitere Informationen
+  ber die Benutzung von X und dessen Anforderungen.
+
+  Insgesamt ben”tigt das kleinste Linux System nicht viel mehr wie die
+  meisten MS-DOS oder Microsoft Windows Systeme, die heute verkauft
+  werden. Ein 386er oder 486er mit wenigstens 4 MB RAM sollte
+  ausreichen, um mit Linux glcklich zu werden. Linux ben”tigt nicht
+  riesige Mengen von Speicherplatz, RAM oder Prozessorleistung. Ich habe
+  Linux zuerst auf einem 386/25 MHz (der langsamste Rechner, den man
+  bekommen kann) mit 4 MB RAM benutzt und war ziemlich glcklich. Je
+  mehr man machen m”chte, desto gr”áer sollte der Speicher und der
+  Prozessor sein. Meiner Erfahrung nach bertrifft ein Linux System mit
+  einem 486er und 16 MB RAM viele Workstations.
+
+  3.  Bezugsquellen fr Linux
+
+  In disem Abschnitt besch„ftigen wir uns damit, wie man an die Linux
+  Software gelangt.
+
+  3.1.  Linux Distributionen
+
+  Bevor man Linux installieren kann, muá man sich fr eine der
+  verfgbaren Distributionen von Linux entscheiden. Es gibt nicht die
+  Version von Linux - es gibt viele solcher Versionen.  Jede Version hat
+  ihre eigene Dokumentation und Installationsanleitung.
+
+  Linux Distributionen sind sowohl per anonymous FTP als auch per
+  Versand auf Diskette, Band oder CDROM beziehbar. Die Linux
+  Distribution HOWTO enth„lt eine Liste der meisten verfgbaren
+  Distribution, die per FTP oder Versand zu bekommen sind.
+
+  Diese HOWTO bezieht sich auf die Slackware Distribution von Patrick J.
+  Volkerding (volkerdi@slackware.com). Diese ist eine der am
+  meisten eingesetzten Distributionen; sie ist sehr aktuell und enth„lt
+  eine gute Auswahl von Programme wie das X Window System, TeX und viele
+  andere. Die Slackware Distribution besteht aus einer Anzahl von
+  Diskettenserien, die jeweils einen bestimmten Typ von Software
+  enthalten (z.B. enth„lt die d Serie Entwicklertools wie den gcc
+  Compiler). Der Anwender kann bei der Installation entscheiden, welche
+  Serien er installieren m”chte. Zus„tzliche oder neue Serien k”nnen
+  sehr leicht nachtr„glich installiert werden.
+
+  Die Slackware ist einfach zu installieren; sie ist sehr selbst
+  erkl„rend. Tats„chlich ist sie so selbst erkl„rend, daá diese HOWTO
+  eigentlich nicht notwendig ist.
+
+  Dieses Dokument beschreibt die Slackware Version 3.1 aus dem Jahr
+  1996. Die Installation der nachfolgenden Versionen sollte recht
+  „hnlich zu der hier beschriebenen Installation sein.
+
+  Informationen ber andere Distributionen sind im Linux Installation
+  and Getting Started Buch des LPD zu finden. Auáerdem sind weitere
+  Distributionen von Linux auf verschiedenen FTP Servern inklusive
+
+       sunsite.unc.edu:/pub/Linux/distributions
+
+  zu finden.  Weitere Informationen hierzu finden sich, wie schon weiter
+  oben erw„hnt, in der Distribution HOWTO.
+
+  Die Beschreibungen in diesem Dokument sollten allgemein genug sein, so
+  daá sie auch fr andere Linux Distributionen geeignet sein sollten.
+  Ich hasse es, nur auf eine Distribution eingehen zu k”nnen, aber ich
+  habe nicht die Zeit, um mich mit allen zu besch„ftigen! Und die
+  Slackware Distribution scheint das zu haben, was die meisten Linux
+  Benutzer suchen.
+
+  3.2.  Bezug der Slackware auf CDROM
+
+  Die meisten Anwender installieren heute die Slackware von CDROM.
+  Dieses ist sinnvoll, da die komplette Slackware ber 100 MB groá ist.
+  Eine Installation von Diskette w„re daher sehr langwierig.  Auáerdem
+  l„át sich eine CDROM natrlich erheblich billiger herstellen als
+  entsprechend viele Disketten. Ein Bezug der Slackware aus dem Internet
+  ist fr viele Anwender zu teuer und zu langwierig.
+
+  Die Firma Walnut Creek bietet eine offizielle Slackware Version an,
+  die gegenber der freien Version mit einiger kommerzieller Software
+  erweitert wurde. Viele andere CDROM Hersteller bieten die Slackware in
+  Verbindung mit Abbildern von Linux FTP Servern zu erheblich
+  gnstigeren Preisen an. Auch manchen Zeitungen liegt die Slackware als
+  Zugabe auf CDROM bei. In der Distribution    HOWTO findet man eine
+  Zusammenstellung der bekannteren CDROM Hersteller.
+
+  3.3.  Bezug der Slackware aus dem Internet
+
+  Die Slackware Distribution von Linux ist auf einer groáen Anzahl von
+  FTP Servern in der ganzen Welt zu finden. Die Linux META-FAQ listet
+  einige Linux FTP Server auf; um die Netzbelastung m”glichst gering zu
+  halten, sollte ein m”glichst naher FTP Server benutzt werden. Zwei der
+  gr”áten FTP Server fr Linux sind sunsite.unc.edu und tsx-11.mit.edu.
+
+  Die Slackware Distribution kann auf den folgenden FTP Servern gefunden
+  werden:
+
+  ú  sunsite.unc.edu:/pub/Linux/distributions/slackware
+
+  ú  tsx-11.mit.edu:/pub/linux/packages/slackware
+
+  ú  ftp.cdrom.com:/pub/linux/slackware
+
+     ftp.cdrom.com ist der Hauptserver der Slackware.
+
+  Falls man wirklich die komplette Slackware aus dem Internet beziehen
+  m”chte, sollte man einen lokalen Mirror verwenden. In Deutschland ist
+  dieses z.B.:
+
+       ftp.uni-stuttgart.de:/pub/systems/linux/slackware/
+
+  3.4.  Diskettenserien
+
+  Die Slackware Distribution besteht aus mehreren Diskettenserien und
+  einigen Hilfsprogrammen. Eine Diskettenserie besteht aus mehreren
+  Unterverzeichnissen, wobei jedes Unterverzeichnis genau auf eine
+  Disketten paát. Jede Diskettenserie enth„lt Programme einer bestimmten
+  Kategorie.
+
+  Man kann vor einer Installation nicht genau sagen, wieviel Platz eine
+  Serie auf der Festplatte belegen wird. Da die Dateien komprimiert
+  vorliegen, muá man mit 2 bis 4 MB pro Diskette rechnen.
+
+  Fr eine Installation der Slackware ist auf jeden Fall die a Serien
+  notwendig, die restlichen Serien sind optional. Die Diskettenserie a
+  belegt ungef„hr 7 MB auf der Festplatte. Die zus„tzliche Installation
+  der Serien ap und d ist auf jeden Fall empfehlenswert.  Wenn man das X
+  Window System einsetzen m”chte, muá man auáerdem die x Serie
+  installieren.
+
+  Die Slackware 3.1 enth„lt folgende Diskettenserien:
+
+     A  Das Basis System.  Genug, um ein laufendes System zu haben und
+        elvis und Kommunikationsprogramme benutzen zu k”nnen. Dieses
+        basiert auf dem Linux Kernel der Version 2.0.0 und den Konzepten
+        des Linux Filesystem Standards (FSSTND).
+
+        Diese Disketten passen auch auf 1,2 MB Disketten, obwohl das bei
+        den restlichen Disketten nicht der Fall ist. So kann auch ein
+        Anwender, der nur ber ein 1,2 MB Diskettenlaufwerk verfgt, das
+        Basissystem installieren. Die anderen Disketten k”nnen dann z.B.
+        per DFš auf die Festplatte bertragen werden und von dort
+        installiert werden.
+
+     AP Verschiedene Anwendungen und Hilfsprogramme, wie die manual
+        pages, groff, ispell, joe, jed, jove, ghostscript, sc, bc, ftape
+        Untersttzung und die quota Patches.
+
+     D  Programm Entwicklung. GCC/G++/Objective C/Fortran-77  2.7.2,
+        make (GNU und BSD), byacc und GNU bison, flex, die 5.3.12 C
+        libraries, gdb, SVGAlib, ncurses, gcl (LISP), p2c, m4, perl und
+        rcs.
+
+     E  GNU Emacs 19.31.
+
+     F  Eine Sammlung von FAQs und anderen Dokumenten.
+
+     K  Der Source Code fr der Linux Kernel der Version 2.0.0.
+
+        Wichtig: Die Include Dateien in den Linux Kerneln werden
+        ben”tigt, um viele Programme kompilieren zu k”nnen. Aus diesem
+        Grund sollte man den Kernel Source installieren, wenn man selbst
+        Programme kompilieren m”chte.
+
+     N  Netzwerk. TCP/IP, UUCP, mailx, dip, PPP, deliver, elm, pine, BSD
+        sendmail, Apache httpd, arena, lynx, cnews, nn, tin, trn und
+        inn.
+
+     T  teTeX Version 0.4 - teTeX is die TeX Distribution fr Linux von
+        Thomas Esser.
+
+     TCL
+        Tcl, Tk, TclX, erzeugt mit ELF shared libraries und und dynamic
+        loading Untersttzung. Enth„lt auch den Dateimanager TkDesk.
+
+     Y  Spiele. Die BSD Spielesammlung, Lizards
+        und Sasteroids.
+
+     X  Das Basis XFree86 3.1.2 System, mit hinzugefgtem libXpm, fvwm
+        1.23b und xlock. Enth„lt auáerdem xf86config, mit dem die
+        XF86Config Datei durch Eingabe der verwendeten Grafikkarte, Maus
+        und Monitor erzeugt werden kann.
+
+     XAP
+        X Anwendungen: X11 ghostscript, libgr, seyon, xfilemanager, xv
+        3.10, GNU chess und xboard, xfm 1.3.2, ghostview, gnuplot,
+        xpaint, xfractint und verschiedene X Spiele.
+
+     XD X11 Server Linkkit, statische libraries und PEX Untersttzung.
+
+     XV Xview 3.2P1 Release 6. XView libraries und die Open Look
+        virtuellen und nicht virtuellen Fenstermanager fr XFree86.
+
+  3.5.  Ben”tigte Dateien
+
+  Neben den schon weiter oben im Text erw„hnten Diskettenserien ben”tigt
+  man einige weitere Dateien fr eine Installation der Slackware.
+
+  3.5.1.  Bootdiskette
+
+  Um eine Bootdiskette fr die Installation erstellen zu k”nnen,
+  ben”tigt man eine Datei, die das Abbild einer Bootdiskette enth„lt.
+  Dieses Abbild wird Bootdisketten Image genannt.
+
+  Falls es sich bei dem Bootlaufwerk in dem Rechner, auf dem Linux
+  installiert werden soll, um ein 1,44 MB Laufwerk (3.5") handelt,
+  findet man die Images in dem Verzeichnis boot144.  Die Images fr ein
+  1,2 MB Bootlaufwerk (5.25") befinden sich im Verzeichnis boot12.
+
+  Man ben”tigt eine der folgenden Dateien. Die Datei README.TXT in
+  diesen Verzeichnissen enth„lt eine aktuelle Liste von Bootdisketten
+  Images.
+
+  Die Bootdisketten lassen sich in zwei Gruppen einteilen: die IDE und
+  die SCSI Bootdisketten. Die IDE Bootdisketten enthalten Untersttzung
+  fr IDE Festplatten und CDROM Laufwerke.  Zus„tzlich sind folgenden
+  Treiber enthalten:
+
+     aztcd.i
+        CDROM Laufwerke: Aztech CDA268-01A, Orchid CD-3110,
+        Okano/Wearnes CDD110, Conrad TXC, CyCDROM CR520 und CR540.
+
+     bare.i
+        Diese Bootdiskette enth„lt nur einen Treiber fr IDE Laufwerke.
+        Diese Diskette sollte verwendet werden, wenn man nur ber einen
+        IDE Festplattenkontroller verfgt und die Slackware nicht ber
+        das Netzwerk oder von CDROM installieren m”chte.
+
+     cdu31a.i
+        Untersttzt die propriet„re CDROM Laufwerke Sony CDU31/33a.
+
+     cdu535.i
+        Untersttzt die propriet„re CDROM Laufwerke Sony CDU531/535.
+
+     cm206.i
+        Untersttzt das propriet„re CDROM Laufwerk Philips/LMS cm206 CD-
+        ROM mit cm260 Kontroller.
+
+     goldstar.i
+        Untersttzt das propriet„re CDROM Laufwerk Goldstar R420 CD-ROM,
+        das teilweise im Reveal Multimedia Kit verkauft wird.
+
+     mcd.i
+        Untersttzt die propriet„re CDROM Laufwerke von Mitsumi, die
+        nicht mit den (E)IDE Laufwerke von Mitsumi verwechselt werden
+        sollten.
+
+     mcdx.i
+        Verbesserte Version des mcd Treibers.
+
+     net.i
+        Enth„lt Untersttzung fr Ethernetkarten.  Diese Diskette ist
+        zur Installation ber das Netzwerk unter Verwendung von NFS
+        gedacht.
+
+     optics.i
+        Untersttzt das propriet„re CDROM Laufwerk Optics Storage 8000
+        AT CD-ROM.
+
+     sanyo.i
+        Untersttzt das propriet„re CDROM Laufwerk Sanyo CDR-H94A.
+
+     sbpcd.i
+        Untersttzt die propriet„ren CDROM Laufwerke von Matsushita,
+        Kotobuki, Panasonic, CreativeLabs (Sound Blaster), Longshine und
+        Teac.
+
+     xt.i
+        Untersttzt XT Festplatten.
+
+  Die SCSI Bootdisketten enthalten Untersttzung fr IDE Festplatten und
+  CDROM Laufwerke. Zus„tzlich sind die aufgelisteten Treiber enthalten:
+
+     7000fast.s
+        Western Digital 7000FASST SCSI Untersttzung.
+
+     advansys.s
+        AdvanSys SCSI Untersttzung.
+
+     aha152x.s
+        Adaptec 152x SCSI Untersttzung.
+
+     aha1542.s
+        Adaptec 1542 SCSI Untersttzung.
+
+     aha1740.s
+        Adaptec 1740 SCSI Untersttzung.
+
+     aha2x4x.s
+        Adaptec AIC7xxx SCSI Untersttzung, der auf folgenden Karten
+        Verwendung findet: AHA-274x, AHA-2842, AHA-2940, AHA-2940W,
+        AHA-2940U, AHA-2940UW, AHA-2944D, AHA-2944WD, AHA-3940,
+        AHA-3940W, AHA-3985, AHA-3985W).
+
+     am53c974.s
+        AMD AM53/79C974 SCSI Untersttzung.
+
+     aztech.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr die
+        CDROM Laufwerke Aztech CDA268-01A, Orchid CD-3110, Okano/Wearnes
+        CDD110, Conrad TXC, CyCDROM CR520, CR540.
+
+     buslogic.s
+        Buslogic MultiMaster SCSI Untersttzung.
+
+     cdu31a.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr die
+        CDROM Laufwerke Sony CDU31/33a.
+
+     cdu535.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr die
+        CDROM Laufwerke Sony CDU531/535.
+
+     cm206.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr das
+        Philips/LMS cm206 CDROM Laufwerk mit dem cm260 Kontroller.
+
+     dtc3280.s
+        DTC (Data Technology Corp) 3180/3280 SCSI Untersttzung.
+
+     eata_dma.s
+        DPT EATA-DMA SCSI Untersttzung; Boards wie PM2011, PM2021,
+        PM2041, PM3021, PM2012B, PM2022, PM2122, PM2322, PM2042, PM3122,
+        PM3222, PM3332, PM2024, PM2124, PM2044, PM2144, PM3224, PM3334.
+
+     eata_isa.s
+        DPT EATA-ISA/EISA SCSI Untersttzung; Boards wie PM2011B/9X,
+        PM2021A/9X, PM2012A, PM2012B, PM2022A/9X, PM2122A/9X,
+        PM2322A/9X.
+
+     eata_pio.s
+        DPT EATA-PIO SCSI Untersttzung (PM2001 und PM2012A).
+
+     fdomain.s
+        Future Domain TMC-16x0 SCSI Untersttzung.
+
+     goldstar.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr das
+        Goldstar R420 CDROM Laufwerk, das manchmal als Reveal Multimedia
+        Kit verkauft wird.
+
+     in2000.s
+        Always IN2000 SCSI Untersttzung.
+
+     iomega.s
+        IOMEGA PPA3 (paralle Schnittstelle) SCSI Untersttzung.
+        Untersttzt auch das ZIP Laufwerk fr die parallele
+        Schnittstelle.
+
+     mcd.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr die
+        nicht IDE Laufwerke von Mitsumi.
+
+     mcdx.s
+        Wie mcd.s mit verbessertem Treiber fr die nicht IDE Laufwerke
+        von Mitsumi.
+
+     n53c406a.s
+        NCR 53c406a SCSI Untersttzung.
+
+     n_5380.s
+        NCR 5380 und 53c400 SCSI Untersttzung.
+
+     n_53c7xx.s
+        NCR 53c7xx, 53c8xx SCSI Untersttzung.  Dieser Treiber ist fr
+        die meisten NCR PCI SCSI Kontroller geeignet
+
+     optics.s
+        Alle untersttzten SCSI Kontroller und Untersttztung fr das
+        Optics Storage 8000 AT CDROM Laufwerk (das 'DOLPHIN' Laufwerk).
+
+     pas16.s
+        Pro Audio Spectrum/Studio 16 SCSI Untersttzung.
+
+     qlog_fas.s
+        ISA/VLB/PCMCIA Qlogic FastSCSI!  Untersttzung (untersttzt auch
+        die Control Concepts SCSI Karten, die auf dem Qlogic FASXXX Chip
+        basieren).
+     qlog_isp.s
+        Untersttzt alle Qlogic PCI SCSI Kontroller mit Ausnahme des
+        PCI-basic, der vom AMD SCSI Treiber untersttzt wird.
+
+     sanyo.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr das
+        Sanyo CDR-H94A CDROM Laufwerk.
+
+     sbpcd.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr die
+        nicht IDE CDROM Laufwerk von Matsushita, Kotobuki, Panasonic,
+        CreativeLabs (Sound Blaster), Longshine und Teac.
+
+     scsi.s
+        Eine allgemeine SCSI Bootdiskette, die fr die meisten von Linux
+        untersttzten CDROM Laufwerke Treiber enth„lt.  Diese Diskette
+        hat aber den Nachteil, sehr viel Speicher zu verschwenden, da
+        sie ja fast alle SCSI Treiber enth„lt. Wenn man den in dem
+        eigenen Rechner verwendeten SCSI Kontroller kennt, sollte man
+        eine spezielle Bootdiskette verwenden, die nur Treiber fr
+        diesen Kontroller enth„lt. Falls man den verwendeten SCSI
+        Kontroller aber nicht kennt, ist diese Diskette vielleicht ganz
+        hilfreich.
+
+     scsinet.s
+        Alle untersttzten SCSI Kontroller und Untersttzung fr
+        Ethernet.
+
+     seagate.s
+        Seagate ST01/ST02, Future Domain TMC-885/950 SCSI Untersttzung.
+
+     trantor.s
+        Trantor T128/T128F/T228 SCSI Untersttzung.
+
+     ultrastr.s
+        UltraStor 14F, 24F und 34F SCSI Untersttzung.
+
+     ustor14f.s
+        UltraStor 14F und 34F SCSI Untersttzung.
+
+  Man ben”tigt nur eine der obigen Bootdisketten. Die Wahl der
+  Bootdiskette ist von der verwendeten Hardware abh„ngig.
+
+  Das Problem der Bootdisketten besteht darin, daá einige Hardware
+  Treiber sich nicht miteinander vertragen und statt zu versuchen, das
+  Hardwareproblem des Systems zu finden, ist es einfacher, eine
+  Bootdiskette zu verwenden, bei der nur einige bestimmte Treiber
+  eingeschaltet sind. Die meisten Anwender sollten die Bootdisketten
+  scsi.s oder bare.i ausprobieren.
+
+  3.5.2.  Rootdiskette
+
+  Neben der Bootdiskette muá fr die Installation der Slackware auch
+  noch eine Rootdiskette erzeugt werden. Auch hierfr gibt es
+  verschiedene Image Dateien. Im Gegensatz zu den Bootdisketten gibt es
+  seit der Slackware Version 3.0 aber nicht mehr verschiedene Images fr
+  3,5" und 5,25" Disketten. Die Images befinden sich in dem Verzeichnis
+  rootdsks.
+
+  Man ben”tigt eine der folgenden Dateien:
+
+  ú  color.gz. Diese Installationsdiskette verfgt ber farbige
+     Installationsmens. Dieses ist die richtige Diskette fr die
+     meisten Anwender.
+
+  ú  pcmcia.gz. Diese Diskette enth„lt eine spezielle Version der
+     text.gz Installationsdiskette fr die Installation ber NFS auf ein
+     Notebook mit einer PCMCIA Ethernet Karte.
+
+  ú  umsdos.gz. Dieses ist eine spezielle Version der color.gz Diskette,
+     die verwendet wird, wenn Linux mit dem UMSDOS Filesystem
+     installiert werden soll. Dieses Filesystem erlaubt es, Linux auf
+     dem MS-DOS Filesystem zu installieren, so daá die Festplatte nicht
+     repartitioniert werden muá. Wir werden hierauf sp„ter noch n„her
+     eingehen.
+
+  ú  tape.gz. Erlaubt die Installation von einem Streamer.
+
+  ú  text.gz. Dieses ist eine Terminal basierende Installationsdiskette.
+     Man sollte eigentlich die color.gz Diskette verwenden, allerdings
+     haben einige Leute von Problemen mit dieser Diskette berichtet.
+     Wenn also die color.gz Diskette nicht korrekt funktionieren sollte,
+     sollte man stattdessen text.gz ausprobieren. Diese Diskette ist
+     allerdings etwas „lter und die Installationsprozedur l„uft etwas
+     anders ab.
+
+  3.5.3.  sonstige Dateien
+
+  ú  Vor einer Installation sollte man unbedingt die zur Slackware
+     mitgelieferten Textdateien lesen, die eventuell wichtige Neuerungen
+     erw„hnen, auf die diese HOWTO noch nicht eingeht. Bei der Slackware
+     3.1 geht die Datei README31.TXT auf allgemeine Fragen zur
+     Installation ein. Die FAQ.TXT hilft bei der L”sung von Problemen,
+     die w„hrend oder nach der Installation auftreten. Bei Bootproblemen
+     sollte man die BOOTING.TXT zu Rate ziehe. Die LOWMEM.TXT versucht
+     schlieálich Probleme, die auf einen zu kleinen Hauptspeicher
+     zurckzufhren sind, zu l”sen.
+
+  ú  GZIP.EXE. Dieses ist die MS-DOS Version des gzip
+     Komprimierungsprogrammes, das zur Dekomprimierung der Root- und
+     Bootdisketten Dateien verwendet werden kann.  Diese Dekomprimierung
+     ist seit Version 3.1 der Slackware nicht mehr n”tig. Mit gzip
+     komprimierte Dateien erkennt man an der Endung .gz. Dieses Programm
+     befindet sich im install Verzeichnis.
+
+  ú  RAWRITE.EXE. Die MS-DOS Version des Programms, das den Inhalt einer
+     Datei direkt ohne Beachtung des Formats auf eine Diskette schreibt.
+     Das Programm wird ben”tigt, um die Boot- und Rootdiskette aus den
+     Image Dateien zu erzeugen. Auch dieses Programm befindet sich im
+     install Verzeichnis.
+
+  Die Programme RAWRITE.EXE und GZIP.EXE werden nur dann ben”tigt, wenn
+  man die Boot- und Rootdisketten auf einem MS-DOS System erstellen
+  will. Auf einer UNIX Workstation mit einem Diskettenlaufwerk k”nnen
+  die Disketten stattdessen mit dem dd Kommando erstellt werden. Weitere
+  Informationen hierzu befinden sich auf der man page zu dd. Ansonsten
+  kann man natrlich auch die ”rtlichen UNIX Spezialistem um Hilfe
+  bitten.
+
+  4.  Installation der Software
+
+  In diesem Abschnitt werden wir uns damit besch„ftigen, wie das System
+  des Benutzers fr die Installation vorbereitet werden muá und wie
+  schlieálich die eigentliche Installation abl„uft.
+
+  4.1.  Installationsmethoden
+
+  Die Slackware bietet mehrere verschiedene Methoden der Installation.
+  Am beliebtesten ist die Installation von einer CDROM oder von MS-DOS
+  Partition der Festplatte des Anwenders. In seltenen F„llen wird die
+  Slackware von MS-DOS Disketten installiert.
+
+  Auáerdem kann die Slackware von einem NFS Filesystem ber ein TCP/IP
+  Netzwerk installiert werden. Dieses ist allerdings etwas kompliziert
+  und wird nicht in diesem Dokument beschrieben. Wenn Sie Hilfe zu
+  dieser Methode ben”tigen, fragen Sie die lokalen UNIX Spezialisten,
+  wie man auf Ihrem System ein NFS Filesystem mountet.  Hierfr ben”tigt
+  man ein weiteres System im Netzwerk, das die Slackware als Filesystem
+  exportiert.
+
+  Als erster werden wir beschreiben, wie man die Boot- und Rootdisketten
+  erstellt und dann werden wir uns mit den weiteren Schritten fr eine
+  Installation von der Festplatte oder von Disketten besch„ftigen.
+
+  4.1.1.  Erstellen von Boot- und Rootdisketten
+
+  Von den Boot- und Rootdisketten Images, die wir schon weiter oben
+  besprochen haben, mssen nun als erster Arbeitsschritt die
+  entsprechenden Disketten erstellt werden. Dieser Schritt ist
+  unabh„ngig von der gew„hlten Installationsmethode. Hier kommen die
+  beiden MS-DOS Programme GZIP.EXE und RAWRITE.EXE ins Spiel.
+
+  Vor der Slackware 3.1 muáte das Bootdisketten Image mit dem MS-DOS
+  Programm GZIP.EXE entkomprimiert werden. Das Programm gzip existiert
+  auch fr viele andere Betriebssysteme. Vor der Slackware 3.0 muáte das
+  Rootdisketten Image entkomprimiert werden. Wenn man zum Beispiel das
+  bare.gz Bootdisketten Image verwenden m”chte, gibt man das folgende
+  MS-DOS Kommando ein:
+
+       C:\> GZIP -D BARE.GZ
+
+  Dieses dekomprimiert bare.gz und erstellt die Datei bare.
+
+  Als n„chstes ben”tigt man zwei fr MS-DOS formatierte HD Disketten.
+  Sie mssen beide vom selben Typ sein; wenn also das Bootlaufwerk ein
+  3.5" Diskettenlaufwerk ist, mssen beide Disketten 3.5" HD Disketten
+  sein. Man benutzt dann das Programm RAWRITE.EXE, um die Boot- und
+  Rootdisketten Images auf die Diskette zu schreiben.
+
+  Wenn man zum Beispiel die bare.i Bootdiskette verwenden m”chte,
+  benutzt man folgenden Befehl, um aus der Image Datei eine
+  entsprechende Bootdiskette zu erstellen:
+
+       C:\> RAWRITE
+
+  Auf die Frage nach dem Dateinamen der zu schreibenden Datei antwortet
+  man zum Beispiel BARE.I und auf die Frage nach dem Diskettenlaufwerk,
+  in welchem die zu schreibende Diskette liegt, antwortet man A:.
+  RAWRITE kopiert die Datei Block fr Block direkt auf die Diskette.
+  Auch fr die Rootdiskette, wie z.B. color.gz, verwendet man RAWRITE.
+  Nach diesem Schritt hat man nun also zwei Disketten: eine enth„lt die
+  Bootdiskette, die andere enth„lt die Rootdiskette. Diese beiden
+  Disketten sind jetzt nicht mehr unter MS-DOS lesbar. Sie haben jetzt
+  das Linux Format.
+
+  Falls RAWRITE mit einer Fehlermeldung abbricht, liegt das meistens an
+  nicht ganz fehlerfreien Disketten. Das Programm ist ziemlich
+  empfindlich gegenber schlechten Disketten.
+
+  Es soll noch einmal darauf hingewiesen werden, daá man kein MS-DOS
+  ben”tigt, um die Slackware zu installieren. Allerdings erleichtert ein
+  installiertes MS-DOS die Erstellung der Boot- und Rootdisketten.
+  Auáerdem ist es so einfacher, die Software zu installieren, weil man
+  auf diese Weise die Software direkt von der MS-DOS Partition
+  installieren kann. Wenn man selbst kein MS-DOS auf dem eigenen System
+  installiert hat, kann man auch das MS-DOS System von jemand anderen
+  benutzen, um die Disketten zuerstellen und von diesen zu installieren.
+
+  Es ist nicht notwendig GZIP.EXE und RAWRITE.EXE unter MS-DOS zu
+  benutzen, um die Boot- und Rootdisketten zu installieren. Die gleiche
+  Aufgabe erfllen die Befehle gzip und dd auf einem Unix System, das
+  natrlich ber ein Diskettenlaufwerk verfgen muá. Auf zum Beispiel
+  einer Sun Workstation mit einem Diskettenlaufwerk Device /dev/rfd0
+  benutzt man das Kommando:
+
+       $ gunzip bare.gz
+       $ dd if=bare of=/dev/rfd0 obs=18k
+
+  Man muá bei einigen Workstations (z.B. Suns) eine passende Blockgr”áe
+  als Argument (das obs Argument) bergeben oder dieses wird
+  fehlschlagen. Falls trotzdem Probleme auftauchen, sollten Sie die man
+  page zu dd zur Hilfe heranziehen.
+
+  4.1.2.  Vorbereitung fr die Installation von der Festplatte
+
+  Falls Sie eine Installation der Slackware direkt von der Festplatte
+  planen, was erheblich schneller und komfortabler ist als die
+  Installation von Diskette, ben”tigen Sie eine MS-DOS Partition auf
+  Ihrem System.
+
+  Wichtig: Falls Sie planen, die Slackware von einer MS-DOS Partition zu
+  installieren, so darf diese NICHT mit DoubleSpace, Stacker oder einem
+  anderen MS-DOS Laufwerk Komprimierer komprimiert sein.  Linux kann zur
+  Zeit DoubleSpace/Stacker MS-DOS Partition nicht direkt lesen. Man kann
+  auf diese ber den MS-DOS Emulator zugreifen, allerdings ist dieses
+  keine M”glichkeit fr die Installation der Linux Software.
+
+  Als erster Schritt fr eine Installation von Festplatte legt man
+  einfach ein Verzeichnis auf der Festplatte an, in dem die Slackware
+  Dateien gespeichert werden. Mit dem Befehl
+
+       C:\> MKDIR SLACKWAR
+
+  erzeugt man zum Beispiel das Verzeichnis C:\SLACKWAR , das die
+  Slackware Dateien aufnimmt. In diesem Verzeichnis sollte man dann die
+  Unterverzeichnisse A1, A2 anlegen, die dann jeweils den Inhalt einer
+  Diskette aufnehmen. Alle Dateien der A1 Diskette sollten also zum
+  Beispiel in das Verzeichnis SLACKWAR\A1 und so weiter kopiert werden.
+
+  Nun kann man mit der eigentlichen Installation fortfahren. Lesen Sie
+  jetzt ab dem Abschnitt ``Repartitionierung'' weiter.
+
+  4.1.3.  Vorbereitungen fr die Installation von Disketten
+
+  Wenn Sie die Slackware von Disketten statt von der Festplatte
+  installieren m”chten, ben”tigen Sie eine leere, fr MS-DOS formatierte
+  Diskette fr jede Slackware Diskette, die Sie bezogen haben. Die
+  Disketten mssen das High-Density Format aufweisen.
+
+  Die A Disketten Serie (Disketten A1 bis A4) k”nnen entweder 3,5" oder
+  5,25" Disketten sein. Die restlichen Disketten mssen allerdings das
+  3,5" Format besitzen.  Wenn Sie also nur ein 5,25" Laufwerk besitzen,
+  mssen Sie sich ein 3,5" Laufwerk von jemanden anderen leihen, um die
+  anderen Disketten Serien installieren zu k”nnen.  Oder Sie
+  installieren die Slackware, wie im vorherigen Abschnitt beschrieben,
+  direkt von der Festplatte.
+
+  Um die Disketten zu erstellen, kopiert man einfach die Dateien aus
+  jedem Slackware Verzeichnis auf eine eigene MS-DOS formatierte
+  Diskette, indem man den MS-DOS COPY Befehl benutzt. So kopiert der
+  Befehl:
+
+       C:\> COPY A1\*.* A:
+
+  den Inhalt des Verzeichnisses A1 auf die Diskette im Laufwerk A:.
+  Diesen Schritt fhrt man fr jede Diskette aus, die man bezogen hat.
+
+  Die Dateien auf den Disketten drfen in keiner Weise ver„ndert oder
+  dekomprimiert werden; die Dateien mssen einfach nur auf MS-DOS
+  formatierte Disketten kopiert werden. Das Installationsprogramm der
+  Slackware Distribution entpackt die ben”tigten Dateien automatisch fr
+  den Anwender.
+
+  4.2.  Repartitionierung
+
+  Bei den meisten Systemen ist die Festplatte bereits fr MS-DOS, OS/2
+  oder andere Betriebssysteme partitioniert. Aus diesem Grund mssen die
+  Partitionsgr”áen ver„ndert werden, um fr Linux Platz zu schaffen.
+
+  WICHTIG: Wenn Sie die umsdos.gz Rootdisketten verwenden, k”nnen Sie
+  die Slackware direkt in ein Verzeichnis auf Ihrer MS-DOS Partition
+  installieren. Dieses sollte man nicht mit der Installation VON der
+  Festplatte verwechseln. Das ``UMSDOS Filesystem'' erlaubt es, ein
+  Verzeichnis auf einer MS-DOS Partition wie ein Linux Filesystem
+  anzusprechen. Auf diese Weise kann die Repartitionierung der
+  Festplatte entfallen.
+
+  Diese Methode sollte allerdings eigentlich nur dann verwendet werden,
+  wenn die Festplatte bereits vier Partitionen enth„lt und eine
+  Repartitionierung mehr Probleme machen wrde, als es eigentlich wert
+  ist. Ansonsten ist diese Methode ideal, wenn man die Slackware vor der
+  Repartitionierung testen m”chte. In den meisten F„llen sollte man die
+  Festplatte aber repartitionieren. Wenn Sie planen, UMSDOS zu benutzen,
+  sind Sie auf sich selbst angewiesen, weil die Installation hier nicht
+  im Detail beschrieben wird. Ab hier gegen wir davon aus, daá Sie nicht
+  UMSDOS benutzen m”chten und aus diesem Grund die Festplatte
+  repartitionieren m”chten.
+
+  Eine Partition ist einfach ein Teil der Festplatte, der fr die
+  Benutzung durch ein bestimmtes Betriebssystem reserviert ist.  Wenn
+  sich nur MS-DOS auf der Festplatte befindet, enth„lt die Festplatte
+  wahrscheinlich nur eine Partition, die komplett fr MS-DOS verwendet
+  wird. Fr die Benutzung von Linux muá dann die Festplatte
+  repartitioniert werden, so daá man eine Partition fr MS-DOS und eine
+  (oder mehrere) fr Linux erh„lt.
+
+  Es gibt drei verschiedene Arten von Partitionen: prim„re (primary),
+  erweiterte (extended) und logische (logical).  Kurz gesagt kann jede
+  Festplatte bis zu vier prim„re Paritionen enthalten. Wenn man mehr
+  Partitionen ben”tigt, muá eine erweiterte Partition, die viele
+  logische Partitionen enthalten kann, angelegt werden. Direkt in einer
+  erweiterten Partition werden keine Daten gespeichert; die Partition
+  dient nur als Container fr logische Partitionen. Daten werden nur in
+  prim„ren oder logischen Partitionen gespeichert.
+
+  Um dieses zu umgehen, benutzen die meisten Leute nur prim„re
+  Partitionen. Wenn man allerdings mehr als vier Partitionen auf einer
+  Festplatte ben”tigt, muá man eine erweiterte Partition erzeugen.
+  Logische Partitionen werden dann vom obersten Ende der erweiterten
+  Partition erzeugt und nun hat man mehr als vier Partition auf einer
+  Festplatte.
+
+  Man sollte auch bedenken, daá man Linux sehr leicht auch auf der
+  zweiten Festplatte (unter MS-DOS auch D: genannt) des Systems
+  installieren kann. Hierfr gibt man bei der Erstellung von Linux
+  Partitionen einfach den passenden Ger„tenamen (device) an. Dieses wird
+  weiter unter im Detail beschrieben.
+
+  Zurck zur Repartitionierung der Festplatte: Das Problem bei der
+  Ver„nderung der Gr”áen von Partitionen ist, daá es keinen einfachen
+  Weg gibt, ohne dabei die Daten der Partition zu l”schen. Aus diesem
+  Grund sollte man vor der Repartitionierung unbedingt ein Backup der
+  Festplatte erstellen. Um die Gr”áe der Partition zu ver„ndern, werden
+  wir einfach die Partition(en) l”schen und sie mit einer kleineren
+  Gr”áe neu anlegen.
+
+  WICHTIG: Es gibt fr MS-DOS einen Repartitioner, der die Daten nicht
+  l”scht. Das Programm nennt sich FIPS und kann von
+  sunsite.unc.edu:/pub/Linux/system/Install bezogen werden. Mit FIPS,
+  einem Festplatten Defragmentierungsprogramm (wie z.B. das DEFRAG von
+  MS-DOS) und ein biáchen Glck, sollte es m”glich sein, die Festplatte
+  ohne Zerst”rung der Daten zu repartitionieren. Es wird aber trotzdem
+  empfohlen, ein vollst„ndiges Backup zu erstellen, bevor man eine
+  Repartitionierung versucht.
+
+  Wenn man nicht das Programm FIPS benutzen m”chte, ist die klassische
+  Methode der Modifikation von Partition die Verwendung des Programmes
+  FDISK. Als Beispiel wollen wir jetzt davon ausgehen, daá der Benutzer
+  eine 80 MB Festplatte fr MS-DOS verwendet. Diese soll nun in zwei
+  gleichgroáe Teile aufgeteilt werden: 40 MB fr MS-DOS und 40 MB fr
+  Linux. Um dieses zu erreichen wird das Programm FDISK unter MS-DOS
+  verwendet, mit dem zuerst die 80 MB MS-DOS Partition gel”scht wird und
+  dann stattdessen eine 40 MB MS-DOS Partition neu angelegt wird. Diese
+  neue Partition kann dann formatiert werden und die vorher gesicherte
+  MS-DOS Software kann zurckinstalliert werden. 40 MB der Festplatte
+  sind nun frei geblieben. Sp„ter werden auf diesem freien Platz der
+  Festplatte die Linux Partitionen angelegt.
+
+  Zusammenfassend sollte man also folgende Schritt durchlaufen, um die
+  Gr”áe der MS-DOS Partition mit FDISK zu ver„ndern:
+
+  1. Erstellung eines vollst„ndigen Backups der Festplatte.
+
+  2. Erstellung einer MS-DOS Bootdiskette unter Verwendung des folgenden
+     Befehls:
+
+       FORMAT /S A:
+
+  3. Kopieren Sie die Programme FDISK.EXE und FORMAT.COM auf diese
+     Diskette. Falls Sie weitere Utilities (wie z.B. Programme zur
+     Rcksicherung des Backups) ben”tigen, sollte Sie diese ebenfalls
+     auf die Diskette kopieren.
+
+  4. Booten Sie mit der erstellten MS-DOS Systemdiskette.
+
+  5. Starten Sie FDISK, eventuell unter der Angabe des zu ver„ndernden
+     Laufwerkes (wie z.B. C: oder D:).
+
+  6. Benutzen Sie den Menpunkt von FDISK, um die Partition zu l”schen,
+     deren Gr”áe sie „ndern m”chten. Dieser Schritt zerst”rt alle Daten
+     auf der betreffenden Partition.
+
+  7. Benutzen Sie den Menpunkt von FDISK, um diese Partition neu mit
+     einer kleineren Gr”áe zu erzeugen.
+
+  8. Beenden Sie FDISK and formatieren Sie die neue Partition erneut mit
+     dem FORMAT Befehl.
+
+  9. Sichern Sie die Originaldateien vom Backup zurck.
+
+  Man sollte beachten, daá das MS-DOS FDISK dem Benutzer die M”glichkeit
+  gibt, ein ``logisches DOS Laufwerk'' zu erzeugen.  Ein logisches DOS
+  Laufwerk ist einfach eine logische Partition auf der Festplatte. Man
+  kann Linux auf einer logischen Partition erstellen, allerdings darf
+  diese dann nicht von dem MS-DOS FDISK erzeugt werden. Wenn man also
+  bereits ein logisches DOS Laufwerk benutzt und Linux an dem Platz des
+  Laufwerkes installieren m”chte, sollte man das logische Laufwerk mit
+  dem MS-DOS FDISK l”schen und (sp„ter) eine logische Partition an
+  dessen Stelle fr Linux erstellen.
+
+  Die Methode, die fr eine Repartitionierung fr OS/2 oder andere
+  Betriebssysteme benutzt wird, funktioniert genauso.  Weitere
+  Informationen hierzu befinden sich in der Dokumentation dieser
+  Betriebssysteme.
+
+  4.3.  Erstellen von Partitionen fr Linux
+
+  Nach der Repartitionierung des Laufwerkes muá eine neue Partition fr
+  Linux eingerichtet werden. Bevor wir n„her auf die Erstellung
+  eingehen, werden wir ber Partitionen und Filesysteme unter Linux
+  sprechen.
+
+  4.3.1.  Filesysteme und Swap Space
+
+  Linux ben”tigt mindestens eine Partition fr das Root Filesystem,
+  welches die Linux Software selbst enth„lt.
+  Man kann sich ein Filesystem als eine Partition vorstellen, die fr
+  Linux formatiert worden ist. Filesysteme werden zur Speicherung der
+  Dateien verwendet. Jedes System muá ein Root Filesystem besitzen.
+  Allerdings ziehen es viele Benutzer vor, mehrere Filesysteme zu
+  benutzen; jedes fr jeden groáen Teil des Verzeichnisbaumes. Zum
+  Beispiel m”chte man vielleicht ein eigenes Verzeichnis anlegen, daá
+  alle Dateien unter dem /usr Verzeichnis enth„lt. (Beachte: auf UNIX
+  Systemen werden forward slashes benutzt, um die einzelnen
+  Verzeichnisse zu trennen und nicht backslashes wie in MS-DOS.) In
+  diesem Fall hat man ein Root Filesysteme und ein /usr Filesystem.
+
+  Jedes Filesystem ben”tigt seine eigene Partition. Aus diesem Grund muá
+  man, wenn man sowohl ein Root als auch ein /usr Filesystem benutzen
+  m”chte, zwei Linux Partitionen erstellen.
+
+  Zus„tzlich legen die meisten Benutzer eine Swap Partition an, welche
+  fr den virtuellen RAM verwendet wird. Wenn man also sagen wir 4 MB
+  Speicher im Rechner hat und eine 10 MB Swap Partition anlegt, dann
+  kann Linux auf 14 MB virtuellen Speicher zurckgreifen.
+
+  Wenn man Swap Space benutzt, lagert Linux unbenutzte Seiten des
+  Speichers auf die Festplatte aus, so daá man mehr Programme
+  gleichzeitig auf einem Rechner ausfhren kann. Da das Swappen
+  allerdings meistens recht langsam ist, ist es kein Ersatz fr echten
+  physikalischen RAM. Aber Applikation, die eine groáe Menge an RAM
+  ben”tigen (wie das X Window System), sttzen sich oft auf den Swap
+  Space, wenn man nicht gengend physikalischen RAM besitzt.
+
+  Fast alle Linux Benutzer setzen eine Swap Partition ein. Wenn man 4 MB
+  RAM oder weniger besitzt, ist eine Swap Partition notwendig, um die
+  Software installieren zu k”nnen. Es wird dringend empfohlen, eine Swap
+  Partition einzusetzen, wenn man nicht ber eine groáe Menge an
+  physikalischem RAM verfgt.
+
+  Die Gr”áe der Swap Partition richtet sich nach der Menge an virtuellen
+  Speicher, die man ben”tigt. Es wird oft empfohlen, daá man insgesamt
+  mindestens ber 16 MB virtuellen Speicher verfgt.  Aus diesem Grund
+  legt man also zum Beispiel eine 8 MB Swap Partition an, wenn man ber
+  8 MB physikalischen Speicher verfgt.  Man sollte bedenken, daá Swap
+  Partitionen nicht gr”áer als 128 MB sein k”nnen. Wenn man also mehr
+  als 128 MB Swap ben”tigt, muá man mehrere Swap Partition anlegen.
+  Insgesamt kann man 16 Swap Partitionen einsetzen.
+
+  4.3.2.  Booten der Installations Diskette
+
+  4.3.2.1.  Festlegung der Hardware Parameter
+
+  Als erstes wird mit der Bootdiskette der Slackware gebootet. Nachdem
+  das System gebootet ist, erscheint folgende Meldung:
+
+       Welcome to the Slackware Linux 3.0.0 bootkernel disk!
+
+  Hier hat man die M”glichkeit, verschiedene Parameter fr die Hardware
+  einzustellen, wie zum Beispiel den IRQ und die Adresse des SCSI
+  Kontrollers oder die Geometrie der Festplatte, bevor man das Linux
+  Kernel bootet.  Dieses ist in dem Fall notwendig, wenn Linux den SCSI
+  Kontroller oder die Geometrie der Festplatte nicht selbst erkennen
+  kann.
+
+  Insbesondere viele SCSI Kontroller ohne eigenes BIOS erfordern die
+  Angabe der Portadresse und des IRQ zur Bootzeit. Auáerdem speichern
+  die IBM PS/1, ThinkPad und ValuePoint Maschinen die Festplatten
+  Geometrie nicht im CMOS, so daá man sie zur Bootzeit angeben muá.
+
+  Um zu versuchen, das Kernel ohne spezielle Parameter zu booten, drckt
+  man einfach die ENTER Taste am Boot Prompt.
+
+  Man sollte beim Booten sorgf„ltig die erscheinenden Meldungen
+  beobachten.  Wenn sich ein SCSI Kontroller in dem System befindet,
+  sollte eine Liste mit den erkannten SCSI Ger„ten erscheinen. Falls
+  eine Meldung wie diese erscheint
+
+       SCSI: 0 hosts
+
+  wurde der SCSI Kontroller nicht gefunden. In diesem Fall sollte man
+  nach folgender Prozedur vorgehen.
+
+  Auch wenn das System Informationen ber die gefundenen Festplatten
+  Partitionen und die Ger„te ausgibt, kann es vorkommen, daá diese
+  Informationen nicht korrekt sind oder einige Ger„te fehlen. In einem
+  solchen Fall muá die Hardware Erkennung erzwungen werden.
+
+  Auf der andere Seite, wenn alles gut gegangen ist und Ihre Hardware
+  anscheinend einwandfrei entdeckt worden ist, k”nnen Sie zum n„chsten
+  Abschnitt ``Laden der Rootdiskette'' bergehen.
+
+  Um die Hardware Erkennung zu erzwingen, muá man die passenden
+  Parameter am Boot Prompt eingeben, wobei folgender Syntax verwendet
+  wird:
+
+       ramdisk <Parameter...>
+
+  Es gibt eine groáe Anzahl solcher Parameter; hier sind einige der
+  wichtigsten.
+
+  ú  hd=cylinders,heads,sectors Gibt die Geometrie der Festplatte an.
+     Dieses ist bei Systemen wie IBM PS/1, ValuePoint und ThinkPad
+     notwendig. Wenn man zum Beispiel eine Festplatte mit 683 Zylindern
+     (cylinders), 16 K”pfen (heads) und 32 Sektoren (sectors) pro Track
+     verwendet, gibt man folgendes ein:
+
+       ramdisk hd=683,16,32
+
+  ú  tmc8xx=memaddr,irq Gibt die Adresse und den IRQ fr Future Domain
+     TMC-8xx SCSI Kontroller ohne BIOS an. Zum Beispiel
+
+       ramdisk tmc8xx=0xca000,5
+
+  Man sollte beachten, daá das Prefix 0x bei allen Werten verwendet werí
+  den muá, bei denen es sich um hexadezimale Werte handelt. Dieses ist
+  bei allen folgenden Optionen der Fall.
+
+  ú  st0x=memaddr,irq Bestimmt die Adresse und den IRQ fr den Seagate
+     ST02 Kontroller ohne BIOS.
+
+  ú  t128=memaddr,irq Bestimmt die Adresse und den IRQ fr den Trantor
+     T128B Kontroller ohne BIOS.
+
+  ú  ncr5380=port,irq,dma Bestimmt den Port, den IRQ und den DMA Kanal
+     fr den allgemeinen NCR5380 Kontroller.
+
+  ú  aha152x=port,irq,scsi_id,1 Bestimmt den Port, den IRQ und die SCSI
+     ID fr AIC-6260 Kontroller ohne BIOS. Dieses gilt auch fr die
+     Adaptec 1510, 152x und Soundblaster-SCSI Kontroller.
+
+  Fr jede dieser Optionen muá man `ramdisk' gefolgt von den gewnschten
+  Parameter eingeben.
+
+  Falls Sie weitere Fragen zu diesen Optionen zur Bootzeit haben, lesen
+  sie bitte die Linux SCSI HOWTO, die in jedem Linux FTP Archiv (oder
+  von wo sie dieses Dokument bezogen haben) zu finden sein sollte.  Die
+  SCSI HOWTO erkl„rt die Linux SCSI Kompatibilit„t detaillierter.
+
+  4.3.2.2.  Laden der Rootdiskette
+
+  Nach dem Booten des Kernel werden Sie gebeten, die Slackware
+  Rootdiskette einzulegen:
+
+       VFS: Insert ramdisk floppy an press ENTER
+
+  Nun sollte Sie die Bootdiskette aus dem Laufwerk nehmen und die
+  Rootdiskette ins Laufwerk legen. Dann drcken Sie ENTER um
+  fortzufahren.
+
+  Die Rootdiskette wird in den Speicher geladen und man sollte ein Login
+  Prompt erhalten. Loggen Sie sich als ``root'' ein.
+
+       slackware login: root
+       #
+
+  4.3.3.  Benutzung von fdisk
+
+  Um die Linux Partitionen zu erzeugen, benutzen wir die Linux Version
+  des fdisk Programmes. Nach dem Einloggen als root gibt man das
+  Kommando
+
+       fdisk <Laufwerk>
+
+  ein, wobei <Laufwerk> der Name des Laufwerkes ist, auf dem man die
+  Linux Partitionen erzeugen m”chte. Die Namen der Festplatten sind:
+
+  ú  /dev/hda Erstes IDE Laufwerk
+
+  ú  /dev/hdb Zweites IDE Laufwerk
+
+  ú  /dev/sda Erstes SCSI Laufwerk
+
+  ú  /dev/sdb Zweites SCSI Laufwerk
+
+     Um zum Beispiel die Linux Partitionen auf der ersten SCSI
+     Festplatte im System zu erzeugen, benutzt man folgendes Kommando
+
+       fdisk /dev/sda
+
+  Fall Sie fdisk ohne Argument starten, wird /dev/hda als Standardeiní
+  stellung verwendet.
+
+  Um Linux Partitionen auf der zweiten Festplatte im System zu
+  erstellen, gibt man einfach /dev/hdb (fr IDE Festplatten) oder
+  /dev/sdb (fr SCSI Festplatten) beim Aufruf von fdisk an.
+
+  Die Linux Partitionen mssen sich nicht alle auf dergleichen
+  Festplatte befinden. Man kann zum Beispiel die Partition fr das Root
+  Filesystem auf /dev/hda und die Swap Partition auf /dev/hdb anlegen.
+  Um dieses zu erreichen, muá man nur fr jedes Laufwerk fdisk einmal
+  aufrufen.
+
+  Die Bedienung von fdisk ist einfach. Der Befehl ``p'' zeigt die
+  augenblickliche Partitions Tabelle an.  ``n'' erzeugt eine neue
+  Partition und  ``d'' l”scht eine bestehende Partition.
+
+  Unter Linux erhalten die Partitionen Namen, die davon abh„ngig sind,
+  auf welcher Festplatte sich die Partition befindet.  So nennt sich zum
+  Beispiel die erste Partition auf dem Laufwerk /dev/hda /dev/hda1, die
+  zweite nennt sich /dev/hda2 und so weiter. Falls man logische
+  Partitionen verwendet, f„ngt die Nummerierung bei /dev/hda5 an, dann
+  folgt /dev/hda6 und so weiter.
+
+  WICHTIG: Auf keinen Fall sollte man Partitionen von anderen
+  Betriebssystemen mit dem Linux fdisk l”schen oder erzeugen.  So darf
+  man mit dieser Version von fdisk keine MS-DOS Partitionen erzeugen
+  oder l”schen. Stattdessen verwendet man dafr das FDISK von MS-DOS.
+  Falls man trotzdem eine MS-DOS Partition mit dem Linux fdisk erzeugt,
+  erkennt MS-DOS die Partition nicht korrekt und kann nicht korrekt von
+  dieser booten.
+
+  Hier nun ein Beispiel fr die Benutzung von fdisk. Wir haben hier eine
+  einzelne MS-DOS Partition, die 61693 Bl”cke auf der Festplatte belegt.
+  Der Rest der Festplatte ist frei fr Linux.  (Unter Linux ist ein
+  Block 1024 Bytes groá. Aus diesem Grund sind 61693 Bl”cke ungef„hr 61
+  MB.) Wir werden zwei Linux Partitionen erzeugen: eine fr den Swap und
+  eine fr das Root Filesystem.
+
+  Als erstes verwenden wir den ``p'' Befehl, um die aktuelle Partitions
+  Tabelle anzuzeigen. Wie man sehen kann, ist /dev/hda1 (die erste
+  Partition auf /dev/hda) eine DOS Partition mit 61693 Bl”cken.
+
+  Command (m for help):   p
+  Disk /dev/hda: 16 heads, 38 sectors, 683 cylinders
+  Units = cylinders of 608 * 512 bytes
+
+       Device Boot  Begin   Start     End  Blocks   Id  System
+    /dev/hda1   *       1       1     203   61693    6  DOS 16-bit >=32M
+
+  Command (m for help):
+
+  Als n„chstes verwenden wir den Befehl ``n'', um eine neue Partition zu
+  erzeugen. Die Linux Root Partition wird eine Gr”áe von 80 MB erhalten.
+
+       Command (m for help):  n
+       Command action
+           e   extended
+           p   primary partition (1-4)
+       p
+
+  Hier werden wir gefragt, ob wir eine erweiterte (extended) oder eine
+  prim„re (primary) Partition erzeugen m”chten. In den meisten F„llen
+  m”chte man eine prim„re Partition verwenden, wenn man nicht mehr als
+  vier Partitionen auf einer Festplatte erzeugen m”chte.  N„hrere Inforí
+  mationen hierzu befinden sich in dem obigen Abschnitt ``Repartitioí
+  nierung''.
+
+       Partition number (1-4): 2
+       First cylinder (204-683):  204
+       Last cylinder or +size or +sizeM or +sizeK (204-683): +80M
+
+  Der erste Zylinder sollte der erste Zylinder NACH dem Zylinder sein,
+  wo die vorherigen Partition endet. In diesem Fall endet /dev/hda1 mit
+  Zylinder 203, so daá unsere neue Partition bei Zylinder 204 beginnt.
+
+  Wie man sehen kann, bedeutet die Schreibweise ``+80M'', daá man eine
+  Partition mit einer Gr”áe von 80 MByte erstellt. Genauso fhrt die
+  Schreibweise ``+80K'' zur Erzeugung einer Partition mit einer Gr”áe
+  von 80 KByte und die Schreibweise ``+80'' wrde eine Partition mit nur
+  80 Bytes erzeugen.
+
+       Warning: Linux cannot currently use 33090 sectors of this partition
+
+  Falls Sie diese Meldung sehen sollten, k”nnen Sie sie ignorieren.  Sie
+  rhrt noch von der alten Beschr„nkung her, daá das Linux Filesystem
+  nur 64 MByte groá sein konnte. Mit neueren Filesystemen ist dieses
+  nicht mehr der Fall. Partitionen k”nnen nun bis zu 4 TByte groá sein.
+
+  Als n„chstes erzeugen wir unsere 10 MByte Swap Partition /dev/hda3.
+
+  Command (m for help): n
+  Command action
+      e   extended
+      p   primary partition (1-4)
+  p
+
+  Partition number (1-4): 3
+  First cylinder (474-683):  474
+  Last cylinder or +size or +sizeM or +sizeK (474-683):  +10M
+
+  Wieder zeigen wir den Inhalt der Partitions Tabelle an. Die
+  angezeigten Informationen sollte man auf jeden Fall irgendwo notieren,
+  wobei dieses besonders fr die Gr”áe der einzelnen Partitionen gilt,
+  da diese Informationen sp„ter noch ben”tigt werden.
+
+       Command (m for help): p
+       Disk /dev/hda: 16 heads, 38 sectors, 683 cylinders
+       Units = cylinders of 608 * 512 bytes
+
+            Device Boot  Begin   Start     End  Blocks   Id  System
+         /dev/hda1   *       1       1     203   61693    6  DOS 16-bit >=32M
+         /dev/hda2         204     204     473   82080   83  Linux native
+         /dev/hda3         474     474     507   10336   83  Linux native
+
+  Hier sollte man beachten, daá die Linux Swap Partition (hier
+  /dev/hda3) den Typ ``Linux native'' besitzt. Wir mssen diesen Typ fr
+  die Swap Partition auf ``Linux swap'' „ndern, so daá das
+  Installationsprogramm sie als solche erkennen kann. Um dieses zu
+  erreichen, benutzen wir das fdisk ``t'' Kommando:
+
+       Command (m for help): t
+       Partition number (1-4): 3
+       Hex code (type L to list codes): 82
+
+  Wenn wir nun mit ``l'' die Liste der verschiedenen Typen aufrufen,
+  sehen wir, daá 82 der Typ fr eine Linux Swap Partition ist.
+
+  Um fdisk zu verlassen und die nderung der Partitions Tabelle zu
+  speichern, benutzen wir das ``w'' Kommando. Um fdisk OHNE Speicherung
+  der nderungen zu verlassen, benutzen wir den ``q'' Befehl.
+
+  Nach dem Verlassen von fdisk fordert Sie das System eventuell auf, das
+  System neu zu Booten, damit die nderungen wirksam werden.  Im
+  allgemeinen gibt es keinen Grund, nach der Benutzung von fdisk neu zu
+  booten. Die Version von fdisk in der Slackware Distribution ist
+  intelligent genug, um die Partitionen ohne Rebooten zu ver„ndern.
+
+  4.4.  Vorbereitung des Swap Space
+
+  Falls der Rechner nur ber 4 MB RAM oder weniger verfgt, muá man
+  mittels fdisk eine Swap Partition anlegen und fr die Benutzung
+  freigeben, bevor man die Software installieren kann.  Wir werden nun
+  beschreiben, wie man ein Swap Partitionen formatiert und freigibt.
+
+  Wenn man mehr als 4 MB RAM besitzt, muá man nur die Partition(en)
+  erstellen; es ist nicht notwendig, sie vor der Installation der
+  Software zu formatieren und freizugeben. Falls das bei Ihnen der Fall
+  sein sollte, k”nnen Sie direkt beim Abschnitt ``Installieren der
+  Software'' weiterlesen.
+
+  Wenn Sie irgendwelche ``out of memory'' Fehlermeldungen w„hrend der
+  Installation erhalten, sollten sie eine Swap Partition erstellen und
+  freigeben, wie dieses hier beschrieben wird.
+
+  Um den Swap Space fr die Benutzung vorzubereiten, benutzen wir das
+  mkswap Kommando. Der Befehl hat folgende Syntax:
+
+       mkswap -c <Partition> <Groesse>
+
+  Wobei <Partition> der Name der Partition, wie zum Beispiel /dev/hda3,
+  und <Groesse> die Gr”áe der Partition in Bl”cken ist.
+
+  Wenn man zum Beispiel die Swap Partition /dev/hda3 mit einer Gr”áe von
+  10336 Bl”cken erzeugt hat, benutzt man das Kommando:
+
+       mkswap -c /dev/hda3 10336
+
+  Die Option -c sagt mkswap, daá es die Partition bei der Einrichtung
+  auf Bad Blocks testen soll. Wenn w„hrend des Programmablaufes von
+  mkswap ``read_intr'' Fehlermeldungen ausgegeben werden, bedeutet das,
+  daá Bad Blocks gefunden und makiert wurden, so daá man diese Fehler
+  ignorieren kann.
+
+  Um das Swappen auf das neue Laufwerk einzuschalten, benutzt man das
+  Kommando:
+
+       swapon <Partition>
+
+  Fr unseren Swap Space auf /dev/hda3 benutzen wir zum Beispiel:
+
+       swapon /dev/hda3
+
+  Es stehen nun 10 MB mehr virtuellen Speicher zur Verfgung.
+
+  Die Befehle mkswap und swapon sollten fr jede Swap Partition
+  aufgerufen werden, die man erstellt hat.
+
+  4.5.  Installieren der Software
+
+  Die Installation der Slackware Distribution ist sehr einfach; sie
+  verl„uft fast automatisch. Man benutzt den Befehl setup, der einen
+  durch eine Reihe von Mens fhrt, in denen die zu installierende
+  Software, die zu benutzenden Partition und so weiter angegeben werden
+  k”nnen. Fast alles geht automatisch.
+
+  Wir werden hier nicht genauer auf die Einzelheiten der Benutzung von
+  setup eingehen, weil sich diese von Zeit zu Zeit „ndern.  Das setup
+  Programm ist sehr selbsterkl„rend; es enth„lt seine eigene
+  Dokumentation. Um Ihnen einen kleinen šberblick ber die M”glichkeiten
+  zu geben, werden wir eine durchschnittliche Installation mit setup
+  vorstellen.
+
+  Vor dem Start sollten Sie sich vergewissern, daá sie eine High-Density
+  Diskette, die fr MS-DOS formatiert wurde, zur Hand haben. Diese
+  Diskette wird sp„ter zur Erstellung einer Linux Bootdiskette ben”tigt.
+  Nach der Benutzung von fdisk (und vielleicht mkswap und swapon wie
+  oben beschrieben) geben Sie den folgenden Befehl ein:
+
+       # setup
+
+  Dieses bringt ein farbiges Men mit verschiedenen Optionen wie
+  ``Addswap'' (um den Swap Space einzurichten), ``Source'' (um die
+  Quelle der zu installierenden Software wie z.B. Diskette oder Festí
+  platte anzugeben), ``Target'' (um anzugeben, wo die Software instalí
+  liert werden soll) und so weiter auf den Bildschirm.
+
+  Im allgemeinen sollten man die einzelnen Men Optionen in folgender
+  Reihenfolge durchlaufen:
+
+  1. Addswap. Falls Sie eine Swap Partition (mit fdisk) erstellt haben,
+     sollten Sie den Menpunkt addswap verwenden, um dem System dieses
+     mitzuteilen. Diese Menpunkt zeigt eine Liste der m”glichen Swap
+     Partitionen an; man braucht nur noch die Namen der gewnschten Swap
+     Partitionen (wie /dev/hda3) eingeben.  Das System fragt dann, ob
+     die Swap Partitionen formatiert werden sollen, was man best„tigen
+     sollte, falls man nicht schon vorher mkswap und swapon aufgerufen
+     hat. Das bedeutet also, daá man die Swap Partition formatieren
+     sollte, wenn man dieses nicht bereits per Hand gemacht hat, wie
+     dieses im vorherigen Abschnitt beschrieben worden ist.
+
+  2. Source. Unter diesem Menpunkt kann man die Quelle der zu
+     installierenden Software angeben. Es k”nnen verschiedene Quelle wie
+     z.B. Diskette oder Festplatte angegeben werden. Falls man die
+     Installation von Diskette w„hlt, wird man gefragt, welches
+     Diskettenlaufwerk man verwenden m”chte. Falls man die Installation
+     von Festplatte w„hlt, muá man die Partitionen, die die Dateien
+     enth„lt, und das entsprechende Verzeichnis angeben.
+
+     Wenn man zum Beispiel Linux von einer MS-DOS Festplatte des
+     Rechners installieren m”chte und sich die Dateien im
+     Unterverzeichnis C:\SLACKWAR befinden, sollte man den Namen der MS-
+     DOS Partition (wie z.B. /dev/hda1) und den Namen des Verzeichnisses
+     (wie /slackwar) angeben. Hierbei sollte man beachten, daá man
+     forward slashes (/) und nicht backslashes (\) im Verzeichnisnamen
+     verwendet.
+
+     Es gibt weitere Arten der Installation, wie zum Beispiel die von
+     CDROM. Diese sollten selbsterkl„rend sein.
+
+  3. Target. Mit dem Menpunkt kann der Benutzer die Partition(en)
+     festlegen, auf die die Software installiert werden soll. Das System
+     gibt eine Liste der m”glichen Partitionen aus.  Als erstes wird man
+     gebeten, den Namen der root Partition (wie /dev/hda2) einzugeben.
+     Auáerdem wird man gefragt, ob die Partition formatiert werden soll.
+     Dieses sollte man machten, falls man die Partition nicht schon
+     frher einmal fr Linux formatiert hat. Man sollte das Second
+     Extended Filesystem (ext2fs) Format fr die Partition verwenden.
+
+     Auáerdem erh„lt man hier die M”glichkeit, weitere Partitionen fr
+     verschiedene Teile des Verzeichnisbaumes festzulegen. Wenn man zum
+     Beispiel eine eigene Partition fr das /usr Filesystem erstellt
+     hat, sollte man den Namen dieser Partition und das entsprechende
+     Verzeichnis (hier /usr) eingeben.
+
+  4. Disk Sets. Hier kann man die Diskettenserien bestimmten, die
+     installiert werden sollen. In der Liste kann mit den Pfeiltasten
+     gebl„ttert werden; mit der Space Taste kann die entsprechende Serie
+     markiert oder gel”scht werden. Nachdem man alle gewnschten Serien
+     ausgew„hlt hat, beendet man die Auswahl mit dem Drcken der RETURN
+     Taste.
+     Vielleicht m”chte man zu diesem Zeitpunkt zuerst nur ein minimales
+     System installieren. Das ist kein Problem. Nur die A Serie ist
+     erforderlich. Nach der Installation der Software kann man eventuell
+     setup aufrufen, um weitere Disketten Serien zu installieren.
+
+  5. Install. Nachdem alle obigen Paramter eingestellt sind, ist man nur
+     bereit fr die Installation der Software. Als erstes wird man
+     gefragt, welche Art des Promptings man benutzen m”chte; man sollte
+     die ``normal'' Prompting Methode verwenden (auáer man ist ein
+     Experte und hat die Installation Tagfiles in irgendeiner Art
+     modifiziert).
+
+     Das System wird nun einfach die einzelnen Disketten Serien
+     durchlaufen und die Software installieren. Fr jedes installierte
+     Software Paket erscheint eine Dialog Box, die die Software
+     beschreibt. Die Software Pakete, die unbedingt ben”tigt werden,
+     werden automatisch installiert. Bei jedem nicht unbedingt
+     ben”tigten Software Paket wird der Benutzer gefragt, ob das Paket
+     installiert werden soll oder nicht. Falls man ein bestimmtes Paket
+     zu diesem Zeitpunkt nicht installieren m”chte, kann man das sp„ter
+     mit dem setup Programm jederzeit nachholen.
+
+     W„hrend der Software Installation sollte man auf Fehlermeldungen
+     achten, die eventuell ausgegeben werden. Am h„ufigsten tritt der
+     Fehler ``device full'' auf. Dieses bedeutet, daá kein Platz mehr
+     auf der Linux Partition vorhanden ist. Leider ist die Installations
+     Prozedur der Slackware nicht intelligent genug, dieses zu erkennen,
+     so daá trotzdem weiter versucht wird, die Software zu installieren.
+     Falls man also eine solche Fehlermeldung w„hrend der Installation
+     erh„lt, sollte man die Installation unter Verwendung von Ctrl-C
+     abbrechen. Die einzige L”sung des ``device full'' Problem besteht
+     darin, entweder die Linux Partition mit einer anderen Gr”áe neu zu
+     erzeugen oder die Installation neu zu starten, wobei man nun
+     erheblich weniger optionale Pakete ausw„hlt.
+
+  Nachdem die Installation abgeschlossen ist und wenn alles gut gegangen
+  ist, bekommt man nun die M”glichkeit, eine ``standard boot disk'' zu
+  erzeugen, welche zum Booten des neu installierten Linux Systems
+  verwendet werden kann. Hierfr ben”tigt man eine leere, fr MS-DOS
+  formatierte High-Density Diskette des Typs, den der Rechner zum Booten
+  verwenden kann. Legen Sie einfach eine Diskette ein, wenn Sie darum
+  gebeten werden und die Boot Diskette wird erstellt.
+
+  Auáerdem erh„lt man die M”glichkeit LILO auf der Festplatte zu
+  installieren.  Bei LILO, was fr LInux LOader steht, handelt es sich
+  um ein Programm, das es erm”glicht, Linux (genauso wie andere
+  Betriebssysteme wie MS-DOS) von der Festplatte zu booten. Falls sie
+  dieses Programm installieren m”chten, w„hlen Sie einfach den
+  entsprechenden Menpunkt aus und folgenden Sie den Anweisungen.
+
+  Falls Sie bereits den OS/2 Boot Manager verwenden, enth„lt das Men
+  eine Option fr die Konfiguration von LILO fr die Benutzung mit dem
+  Boot Manager, so daá man Linux direkt aus diesem booten kann.
+
+  Beachten Sie bitte, daá die automatische LILO Installation nicht
+  idiotensicher ist; es gibt Situationen, in denen sie versagen kann.
+  Stellen Sie sicher, daá sie eine M”glichkeit haben, MS-DOS, Linux und
+  anderen Betriebssysteme von Diskette zu booten, bevor Sie versuchen,
+  LILO zu installieren. Falls die LILO Installation versagen sollten,
+  h„tten Sie immer noch die M”glichkeit, das System von Diskette zu
+  booten und das Problem zu beheben.
+
+  Weitere Informationen zur Konfiguration von LILO folgen weiter unten.
+
+  Nach der eigentlich Installationsprozedur folgen weitere Mens, die
+  die Konfiguration des Systems erm”glichen. Dieses beinhaltet zum
+  Beispiel die Bestimmung des Modem und Maus Devices und der Zeitzone.
+  Folgen Sie einfach den Menpunkten.
+
+  5.  Nach der Installation
+
+  5.1.  Booten des neuen Systems
+
+  Wenn alles planm„áig gelaufen ist, sollte man nun von der Linux Boot
+  Diskette, die nach der Installation der Software erstellt worden ist,
+  booten k”nnen. Falls man LILO installiert hat, kann man auch direkt
+  von der Festplatte ohne Verwendung der Bootdiskette booten.
+
+  Zum Booten unter Verwendung von LILO entfernt man alle Disketten aus
+  den Laufwerken des Rechners und fhrt einen Reset aus.  W„hrend des
+  Bootvorganges erscheint irgendwann auf dem Bildschirm die Meldung
+  LILO. Dieses ist das Bootprompt. Hier kann man w„hlen, welches
+  Betriebssystem gebootet werden soll.  Hierfr drckt man zuerst die
+  Shift oder die Strg (Control) Taste. Es erscheint dann das eigentlich
+  Boot Prompt.  Mit der Tab Taste kann man sich die m”glichen
+  Betriebssysteme anzeigen lassen. Einen dieser Namen gibt man dann am
+  Prompt ein, um das entsprechende Betriebssystem zu starten.
+
+  Nachdem der Bootvorgang abgeschlossen ist und das System bereit ist,
+  erscheint das Login Prompt, das ungef„hr so aussieht:
+
+       Welcome to Linux 2.0.0.
+
+       darkstar login:
+
+  Hier kann man sich als Benutzer root einloggen.
+
+  5.2.  Editor vi
+
+  Im Gegensatz zu Betriebssystemen wie Windows 95 werden unter Linux
+  fast alle Programme nicht ber Mens sondern ber Textdateien
+  konfiguriert. Aus diesem Grund sind einfache Kenntnisse eines Unix
+  Editors unvermeidbar. Dieses gilt insbesondere deshalb, da die
+  Bedienung von Unix Editoren gerade fr Umsteiger von MS-DOS oder
+  Windows auf den ersten Blick sehr unkomfortabel ist.
+
+  Der Editor vi ist der Standardeditor, den man eigentlich unter jedem
+  Unix findet. Der Editor wird mit dem Befehl
+
+       vi <Datei>
+
+  gestartet. Der Editor verfgt ber mehrere Modi. Nach dem Start
+  befindet man sich im Kommandomodus. Um die geladene Datei jetzt
+  editieren zu k”nnen, muá man durch Drcken der i Taste in den
+  Editiermodus schalten. Nachdem man alle nderungen vorgenommen hat,
+  schaltet man durch Drcken der <ESC> Taste wieder in den
+  Kommandomodus. Um die Datei zu speichern und den Editor zu verlassen,
+  gibt man jetzt :wq ein.  Um den Editor zu verlassen, ohne die
+  nderungen zu speichern, verwendet man die Kombination :q!.
+
+  5.3.  Konfiguration von LILO
+
+  Dieser Abschnitt mssen Sie nur dann lesen, falls die Installation von
+  LILO ber das Slackware Setup Programm fehlgeschlagen ist und Sie LILO
+  per Hand installieren m”chten.
+
+  LILO ist ein Bootmanager, der benutzt werden kann, um zur Bootzeit
+  zwischen Linux, MS-DOS und anderen Betriebssystemen zu w„hlen. Falls
+  Sie LILO als prim„ren Bootmanager installieren, bernimmt er die erste
+  Stufe des Bootprozesses fr alle Betriebssysteme auf der Festplatte.
+  Dieses funktioniert solange gut, solange MS-DOS das einzige andere
+  Betriebssystem ist, das man auf dem Rechner installiert hat. Wie auch
+  immer, wenn man OS/2 installiert, verfgt dieses ber einen eigenen
+  Bootmanager. In diesem Fall m”chte man vielleicht, daá der OS/2
+  Bootmanager der prim„re Bootmanager ist und daá LILO Linux als
+  sekund„rer Bootmanager bootet.
+
+  Die Slackware Installations Prozedur erlaubt es, LILO zu installieren
+  und zu konfigurieren. Allerdings ist diese Methode nicht ausgereift
+  genug, um alle Eventualit„ten zu bercksichtigen. Es ist eventuell in
+  manchen F„llen leichter, LILO per Hand zu konfigurieren.
+
+  Um LILO auf einem System einzurichten, muá nur die Datei
+  /etc/lilo.conf editiert werden. Nachfolgend zeigen wir ein Beispiel
+  fr eine LILO Konfigurationsdatei, wobei sich die Linux Root Partition
+  auf /dev/hda2 befindet und MS-DOS auf /dev/hdb1 (auf der zweiten
+  Festplatte) installiert ist.
+
+       # Sagt LILO, daá er sich selbst als prim„rer Bootmanager auf /dev/hda
+       # installieren soll.
+       boot = /dev/hda
+       # Das Boot Image, das installiert wird; dieses sollte man nicht aendern.
+       install = /boot/boot.b
+       # Fuehrt einige Optimierungen durch. Funktioniert nicht auf allen Rechnern.
+       compact
+
+       # Der Abschnitt fuer das Booten von Linux
+       image = /vmlinuz       # Das Kernel befindet sich in /vmlinuz
+         label = linux        # Gibt ihm den Namen "linux"
+         root = /dev/hda2     # Benutze /dev/hda2 als Root Filesystem
+         vga = ask            # Frage nach dem VGA Modus
+         append = "aha152x=0x340,11,7,1"  # Dieses kann man den Bootoptionen
+                                          # hinzufuegen, damit der SCSI Kontroller
+                                          # erkannt wird.
+
+       # Der Abschnitt fuer das Booten von MS-DOS
+       other = /dev/hdb1      # Dieses ist die MS-DOS Partition
+         label = msdos        # Gibt ihr der Namen "msdos"
+         table = /dev/hdb     # Die Partitionstabelle fuer die zweite Festplatte
+
+  Nachdem man die Datei /etc/lilo.conf editiert hat, muá das Programm
+  /sbin/lilo als root aufgerufen werden. Hiermit wird LILO auf der
+  Festplatte installiert. Man sollte bedenken, daá /sbin/lilo jedesmal
+  aufgerufen werden muá, wenn man das Kernel neu kompiliert hat.
+  Hierber braucht man sich im Moment noch keine Gedanken machen, aber
+  man sollte sich dieses fr sp„ter merken.
+
+  Beachten Sie bitte, wie wir hier die append Option in der
+  /etc/lilo.conf verwenden, um Bootparameter festzulegen, wie wir dieses
+  bereits beim Booten der Slackware Bootdiskette gemachten haben.
+
+  Nun kann das System von der Festplatte neu gebootet werden.
+  Standardm„áig bootet LILO das Betriebssystem, das als erstes in der
+  Konfigurationsdatei erscheint. Bei unserem Beispiel ist das Linux. Um
+  zum Bootmen zu gelangen, um ein anderes Betriebssystem auszuw„hlen,
+  h„lt man beim Booten des Systems die Shift oder die Strg (Control)
+  Taste gedrckt. Es erscheint dann ein Prompt, das ungef„hr so
+  aussieht:
+
+       LILO boot:
+
+  Hier gibt man nun entweder den Namen des zu bootenden Betriebssystems
+  ein (Die Namen werden durch die label Zeile in der Konfigurationsdatei
+  festgelegt; in diesem Fall also entweder linux oder msdos.) oder man
+  drckt die Tab Taste, um eine Liste zu erhalten.
+
+  Gehen wir jetzt mal davon aus, daá wir LILO als sekund„ren Bootmanager
+  verwenden wollen, um zum Beispiel Linux vom OS/2 Bootmanager zu
+  booten.  Um eine Linux Partition von dem OS/2 Bootmanager zu booten,
+  muá man die Partition allerdings mit dem FDISK von OS/2 (nicht von
+  Linux) erzeugen und mit einer FAT oder HPFS formatieren, so daá OS/2
+  sie erkennt.
+
+  Um Linux mit LILO aus dem OS/2 Bootmanager heraus zu booten,
+  installiert man LILO auf dem Linux Root Filesystem (im obigen Beispiel
+  /dev/hda2). In diesem Falls sollte die LILO Konfigurationsdatei
+  ungef„hr folgend aussehen:
+
+       boot = /dev/hda2
+       install = /boot/boot.b
+       compact
+
+       image = /vmlinuz
+         label = linux
+         root = /dev/hda2
+         vga = ask
+
+  Beachten Sie bitte die Ver„nderung in der boot Zeile. Nach dem Aufruf
+  von /sbin/lilo sollte man die Linux Partition im Bootmanager
+  hinzufgen k”nnen. Diese Methode sollte auch bei den Bootmanagern von
+  anderen Betriebssystemen funktionieren.
+
+  5.4.  Account einrichten
+
+  Nach dem Booten des Systems und dem Einloggen als root sollte man sich
+  als erstes einen eigenen Account einrichten. Fr diesen Zweck kann der
+  Befehl adduser verwendet werden, zum Beispiel:
+
+  # adduser
+  Login to add (^C to quit): ebersol
+  Full Name: Norbert Ebersol
+  GID [100]: 100
+  UID [501]: 501
+  Home Directory [/home/ebersol]: /home/ebersol
+  Shell [/bin/bash]: /bin/bash
+  Password [ebersol]: new.password
+
+  Information for new user [ebersol]:
+  Home directory: [/home/ebersol]  Shell: [/bin/bash]
+  Password: [new.password]  UID: [502] GID:[100]
+  Is this correct? [y/n]: y
+
+  adduser fragt nach verschiedenen Dingen, wie dem Loginnamen, dem
+  vollst„ndigen Namen, der Gruppenkennung (GID), der Benutzerkennung
+  (UID) und so weiter. Fr die meisten Teile kann man die
+  Standardeinstellungen verwenden. Falls Sie nicht mit der Erstellung
+  von Benutzern auf UNIX Systemen vertraut sind, empfehle ich Ihnen
+  dringend, ein Buch ber die Administration von UNIX Systemen zu
+  kaufen. Es wird bei der Einrichtung und der Benutzung des neuen
+  Systems sehr hilfreich sein.
+
+  Man kann sich nun als neuer Benutzer einloggen. Mit den Tasten Alt-F1
+  bis Alt-F8 kann man zwischen den virtuellen Konsolen umschalten, die
+  es erm”glichen, daá man sich mehrmals von der Konsole einloggen kann.
+  Das passwd Kommando kann benutzt werden, um das Password des neuen
+  Accounts festzulegen; man sollte ein neues Password fr den root und
+  fr jeden neuen Benutzer, den man erzeugt hat, festlegen.
+
+  5.5.  Anpassungen fr Deutschland
+
+  Leider sind die meisten Unix Programm nicht unbedingt fr die
+  Verwendung der deutschen Umlaute ausgelegt. Um fr den Anfang
+  wenigstens im Shell eine vernnftige Tastaturbelegung zu haben, sollte
+  man die Datei ~/.inputrc mit folgendem Inhalt erstellen:
+
+       set meta-flag on
+       set convert-meta off
+       set output-meta on
+       "\e[1~": beginning-of-line
+       "\e[3~": delete-char
+       "\e[4~": end-of-line
+
+  Einige Linux Programmen k”nnen durch folgenden Eintrag in /etc/profile
+  angepaát werden:
+
+       export LANG="de_DE"
+
+  Weitere Informationen zur Anpassung von Linux Programmen fr die
+  Anwendung in Deutschland findet man in der German HOWTO.
+
+  5.6.  Bcher und HOWTOs
+
+  Offensichtlich gibt es viele weitere Dinge, die eingerichtet und
+  konfiguriert werden mssen. Zu Linux sind eine Vielzahl von Bchern
+  und HOWTOs erschienen. Auáerdem gibt es eine groáe Anzahl von Bchern,
+  die sich allgemein mit Unix Systemen besch„ftigen.  Im Rahmen dieser
+  HOWTO k”nnen natrlich nicht alle Bcher aufgefhrt werden. Ich
+  erw„hne deshalb nur die vier fr Anf„nger am besten geeigneten Bcher:
+
+  ú  Zum Thema Administration allgemein ist das Buch Unix System
+     Administration von zu ’leen Frisch empfehlen, das bei O'Reilly und
+     Associates erschienen ist.
+
+  ú  Zum Einstieg in Linux und seine Programme ist das Buch Linux -
+     Wegweiser zur Installation und Konfiguration von Matt Welsh und Lar
+     Kaufman geeignet, das ebenfalls bei O'Reilly erschienen ist.
+
+  ú  Ebenfalls an Linux Einsteiger richtet sich das Buch Linux -
+     Installation, Konfiguration, Anwendung von Michael Kofler, das bei
+     Addison-Westley erschienen ist.
+
+  ú  Mit der Einrichtung des Netzwerkes besch„ftigt sich das Buch Linux
+     - Wegweiser fr Netzwerker von Olaf Kirch, das auch bei O'Reilly zu
+     bekommen ist.
+
+  ú  Fr Anwender, die dem Englisch nicht ganz so m„chtig sind und
+     deshalb eventuell mit den englischen man pages der Programme
+     Probleme haben, ist das Linux Anwender Hanbuch zu empfehlen, das
+     bei LunetIX erschienen ist.
+
+  Neben diesen gedruckten Bchern gibt es vom LDP noch einige weitere
+  Bcher, die man unter
+
+       sunsite.unc.edu:/pub/Linux/docs/LDP
+
+  finden kann.
+
+  Auáerdem existieren fr Linux eine groáe Anzahl von HOWTOs.  Diese
+  besch„ftigen sich jeweils speziell mit einem Aspekt von Linux. Die
+  HOWTOs sind zu finden unter
+
+       sunsite.unc.edu:/pub/Linux/docs/HOWTO
+
+  Einige dieser HOWTOs, wie z.B. diese HOWTO, die sie gerade lesen, gibt
+  es als deutsche šbersetzung vom DLHP. Diese k”nnen von
+
+       http://www.tu-harburg.de/~semb2204/dlhp/
+
+  bezogen werden.
+
+  5.7.  Fragen und Antworten
+
+  Bei der Installation der Slackware wurde das CDROM Laufwerk des
+  Rechners erkannt. Nachdem nach der Installation der Rechner neu
+  gebootet wurde, wird das CDROM Laufwerk nicht mehr erkannt.
+
+  Dieses Problem liegt darin begrndet, daá bei der Installation
+  wahrscheinlich ein Kernel verwendet wurde, das Untersttzung fr
+  dieses CDROM Laufwerk enthielt. Allerdings wurde bei der Installation
+  ein Kernel ohne CDROM Untersttzung ausgew„hlt und installiert.
+
+  Um das Problem zu beheben muá ein neues Kernel kompiliert wird.
+  Dieses erfolgt menugesteuert und sollte auch fr Anf„nger kein Problem
+  darstellen. Wie dieses genau gemacht wird, kann man in der deutschen
+  Kernel HOWTO nachlesen, die man unter
+
+       http://www.tu-harburg.de/~semb2204/dlhp/DE-Kernel-HOWTO.html
+
+  findet.
+
+  Warum bricht der Compiler manchmal mit 'signal 11: internal compiler
+  error' ab?
+
+  Dieses ist in 99% aller F„lle ein Hardwarefehler. Meistens kann dieses
+  Problem durch die Erh”hung der Waitstates im BIOS gel”st werden.
+  Meistens kann man das Problem auch durch das Abschalten des Prozessor
+  Caches beheben, allerdings wird dadurch der Rechner deutlich
+  langsamer. Die wirkliche Ursache des Fehlers liegt meistens in
+  defekten oder minderwertigen RAM Bausteinen begrndet.
+

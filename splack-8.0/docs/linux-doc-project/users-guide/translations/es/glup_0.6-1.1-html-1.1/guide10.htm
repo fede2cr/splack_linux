@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<TITLE>guide10</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide09.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide11.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 10</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>Hablando con los dem&aacute;s</P><DIR>
+<DIR>
+
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>"Una noci&oacute;n fundamental de Usenet es que es una cooperativa."</P>
+<P>Cuando ya van para diez los a&ntilde;os que llevo en Usenet, discrepo con lo anterior. La noci&oacute;n fundamental de Usenet es el insulto airado.</P>
+<P>Chuq Von Rospach</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Los modernos sistemas operativos tipo Unix son muy buenos a la hora de hablar con otras m&aacute;quinas y funcionar en red. Dos m&aacute;quinas Unix diferentes pueden intercambiar informaci&oacute;n de muchas, muchas maneras distintas. Este cap&iacute;tulo va a intentar contar c&oacute;mo se puede sacar provecho de esta gran facilidad para la comunicaci&oacute;n.</P>
+<P>Trataremos de cubrir el correo electr&oacute;nico, las noticias de Usenet, y diversas utilidades b&aacute;sicas de comunicaciones de Unix.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>10.1 Correo electr&oacute;nico</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Una de las facilidades m&aacute;s populares que ofrece Unix de forma est&aacute;ndar es el correo electr&oacute;nico.</P>
+<P>Con &eacute;l evitamos el habitual foll&oacute;n de buscar un sobre, una hoja de papel, un l&aacute;piz, un sello, y un servicio postal. A cambio debemos enfrentarnos al foll&oacute;n de pelear con el ordenador.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>10.1.1 Enviar correo</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Todo lo que hay que hacer es teclear "mail nombre" y escribir el mensaje.</P>
+<P>Por ejemplo, supongamos que queremos enviar correo a un usuario que se llama sam:</P><DIR>
+<DIR>
+
+<P>/home/larry$ mail sam</P>
+<P>Subject: Documentacion del usuario</P>
+<P>Solo estoy probando el sistema de correo.</P>
+<P>[Ctrl-d]</P>
+<P>/home/larry$</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El programa mail es muy simple. Como cat, acepta texto de la entrada est&aacute;ndar, l&iacute;nea a l&iacute;nea, hasta que recibe un car&aacute;cter de fin-de-texto como &uacute;nico car&aacute;cter en una l&iacute;nea: |_Ctrl-d_|. As&iacute;, para enviar nuestro mensaje, tuvimos que pulsar |_Intro_| y despu&eacute;s |_Ctrl-d_|. Usar mail es la manera m&aacute;s r&aacute;pida de mandar correo, y es bastante &uacute;til cuando se usa con redirecci&oacute;n de entrada y/o salida. Por ejemplo, si quisi&eacute;ramos enviar por correo electr&oacute;nico el fichero report1 a "Sam", podr&iacute;amos escribir "mail sam &lt; report1" , o incluso "sort report1 _ mail sam".</P>
+<P>Sin embargo, la desventaja de usar mail para enviar correo es su primitiv&iacute;simo editor. ¡No se puede cambiar ni una l&iacute;nea una vez se ha pulsado |_Intro_|! As&iacute; que yo recomiendo mandar correo (cuando no se use redirecci&oacute;n) con el modo mail del Emacs. El tema se trata en la Secci&oacute;n 8.10.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>10.1.2 Leer el correo</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<B><P>- mail [nombre]</P>
+</B><P>El programa "mail" ofrece una forma algo liosa de leer el correo. Si se teclea "mail" sin par&aacute;metros, aparecer&aacute; lo siguiente:</P><DIR>
+<DIR>
+
+<P>/home/larry$ mail</P>
+<P>No mail for larry</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>"No mail for larry" significa: No hay correo para larry.</P>
+<P>Me voy a enviar correo a m&iacute; mismo para poder utilizar el lector:</P><DIR>
+<DIR>
+
+<P>/home/larry$ mail larry</P>
+<P>Subject: Sapos!</P>
+<P>Y ranas!</P>
+<P>EOT</P>
+<P>/home/larry$ echo "culebras" _ mail larry</P>
+<P>/home/larry$ mail</P>
+<P>Mail version 5.5 6/1/90. Type ? for help.</P>
+<P>"/usr/spool/mail/larry": 2 messages 2 new</P>
+<P>&gt;N 1 larry Tue Aug 30 18:11 10/211 "Sapos!"</P>
+<P>N 2 larry Tue Aug 30 18:12 9/191</P>
+<P>&amp;</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El s&iacute;mbolo petici&oacute;n de &oacute;rdenes del programa mail es un "et a la inglesa" ("&amp;"). Acepta un par de &oacute;rdenes sencillas, y muestra una breve pantalla de ayuda si se pulsa "?" seguido de |_Intro_|. Las &oacute;rdenes b&aacute;sicas de mail son:</P><DIR>
+<DIR>
+
+<P>t lista-de-mensajes Mostrar los mensajes en la pantalla.</P>
+<P>d lista-de-mensajes Borrar los mensajes.</P>
+<P>s lista-de-mensajes fichero Guardar los mensajes en fichero.</P>
+<P>r lista-de-mensajes Responder a los mensajes_esto es, comenzar a escribir un nuevo mensaje dirigido a quien fuera que envi&oacute; los mensajes referidos.</P>
+<P>q Salir y guardar los mensajes que no hayan sido borrados en un fichero llamado mbox en el directorio ra&iacute;z del usuario.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>¿Qu&eacute; es una lista-de-mensajes? Consiste en una lista de n&uacute;meros separados por espacios, o incluso un rango de los mismos como "2-4" (lo que es equivalente a "2 3 4"). As&iacute; mismo se puede introducir el nombre del remitente, de este modo la orden t sam mostrar&aacute; todos los mensajes provenientes de Sam. Si se omite la lista-de-mensajes, se supone que la orden se refiere al &uacute;ltimo mensaje mostrado. </P>
+<P>Leer el correo con el programa mail presenta varios inconvenientes. El primero es que si un mensaje es m&aacute;s largo que la pantalla, ¡el programa mail no se detiene! Habr&aacute; que guardar el mensaje en un fichero y usar more sobre &eacute;l despu&eacute;s. El segundo es que no ofrece una buena interfaz para manejar el correo antiguo, cuando se quiere guardar el correo para leerlo m&aacute;s tarde.</P>
+<P>Emacs tambi&eacute;n permite leer el correo con rmail, pero este libro no lo cubre. Adicionalmente la mayor&iacute;a de los sistemas Linux vienen con algunos lectores de correo adicionales adem&aacute;s de mail, como elm, o pine.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>10.2 Noticias m&aacute;s que de sobra</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>10.3 Localizar a la gente</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El programa finger permite obtener informaci&oacute;n de otros usuarios del sistema y de todo el mundo. Sin duda el programa finger recibi&oacute; este nombre por los anuncios de la AT&amp;T que exhortaban a la gente a "salir y tocar a alguien". Dado que el Unix tiene sus or&iacute;genes en la AT&amp;T, probablemente eso le hiciera gracia al autor.</P>
+<P>&nbsp;</P>
+<B><P>- finger [-slpm] [usuario][@maquina]</P>
+</B><P>Los par&aacute;metros opcionales de finger pueden resultar algo liosos. La verdad es que no es tan dif&iacute;cil. Se puede solicitar informaci&oacute;n de un usuario local ("sam"), informaci&oacute;n de otra m&aacute;quina ("@lionsden"), informaci&oacute;n sobre un usuario remoto ("sam@lionsden"), o simplemente informaci&oacute;n sobre la m&aacute;quina local (nada).</P>
+<P>Otra caracter&iacute;stica es que si se pide informaci&oacute;n sobre un usuario y no hay ning&uacute;n nombre de cuenta que coincida exactamente con el dado, tratar&aacute; de emparejar el nombre real con lo que se haya especificado. Eso significa que si ejecutamos "finger Greenfield" , nos contestar&aacute; que existe la cuenta sam de Sam Greenfield.</P><DIR>
+<DIR>
+
+<P>/home/larry$ finger sam</P>
+<P>Login: sam Name: Sam Greenfield</P>
+<P>Directory: /home/sam Shell: /bin/tcsh</P>
+<P>Last login Sun Dec 25 14:47 (EST) on tty2</P>
+<P>No Plan.</P>
+<P>/home/larry$ finger greenfie@gauss.rutgers.edu</P>
+<P>[gauss.rutgers.edu]</P>
+<P>Login name: greenfie In real life: Greenfie</P>
+<P>Directory: /gauss/u1/greenfie Shell: /bin/tcsh</P>
+<P>On since Dec 25 15:19:41 on ttyp0 from tiptop-slip-6439</P>
+<P>13 minutes Idle Time</P>
+<P>No unread mail</P>
+<P>Project: Debes estar bromeando! de que proyecto me hablas?</P>
+<P>No Plan.</P>
+<P>/home/larry$ finger</P>
+<P>Login Name Tty Idle Login Time Office Office Phone</P>
+<P>larry Larry Greenfield 1 3:51 Dec 25 12:50</P>
+<P>larry Larry Greenfield p0 Dec 25 12:51</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La opci&oacute;n "-s" hace que finger utilice siempre la forma abreviada (la que se obtiene normalmente cuando se hace finger a una m&aacute;quina), y la opci&oacute;n "-l" hace que use siempre la forma larga, incluso al hacer finger a una m&aacute;quina. La opci&oacute;n "-p" hace que finger no muestre los ficheros .forward, .plan, ni .project, y la "-m" hace que, cuando se ha pedido informaci&oacute;n sobre un usuario, s&oacute;lo de informaci&oacute;n de un nombre de cuenta, que no intente emparejar el nombre que se le da con un nombre real.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>10.3.1 Planes y proyectos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Pero, ¿qu&eacute; es eso de .plan y .project? Son ficheros que existen en el directorio ra&iacute;z de un usuario y que se muestran cuando se le hace finger. Cada uno puede crear sus propios ficheros .plan y .project, la &uacute;nica restricci&oacute;n es que s&oacute;lo se muestra la primera l&iacute;nea del fichero .project. Adem&aacute;s, todo el mundo debe tener permisos de b&uacute;squeda (la "x" de ejecuci&oacute;n) del directorio ra&iacute;z del usuario en cuesti&oacute;n ("chmod a+x ~/") y debe ser posible para todo el mundo leer los ficheros .plan y .project ("chmod a+r ~/.plan ~/.project" ).</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>10.4 Uso remoto de sistemas</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<B><P>- telnet sistema-remoto</P>
+</B><P>La forma m&aacute;s habitual de usar un sistema Unix remoto es con telnet. telnet es normalmente un programa muy sencillo de usar:</P><DIR>
+<DIR>
+
+<P>/home/larry$ telnet lionsden</P>
+<P>Trying 128.2.36.41...</P>
+<P>Connected to lionsden</P>
+<P>Escape character is '^]'.</P>
+<P>&nbsp;</P>
+<P>lionsden login:</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como puede verse, despues de teclear "telnet" , se nos presenta un mensaje de acceso al sistema remoto. Podemos introducir cualquier nombre de usuario (¡siempre que conozcamos la contrase&ntilde;a!) y despu&eacute;s usar el sistema remoto casi como si estuvi&eacute;ramos sentados all&iacute;.</P>
+<P>La manera normal de salir de telnet es hacer "logout" en el sistema remoto. Otra forma es tecleando la secuencia de escape, que (como en el ejemplo de arriba) es habitualmente ||_Ctrl-]_||.</P>
+<P>Esto nos presenta un nuevo s&iacute;mbolo del petici&oacute;n de &oacute;rdenes: telnet&gt;. Entonces podemos teclear "quit" y |_Intro_| y la conexi&oacute;n con el otro sistema ser&aacute; cerrada y el programa telnet finalizar&aacute;. (Si cambi&aacute;ramos de idea, simplemente pulsando |_Intro_| volver&iacute;amos al sistema remoto).</P>
+<P>Si se est&aacute;n usando las X, se puede crear un nuevo xterm para el otro sistema al que estamos saltando. Con la orden "xterm -title "lionsden" -e telnet lionsden &amp;" crearemos una nueva ventana xterm que autom&aacute;ticamente ejecute telnet. (Si eso se hace con frecuencia, probablemente ser&aacute; deseable crear un alias o un programa de shell que lo haga autom&aacute;ticamente).</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>10.5 Intercambio de ficheros</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<B><P>- ftp sistema-remoto</P>
+</B><P>La manera usual de intercambiar ficheros entre sistemas Unix es ftp, acr&oacute;nimo que proviene de file transfer protocol (protocolo de transferencia de ficheros). Tras ejecutar la orden ftp, se nos pedir&aacute; que nos identifiquemos, de forma muy parecida a con telnet. Despu&eacute;s de hacerlo aparece un s&iacute;mbolo de petici&oacute;n de &oacute;rdenes especial: el s&iacute;mbolo ftp.</P>
+<P>La orden "cd" funciona de la manera habitual, pero en el sistema remoto: cambia de directorio en el otro sistema. De la misma forma, la orden "ls" lista los ficheros en el sistema remoto.</P>
+<P>Las dos &oacute;rdenes m&aacute;s importantes son "get" y "put". get transfiere un fichero del sistema remoto al local, y put lleva un fichero del sistema local al remoto. Ambas &oacute;rdenes tienen efecto en el directorio local en el que se haya arrancado ftp y en el directorio remoto en el que se est&eacute; en ese momento (que se puede haber cambiado con la orden "cd" ).</P>
+<P>Un problema habitual con ftp es la distinci&oacute;n entre ficheros de texto y binarios. ftp es un protocolo muy antiguo, y antes ten&iacute;a ventajas suponer que los ficheros que se transfer&iacute;an eran de texto. El comportamiento por omisi&oacute;n de algunas versiones de ftp es &eacute;se, lo que significa que los programas que se env&iacute;en o reciban se corromper&aacute;n. Por seguridad conviene usar la orden "binary" antes de empezar a transferir ficheros.</P>
+<P>Para salir de ftp se usa la orden "bye".</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>10.6 Viajando por la telara&ntilde;a</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La Telara&ntilde;a Mundial (World Wide Web), o WWW, es un uso muy popular de la Internet. Consiste en un conjunto de p&aacute;ginas, cada una con su propia URL_Localizador Uniforme de Recursos asociado.</P>
+<P>Los URLs son simp&aacute;ticas secuencias de caracteres de la forma &lt;http://www.rutgers.edu/&gt;. Las p&aacute;ginas est&aacute;n por lo general escritas en HTML (Lenguaje de Composici&oacute;n de Hipertexto). El HTML permite al autor de un documento enlazar ciertas palabras, frases, o im&aacute;genes, con otros documentos que se hallen en cualquier lugar de la telara&ntilde;a. Cuando un usuario lee un documento, puede moverse r&aacute;pidamente a otro picando en una palabra clave o en un bot&oacute;n y se le mostrar&aacute; el otro documento en cuesti&oacute;n, que posiblemente est&eacute; a miles de kil&oacute;metros del primero.</P>
+<P>&nbsp;</P>
+<B><P>- netscape [url]</P>
+</B><P>El navegador m&aacute;s popular de Linux es netscape; se trata de un navegador comercial que vende (y regala) Netscape Communications Corporation. netscape s&oacute;lo funciona con las X.</P>
+<P>netscape trata de ser tan f&aacute;cil de usar como sea posible y utiliza el conjunto de widgets Motif para lograr una apariencia muy a lo Microsoft Windows. El conocimiento b&aacute;sico para poder usar netscape es que las palabras azules subrayadas son enlaces, as&iacute; como muchas de las im&aacute;genes. (Se puede averiguar cuales im&aacute;genes son enlaces picando en ellas). Picando en esas palabras con el bot&oacute;n izquierdo del rat&oacute;n, aparece una nueva p&aacute;gina.</P>
+<P>Linux soporta muchos navegadores m&aacute;s, incluyendo el navegador original lynx. lynx es un navegador orientado a texto_no muestra ninguna imagen que es con lo que actualmente se relaciona al Web, pero funciona sin las X.</P>
+<P>&nbsp;</P>
+<B><P>- lynx [url]</P>
+</B><P>Es un poco m&aacute;s complicado aprender a usar lynx, pero normalmente se le coge el truco despu&eacute;s de jugar un rato con las flechas del cursor. Las flechas hacia arriba y hacia abajo nos mueven entre los enlaces de una p&aacute;gina. La flecha hacia la derecha sigue el enlace seleccionado (resaltado). La flecha hacia la izquierda vuelve a la p&aacute;gina anterior. Para salir de lynx, se debe pulsar |_q_|. lynx tiene muchas &oacute;rdenes m&aacute;s, cons&uacute;ltese la p&aacute;gina del manual.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

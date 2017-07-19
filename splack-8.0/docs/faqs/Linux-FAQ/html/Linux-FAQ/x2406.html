@@ -1,0 +1,2520 @@
+<HTML
+><HEAD
+><TITLE
+>How To Do This or Find Out That... </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.63
+"><LINK
+REL="HOME"
+TITLE="Linux Frequently Asked Questions with Answers"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Solutions to Common Miscellaneous Problems"
+HREF="x1973.html"><LINK
+REL="NEXT"
+TITLE="Miscellaneous Information and Questions Answered"
+HREF="x2984.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Linux Frequently Asked Questions with Answers</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1973.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2984.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN2406"
+>8. How To Do This or Find Out That...</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2408"
+>8.1. How To Find Out If a Notebook Runs Linux.</A
+></H2
+><P
+>There's no fixed answer to this question, because notebook hardware is
+constantly updated, and getting the X display, sound, PCMCIA, modem,
+and so forth, working, can take a good deal of effort.</P
+><P
+>Most notebooks currently on the market, for example, use
+``Winmodems,'' which often do not work with Linux because of their
+proprietary hardware interfaces. Even notebooks which are certified as
+``Linux compatible,'' may not be completely compatible.</P
+><P
+>Information about installing Winmodems in general is contained 
+in the <I
+CLASS="CITETITLE"
+>Winmodems-and-Linux HOWTO</I
+>.  (Refer 
+to ``<A
+HREF="x346.html#AEN370"
+><I
+>Where Is the Documentation?</I
+></A
+>'')</P
+><P
+>You can find the most current information, or ask other users about
+their notebook experiences, on the linux-laptop mailing list, which is
+hosted by the <TT
+CLASS="LITERAL"
+>vger.redhat.com</TT
+> server.  (Refer to
+``<A
+HREF="x346.html#AEN1176"
+><I
+>What Mailing Lists Are There?</I
+></A
+>'')</P
+><P
+>A mailing list for Linux on IBM Thinkpads has its home page at
+<A
+HREF="http://www.topica.com/lists/linux-thinkpad/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.topica.com/lists/linux-thinkpad/</TT
+></A
+>.</P
+><P
+>Another Thinkpad mailing list is hosted by
+<A
+HREF="http://www.bm-soft.com/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.bm-soft.com/</TT
+></A
+>. 
+Send email with the word ``<TT
+CLASS="LITERAL"
+>help</TT
+>'' in the
+body of the message to 
+<A
+HREF="mailto:majordomo@www.bm-soft.com"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>majordomo@www.bm-soft.com</TT
+></A
+>.</P
+><P
+>There is a Web page about Linux on IBM Thinkpads at
+<A
+HREF="http://peipa.essex.ac.uk/tp-linux/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://peipa.essex.ac.uk/tp-linux/</TT
+></A
+>.</P
+><P
+>The Linux Laptop home page is at
+<A
+HREF="http://www.cs.utexas.edu/users/kharker/linux-laptop/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.cs.utexas.edu/users/kharker/linux-laptop/</TT
+></A
+>.</P
+><P
+>For information about interfacing peripherals like Zip and CD-ROM
+drives through parallel ports, refer to the Linux Parallel Port Home
+Page, at 
+<A
+HREF="http://www.torque.net/linux-pp.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.torque.net/linux-pp.html</TT
+></A
+>.</P
+><P
+>If you need the latest version of the PCMCIA Card Services package, it
+is (or was) located at 
+<A
+HREF="ftp://cb-iris.stanford.edu/pub/pcmcia/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://cb-iris.stanford.edu/pub/pcmcia/</TT
+></A
+>,
+but that host no longer seems to be available. Recent distributions
+are on 
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/kernel/pcmcia/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/kernel/pcmcia/</TT
+></A
+>.
+You will also need to have the kernel source code installed as
+well. Be sure to read the <I
+CLASS="CITETITLE"
+>PCMCIA-HOWTO</I
+>, which
+is included in the distribution.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2442"
+>8.2. Installing Linux Using FTP.</A
+></H2
+><P
+>Most distributions are too large and complex to make FTP installation 
+practical. Installing a basic Linux system that doesn't have a GUI or
+major applications is possible with FTP, however. The main
+non-commercial distribution in use is Debian GNU/Linux, and this
+answer describes an installation of a basic Debian system, to which
+you can add other Linux applications and commercial software as
+necessary.</P
+><P
+>This answer describes installation on IBM-compatible machines with an
+Intel x86 or Pentium processor.  You will need a machine with at least 
+a 80386 processor, 8 Mb of memory, and about 100 Mb of disk space. More 
+memory and a larger disk is necessary however, for practical everyday use.</P
+><P
+>For other hardware, substitute ``-arm,'' ``-ppc,'' ``-m68k,'' 
+or other abbreviation in directory names for ``-i386.''  </P
+><P
+>For detailed and hardware-specific information 
+refer to: <A
+HREF="http://www.debian.org/releases/stable/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.debian.org/releases/stable/</TT
+></A
+>.</P
+><P
+></P
+><UL
+><LI
+><P
+>Connect using anonymous FTP to <TT
+CLASS="LITERAL"
+>ftp.debian.org</TT
+> 
+and <B
+CLASS="COMMAND"
+>cd</B
+> to the
+<TT
+CLASS="FILENAME"
+>pub/debian/dists/stable/main/disks-i386/current/</TT
+> 
+subdirectory.</P
+></LI
+><LI
+><P
+>Retrieve the binary image files for the rescue disk, and the drivers 
+disk.  Depending on the floppy drive installed on your machine, retrieve 
+either the diskette images with "1200" in the names if you have a 1.2 Mb,
+5.25-in. floppy, or the disks with "1440" in the name if the
+computer has a 3.25-in., 1.44 Mb floppy. Then retrieve the base
+system diskettes. Note that there are 7 base system images in the
+1.44-Mb set (which have a ``14'' in their names) , and 9 in the
+1.2-Mb set of images (which have a ``12'' in their names). You will
+use these to create the basic installation diskettes. If you have
+a Linux machine, you can use <B
+CLASS="COMMAND"
+>dd</B
+> 
+to write the images to the
+diskettes. If you are creating the installation diskettes on a
+MS-DOS machine, also download the 
+<TT
+CLASS="FILENAME"
+>RAWRITE.EXE</TT
+> MS-DOS utility,
+which will copy the raw binary images to floppy disks. Also
+download the <TT
+CLASS="FILENAME"
+>install.en.txt</TT
+> 
+document, which contains the detailed installation instructions.</P
+></LI
+><LI
+><P
+>Create the installation disk set on floppies using either 
+<B
+CLASS="COMMAND"
+>dd</B
+>
+under Linux (e.g.: 
+``<TT
+CLASS="LITERAL"
+>dd if=resc1440.bin of=/dev/fd0</TT
+>''), or
+the <TT
+CLASS="FILENAME"
+>RAWRITE.EXE</TT
+> 
+utility under MS-DOS. Be sure to label each
+installation diskette.</P
+></LI
+><LI
+><P
+>Insert the rescue diskette into the floppy drive and reboot the
+computer. If all goes well, the Linux kernel will boot, and you
+will be able start the installation program by pressing 
+<B
+CLASS="KEYCAP"
+>Enter</B
+> at the <TT
+CLASS="LITERAL"
+>boot:</TT
+> prompt.</P
+></LI
+><LI
+><P
+>Follow the on-screen instructions for partitioning the hard disk,
+installing device drivers, the basic system software, and the
+Linux kernel. If the machine is connected to a local network,
+enter the network information when the system asks for it.</P
+></LI
+><LI
+><P
+>To install additional software over the Internet, be sure that you
+have installed the <TT
+CLASS="LITERAL"
+>ppp</TT
+> 
+module during the installation process, and
+run (as root) the <TT
+CLASS="FILENAME"
+>/usr/sbin/pppconfig</TT
+> 
+utility. You will need to
+provide your user name with your ISP, your password, the ISP's
+dial-up phone number, the address(es) of the ISP's Domain Name
+Service, and the serial port that your modem is connected to,
+<TT
+CLASS="FILENAME"
+>/dev/ttyS0</TT
+>&#8211;<TT
+CLASS="FILENAME"
+>/dev/ttyS3</TT
+>. 
+Be sure also to specify the
+<TT
+CLASS="LITERAL"
+>defaultroute</TT
+> 
+option to the PPP system, so the computer knows to
+use the PPP connection for remote Internet addresses.</P
+></LI
+><LI
+><P
+>You may have to perform additional configuration on the PPP
+scripts in the <TT
+CLASS="FILENAME"
+>/etc/ppp</TT
+> 
+subdirectory, and in particular, the
+ISP-specific script in the <TT
+CLASS="FILENAME"
+>/etc/ppp/peers</TT
+> 
+subdirectory. There are
+basic instructions in each script. For detailed information, refer
+to the Debian/GNU Linux installation instructions that you
+downloaded, the pppd manual page
+(type <TT
+CLASS="LITERAL"
+>man pppd</TT
+>), and the <I
+CLASS="CITETITLE"
+>PPP
+HOWTO</I
+> from the Linux Documentation project,
+<A
+HREF="http://www.linuxdoc.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.linuxdoc.org/</TT
+></A
+>.</P
+></LI
+><LI
+><P
+>Once you have a PPP connection established with your ISP (it will
+be displayed in the output of ifconfig), use the dselect program
+to specify which additional software you want to install. Use the
+<B
+CLASS="COMMAND"
+>apt</B
+> <TT
+CLASS="LITERAL"
+>[A]ccess</TT
+> 
+option to retrieve packages via anonymous FTP,
+and make sure to use the <TT
+CLASS="LITERAL"
+>[U]pdate</TT
+> 
+option to retrieve a current
+list of packages from the FTP archive.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2492"
+>8.3. Resuming an Interrupted Download.</A
+></H2
+><P
+>You can use the ``<TT
+CLASS="LITERAL"
+>reget</TT
+>'' command of the 
+standard <B
+CLASS="COMMAND"
+>ftp</B
+> client program after reconnecting
+to pick up where you left off.</P
+><P
+>Clients like <B
+CLASS="COMMAND"
+>ncftp</B
+> support resumed FTP downloads,
+and <B
+CLASS="COMMAND"
+>wget</B
+> supports resumed FTP and HTTP downloads.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2500"
+>8.4. Boot-Time Configuration.</A
+></H2
+><P
+>You can configure Linux at the <TT
+CLASS="LITERAL"
+>lilo:</TT
+> prompt either 
+by typing the kernel arguments at the <TT
+CLASS="LITERAL"
+>BOOT lilo:</TT
+>
+prompt, or by adding an ``<TT
+CLASS="LITERAL"
+>append=</TT
+>'' directive to the
+<TT
+CLASS="FILENAME"
+>/etc/lilo.conf</TT
+> file; for example:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+># At the LILO prompt (example only):
+BOOT lilo: parport=0x3bc,7 parport=0x3bc,none serial=0x3f8,4 serial=0x2f8,3</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+># Example statement for /etc/lilo.conf:
+append="parport=0x3bc,none serial=0x3f8,4 serial=0x2f8,3"</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>If you modify the <TT
+CLASS="FILENAME"
+>/etc/lilo.conf</TT
+> file, be sure
+to run the <B
+CLASS="COMMAND"
+>lilo</B
+> command to install the new 
+configuration.</P
+><P
+>Configuration notes for specific hardware devices are in the
+documentation of the kernel source distribution,
+<TT
+CLASS="FILENAME"
+>/usr/src/linux/Documentation</TT
+> in most
+distributions.</P
+><P
+>Refer to the <B
+CLASS="COMMAND"
+>lilo</B
+> and
+<TT
+CLASS="FILENAME"
+>/etc/lilo.conf</TT
+> manual pages, as well as the LDP
+<I
+CLASS="CITETITLE"
+>BootPrompt-HowTo</I
+> (``<A
+HREF="x346.html#AEN370"
+><I
+>Where Is the Documentation?</I
+></A
+>''), and the documentation in
+<TT
+CLASS="FILENAME"
+>/usr/doc/lilo</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2522"
+>8.5. Formatting Man Pages without <B
+CLASS="COMMAND"
+>man</B
+> or 
+<B
+CLASS="COMMAND"
+>groff</B
+>.</A
+></H2
+><P
+>The <B
+CLASS="COMMAND"
+>man2html</B
+> program translates <B
+CLASS="COMMAND"
+>groff</B
+>
+text to HTML, which you can view with a Web browser.  The 
+<B
+CLASS="COMMAND"
+>man2html</B
+> program, and many like it, are availble on
+the Web.  Look for them with your favorite search engine.</P
+><P
+>The unformatted manual pages are stored in subdirectories of
+<TT
+CLASS="FILENAME"
+>/usr/man</TT
+>, <TT
+CLASS="FILENAME"
+>/usr/local/man</TT
+>,
+and elsewhere.</P
+><P
+>If you want to view text, use <B
+CLASS="COMMAND"
+>nroff</B
+> and
+<B
+CLASS="COMMAND"
+>less</B
+>.  Both of these programs have MSDOS
+versions with an implementation of the <EM
+>man</EM
+> 
+macro package available as well.  An example would be:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ nroff -man /usr/man/man1/ls.1 | less</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>If you know where to find a good implementation of the 
+<EM
+>man</EM
+> macros without installing <EM
+>groff</EM
+>,
+please let the FAQ maintainer know.</P
+><P
+>If the manual page filename ends in ``<TT
+CLASS="LITERAL"
+>.gz</TT
+>,'' then
+you'll need to uncompress it before formatting it, using 
+<B
+CLASS="COMMAND"
+>gzip -d</B
+> or <B
+CLASS="COMMAND"
+>gunzip</B
+>.  A one-line
+example would be:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>$ gzip -dc /usr/man/man1/ls.1.gz | nroff -man | less </PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2547"
+>8.6. How To Scroll Backwards in Text Mode.</A
+></H2
+><P
+>With the default US keymap, you can use <B
+CLASS="KEYCAP"
+>Shift</B
+> with
+the <B
+CLASS="KEYCAP"
+>PgUp</B
+> and <B
+CLASS="KEYCAP"
+>PgDn</B
+> keys. (The gray
+ones, not the ones on the numeric keypad.)  With other keymaps, look
+in <TT
+CLASS="FILENAME"
+>/usr/lib/keytables</TT
+>. 
+You can remap the <B
+CLASS="KEYCAP"
+>ScrollUp</B
+> and 
+<B
+CLASS="KEYCAP"
+>ScrollDown</B
+> keys
+to be whatever you like. </P
+><P
+>The <B
+CLASS="COMMAND"
+>screen</B
+> program,
+<A
+HREF="http://vector.co.jp/vpack/browse/person/an010455.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://vector.co.jp/vpack/browse/person/an010455.html</TT
+></A
+>
+provides a searchable scrollback buffer and the ability to take
+``snapshots'' of text-mode screens.</P
+><P
+>Recent kernels that have the VGA Console driver can use dramatically
+more memory for scrollback, provided that the video card can
+<EM
+>actually handle</EM
+> 64 kb of video memory. Add 
+the line:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>#define VGA_CAN_DO_64B</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>to the start of the file <TT
+CLASS="FILENAME"
+>drivers/video/vgacon.c</TT
+>.
+This feature may become a standard setting in future kernels.  If the
+video frame buffer is also enabled in the kernel, this setting may not
+affect buffering.</P
+><P
+>In older kernels, the amount of scrollback is fixed, because
+it is implemented using the video memory to store the scrollback
+text. You may be able to get more scrollback in each virtual console
+by reducing the total number of VC's. See
+<TT
+CLASS="FILENAME"
+>linux/tty.h</TT
+>.</P
+><P
+>[Chris Karakas]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2569"
+>8.7. How To Get Email to Work.</A
+></H2
+><P
+>For sending mail via SMTP (Simple Mail Transfer Protocol) and
+receiving mail from an ISP's POP (Post Office Protocol) server, you
+can use a desktop client like Netscape Communicator or KDE kmail. You
+will need to enter the names of the SMTP and POP servers in the
+preferences of the respective application, as well as your E-mail
+address (username@isp's-domain-name), and your dial-up password. The
+same applies to Usenet News. Enter the name of the NNTP (Network News
+Transfer Protocol) server in your News client's preferences section.
+You may also have to provide the IP addresses of the ISP's primary and
+secondary name servers.</P
+><P
+>If you have a traditional MTA (Mail Transport Agent) like 
+<SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+>,
+<SPAN
+CLASS="APPLICATION"
+>Smail</SPAN
+>, <SPAN
+CLASS="APPLICATION"
+>qmail</SPAN
+>, 
+or <SPAN
+CLASS="APPLICATION"
+>Exim</SPAN
+>, 
+you'll need to follow the instructions in each
+package. Basically, configuration entails determining which host
+machine, either on your local LAN or via dial-up Internet, is the
+``Smart Host,'' if you're using SMTP. If you're using the older UUCP
+protocol, then you'll need to consult the directions for configuring
+UUCP, and also make sure that your ISP's system is configured to relay
+mail to you.</P
+><P
+>Information about Internet hosting, and News and E-mail in general, is
+available on the Usenet News group 
+<I
+CLASS="CITETITLE"
+>news.announce.newusers</I
+>, and those FAQ's are
+also archived at <A
+HREF="ftp://rtfm.mit.edu/pub/usenet/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://rtfm.mit.edu/pub/usenet/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2581"
+>8.8. <SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+> Pauses for
+Up to a Minute at Each Command.</A
+></H2
+><P
+>Make sure that <SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+> can resolve your
+hostname to a valid (i.e., parsable) domain address.  If you are not
+connected to the Internet, or have a dial-up connection with dynamic
+IP addressing, add the fully qualified domain name to the
+<TT
+CLASS="LITERAL"
+>/etc/hosts</TT
+> file, <EM
+>in addition</EM
+>
+to the base host name; e.g., if the host name is
+``<TT
+CLASS="LITERAL"
+>bilbo</TT
+>'' and the domain is
+``<TT
+CLASS="LITERAL"
+>bag-end.com</TT
+>:''</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   192.168.0.1	bilbo.bag-end.com bilbo</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>And make sure that either the <TT
+CLASS="LITERAL"
+>/etc/host.conf</TT
+> or <TT
+CLASS="LITERAL"
+>/etc/resolv.conf</TT
+> file contains the line:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   order hosts,bind</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+><EM
+>Caution:</EM
+> Do not change the
+``<TT
+CLASS="LITERAL"
+>localhost</TT
+>'' entry in
+<TT
+CLASS="LITERAL"
+>/etc/hosts</TT
+>, because many programs depend on it for
+internal message-passing.</P
+><P
+><SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+> takes many factors into account
+when resolving domain addresses.  These factors, collectively, are
+known as, ``rulesets,'' in <SPAN
+CLASS="APPLICATION"
+>sendmail</SPAN
+> jargon.
+The program does <EM
+>not</EM
+> require that a domain
+address be canonical, or even appear to be canonical.  In the example
+above, ``<TT
+CLASS="LITERAL"
+>bilbo.</TT
+>'' (note the period) would work just
+as well as ``<TT
+CLASS="LITERAL"
+>bilbo.bag-end.com</TT
+>.''  This and other
+modifications apply mainly to recent versions.</P
+><P
+>Prior to version 8.7, <SPAN
+CLASS="APPLICATION"
+>sendmail</SPAN
+> required
+that the FQDN appear first in the <TT
+CLASS="FILENAME"
+>/etc/hosts</TT
+>
+entry. This is due to changes in the envelope address masquerade
+options.  Consult the <SPAN
+CLASS="APPLICATION"
+>sendmail</SPAN
+> documents.</P
+><P
+>If you have a domain name server for <EM
+>only</EM
+> a 
+local subnet, make sure that ``.'' refers to a SOA record on the server 
+machine, and that reverse lookups (check by using 
+<SPAN
+CLASS="APPLICATION"
+>nslookup</SPAN
+>) work for all machines on the subnet.</P
+><P
+>Finally, <TT
+CLASS="LITERAL"
+>FEATURE</TT
+> configuration macro options like
+<TT
+CLASS="LITERAL"
+>nodns</TT
+>, <TT
+CLASS="LITERAL"
+>always_add_domain</TT
+>, and
+<TT
+CLASS="LITERAL"
+>nocanonify</TT
+>, control how
+<SPAN
+CLASS="APPLICATION"
+>sendmail</SPAN
+> interprets host names.  </P
+><P
+>The document, <I
+CLASS="CITETITLE"
+>Sendmail: Installation and Operation 
+Guide</I
+>, included in the <TT
+CLASS="LITERAL"
+>doc/</TT
+> 
+subdirectory of <SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+> source 
+code distributions, discusses
+briefly how <SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+> resolves Internet 
+addresses.  <SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+> 
+source code archives are listed at: 
+<A
+HREF="http://www.sendmail.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.sendmail.org/</TT
+></A
+></P
+><P
+>[Chris Karakas]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2629"
+>8.9. How To Enable and Select Virtual Consoles.</A
+></H2
+><P
+>In text mode, press the left
+<B
+CLASS="KEYCAP"
+>Alt</B
+>-<B
+CLASS="KEYCAP"
+>F1</B
+> to 
+<B
+CLASS="KEYCAP"
+>Alt</B
+>-<B
+CLASS="KEYCAP"
+>F12</B
+>
+to select the consoles <TT
+CLASS="LITERAL"
+>tty1</TT
+> to
+<TT
+CLASS="LITERAL"
+>tty12</TT
+>; Right 
+<B
+CLASS="KEYCAP"
+>Alt</B
+>-<B
+CLASS="KEYCAP"
+>F1</B
+>
+gives <TT
+CLASS="LITERAL"
+>tty13</TT
+> and so on. To
+switch out of X you must press 
+<B
+CLASS="KEYCAP"
+>Ctrl</B
+>-<B
+CLASS="KEYCAP"
+>Alt</B
+>-<B
+CLASS="KEYCAP"
+>F1</B
+>, etc; 
+<B
+CLASS="KEYCAP"
+>Alt</B
+>-<B
+CLASS="KEYCAP"
+>F5</B
+>
+or whatever will switch back.</P
+><P
+>However, If you have a non-PC compatible system, please see 
+the note below.</P
+><P
+>If you want to use a VC for ordinary login, it must be listed in
+<I
+CLASS="CITETITLE"
+>/etc/inittab</I
+>, 
+which controls which terminals and virtual consoles have
+login prompts. The X Window System needs at least one free VC in order
+to start.</P
+><P
+>[Note: The key sequence is actually <B
+CLASS="KEYCAP"
+>Ctrl</B
+>&#8212;<TT
+CLASS="LITERAL"
+>Meta</TT
+>&#8212;
+<B
+CLASS="KEYCAP"
+>F</B
+><EM
+>N</EM
+>.  On PC
+compatible systems, the right and left <B
+CLASS="KEYCAP"
+>Alt</B
+> keys are
+really synonymous with the keysymbols <TT
+CLASS="LITERAL"
+>Meta_L</TT
+> and
+<TT
+CLASS="LITERAL"
+>Meta_R</TT
+>.  If the binding is different, you can
+determine what keys produce <TT
+CLASS="LITERAL"
+>Meta_L</TT
+> and
+<TT
+CLASS="LITERAL"
+>Meta_R</TT
+> with <SPAN
+CLASS="APPLICATION"
+>xkeycaps</SPAN
+> or
+a similar application.]</P
+><P
+>[David Charlap]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2668"
+>8.10. How To Set the Time Zone.</A
+></H2
+><P
+>Change directory to <TT
+CLASS="FILENAME"
+>/usr/lib/zoneinfo/</TT
+>. 
+Get the time zone package if
+you don't have this directory. The source is available in
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/system/admin/time/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/system/admin/time/</TT
+></A
+>.</P
+><P
+>Then make a symbolic link named <TT
+CLASS="FILENAME"
+>localtime</TT
+> 
+pointing to one of the files
+in this directory (or a subdirectory), and one called 
+<TT
+CLASS="FILENAME"
+>posixrules</TT
+> pointing to 
+<TT
+CLASS="FILENAME"
+>localtime</TT
+>. For example:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ ln -sf US/Mountain localtime
+   $ ln -sf localtime posixrules</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This change will take effect immediately&#8212;try <B
+CLASS="COMMAND"
+>date</B
+>.</P
+><P
+>If the system uses Red Hat-style configuration files, the respective 
+time zone info files are <TT
+CLASS="FILENAME"
+>/usr/share/zoneinfo</TT
+> and
+<TT
+CLASS="FILENAME"
+>/etc/localtime</TT
+>.</P
+><P
+>The manual pages for <B
+CLASS="COMMAND"
+>tzset</B
+> or <B
+CLASS="COMMAND"
+>tzselect</B
+>
+describe setting the time zone. Some
+programs recognize the ``<TT
+CLASS="LITERAL"
+>TZ</TT
+>'' environment variable, but 
+this is not POSIX-correct.</P
+><P
+>You should also make sure that your Linux kernel clock is set to the
+correct GMT time.  Type <B
+CLASS="COMMAND"
+>date -u</B
+> and check that the 
+correct UTC time is displayed. 
+(``<A
+HREF="x1973.html#AEN2070"
+><I
+>The Computer Has the Wrong Time.</I
+></A
+>'')</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2692"
+>8.11. Dial-up PPP Configuration.</A
+></H2
+><P
+>This information is mainly for people who do not have a wrapper
+utility like <B
+CLASS="COMMAND"
+>kppp</B
+> or 
+<B
+CLASS="COMMAND"
+>pppconfig</B
+>, or are not able to get those utilities
+to work correctly. If you need to manually configure PPP to dial in to
+your ISP, you will need the following information:</P
+><P
+></P
+><UL
+><LI
+><P
+>The port that your modem is connected to: 
+<TT
+CLASS="FILENAME"
+>/dev/ttyS0</TT
+>&#8211;<TT
+CLASS="FILENAME"
+>/dev/ttyS3</TT
+>,
+which correspond to COM1-COM4 under MS-DOS.</P
+></LI
+><LI
+><P
+>The phone number of your ISP's data connection.</P
+></LI
+><LI
+><P
+>The user name and password that your ISP gave you.</P
+></LI
+><LI
+><P
+>The IP addresses of the primary and possibly secondary Domain Name
+Service that you will use when dialing in to the ISP. This assumes
+that you will not be using a DNS that you installed on your
+system.</P
+></LI
+></UL
+><P
+>    
+When you have all of this information, make sure that the programs
+<B
+CLASS="COMMAND"
+>pppd</B
+> and <B
+CLASS="COMMAND"
+>chat</B
+>, 
+at the very minimum, are installed correctly. In most
+current distributions, they are installed in the 
+<TT
+CLASS="FILENAME"
+>/usr/sbin/</TT
+> directory,
+and you will need to be logged in as root to use them. In addition,
+the following programs are also useful for configuring network 
+connections, determining network status, and diagnosing problems:
+<TT
+CLASS="FILENAME"
+>/sbin/ifconfig</TT
+>,
+<TT
+CLASS="FILENAME"
+>/sbin/route</TT
+>, <TT
+CLASS="FILENAME"
+>/bin/ping</TT
+>, 
+<TT
+CLASS="FILENAME"
+>/usr/sbin/traceroute</TT
+>.</P
+><P
+>These are the basic steps that you need to follow to configure PPP.
+You must be logged in as root.</P
+><P
+></P
+><UL
+><LI
+><P
+> Make sure that the serial port and modem are
+operating correctly.  Using a program like <B
+CLASS="COMMAND"
+>minicomm</B
+>
+or <B
+CLASS="COMMAND"
+>kermit</B
+>, you should be able to send
+<TT
+CLASS="LITERAL"
+>AT</TT
+> commands to the modem and receive the
+<TT
+CLASS="LITERAL"
+>OK</TT
+> string in response from the modem.</P
+></LI
+><LI
+><P
+> Enter the primary and possibly
+secondary Domain Name Server IP addresses in the
+<TT
+CLASS="FILENAME"
+>/etc/resolv.conf</TT
+> file, using dotted quad
+notation, with the <TT
+CLASS="LITERAL"
+>nameserver</TT
+> label. For example:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   order hosts,bind
+   nameserver 196.182.101.103   
+   nameserver 196.182.101.104   </PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>The nameserver addresses in the example above are examples only.  They
+don't correspond to actual network hosts.</P
+><P
+>The first line, <TT
+CLASS="LITERAL"
+>order hosts,bind</TT
+>, tells your
+networking software, when it resolves network domain addresses, to
+first look in the <TT
+CLASS="FILENAME"
+>/etc/hosts file</TT
+>, and then use
+the bind service; i.e., the DNS servers, which are specified on the
+lines that begin with nameserver.  </P
+></LI
+><LI
+><P
+>Locate the chat script that PPP will use to dial the modem and connect
+to your ISP. In many systems, this is either in the
+<TT
+CLASS="FILENAME"
+>/etc/chatscripts</TT
+> or <TT
+CLASS="FILENAME"
+>/etc/ppp</TT
+>
+directory, and will be called <TT
+CLASS="FILENAME"
+>provider</TT
+> or
+something similar.  You can store a <TT
+CLASS="LITERAL"
+>chat</TT
+> script
+anywhere, provided that you tell <B
+CLASS="COMMAND"
+>pppd</B
+> to use it
+rather than the default script. Refer to the <B
+CLASS="COMMAND"
+>chat</B
+>
+and <B
+CLASS="COMMAND"
+>pppd</B
+> manual pages, and the information below,
+for details.  Here is a sample <TT
+CLASS="LITERAL"
+>chat</TT
+> script:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   ABORT        BUSY
+   ABORT        "NO CARRIER"
+   ABORT        VOICE
+   ABORT        "NO DIALTONE"
+   ""           ATDT&#60;your_isp's_phone_number&#62;
+   ogin         &#60;your_user_name&#62;
+   word         &#60;your_password&#62;</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This is a <B
+CLASS="COMMAND"
+>chat</B
+> 
+program for a simple, script based login. The <B
+CLASS="COMMAND"
+>chat</B
+>
+program uses the pair of strings on each line as a match/response
+pair. When it starts, it sends the string
+``ATDT<EM
+>your_isp's_phone_number</EM
+>,'' 
+where you have substituted the
+actual phone number of course. It then waits for the string
+<TT
+CLASS="LITERAL"
+>ogin</TT
+> 
+(a substring of the word <TT
+CLASS="LITERAL"
+>login</TT
+>) and sends your user
+name. It then waits for <TT
+CLASS="LITERAL"
+>word</TT
+> 
+(a substring of <TT
+CLASS="LITERAL"
+>password</TT
+>) and sends
+your password. If your ISP uses a different login and password
+prompts, and any additional prompts, you will need to edit the
+script accordingly. Again, refer to the <B
+CLASS="COMMAND"
+>chat</B
+> 
+manual page for details.</P
+><P
+>If your ISP uses PAP or CHAP authentication, you will need to edit the
+<TT
+CLASS="FILENAME"
+>pap-secrets</TT
+> or <TT
+CLASS="FILENAME"
+>chap-secrets</TT
+>
+files in <TT
+CLASS="FILENAME"
+>/etc/ppp</TT
+> directory as well. Refer to the
+manual pages for these files, as well as the instruction in the files
+themselves.  </P
+></LI
+><LI
+><P
+> The configuration of
+<B
+CLASS="COMMAND"
+>pppd</B
+>, the program that maintains the actual
+connection, is usually contained in two or three separate files.  The
+first is usually <TT
+CLASS="FILENAME"
+>/etc/ppp/options</TT
+>, which contains
+options that all of your system's PPP connections will use. (Yes, you
+can have more than one; as many as your computer has serial ports,
+generally.)</P
+><P
+>Here is a sample <TT
+CLASS="FILENAME"
+>/etc/ppp/options</TT
+> file:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   # /etc/ppp/options
+
+   asyncmap 0
+   auth
+   crtscts
+   lock
+   noipx
+
+   # ---&#60;End of File&#62;---</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>The options may be given on one line or each on a separate line.
+Many options files are much longer, and come with a description of
+each option. Here, the options mean, in order, don't remap any
+characters between the PPP client and server; always use password,
+PAP, or CHAP authentication when making a connection; use the
+modem's hardware handshake lines for flow control; lock the serial
+port when in use so no other programs can access it; and do not
+use the IPX network protocol.</P
+></LI
+><LI
+><P
+>For connection set-up on each individual serial port or PPP host,
+there will either be an <TT
+CLASS="FILENAME"
+>/etc/ppp/options.ttyS1</TT
+>, 
+for example,
+options file for <TT
+CLASS="FILENAME"
+>/etc/ttyS1</TT
+>, or a file for 
+your ISP in the <TT
+CLASS="FILENAME"
+>/etc/ppp/peers</TT
+> directory. 
+The default is often called
+<TT
+CLASS="FILENAME"
+>/etc/ppp/peers/provider</TT
+>. Here is a sample 
+of the default <TT
+CLASS="FILENAME"
+>provider</TT
+>
+file:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   noauth
+   connect "/usr/sbin/chat -v -f /etc/chatscripts/provider"
+   defaultroute
+   /dev/ttyS1
+   38400
+   persist</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>There might be an explanation of these and other options in the
+<TT
+CLASS="FILENAME"
+>/etc/ppp/peers/provider</TT
+> file itself. You 
+can also refer to the
+<B
+CLASS="COMMAND"
+>pppd</B
+> manual page for details. 
+Briefly, they mean: do not use PAP
+authentication for this connection; use the <B
+CLASS="COMMAND"
+>chat</B
+> 
+program and the
+<TT
+CLASS="FILENAME"
+>/etc/chatscripts/provider</TT
+> script, which is 
+described above, to
+dial the phone and log in; set the network default route to the
+PPP connection (so when your network software needs to resolve an
+network address that is not on your local machine(s), it will use
+the PPP connection to the Internet); use <TT
+CLASS="FILENAME"
+>/dev/ttyS1</TT
+> 
+as the serial
+port for the connection; set the modem speed to 38400; and keep
+the <B
+CLASS="COMMAND"
+>pppd</B
+> daemon running even if the connection fails.</P
+></LI
+><LI
+><P
+>That is all of the configuration you need. To actually start and
+stop PPP, there are often <TT
+CLASS="FILENAME"
+>/usr/bin/pon</TT
+> and 
+<TT
+CLASS="FILENAME"
+>/usr/bin/poff</TT
+> scripts
+(in Debian), or something similar, and they are usually very simple,
+and only contain the command:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ /usr/sbin/pppd call ${1:-provider}</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This will start <B
+CLASS="COMMAND"
+>pppd</B
+> and use the 
+<TT
+CLASS="LITERAL"
+>call</TT
+> option to call the
+server that you type on the command line, or the provider given in
+the <TT
+CLASS="FILENAME"
+>/etc/ppp/peers/provider</TT
+> file if you 
+do not specify a remote
+server. After making the call and logging in (about 30 seconds),
+you should be able to use the <TT
+CLASS="FILENAME"
+>/sbin/ifconfig</TT
+> 
+program to determine
+that the connection really did establish a PPP interface (the
+first will be <TT
+CLASS="FILENAME"
+>ppp0</TT
+>, the second will be 
+<TT
+CLASS="FILENAME"
+>ppp1</TT
+>, etc., depending on
+how many simultaneous PPP connections you have. If something goes
+wrong, you can look at the <TT
+CLASS="FILENAME"
+>/var/log/ppp.log</TT
+> 
+file to determine what
+happened. You can also view the log as the connection is being
+made, by ``tailing'' it in another window; that is, viewing it as
+pppd logs the connection's status information. To do this, use the
+command (again, as root):</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ tail -f /var/log/ppp.log</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>On some systems the PPP output is directed to 
+<TT
+CLASS="FILENAME"
+>/var/log/messages</TT
+>, in which case your system
+may not have a dedicated PPP log file.</P
+></LI
+></UL
+><P
+>You should be also able to <B
+CLASS="COMMAND"
+>ping</B
+> 
+one of your ISP's domain names
+(e.g., <TT
+CLASS="LITERAL"
+>mail.isp.com</TT
+>) and receive a response.</P
+><P
+>These are the most basic steps for configuring a PPP connection. You
+will also need to take into account what other network connections may
+be present (for example, if there's an Ethernet connection that has
+already been assigned the default route), as well as various security
+measures at your ISP's end. If you're having trouble making the
+dial-up connection, usually the best way to determine what may be
+going wrong is to use Seyon, minicomm, kermit, or some other program to dial
+and log in manually to the ISP, and determine just exactly what you
+have to do to log in, then duplicate that in the PPP scripts.</P
+><P
+>Most Linux documentation also has additional instructions for
+configuring PPP connections. Refer to 
+(``<A
+HREF="x346.html#AEN881"
+><I
+>Where Are the Linux FTP Archives?</I
+></A
+>'')
+(``<A
+HREF="x346.html#AEN370"
+><I
+>Where Is the Documentation?</I
+></A
+>'')</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2809"
+>8.12. What Version of Linux and What Machine Name Is This?</A
+></H2
+><P
+>Type:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ uname -a</PRE
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2814"
+>8.13. What Is a ``<TT
+CLASS="FILENAME"
+>core</TT
+>'' File?</A
+></H2
+><P
+>A <TT
+CLASS="LITERAL"
+>core</TT
+> file is created when a program terminates
+unexpectedly, due to a bug, or a violation of the operating system's
+or hardware's protection mechanisms.  The operating system kills the
+program and creates a <TT
+CLASS="FILENAME"
+>core</TT
+> file that programmers
+can use to figure out what went wrong. It contains a detailed
+description of the state that the program was in when it died.</P
+><P
+>If would like to determine what program a core file came from, use the
+<TT
+CLASS="LITERAL"
+>file</TT
+> command, like this:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ file core</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>That will tell you the name of the program that produced the core
+dump.  You may want to write the maintainer(s) of the program, telling
+them that their program <EM
+>dumped core.</EM
+></P
+><P
+>[Eric Hanchrow]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2827"
+>8.14. How To Enable or Disable Core Dumps.</A
+></H2
+><P
+>By using the <B
+CLASS="COMMAND"
+>ulimit</B
+> command in 
+<B
+CLASS="COMMAND"
+>bash</B
+>, the <B
+CLASS="COMMAND"
+>limit</B
+> command in 
+<B
+CLASS="COMMAND"
+>tcsh</B
+>, or the
+<B
+CLASS="COMMAND"
+>rlimit</B
+> command in <B
+CLASS="COMMAND"
+>ksh</B
+>. 
+See the appropriate manual page for details.</P
+><P
+>This setting affects all programs run from the shell (directly or
+indirectly), not the whole system.</P
+><P
+>If you wish to enable or disable core dumping for all processes by
+default, you can change the default setting in 
+<TT
+CLASS="FILENAME"
+>linux/sched.h</TT
+>.  Refer to 
+definition of <TT
+CLASS="LITERAL"
+>INIT_TASK</TT
+>, and look also in 
+<TT
+CLASS="FILENAME"
+>linux/resource.h</TT
+>.</P
+><P
+>PAM support optimizes the system's environment, including the amount
+of memory a user is allowed.  In some distributions this parameter is
+configurable in the <TT
+CLASS="LITERAL"
+>/etc/security/limits.conf</TT
+> file.
+For more information, refer to the <I
+CLASS="CITETITLE"
+>Linux Administrator's
+Security Guide</I
+>.  (``<A
+HREF="x346.html#AEN370"
+><I
+>Where Is the Documentation?</I
+></A
+>'')</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2845"
+>8.15. How To Upgrade/Recompile a Kernel.</A
+></H2
+><P
+>See the <I
+CLASS="CITETITLE"
+>Kernel HOWTO</I
+> or the
+<TT
+CLASS="FILENAME"
+>README</TT
+> files which come with the kernel release
+on 
+<A
+HREF="ftp.cs.helsinki.fi/pub/Software/Linux/Kernel/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp.cs.helsinki.fi/pub/Software/Linux/Kernel/</TT
+></A
+> and mirrors.
+(See ``<A
+HREF="x346.html#AEN881"
+><I
+>Where Are the Linux FTP Archives?</I
+></A
+>'') You may already have a version
+of the kernel source code installed on your system, but if it is part
+of a standard distribution it is likely to be somewhat out of date
+(this is not a problem if you only want a custom configured kernel,
+but it probably is if you need to upgrade.)</P
+><P
+>With newer kernels you can (and should) make all of the following
+targets. Don't forget that you can specify multiple targets with one
+command.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ make clean dep install modules modules_install</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Also remember to update the module dependencies.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ depmod -a</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This command can be run automatically at boot time. On Debian/GNU
+Linux systems, the command is part of the 
+<TT
+CLASS="FILENAME"
+>/etc/init.d/modutils</TT
+> script,
+and can be linked appropriately in the 
+<TT
+CLASS="FILENAME"
+>/etc/rc</TT
+><EM
+>x</EM
+><TT
+CLASS="FILENAME"
+>.d/</TT
+> 
+directories. For
+more information on <B
+CLASS="COMMAND"
+>depmod</B
+>, see the manual page.</P
+><P
+>Make sure you are using the most recent version of the modutils
+utilities, as well as all other supporting packages. Refer to the file
+<TT
+CLASS="FILENAME"
+>Documentation/Changes</TT
+> in the kernel source 
+tree for specifics, and be
+sure to consult the <TT
+CLASS="FILENAME"
+>README</TT
+> file in the 
+<SPAN
+CLASS="APPLICATION"
+>modutils</SPAN
+> package.</P
+><P
+>Remember that to make the new kernel boot you must run <B
+CLASS="COMMAND"
+>lilo</B
+>
+after copying the kernel into your root partition.  The
+Makefile in some kernels have a special <TT
+CLASS="LITERAL"
+>zlilo</TT
+> 
+target for this; try:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ make zlilo</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>On current systems, however, you can simply copy the
+<TT
+CLASS="FILENAME"
+>zImage</TT
+> or <TT
+CLASS="FILENAME"
+>bzImage</TT
+> file (in
+<TT
+CLASS="FILENAME"
+>arch/i386/boot/</TT
+> to the
+<TT
+CLASS="FILENAME"
+>/boot/</TT
+> directory on the root file system, or to a
+floppy using the <B
+CLASS="COMMAND"
+>dd</B
+> command. Refer also to the
+question, How do I get LILO to boot the kernel image?</P
+><P
+>Kernel version numbers with an odd minor version (ie, 1.1.x, 1.3.x)
+are the testing releases; stable production kernels have even minor
+versions (1.0.x, 1.2.x). If you want to try the testing kernels you
+should probably subscribe to the linux-kernel mailing list. 
+(``<A
+HREF="x346.html#AEN1176"
+><I
+>What Mailing Lists Are There?</I
+></A
+>'')</P
+><P
+>The Web site 
+<A
+HREF="http://www.kernelnotes.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.kernelnotes.org/</TT
+></A
+> has lots of
+information and links to other sites that provide information about
+Linux kernel updates.</P
+><P
+>Also refer to the questions, 
+``<A
+HREF="x1973.html#AEN2318"
+><I
+>The PCMCIA Card Doesn't Work after Upgrading the Kernel.</I
+></A
+>''
+and ``<A
+HREF="x1973.html#AEN2287"
+><I
+>How To Get LILO to Boot the Kernel Image.</I
+></A
+>''</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2888"
+>8.16. Can Linux Use More than 3 Serial Ports by Sharing Interrupts?</A
+></H2
+><P
+>Yes, but you won't be able to use simultaneously two ordinary ports
+which share an interrupt (without some trickery). This is a limitation
+of the ISA Bus architecture.</P
+><P
+>See the <I
+CLASS="CITETITLE"
+>Serial HOWTO</I
+> for information about 
+possible solutions and workarounds for this problem.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2893"
+>8.17. Configuring <SPAN
+CLASS="APPLICATION"
+>Emacs</SPAN
+>'s Default Settings.</A
+></H2
+><P
+>Create a file in your home directory named 
+<TT
+CLASS="FILENAME"
+>.emacs</TT
+> with the Emacs Lisp
+commands that you want to run every time Emacs starts up. You won't
+see the file in the directory listing.  (The leading '.' tells 
+<B
+CLASS="COMMAND"
+>ls</B
+> not to
+display it, unless you use the <TT
+CLASS="LITERAL"
+>-a</TT
+> command 
+line switch with <B
+CLASS="COMMAND"
+>ls</B
+>.)</P
+><P
+>Any kind of Emacs Lisp statement will work in the 
+<TT
+CLASS="FILENAME"
+>.emacs</TT
+> file,
+including entire <TT
+CLASS="LITERAL"
+>defuns</TT
+>. 
+Emacs uses lisp variables and statements extensively, and 
+many of the editing functions are written in Emacs Lisp.
+For example, to enable word wrapping whenever
+you edit a file that ends with <TT
+CLASS="FILENAME"
+>.txt</TT
+>, 
+add the following statement.  This is from the Emacs 
+Texinfo help document (
+<B
+CLASS="KEYCAP"
+>F1</B
+>-<B
+CLASS="KEYCAP"
+>i</B
+>,
+then <B
+CLASS="KEYCAP"
+>m</B
+> <TT
+CLASS="LITERAL"
+>Emacs</TT
+> <B
+CLASS="KEYCAP"
+>Return</B
+>):</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(add-hook text-mode-hook
+	'(lambda () (auto-fill-mode 1)))</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This adds a statement that calls a <EM
+>hook</EM
+>
+function whenever a text editing mode is entered for that
+buffer.  The value of <TT
+CLASS="LITERAL"
+>text-mode-hook</TT
+>, 
+which is a variable, to <TT
+CLASS="LITERAL"
+>auto-fill-mode</TT
+>,
+which is a function.</P
+><P
+>If you want to turn off the menu bar at the top of each Emacs frame,
+add this statement:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(menu-bar-mode -1)</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>And if you want to include an Emacs Lisp program that someone has
+written, like <TT
+CLASS="FILENAME"
+>msb.el</TT
+> 
+(an enhanced, pop-up buffer menu), make sure the
+lisp file is in a directory where Emacs can find it (usually it will
+be named Site-lisp), and add these statements in the 
+<TT
+CLASS="FILENAME"
+>.emacs</TT
+> file:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(require 'msb)
+(msb-mode 1)</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Most tasks have several possible solutions in Emacs Lisp. Any task
+that can be programmed in Emacs Lisp is valid in the 
+<TT
+CLASS="FILENAME"
+>.emacs</TT
+> file. For
+more information, consult the Texinfo documentation. 
+There is also a FAQ list for Emacs (refer to: What
+other FAQ's are there for Linux? ).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2927"
+>8.18. How To Make a Rescue Floppy.</A
+></H2
+><P
+>Make a file system on it with bin, etc, lib and dev
+directories&#8212;everything you need. Install a kernel on it and arrange
+to have LILO boot it from the floppy (see the LILO documentation, in
+<TT
+CLASS="FILENAME"
+>lilo.u.*.ps</TT
+>).</P
+><P
+>If you build the kernel (or tell LILO to tell the kernel) to have a
+RAM disk the same size as the floppy the RAM disk will be loaded at
+boot time and mounted as root in place of the floppy.</P
+><P
+>See the <I
+CLASS="CITETITLE"
+>Bootdisk HOWTO</I
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2934"
+>8.19. How To Remap a Keyboard to UK, French, Etc.?</A
+></H2
+><P
+>For recent kernels, get 
+<TT
+CLASS="FILENAME"
+>/pub/Linux/system/Keyboards/kbd-0.90.tar.gz</TT
+>
+from 
+<A
+HREF="ftp://metalab.unc.edu/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/</TT
+></A
+>. 
+Make sure you get the appropriate version; you
+have to use the right keyboard mapping package for your kernel
+version.
+
+For older kernels you have to edit the top-level kernel
+<TT
+CLASS="FILENAME"
+>Makefile</TT
+>, in
+<TT
+CLASS="FILENAME"
+>/usr/src/linux/</TT
+>.
+
+You may find more helpful information in <I
+CLASS="CITETITLE"
+>The Linux Keyboard and
+Console HOWTO</I
+>, by Andries Brouwer, at
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/docs/HOWTO/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/docs/HOWTO/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2945"
+>8.20. How To Get NUM LOCK to Default to On.</A
+></H2
+><P
+>Use the <B
+CLASS="COMMAND"
+>setleds</B
+> program, for 
+example (in <TT
+CLASS="FILENAME"
+>/etc/rc.local</TT
+> or one of the
+<TT
+CLASS="FILENAME"
+>/etc/rc.d/*</TT
+> files):</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>for t in 1 2 3 4 5 6 7 8
+do
+ setleds +num &#60; /dev/tty$t &#62; /dev/null
+done</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+><B
+CLASS="COMMAND"
+>setleds</B
+> is part of the kbd package 
+("How do I remap my keyboard
+to UK, French, etc.? ").
+
+Alternatively, patch your kernel. You need to arrange for 
+<TT
+CLASS="LITERAL"
+>KBD_DEFLEDS</TT
+>
+to be defined to (<TT
+CLASS="LITERAL"
+>1 &#60;&#60; VC_NUMLOCK</TT
+>) when compiling
+<TT
+CLASS="FILENAME"
+>drivers/char/keyboard.c</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2958"
+>8.21. How To Set (Or Reset) Initial Terminal Colors.</A
+></H2
+><P
+>The following shell script should work for VGA consoles:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>for n in 1 2 4 5 6 7 8; do
+     setterm -fore yellow -bold on -back blue -store &#62; /dev/tty$n
+     done</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Substitute your favorite colors, and use 
+<TT
+CLASS="FILENAME"
+>/dev/ttyS$n</TT
+> for serial terminals.</P
+><P
+>To make sure they are reset when people log out (if they've been
+changed):</P
+><P
+>Replace the references to <TT
+CLASS="LITERAL"
+>getty</TT
+> 
+(or <TT
+CLASS="LITERAL"
+>mingetty</TT
+> or <TT
+CLASS="LITERAL"
+>uugetty</TT
+> or
+whatever) in 
+<TT
+CLASS="FILENAME"
+>/etc/inittab</TT
+> with references to 
+<TT
+CLASS="LITERAL"
+>/sbin/mygetty</TT
+>.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/sh
+setterm -fore yellow -bold on -back blue -store &#62; $1
+exec /sbin/mingetty $@</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>[Jim Dennis]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN2975"
+>8.22. How To Have More Than 128Mb of Swap.</A
+></H2
+><P
+>Use several swap partitions or swap files.  Linux kernels before
+version 2.2 supported up to 16 swap areas, each of up to 128Mb.
+Recent versions do not have this limitation.</P
+><P
+>Very old kernels only supported swap partition sizes up to 16Mb.</P
+><P
+>Linux on machines with 8KB paging, like Alpha and Sparc64, support a
+swap partition up to 512MB. The 128MB limitation comes from
+<TT
+CLASS="LITERAL"
+>PAGE_SIZE*BITSPERBYTE</TT
+> 
+on machines with 4KB paging, but is 512KB on
+machines with 8KB paging. The limit is due to the use of a single page
+allocation map.</P
+><P
+>The file <TT
+CLASS="FILENAME"
+>mm/swapfile.c</TT
+> has all of the gory details.</P
+><P
+>[Peter Moulder, Gordon Weast]</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1973.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2984.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Solutions to Common Miscellaneous Problems</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Miscellaneous Information and Questions Answered</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

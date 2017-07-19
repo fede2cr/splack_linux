@@ -1,0 +1,494 @@
+<HTML>
+<HEAD>
+<TITLE>guide4</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide03.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide05.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 4</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>El shell de Unix</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Es muy f&aacute;cil crear archivos en el sistema operativo UNIX. Por lo tanto, los usuarios tienden a crear muchos archivos que utilizan una gran cantidad de espacio. Se ha dicho que la &uacute;nica cosa est&aacute;ndar y com&uacute;n a todos los sistemas UNIX es el mensaje-del-d&iacute;a que les pide a los usuarios que borren los archivos que no necesitan.</P>
+<P>Gu&iacute;a del administrador de System V.2</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>4.1 Comandos Unix</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Cuando ingresa al sistema Unix, se enfrenta con algo m&aacute;s o menos como lo que se muestra a continuaci&oacute;n:</P><DIR>
+<DIR>
+
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Ese "algo" se denomina prompt1. Como su nombre sugiere, le solicita a Ud. que ingrese un comando. Todos los comandos Unix consisten de una secuencia de letras, n&uacute;meros y caracteres. No son v&aacute;lidos los espacios dentro del nombre del comando. Algunos comandos v&aacute;lidos son mail, cat, y CMU_is_Number-5. Algunos caracteres no est&aacute;n permitidos, volveremos a este tema m&aacute;s adelante.</P>
+<P>Unix adem&aacute;s hace diferencia entre may&uacute;sculas y min&uacute;sculas2, lo que significa que Cat y cat son comandos distintos.</P>
+<P>El prompt se muestra como resultado del accionar de un programa especial denominado int&eacute;rprete de comandos3. El int&eacute;rprete de comandos o shell acepta los comandos que escribe el usuario y los ejecuta. Los comandos pueden formar programas en el lenguaje del int&eacute;rprete de comandos, y a dichos programas se los denomina "guiones de shell".</P>
+<P>_____________________________________________</P>
+<P>1 N. del T.: prompt significa solicitud.</P>
+<P>2 La diferenciaci&oacute;n entre may&uacute;sculas y min&uacute;sculas es una cosa muy personal. Algunos sistemas operativos como OS/2 y Windows NT preservan las diferencias, pero no las cuentan como distintas. En la pr&aacute;ctica habitual con Unix, se utiliza raramente la diferenciaci&oacute;n. La situaci&oacute;n de tener un par de comandos Cat y cat diferentes, no es com&uacute;n.</P>
+<P>3 N. del T.: int&eacute;rprete de comandos del ingl&eacute;s shell.</P>
+<P>&nbsp;</P>
+<P>Los shell en Unix se clasifican en dos grandes grupos: los tipo Bourne y los tipo C. Los shell tipo Bourne toman su nombre a partir de su inventor, Steven Bourne. Steven Bourne escribi&oacute; el shell original de Unix, denominado sh; a partir de entonces, la mayor&iacute;a de los shells tienen un nombre con el sufijo sh para indicar que son extensiones de la idea original. Existen varias implementaciones de este shell, que colectivamente llevan el nombre de shells Bourne. Tambi&eacute;n son comunes los shells tipo C cuyo original fue implementado por Bill Joy. Tradicionalmente, los shell Bourne se han utilizado para los scripts de shell y por razones de compatibilidad con el sh original, mientras que los shells C han sido m&aacute;s comunes en su aplicaci&oacute;n interactiva. (Los C tienen ventajas en cuanto a sus mejores caracter&iacute;sticas interactivas, aunque son m&aacute;s dif&iacute;ciles de programar.)</P>
+<P>Linux viene con un shell Bourne denominado bash, escrito por la organizaci&oacute;n "Free Software Foundation"4. El nombre bash proviene de Bourne Again SHell, uno de los tantos juegos de palabras en Unix. Se trata de un shell Bourne "avanzado": tiene las capacidades est&aacute;ndar de programaci&oacute;n que se encuentran en todos los shells Bourne y adem&aacute;s varias de las caracter&iacute;sticas interactivas que se encuentran en los shells C. bash es el shell predeterminado cuando uno usa Linux.</P>
+<P>Apenas ingresa por primera vez, el prompt que Ud. ve es producto de la acci&oacute;n de bash, en otras palabras: est&aacute; Ud. corriendo su primer programa Unix, el shell bash. Mientras est&eacute; conectado, el shell bash estar&aacute; permanentemente funcionando.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>4.1.1 Un comando Unix t&iacute;pico</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El primer comando que debe conocer es cat. Para utilizarlo, escriba "cat" y luego oprima |_Intro_|:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Si tiene ahora el cursor posicionado en una l&iacute;nea nueva, entonces lo que ha hecho est&aacute; bien. Existen unas cuantas variantes que podr&iacute;a haber tecleado, algunas funcionar&aacute;n, otras no.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Si tuvo alg&uacute;n error de tecleo al escribir "cat" , deber&iacute;a haber visto algo m&aacute;s o menos as&iacute;:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ct</P>
+<P>ct: command not found</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>Por lo tanto, el shell le informa que no pudo encontrar un programa denominado "ct" , y le ofrece otro prompt para seguir trabajando. Recuerde que Unix hace diferencia entre may&uacute;sculas y min&uacute;sculas: CAT est&aacute; mal escrito.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Puede que Ud. haya escrito algunos espacios en blanco antes del comando, como:5</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat</P></DIR>
+</DIR>
+
+<P>Sin embargo, el resultado es correcto, y el programa cat corre sin problemas.</P>
+<P>_____________________________________________</P>
+<P>4 N. del T.: La Fundaci&oacute;n para el Software Libre _tal es la traducci&oacute;n de su nombre_ se ocupa de la producci&oacute;n y distribuci&oacute;n de software que no tiene limitaciones en su uso y/o copia, enfrentando de esta manera las pr&aacute;cticas de las compa&ntilde;&iacute;as tradicionales de desarrollo. Que el software sea libre no significa que sea barato: la libertad incluye la gratuidad, pero es mucho m&aacute;s que ello.</P>
+<P>5 El ' ' indica que el usuario escribi&oacute; un espacio.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Tambi&eacute;n puede que haya oprimido un |_Intro_| en una l&iacute;nea en blanco; no se preocupe y contin&uacute;e, pues no tiene ning&uacute;n efecto.</P>
+<P>Doy por sentado que Ud. ha corrido con &eacute;xito cat y est&aacute; esperando que haga algo que lo maraville. Pues bien, no, no es un juego. cat es una muy &uacute;til utilidad que no parece muy &uacute;til a primera vista. Escriba cualquier cosa y luego oprima |_Intro_|. Lo que ver&aacute; es:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat</P>
+<P>Help! I'm stuck in a Linux program!</P>
+<P>Help! I'm stuck in a Linux program!</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Lo que parece haber hecho cat es devolver un eco de lo escrito. Esto es &uacute;til a veces, tal vez no ahora. As&iacute; que salgamos de este programa y veamos otros con beneficios m&aacute;s obvios.</P>
+<P>Para finalizar ciertos comandos Unix, teclee |_Ctrl-d_|6. |_Ctrl-d_| es el car&aacute;cter end-of-file7, o EOF, para abreviar. Puede que en ciertos libros de texto aparezca como end-of-text8. Nos referiremos a este car&aacute;cter como EOF. Es un car&aacute;cter de control que informa a los programas Unix que ha cesado el ingreso de datos. Cuando cat ve que no teclea m&aacute;s nada, termina.</P>
+<P>Para ver otro ejemplo parecido, pruebe el programa sort. Como su nombre lo indica, sort es un programa de clasificaci&oacute;n. Si Ud. teclea unas cuantas l&iacute;neas y luego oprime |_Ctrl-d_|, sort las mostrar&aacute; a la salida de manera ordenada. Esta clase de programas se denominan filtros, porque toman texto desde su entrada, lo filtran, y lo vierten a su salida modificado de alguna manera. Tanto cat como sort son filtros inusuales. cat es inusual pues lee el texto de entrada y no lo cambia.</P>
+<P>sort es inusual porque lee todas las l&iacute;neas de entrada hasta el EOF, antes de emitir su salida. La mayor&iacute;a de los filtros trabajan sobre la base de l&iacute;nea por l&iacute;nea: leen una l&iacute;nea de la entrada, realizan cierto c&oacute;mputo, y escriben una l&iacute;nea diferente de salida.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>4.2 Autoayuda</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El comando man muestra las p&aacute;ginas de la gu&iacute;a de referencia para un comando dado9. Por ejemplo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ man cat</P>
+<P>cat(1) cat(1)</P>
+<P>NAME</P>
+<P>cat - Concatenates or displays files</P>
+<P>&nbsp;</P>
+<P>SYNOPSIS</P>
+<P>cat [-benstuvAET] [--number] [--number-nonblank] [--squeeze-blank]</P>
+<P>[--show-nonprinting] [--show-ends] [--show-tabs] [--show-all]</P>
+<P>[--help] [--version] [file...]</P>
+<P>&nbsp;</P>
+<P>DESCRIPTION</P>
+<P>This manual page documents the GNU version of cat ...</P></DIR>
+</DIR>
+
+<P>________________________________________________</P>
+<P>6 Mantenga oprimida la tecla etiquetada |_Ctrl|_y aprete |_d_|, luego suelte ambas.</P>
+<P>7 N. del T.: fin de archivo.</P>
+<P>8 N. del T.: fin de texto.</P>
+<P>9 man tambi&eacute;n puede mostrar informaci&oacute;n acerca de las llamadas al sistema, subrutinas, formatos de archivos, etc.. En la versi&oacute;n original de Unix el comando mostraba la informaci&oacute;n exactamente igual a la que aparec&iacute;a en la documentaci&oacute;n impresa. Por ahora, es probable que Ud. s&oacute;lo est&eacute; interesado en obtener ayuda acerca de los comandos.</P>
+<P>&nbsp;</P>
+<P>Hay aproximadamente una p&aacute;gina completa de informaci&oacute;n sobre cat10. Pruebe correr "man" en este momento. No espere entender la p&aacute;gina de manual que se le muestra. Las p&aacute;ginas de manual suponen un cierto conocimiento de Unix, conocimiento que tal vez Ud. no tenga en este momento.</P>
+<P>Cuando termine de leer la p&aacute;gina, es probable que vea un bloque en video inverso al final de la p&aacute;gina, parecido a "--more--" o a "Line 1". Se trata del pedido de m&aacute;s (informaci&oacute;n), que pronto le ser&aacute; muy familiar.</P>
+<P>En lugar de dejar escapar el texto fuera de los l&iacute;mites de la pantalla, man se detiene al final de cada p&aacute;gina, y espera para ver que ha decidido hacer Ud.. Si desea seguir leyendo, oprima |_Barra espaciadora_| y avanzar&aacute; una p&aacute;gina. Si desea terminar con la lectura de la p&aacute;gina del manual, oprima |_q_|. Regresar&aacute; entonces al prompt del shell, que esperar&aacute; hasta que Ud. escriba otro comando.</P>
+<P>man provee adem&aacute;s una funci&oacute;n de b&uacute;squeda de palabras clave. Por ejemplo, digamos que Ud. est&aacute; interesado en el tema PostScript, el lenguaje de control de impresoras desarrollado por Adobe. Si escribe "man -k ps" o "man -k Postscript" , recibir&aacute; como resultado una lista de todos los comandos, llamadas al sistema, y otras partes documentadas de Unix que contengan la palabra "ps" (o "Postscript") en su nombre o descripci&oacute;n breve. Esto puede llegar a ser muy &uacute;til cuando quiere buscar una herramienta para hacer algo, pero no conoce su nombre, o si existe.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>4.3 Almacenaje de la informaci&oacute;n</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los filtros son muy &uacute;tiles cuando Ud. se ha transformado en un usuario experimentado, pero tienen un peque&ntilde;o problema. C&oacute;mo almacena Ud. la informaci&oacute;n. Seguramente, ¡no se espera que Ud. teclee todas las cosas cada vez que desea utilizar el programa! Por supuesto que no. Unix provee archivos y directorios.</P>
+<P>Un directorio es como una carpeta, contiene hojas de papel, o archivos. Una carpeta suficientemente grande puede contener otras carpetas, puede haber directorios dentro de directorios. En Unix, se denomina sistema de archivo a la colecci&oacute;n de archivos y directorios. Inicialmente en el sistema de archivo s&oacute;lo existe un directorio, denominado "root"11. Dentro de este directorio hay m&aacute;s directorios, y dentro de ellos hay archivos, y a&uacute;n m&aacute;s directorios12.</P>
+<P>_____________________________________________</P>
+<P>10 N. del T.: El ejemplo se ha mantenido en ingl&eacute;s, pues es muy probable que Ud. tenga instaladas las p&aacute;ginas de manual en dicho idioma, de manera predeterminada. Pruebe m&aacute;s tarde de instalar el conjunto de p&aacute;ginas de manual que est&aacute;n disponibles en castellano.</P>
+<P>11 N. del T.: directorio ra&iacute;z.</P>
+<P>&nbsp;</P>
+<P>Cada archivo y cada directorio tiene un nombre. Nos referiremos a su nombre corto13, que puede coincidir con el de otro archivo y/o directorio en alguna otra parte del sistema de archivo, y al nombre largo14, que es &uacute;nico. Un nombre corto para un archivo puede ser joe, mientras que su nombre completo podr&iacute;a ser /home/larry/joe. El nombre completo se denomina usualmente trayectoria15. La trayectoria puede decodificarse como una secuencia de directorios. Por ejemplo, veremos como se lee /home/larry/joe:</P><DIR>
+<DIR>
+
+<P>/home/larry/joe</P></DIR>
+</DIR>
+
+<P>La barra inicial indica el directorio ra&iacute;z.</P>
+<P>Aqu&iacute; esta el directorio denominado home. Est&aacute; dentro del directorio ra&iacute;z.</P>
+<P>Este es el directorio larry, el cual est&aacute; dentro de home.</P>
+<P>joe est&aacute; dentro de larry. Una trayectoria puede referirse tanto a un directorio como a un nombre de archivo, as&iacute; que joe podr&iacute;a ser cualquiera de ellos. Todos los items antes del nombre corto deben ser directorios.</P>
+<P>&nbsp;</P>
+<P>Una manera sencilla de visualizar todo esto es mediante un diagrama en &aacute;rbol. Para ver el diagrama de un sistema t&iacute;pico Linux, mire la Figura 4.1. Debe Ud. notar que dicho diagrama no est&aacute; completo (¡un sistema Linux completo tiene m&aacute;s de 8000 archivos!) y s&oacute;lo muestra algunos de los directorios est&aacute;ndar. Por lo tanto, puede haber algunos directorios del diagrama que no est&eacute;n en su sistema, y de hecho su sistema tendr&aacute; directorios que no aparecen en la figura.</P>
+<P>&nbsp;</P>
+<P>4.3.1 Miremos los directorios con ls</P>
+<P>Ahora que ya sabe de la existencia de archivos y directorios, debe haber tambi&eacute;n una manera de manipularlos. Por supuesto. El comando ls es uno de los m&aacute;s importantes, y lo que hace es listar los archivos. Si prueba a correr el comando "ls" , entonces ver&aacute;:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Est&aacute; bien, no se preocupe por no ver nada. Unix es intencionalmente callado: si no hay archivos para mostrar, no muestra nada (ni siquiera un "no hay archivos"). Por lo tanto, la ausencia de salida es la manera de ls de decir que no encontr&oacute; ning&uacute;n archivo.</P>
+<P>Pero hace un momento dije que hay m&aacute;s de 8000 archivos por all&iacute;: ¿d&oacute;nde est&aacute;n? Acaba de encontrar el concepto de directorio "actual". Como puede ver en el prompt, su directorio actual es /home/larry y all&iacute; no hay archivos. Si desea la lista de archivos de un directorio m&aacute;s poblado, pruebe con el directorio ra&iacute;z:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls /</P>
+<P>bin etc install mnt root user var</P>
+<P>dev home lib proc tmp usr vmlinux</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>12 Puede haber o no un l&iacute;mite a la "profundidad" a la cual puede llegar el sistema de archivo. (En mi caso nunca la alcanc&eacute;, uno f&aacute;cilmente puede tener directorios de 10 niveles de profundidad.)</P>
+<P>13 N. del T.: Nombre relativo del archivo o directorio.</P>
+<P>14 N. del T.: Nombre completo o absoluto.</P>
+<P>15 N. del T.: trayectoria del ingl&eacute;s path.</P>
+<P>___________________________________________________________________________________________Figura 4.1 T&iacute;pico &aacute;rbol (podado) de directorios Unix.</P><DIR>
+<DIR>
+
+<P>/ ________||bin</P>
+<P>|___dev</P>
+<P>|</P>
+<P>|___etc</P>
+<P>|</P>
+<P>|___home ________larry</P>
+<P>| |</P>
+<P>| |___sam</P>
+<P>|___lib</P>
+<P>| </P>
+<P>|___proc</P>
+<P>|</P>
+<P>|___tmp</P>
+<P>| </P>
+<P>|___usr________||X11R6</P>
+<P>|</P>
+<P>|___bin</P>
+<P>|</P>
+<P>|___emacs</P>
+<P>|</P>
+<P>|___etc</P>
+<P>|</P>
+<P>|___g++-include</P>
+<P>|</P>
+<P>|___include</P>
+<P>|</P>
+<P>|___lib</P>
+<P>|</P>
+<P>|___ </P>
+<P>| local </P>
+<P>| ||_bin</P>
+<P>| |___emacs</P>
+<P>| |</P>
+<P>| |___etc</P>
+<P>| |</P>
+<P>| |___lib</P>
+<P>|</P>
+<P>|___man</P>
+<P>|</P>
+<P>|___spool</P>
+<P>|</P>
+<P>|___src________linux</P>
+<P>|</P>
+<P>|___tmp</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>En el comando anterior, "ls /" , el directorio ("/" ) es lo que se denomina un par&aacute;metro. La primer palabra de un comando es el nombre del comando, y cualquier cosa que le siga son sus par&aacute;metros. Los par&aacute;metros generalmente modifican la forma en la que act&uacute;a un programa para ls, el par&aacute;metro le dice de cual directorio desea Ud. la lista de archivos. Algunos comandos tienen par&aacute;metros especiales denominados opciones o interruptores16 Para ver esto, pruebe:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls -F /</P>
+<P>bin/ etc/ install/ mnt/ root/ user/ var@</P>
+<P>dev/ home/ lib/ proc/ tmp/ usr/ vmlinux</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>16 N. del T.: interruptores del ingl&eacute;s switches.</P>
+<P>&nbsp;</P>
+<P>El "-F" es una opci&oacute;n. Las opciones son clases especiales de par&aacute;metros que comienzan con un gui&oacute;n y modifican el funcionamiento del programa. Para "ls", "-F" es una opci&oacute;n que le permite a Ud. ver cuales de las entradas son directorios, cuales son archivos especiales, cuales programas, y cuales son archivos normales. Cualquiera que termina con una barra es un directorio. Trataremos con m&aacute;s detalle las caracter&iacute;sticas de ls m&aacute;s adelante. ¡Es un programa sorprendentemente complejo!</P>
+<P>Por ahora, hay dos lecciones que se deben aprender. Primero, debe aprender que es lo que hace ls. Pruebe unos cuantos otros directorios de los que se muestran en el &aacute;rbol de la Figura 4.1, y f&iacute;jese en su contenido. Naturalmente, algunos estar&aacute;n vac&iacute;os, y otros tendr&aacute;n muchos archivos dentro. Le sugiero que utilice "ls" con y sin la opci&oacute;n "-F" . Por ejemplo, "ls /usr/local" debe aparecer m&aacute;s o menos as&iacute;:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls /usr/local</P>
+<P>archives bin emacs etc ka9q lib tcl</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La segunda lecci&oacute;n es m&aacute;s general. Muchos comandos Unix son como ls. Tienen opciones, que en general consisten de un car&aacute;cter precedido por un gui&oacute;n, y tienen par&aacute;metros. A diferencia de ls, algunos comandos requieren ciertos par&aacute;metros y/u opciones. Para mostrar como se usan los comandos, utilizaremos el siguiente formato:</P><DIR>
+<DIR>
+
+<P>ls [-aRF] [directorio]</P></DIR>
+</DIR>
+
+<P>En general, y desde ahora en adelante, utilizar&eacute; plantillas de comandos como la mostrada, antes de introducir comandos nuevos para Ud.. La primer palabra es el comando (en este caso ls). A continuaci&oacute;n del comando siguen todos los par&aacute;metros. Los par&aacute;metros opcionales se encerrar&aacute;n entre corchetes ("[" y "]"). Las meta-variables est&aacute;n inclinadas_son palabras que toman el lugar de los par&aacute;metros reales. (Por ejemplo, m&aacute;s arriba puede Ud. ver que dice directorio, lo cual debe ser reemplazado por el nombre de un directorio real.)</P>
+<P>Las opciones son un caso especial. Est&aacute;n encerradas entre corchetes, pero Ud. puede utilizar una sola de ellas sin necesidad de emplear todas juntas. Por ejemplo, con las tres opciones enumeradas m&aacute;s arriba para el caso de ls, Ud. tiene ocho maneras posibles de correr el comando: con o sin cada una de las opciones. (Contraste "ls -R" con "ls -F" .)</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>4.3.2 El directorio actual y cd</P>
+</U></FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>- pwd</P>
+</B><P>El uso de los directorios puede ser insoportable si se tiene que teclear la trayectoria completa cada vez que se quiere acceso a un directorio. En lugar de ello, los shell de Unix tienen una caracter&iacute;stica denominada directorio "actual", "presente", o "de trabajo". Es muy probable que su configuraci&oacute;n de shell muestre dicho directorio como parte del prompt: /home/larry. Si no lo hace, pruebe el comando pwd, que proviene de la sigla de las palabras present working directory17. (Algunas veces el prompt muestra el nombre de la m&aacute;quina. Esto s&oacute;lo es &uacute;til realmente en un entorno de red en el cual hay una gran cantidad de m&aacute;quinas diferentes.)</P><DIR>
+<DIR>
+
+<P>&nbsp;</P>
+<P>mousehouse&gt;pwd</P>
+<P>/home/larry</P>
+<P>mousehouse&gt;</P></DIR>
+</DIR>
+
+<P>Como puede Ud. ver, pwd le dice cu&aacute;l es su directorio actual18_ se trata de un comando muy simple. La mayor&iacute;a de los comandos act&uacute;a, de forma predeterminada, sobre el directorio actual.</P>
+<P>&nbsp;</P>
+<B><P>- cd [directorio]</P>
+</B><P>Podemos cambiar nuestro directorio actual mediante el comando cd. Por ejemplo, pruebe:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cd /home</P>
+<P>/home$ ls -F</P>
+<P>larry/ sam/ shutdown/ steve/ user1/</P>
+<P>/home$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Si Ud. omite el par&aacute;metro opcional directorio, se lo retornar&aacute; a su directorio ra&iacute;z personal, o directorio original. De otro modo, cd lo cambiar&aacute; al directorio especificado. Por ejemplo:</P><DIR>
+<DIR>
+
+<P>/home$ cd</P>
+<P>/home/larry$ cd /</P>
+<P>/$ cd home</P>
+<P>/home$ cd /usr</P>
+<P>/usr$ cd local/bin</P>
+<P>/usr/local/bin$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como puede ver, cd le permite expresar el directorio de destino con trayectorias absolutas o relativas. Una trayectoria absoluta comienza con una "/" y especifica todos lo directorios que existen antes del archivo que Ud. desea. Una trayectoria relativa est&aacute; referida a su directorio actual. En el ejemplo anterior, cuando estaba en "/usr", hice un movimiento relativo a "local/bin" "local" es un directorio que existe bajo "/usr", y "bin" es un directorio bajo "local". ("cd home" tambi&eacute;n fue un cambio de directorio relativo.)</P>
+<P>Existen dos directorios que se utilizan solamente para trayectorias relativas: "." y "..". El directorio "." se refiere al directorio actual, y ".." es el directorio anterior: son "abreviaturas" de directorio, y existen en todos los directorios, aunque no cuadran bien en la met&aacute;fora de "carpeta dentro de carpeta". A&uacute;n el directorio ra&iacute;z tiene un directorio anterior: &eacute;l es su propio directorio anterior.</P>
+<P>_____________________________________________</P>
+<P>17 N. del T.: Directorio de trabajo actual.</P>
+<P>18 En este libro ver&aacute; todos los t&eacute;rminos en uso: directorio de trabajo presente, directorio actual, o directorio de trabajo. Prefiero "directorio actual", aunque a veces recurra a las otras formas a causa de razones de estilo.</P>
+<P>&nbsp;</P>
+<P>El archivo ./chapter-1 viene a ser el archivo chapter-1 que est&aacute; en el directorio actual. Ocasionalmente, ser&aacute; necesario que Ud. coloque expl&iacute;citamente el "./" para que ciertos comandos funcionen, aunque esto es raro. En la mayor&iacute;a de los casos, dar&aacute; igual poner ./chapter-1 o chapter-1.</P>
+<P>El directorio ".." es m&aacute;s &uacute;til cuando queremos "retroceder":</P><DIR>
+<DIR>
+
+<P>/usr/local/bin$ cd ..</P>
+<P>/usr/local$ ls -F</P>
+<P>archives/ bin/ emacs@ etc/ ka9q/ lib/ tcl@</P>
+<P>/usr/local$ ls -F ../src</P>
+<P>cweb/ linux/ xmris/</P>
+<P>/usr/local$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>En este ejemplo, me cambi&eacute; al directorio anterior mediante "cd .." y luego list&eacute; el directorio /usr/src desde /usr/local utilizando el nombre ../src. Debe advertir que si hubiese estado en /home/larry, ejecutar el comando "ls -F ../src" no me habr&iacute;a servido al prop&oacute;sito de ver lo que hay en /usr/src.</P>
+<P>El directorio "~/" es un alias para su directorio personal:</P><DIR>
+<DIR>
+
+<P>/usr/local$ ls -F ~/</P>
+<P>/usr/local$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Puede ver que a&uacute;n no hay nada en su directorio personal. "~/" ser&aacute; m&aacute;s &uacute;til a medida que aprendamos m&aacute;s acerca de como manipular los archivos.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>4.3.3 Creaci&oacute;n y borrado de directorios</P>
+</U></FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>- mkdir directorio1 [directorio2 . . . directorioN]</P>
+</B><P>En Unix, crear directorios es extremadamente simple, y puede ser una muy &uacute;til herramienta de organizaci&oacute;n. Para crear un nuevo directorio, utilice el comando mkdir. Por supuesto, mkdir viene de make directory19.</P>
+<P>Con un peque&ntilde;o ejemplo, veamos como funciona esto:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls -F</P>
+<P>/home/larry$ mkdir report-1993</P>
+<P>/home/larry$ ls -F</P>
+<P>report-1993/</P>
+<P>/home/larry$ cd report-1993</P>
+<P>/home/larry/report-1993$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>mkdir puede tomar m&aacute;s de un par&aacute;metro, a los que interpreta como nombres de directorios que debe crear. Puede especificarlos mediante su nombre relativo o absoluto; report-1993 es un caso de ejemplo con trayectoria relativa.</P><DIR>
+<DIR>
+
+<P>/home/larry/report-1993$ mkdir /home/larry/report-1993/chap1 ~/report-1993/chap2</P>
+<P>/home/larry/report-1993$ ls -F</P>
+<P>chap1/ chap2/</P>
+<P>/home/larry/report-1993$</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>19 N. del T.: Crear directorio.</P>
+<P>&nbsp;</P>
+<B><P>- rmdir directorio1 [directorio2 . . . directorioN]</P>
+</B><P>El opuesto de mkdir es rmdir (remove directory20). rmdir trabaja exactamente igual que mkdir. Un ejemplo de rmdir es:</P><DIR>
+<DIR>
+
+<P>/home/larry/report-1993$ rmdir chap1 chap3</P>
+<P>rmdir: chap3: No such file or directory</P>
+<P>/home/larry/report-1993$ ls -F</P>
+<P>chap2/</P>
+<P>/home/larry/report-1993$ cd ..</P>
+<P>/home/larry$ rmdir report-1993</P>
+<P>rmdir: report-1993: Directory not empty</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como puede apreciar, rmdir se niega a borrar un directorio que no existe, y tampoco permite eliminar directorios que tengan algo dentro. (Recuerde que report-1993 tiene un subdirectorio, chap2, dentro de &eacute;l) Existe un tema interesante para pensar, entonces: ¿qu&eacute; pasa si intenta eliminar su directorio actual? Averig&uuml;&eacute;moslo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cd report-1993</P>
+<P>/home/larry/report-1993$ ls -F</P>
+<P>chap2/</P>
+<P>/home/larry/report-1993$ rmdir chap2</P>
+<P>/home/larry/report-1993$ rmdir .</P>
+<P>rmdir: .: Operation not permitted</P>
+<P>/home/larry/report-1993$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Otra situaci&oacute;n del mismo estilo, es que sucede si intenta eliminar el directorio anterior al directorio actual. Bien, esto no es un problema nuevo: el directorio anterior al actual no est&aacute; vac&iacute;o (existe el actual en &eacute;l), as&iacute; que no puede ser borrado.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>4.4 Informaci&oacute;n en movimiento</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Todos este asunto de los directorios est&aacute; muy lindo, pero no son de ninguna ayuda, a menos que Ud. tenga alg&uacute;n sitio donde almacenar sus datos. Los dioses del Unix vieron este problema y lo solucionaron haciendo que los usuarios tengan archivos21</P>
+<P>_____________________________________________</P>
+<P>20 N. del T.: Eliminar directorio.</P>
+<P>21N. del T.: Tambi&eacute;n denominados ficheros.</P>
+<P>&nbsp;</P>
+<P>Aprenderemos m&aacute;s acerca de la creaci&oacute;n y edici&oacute;n de archivos en los pr&oacute;ximos cap&iacute;tulos.</P>
+<P>Los comandos b&aacute;sicos para manipular archivos en Unix son cp, mv, y rm. Sus nombres provienen de copy22, move23, y remove24, respectivamente.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>4.4.1 cp como un monje</P>
+</U></FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>- cp [-i] fuente destino</P>
+<P>- cp [-i] archivo1 archivo2 . . . archivoN directorio-de-destino25</P>
+</B><P>cp es una utilidad muy pr&aacute;ctica en Unix, y adem&aacute;s muy poderosa. Permite que una persona pueda copiar m&aacute;s informaci&oacute;n en un segundo que lo que pod&iacute;a copiar un monje del siglo XIV en todo un a&ntilde;o.</P>
+<P>Debe ser muy cuidadoso con cp si no dispone de una cantidad importante de espacio en disco. A nadie le hace gracia ver el mensaje "Disk full"26 cuando est&aacute; trabajando con archivos importantes.</P>
+<P>cp tambi&eacute;n puede sobreescribir archivos existentes sin previo aviso, trataremos este tema m&aacute;s adelante.</P>
+<P>Bien, hablaremos primero acerca de la primer l&iacute;nea en la plantilla del comando. El primer par&aacute;metro de cp es el nombre del archivo que hay que copiar, el segundo es el lugar donde se desea depositar la copia. Puede obtener una copia con un nombre distinto, o una en un directorio diferente. Veamos algunos ejemplos:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls -F /etc/passwd</P>
+<P>/etc/passwd</P>
+<P>/home/larry$ cp /etc/passwd .</P>
+<P>/home/larry$ ls -F</P>
+<P>passwd</P>
+<P>/home/larry$ cp passwd frog</P>
+<P>/home/larry$ ls -F</P>
+<P>frog passwd</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El primer comando cp que corr&iacute; tom&oacute; el archivo /etc/passwd, que contiene los nombres de todos los usuarios en un sistema Unix, y lo copi&oacute; en mi directorio ra&iacute;z. cp no borra el archivo fuente, as&iacute; que no hice nada que pudiera da&ntilde;ar el sistema. O sea que ahora existen dos copias del contenido del archivo /etc/passwd, ambas se denominan passwd, pero una est&aacute; en el directorio /etc y la otra en /home/larry.</P>
+<P>_____________________________________________</P>
+<P>22 N. del T.: Copiar.</P>
+<P>23 N. del T.: Mover.</P>
+<P>24 N. del T.: Quitar, borrar.</P>
+<P>25 cp necesita de dos renglones en su plantilla porque el significado del segundo par&aacute;metro depende de la cantidad de par&aacute;metros.</P>
+<P>26 N. del T.: Disco lleno.</P>
+<P>&nbsp;</P>
+<P>Luego, creamos una tercera copia de /etc/passwd cuando tecleamos "cp passwd frog", ahora hay tres copias: /etc/passwd, /home/larry/passwd y /home/larry/frog. El contenido de esos tres archivos es el mismo, sus nombres de archivo difieren.</P>
+<P>cp puede copiar archivos entre directorios si el primer par&aacute;metro es un archivo y el segundo es un directorio. En este caso, el nombre simple (sin el path) de destino coincidir&aacute; con el original, para cada archivo.</P>
+<P>Tambi&eacute;n se puede copiar un archivo y cambiar su nombre de destino en una sola operaci&oacute;n, caso que se da cuando ambos par&aacute;metros son nombres de archivo. Aqu&iacute; reside uno de los peligros de cp. Si tecleara "cp /etc/passwd /etc/group" , el comando cp crear&iacute;a normalmente un archivo nuevo con el contenido id&eacute;ntico al de /etc/passwd y con el nombre /etc/group. Por lo tanto, si /etc/group ya existiera, cp destruir&iacute;a el contenido del antiguo sin darle la oportunidad de guardarlo. (Ni siquiera escribir&aacute; un mensaje en el cual le advierta que est&aacute; por destruir un archivo al copiarle otro encima). Echemos una mirada a otro ejemplo de cp:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls -F</P>
+<P>frog passwd</P>
+<P>/home/larry$ mkdir passwd_version</P>
+<P>/home/larry$ cp frog passwd passwd_version</P>
+<P>/home/larry$ ls -F</P>
+<P>frog passwd passwd_version/</P>
+<P>/home/larry$ ls -F passwd_version</P>
+<P>frog passwd</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>¿C&oacute;mo us&eacute; cp en este caso? Evidentemente, cp puede tomar m&aacute;s de dos par&aacute;metros, como se puede apreciar en la segunda l&iacute;nea de plantillas del comando. Lo que el comando anterior realiz&oacute; es copiar los archivos que aparecen listados (frog, y passwd) al directorio passwd_version. De hecho, cp puede tomar cualquier n&uacute;mero de par&aacute;metros: interpreta los primeros n - 1 como los nombres de archivo que debe copiar, y el n&eacute;simopar&aacute;metro como el nombre del directorio al cual se deben copiar los anteriores.</P>
+<P>No puede renombrar archivos cuando copia m&aacute;s de uno a la vez siempre mantienen su nombre simple. Esto nos lleva a una pregunta interesante. ¿Qu&eacute; es lo que pasar&iacute;a si tecleamos "cp frog passwd toad" , donde frog y passwd existen, y toad no es un directorio? Int&eacute;ntelo y lo sabr&aacute;.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>4.4.2 La poda con rm</P>
+</U></FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>- rm [-i] archivo1 archivo2 . . . archivoN</P>
+</B><P>Ahora que hemos aprendido como crear millones de archivos con cp (y cr&eacute;ame, muy pronto encontrar&aacute; nuevas maneras de crear m&aacute;s archivos), ser&iacute;a &uacute;til aprender la manera de borrarlos. De hecho, es muy simple: el comando que anda necesitando es rm, y funciona como Ud. se lo esperar&iacute;a: a cualquier archivo cuyo nombre se pasa como par&aacute;metro a rm se lo borra. Por ejemplo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls -F</P>
+<P>frog passwd passwd_version/</P>
+<P>/home/larry$ rm frog toad passwd</P>
+<P>rm: toad: No such file or directory</P>
+<P>/home/larry$ ls -F</P>
+<P>passwd_version/</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como puede Ud. apreciar, rm es extremadamente espartano. No s&oacute;lo no pide su confirmaci&oacute;n, sino que borra cosas a&uacute;n en el caso en que haya errores en la l&iacute;nea de comandos. Esto bien puede ser peligroso. Considere la diferencia entre estos dos comandos:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls -F</P>
+<P>toad frog/</P>
+<P>/home/larry$ ls -F frog</P>
+<P>toad</P>
+<P>/home/larry$ rm frog/toad</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>y este otro:</P><DIR>
+<DIR>
+
+<P>/home/larry$ rm frog toad</P>
+<P>rm: frog is a directory</P>
+<P>/home/larry$ ls -F</P>
+<P>frog/</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como puede ver, la diferencia en un caracter hace una diferencia importante en la salida del comando. ¡Es vital que Ud. controle lo que ha escrito en sus l&iacute;neas de comando antes de presionar |_Intro_|!</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>4.4.3 Ser&iacute;a interesante tener un rastrillo</P>
+</U></FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>- mv [-i] nombre-viejo nombre-nuevo</P>
+<P>- mv [-i] archivo1 archivo2 . . . archivoN nuevo-directorio</P>
+</B><P>Por &uacute;ltimo, el otro comando del que debe cuidarse es mv. mv se parece un mont&oacute;n a cp, excepto que borra el archivo original despu&eacute;s de copiarlo. Se puede entender como la utilizaci&oacute;n conjunta de cp y rm. Veamos que podemos hacer:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cp /etc/passwd .</P>
+<P>/home/larry$ ls -F</P>
+<P>passwd</P>
+<P>/home/larry$ mv passwd frog</P>
+<P>/home/larry$ ls -F</P>
+<P>frog</P>
+<P>/home/larry$ mkdir report</P>
+<P>/home/larry$ mv frog report</P>
+<P>/home/larry$ ls -F</P>
+<P>report/</P>
+<P>/home/larry$ ls -F report</P>
+<P>frog</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como puede ver, mv renombra un archivo (que es el primer par&aacute;metro) si el segundo par&aacute;metro es un archivo. Si el segundo par&aacute;metro es un directorio, mv mover&aacute; el archivo al nuevo directorio, manteniendo el mismo nombre simple.</P>
+<P>Debe Ud. ser muy cuidadoso con mv, el comando no controla si el archivo ya existe, y borrar&aacute; cualquier archivo que hubiera con el nombre de destino. Por ejemplo, si ya tengo un archivo de nombre frog existente en mi directorio report, el comando "mv frog report" borrar&aacute; el archivo /report/frog y lo reemplazar&aacute; con /frog.</P>
+<P>De hecho, existe una manera de lograr que tanto rm, cp, y mv le consulten a Ud. antes de eliminar archivos. Los tres comandos nombrados aceptan la opci&oacute;n "-i" a tal efecto. Si Ud. utiliza un alias puede hacer que el shell ejecute: "rm -i" autom&aacute;ticamente cuando teclee: "rm" . Aprender&aacute; m&aacute;s de estos temas luego en la Secci&oacute;n 9.1.3 en la p&aacute;gina 92.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

@@ -1,0 +1,999 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Linux - Guia de Instalacion</TITLE>
+<META NAME="Template" CONTENT="C:\ARCHIVOS DE PROGRAMA\MICROSOFT OFFICE\OFFICE\html.dot">
+<STYLE type="text/css"><!--         
+A:LINK {COLOR:BLUE; TEXT-DECORATION:NONE}
+A:VISITED {COLOR:GREY; TEXT-DECORATION:NONE}
+A:HOVER {COLOR:RED; TEXT-DECORATION:UNDERLINE}
+--></STYLE>
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+<P ALIGN="RIGHT"><A HREF="lipp1.htm"><font face="Verdana, Arial, Helvetica, sans-serif"><IMG SRC="right.gif" BORDER=0 WIDTH=36 HEIGHT=34></font></A> 
+</P>
+<P ALIGN="CENTER"><font face="Verdana, Arial, Helvetica, sans-serif"><IMG SRC="linlogo.gif" WIDTH=64 HEIGHT=75>&nbsp;</font><font size="6" color="#000000">&nbsp;<B><U>Linux: 
+  Instalaci&oacute;n y Primeros Pasos</U></b></font><B><FONT SIZE=6 COLOR="#008080"> 
+  <IMG SRC="linlogo.gif" WIDTH=64 HEIGHT=75></font></b></P>
+<P>
+<HR>
+<p></P>
+<P><font color="#000000" size="2">Copyright Oct 1992-1996 Matt Welsh (Traducci&oacute;n: 
+  Proyecto LuCAS)<br>
+  Versi&oacute;n 2.2.2 - En castellano ver 1.1, 8 Agosto de 1998.<br>
+  Fecha de montaje: 17 de septiembre de 1998<br>
+  (Fecha de montaje HTML: Octubre de 1999 por Juan Cayetano Delgado Roldan)<br>
+  (Edici&oacute;n de HTML (links): Enero del 2000 por Federico Fourcade) <br>
+  <br>
+  </font><font color="#000000" size="2">Este es un libro de instalaci&oacute;n 
+  y gu&iacute;a para nuevos usuarios del sistema Linux, dirigido tanto a los mas 
+  noveles en UNIX, como a los mas expertos. Contiene informaci&oacute;n sobre 
+  como conseguir el Linux, la instalaci&oacute;n de nuevo software, un tutorial 
+  para principiantes de UNIX y una introducci&oacute;n a la administraci&oacute;n 
+  del sistema. Hemos pretendido ser tan gen&eacute;ricos como nos ha sido posible 
+  de tal modo que el libro pueda ser aplicable a cualquiera de las distribuciones 
+  de software para Linux.<br>
+  </font><font color="#000000" size="2">Este libro es de 
+  distribuci&oacute;n gratuita. Esto quiere decir que puedes copiarlo y redistribuirlo 
+  pero bajo determinadas condiciones. Por favor, mira el Copyright y las notas 
+  sobre su distribuci&oacute;n en la pagina xiv.</font></P>
+<P><font face="Verdana, Arial, Helvetica, sans-serif"><b><u><font color="#008080"><br>
+  </font></u></b></font><b><u><font color="#000000" size="3">Indice General</font></u></b></P>
+<P><font color="#ffffff"><A HREF="#prefacio"><font size="2">Prefacio</font></A></font><font size="2" color="#ffffff"> 
+  ............................................................................ 
+  ix<br>
+  </font><font color="#000000" size="2"><A HREF="#audiencia">Audiencia</A> ........................................................................... 
+  ix<br>
+  </font><font color="#000000" size="2"><A HREF="#organizacion">Organizaci&oacute;n 
+  del Libro</A> ........................................................... x<br>
+  </font><font color="#000000" size="2"><A HREF="#reconocimientos">Reconocimientos</A> 
+  ................................................................... xi<br>
+  </font><font color="#000000" size="2"><A HREF="#traduccion">La traducci&oacute;n</A> 
+  ...................................................................... xi<br>
+  </font><font color="#000000" size="2"><A HREF="#lucas">El proyecto LuCAS</A> 
+  ................................................................. xii<br>
+  </font><font color="#000000" size="2"><A HREF="#creditos">Cr&eacute;ditos y 
+  aspectos Legales</A> .................................................... xii<br>
+  </font><font color="#000000" size="2"><A HREF="#notacion">Notaci&oacute;n usada 
+  en el documento</A> ................................................ xv</font></P>
+<P><font color="#000000"><a href="lipp1.htm"><font size="3"><b>1 Introducci&oacute;n 
+  a Linux</b></font></a><font size="3"> 1</font></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.1">1.1 Sobre este libro<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.2">1.2 Breve 
+      historia de Linux<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.3">1.3 Caracter&iacute;sticas 
+      del sistema<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4">1.4 Software</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.1">1.4.1 Comandos 
+          y utilidades b&aacute;sicas<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.2">1.4.2 
+          Formateado y proceso de textos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.3">1.4.3 
+          Lenguajes de programaci&oacute;n y utilidades<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.4">1.4.4 
+          El sistema X Window<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.5">1.4.5 
+          Redes<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.6">1.4.6 
+          Programas de comunicaciones y BBS<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.7">1.4.7 
+          Enlazando con MS-DOS<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.4.8">1.4.8 
+          Otras aplicaciones</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.5">1.5 Acerca del Copyright<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.6">1.6 
+      Dise&ntilde;o y filosof&iacute;a de Linux</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.6.1">1.6.1 Consejos 
+          para novatos en UNIX<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.6.2">1.6.2 
+          Consejos para los gur&uacute;s</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.7">1.7 Diferencias 
+      Entre Linux y Otros Sistemas Operativos</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.7.1">1.7.1 ¿Por 
+          qu&eacute; usar Linux?<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.7.2">1.7.2 
+          Linux vs. MS-DOS<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.7.3">1.7.3 
+          Linux vs. Otros Sistemas Operativos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.7.4">1.7.4 
+          Otras implementaciones de UNIX</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.8">1.8 Requerimientos 
+      de Hardware</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.8.1">1.8.1 Requisitos 
+          de Placa Base y de CPU<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.8.2">1.8.2 
+          Requisitos de memoria<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.8.3">1.8.3 
+          Requisitos de la controladora de disco duro<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.8.4">1.8.4 
+          Requisitos de espacio en disco<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.8.5">1.8.5 
+          Requisitos de monitor y adaptador de v&iacute;deo<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.8.6">1.8.6 
+          Hardware diverso<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.8.7">1.8.7 
+          Tarjetas Ethernet</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.9">1.9 Fuentes de informaci&oacute;n 
+      sobre Linux</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.9.1">1.9.1 Documentaci&oacute;n 
+          On-Line<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.9.2">1.9.2 
+          Linux en el WWW<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.9.3">1.9.3 
+          Libros y otras publicaciones<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.9.4">1.9.4 
+          Grupos de NEWS USENET<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp1.htm#1.9.5">1.9.5 
+          Listas de correo en Internet</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp1.htm#1.10">1.10 Como obtener 
+      ayuda</a></font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lipp2.htm"><font size="3"><b>2 Obtenci&oacute;n 
+  e Instalaci&oacute;n de Linux</b></font></A><b><font size="3"> </font></b></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lipp2.htm#2.1">2.1 Distribuciones 
+      de Linux</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp2.htm#2.1.1">2.1.1 Conseguir 
+          Linux desde Internet<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.1.2">2.1.2 
+          Conseguir Linux desde otras fuentes On-Line<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.1.3">2.1.3 
+          Conseguir Linux por correo<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.1.4">2.1.4 
+          Conseguir la Slackware</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp2.htm#2.2">2.2 Preparaci&oacute;n 
+      para instalar Linux</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp2.htm#2.2.1">2.2.1 Visi&oacute;n 
+          general de la instalaci&oacute;n<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.2.2">2.2.2 
+          Conceptos sobre particiones<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.2.3">2.2.3 
+          Necesidades de reparticionado en Linux<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.2.4">2.2.4 
+          Reparticionado de los discos</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp2.htm#2.3">2.3 Instalaci&oacute;n 
+      del software de Linux</a></font></P>
+    <DIR> 
+      <DIR> 
+        <p><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.1">2.3.1 Arranque 
+          de Linux<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.2">2.3.2 
+          Dispositivos y particiones en Linux<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.3">2.3.3 
+          Creaci&oacute;n de las particiones en Linux<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.4">2.3.4 
+          Creaci&oacute;n del espacio de intercambio (swap)<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.5">2.3.5 
+          Creaci&oacute;n de los sistemas de ficheros<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.6">2.3.6 
+          Instalaci&oacute;n del software<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.7">2.3.7 
+          Creaci&oacute;n del disco de arranque o instalaci&oacute;n del LILO<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.3.8">2.3.8 
+          Otros procedimientos de instalaci&oacute;n</a></font></p>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp2.htm#2.4">2.4 Procedimientos 
+      post-instalacion<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.5">2.5 
+      Resolviendo problemas</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp2.htm#2.5.1">2.5.1 Problemas 
+          con el arranque<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.5.2">2.5.2 
+          Problemas con el hardware<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.5.3">2.5.3 
+          Problemas con la instalaci&oacute;n del software<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp2.htm#2.5.4">2.5.4 
+          Problemas despu&eacute;s de instalar Linux</a></font></P>
+      </DIR>
+    </DIR>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lipp3.htm"><font size="3"><b>3 Tutorial de Linux</b></font></A><font size="3"> 
+  79</font></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.1">3.1 Introducci&oacute;n<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2">3.2 Conceptos 
+      b&aacute;sicos de UNIX</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.1">3.2.1 Creaci&oacute;n 
+          de una cuenta<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.2">3.2.2 
+          Presentaci&oacute;n en el sistema (loggin in)<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.3">3.2.3 
+          Consolas virtuales<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.4">3.2.4 
+          Interpretes de comandos y comandos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.5">3.2.5 
+          Salida del sistema<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.6">3.2.6 
+          Cambiando la palabra de paso<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.7">3.2.7 
+          Ficheros y directorios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.8">3.2.8 
+          El &aacute;rbol de directorios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.9">3.2.9 
+          Directorio de trabajo actual<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.2.10">3.2.10 
+          Refiri&eacute;ndose al directorio home</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.3">3.3 Primeros pasos 
+      en UNIX</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.1">3.3.1 Movi&eacute;ndonos 
+          por el entorno<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.2">3.3.2 
+          Mirando el contenido de los directorios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.3">3.3.3 
+          Creando directorios nuevos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.4">3.3.4 
+          Copia de ficheros<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.5">3.3.5 
+          Moviendo ficheros<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.6">3.3.6 
+          Borrando ficheros y directorios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.7">3.3.7 
+          Mirando los<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.3.8">3.3.8 
+          Obteniendo ayuda en l&iacute;nea</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.4">3.4 Sumario de Ordenes 
+      B&aacute;sicas<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.5">3.5 Explorando 
+      el Sistema de Ficheros<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.6">3.6 Tipos 
+      de interpretes de comandos<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.7">3.7 Caracteres 
+      comod&iacute;n<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.8">3.8 
+      Fontaner&iacute;a UNIX</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.8.1">3.8.1 Entrada 
+          y salida est&aacute;ndard<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.8.2">3.8.2 
+          Redireccionando la entrada y salida<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.8.3">3.8.3 
+          Uso de tuber&iacute;as (pipes)<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.8.4">3.8.4 
+          Redirecci&oacute;n no destructiva</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.9">3.9 Permisos de 
+      Ficheros</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.9.1">3.9.1 Conceptos 
+          de permisos de ficheros<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.9.2">3.9.2 
+          Interpretando los permisos de ficheros<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.9.3">3.9.3 
+          Dependencias<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.9.4">3.9.4 
+          Cambiando permisos</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.10">3.10 Manejando 
+      enlaces de ficheros</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.10.1">3.10.1 Enlaces 
+          duros (Hard links)<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.10.2">3.10.2 
+          Enlaces simb&oacute;licos</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.11">3.11 Control de 
+      Tareas</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.11.1">3.11.1 Tareas 
+          y procesos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.11.2">3.11.2 
+          Primer plano y Segundo plano<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.11.3">3.11.3 
+          Env&iacute;o a segundo plano y eliminaci&oacute;n de procesos</a></font><font color="#ffffff" size="2">3.11.4 
+          Parada y relanzamiento de tareas</font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.12">3.12 Usando el 
+      editor vi</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.1">3.12.1 Conceptos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.2">3.12.2 
+          Comenzando con vi<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.3">3.12.3 
+          Insertando texto<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.4">3.12.4 
+          Borrando texto<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.5">3.12.5 
+          Modificando texto<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.6">3.12.6 
+          Ordenes de movimiento<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.7">3.12.7 
+          Guardando ficheros y saliendo de vi<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.8">3.12.8 
+          Editando otro fichero<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.9">3.12.9 
+          Incluyendo otros ficheros<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.10">3.12.10 
+          Ejecutando comandos del interprete<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.12.11">3.12.11 
+          Obteniendo ayuda</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.13">3.13 Personalizando 
+      su entorno</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.13.1">3.13.1 Guiones 
+          del interprete de comandos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.13.2">3.13.2 
+          Variables del interprete de comandos y el entorno<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp3.htm#3.13.3">3.13.3 
+          Guiones de inicializaci&oacute;n del interprete</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp3.htm#3.14">3.14 ¿Quieres seguir 
+      por tu cuenta?</a></font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lipp4.htm"><font size="3"><b>4 Administraci&oacute;n 
+  del Sistema</b></font></A><font size="3"> 129</font></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.1">4.1 Acerca de Ra&iacute;ces, 
+      Sombreros y la Sensaci&oacute;n de Poder</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.1.1">4.1.1 La cuenta 
+          root<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.1.2">4.1.2 
+          Abusando del sistema<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.1.3">4.1.3 
+          Como proceder con los usuarios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.1.4">4.1.4 
+          Fijando las reglas<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.1.5">4.1.5 
+          Lo que todo esto significa</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.2">4.2 Arrancando el 
+      Sistema</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.2.1">4.2.1 Utilizando 
+          un disquete de arranque<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.2.2">4.2.2 
+          Utilizando LILO</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.3">4.3 Cerrando el 
+      Sistema<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.4">4.4 Gesti&oacute;n 
+      de Usuarios</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.4.1">4.4.1 Conceptos 
+          de gesti&oacute;n de usuarios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.4.2">4.4.2 
+          A&ntilde;adiendo usuarios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.4.3">4.4.3 
+          Borrando usuarios<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.4.4">4.4.4 
+          Poniendo atributos de usuario<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.4.5">4.4.5 
+          Grupos</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.5">4.5 Archivando y 
+      Comprimiendo Ficheros</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.5.1">4.5.1 Utilizando 
+          tar<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.5.2">4.5.2 
+          gzip y compress<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.5.3">4.5.3 
+          Junt&aacute;ndolo todo</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.6">4.6 Usando Disquetes 
+      y Haciendo Copias de Seguridad</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.6.1">4.6.1 Utilizando 
+          disquetes para copias de seguridad<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.6.2">4.6.2 
+          Utilizando disquetes como sistemas de ficheros</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.7">4.7 Actualizando 
+      e Instalando Nuevo Software</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.7.1">4.7.1 Actualizando 
+          el n&uacute;cleo<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.7.2">4.7.2 
+          Actualizando las librer&iacute;as<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.7.3">4.7.3 
+          Actualizando gcc<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.7.4">4.7.4 
+          Actualizando otro software</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.8">4.8 Gestionando 
+      Sistemas de Ficheros</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.8.1">4.8.1 Montando 
+          sistemas de ficheros<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.8.2">4.8.2 
+          Comprobando sistemas de ficheros</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.9">4.9 Utilizando un 
+      fichero de intercambio<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.10">4.10 
+      Tareas Varias</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.10.1">4.10.1 Ficheros 
+          de arranque del sistema<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.10.2">4.10.2 
+          Estableciendo el nombre del ordenador</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.11">4.11 Que Hacer 
+      En Una Emergencia</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp4.htm#4.11.1">4.11.1 Recuperaci&oacute;n 
+          utilizando un disquete de mantenimiento<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.11.2">4.11.2 
+          Arreglando la password de root<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.11.3">4.11.3 
+          Arreglando sistemas de ficheros corrompidos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.11.4">4.11.4 
+          Recuperando ficheros perdidos<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp4.htm#4.11.5">4.11.5 
+          Arreglando librer&iacute;as corrompidas</a></font></P>
+      </DIR>
+    </DIR>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lipp5.htm"><font size="3"><b>5 Caracter&iacute;sticas 
+  avanzadas</b></font></A><font size="3"> 157</font></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lipp5.htm#5.1">5.1 El sistema X 
+      Window</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp5.htm#5.1.1">5.1.1 Requisitos 
+          de hardware<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.1.2">5.1.2 
+          Instalaci&oacute;n de XFree86<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.1.3">5.1.3 
+          Configuraci&oacute;n de XFree86<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.1.4">5.1.4 
+          Introducci&oacute;n de los datos de la tarjeta gr&aacute;fica<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.1.5">5.1.5 
+          Funcionamiento de XFree86<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.1.6">5.1.6 
+          Ejecuci&oacute;n con problemas</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp5.htm#5.2">5.2 Acceso a ficheros 
+      MS-DOS<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.3">5.3 Redes 
+      con TCP/IP</a></font></P>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lipp5.htm#5.3.1">5.3.1 Hardware 
+          requerido<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.3.2">5.3.2 
+          Configuraci&oacute;n de TCP/IP<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.3.3">5.3.3 
+          Configuraci&oacute;n de SLIP<br>
+          </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.3.4">5.3.4 
+          Utilizaci&oacute;n de dip</a></font></P>
+      </DIR>
+    </DIR>
+    <P><font color="#ffffff" size="2"><a href="lipp5.htm#5.4">5.4 Red con UUCP<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.5">5.5 Correo 
+      Electr&oacute;nico<br>
+      </a></font><font color="#ffffff" size="2"><a href="lipp5.htm#5.6">5.6 
+      News y USENET</a></font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lippa.htm"><font size="3"><b>A Fuentes de Informaci&oacute;n 
+  de Linux</b></font></A><font size="3"> 191</font></font></P>
+<DIR> 
+  <DIR> 
+    <p><font color="#ffffff" size="2"><a href="lippa.htm#A.1">A.1 Documentos en 
+      L&iacute;nea<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippa.htm#A.2">A.2 
+      Manuales del Proyecto de Documentaci&oacute;n de Linux<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippa.htm#A.3">A.3 Libros 
+      y Otros Trabajos Publicados</a></font></p>
+    <DIR> 
+      <DIR> 
+        <P><font color="#ffffff" size="2"><a href="lippa.htm#A.3.1">A.3.1 Usando 
+          UNIX<br>
+          </a></font><font color="#ffffff" size="2"><a href="lippa.htm#A.3.2">A.3.2 
+          Administraci&oacute;n de Sistemas<br>
+          </a></font><font color="#ffffff" size="2"><a href="lippa.htm#A.3.3">A.3.3 
+          The X Window System<br>
+          </a></font><font color="#ffffff" size="2"><a href="lippa.htm#A.3.4">A.3.4 
+          Programaci&oacute;n<br>
+          </a></font><font color="#ffffff" size="2"><a href="lippa.htm#A.3.5">A.3.5 
+          Manejo del Kernel</a></font></P>
+      </DIR>
+    </DIR>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lippb.htm"><font size="3"><b>B Lista de Vendedores 
+  de Linux</b></font></A><b><font size="3"> </font></b><font size="3">199</font></font></P>
+<P><font color="#000000"><A HREF="lippc.htm"><font size="3"><b>C Tutorial de FTP 
+  y Lista de Sietes</b></font></A><font size="3"> 203</font></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lippc.htm#C.1">C.1 Aprendiendo 
+      FTP<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippc.htm#C.2">C.2 Registr&aacute;ndose<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippc.htm#C.3">C.3 Movi&eacute;ndonos 
+      dentro<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippc.htm#C.4">C.4 Traerse 
+      ficheros<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippc.htm#C.5">C.5 Saliendo 
+      de FTP<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippc.htm#C.6">C.6 Usando 
+      ftpmail<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippc.htm#C.7">C.7 
+      Lista de FTP Sietes de Linux</a></font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lippd.htm"><font size="3"><b>D Lista de BBS 
+  de Linux</b></font></A><font size="3"> 211</font></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lippd.htm#D.1">D.1 Estados Unidos<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippd.htm#D.2">D.2 
+      Fuera de los Estados Unidos</a></font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000"><A HREF="lippe.htm"><font size="3"><b>E Linux en Espa&ntilde;a</b></font></A><font size="3"> 
+  217</font></font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lippe.htm#E.1">E.1 Internet Sites 
+      en Espa&ntilde;a<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippe.htm#E.2">E.2 
+      BBS Espa&ntilde;oles con ficheros Linux&nbsp;</a></font></P>
+  </DIR>
+</DIR>
+<font color="#000000"><A HREF="lippf.htm"><font size="3"><b>F The GNU General 
+Public License</b></font></A><b><font size="3"> </font></b><font size="3">219</font></font> 
+<DIR> 
+  <DIR> 
+    <P><font color="#ffffff" size="2"><a href="lippf.htm#F.1">F.1 Pre&aacute;mbulo<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippf.htm#F.2">F.2 T&eacute;rminos 
+      y Condiciones para la Copia, Distribuci&oacute;n y Modificaci&oacute;n<br>
+      </a></font><font color="#ffffff" size="2"><a href="lippf.htm#F.3">F.3 
+      Ap&eacute;ndice: Como aplicar estos t&eacute;rminos a sus nuevos programas</a></font></P>
+  </DIR>
+</DIR>
+<P><b><font color="#000000"><A HREF="#glosario"><font size="3">Glosario</font></A></font></b><font color="#000000"><font size="3"> 
+  227<br>
+  <br>
+  </font></font><font color="#000000" face="Verdana, Arial, Helvetica, sans-serif" size="3"></font> 
+</P>
+<P><b><u><font color="#000000" size="2"><A NAME="prefacio"></A><font size="3">Prefacio</font></font></u></b></P>
+<P><font color="#000000" size="2">"You are in a maze of twisty little passages, 
+  all alike."<br>
+  </font><font color="#000000" size="2">Tiene ante usted a uno de los sistemas 
+  m&aacute;s completos y amenazantes que jamas se ha escrito: Linux, el cl&oacute;nico 
+  de UNIX gratuito para el ordenador personal (PC), generado por un heterog&eacute;neo 
+  equipo formado por gurus de UNIX y hackers junto al reci&eacute;n llegado de 
+  turno. El sistema en si refleja esta compleja herencia y, a pesar de que el 
+  desarrollo de Linux puede parecer un esfuerzo voluntario desorganizado, el sistema 
+  es potente, r&aacute;pido y gratuito. Es un verdadero sistema operativo de 32-bits1.<br>
+  </font><font color="#000000" size="2">Mis propias experiencias con Linux comenzaron 
+  hace a&ntilde;os, cuando me sent&eacute; a adivinar como instalar la &uacute;nica 
+  "distribuci&oacute;n" disponible en aquel tiempo un par de disquetes que me 
+  hizo llegar H.J. Lu. Descargue una pila de ficheros y le&iacute; paginas y paginas 
+  de notas de instalaci&oacute;n libremente organizadas. De alg&uacute;n modo, 
+  consegu&iacute; instalar este sistema b&aacute;sico y hacer que todo funcionase.<br>
+  </font><font color="#000000" size="2">Esto fue mucho antes de que se pudiera 
+  comprar el software de Linux en CD-ROM a distribuidores mundiales; de hecho, 
+  antes de que Linux siquiera supiese como acceder a una unidad CD-ROM.<br>
+  </font><font color="#000000" size="2">Esto fue antes del XFree86, antes de Emacs, 
+  antes del soporte de software comercial, y antes de que Linux llegase a ser 
+  un verdadero rival de MS-DOS, Microsoft Windows, y OS/2 en el mercado del ordenador 
+  personal.<br>
+  </font><font color="#000000" size="2">Tiene en sus propias manos el mapa y libro 
+  de ruta hacia el mundo de Linux. Espero que este </font><font color="#000000" size="2">libro 
+  le ayude a echarse a andar con el que yo considero que es el m&aacute;s r&aacute;pido 
+  y m&aacute;s potente sistema operativo que existe para el ordenador personal. 
+  Instalar su propio sistema Linux puede ser un gran momento de diversi&oacute;n 
+  de modo que coja una taza de caf&eacute;, si&eacute;ntese c&oacute;modamente, 
+  y siga leyendo.<br>
+  </font><font color="#000000" size="2">Mientras 
+  este con ello coja una taza tambi&eacute;n para m&iacute;. Yo tambi&eacute;n 
+  he estado despierto enredando con el Linux durante d&iacute;as.</font> </P>
+<P><b><u><font color="#00ff00" face="Courier New" size="2"><A NAME="audiencia"></A></font><font color="#000000" size="3">Audiencia</font></u></b></P>
+<P><font color="#000000" size="2">Este libro esta destinado a cualquier usuario 
+  de PC que quiera instalar y usar el Linux en su sistema. Se asume que Ud. tiene 
+  unos conocimientos b&aacute;sicos sobre ordenadores personales y sistemas operativos 
+  tales como MS-DOS, pero no se asume ning&uacute;n conocimiento previo sobre 
+  Linux o UNIX.<br>
+  </font><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">1 N. del T.: En la actualidad ya existen versiones 
+  de 64-bits para algunas otras plataformas hardware distintas del PC<br>
+  </font><font color="#000000" size="2">A 
+  pesar de esto, sugerimos a los principiantes de UNIX que investiguen en alguno 
+  de los muchos y buenos libros que existen sobre &eacute;l. Algunos de ellos 
+  aparecen listados en el Ap&eacute;ndice A.</font></P>
+<P><font color="#000000"><b><u><font size="2"><A NAME="organizacion"></A><font size="3">Organizaci&oacute;n 
+  del Libro</font></font></u></b></font></P>
+<P><font color="#000000" size="2">Este libro contiene los siguientes cap&iacute;tulos:<br>
+  </font><font color="#000000" size="2"><a href="lipp1.htm">Capitulo 
+  1</a>, Introducci&oacute;n a Linux, da una introducci&oacute;n general a lo 
+  que es Linux, que puede hacer por Ud., y que se necesita para hacerlo funcionar 
+  en su sistema. Tambi&eacute;n proporciona sugerencias &uacute;tiles para obtener 
+  ayuda y reducir el stress general.</font></P>
+<P><font color="#000000" size="2"><a href="lipp2.htm">Capitulo 2</a>, Obtener 
+  e Instalar Linux, explica como obtener el software de Linux, as&iacute; como 
+  la forma instalarlo desde reparticionar su unidad, crear sistemas de ficheros, 
+  y cargar el software en el sistema. Contiene instrucciones que se suponen generales 
+  para cualquier distribuci&oacute;n de Linux, y conf&iacute;a en que la documentaci&oacute;n 
+  suministrada para su versi&oacute;n particular cubra todos los huecos.</font></P>
+<P><font color="#000000" size="2"><a href="lipp3.htm">Capitulo 3</a>, Tutorial 
+  de Linux, es una introducci&oacute;n completa de como usar el sistema Linux 
+  para principiantes de UNIX. Si ya tiene experiencia previa con UNIX, la mayor&iacute;a 
+  de este material deber&iacute;a serle familiar.</font></P>
+<P><font color="#000000" size="2"><a href="lipp4.htm">Capitulo 4</a>, Administraci&oacute;n 
+  del Sistema, presenta muchos de los conceptos importantes de la administraci&oacute;n 
+  del sistema bajo Linux. Esto ser&aacute; tambi&eacute;n de inter&eacute;s para 
+  administradores de sistemas UNIX que quieran saber acerca de las formas concretas 
+  de llevar un sistema en Linux.</font></P>
+<P><font color="#000000" size="2"><a href="lipp5.htm">Capitulo 5</a>, Caracter&iacute;sticas 
+  Avanzadas, presenta al lector un gran numero de las caracter&iacute;sticas avanzadas 
+  que soporta el Linux, tales como el Sistema X Window y el protocolo de red TCP/IP. 
+  Se incluye una gu&iacute;a completa de configuraci&oacute;n de XFree86-3.1.</font></P>
+<P><font color="#000000" size="2"><a href="lippa.htm">Ap&eacute;ndice A</a>, Fuentes 
+  de Informaci&oacute;n de Linux, es un listado de otras fuentes de informaci&oacute;n 
+  acerca de Linux, incluyendo grupos de noticias, listas de distribuci&oacute;n, 
+  documentos en l&iacute;nea, y libros.</font></P>
+<P><font color="#000000" size="2"><a href="lippb.htm">Ap&eacute;ndice B</a>, Lista 
+  de Vendedores de Linux, proporciona una breve lista de vendedores de software 
+  que ofrecen software y servicios de Linux.</font></P>
+<P><font color="#000000" size="2"><a href="lippc.htm">Ap&eacute;ndice C</a>, Tutorial 
+  de FTP y Lista de Sietes, es un tutorial para recibir ficheros desde Internet 
+  con FTP. Este ap&eacute;ndice tambi&eacute;n incluye una lista de sites de FTP 
+  que mantienen software Linux.</font></P>
+<P><font color="#000000" size="2"><a href="lippd.htm">Ap&eacute;ndice D</a>, Lista 
+  de BBS Linux, es una lista de BBS2 a lo ancho del mundo que mantienen software 
+  de Linux. Dado que la mayor&iacute;a de usuarios de Linux no disponen de acceso 
+  a Internet, es importante que se ponga a disposici&oacute;n la informaci&oacute;n 
+  sobre los sistemas BBS.</font></P>
+<P><font color="#000000" size="2"><a href="lippe.htm">Ap&eacute;ndice E</a>, Linux 
+  en Espa&ntilde;a, es una relaci&oacute;n de todos aquellos aspectos de Linux 
+  que puedan interesar al usuario espa&ntilde;ol. Contempla f&oacute;rums de mensajer&iacute;a 
+  espa&ntilde;oles, BBS, canales de distribuci&oacute;n, ftp-sites espa&ntilde;oles, 
+  etc</font></P>
+<P><font color="#000000" size="2"><a href="lippf.htm">Ap&eacute;ndice F</a>, La 
+  licencia GNU General Public License, contiene una copia de la Licencia GNU, 
+  el acuerdo de licencia bajo el cual se distribuye Linux. Es muy importante que 
+  los usuarios de Linux entiendan la GPL; en los &uacute;ltimos meses han surgido 
+  muchos desacuerdos sobre los t&eacute;rminos de dicha Licencia3.<br>
+  </font><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">2 Sistema de Tabl&oacute;n de Boletines, Bulletin 
+  Board System<br>
+  </font><font color="#000000" size="2">3 N. del T.: Precisamente 
+  por eso hemos decidido dejar el original de la GPL intacto y en ingles. No conocemos 
+  de la existencia de ninguna traducci&oacute;n oficial de la GPL al castellano.</font></P>
+<P><font color="#000000"><b><u><font size="2"><A NAME="reconocimientos"></A><font size="3">Reconocimientos</font></font></u></b></font></P>
+<P><font color="#000000" size="2">Este libro ha tardado mucho en hacerse, y mucha 
+  gente ha sido responsable de su realizaci&oacute;n. En particular, me gustar&iacute;a 
+  agradecer a Larry Greenfield y Karl Fogel por su trabajo en la primera versi&oacute;n 
+  del Capitulo 3, y a Lasr Wirzenius por su trabajo en el Capitulo 4. Gracias 
+  a Michael K. Johnson por su apoyo al LDP4 y las convenciones LATEX usadas en 
+  este manual, y a Ed Chi, quien me envi&oacute; una copia impresa del libro para 
+  su edici&oacute;n.<br>
+  </font><font color="#000000" size="2">Gracias a Melinda A. McBride de SSC, Inc., 
+  quien hizo un excelente trabajo completando el &iacute;ndice de los Cap&iacute;tulos 
+  3, 4, y 5. Tambi&eacute;n quisiera agradecer a Andy Oram, Lar Kaufman, y Bill 
+  Hahn de O'Reilly and Associates por su ayuda al Linux Documentation Project.<br>
+  </font><font color="#000000" size="2">Gracias a Linux Systems Labs, Morse Telecommunications, 
+  Yggdrasil Computing, y otros por su soporte del Linux Documentation Project 
+  a trav&eacute;s tanto de las ventas de este libro como de otros trabajos.<br>
+  </font><font color="#000000" size="2">Muchas gracias a gran cantidad de activistas, 
+  incluyendo (sin ning&uacute;n orden especifico) a Linus Torvalds, Donald Becker, 
+  Alan Cox, Remy Card, Ted T'so, H.J. Lu, Ross Biro, Drew Eckhardt, Ed Carp, Eric 
+  Youngdale, Fred van Kempen, Steven Tweedie, y otros muchos mas, por dedicar 
+  tanto tiempo y energ&iacute;a a este proyecto, y sin los cuales no habr&iacute;a 
+  nada sobre lo que escribir.<br>
+  </font><font color="#000000" size="2">Gracias especialmente al gran numero de 
+  lectores que han enviado sus &uacute;tiles comentarios y correcciones. Hay tant&iacute;simos 
+  que citar aqu&iacute;. ¿Quien necesita un corrector ortogr&aacute;fico teniendo 
+  tanta audiencia?<br>
+  </font><font color="#000000" size="2">Matt Welsh<br>
+  </font><font color="#000000" size="2">13 de Enero de 1994</font></P>
+<P><font color="#000000"><b><u><font size="2"><A NAME="traduccion"></A><font size="3">La 
+  traducci&oacute;n</font></font></u></b></font></P>
+<P><font color="#000000" size="2">Lo anterior es por parte del autor. As&iacute; 
+  que, por lo que al equipo de traducci&oacute;n respecta tengo que agradecer 
+  especialmente a aquellos que han colaborado en traducir o revisar este gran 
+  mont&oacute;n de l&iacute;neas, que yo solo no me hubiera atrevido ni siquiera 
+  a intentarlo: Gerardo Izquierdo, Juan Jos&eacute; Amor, Eduardo Lluna, Luis 
+  Ram&oacute;n Duarte, Guillermo Bautista, y Carlos Mart&iacute;nez Chacartegui, 
+  as&iacute; como a todos aquellos que tambi&eacute;n se ofrecieron a colaborar 
+  en esta tarea.<br>
+  </font><font color="#000000" size="2">Quiero hacer constar que todo nuestro 
+  esfuerzo ha sido llevado a cabo de una forma completamente altruista. Ninguno 
+  de nosotros somos profesionales de la traducci&oacute;n y eso, lamentablemente, 
+  se nota. Te ruego que seas benevolente con nosotros y que, en la medida de tus 
+  posibilidades, nos ayudes a hacer de este libro la mejor fuente de consulta 
+  en espa&ntilde;ol sobre Linux.<br>
+  </font><font color="#000000" size="2">Un agradecimiento especial a mi gran amigo 
+  Ram&oacute;n Guti&eacute;rrez, quien me dio la idea de traducir este libro y 
+  me apoyo hasta terminarlo, adem&aacute;s de encargarse de la tarea m&aacute;s 
+  importante, la de montar todos los trozos.<br>
+  </font><font color="#000000" size="2">Alfonso Belloso<br>
+  </font><font color="#000000" size="2">Agosto de 1996<br>
+  </font><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">4 LDP es Linux Documentation Project, o Proyecto 
+  de Documentaci&oacute;n de Linux</font></P>
+<P><font color="#000000"><b><u><font size="2"><A NAME="lucas"></A><font size="3">El 
+  proyecto LuCAS</font></font></u></b></font></P>
+<P><font color="#000000" size="2">Este libro que tiene ante usted es el trabajo 
+  que motivo la puesta en marcha del Proyecto LuCAS. Dos a&ntilde;os despu&eacute;s 
+  de publicar la gu&iacute;a LIPP, LuCAS ha crecido mucho y se ha convertido en 
+  la mayor base de conocimiento que existe en castellano para el mejor sistema 
+  operativo.<br>
+  </font><font color="#000000" size="2">Este &eacute;xito ha tenido lugar, al 
+  igual que el de este libro, gracias a todos los que han participado en mayor 
+  o menor medida, traduciendo o revisando, o simplemente haci&eacute;ndonos llegar 
+  peque&ntilde;as pero importantes sugerencias.<br>
+  </font><font color="#000000" size="2">Esta edici&oacute;n de la gu&iacute;a 
+  LIPP abre un proceso de puesta al d&iacute;a del manual de introducci&oacute;n 
+  a Linux (en dos a&ntilde;os ha evolucionado mucho) al tiempo que incorpora las 
+  correcciones sugeridas por Gonzalo Daniel Molina, a quien agradecemos su colaboraci&oacute;n 
+  desde aqu&iacute;.<br>
+  </font><font color="#000000" size="2">Juan Jos&eacute; Amor<br>
+  </font><font color="#000000" size="2">Julio de 1998</font></P>
+<P><font color="#000000"><b><u><font size="2"><A NAME="creditos"></A><font size="3">Cr&eacute;ditos 
+  y aspectos Legales</font></font></u></b></font></P>
+<P><font color="#000000" size="2">El Proyecto de Documentaci&oacute;n de Linux 
+  es un amplio grupo de escritores, correctores, y editores que est&aacute;n trabajando 
+  en un conjunto definitivo de manuales de Linux. El coordinador general del proyecto 
+  es Matt Welsh, ayudado por Lars Wirzenius y Michael K. Johnson.<br>
+  </font><font color="#000000" size="2">Este manual no es mas que uno entre un 
+  conjunto de varios distribuidos por el Proyecto de Documentaci&oacute;n de Linux, 
+  que incluyen una Gu&iacute;a de Usuario de Linux, Gu&iacute;a del Administrador 
+  del Sistema, y Gu&iacute;a del Hacker del Kernel. Estos manuales est&aacute;n 
+  todos disponibles en formato fuente LATEX y salida Postscript a trav&eacute;s 
+  de FTP an&oacute;nimo en sunsite.unc.edu, en el directorio /pub/Linux/docs/LDP.<br>
+  </font><font color="#000000" size="2">Animamos 
+  a cualquiera al que le guste escribir o editar a que se una a nosotros a fin 
+  de mejorar la documentaci&oacute;n de Linux. Si dispone de acceso a correo electr&oacute;nico 
+  de Internet (e-mail), puede apuntarse al canal DOC de la lista de distribuci&oacute;n 
+  de correo Linux-Activists enviando un mensaje a &nbsp;</font></P>
+<P><font color="#000000"><A HREF="mailto:linux-activists-request@niksula.hut.fi"><B>linux-activists-request@niksula.hut.fi</B></A> 
+  </font></P>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font size="2" color="#000000">5 Todos los trabajos de LuCAS pueden accederse, 
+  gratuitamente, a trav&eacute;s de la direcci&oacute;n Internet </font><font color="#000000"><A HREF="http://lucas.ctv.es/"><B>http://lucas.ctv.es</B></A><B><U><FONT SIZE=2>/</font></u></B><FONT SIZE=2> 
+  con la l&iacute;nea X-Mn-Admin: join DOC como primera l&iacute;nea del cuerpo 
+  del mensaje.</font></font><br>
+  <font size="2" color="#000000">S&iacute;rvase ponerse en contacto con el autor 
+  y coordinador de este manual si tiene preguntas, postales, dinero, o ideas. 
+  Matt Welsh puede ser localizado v&iacute;a Internet e-mail en </font><font color="#000000"><A HREF="mailto:mdw@sunsite.unc.edu"><B>mdw@sunsite.unc.edu</B></A><FONT SIZE=2>, 
+  y en la vida real en<br>
+  </font></font><font color="#000000" size="2">205 Gray Street<br>
+  </font><font color="#000000" size="2">Wilson, N.C. 27896<br>
+  </font><font color="#000000" size="2">U.S.A.</font></P>
+<P><font color="#000000" size="2">UNIX es una marca comercial de X/Open.<br>
+  </font><font color="#000000" size="2">Linux no es una marca comercial, y no 
+  tiene conexi&oacute;n alguna con UNIXTM o X/Open.<br>
+  </font><font color="#000000" size="2">El Sistema X Window es una marca comercial 
+  del Massachusetts Institute of Technology.<br>
+  </font><font color="#000000" size="2">MS-DOS y Microsoft Windows son marcas 
+  comerciales de Microsoft, Inc.</font><br>
+  <font color="#000000" size="2">Copyright Oct 1992-1994 Matt Welsh<br>
+  </font><font color="#000000" size="2">205 
+  Gray Street NE, Wilson NC, 27893 USA</font></P>
+<P><font color="#000000"><A HREF="mailto:mdw@sunsite.unc.edu"><B>mdw@sunsite.unc.edu</B></A> 
+  </font></P>
+<P><font color="#000000" size="2">Linux Installation and Getting Started puede 
+  ser reproducido y distribuido, en su totalidad o en parte, sujeto a las siguientes 
+  condiciones:<br>
+  </font><font color="#000000" size="2">0. La nota de copyright de 
+  arriba y esta notificaci&oacute;n de permiso se deben conservar completas en 
+  todas las copias completas o parciales.<br>
+  </font><font color="#000000" size="2">1. Cualquier traducci&oacute;n o trabajo 
+  derivado de Linux Installation and Getting Started debe ser aprobado por el 
+  autor por escrito antes de su distribuci&oacute;n.<br>
+  </font><font color="#000000" size="2">2. Si Ud. distribuye Linux Installation 
+  and Getting Started parcialmente, debe incluir instrucciones para obtener la 
+  versi&oacute;n completa de este manual, y proporcionar medios para la obtenci&oacute;n 
+  de una versi&oacute;n completa.<br>
+  </font><font color="#000000" size="2">3. Se pueden reproducir peque&ntilde;as 
+  porciones como ilustraciones para revistas o citas en otros trabajos sin esta 
+  notificaci&oacute;n de permiso si se da la menci&oacute;n oportuna.<br>
+  </font><font color="#000000" size="2">4. La Licencia Publica General "GNU General 
+  Public License", a la que se hace referencia mas abajo, puede reproducirse bajo 
+  las condiciones dadas con ella.<br>
+  </font><font color="#000000" size="2">5. Varias secciones de este documento 
+  est&aacute;n sujetas a copyrights separados. Cuando esas secciones est&eacute;n 
+  cubiertas por un copyright distinto, se har&aacute; saber el susodicho copyright. 
+  Si Ud. distribuye Linux Installation and Getting Started en parte, y esa parte 
+  esta, en su totalidad, cubierta bajo un copyright separado conocido, se aplicaran 
+  las condiciones de ese copyright.</font></P>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">7 N. del T.: Las mismas condiciones son aplicables 
+  a esta traducci&oacute;n<br>
+  </font><font size="2" color="#000000">Se pueden conceder excepciones a estas 
+  reglas con fines acad&eacute;micos: Escriba a Matt Welsh, a la direcci&oacute;n 
+  de arriba, o por correo electr&oacute;nico a </font><font color="#000000"><A HREF="mailto:mdw@sunsite.unc.edu"><B>mdw@sunsite.unc.edu</B></A><FONT SIZE=2>, 
+  y pregunte. Estas restricciones est&aacute;n aqu&iacute; para protegernos como 
+  autores, no para restringirles a Uds. como educadores o aprendices.<br>
+  </font></font><font color="#000000" size="2">El 
+  autor anima a los distribuidores de software de Linux en cualquier medio a usar 
+  el libro como una gu&iacute;a de instalaci&oacute;n y de nuevo usuario. Dado 
+  el copyright de arriba, Ud. es libre de imprimir y distribuir copias de este 
+  libro con su software. Puede optar por distribuir este libro sin cargo alguno, 
+  o para lograr un beneficio. Si lo hace as&iacute;, puede desear incluir un peque&ntilde;o 
+  "suplemento de instalaci&oacute;n" para su versi&oacute;n.<br>
+  </font><font color="#000000" size="2">El autor desear&iacute;a saber de cualquier 
+  plan de publicar y distribuir este libro comercialmente. De este modo, podemos 
+  asegurar que Ud. se mantiene al d&iacute;a con nuevas revisiones. Y, si hubiese 
+  una nueva versi&oacute;n a punto de salir, Ud. podr&iacute;a desear retrasar 
+  la publicaci&oacute;n del libro hasta que este disponible.<br>
+  </font><font color="#000000" size="2">Si Ud. esta distribuyendo este libro comercialmente, 
+  cualquier donaci&oacute;n, royalties, y/o copias impresas serian enormemente 
+  apreciadas por el autor. La contribuci&oacute;n en este sentido muestra su apoyo 
+  al software libre y al Proyecto de Documentaci&oacute;n de Linux.<br>
+  </font><font color="#000000" size="2">Todo el c&oacute;digo fuente en Linux 
+  Installation and Getting Started se ha puesto bajo la licencia GNU General Public 
+  License. Vea el Ap&eacute;ndice F con una copia de la licencia GNU "GPL."</font></P>
+<P><font color="#000000"><b><u><font size="2"><A NAME="notacion"></A><font size="3">Notaci&oacute;n 
+  usada en el documento</font></font></u></b></font></P>
+<P><font color="#000000" size="2">Este acuerdo de notaci&oacute;n deber&iacute;a 
+  de ser obvio, no obstante se incluye aqu&iacute; por si acaso.<br>
+  </font><font color="#000000" size="2">- Negrita Usado para resaltar conceptos 
+  nuevos, AVISOS, y palabras clave de un lenguaje.<br>
+  </font><font color="#000000" size="2">- It&aacute;licas Usado para enfatizar 
+  en el texto, y ocasionalmente para citas o presentaciones al comienzo de una 
+  secci&oacute;n. Tambi&eacute;n usado para indicar comandos que teclee el usuario 
+  cuando se muestra interacci&oacute;n con la pantalla (ver debajo).<br>
+  </font><font color="#000000" size="2">- 
+  &lt;sesgado&gt; Usado para marcar meta variables en el texto, especialmente 
+  en representaciones de la l&iacute;nea de comandos. Por ejemplo,&nbsp;</font></P>
+<P><font color="#000000" size="2">ls -l &lt;foo&gt;<br>
+  </font><font color="#000000" size="2">donde &lt;foo&gt; "equivale a" un nombre 
+  de fichero, como /bin/cp.<br>
+  </font><font color="#000000" size="2">- Escritura de maquina Usada para representar 
+  interacci&oacute;n de pantalla, como en<br>
+  </font><font color="#000000" size="2">$ ls -l /bin/cp<br>
+  </font><font color="#000000" size="2">-rwxr-xr-x 1 root wheel 12104 Sep 25 15:53 
+  /bin/cp<br>
+  </font><font color="#000000" size="2">Tambi&eacute;n se usa en ejemplos 
+  de c&oacute;digo, ya sea c&oacute;digo C, un script de la shell, o cualquier 
+  otro, y para mostrar ficheros en general, tales como ficheros de configuraci&oacute;n. 
+  Cuando sea necesario, y por una mejor claridad, estos ejemplos o figuras se 
+  incluir&aacute;n en cajas.</font></P>
+<P><font color="#000000" size="2">_______</font></P>
+<P><font color="#000000" size="2">|_Tecla_| Representa una tecla a pulsar. A menudo 
+  lo vera de esta forma:<br>
+  </font><font color="#000000" size="2">_______ Press |_return_|to continue.<br>
+  </font><font color="#000000" size="2">- 
+  Un diamante en el margen, como un diamante negro en una pista de esqu&iacute;, 
+  se&ntilde;ala "peligro" o "precauci&oacute;n". Lea detenidamente los p&aacute;rrafos 
+  marcados de esta forma.</font></P>
+<P ALIGN="CENTER"><font color="#000000"><b><font size="6"><A NAME="glosario"></A>Glosario</font></b></font></P>
+<P> 
+<HR>
+<p></P>
+<P><font size="2" color="#000000"><B>bugs</b> Errores en la confecci&oacute;n 
+  de un programa.<br>
+  </font><font size="2" color="#000000"><B>driver</b> programa encargado de servir 
+  de intermediario entre el sistema operativo y los distintos dispositivos conectados 
+  en el ordenador.<br>
+  </font><font size="2" color="#000000"><B>FAQ</b> Frecuent Asked Question. Cuesti&oacute;n 
+  frecuentemente preguntada. Recopilaci&oacute;n de preguntas y respuestas sobre 
+  las dudas mas frecuentes.<br>
+  </font><font size="2" color="#000000"><B>FTP</b> File Transfer Protocol: Protocolo 
+  utilizado para la transmisi&oacute;n de ficheros.<br>
+  </font><font size="2" color="#000000"><B>GNU</b> GNU 's not UNIX. Frase recursiva 
+  que representa al proyecto encargado de la protecci&oacute;n y creaci&oacute;n 
+  de software de libre distribuci&oacute;n.<br>
+  </font><font size="2" color="#000000"><B>hacker</b> En su doble acepci&oacute;n, 
+  persona que posee un nivel muy importante de conocimientos en Unix, experto. 
+  Tambi&eacute;n se dice que un hacker es aquel que utiliza sus extensos conocimientos 
+  de inform&aacute;tica para "romper" sistemas de seguridad.<br>
+  </font><font size="2" color="#000000"><B>HOWTO</b> Como ir hacia... como conseguir... 
+  Documentaci&oacute;n especifica sobre alg&uacute;n aspecto concreto de Linux 
+  (impresoras, redes, UPS, etc.<br>
+  </font><font size="2" color="#000000"><B>kernel</b> n&uacute;cleo. En Linux, 
+  parte principal del sistema operativo. C&oacute;digo fuente del propio sistema<br>
+  </font><font size="2" color="#000000"><B>LDP</b> Linux Documentation Project: 
+  Proyecto para la Documentaci&oacute;n de Linux.<br>
+  </font><font size="2" color="#000000"><B>LILO</b> LInux LOader. Cargador de 
+  Linux. Peque&ntilde;o programa que permite el arranque de uno o varios sistemas 
+  operativos situados en una misma maquina. LILO puede poner en marcha, OS/2, 
+  Linux, MS-DOS, Windows'95, SCO, etc.<br>
+  </font><font size="2" color="#000000"><B>LSM</b> Linux Software Map. "Mapa" 
+  de software para Linux. Base de datos que recoge la mayor parte del software 
+  disponible para Linux, as&iacute; como su autor, descripci&oacute;n, localizaci&oacute;n, 
+  observaciones, etc.<br>
+  </font><font size="2" color="#000000"><B>mainframe</b> Ordenador principal. 
+  Equipo de muy altas prestaciones, Host.<br>
+  </font><font size="2" color="#000000"><B>n&uacute;cleo</b> kernel.<br>
+  </font><font size="2" color="#000000"><B>NFS</b> Network File System: Sistemas 
+  de ficheros en red.<br>
+  </font><font size="2" color="#000000"><B>online</b> on-line: en l&iacute;nea, 
+  en conexi&oacute;n. Documentaci&oacute;n on-line: documentos disponibles a trav&eacute;s 
+  de sistemas telem&aacute;ticos<br>
+  </font><font size="2" color="#000000"><B>script</b> Gui&oacute;n. Shell script: 
+  gui&oacute;n para el procesador d&eacute; &oacute;rdenes. Programa batch. Equivalente 
+  en Unix a los ficheros BAT de MS-DOS.<br>
+  </font><font size="2" color="#000000"><B>shell</b> Interprete de ordenes o comandos. 
+  Programa intermediario entre el sistema operativo y el usuario. Imag&iacute;natelo 
+  como si fuera el sustituto del COMMAND.COM de MS-DOS. Linux soporta varias shells 
+  diferentes (bash, ksh, cshell...).<br>
+  </font><font size="2" color="#000000"><B>stdin</b> entrada estandar; usualmente 
+  el teclado.<br>
+  </font><font size="2" color="#000000"><B>stdout</b> salida estandar; usualmente 
+  la pantalla.<br>
+  </font><font size="2" color="#000000"><B>swap</b> Intercambio. swap 
+  space: Area de intercambio. Memoria virtual. Zona de almacenamiento en disco 
+  (fichero o partici&oacute;n) que sirve como prolongaci&oacute;n de la memoria 
+  RAM realmente instalada, permitiendo la ejecuci&oacute;n de procesos que, de 
+  otra forma, requerir&iacute;an una ampliaci&oacute;n f&iacute;sica de dicha 
+  RAM.</font></P>
+</BODY>
+</HTML>

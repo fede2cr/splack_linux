@@ -1,0 +1,16 @@
+Begin3
+Title:          Perl manual page installation script
+Version:        1.04.2
+Entered-date:   10FEB98
+Description:    Maninstall is a Perl script that tries to make the installation
+		of man pages easier. It is able to install man pages compressed,
+		can replace .so requests by hard or symbolic links, handles
+		recursive .so requests, installs man pages with a suffix (e.g.
+		smail.8smail instead of smail.8) and can set the owner and group.
+Keywords:       man, man_db.
+Author:         unicorn@noris.de (Juergen Heinzl)
+Maintained-by:  unicorn@noris.de (Juergen Heinzl)
+Primary-site:   sunsite.unc.edu
+Platforms:      Linux, Perl 5.003.
+Copying-policy: GNU GPL
+End

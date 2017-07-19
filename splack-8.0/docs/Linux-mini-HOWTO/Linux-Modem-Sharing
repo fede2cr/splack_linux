@@ -1,0 +1,165 @@
+
+                        Linux Modem sharing mini-HOWTO
+
+   Author:  Friedemann Baitinger,  [1]baiti@toplink.net
+   last update:
+
+   v1.01, 11 February 1997 source now in HTML format, added a reference
+   on where
+                   to get 'cu', also added a reference on where to get
+                   mserver. '-s' parameter added to 'cu' example.
+
+   V1.00, 06/12/97 Initial release
+   ______________________________________________________________________
+
+1. Introduction
+
+   This mini-HOWTO describes how to setup a Linux system in order to
+   share a modem attached to this system  with other systems over a
+   TCP/IP network.
+
+2. The Server Side
+
+   It is assumed that the server is a Linux system with either:
+
+     a)  a modem attached to a /dev/ttySx device
+
+     b)  an 'isdn4linux'-emulated modem mapped to a /dev/ttyIx device
+
+   The easiest setup I can think of uses a five lines perl script to
+   implement a 'modem demon':
+
+       $ cat /usr/sbin/modemd
+
+       #!/usr/bin/perl
+       select((select(STDOUT), $| = 1)[$[]);
+       select((select(STDIN), $| = 1)[$[]);
+       exec 'cu -s 115200 -l /dev/ttyS1';
+       die '$0: Cant exec cu: $!\n';
+
+   The modem demon is started by the INETD process if a client connects
+   to the appropriate port as described below. The 'modemd simply
+   connects the socket handle with STDIN and STDOUT of the 'cu' command
+   and lets 'cu' handle the actual modem device. In case you don't have
+   'cu' on your system, please install the 'UUCP' package, 'cu' is
+   usually part of 'UUCP'.
+
+   The existence of the modem demon must be made known to the INETD
+   process by updating its configuration file, usually /etc/inetd.conf
+   like:
+
+       #
+       # modem daemon
+       #
+       modem stream tcp nowait root /usr/sbin/tcpd /usr/sbin/modemd
+   /dev/ttyS1
+
+   In order to make this work, an entry to '/etc/services' needs to be
+   added like:
+
+       modem           2006/tcp        modemd
+
+   This associates a symbolic name with an explicit port, 2006 in the
+   example. The portnumber could be any number not already assigned to an
+   existing service. After these changes have been made, a signal must be
+   sent to the inetd process in order to let inetd re-read and process
+   its configuration file:
+
+       $ ps |grep inetd
+       194  ?  S     0:00 /usr/sbin/inetd
+
+       kill -HUP 194
+
+   Now the server side is ready to accept requests from clients. The
+   correct function can be verified by:
+
+       $ telnet localhost modem
+
+       Trying 127.0.0.1...
+       Connected to localhost.
+       Escape character is '^]'.
+
+   You are now connected to the modem. You can now issue 'AT' command in
+   order to verify the setup:
+
+       atz
+       atz
+       OK
+
+       ati1
+       ati1
+       Linux ISDN
+       OK
+
+       ^]
+       telnet>quit
+       $
+
+   Instead of using the Perl script as a modem server, there is also a
+   program named 'mserver' available on
+   [2]ftp://ftp.innet.be/pub/staff/carl/ . In case it is not there
+   anymore, you may want to use 'archie' or any other search engine in
+   order to locate the mserver archive. I haven't had the opportunity yet
+   to install and use mserver.
+
+3. The Client Side
+
+   At this time, only Windows client setups are described here.  On the
+   client PC, a COM-port redirector for TCP/IP is required. The best
+   program for this purpose I have found is 'DialOut/IP' from 'Tactical
+   Software' for Windows 3.1 and Windows 95.  (The Windows 3.1 version
+   can be used under Windows NT for 16-bit applications only.  A 32-bit
+   version for Windows NT is due late summer 1997.)
+
+   DialOut/IP presents the shared modem on a new virtual COM port that it
+   adds to Windows.  This virtual COM port can be used by Windows
+   programs as if the shared modem is directly connected.  Most client
+   applications (including Windows 95 dial-up networking) accept this and
+   work as if there were a real COM port and modem, with the general
+   exception being fax applications or any others that need access to
+   UART control lines. DialOut/IP can be configured to provide Telnet
+   protocol processing, but that feature applies to certain modem pool
+   products and not to the Linux setup described in this file.  Note
+   that, despite its name, DialOut/IP can be used also by applications
+   that wait for incoming calls.
+
+   On [3]www.tactical-sw.com there is a page for downloading a fully
+   functional evaluation version that times out in 1-2 weeks.
+   Installation and configuration is handled by a setup program, with
+   installation details in the README.TXT file.  When you run DialOut/IP,
+   you enter the IP address and port number of the shared modem.
+
+   DialOut/IP is a commercial product that is licensed on a per-modem
+   basis, that is, the price depends on the number of modems that you are
+   sharing. The license states that you can install the software on any
+   number of PC's that access the shared modems.
+
+4. Security Considerations
+
+   If you have only one modem for all your hosts in your local area
+   network, there is probably no reason to worry about security here.
+   However, if any one or more of the hosts in your LAN are connected to
+   the internet by other means than using the modem we have just setup as
+   a modem server, then security considerations are required, otherwise
+   anybody can do a 'telnet your_host modem' and dial out long distance
+   or even international calls at his will.
+
+   I suggest to install and configure tcp-wrappers in order to protect
+   the modem sevrer against unauthorized access.
+
+5. Examples
+
+   I am using the setup as described in (2) and (3) to run Quicken on my
+   Windows 95 ThinkPad and do homebanking with the modem attached to my
+   Linux machine. The 'modem' in my case is not even a real modem, it is
+   an emulated modem on an ISDN-So card. Quicken just sees a COM port, it
+   doesn't know that the device attached to the COM port is actually at
+   the other end of my Ethernet LAN, nor does it know that it is not a
+   standard analog modem but an ISDN device which happens to understand
+   'AT' commands.
+
+References
+
+   1. mailto:baiti@toplink.net
+   2. ftp://ftp.innet.be/pub/staff/carl/
+   3. http://www.tactical-sw.com/

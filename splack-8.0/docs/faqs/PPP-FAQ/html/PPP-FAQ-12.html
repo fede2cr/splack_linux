@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Interactions with other PPP implementations</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-11.html">Previous</A>
+<A HREF="PPP-FAQ-13.html">Next</A>
+<A HREF="PPP-FAQ.html#toc12">Table of Contents</A>
+<HR>
+<H2><A NAME="s12">12. Interactions with other PPP implementations</A></H2>
+
+<H2><A NAME="ss12.1">12.1 How do I connect to a Windows NT server?</A></H2>
+
+<P>This question is becomming one of the most frequently asked questions
+about PPP. The Microsoft Windows NT platform is making substantial
+inroads into the corporate and commerial service organizations and the
+use of it's RAS services is seen as one of the reasons. It is just so
+easy to fill a few items in a form and have your Windows 95 system
+connect to the Windows NT platform that it is extremely tempting for
+many companies to offer Windows NT as their method of connection to
+either the corporate intranet or the Internet.</P>
+<P>Yet, there are some difficulties with the use of Linux PPP and
+Microsoft Windows NT. There are a few different things with Windows NT
+as opposed to a UNIX platform.</P>
+<P>There is no special script for connecting to Windows NT servers. If 
+you are using chat (a UUCP expect-reply scripting tool), the script is 
+nothing more than:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+chat &quot;&quot; ATDT5551212 CONNECT
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>since it only needs to dial the Windows NT server and get the
+telephone to return a connected status. You can embelish it to look
+for things such as BUSY or VOICE or other errors from the modem, but
+those are not required. The only thing is to not expect "login:" or
+any other form of textual login sequence. Also, Windows NT server is
+\quiet\. It does not send anything until you do. It will
+just answer the telephone and then wait.</P>
+<P>There is nothing special about using PAP or MSCHAP with Windows NT and
+Linux PPP. The Linux PPP process supports the MSCHAP protocol if you
+apply the patches which are included with the source package and get
+the D.E.S. library from ftp.funet.fi. (The DES library was originally
+developed in Australia. That country has the same restrictions on
+export of cryptography as do the countries of NORAD. So, since it has
+leaked to Finland, people should get it from there. I do not know who
+broke Australian law and that does not matter as long as it was not
+I.)</P>
+<P>If you require to interface to a server which is configured to accept 
+only encrypted authentication then you must use MSCHAP. If you can 
+open up the server and accept "any authentication, including clear 
+text" then you are best using PAP.</P>
+<P>If you use PAP, then edit the /etc/ppp/pap-secrets file and put the 
+entry which corresponds to:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+account        remote            password
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>This is three words, seperated by one or more spaces, on the same
+line. I have left out the IP addresses as they are used more for the
+\dial-in server\ side of the pppd process. There is no limit
+to the line length. If your password or account name has spaces in it
+then use "password" or "account" (put quotes around it.) If the
+password has special characters which are not glyphs (printable
+characters such as a, b, c, etc.) then you may use \nnn for octal or
+\xNN for hexadecimal to enter the raw data as needed.</P>
+<P>The field marked account is the name of the account on the Windows NT
+server, remote is either an "*" to mean that it is not used or it
+corresponds to the value used with the \remotename\ option
+to pppd and password is, obviously, the password.</P>
+<P>Then you need to add either "user account" or "name account" where 
+"account" is the matching item to your user name on the Windows NT 
+server and matches the entry in the pap-secrets file.</P>
+<P>Do not use the "+chap", "+pap", or "auth" options since these require
+that the remote system (Windows NT) authenticate itself with
+you. Normally the administrator won\t put in your codes so this will
+fail and you will not be able to communicate.</P>
+<P>The entry for the chap-secrets file is basically the same. The MSCHAP
+code will convert the ASCII code to UNICODE that Windows NT requires
+since it is a simple mapping function from ASCII to UNICODE for the
+first 128 characters.</P>
+<P>The double entry in the chap-secrets file is because the CHAP 
+authentication is assumed to work both ways. In fact, since the MSCHAP 
+sequence only works in one direction at the present time (because the 
+Windows NT server does not authenticate itself with the client because 
+Microsoft chose not to do that section of the code) the second entry 
+is just noise. However, the parser for the option in pppd will require 
+that you have it to make MSCHAP an acceptable authentication protocol 
+when requested by the Windows NT peer. The "secret" for this item can 
+be anything but an empty string.</P>
+<P>The difference between "name", "remotename", and "user" is:</P>
+<P>user : Used for PAP authentication. It will default to the value 
+assigned to "name" if you do not specify the "user" option directly.</P>
+<P>name : The name of the local system. It is used by the CHAP and MSCHAP 
+code to select the secret from the chap-secrets file. It will default 
+to name of the local IP address if you don't specify it.</P>
+<P>remotename : The name of the remote (peer) system. It is used by PAP, 
+CHAP, and MSCHAP to select the item from the file. It will default to 
+the name of the peer's IP address if you don't specify it.</P>
+<P>The Microsoft authentication sequence is a CHAP style
+authentication with their DES encryption algorithm for the passwords.</P>
+<P>So why didn\t Microsoft just use CHAP with MD5 encryption then?
+CHAP does not send the clear text password across the
+\wire\. The answer is that in order to use CHAP protocol, you
+need the clear text for the password to be used with the encryption
+algorithm. You would need to store this clear text on your disk
+file. (The pppd process stores it in the /etc/ppp/chap-secrets file.)
+Storing a password in clear text on the disk also violates the
+requirements for C2 registration.</P>
+<P>The only real difference between CHAP and MSCHAP is that MSCHAP does
+not store the clear text for the secret (password). They are both as
+vulnerable for middle-man imposter threats. They are both just as
+secure. Yet, MSCHAP can be used on a C2 registered system; CHAP can
+not.</P>
+
+
+<H2><A NAME="ss12.2">12.2 I tried to use MSCHAP or PAP with Windows NT and it fails with "E=691". Now what?</A></H2>
+
+<P>The error condition identified as 691 is Windows NT way of telling you
+"invalid user name or password". Cute, isn\t it? It would have
+been better if they had included just a little more text with the
+message such as 'E=691 R="invalid user name or password"',
+but I guess that they had to save some memory some place and that was
+the place that they chose to do it. So, they left it as just this
+cryptic code number.</P>
+<P>(There are about five other errors which may occur. Each is just a
+code number as well. For a list of the code numbers and their textual
+translation, you will have to query Microsoft's knowledge base on
+http://www.microsoft.com.)</P>
+<P>Aside from the obvious reason of really not giving it a valid user
+name and password, the other reason is that it can not validate the
+entry that you did give it.</P>
+<P>If your RAS server is a member or a secondary domain controller of a 
+domain then you need to prefix the user name with the domain name. The
+reason that you must specify the domain name is that the RAS server
+must ask some other server to validate your account, it needs to know 
+the domain name which corresponds to your account.</P>
+<P>The domain name is pre-pended to the user name with a \ character 
+separator.</P>
+<P>However, since \ is special to pppd as it has the normal "C"
+language meanings then you need to use an entry in the pap-secrets or
+chap-secrets file which looks like:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+domain\\account     remote         password
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>and use name "domain\\account" or user
+"domain\\account" as the option for pppd.</P>
+<P>Then, you need to be careful about putting the \ character on the
+runline or as an un-quoted parameter to the connect option. The shell
+also uses \ for special purposes. This may mean that you would
+have to use name domain\\\\account just so that
+the pppd process sees name domain\\account so that it can
+give to Windows NT the sequence domain\account.</P>
+
+
+<H2><A NAME="ss12.3">12.3 How do I support Windows 95?</A></H2>
+
+<P>Windows 95 PPP support is designed to work with Windows NT and similar
+servers which do not use a login and password prompt. For this to
+work, you would need to use a getty process which will recognize the
+LCP configure-request.</P>
+
+
+<H2><A NAME="ss12.4">12.4 I am using a Trumpet (for MSDOS) and the connection simply terminates. Why is this happening?</A></H2>
+
+<P><EM>Trumpet</EM> does not like any VJ header compression.
+Use the pppd option \<EM>-vj</EM>\
+to turn it off.</P>
+
+
+<H2><A NAME="ss12.5">12.5 I am using dp-3.1.2 (with SunOS) and the system will not allow me to use anything but ping, or nslookup. Why is this happening?</A></H2>
+
+<P>There is a bug in the <B>3.1.2</B> version of dp.
+Please get the <B>3.1.2a</B> or later file from the dp ftp home
+site <EM>harbor.ecn.purdue.ecu</EM>. Until
+you can put the patch into dp, disable the vj header compression.</P>
+
+
+<H2><A NAME="ss12.6">12.6 My provider wants to use a dynamic DNS address which is not the same with every connection. Yet, Linux wants just one address in the /etc/resolv.conf file. This works with Microsoft Windows 95, but how do I make it work with Linux?</A></H2>
+
+<P>Run a local \cache-only\ nameserver on your own Linux
+system.</P>
+<P>Instructions on running the nameserver are in the
+Named-HOWTO. The only file which you need to obtain from the internet
+to enable the nameserver is the named.boot file. This is available
+from the ftp site at ds.internic.net. Then, use the address 127.1
+as the address of the nameserver.</P>
+<P>You will need to create a named.boot file as well
+as a primary for a dummy domain which will hold your localhost
+name and a primary domain for the 127 IP network. Again, instructions
+on how to do this are in the Named-HOWTO file.</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-11.html">Previous</A>
+<A HREF="PPP-FAQ-13.html">Next</A>
+<A HREF="PPP-FAQ.html#toc12">Table of Contents</A>
+</BODY>
+</HTML>

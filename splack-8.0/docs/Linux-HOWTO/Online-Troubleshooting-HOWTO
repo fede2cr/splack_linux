@@ -1,0 +1,557 @@
+
+Online Troubleshooting Resources : HOWTO
+
+Howard Mann
+
+   howardm@xmission.com
+   v 1.3 July 24, 2000
+   
+   This document will direct Linux users to resources available on the
+   Internet that provide access to a vast amount of Linux-related
+   information useful in troubleshooting problems
+     _________________________________________________________________
+   
+   Table of Contents
+   1. [1]Introduction
+   2. [2]Document Updates
+          
+        2.1. [3]Copyright and License
+        2.2. [4]Feedback and Corrections
+                
+   3. [5]HOWTOs and mini-HOWTOs
+   4. [6]Frequently-Asked-Questions ( FAQs)
+   5. [7]Online Support Sections
+   6. [8]Usenet Newsgroup Archives
+          
+        6.1. [9]Power Search at deja.com
+        6.2. [10]Searchlinux.com (CNET Linux Help)
+                
+   7. [11]Internet Search Engines
+          
+        7.1. [12]Google.com
+                
+   8. [13]Mailing List Archives
+   9. [14]Online User's Manuals
+   10. [15]Online Unix References and Tutorials
+   11. [16]Linux Kernel Resources
+   12. [17]Miscellaneous Resources
+          
+        12.1. [18]Release Notes and Available Documentation related to
+                the XFree86 X - Window Server
+                
+        12.2. [19]GNU Texinfo pages
+        12.3. [20]GNU Software and Manuals
+        12.4. [21]Glossary of Linux-related terms
+        12.5. [22]An online dictionary of computer and technology terms
+        12.6. [23]A detailed Guide to Personal Computers
+        12.7. [24]Gary's Encyclopedia
+                
+   13. [25]Concluding Comments
+          
+1. Introduction
+
+   The traditional means of troubleshooting computer-related problems
+   involves consulting user's manuals, books, friends - probably enticed
+   with goodies - and, when all the former do not yield a solution,
+   calling the technical support service of the vendor of the product in
+   question. And, we all know pleasant and reliably efficacious the
+   latter stratagem is. Unfortunately, this is the norm in the sphere of
+   commercial proprietary products.
+   
+   In contradistinction, Linux, and related distributions, utilities and
+   applications software, has largely been developed according to the
+   [26]Open Source model, wherein developers have used electronic
+   communication over the Internet - typically in the form of
+   publically-accessible Mailing Lists- to collaborate with their peers
+   in the refinement of the associated source code. Such collaboration
+   has also traditionally involved the online publication of user's
+   manuals, lists of Frequently-Asked-Questions ( FAQ's ) , knowledge
+   bases, release notes, formal guides such as this document (HOWTO's)
+   and tutorials. In addition, users often assist others through the
+   forum of Usenet and other newsgroups and the posted messages are
+   readily accessible in the form of searchable archives. These
+   linux-related newsgroups are renowned for their high level of user
+   participation. In significant measure, Linux may be considered a
+   product of the Internet.
+   
+   Considered together, these resources enable access to a large,
+   ever-expanding factual database, and my intent is to encourage and
+   direct the reader to utilize these repositories when faced with an
+   issue not addressed in the documentation that is included with each
+   distribution of Linux. Linux veterans who assist newcomers through the
+   forum of Usenet soon become aware of the frequency with which certain
+   technical questions are repeatedly posted - questions the answers to
+   which are readily available in one or more of the existent online
+   repositories. So, to diminish the likelihood of being "flamed" in
+   response to your posted question on Usenet or irc , read further!
+   
+   Armed with a browser, Linux users may rapidly become adept at
+   troubleshooting their systems. The key is knowing how and where to
+   look. My objective is to guide the user - particularly the Linux
+   newbie - in this quest.
+     _________________________________________________________________
+   
+2. Document Updates
+
+   The latest version of this document will always be available via the
+   Documents Catalog at the [27]Open Source Writers Group The document
+   will also be available in SGML, PS, RTF, DVI and other formats at that
+   website.
+     _________________________________________________________________
+   
+2.1. Copyright and License
+
+   Copyright (c) 1999 , by Howard Mann.
+   
+   Publication and distribution of this document is governed by the terms
+   of the [28]Open Publication License , Draft version 0.4, June 8, 1999,
+   or later.
+     _________________________________________________________________
+   
+2.2. Feedback and Corrections
+
+   I always welcome feedback and constructive criticism.In particular, I
+   wish to be notified about any errors in this document and resources
+   you believe deserving of inclusion, but not presently covered herein.
+   Because the assessment of the value of a particular resource is
+   inherently subjective, I do not guarantee that I will include it, but
+   I will certainly give any suggestion thoughtful consideration. In
+   anticipation, Thanks.
+     _________________________________________________________________
+   
+3. HOWTOs and mini-HOWTOs
+
+   These documents are associated with the [29]Linux Documentation
+   Project. There is a [30]HOWTO Index Page that I suggest you bookmark
+   in your browser.
+   
+   These HOWTOs are written by Linux users and are periodically updated
+   by the authors. Many authors provide the latest version at a personal
+   website and a hyperlink to the latter is typically provided in the
+   document.This version may be newer than that available at the website.
+   The document may be published online before its inclusion into the
+   database.
+   
+   Note also that other HOWTOs are available, the authors of which have
+   not submitted them to the LDP. It is definitely worthwhile trying to
+   find these using an Internet search engine as I describe in a
+   subsequent section.
+   
+   These documents are particularly useful when you decide to provide or
+   access a new service with your Linux system, or when you embark on a
+   technically complex project. For example, you may have the option of
+   accessing the 'net with a DSL or Cable Modem service - excellent
+   guides are available in the form of HOWTOs.
+   
+   In addition, authors often include references and links to sites that
+   they have found useful. You may find the information you need at one
+   of these hyperlinked sites rather than in the HOWTO itself. For
+   example, I found [31]Linux Network Drivers, the primary site for
+   information about Network Interface Card drivers , in the Ethernet
+   HOWTO.
+     _________________________________________________________________
+   
+4. Frequently-Asked-Questions ( FAQs)
+
+   A list of FAQs is a traditional accompaniment to Linux-related
+   applications, utilities, and the like. An FAQ is typically provided
+   online by the developer/s of the product in question, and enterprising
+   users sometimes host an "unofficial" FAQ as well. Search for the
+   latter with an Internet search engine.
+   
+   The FAQ is the first document to peruse when troubleshooting a
+   particular application. In addition, FAQs exist for Linux
+   distributions, window managers, and the so-called desktop environments
+   ( KDE and Gnome ).
+   
+   For Linux newbies, I provide links to three FAQs that collectively
+   address many of the questions posted to the Usenet newsgroups :
+   
+     * [32]The Linux FAQ
+     * [33]The XFree86 X - Window System FAQ
+     * [34]The Linux Kernel mailing list FAQ
+     _________________________________________________________________
+   
+5. Online Support Sections
+
+   These sections are typically found at the websites of Linux
+   distributions, and often contain a variety of helpful documents with
+   information not easily encompassed within a FAQ. Look for sections
+   with one or more of the following titles:
+   
+     * Installation Support
+     * Knowledge or Solutions Databases
+     * Tips and Tricks
+     * Errata, Fixes and Updates
+     * White Papers
+     * Technical Guides
+     * Hardware Guide or Compatibility List
+     * Security Information
+       
+   Some websites provide a site search engine that will facilitate your
+   quest for a solution.
+   
+   If you have a problem with a newly installed distribution, look here
+   first as bugs and their fixes are typically posted here. You may find
+   a detailed guide that will help you accomplish a task such as
+   upgrading your kernel or the version of the XFree86 X - Window System
+   you are using.
+   
+   I recommend you spend some time at the website of the distribution you
+   are using, familiarizing yourself with what is available.
+     _________________________________________________________________
+   
+6. Usenet Newsgroup Archives
+
+   The ability to search for and retrieve information from archived posts
+   to the linux-related (Usenet) newsgroups represents a powerful means
+   of troubleshooting in Linux.
+   
+   Search engines permit one to search the archives by stipulating the
+   forum, keywords, authors, dates, language and combinations thereof.
+   Because the number of linux-related newsgroups is large, the
+   likelihood of finding useful information is high.
+   
+   I would like to relate a brief anecdote to demonstrate the efficacy of
+   this approach. The first time I attempted to build a kernel, I was
+   presented with this error message when I invoked a "make" command:
+make[1]: as86: Command not found make[1]: *** [bootsect.o] Error 127
+make[1]: Leaving directory `/usr/src/linux/arch/i386/boot' make: *** [zImage]
+Error 2
+
+   I had no idea what as86 was, but I entered it as the keyword in the
+   SUBJECT field of the Power Search utility at deja.com ( see below) ,
+   and was presented with a large number of posts from folks who had
+   encountered the same problem. Respondents had provided the reason and
+   solution: I did not have an assembler/linker necessary to create
+   machine code, and the bin86 package provided it. I downloaded and
+   installed a RPM package of the latter and was on my way. This entire
+   process took about 10 minutes ( I do have an ADSL connection to the
+   'net ! ).
+   
+   There are two websites that provide access to Usenet archives using a
+   search engine as described in the following sections.
+     _________________________________________________________________
+   
+6.1. Power Search at deja.com
+
+   The [35]Power Search page allows you to search using keywords and
+   other parameters.I suggest you spend some time becoming familiar with
+   the [36]Search Language nuances. In particular, note the value of
+   using the wildcard symbol. You will be repaid time and again for your
+   efforts. I typically enter the following for a "routine" search:
+   
+   LANGUAGE : English
+   
+   SUBJECT : try different keywords, thinking of a subject line you would
+   use for a post
+   
+   FORUM : *linux* or comp.os.linux.*
+   
+   Another version of this search engine is this [37]Customized Power
+   Search Page. Customize this page to your liking ( I like the "
+   DejaClassic" option ), and then choose " Save Settings."
+   
+   The [38]DejaSearch utility is another application that you may use. It
+   will print out the retrieved posts in one HTML file for your perusal.
+   By using this, you will not have to page back and forth in your
+   browser.
+     _________________________________________________________________
+   
+6.2. Searchlinux.com (CNET Linux Help)
+
+   The [39]Searchlinux website is relatively new, with many of the same
+   features as deja.com. It has "basic" and "advanced" search options.
+   The latter does not have as many options as the Power Search feature
+   at deja.com. It has a nice one-click option whereby one may view one's
+   own posts and associated replies
+     _________________________________________________________________
+   
+7. Internet Search Engines
+
+   I frequently use a Search Engine to retrieve helpful or necessary
+   information from the 'net. These engines catalogue pages from
+   commercial, personal and academic websites, as well as Mailing Lists
+   and the like.
+   
+   Of course, there are a large number of available Search Engines, and I
+   suggest you try several before giving up on a particular quest.
+   Research has shown that any one of them catalogues but a small portion
+   of existent web pages. It is worthwhile becoming very familiar with
+   the operational details of at least one non-directory engine to
+   maximize the efficiency and efficacy of your search efforts. You
+   probably already have a favorite - I like Google.com, and will discuss
+   it in a little more detail.
+     _________________________________________________________________
+   
+7.1. Google.com
+
+   This engine has several novel features that are described in its
+   [40]Why use Google.com page In particular, the engine often returns
+   the most useful pages first ; in fact, I have often found that the
+   first listed page contains the information I need. Because it caches
+   web pages, it is relatively fast at displaying requested items. It has
+   a so-called GoogleScout (TM) feature that provides additional relevant
+   links with each item returned.
+   
+   In addition, it has a specialized [41]Linux Search Engine that I use
+   as my primary Internet search tool. It searches the database of
+   linux-related pages at Google.com further promoting search efficiency.
+   Try it- I am confident you will bookmark it immediately.
+     _________________________________________________________________
+   
+8. Mailing List Archives
+
+   As you might expect, there are a very large number of linux-related
+   Mailing Lists that enable developers and users to communicate and
+   collaborate on projects. These Lists cover every conceivable aspect of
+   Linux, from the technical arcana of kernel development to the
+   relatively unfocused discussion of issues at the newbie level.
+   Subscribers to a particular Mailing List are generally very
+   knowledgeable in the List's topic, and detailed and useful information
+   is often retrievable. The communications are publically accessible
+   through Internet search engines and in the form of online Mailing List
+   Archives. You will typically see archived pages when you conduct a
+   search using an Internet search engine.
+   
+   Not all Mailing Lists are associated with an online archive, but this
+   is increasingly the case. Similarly, not all archives have an
+   associated search engine.
+   
+   Initially, try locate the Mailing List Archive you are interested in
+   by typing a keyword/s and "mailing list archive" in an Internet search
+   engine.
+   
+   For a listing of linux-related Mailing Lists, peruse websites such as
+   the [42]Linux Resource Exchange and the [43]Linux Online Mailing Lists
+   
+   A relatively new, excellent Mailing List resource is [44]Geocrawler
+   (The Knowledge Archive). This is a continuously updated, searchable
+   archive of a large number of Lists that also allows one to register
+   and subsequently post to any particular Mailing List. Its user
+   interface is simple and its search function delivers messages very
+   quickly. I highly recommend this site.
+   
+   You may also find Mailing List archives at the following locations :
+   
+     * The website of the distribution of Linux you use.
+     * The website/s of the Window Manager and/or Desktop Environment you
+       use.
+     * The website dedicated to the application or project in question.
+     * [45]The Mail Archive
+     * [46]Mailing List Archives
+     * [47]The Linux Mailing List Archives
+     * [48]Tux Mailing List Archives
+       
+   This is not a complete listing of archives and you may find additional
+   sites with an Internet search engine. But, this should certainly get
+   you going.
+     _________________________________________________________________
+   
+9. Online User's Manuals
+
+   Some of the major Linux distributions and Window Managers/Desktop
+   Environments publish their user's manual online. If the entire manual
+   is not online, installation and configuration guides are typically
+   found at the relevant website . This also applies to major
+   applications like the Gimp ( GNU Image Manipulation Program).
+   
+   So, for those users who do not have the printed manual, a wealth of
+   installation and configuration guidance is generally available online.
+     _________________________________________________________________
+   
+10. Online Unix References and Tutorials
+
+   As Linux is a Unix-like operating system, a general familiarity with
+   fundamental Unix concepts such as the Unix directory hierarchy and
+   file permissions is essential. Fortunately, there are many Unix
+   tutorials online that collectively cover everything a user might need
+   to know to use Linux. I suggest you bookmark the following as an
+   online reference library :
+   
+     * [49]The Command and Shell User's guide from the Digital Equipment
+       Corporation is an excellent guide to the Unix Operating System.
+       Bookmark the Index Page linked there as an online reference.
+     * [50]UNIXhelp is mirrored on many servers around the world. It is a
+       useful resource for newbies.
+     * [51]Introduction to Unix also contains a useful [52]Unix Command
+       Summary page with brief, but useful, explanations of commonly used
+       Unix commands.
+     * [53]Unix is a Four Letter Word... is another resource suitable for
+       newbies.
+     * [54]Unix Tools contains useful descriptions of utilities, such as
+       tar, that are commonly used in daily work.
+     _________________________________________________________________
+   
+11. Linux Kernel Resources
+
+   If you would like current information about the Linux kernel,
+   [55]Kernelnotes.org is the site you should visit. At this site, you
+   can find out information about the stable and development versions of
+   the kernel, as well as information about upgrading the kernel. It has
+   links to unofficial patches and drivers, and much more.
+     _________________________________________________________________
+   
+12. Miscellaneous Resources
+
+   In this section, I provide a number of links to websites that I have
+   found useful while learning to use Linux. This is an eclectic
+   collection, but keep these handy.
+     _________________________________________________________________
+   
+12.1. Release Notes and Available Documentation related to the XFree86 X -
+Window Server
+
+   This documentation accompanies each version of XFree86, and is
+   available at the [56]XFree86 website. Whenever you have trouble with
+   your X environment, peruse the notes applicable to your
+   videocard/chipset. These typically provide details about the
+   configuration of the X - window system relative to your card, and will
+   enumerate any "options" you have to include in the XF86Config file
+   that governs X.
+     _________________________________________________________________
+   
+12.2. GNU Texinfo pages
+
+   A great collection of pages is available at the [57]Geek Girl.com
+   website. Included are links to pages on the following:
+   
+     * Bash - The Bourne-again shell
+     * Configure - used when compiling programs from source code
+     * G++ - the GNU C++ compiler
+     * Gcc - the C compiler
+     * Libc - the GNU C library
+     * Make - a program for directing recompilation
+       
+   Note that some of these are included in the "docs" that come with
+   Linux distributions. In general, these are detailed technical
+   documents of particular interest to developers. However, if like me,
+   you are not a programmer, you may peruse the introductory sections of
+   these documents to get insight, for example, into those configureand
+   make commands you use when installing applications from source code.
+     _________________________________________________________________
+   
+12.3. GNU Software and Manuals
+
+   Many important programs that are frequently utilized by the Linux user
+   are GNU utilities - for example, the tar (archive) and gzip (
+   compression ) programs. Descriptions of these programs are located at
+   the [58]GNU.org website where many [59]Online Manuals may also be
+   found.
+   
+   These manuals typically provide a lot more information than is found
+   in the corresponding man page on your system. For example , compare
+   the man page and online manual for the tar utility.
+     _________________________________________________________________
+   
+12.4. Glossary of Linux-related terms
+
+   The [60]First Linux online guide has a nice collection of terms and
+   definitions, sorted alphabetically. Go here if you encounter a term
+   that you have not seen before or do not understand.
+     _________________________________________________________________
+   
+12.5. An online dictionary of computer and technology terms
+
+   The [61]PC Webopedia consists of a large online dictionary of
+   computer-related terms and a search engine that provides links to
+   documents that discuss each item in more detail. For example, I used
+   this site to learn the differences between ISA and PCI buses.
+     _________________________________________________________________
+   
+12.6. A detailed Guide to Personal Computers
+
+   The Topic Index to the voluminous hardware guide at [62]PC guide.com
+   will give you a great idea of the contents of this website. I used it
+   quite frequently when first installing Linux and configuring the X
+   Window System. I learnt a lot about videocards and monitors, including
+   the concepts of screen resolution, color depth etc., useful when
+   troubleshooting X - display problems.
+     _________________________________________________________________
+   
+12.7. Gary's Encyclopedia
+
+   [63]Gary Momarison's website contains a very large number of sorted
+   Linux-related links. You may use the "find" function in your browser
+   to find links in a particular category. Peruse this website to
+   appreciate what it has to offer.
+     _________________________________________________________________
+   
+13. Concluding Comments
+
+   If you are a Linux newbie, you may want to create a Troubleshooting
+   folder in your browser's bookmark list, into which you put the
+   hyperlinks I have included in this document, as well as those
+   pertinent to the distribution of Linux and the Window Manager/Desktop
+   Environment you use.
+   
+   As you use these links , you will quickly become adept at
+   troubleshooting online.
+   
+   Cheers and happy searching !
+
+References
+
+   1. Online-Troubleshooting-HOWTO.html#INTRO
+   2. Online-Troubleshooting-HOWTO.html#DOCUPDATES
+   3. Online-Troubleshooting-HOWTO.html#AEN30
+   4. Online-Troubleshooting-HOWTO.html#AEN35
+   5. Online-Troubleshooting-HOWTO.html#HOWTOS
+   6. Online-Troubleshooting-HOWTO.html#FAQS
+   7. Online-Troubleshooting-HOWTO.html#ONLINESUPPORT
+   8. Online-Troubleshooting-HOWTO.html#USENET
+   9. Online-Troubleshooting-HOWTO.html#DEJACOM
+  10. Online-Troubleshooting-HOWTO.html#SEARCHLINUX
+  11. Online-Troubleshooting-HOWTO.html#SEARCHENGINES
+  12. Online-Troubleshooting-HOWTO.html#GOOGLE
+  13. Online-Troubleshooting-HOWTO.html#MAILINGLISTS
+  14. Online-Troubleshooting-HOWTO.html#USERSMANUALS
+  15. Online-Troubleshooting-HOWTO.html#UNIXREFS
+  16. Online-Troubleshooting-HOWTO.html#KERNEL
+  17. Online-Troubleshooting-HOWTO.html#MISCRESOURCES
+  18. Online-Troubleshooting-HOWTO.html#XWINDOW
+  19. Online-Troubleshooting-HOWTO.html#TEXINFO
+  20. Online-Troubleshooting-HOWTO.html#GNUMANUALS
+  21. Online-Troubleshooting-HOWTO.html#GLOSSARY
+  22. Online-Troubleshooting-HOWTO.html#WEBOPEDIA
+  23. Online-Troubleshooting-HOWTO.html#PCS
+  24. Online-Troubleshooting-HOWTO.html#ENCYCLO
+  25. Online-Troubleshooting-HOWTO.html#CONCLUSIONS
+  26. http://www.opensource.org/
+  27. http://www.oswg.org/
+  28. http://www.opencontent.org/openpub/
+  29. http://www.linuxdoc.org/
+  30. http://www.linuxdoc.org/HOWTO/HOWTO-INDEX-3.html
+  31. http://cesdis1.gsfc.nasa.gov/linux/drivers/
+  32. http://www.fokus.gmd.de/linux/FAQ/Linux-FAQ.html
+  33. http://www.xfree86.org/FAQ
+  34. http://www.tux.org/lkml/
+  35. http://www.deja.com/home_ps.shtml
+  36. http://www.deja.com/help/help_lang.shtml
+  37. http://www.exit109.com/~jeremy/news/deja.html
+  38. http://homemade.hypermart.net/dejasearch/
+  39. http://www.searchlinux.com/
+  40. http://www.google.com/why_use.html
+  41. http://www.google.com/linux
+  42. http://www.linuxrx.com/Lists/Lists.perl
+  43. http://www.linux.org/help/lists.html
+  44. http://www.geocrawler.com/
+  45. http://www.mail-archive.com/lists.html
+  46. http://www.uwsg.indiana.edu/hypermail/
+  47. http://kernelnotes.org/lnxlists/
+  48. http://www.tux.org/hypermail/
+  49. http://www.unix.digital.com/faqs/publications/base_doc/DOCUMENTATION/V40D_HTML/APS2HDTE/TITLETXT.HTM
+  50. http://www.ucs.ed.ac.uk/~unixhelp/servers.html
+  51. http://wks.uts.ohio-state.edu/unix_course/intro-1.html
+  52. http://wks.uts.ohio-state.edu/unix_course/intro-137.html#HEADING137-0
+  53. http://www.msoe.edu/~taylor/4ltrwrd/
+  54. http://netizen.com.au/services/training/
+  55. http://www.kernelnotes.org/
+  56. http://www.xfree86.org/
+  57. http://www.geek-girl.com/unix.html#texinfo
+  58. http://www.gnu.org/software/software.html#DescriptionsOfGNUSoftware
+  59. http://www.gnu.org/manual/manual.html
+  60. http://www.firstlinux.com/guide/
+  61. http://www.pcwebopedia.com/
+  62. http://www.PCguide.com/topic.html
+  63. http://members.aa.net/~swear/pedia/index.html

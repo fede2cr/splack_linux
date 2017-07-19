@@ -1,0 +1,2269 @@
+Belgian HOWTO
+
+Dag Wieërs
+
+dag@wieers.com
+Revision History                                                             
+Revision 1.1.0            2001-05-01           Revised by: dag               
+Converted to DocBook v4.1                                                    
+
+
+This document describes how to tweak Linux for Belgian users and lists Linux
+user groups, businesses and other resources in Belgium.
+
+-----------------------------------------------------------------------------
+Table of Contents
+1. Introduction
+    1.1. Why this document?
+    1.2. New versions of this document
+    1.3. Translated versions
+    1.4. Contributions
+    1.5. Feedback
+    1.6. Legal stuff
+    1.7. Todo
+   
+   
+2. Configuration
+    2.1. Keyboard setup
+        2.1.1. Console
+        2.1.2. XFree86
+       
+       
+    2.2. Display and applications
+        2.2.1. Using the ISO-8859-1 font in console
+        2.2.2. Support for the Euro symbol
+       
+       
+    2.3. Time zone
+    2.4. Locale support
+        2.4.1. Dutch
+        2.4.2. French
+        2.4.3. German
+        2.4.4. Walloon
+       
+       
+    2.5. Native language support and codepages
+   
+   
+3. Setting up Internet (Belgian ISP information)
+    3.1. Dialing in with your modem (PPP)
+        3.1.1. Configuring the modem
+        3.1.2. Installing pppd
+        3.1.3. pap-secrets / chap-secrets
+        3.1.4. Network
+        3.1.5. File permissions
+        3.1.6. Dial + Hangup
+        3.1.7. ISP-dependant information
+            3.1.7.1. Cable&Wireless (Online, TijdNet)
+            3.1.7.2. KPN Belgium (Eunet)
+            3.1.7.3. Planet Internet (Ping)
+            3.1.7.4. Skynet (Belgacom)
+            3.1.7.5. Tiscalinet (Freegates, FreeBel)
+            3.1.7.6. UUNet (VT4)
+            3.1.7.7. Wanadoo (Euronet)
+            3.1.7.8. World Online
+            3.1.7.9. XS4ALL
+            3.1.7.10. Yucom (DMA)
+           
+           
+       
+       
+    3.2. Dialing in with your ISDN-modem
+        3.2.1. Updating the kernel
+        3.2.2. ISDN4Linux toolkit
+        3.2.3. Configuring the interface
+        3.2.4. pap-secrets / chap-secrets
+        3.2.5. Network
+        3.2.6. File permissions
+        3.2.7. Dial + Hangup
+       
+       
+    3.3. Cablemodem (DHCP)
+        3.3.1. UPC Belgium (Chello, TVD)
+        3.3.2. Pandora (Telenet)
+       
+       
+    3.4. ADSL
+        3.4.1. Easynet
+        3.4.2. KPN Belgium (Eunet)
+        3.4.3. Turboline (Belgacom)
+       
+       
+   
+   
+4. Belgian Linux user groups
+    4.1. ALLIN Linux User Group
+    4.2. Antwerp Linux User Group (ALUG)
+    4.3. Brussels Linux User Group (BeLUGa)
+    4.4. Computer Forum KaHo (CFK)
+    4.5. HCC Limburgse Linux Gebruikers Groep (HLLGG)
+    4.6. HCC Linux Gebruikers Groep Leuven
+    4.7. Independent Group of Unix-Alikes and Network Activists (IGUANA)
+    4.8. Infogroep (IGWE)
+    4.9. Leuvense Linux Users (L2U)
+    4.10. Limburgse Linux User Group (LILUG)
+    4.11. Linux User Group De Bruxelles (BxLUG)
+    4.12. Linux User Group De Charleroi
+    4.13. Linux User Group De Liège
+    4.14. Linux User Group De Namur
+    4.15. Linux User Group Heist op den Berg
+    4.16. Linux User Group Mons
+    4.17. Linux User Movement Underground Mad Belgian Aliens (LUMUMBA)
+    4.18. LinuxBe.Org A.S.B.L
+    4.19. Louvain-Li-nux (LLN)
+    4.20. Open Technology Assembly Linux Special Interest Group
+    4.21. PC Aktief Computerclub
+    4.22. Python Blanc Blue Belge (P3B)
+    4.23. Student Information Networking (SIN)
+    4.24. TINA
+    4.25. Unix Lovers Yield Student Services & Internet Support (ULYSSIS)
+    4.26. West-Vlaamse Linux User Group (Lug-WV)
+    4.27. Zeus WPI - Werkgroep Informatica RUG
+   
+   
+5. Belgian Linux businesses
+    5.1. aDOC Services
+    5.2. Arafox
+    5.3. Aragne
+    5.4. Better Access N.V.
+    5.5. BIOS Consulting sa/nv
+    5.6. CSS N.V.
+    5.7. D. Connect
+    5.8. Double Barrel Consultancy and Productions
+    5.9. Grmbl productions
+    5.10. IBM Belgium SA/NV
+    5.11. IP Net generation
+    5.12. Kangaroot Linux Consultancy
+    5.13. Mind Linux Solutions
+    5.14. Phidani Software SPRL
+    5.15. Spier BVBA
+    5.16. Stone-IT Belgium
+    5.17. VA Linux Belgium
+    5.18. VirgoPlus sprl
+   
+   
+6. Belgian Linux resources
+    6.1. Websites
+        6.1.1. Linux in Belgium
+        6.1.2. Dutch Linux-sites
+        6.1.3. French Linux-sites
+        6.1.4. Mirrors in Belgium
+       
+       
+    6.2. HOWTO
+    6.3. HOWTO translations
+        6.3.1. Dutch
+        6.3.2. French
+        6.3.3. German
+       
+       
+    6.4. FTP
+        6.4.1. Kernel-source mirrors
+        6.4.2. Distribution mirrors
+        6.4.3. Mirrors in Belgium
+       
+       
+    6.5. Usenet/Newsgroups
+    6.6. IRC
+   
+   
+
+-----------------------------------------------------------------------------
+1. Introduction
+
+1.1. Why this document?
+
+Since there was no information anywhere on the net for Belgian Linux users,
+we started to collect stuff that we thought could be important. This HOWTO
+aims to be the definitive list of all Belgian-related Linux information. If
+you think not, you have no excuse to complain and certainly not to not
+contribute. ;)
+-----------------------------------------------------------------------------
+
+1.2. New versions of this document
+
+If you need to know more about the Linux Documentation Project or about Linux
+HOWTO's, feel free to contact the supervisor Tim Bynum <
+linux-howto@sunsite.unc.edu>.
+
+Tim Bynum will post the listing to several national and international
+newsgroups on a monthly basis. In addition, the Belgian HOWTO can be found on
+the World Wide Web at [http://dag.wieers.com/howto/] http://dag.wieers.com/
+howto/. New versions of the Belgian HOWTO are always placed at this site
+first, so please be sure to check if the copy you are reading is still up to
+date!
+-----------------------------------------------------------------------------
+
+1.3. Translated versions
+
+This document is currently translated in 3 languages (English, Dutch and
+French), we're trying to keep all three of them in sync, but the English
+version is the source-document!
+
+The English and Dutch version are maintained by Dag Wieërs <dag@wieers.com>
+and is found at: [http://dag.wieers.com/howto/] http://dag.wieers.com/howto/.
+
+The French version is maintained by Dany Vanderroost <danyv@euronet.be> and
+is found at: [http://club.euronet.be/dany.vanderroost/howto.html] http://
+club.euronet.be/dany.vanderroost/howto.html.
+-----------------------------------------------------------------------------
+
+1.4. Contributions
+
+A few people mailed us their suggestions and improvements, thanks go to:
+
+  * Wim Vandeputte <wvdputte@reptile.rug.ac.be>
+   
+  * Pablo Saratxaga <srtxg@ping.be>
+   
+  * Christophe Lambin <clambin@skynet.be>
+   
+  * Geert Uytterhoeven <geert@linux-m68k.org>
+   
+
+Many thanks go to Ivo Clarysse <soggie@iguana.be> who started something
+similar earlier ([http://linbel.iguana.be/] http://linbel.iguana.be/) and his
+project helped us a lot to get this document online.
+-----------------------------------------------------------------------------
+
+1.5. Feedback
+
+If some information seems to be wrong, deceptive or missing, we'd appreciate
+if you mailed us the improvements. Since we're just human this document isn't
+bug-free, but your contribution can and will make a difference.
+
+To add yourself to the Linux user groups or businesses, collect all necessary
+information and mail it to us.
+-----------------------------------------------------------------------------
+
+1.6. Legal stuff
+
+Trademarks are owned by their owners.
+
+Although the information given in this document is believed to be correct,
+the author will accept no liability for the content of this document. Use the
+tips and examples given herein at your own risk.
+
+Copyright © 1998, 1999, 2000 by Dag Wieërs. This document may be distributed
+only subject to the terms and conditions set forth in [http://
+www.linuxdoc.org/LDP-COPYRIGHT.html] the LDP license.
+-----------------------------------------------------------------------------
+
+1.7. Todo
+
+There are some things I'm planning to add to this document, if you're
+interested be sure you're reading the most current version of this document.
+(This todo-list is only a reminder to myself, it is not in the translated
+documents!)
+
+  * Integrate [http://linbel.iguana.be/] LinBel some more (should have done
+    this a long time ago)
+   
+  * Add details about how to get Ispell-software for your own language
+   
+  * Add more information about ADSL/DANA
+   
+
+-----------------------------------------------------------------------------
+2. Configuration
+
+2.1. Keyboard setup
+
+Linux provides 2 ways to set up your keyboard. At the console you can use 
+loadkeys and under XFree86 you can use xmodmap.
+-----------------------------------------------------------------------------
+
+2.1.1. Console
+
+To use the keytable for a Belgian keyboard you can use loadkeys be2-latin1 or
+loadkeys be-latin1. The only difference between the two is that be2-latin1
+adds support for twosuperior and threesuperior (keycode 41) and grave
+(keycode 43).
+
+Usually loadkeys is started at boottime from the scripts located somewhere in
+/etc/rc.d. Different distributions handle it differentely. But most
+distributions have a simple program (like kbdconfig in Red Hat, 
+install-keymap in Debian or yast in SuSE) to change the scripts.
+-----------------------------------------------------------------------------
+
+2.1.2. XFree86
+
+To set your keyboard properly under XFree86 you've got more choices. By
+running Xconfigurator (or a similar program) a config-file for XFree86 is
+created (with some standard content). This file is called XF86Config and is
+usually located in /etc or /etc/X11
+
+Make sure (and change otherwise) that something similar to this is given
+under the Keyboard Section.
+        Section "Keyboard"                                                   
+                Protocol        "Standard"                                   
+                XkbRules        "xfree86"                                    
+                XkbModel        "pc101"                                      
+                XkbLayout       "be"                                         
+        EndSection                                                           
+                                                                             
+
+If you own a 'microsoft' keyboard (or the less-known penguin keyboards ;p)
+you can enable those extra 3 keys by changing the "pc101" into "pc104". (I
+use the extra keys as meta-keys in my windowmanager so some shortcuts doesn't
+conflict with the internal ones of my wm).
+
+To get the AltGr key to work under XFree86 simply add in the Keyboard
+Section:
+                RightAlt        ModeShift                                    
+                                                                             
+
+To get some key-combinations working under X11, you might want to change in
+file /usr/X11R6/lib/X11/xkb/symbols/be:
+        key <AD11> {      [ dead_circumflex,       diaeresis      ],         
+                        [     bracketleft                       ]       };   
+        key <AC11> {      [          ugrave,         percent      ],         
+                        [      quoteright                       ]       };   
+        key <BKSL> {      [              mu,        sterling      ],         
+                        [       quoteleft                       ]       };   
+        key <AB10> {      [           equal,            plus      ],         
+                        [      asciitilde                       ]       };   
+                                                                             
+by
+        key <AD11> {      [ dead_circumflex,  dead_diaeresis      ],         
+                        [     bracketleft                       ]       };   
+        key <AC11> {      [          ugrave,         percent      ],         
+                        [      dead_acute                       ]       };   
+        key <BKSL> {      [              mu,        sterling      ],         
+                        [      dead_grave                       ]       };   
+        key <AB10> {      [           equal,            plus      ],         
+                        [      dead_tilde                       ]       };   
+                                                                             
+
+Some people prefer to use a 'Compose'-key to enter their special characters,
+like:
+        Compose-' e    =>    é                                               
+        Compose-/ o    =>    ø                                               
+        Compose-c ,    =>    ç                                               
+        Compose-c o    =>    ©                                               
+        Compose-s s    =>    ß                                               
+                                                                             
+The solution is to enter xmodmap -e "keycode xx = Multi_key" or xmodmap -e
+"keysym yy = Multi_key" where 'xx' is the keycode or 'yy' the keysym of the
+key you choose to be the 'Compose'-key. (use xev to get these values)
+
+Alternatively you can add keycode xx = Multi_key to your ~/.xmodmaprc. This
+way it happens automagically.
+-----------------------------------------------------------------------------
+
+2.2. Display and applications
+
+Some applications have to be compiled as 8-bit clean to work well with the
+European characterset. Others like to be told in advance.
+-----------------------------------------------------------------------------
+
+2.2.1. Using the ISO-8859-1 font in console
+
+You can load the ISO-8859-1 font by typing the following in console:
+        setfont lat1u-16.psf                                                 
+        mapscrn trivial                                                      
+        echo -ne '\033(K'                                                    
+                                                                             
+
+To be able to use ë, è, é or ç in console, you might want to add these to
+your ~/.inputrc:
+        set meta-flag on                                                     
+        set convert-meta off                                                 
+        set output-meta on                                                   
+                                                                             
+(This must be done for every user, if you want this to be default for all
+users you can either add this file to /etc/skel/ or you could add these lines
+to /etc/inputrc and add the following to /etc/bashrc, export INPUTRC=/etc/
+inputrc)
+
+   
+    Note!: This is only useful to programs that use readline (like bash)
+   
+Also set the following environment variables:
+        LC_CTYPE=iso-8859-1                                                  
+        SYSFONT=lat1u-16.psf                                                 
+        SYSTERM=linux                                                        
+                                                                             
+-----------------------------------------------------------------------------
+
+2.2.2. Support for the Euro symbol
+
+Since Europe had to invent a new character, the Euro, there's a new standard.
+It's called ISO-8859-15 (aka Latin-9 or Latin-0). To add support you need
+both a new font and new keymaps. This is part of every major distribution
+nowadays, if you have an older distributions you probably need a newer 
+console-tools package.
+
+The changes in the keymap-file consist of the following lines:
+        keycode  18 = +e        +E      currency                             
+        keycode  46 = +c        +C      cent                                 
+                                                                             
+And the following environment-variable should be set:
+        SYSFONT=lat0-16.psf                                                  
+                                                                             
+to make sure you're using the right font.
+-----------------------------------------------------------------------------
+
+2.3. Time zone
+
+Since Belgium is located in the Central European Time zone (aka MET) which
+(in the winter) is equivalent to the Greenwhich Mean Time plus 1 (GMT+1), you
+can simply link /usr/lib/zoneinfo/localtime/MET to /etc/localtime symbolicly
+like:
+        ln -sf /usr/lib/zoneinfo/MET /etc/localtime                          
+                                                                             
+or
+        ln -sf /usr/lib/zoneinfo/Europe/Brussels /etc/localtime              
+                                                                             
+This automagically sets Daylight Savings (which is GMT+2 in the summer).
+
+   
+    Note!: Different distributions have different paths, zoneinfo can be
+    located in /usr/share or such...
+   
+    Another note!: Red Hat uses a tool called timeconfig, SuSE uses yast
+   
+To change the CMOS clock and then synchronize the system time with the CMOS
+clock, do something like this:
+        hwclock --set --date="Feb 25 03:38"                                  
+        clock -u -s                                                          
+                                                                             
+If your clock is set to local time (which is discouraged but if you also run
+broken OS's, you must), you can do:
+        hwclock --set --date="Feb 25 04:38"                                  
+        clock -s                                                             
+                                                                             
+[Noticed the 1 hour difference ? ;p]
+
+If your computer has Internet-access you can use NTP (Network Time Protocol)
+to keep your system clock in sync. One way of doing this is by starting
+ntpdate from cron by adding
+        05 0 * * * root /usr/sbin/ntpdate -s ntp.belnet.be > /dev/null 2>&1  
+                                                                             
+to your /etc/crontab. Check the ISP-information below to see if your ISP has
+a NTP-server available.
+-----------------------------------------------------------------------------
+
+2.4. Locale support
+
+Not much programs support locale yet, if you want to know more about locale
+or how to write your own programs to support it, check: [put the damn url
+here ;p]
+
+Be aware that locale makes it harder to resolve problems as less people can
+help you !! You might understand a problem when it's in technical English,
+but what if it's translated in some obscure Dutch ?
+-----------------------------------------------------------------------------
+
+2.4.1. Dutch
+
+To enable support for the Dutch locale in Belgium on a system with locale
+support you just have to set the following environment variables:
+        LANG=nl                                                              
+        LANGUAGE=nl_BE                                                       
+                                                                             
+Try nl_BE.ISO_8859-1 if nl_BE does not work.
+-----------------------------------------------------------------------------
+
+2.4.2. French
+
+If you want French locale support in Belgium, set the following environment
+variabels:
+        LANG=fr                                                              
+        LANGUAGE=fr_BE                                                       
+                                                                             
+Try fr_BE.ISO_8859-1 if fr_BE does not work.
+-----------------------------------------------------------------------------
+
+2.4.3. German
+
+If you want instead German locale support in Belgium, set the following
+environment variabels:
+        LANG=de                                                              
+        LANGUAGE=de_BE                                                       
+                                                                             
+Try de_BE.ISO_8859-1 if de_BE does not work.
+-----------------------------------------------------------------------------
+
+2.4.4. Walloon
+
+For Walloon locale support you can find files and information at: [http://
+www.linuxi18n.org/locales/walon/] http://www.linuxi18n.org/locales/walon/. To
+use it set:
+        LANG=wa                                                              
+        LANGUAGE=wa_BE:fr_BE                                                 
+                                                                             
+Try wa_BE.ISO_8859-1 if wa_BE does not work.
+-----------------------------------------------------------------------------
+
+2.5. Native language support and codepages
+
+These options add support for the Belgian characterset and codepages. If
+you'd like to have these, compile a kernel with these options put on. They
+only apply to some filesystems (FAT-based, ISO9660, ...).
+        < > Codepage 850 (Europe)                                            
+        < > NLS ISO 8859-1  (Latin 1; Western European Languages)            
+        < > NLS ISO 8859-15 (Latin 9; Western European Languages with Euro)  
+                                                                             
+Located in Filesystems > Native Language Support
+
+If your kernel is a modular kernel that came with your distribution (=you
+never compiled a kernel before), then you might want to type:
+        insmod nls_cp850                                                     
+        insmod nls_iso8859_1                                                 
+        insmod nls_iso8859_15                                                
+                                                                             
+-----------------------------------------------------------------------------
+
+3. Setting up Internet (Belgian ISP information)
+
+3.1. Dialing in with your modem (PPP)
+
+To configure PPP correctly, you should check the [http://www.linuxports.com/
+howto/ppp/] PPP-HOWTO. I try to explain it briefly, but if you have any
+questions or problems, read the HOWTO very carefully.
+-----------------------------------------------------------------------------
+
+3.1.1. Configuring the modem
+
+To configure your modem, you can alter the initstring of your modem. To learn
+more about your modem, check [http://www.spy.net/~dustin/modem/] Ask Mr.
+Modem.
+
++---------------------------------------------------------------------------+
+|                                  Warning                                  |
++---------------------------------------------------------------------------+
+|If you have a winmodem you will probably not get it to work. More          |
+|information about winmodems is at: [http://linmodems.org/] http://         |
+|linmodems.org/. Work is underway, but winmodems are not as good as real    |
+|modems.                                                                    |
++---------------------------------------------------------------------------+
+-----------------------------------------------------------------------------
+
+3.1.2. Installing pppd
+
+Now, you need to have the ppp-package installed (check this by typing pppd
+--version), make sure you have a recent one. Then you have to make sure
+you've got these files:
+
+/usr/local/bin/ppp
+        #!/bin/sh                                                                                   
+        case $1 in                                                                                  
+                on|start)                                                                           
+                TELEPHONE='555-1212'        # The telephone number for the connection               
+                ACCOUNT='your_login'        # The account name for logon (as in 'George Burns')     
+                PASSWORD='your_pass'        # The password for this account (and 'Gracie Allen')    
+                INITSTRING='AT&F&C1&D2Z'# Modem initstring                                          
+                IPLOCAL=0.0.0.0             # Local IP address if known. Dynamic = 0.0.0.0          
+                IPREMOTE=0.0.0.0            # Remote IP address if desired. Normally 0.0.0.0        
+                DEVICE=/dev/ttyS1           # Serial Device com1=ttyS0, com2=ttyS1,...              
+                SPEED=57600                 # 19200, 38400 or 57600 (don't try something different) 
+                export TELEPHONE ACCOUNT PASSWORD INITSTRING                                        
+                exec /usr/sbin/pppd $DEVICE $SPEED $IPLOCAL:$IPREMOTE \                             
+                        user $ACCOUNT connect /etc/ppp/ppp-on-dialer                                
+                ;;                                                                                  
+                off|stop)                                                                           
+                if [ -r /var/run/ppp0.pid ]; then                                                   
+                        kill -INT `cat /var/run/ppp0.pid`                                           
+                        if [ ! "$?" = "0" ]; then                                                   
+                                rm -f /var/run/ppp0.pid                                             
+                                echo "ERROR: Removed stale pid file"                                
+                                exit 1                                                              
+                        fi                                                                          
+                        exit 0                                                                      
+                fi                                                                                  
+                echo "ERROR: PPP link is not active on ppp0"                                        
+                exit 1                                                                              
+                ;;                                                                                  
+                info|status)                                                                        
+                /usr/sbin/pppstats                                                                  
+                ;;                                                                                  
+                *)                                                                                  
+                echo "Usage: ppp on|off|info|start|stop|status";                                    
+                ;;                                                                                  
+        esac                                                                                        
+                                                                                                    
+
+/etc/ppp/ppp-on-dialer
+        #!/bin/sh                                                            
+        exec /usr/sbin/chat -v                                        \      
+                REPORT CONNECTION                                     \      
+                REPORT CARRIER                                        \      
+                TIMEOUT              10                               \      
+                ABORT                '\nBUSY\r'                       \      
+                ABORT                '\nNO ANSWER\r'                  \      
+                ABORT                '\nNO CARRIER\r'                 \      
+                ABORT                '\nNO DIALTONE\r'                \      
+                ABORT                '\nRINGING\r\n\r\nRINGING\r'     \      
+                ABORT                'Invalid Login'                  \      
+                ABORT                'Login incorrect'                \      
+                ''                   "\r$INITSTRING\r"                \      
+                'OK-+++\c-OK'        'ATH0'                           \      
+                TIMEOUT              45                               \      
+                OK                   "ATDT$TELEPHONE"                 \      
+                CONNECT              '\d\c'                           \      
+                ogin:--ogin:         "$ACCOUNT"                       \      
+                ord:                 "$PASSWORD"                             
+                                                                             
+You can remove the -v once everything looks normal.
+
+The pppd command uses /etc/ppp/options to list its options, change these
+options to whatever fits. These defaults normally work in most cases.
+        asyncmap 20a0000                                                     
+        crtscts                                                              
+        debug                                                                
+        default-mru                                                          
+        defaultroute                                                         
+        detach                                                               
+        escape 11,13,ff                                                      
+        hide-password                                                        
+        ipcp-accept-local                                                    
+        ipcp-accept-remote                                                   
+        lcp-echo-failure 4                                                   
+        lcp-echo-interval 400                                                
+        lock                                                                 
+        modem                                                                
+        mtu 1500                                                             
+        netmask 255.255.255.0                                                
+        noipdefault                                                          
+        passive                                                              
+                                                                             
+        #idle 300                                                            
+        #kdebug 0                                                            
+        #-vj                                                                 
+                                                                             
+Once dialing in works like a charm, you can leave debug out.
+
++---------------------------------------------------------------------------+
+|                                  Warning                                  |
++---------------------------------------------------------------------------+
+|It is important to emphasize that every special character, thus every      |
+|character that is not [a-ZA-Z0-9] and '_', should be escaped by preceding  |
+|it with a '\'-character. Thus "e!b$l+" would become "e\!b\$l\+". Try it if |
+|you are having troubles !                                                  |
++---------------------------------------------------------------------------+
+-----------------------------------------------------------------------------
+
+3.1.3. pap-secrets / chap-secrets
+
+If your ISP requires CHAP or PAP, you need one of these files with their
+proper username and password:
+
+/etc/ppp/pap-secrets or /etc/ppp/chap-secrets
+        #client         server  secret          IP                           
+        your_login      *       your_pass       *                            
+                                                                             
+-----------------------------------------------------------------------------
+
+3.1.4. Network
+
+To configure your nameservers, change /etc/resolv.conf. If dialing in is
+succesful, but you can't get it to connect to URL's: this is probably the
+cause.
+        domain domain_of_your_isp                                            
+        nameserver your_primary_nameserver                                   
+        nameserver your_secondary_nameserver                                 
+                                                                             
+-----------------------------------------------------------------------------
+
+3.1.5. File permissions
+
+Before you can run a (shell)script, it must be set executable. Be sure that
+you set the permissions so that other users cannot see the passwords stored
+in the files. If you want other users to be able to dial in, you might want
+to consider using sudo. You might want to do the following:
+     chmod u+rw og-rwx -R /etc/ppp                                           
+     chmod u+x /etc/ppp/ppp-on-dialer /usr/local/bin/ppp                     
+                                                                             
+-----------------------------------------------------------------------------
+
+3.1.6. Dial + Hangup
+
+Then if /usr/local/bin is in your PATH, you can easily dial in with:
+        ppp on                                                               
+                                                                             
+and hangup with:
+        ppp off                                                              
+                                                                             
+and to get some statistics, you do:
+        ppp status                                                           
+                                                                             
+-----------------------------------------------------------------------------
+
+3.1.7. ISP-dependant information
+
+3.1.7.1. Cable&Wireless (Online, TijdNet)
+
+Authentication
+    text-based / PAP
+   
+Extra options
+    noccp
+   
+Nameservers
+    62.112.0.7, 194.88.127.7
+   
+NTP-server
+    ntp.antw.online.be, ntp.brus.online.be, ntp.gent.online.be
+   
+Web
+    [http://www.online.be/] http://www.online.be/
+   
+Support
+    no official Linux support yet
+   
+
+-----------------------------------------------------------------------------
+3.1.7.2. KPN Belgium (Eunet)
+
+Authentication
+    text-based
+   
+Extra options
+    proxyarp
+   
+Nameservers
+    193.74.208.135, 193.74.208.65, 193.121.171.135
+   
+Web
+    [http://www.eunet.be/] http://www.eunet.be/
+   
+Support
+    [http://support.eunet.be/] http://support.eunet.be/
+   
+
+-----------------------------------------------------------------------------
+3.1.7.3. Planet Internet (Ping)
+
+Authentication
+    CHAP
+   
+Nameservers
+    194.119.232.3, 194.119.232.2
+   
+NTP-server
+    ntp.pi.be
+   
+Web
+    [http://www.planetinternet.be/] http://www.planetinternet.be/
+   
+Support
+    [http://www.ping.be/Support/redhat.shtml] http://www.ping.be/Support/
+    redhat.shtml (Ping)
+   
+
+-----------------------------------------------------------------------------
+3.1.7.4. Skynet (Belgacom)
+
+Authentication
+    PAP
+   
+Extra options
+    defaultroute
+   
+Nameservers
+    195.238.2.21, 195.238.2.22
+   
+NTP-server
+    ntp.skynet.be
+   
+Web
+    [http://www.skynet.be/] http://www.skynet.be/
+   
+Support
+    [http://help.skynet.be/linux/indexen.html] http://help.skynet.be/linux/
+    indexen.html
+   
+
+-----------------------------------------------------------------------------
+3.1.7.5. Tiscalinet (Freegates, FreeBel)
+
+Authentication
+    text-based ?
+   
+Nameservers
+    212.35.2.1, 212.35.2.2
+   
+NTP-server
+    ntp.tiscalinet.be
+   
+Web
+    [http://www.tiscalinet.be/] http://www.tiscalinet.be/
+   
+Support
+    no official Linux support yet
+   
+
+-----------------------------------------------------------------------------
+3.1.7.6. UUNet (VT4)
+
+Authentication
+    PAP
+   
+Nameservers
+    194.7.1.4, 194.7.15.70
+   
+Web
+    [http://www.uunet.be/] http://www.uunet.be/, [http://www.vt4.net/] http:/
+    /www.vt4.net/
+   
+Support
+    no official support yet
+   
+
+-----------------------------------------------------------------------------
+3.1.7.7. Wanadoo (Euronet)
+
+Authentication
+    text-based / PAP
+   
+Nameservers
+    195.74.193.12, 194.134.0.12
+   
+Web
+    [http://www.wanadoo.be/] http://www.wanadoo.be/
+   
+Support
+    no official Linux support yet
+   
+
+-----------------------------------------------------------------------------
+3.1.7.8. World Online
+
+Authentication
+    CHAP
+   
+Nameservers
+    212.233.1.34, 212.233.2.34
+   
+Web
+    [http://www.worldonline.be/] http://www.worldonline.be/
+   
+Support
+    [http://help.worldonline.be/en/linux/index.htm] http://
+    help.worldonline.be/en/linux/index.htm
+   
+
+-----------------------------------------------------------------------------
+3.1.7.9. XS4ALL
+
+Authentication
+    PAP
+   
+Nameservers
+    194.109.6.66, 194.109.9.99
+   
+NTP-server
+    ntp.xs4all.be
+   
+Web
+    [http://www.xs4all.be/] http://www.xs4all.be/
+   
+Support
+    [http://helpdesk.xs4all.be/ned/linux/index.html] http://
+    helpdesk.xs4all.be/ned/linux/index.html
+   
+
+-----------------------------------------------------------------------------
+3.1.7.10. Yucom (DMA)
+
+Authentication
+    CHAP
+   
+Nameservers
+    212.8.180.122, 212.8.180.126
+   
+NTP-server
+    ntp.yucom.be
+   
+Web
+    [http://www.yucom.be/] http://www.yucom.be/
+   
+Support
+    no official Linux support yet
+   
+
+-----------------------------------------------------------------------------
+3.2. Dialing in with your ISDN-modem
+
+Contributed by Christophe Lambin <clambin@skynet.be>
+
+This section does not aim to be a definitive guide on ISDN for Linux. For a
+more detailed discussion on the topic, see [http://www.wurtel.demon.nl/] Paul
+Slootman's ISDN4Linux HOWTO and [http://www.isdn4linux.de/faq/]
+ISDN4Linux-FAQ.
+-----------------------------------------------------------------------------
+
+3.2.1. Updating the kernel
+
+If you're using a 2.2 kernel, it's recommended to get an updated version of
+the ISDN code. You can retrieve it from CVS at [ftp://ftp.suse.com/pub/
+isdn4linux/] ftp://ftp.suse.com/pub/isdn4linux/. For more information, check:
+[http://www.brisse.dk/site/linux/docs/isdn.htm] http://www.brisse.dk/site/
+linux/docs/isdn.htm
+
++---------------------------------------------------------------------------+
+|                                  Warning                                  |
++---------------------------------------------------------------------------+
+|If you've recently purchased an Eicon Diva 2.0 PCI (eg, via Belgacom),     |
+|there's a good chance you've actually got a Diva 2.01.In this case, you    |
+|must get a version dated 1 July 1999 or later !                            |
++---------------------------------------------------------------------------+
+
+Once the ISDN is in place, you can start up the driver. Eg: modprobe hisax
+type=11 protocol=2 Refer to the Readme's for the right parameters and values
+for your card.
+-----------------------------------------------------------------------------
+
+3.2.2. ISDN4Linux toolkit
+
+Next, you'll need the ISDN4Linux toolkit. You can retrieve the latest version
+of the toolkit at: [ftp://ftp.suse.com/pub/isdn4linux/] ftp://ftp.suse.com/
+pub/isdn4linux/
+-----------------------------------------------------------------------------
+
+3.2.3. Configuring the interface
+
+With the tools installed and configured, write a script to configure the
+interface, to be used for the ISDN connection. As always in Linux, there's no
+one correct way of doing this. I've put these in a script
+
+/etc/rc.d/rc.isdn:
+        #!/bin/sh                                                            
+        MSNREMOTE='555-1212'    # Phone number of ISP                        
+        MSNLOCAL='555-1313'     # my number, without 0, with areacode        
+        ACCOUNT='george'        # The account for logon (as 'George Burns')  
+        IPLOCAL=10.0.0.2        # my fixed IP (use 10.0.0.2 if no fixed)     
+        IPREMOTE=0.0.0.0        # IP number of ISP                           
+        INTERFACE=ippp0                                                      
+        /sbin/modprobe hisax type=11 protocol=2                              
+        /sbin/isdnctrl verbose 3 system on                                   
+        /sbin/isdnctrl addif $IF                                             
+        /sbin/isdnctrl secure $IF on                                         
+        /sbin/isdnctrl addphone $IF out $MSNREMOTE                           
+        /sbin/isdnctrl eaz $IF $MSNLOCAL                                     
+        /sbin/isdnctrl huptimeout $IF 300                                    
+        /sbin/isdnctrl l2_prot $IF hdlc                                      
+        /sbin/isdnctrl l3_prot $IF trans                                     
+        /sbin/isdnctrl encap $IF syncppp                                     
+#        /sbin/isdnctrl dialmode $IF auto                                    
+        /sbin/ifconfig $IF $IPLOCAL pointopoint $IPREMOTE -arp -broadcast    
+        /sbin/ipppd /dev/ippp0 user $ACCOUNT $IPLOCAL:$IPREMOTE              
+                                                                             
+
+To start this at boot time, make it executable and append the following to /
+etc/rc.d/rc.local:
+        if [ -x /etc/rc.d/rc.isdn ]; then                                    
+                . /etc/rc.d/rc.isdn                                          
+        fi                                                                   
+                                                                             
+
+The ipppd command gets its parameters passed through a file, /etc/ppp/
+ioptions:
+        -ac                                                                  
+        -bsdcomp                                                             
+        debug                                                                
+        defaultroute                                                         
+        ipcp-accept-local                                                    
+        ipcp-accept-remote                                                   
+        mru 1524                                                             
+        mtu 1500                                                             
+        noipdefault                                                          
+        -pc                                                                  
+        useifip                                                              
+        -vj                                                                  
+        -vjccomp                                                             
+                                                                             
+        #idle 360                                                            
+        #persistent                                                          
+                                                                             
+
++---------------------------------------------------------------------------+
+|                                  Warning                                  |
++---------------------------------------------------------------------------+
+|Do NOT specify +pap or +chap in this file. This specifies the              |
+|authentication that ipppd should use for an INCOMING client. If you were to|
+|use this to connect to your ISP, ipppd would wait for the ISP to           |
+|authenticate itself using the specified protocol.                          |
++---------------------------------------------------------------------------+
+
++---------------------------------------------------------------------------+
+|                                  Warning                                  |
++---------------------------------------------------------------------------+
+|It is important to emphasize that every special character, thus every      |
+|character that is not [a-ZA-Z0-9] and '_' should be escaped by preceding it|
+|with a '\'-character. Thus 'e!b$l+' would become 'e\!b\$l\+'. Try it if you|
+|are having troubles !                                                      |
++---------------------------------------------------------------------------+
+
+Finally, create /etc/ppp/ip-down.local to handle the shutdown of the
+interface:
+        #!/bin/sh                                                            
+        /sbin/ifconfig $1 down                                               
+        sleep 1                                                              
+        /sbin/ifconfig $1 10.0.0.2 pointopoint                               
+                                                                             
+
+   
+    Note!: This is to handle some problems with routes on shutdowns. Anyone
+    know of a clean(er) solution ?
+   
+-----------------------------------------------------------------------------
+3.2.4. pap-secrets / chap-secrets
+
+If your ISP uses PAP or CHAP, create a file /etc/ppp/pap-secrets or /etc/ppp/
+chap-secrets. Its format is:
+        #client         server  secret          IP                           
+        your_login      *       your_pass       *                            
+                                                                             
+-----------------------------------------------------------------------------
+
+3.2.5. Network
+
+Not really related to ISDN, but a lot of people forget this step (too eager
+to try out all the stuff they typed in above ? :-)).
+
+Anyway, you need to configure the DNS, by creating a file /etc/resolv.conf:
+        domain your_domain_of_your_isp                                       
+        nameserver your_primary_nameserver                                   
+        nameserver your_secondary_nameserver                                 
+                                                                             
+-----------------------------------------------------------------------------
+
+3.2.6. File permissions
+
+Before you can run a (shell)script, it must be set executable. Be sure that
+you set the permissions so that other users cannot see the passwords stored
+in the files. If you want other users to be able to dial in, you might want
+to consider using sudo. You might want to do the following:
+     chmod u+rw og-rwx -r /etc/ppp                                           
+     chmod u+x /etc/rc.d/rc.isdn /etc/ppp/ip.down-local /usr/local/bin/isdn  
+                                                                             
+-----------------------------------------------------------------------------
+
+3.2.7. Dial + Hangup
+
+Finally, you can write a little wrapper to start and stop the ISDN
+connection. I've put this as /usr/local/bin/isdn:
+        #!/bin/bash                                                          
+        case $1 in                                                           
+                on|start)                                                    
+                /sbin/isdnctrl dial ippp0                                    
+                ;;                                                           
+                off|stop)                                                    
+                /sbin/isdnctrl hangup ippp0                                  
+                ;;                                                           
+                info|status)                                                 
+                /sbin/isdnctrl list ippp0                                    
+                ;;                                                           
+                *)                                                           
+                echo "Usage: isdn on|off|info|start|stop|status"             
+                ;;                                                           
+        esac                                                                 
+                                                                             
+
+Then if /usr/local/bin is in your PATH, you can easily dial in with isdn on
+and hangup with isdn off.
+-----------------------------------------------------------------------------
+
+3.3. Cablemodem (DHCP)
+
+DHCP was designed to make life easier, and most of the times it does ;) More
+information to set up your DHCP client can be found at: [http://www.oswg.org/
+oswg-nightly/DHCP.html] http://www.oswg.org/oswg-nightly/DHCP.html and a
+[http://www.dhcp-handbook.com/dhcp_faq.html] list of Frequently Asked
+Questions from the infamous document of John Wobus at [http://www.dhcp.org/]
+http://www.dhcp.org/ which describes everything you need to know. Along with
+the information in the Cable-Modem HOWTO ([http://www.oswg.org/oswg-nightly/
+Cable-Modem.html] http://www.oswg.org/oswg-nightly/Cable-Modem.html).
+
+Lots of people want to connect a whole network to their cablemodem, that's
+not a problem. You'll need [http://www.linuxdoc.org/HOWTO/
+IP-Masquerade-HOWTO.html] IP-Masquerading and make sure the interface (that
+speaks to the cablemodem) has the right MAC-address !! Another solution (in
+case of problems) is to reset your cablemodem.
+-----------------------------------------------------------------------------
+
+3.3.1. UPC Belgium (Chello, TVD)
+
+NTP-server
+    time.chello.be
+   
+Web
+    [http://www.upcbelgium.be/] http://www.upcbelgium.be/
+   
+Support
+    no official support yet
+   
+More information
+    [http://foobar.starlab.net/~soggie/tvd_linux/] http://foobar.starlab.net/
+    ~soggie/tvd_linux/
+   
+
+-----------------------------------------------------------------------------
+3.3.2. Pandora (Telenet)
+
+Automatic proxy
+    http://pac.pandora.be:8080
+   
+HTTP proxy
+    export http_proxy="http://proxy.pandora.be:8080/"
+   
+NTP-server
+    ntp.pandora.be
+   
+Web
+    [http://www.pandora.be/] http://www.pandora.be/
+   
+Support
+    no official support yet
+   
+More information
+    [http://users.pandora.be/de.boeve/pandora.html] http://users.pandora.be/
+    de.boeve/pandora.html
+   
+
+-----------------------------------------------------------------------------
+3.4. ADSL
+
+3.4.1. Easynet
+
+Web
+    [http://www.easynet.be/] http://www.easynet.be/
+   
+Support
+    [http://support.easynet.be/] http://support.easynet.be/
+   
+
+-----------------------------------------------------------------------------
+3.4.2. KPN Belgium (Eunet)
+
+Web
+    [http://www.eudsl.be/] http://www.eudsl.be/
+   
+Support
+    [http://support.eunet.be/] http://support.eunet.be/
+   
+
+-----------------------------------------------------------------------------
+3.4.3. Turboline (Belgacom)
+
+Web
+    [http://www.turboline.be/] http://www.turboline.be/
+   
+Support
+    no official support yet
+   
+More information
+    [http://foobar.starlab.net/~soggie/turboline/] http://foobar.starlab.net/
+    ~soggie/turboline/, [http://minf.vub.ac.be/~fquestie/turbo/] http://
+    minf.vub.ac.be/~fquestie/turbo/ and [http://minf.vub.ac.be/~fquestie/
+    turbo/] http://minf.vub.ac.be/~fquestie/turbo/
+   
+
+-----------------------------------------------------------------------------
+4. Belgian Linux user groups
+
+More information can be found in the [http://www.linuxdoc.org/HOWTO/
+User-Group-HOWTO.html] User Group HOWTO A complete list of Linux User Groups
+is at: [http://www.ssc.com/linux/glue/] http://www.ssc.com/linux/glue/ and
+at: [http://limestone.uoregon.edu/woven/lugww/] http://limestone.uoregon.edu/
+woven/lugww/
+-----------------------------------------------------------------------------
+
+4.1. ALLIN Linux User Group
+
+Address
+              Mechelbaan 260
+              B-3130 Begijnendijk
+            
+   
+Email
+    <allin@linuxfreak.com>
+   
+Web
+    [http://come.to/allin/] http://come.to/allin/
+   
+Contact
+    Paul Terweduwe <paul@faes.be>
+   
+
+-----------------------------------------------------------------------------
+4.2. Antwerp Linux User Group (ALUG)
+
+Address
+              Van Luppenstraat 70
+              B-2018 Antwerp
+            
+   
+Phone
+    +32 (0)3 218 63 54
+   
+Email
+    <alug@pandora.be>
+   
+Web
+    [http://sunsite.belnet.be/alug/] http://sunsite.belnet.be/alug/
+   
+Meetings
+    In [http://sunsite.belnet.be/alug/road-description.html] ACCB (HVR),
+    Herentalsebaan 212 te Deurne
+   
+Contact
+    Armand Verachtert <alug@pandora.be>
+   
+
+-----------------------------------------------------------------------------
+4.3. Brussels Linux User Group (BeLUGa)
+
+Address
+              Building F, room 218
+              Vrije Universiteit Brussel
+              Pleinlaan 2
+              B-1050 Brussel
+            
+   
+Email
+    <info@linux.rave.org>
+   
+Web
+    [http://linux.rave.org/] http://linux.rave.org/
+   
+Mailinglist
+    [http://linux.rave.org/mlist.html] http://linux.rave.org/mlist.html
+   
+
+-----------------------------------------------------------------------------
+4.4. Computer Forum KaHo (CFK)
+
+Email
+    <cfk@kahosl.be>
+   
+Web
+    [http://eduserv.kahosl.be/cfk/] http://eduserv.kahosl.be/cfk/
+   
+
+-----------------------------------------------------------------------------
+4.5. HCC Limburgse Linux Gebruikers Groep (HLLGG)
+
+Email
+    <Linuxgg@hotmail.com>
+   
+Web
+    [http://www.uunet.be/hcc/Limburg/] http://www.uunet.be/hcc/Limburg/
+   
+Contact
+    Andy Peeters & Bruno Tony
+   
+
+-----------------------------------------------------------------------------
+4.6. HCC Linux Gebruikers Groep Leuven
+
+Address
+              Diegemstraat 61
+              B-1930 Zaventem
+            
+   
+Email
+    <Yvo.Dries@village.uunet.be>
+   
+Web
+    [http://www.uunet.be/hcc/Leuven/linux.html] http://www.uunet.be/hcc/
+    Leuven/linux.html
+   
+Contact
+    Yvo Dries <Yvo.Dries@village.uunet.be>
+   
+
+-----------------------------------------------------------------------------
+4.7. Independent Group of Unix-Alikes and Network Activists (IGUANA)
+
+Address
+              Milcampslaan 101
+              B-1040 Schaarbeek
+            
+   
+Phone
+    +32 (0)2 582 66 50
+   
+Fax
+    +32 (0)2 582 66 50
+   
+Email
+    <info@iguana.be>
+   
+Web
+    [http://www.iguana.be/] http://www.iguana.be/
+   
+
+-----------------------------------------------------------------------------
+4.8. Infogroep (IGWE)
+
+Address
+              5F218 (building F)
+              Pleinlaan 2
+              B-1050 Brussels
+            
+   
+Phone
+    +32 (0)2 629 33 56
+   
+Fax
+    +32 (0)2 629 33 89
+   
+Email
+    <ig@igwe.vub.ac.be>
+   
+Web
+    [http://igwe.vub.ac.be/] http://igwe.vub.ac.be/
+   
+
+-----------------------------------------------------------------------------
+4.9. Leuvense Linux Users (L2U)
+
+Email
+    <info@l2u.iguana.be>
+   
+Web
+    [http://l2u.iguana.be/] http://l2u.iguana.be/
+   
+Meetings
+    First wednesday every month in [http://l2u.iguana.be/where.php]
+    Freinetschool De Zevensprong, Vital Decosterstraat 67, B-3000 Leuven
+   
+Mailinglist
+    [http://l2u.iguana.be/mailman/listinfo/members] http://l2u.iguana.be/
+    mailman/listinfo/members
+   
+
+-----------------------------------------------------------------------------
+4.10. Limburgse Linux User Group (LILUG)
+
+Email
+    <frank.eersels@wanadoo.be>
+   
+Web
+    [http://lilug.linuxatwork.at/] http://lilug.linuxatwork.at/
+   
+Mailinglist
+    [http://www.onelist.com/isregistered.cgi?listname=lilug] http://
+    www.onelist.com/isregistered.cgi?listname=lilug
+   
+Contact
+    Frank Eersels <frank.eersels@wanadoo.be>
+   
+
+-----------------------------------------------------------------------------
+4.11. Linux User Group De Bruxelles (BxLUG)
+
+Email
+    <information@bxlug.org>
+   
+Web
+    [http://www.bxlug.org/] http://www.bxlug.org/
+   
+Contact
+    Raphael Bauduin <information@bxlug.org>
+   
+
+-----------------------------------------------------------------------------
+4.12. Linux User Group De Charleroi
+
+Email
+    <lug_charleroi@caramail.com>
+   
+Web
+    [http://charleroi.linuxbe.org/] http://charleroi.linuxbe.org/
+   
+
+-----------------------------------------------------------------------------
+4.13. Linux User Group De Liège
+
+Email
+    <liege@linuxbe.org>
+   
+Web
+    [http://liege.linuxbe.org/] http://liege.linuxbe.org/
+   
+
+-----------------------------------------------------------------------------
+4.14. Linux User Group De Namur
+
+Email
+    <info@namurlug.org>
+   
+Web
+    [http://namurlug.org/] http://namurlug.org/
+   
+
+-----------------------------------------------------------------------------
+4.15. Linux User Group Heist op den Berg
+
+Address
+              Bergstraat 89
+              B-2220 Heist op den Berg
+            
+   
+Phone
+    +32 (0)495 925 931
+   
+Email
+    <info_heistselinuxclub@yahoo.co.uk>
+   
+Web
+    [http://uk.geocities.com/info_heistselinuxclub/] http://uk.geocities.com/
+    info_heistselinuxclub/
+   
+
+-----------------------------------------------------------------------------
+4.16. Linux User Group Mons
+
+Web
+    [http://mons.linuxbe.org/] http://mons.linuxbe.org/
+   
+
+-----------------------------------------------------------------------------
+4.17. Linux User Movement Underground Mad Belgian Aliens (LUMUMBA)
+
+Address
+              Filii Lamberti
+              Universiteitslaan 1
+              B-3590 Diepenbeek
+            
+   
+Email
+    <helpdesk@lumumba.luc.ac.be>
+   
+Web
+    [http://lumumba.luc.ac.be/] http://lumumba.luc.ac.be/
+   
+Mailinglist
+    <minordomo@lumumba.luc.ac.be>
+   
+
+-----------------------------------------------------------------------------
+4.18. LinuxBe.Org A.S.B.L
+
+Address
+              Boulevard de la Meuse, 23
+              B-5100 Jambes
+            
+   
+Email
+    <team@linuxbe.org>
+   
+Web
+    [http://linuxbe.org/] http://linuxbe.org/
+   
+Contact
+    Cedric Gavage <niddle@linuxbe.org>
+   
+
+-----------------------------------------------------------------------------
+4.19. Louvain-Li-nux (LLN)
+
+Address
+              Louvain-la-neuve Linux User Group
+              Place des paniers 5/014
+              B-1348 Louvain-La-neuve
+            
+   
+Phone
+    +32 (0)10 454 761
+   
+Email
+    <lln@udev.org>
+   
+Web
+    [http://lln.udev.org/] http://lln.udev.org/
+   
+Contact
+    Benjamin Henrion <benjamin.henrion@linuxbe.org>
+   
+
+-----------------------------------------------------------------------------
+4.20. Open Technology Assembly Linux Special Interest Group
+
+Address
+              Kruipstraat 14
+              B-1850 Grimbergen
+            
+   
+Phone
+    +32 (0)11 275 898
+   
+Fax
+    +32 (0)11 270 389
+   
+Email
+    <info@ota.be>
+   
+Web
+    [http://www.ota.be/] http://www.ota.be/
+   
+Contact
+    Jan Vanhercke <jan.vanhercke@c-cure.be>
+   
+
+-----------------------------------------------------------------------------
+4.21. PC Aktief Computerclub
+
+Address
+              PC Aktief Computerclub
+            
+   
+Web
+    [http://www.pcaktief.be/] http://www.pcaktief.be/
+   
+Meetings
+    Fourth tuesday every month in 't Hoveken van Belsele, Nieuwe Baan 130,
+    B-9111 Belsele (Sint-Niklaas)
+   
+Contact
+    Johan De Baere <debaerej@hotmail.com>
+   
+
+-----------------------------------------------------------------------------
+4.22. Python Blanc Blue Belge (P3B)
+
+Address
+              Python Blanc Blue Belge (P3B)
+            
+   
+Web
+    [http://www.p3b.org/] http://www.p3b.org/
+   
+
+-----------------------------------------------------------------------------
+4.23. Student Information Networking (SIN)
+
+Address
+              Kleinhoefstraat 4
+              B-2440 Geel
+            
+   
+Email
+    <sin@sin.khk.be>
+   
+Web
+    [http://www.sin.khk.be/] http://www.sin.khk.be/
+   
+
+-----------------------------------------------------------------------------
+4.24. TINA
+
+Contact
+    Tina gebruikers <vraagtina@digibel.org>
+   
+Web
+    [http://tina.kangaroot.net/] http://tina.kangaroot.net/
+   
+Meetings
+    [http://tina.kangaroot.net/meetings/meetings.html] Hof van Rieth,
+    Molenlei 68, B-2640 Mortsel
+   
+Mailinglist
+    <mailinglist@tina.kangaroot.net>
+   
+
+-----------------------------------------------------------------------------
+4.25. Unix Lovers Yield Student Services & Internet Support (ULYSSIS)
+
+Address
+              Holleberg
+              Schapenstraat 37, lokaal 91 97
+              B-3000 Leuven
+            
+   
+Email
+    <ulyssis@ulyssis.org>
+   
+Web
+    [http://www.ulyssis.org/] http://www.ulyssis.org/
+   
+
+-----------------------------------------------------------------------------
+4.26. West-Vlaamse Linux User Group (Lug-WV)
+
+Contact
+    Thibaut Fernagut <blokkie@tiscalinet.be>
+   
+Web
+    [http://www.lugwv.be/] http://www.lugwv.be/
+   
+
+-----------------------------------------------------------------------------
+4.27. Zeus WPI - Werkgroep Informatica RUG
+
+Address
+              Krijgslaan 281 S9
+              B-9000 Gent
+            
+   
+Phone
+    +32 (0)9 264 47 51
+   
+Email
+    <info@zeus.rug.ac.be>
+   
+Web
+    [http://www.zeus.rug.ac.be/] http://www.zeus.rug.ac.be/
+   
+Comment
+    Restricted to RUG students
+   
+
+-----------------------------------------------------------------------------
+5. Belgian Linux businesses
+
+The Linux Documentation Project contains worldwide lists of Linux businesses,
+Linux Consultants HOWTO and V.A.R. HOWTO, and can be found at: [http://
+www.linuxports.com/] http://www.linuxports.com/.
+-----------------------------------------------------------------------------
+
+5.1. aDOC Services
+
+Address
+              Avenue du Pesage, 31-33
+              B-1050 Brussels
+            
+   
+Phone
+    +32 (0)2 646 00 76
+   
+Email
+    <sales@adoc-services.com>
+   
+Web
+    [http://www.adoc-services.com/] http://www.adoc-services.com/
+   
+
+-----------------------------------------------------------------------------
+5.2. Arafox
+
+Address
+              Avenue Joseph Wybranlaan 40
+              B-1070 Brussels
+           
+   
+Phone
+    +32 (0)2 529 59 91
+   
+Fax
+    +32 (0)2 529 59 92
+   
+Email
+    <info@arafox.com>
+   
+Web
+    [http://www.arafox.com/] http://www.arafox.com/
+   
+
+-----------------------------------------------------------------------------
+5.3. Aragne
+
+Email
+    <contact@aragne.com>
+   
+Web
+    [http://www.aragne.com/] http://www.aragne.com/
+   
+
+-----------------------------------------------------------------------------
+5.4. Better Access N.V.
+
+Address
+              Geldenaakse Vest 6
+              B-3000 Leuven
+            
+   
+Phone
+    +32 (0)16 298 045
+   
+Fax
+    +32 (0)16 298 046
+   
+Email
+    <info@ba.be>
+   
+Web
+    [http://www.ba.be/] http://www.ba.be/
+   
+Type of support
+    After an onsite installation, we mainly support our customers with SSH
+    remote administration. Most problems are reported by E-mail or by the
+    inhouse-developped webbased supportsystem. This doesn't mean that once in
+    a while a supportcall comes in.
+   
+Special expertise
+    Security, systemadministration and setups, security (firewalling,
+    tigerteaming, VPN, etc.) Networkdesign, wireless networking,
+    Troubleshooting, product development, etc. Please visit http://www.ba.be
+    for more info.
+   
+
+-----------------------------------------------------------------------------
+5.5. BIOS Consulting sa/nv
+
+Address
+              Chée de Neerstalle 240
+              B-1190 Bruxelles
+            
+   
+Phone
+    +32 (0)2 376 61 97
+   
+Fax
+    +32 (0)2 376 23 99
+   
+Email
+    <info@biosconsulting.com>
+   
+Web
+    [http://www.biosconsulting.com/] http://www.biosconsulting.com/
+   
+
+-----------------------------------------------------------------------------
+5.6. CSS N.V.
+
+Address
+              Henneaulaan 366
+              B-1930 Zaventem
+            
+   
+Phone
+    +32 (0)2 718 53 33
+   
+Fax
+    +32 (0)706 53 306
+   
+Type of support
+    support on networking, installation, hardware maintenance, Red Hat
+    certified reseller
+   
+Special expertise
+    Red Hat RHCE
+   
+
+-----------------------------------------------------------------------------
+5.7. D. Connect
+
+Address
+              Av. Van Goidtsnoven 33
+              B-1180 Uccle
+            
+   
+Email
+    <webmaster@dconnect.be>
+   
+Web
+    [http://www.dconnect.be/] http://www.dconnect.be/
+   
+
+-----------------------------------------------------------------------------
+5.8. Double Barrel Consultancy and Productions
+
+Address
+              Sportstraat 28
+              B-9000 Gent
+            
+   
+Phone
+    +32 (0)9 222 77 64
+   
+Fax
+    +32 (0)9 222 49 76
+   
+Email
+    <mvergall@double-barrel.be>
+   
+Web
+    [http://www.double-barrel.be/] http://www.double-barrel.be/
+   
+Contact
+    Michael C. Vergallen <mvergall@double-barrel.be>
+   
+Type of support
+    phone, email remote network admin, inhouse, onsite.
+   
+Special expertise
+    installation, system admin. internet and intranet connectivity, sendmail,
+    firewalls, proxys, nameservers, troubleshooting software & hardware.
+   
+
+-----------------------------------------------------------------------------
+5.9. Grmbl productions
+
+Address
+              Korte Vuldersstraat 30
+              B-8000 Brugge
+            
+   
+Phone
+    +32 (0)50 674 512
+   
+Fax
+    +32 (0)50 342 623
+   
+Email
+    <info@grmbl.com>
+   
+Web
+    [http://www.grmbl.com/] http://www.grmbl.com/
+   
+
+-----------------------------------------------------------------------------
+5.10. IBM Belgium SA/NV
+
+Address
+              Square Victoria Regina 1
+              B-1210 Brussels
+            
+   
+Phone
+    +32 (0)2 225 33 33
+   
+Fax
+    +32 (0)2 225 24 73
+   
+Email
+    <blueline@be.ibm.com>
+   
+Web
+    [http://www.ibm.com/be/] http://www.ibm.com/be/
+   
+Contact
+    Sam Versluys <sam_versluys@be.ibm.com>
+   
+
+-----------------------------------------------------------------------------
+5.11. IP Net generation
+
+Address
+              Cyriel Verschaevelaan 12
+              B-2980 Zoersel
+            
+   
+Phone
+    +32 (0)477 513 987
+   
+Email
+    <info@ipng.be>
+   
+Web
+    [http://www.ipng.be/] http://www.ipng.be/
+   
+Special expertise
+    IPnG focuses on Open Source software development.
+   
+
+-----------------------------------------------------------------------------
+5.12. Kangaroot Linux Consultancy
+
+Address
+              Leeuwerikstraat 14
+              B-2018 Antwerp
+            
+   
+Phone
+    +32 (0)3 290 81 13
+   
+Fax
+    +32 (0)3 290 81 13
+   
+Email
+    <info@kangaroot.net>
+   
+Web
+    [http://www.kangaroot.net/] http://www.kangaroot.net/
+   
+Contact
+    Peter Dens <peter@kangaroot.net>
+   
+
+-----------------------------------------------------------------------------
+5.13. Mind Linux Solutions
+
+Address
+              Vaartkom 11
+              B-3000 Leuven
+            
+   
+Phone
+    +32 (0)478 274 069
+   
+Fax
+    +32 (0)16 309 644
+   
+Email
+    <info@mind.be>
+   
+Web
+    [http://mind.be/] http://mind.be/
+   
+Contact
+    Peter Vandenabeele <peter@mind.be>
+   
+Type of support
+    Installation & configuration, auditing & consultancy, support &
+    maintenance, training & education, research & development.
+   
+Special expertise
+    We are specialised in installing Linux servers for various purposes
+    (Web-, File-, Print- or Mailservers, Routers, Firewalls, VPN, ...) in
+    heterogenous networks. We provide support and training for Linux and Open
+    Source products and we develop custom Linux solutions for our customers.
+   
+
+-----------------------------------------------------------------------------
+5.14. Phidani Software SPRL
+
+Address
+              Rue de l'autonomie 1
+              B-1070 Brussels
+            
+   
+Email
+    <info@phidani.be>
+   
+Phone
+    +32 (0)2 552 06 63
+   
+Fax
+    +32 (0)2 522 09 30
+   
+Web
+    [http://www.phidani.be/] http://www.phidani.be/
+   
+
+-----------------------------------------------------------------------------
+5.15. Spier BVBA
+
+Address
+              Knaptandstraat 96-98
+              B-9100 Sint-Niklaas
+            
+   
+Email
+    <info@spier.be>
+   
+Phone
+    +32 (0)3 765 90 61
+   
+Fax
+    +32 (0)3 765 90 62
+   
+Web
+    [http://www.spier.be/] http://www.spier.be/
+   
+
+-----------------------------------------------------------------------------
+5.16. Stone-IT Belgium
+
+Address
+              Minerva Office Brussels
+              Minervastraat 14b
+              B-1930 Zaventem
+            
+   
+Email
+    <info@be.stone-it.com>
+   
+Phone
+    +32 (0)2 720 88 35
+   
+Fax
+    +32 (0)2 720 51 71
+   
+Web
+    [http://www.be.stone-it.com/] http://www.be.stone-it.com/
+   
+Contact
+    Martijn Smit <smit@stone-it.com>
+   
+Type of support
+    Stone-IT is a 'one-stop' Linux provider for integrating business
+    environments in which we offer: Linux Consulting, Linux Solutions, Linux
+    Support and Linux Education.
+   
+Special expertise
+    Stone-IT offers high quality Linux expertise and can develop, test and
+    implement Linux in several different business environments such as all
+    kinds of servers (File-/Web-/Name-/Mail-/Print servers), as well as
+    Clustering, VPN, Storage, Firewalls & Routers. Our support consists of
+    Pro Active Monitoring, 24 hours a day, 7 days a week. Besides having
+    trainers being a Red Hat Certified Engineer we offer Distribution
+    Independent Education.
+   
+
+-----------------------------------------------------------------------------
+5.17. VA Linux Belgium
+
+Address
+              Greenhill Campus
+              Interleuvenlaan 15A
+              B-3001 Haasrode
+            
+   
+Phone
+    +32 (0)16 208 961
+   
+Fax
+    +32 (0)16 207 973
+   
+Email
+    <egoven@valinux.com>
+   
+Web
+    [http://www.valinux.com/] http://www.valinux.com/
+   
+Contact
+    Erik Goven <egoven@valinux.com>
+   
+
+-----------------------------------------------------------------------------
+5.18. VirgoPlus sprl
+
+Address
+              Rue E. Solvay 29 A
+              B-4000 Liège
+            
+   
+Phone
+    +32 (0)4 253 00 59
+   
+Fax
+    +32 (0)4 253 00 49
+   
+Email
+    <staff@virgoplus.com>
+   
+Web
+    [http://www.virgoplus.com/] http://www.virgoplus.com/
+   
+Contact
+    Bruno Mairlot <bruno@virgoplus.com>
+   
+Type of support
+    By phone, email, or remote networked administration, inhouse, onsite
+   
+Special expertise
+    Installation, configuration, administration of Linux, internet
+    connection, intranet developpment, firewalls, samba, netatalk, firewalls,
+    proxys, DNS, web server (Apache), mod_perl, MySQL, Gui interface
+    developpment (GTK+). We have acquired a special expertise with the Red
+    Hat distributions.
+   
+
+-----------------------------------------------------------------------------
+6. Belgian Linux resources
+
+6.1. Websites
+
+6.1.1. Linux in Belgium
+
+  * [http://linbel.iguana.be/] Linux in Belgium
+   
+  * [http://dag.wieers.com/howto/Belgian-HOWTO.html] Belgian HOWTO
+   
+  * [http://users.pandora.be/wouter.verhelst/FAQ] be.comp.os.linux FAQ
+   
+  * [http://www.linuxbelgium.net/] LinuxBelgium.net
+   
+
+-----------------------------------------------------------------------------
+6.1.2. Dutch Linux-sites
+
+  * [http://nl.linux.org/] Nederlandse Linux homepage
+   
+  * [http://nl.linux.org/doc/] Nederlandstalige Linux Documentatie Project
+   
+  * [http://www.linux-nl.cx/] Linux Support Website
+   
+  * [http://www.mech.kuleuven.ac.be/%7Ebruyninc/etos/] EToS: Educatieve
+    Toepassingen van Open Software
+   
+  * [http://user.online.be/~koendb/linux_beginners.html] Beginnen met Linux
+   
+  * [http://user.online.be/~koendb/redhat.html] Installatie Handleiding
+    RedHat 5.2
+   
+  * [http://users.pandora.be/wouter.verhelst/configure.html] Configure.help
+    in het Nederlands
+   
+  * [http://inf-beheer.sourceforge.net/] Cursus Linux voor Informaticabeheer
+   
+
+-----------------------------------------------------------------------------
+6.1.3. French Linux-sites
+
+  * [http://linuxbe.org/] LinuxBe.Org
+   
+  * [http://club.euronet.be/dany.vanderroost/howto.html] Belgian HOWTO in
+    french
+   
+  * [http://www.linux-france.org/] linux-france.org
+   
+
+-----------------------------------------------------------------------------
+6.1.4. Mirrors in Belgium
+
+  * [http://be.eu.mirrors.freshmeat.net/] Freshmeat at UPC Belgium
+    (Chello,TVD)
+   
+  * [http://winbe.linuxberg.com/] Linuxberg at Wallonie Internet
+   
+  * [http://online.linuxberg.com/] Linuxberg at Online
+   
+  * [http://pandora.linuxberg.com/] Linuxberg at Pandora (Telenet)
+   
+  * [http://sunsite.belnet.be/alug/ftp_mirrors/linux_gazette/] Linux Gazette
+    at Belnet
+   
+  * [http://linuxgazette.linuxbe.org] Linux Gazette at Linuxbe
+   
+  * [http://linuxfocus.linuxbe.org] LinuxFocus
+   
+  * [http://linux-france.linuxbe.org] Linux France
+   
+
+-----------------------------------------------------------------------------
+6.2. HOWTO
+
+The most important collection of Linux information on the net. Please if you
+encounter erroneous information in one of them, do contact the author. Only
+that way it will be corrected and we all stand together ;)
+
+  * [http://www.linkline.be/LDP/] HOWTO's at LinkLine
+   
+  * [http://www.double-barrel.be/linux_web/LDP/] HOWTO's at Double-Barrel
+   
+  * [http://www.sin.khk.be/mirror/LDP/] HOWTO's at SIN
+   
+  * [http://ldp.linuxbe.org/] HOWTO's at Linuxbe.org
+   
+
+-----------------------------------------------------------------------------
+6.3. HOWTO translations
+
+As Dutch is less wide-spread, it is the least supported. But work is being
+done to resolve this ;) (and maybe *you* can help ?!?) French and German
+translations obviously are already taken care of.
+-----------------------------------------------------------------------------
+
+6.3.1. Dutch
+
+A succesfull initiative is making progress, but there's still a lot to do. If
+you want to help, start translating and send it there. Check [http://
+nl.linux.org/doc/HOWTO/] http://nl.linux.org/doc/HOWTO/.
+-----------------------------------------------------------------------------
+
+6.3.2. French
+
+French translations of HOWTO's can be found at: [http://www.ibiblio.org/pub/
+Linux/docs/HOWTO/translations/fr/] http://www.ibiblio.org/pub/Linux/docs/
+HOWTO/translations/fr/
+-----------------------------------------------------------------------------
+
+6.3.3. German
+
+German translations of HOWTO's can be found at: [http://www.ibiblio.org/pub/
+Linux/docs/HOWTO/translations/de/] http://www.ibiblio.org/pub/Linux/docs/
+HOWTO/translations/de/
+-----------------------------------------------------------------------------
+
+6.4. FTP
+
+6.4.1. Kernel-source mirrors
+
+  * [ftp://ftp1.be.kernel.org/pub/linux/kernel/] Official Mirror
+    kernel-sources at Belnet
+   
+  * [ftp://ftp2.be.kernel.org/pub/linux/kernel/] Official Mirror
+    kernel-sources at UPC Belgium (Chello,TVD)
+   
+  * [ftp://ftp.tiscalinet.be/pub/linux/kernel/] Kernel-sources at Tiscalinet
+   
+
+-----------------------------------------------------------------------------
+6.4.2. Distribution mirrors
+
+  * [http://www.redhat.com/download/mirror.html] Red Hat Mirrors
+   
+      + [ftp://ftp.belnet.be/mirror/ftp.redhat.com/] Official Mirror at
+        Belnet
+       
+      + [ftp://ftp.easynet.be/redhat/] Official Mirror at Easynet
+       
+      + [ftp://mirrors.pandora.be/mirrors/ftp.redhat.com/] Mirror at Pandora
+        (Telenet)
+       
+      + [ftp://ftp.chello.be/mirror/ftp.redhat.com/] Mirror at UPC Belgium
+        (Chello,TVD)
+       
+   
+  * [http://www.debian.org/misc/README.mirrors] Debian
+   
+      + [ftp://ftp.belnet.be/mirror/ftp.debian.org/] Official Mirror at
+        Belnet
+       
+      + [ftp://ftp.kulnet.kuleuven.ac.be/pub/mirror/ftp.debian.org/] Official
+        Mirror at KULeuven
+       
+      + [ftp://mirrors.pandora.be/mirrors/ftp.debian.org/] Official Mirror at
+        Pandora (Telenet)
+       
+      + [ftp://ftp.easynet.be/debian/] Official Mirror at Easynet
+       
+      + [ftp://ftp.tiscalinet.be/debian/] Official Mirror at Tiscalinet
+       
+      + [ftp://ftp.skynet.be/mirror2/debian-ftp/] Mirror at Skynet
+       
+      + [ftp://debian.spnet.net/] Mirror at spnet
+       
+   
+  * Mandrake
+   
+      + [ftp://ftp.belnet.be/packages/mandrake/] Mirror at Belnet
+       
+      + [ftp://ftp.tvd.be/pub/mirror/ftp0.sunet.se/pub/Linux/distributions/
+        mandrake/] Mirror at UPC Belgium (Chello,TVD)
+       
+   
+  * SuSE
+   
+      + [ftp://ftp.belnet.be/mirror/ftp.suse.com/] Mirror at Belnet
+       
+      + [ftp://mirrors.pandora.be/mirrors/ftp.suse.com/] Mirror at Pandora
+        (Telenet)
+       
+   
+
+-----------------------------------------------------------------------------
+6.4.3. Mirrors in Belgium
+
+  * [ftp://ftp.belnet.be/mirror/] Mirrors at Belnet
+   
+  * [ftp://ftp.chello.be/mirror/] Mirrors at UPC Belgium (Chello,TVD)
+   
+  * [ftp://mirrors.pandora.be/mirrors/] Mirrors at Pandora (Telenet)
+   
+
+-----------------------------------------------------------------------------
+6.5. Usenet/Newsgroups
+
+  * [news:be.comp.os.linux] be.comp.os.linux at [http://groups.google.com/
+    groups?hl=en&lr=&safe=off&group=be.comp.os.linux] Google
+   
+
+-----------------------------------------------------------------------------
+6.6. IRC
+
+The fastest medium to get support is IRC, but beware. Because IRC is rather
+anonymous it's also easy to deceive people.
+
+On IRCnet there's a channel called #linux.be that is closely related to bcol
+and the Belgian Linux-scene. The channel is still small, but it surely will
+grow in time. To get help in English, there's only one place #linux.
+
+Also Dalnet has a #linux.be channel.

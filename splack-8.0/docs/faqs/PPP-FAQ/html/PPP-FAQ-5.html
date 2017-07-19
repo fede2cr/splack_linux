@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Authentication files</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-4.html">Previous</A>
+<A HREF="PPP-FAQ-6.html">Next</A>
+<A HREF="PPP-FAQ.html#toc5">Table of Contents</A>
+<HR>
+<H2><A NAME="s5">5. Authentication files</A></H2>
+
+
+
+<H2><A NAME="ss5.1">5.1 What goes into the /etc/ppp/pap-secrets file? Do you have a sample? Or, my ISP requires that I use PAP. How do I do that?</A></H2>
+
+<P>The PAP protocol is most often implemented as your
+user name and password. You need to include the name of the remote
+system, your account name, and the password. If the user on abbot
+wishes to call costello, the entry would be similar to the following.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#account   remote    password     IP address list
+abbott     *         firstbase
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>To use PAP authentication with the simplest case,
+you should also include the \user\ option to specify which of
+the pap-secrets file entries is to be used. The option is explained
+in the pppd man page. However, the simplest for this example is:</P>
+<P>user abbott</P>
+<P>If your system needs to use PAP to authenticate itself with an ISP who
+requires that you use PAP then you need only do two things.</P>
+<P>
+<OL>
+<LI>Add the entry to the /etc/ppp/pap-secrets file which lists your
+account name, an asterisk, and your password. If you have multiple
+accounts at different providers, each with the same name, then you
+would use the provider's name with in lieu of the asterisk and use the
+remotename option with pppd to specify the provider's name.</LI>
+<LI>Use the 'user' option to pppd to specify the account name so
+that pppd knows which entry in the /etc/ppp/pap-secrets file is to be
+used.</LI>
+</OL>
+</P>
+<P>That's all that you should do. Do <B><EM>NOT</EM></B> attempt to use
+the +pap, or +chap, or auth options. These will only cause your
+authentication sequence to fail since they all force the ISP to
+authenticate itself with you. Since most ISP's will not do this, and
+you have told pppd that the ISP must by using these options, then pppd
+will not permit the ISP to connect to you -- or, to put it in
+practical terms, you connect to the ISP.</P>
+
+
+<H2><A NAME="ss5.2">5.2 What goes into the /etc/ppp/chap-secrets file? Do you have a sample?</A></H2>
+
+<P>The most common problem is that people don't recognize
+that CHAP deals with a pair of secrets. Both computers involved
+in the link must have both secrets to work.</P>
+<P>For example, if <EM>abbot</EM> wants to talk to <EM>costello</EM>, then <EM>abbot</EM>\s file would have:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#account   remote     password    IP address list
+abbott     costello   firstbase
+costello   abbott     who
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>And costello\s file would have:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#account   remote     password    IP address list
+abbott     costello   firstbase
+costello   abbott     who
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>(Yes, it is the same data.)</P>
+<P>The difference between abbott and costello would be the options that
+are used with pppd. The abbott system would have</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+name abbott remotename costello
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>while the costello system has just the opposite of</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+name costello remotename abbott
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-4.html">Previous</A>
+<A HREF="PPP-FAQ-6.html">Next</A>
+<A HREF="PPP-FAQ.html#toc5">Table of Contents</A>
+</BODY>
+</HTML>

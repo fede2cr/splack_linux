@@ -1,0 +1,144 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Routing and other problems</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-10.html">Previous</A>
+<A HREF="PPP-FAQ-12.html">Next</A>
+<A HREF="PPP-FAQ.html#toc11">Table of Contents</A>
+<HR>
+<H2><A NAME="s11">11. Routing and other problems</A></H2>
+
+
+
+<H2><A NAME="ss11.1">11.1 My route to the remote keeps disappearing! It last for about 3 minutes and then the route just goes away. Help!</A></H2>
+
+<P>This is not a question for PPP.</P>
+<P>Hint: <B>DON'T RUN <EM>routed</EM>!</B></P>
+<P>If you need to send RIP frames to the peer for its routing purposes
+then use the bcastd program. The bcastd program is on sunsite.unc.edu.</P>
+
+
+<H2><A NAME="ss11.2">11.2 I would like to attach my other computers on my network to the Internet through my PPP connection. I have only the one IP address which is assigned to me from my service provider. (It may even have been dynamically assigned.) How may I do this?</A></H2>
+
+<P>You may not. At least, you can't do it in the manner
+that you would normally want to do it. The problem is that your
+provider would not know about the IP addresses of your local network
+and therefore wont route the frames to your local system.</P>
+<P>There are other solutions, however.
+<UL>
+<LI>You may telnet to your one computer running pppd and then
+use telnet or ftp to reach out to the rest of the Internet. This
+is not really much better then just using the computer directly,
+but it does work for simple things.</LI>
+<LI>You may run a 2.x series kernel and use the \IP
+Masquerade\ option. For instructions on how to use this facility
+you should refer to the Net-2-HOWTO document.</LI>
+<LI>You may run the <EM>socks</EM> program on your PPP system.  This
+will perform the same facility as the IP Masquerade but it will take
+modified clients or a replacement run-time library. The advantage is
+that the socks program has been around for some years and many clients
+will understand the concept of a \proxy\ server which is
+needed to work with socks.</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss11.3">11.3 I can reach the remote server, but I can not get anywhere else.</A></H2>
+
+<P>Did you forget the \<EM>defaultroute</EM>\
+parameter to pppd? This parameter adds a default route into your
+routing system so that frames to all other IP addresses will be
+sent to the PPP device.</P>
+<P>The PPP software will not replace the default route
+if you have one already set when you run pppd. This is done to
+prevent people from destroying their default route to the ethernet
+routers by accident. A warning message is written to the system
+log if the defaultroute parameter is not performed for this reason.</P>
+
+
+<H2><A NAME="ss11.4">11.4 I have a default route and I still can't get anywhere else! Now what?</A></H2>
+
+<P>The problem then is not with the local Linux system.
+It most likely is routing problem on the remote end.</P>
+<P>The remote system is not configured for \<EM>IP
+forwarding</EM>\. It is an RFC requirement that this
+option <B>NOT</B> be enabled by default. You must enable the option.
+For Linux systems, you will need to build the kernel and specify
+that you want IP forwarding/gatewaying.</P>
+<P>The remote computers need a route back to you just
+as you need a route to them. This may be accomplished by one of
+four methods. Each has advantages and limitations. You need to
+do one and only one of these.
+<UL>
+<LI>Use a host route. At each host on the remote system, add a
+host route to your Linux IP address with the gateway being the
+terminal server that you use for your local access. This will
+work if you have a small number of host systems and a simple network
+without bridges, routers, gateways, etc.
+</LI>
+<LI>Use a network route. Subdivide the remote IP addresses so
+that your local Linux IP address and the remote terminal server
+address and the remote terminal server\s ethernet address is on
+the same IP network. This will work if you have the IP addresses
+to spare. It will work very well if you have a Class-B IP network
+and can afford to put the all of the remote addresses on the same
+IP network. Then add a network route on each of the gateways and
+routers so that any address of the remote network is sent to the
+terminal server. Most configurations have many hosts but few routers.
+(At <EM>sii.com</EM>, we have over 300 active host systems with
+only 3 routers.)</LI>
+<LI>Use <EM>gated</EM> on all of the gateways and on the terminal
+server. This will cause the terminal server to broadcast to the
+gateways that it can accept the frames for your IP address. Since
+the hosts will have a default route to one of the gateways, the
+gateways will generate the ICMP re-direct frame and the specific
+host will automatically add its host route.</LI>
+<LI>Use proxy ARP on the terminal server. This will only work
+if your remote IP address is in the same IP domain as one of the
+domains for the network cards.</LI>
+</UL>
+</P>
+<P>There is no clear solution. You must choose one of these.</P>
+<P>If your remote router requires to receive RIP frames
+in order to update the route to your system then you should use
+the <EM>bcastd</EM> program on sunsite.unc.edu.
+This will generate the RIP frames without actually running gated.</P>
+
+
+<H2><A NAME="ss11.5">11.5 I can not ping my local IP address</A></H2>
+
+<P>You are not able to do this because you wont normally
+have a route to the address. This is the normal operating environment.</P>
+<P>If you wish to ping your own system then use the
+loopback address of 127.0.0.1.</P>
+<P>You may be able to ping the remote address. However,
+some terminal servers may not allow this as the address may be
+\phony\ to them. It depends upon their environment.</P>
+<P>In general, don't try to ping either address. Choose
+a third address which is well known to be available on the remote
+network such as one of your name server IP address.</P>
+<P>While the PPP software will not perform this task,
+you may add the route table entry yourself once the link has been
+established. The syntax for the route statement is:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+route add -host 192.187.163.32 lo
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>where the local IP address is represented as 192.187.163.32
+in this example. This will tell the network software to route
+all frames destined to your local IP address to the loopback adapter.
+Once you add the appropriate route to the local IP address then
+you may use this address as the target to IP frames.</P>
+<P>You will be responsible for deleting the route when the link goes down.</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-10.html">Previous</A>
+<A HREF="PPP-FAQ-12.html">Next</A>
+<A HREF="PPP-FAQ.html#toc11">Table of Contents</A>
+</BODY>
+</HTML>

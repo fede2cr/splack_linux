@@ -1,0 +1,224 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Questions about chat</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-16.html">Previous</A>
+Next
+<A HREF="PPP-FAQ.html#toc17">Table of Contents</A>
+<HR>
+<H2><A NAME="s17">17. Questions about chat</A></H2>
+
+<P>The chat program is packages with the pppd executable. This is not an
+endorsement for chat. Any program which will arrange to start the PPP
+protocol on the remote system may be used. However, since chat is
+included with pppd, many people use it. There are only a few common
+questions about chat.</P>
+
+<H2><A NAME="ss17.1">17.1 My modem wont dial when I run chat</A></H2>
+
+<P>The modem is required to be in the command mode to
+issue dial commands. If your modem is \online\ then characters
+sent to the modem will be sent to the remote system.</P>
+<P>If possible, configure the modem to monitor the DTR
+signal and to return to the command mode when the DTR signal drops.
+This will permit the computer to force the modem back to the command
+mode when the pppd process terminates at the end of a connection.
+It will then be in the proper state when the next execution attempts
+to dial the telephone.</P>
+<P>If you can\t do this then you should change the dial
+sequence so that it is similar to the following. It will ensure
+that the modem is in the command state prior to attempting to
+send the dial sequence.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+TIMEOUT 3 \\ \rAT OK-+++\c-OK AT&amp;D2&amp;C1 TIMEOUT 60 OK ATDT555-1212 CONNECT
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>The commands will change the timeout period to three
+seconds. This accommodates the <EM>guard</EM>
+time period used by many modems. It will then send <B>AT</B> to
+the modem and look for its response of <B>OK</B>. If it is not
+received in the three seconds, it will send the <B>+++</B> sequence
+to the modem and wait for the modem to present the expected <B>OK</B>
+response. Once it receives the valid response it will configure
+the modem and dial the telephone number.</P>
+
+
+<H2><A NAME="ss17.2">17.2 The modem dials only on every second attempt</A></H2>
+
+<P>Please refer to the above answer. It is usually the
+same issue.</P>
+
+
+<H2><A NAME="ss17.3">17.3 The chat script stops after sending the account name and it never receives the password prompt.</A></H2>
+
+<P>Some systems, notably SCO, will flush the receive
+buffers after writing the prompts for user name and password.
+The chat program normally transmits the response immediately upon
+seeing the prompt. The result is that the reply from chat is flushed
+by SCO. The chat program continues to wait for the password prompt.
+However, the remote system is still waiting for the user to enter
+the account name.</P>
+<P>The solution is simple. Slow down the responses from
+chat so that there is time for the remote system to flush the
+receive buffer before chat starts to send the response. Chat supports
+this with the \d parameter. Change the response strings similar
+to the following:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  ogin:--ogin: \d\daccount assword: \d\dhello2u2
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="ss17.4">17.4 The chat script stops before finishing and fails to make the connection</A></H2>
+
+<P>A common method of using chat is to use the connect option and have it
+directly run the chat program, i.e. connect "chat ...". What is not so
+obvious is the method by which pppd implements the connect
+processing.</P>
+<P>The pppd process uses the execl() function to start a shell. The shell
+is given the command line string which you supplied with the connect
+option. This has several advantages in that the parameters do not need
+to be parsed by pppd, they may be expanded, the path is automatically
+searched, etc. However, it does have some disadvantages as well.</P>
+<P>The disadvantage is that the shell will re-interpret the option string
+again for special characters and act upon them. It will use the
+\ character to take the next character as a different meaning,
+it will use the &amp; character to start a new sub-shell, and it will
+use the &lt; and &gt; to do I/O redirection.</P>
+<P>So, if your prompt string is "protocol&gt;" and you use just the
+string protocol&gt; or even &gt; then the shell will cause chat to
+fail to run. This is not a problem with chat. This is not a problem
+with the shell. They are both doing exactly what is expected.</P>
+<P>So, how do you actually use the string protocol&gt; as a prompt? Well,
+the answer is simple. Put a \ before the &gt; character as in
+protocol\&gt;. This tells the shell that the &gt; is not an I/O
+redirection sequence but a simple character which is to be given to
+the chat program just like any other.</P>
+<P>The same thing is required for the modem configuration options of
+AT&amp;D2, etc. The &amp; needs to be quoted as in AT\&amp;D2.</P>
+<P>The chat program also recognizes the \ character as being special
+within its own processing. This is performed so that strings may have
+special characters within them such as \r for a carriage
+return. If your prompt or the reply contains a \ then you need to
+give chat \\ for each \ character that you wish to
+use. (Remember that the shell will also need \\ for each of
+those as well if you don't put the sequence within quotes.)</P>
+
+
+<H2><A NAME="ss17.5">17.5 When I attempt to run chat, it says that the -l parameter is invalid. Why?</A></H2>
+
+<P>There was a time when chat had the ability to set a lock file for the
+modem device. The name of the file was given to chat with the
+parameter -l.</P>
+<P>However, that was a seriously <EM>bad</EM> idea and should not have
+been in the code in the first place.</P>
+<P>The reason is that chat is a filter. It does not attempt to configure
+the modem for the proper rate. So, what people would do is run stty to
+set the rate, then run chat, and then attempt to run pppd. This was
+definitely not the way to do the connection.</P>
+<P>The serial port sharing only works if all of the programs on your
+system follow the same rules and play by the same game. If you want to
+share the serial port then you need to use a lock file. This lock file
+must be created using the proper method before the serial port is
+touched. You are not permitted to run stty on the serial port until
+the lock file is first created.</P>
+<P>Consider what would happen if you had run chat, and chat was in the
+middle of the dial sequence and then some cron event occurred which
+launched another program. That program just changed the BPS rate on
+your modem without attempting to lock the serial device first. I can
+tell you what would happen. The chat connection script won't
+complete.</P>
+<P>So, for that reason, since chat is a filter and not meant to be a
+controlling program, the lock option was removed. Chat is not able to
+create a lock file for the modem. The lock file must be created by the
+program which configures the serial port and then runs chat, such as
+pppd.</P>
+
+
+<H2><A NAME="ss17.6">17.6 I ran chat. It seems to want to use the local terminal as the modem and it does not talk to the modem. How do I specify the modem name to chat?</A></H2>
+
+<P>Chat is in a class of programs called a \filter\. That is, it
+reads from the standard input, does some processing internally, and
+writes to the standard output.</P>
+<P>So, if you really want to just run chat and have it talk to a modem
+then you need to use the I/O redirection operators &lt; and &gt; so
+that the standard input and output are redirected to the modem.</P>
+<P><EM>HOWEVER</EM>, if you are using chat with pppd, please do <EM>not</EM> run
+chat first and then attempt to run pppd after it. You should only use
+the combination of chat and pppd if you use the connect option for
+pppd to run the chat program.</P>
+<P> The reason for this is that pppd will
+automatically redirect the standard input and standard output to the
+appropriate modem device before it runs the connect script (and
+chat). In addition, the necessary device locking will have been
+performed before it attempts to run the chat program.</P>
+<P>If you just run chat first and then expect to run pppd, your system
+will fail should you have another program which is sharing the serial
+device. The locking will not have been performed, chat will not have
+re-configured the serial device so that it has the proper transmission
+rate, parity, stop bits, etc. and then when the other program, such as
+mgetty, comes along it will find that the lock file is not valid and
+re-configure the modem again. In so doing, it will destroy the use of
+the modem by chat and chat or pppd will fail.</P>
+
+
+<H2><A NAME="ss17.7">17.7 When I run pppd and chat along with mgetty then the connection does not start. If I stop mgetty, then pppd will work. Why?</A></H2>
+
+<P>For the serial port to be shared properly, a lock file is needed
+between the use of the serial port by mgetty and the use by pppd (and
+chat).</P>
+<P>The pppd process uses the FSSTND location of /var/lock/LCK..ttyS0 to
+lock the device called 'ttyS0'.</P>
+<P>There have been some pre-built binaries of mgetty in some
+distributions which use the much older location of
+/usr/spool/uucp/LCK..ttyS0.</P>
+<P>In addition to the file location, the file format must be the
+same. There are two common methods of recording the pid information in
+the file. The first is the older method, used commonly by some
+pre-built binaries for the kermit terminal emulator, of storing the
+pid as a binary value. You can tell this format in that the lock file
+is four bytes in size.</P>
+<P>The more modern method is to store the pid as an ASCII string. This
+file has a size of eleven bytes (ten bytes for the pid, one for the
+trailing newline character.)</P>
+<P>If the file format does not match what mgetty expects then mgetty
+treats the lock as being invalid and seizes the device, drops the DTR
+(which usually hangs up on the connection), and reconfigures the
+modem.</P>
+<P>The other cause for the condition is that you simply forgot to tell
+pppd that it must lock the serial port. To tell pppd that it needs to
+lock the serial port, use the option 'lock' when you run pppd.</P>
+<P>In the context of the lock file, the name of the lock file is formed
+from the name of the serial device. That is good for the most
+part. The problem comes when people use 'modem' and 'ttyS0' to be the
+same thing. Some people have a symbolic link from /dev/modem to
+/dev/ttyS0. They then forget that mgetty is using the name ttyS0 for
+the name of the serial port and they use /dev/modem when they run
+pppd, telling it to create the lock. The pppd process does so, but the
+lock file created is called "LCK..modem". Then mgetty comes along and
+does not see that the serial device is locked (because there is no
+"LCK..ttyS0" file) and drops the DTR signal and the PPP connection is
+broken.</P>
+<P>So, either use /dev/modem or /dev/ttyS0 for your modem. Choose one
+name. Get rid of the other. Use that name everywhere, not just in
+"most" of the places, but in "every" place.</P>
+<P>We have been working on a solution to this problem. It involves
+getting rid of the reliance upon the name of the serial device and
+using the values that the operating systems really uses, the major and
+minor device numbers. However, that is not in place yet. Until it is,
+be careful and use the proper names for the devices on the system and
+you should not have a problem.</P>
+
+<HR>
+<A HREF="PPP-FAQ-16.html">Previous</A>
+Next
+<A HREF="PPP-FAQ.html#toc17">Table of Contents</A>
+</BODY>
+</HTML>

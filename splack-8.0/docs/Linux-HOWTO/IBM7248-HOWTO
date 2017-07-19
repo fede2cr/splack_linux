@@ -1,0 +1,1718 @@
+Installing LinuxPPC-2000 on the IBM RS/6000 43P model 7248 HOWTO
+
+Ingvar Hagelund
+
+  ingvar@linpro.no
+Revision History                                                             
+Revision 1.40            2000-12-14            Revised by: ih                
+Translated to SGML. This is the initial release for LDP                      
+
+
+This document describes the installation of LinuxPPC-2000 on the IBM RS/6000
+43P model 7248 series.
+
+-----------------------------------------------------------------------------
+Table of Contents
+1. Introducion
+    1.1. Copyright Information and Legal stuff
+    1.2. Disclaimer and scope
+    1.3. New versions
+    1.4. Credits
+    1.5. Feedback
+    1.6. Translations
+   
+   
+2. Overview
+    2.1. The IBM RS6000 43P 7248-133
+    2.2. What's the matter, why not use the original installation procedure?
+    2.3. An overview on what to do
+   
+   
+3. Setting up the hardware with SMS
+    3.1. Where is the BIOS?
+    3.2. How to use the SMS
+    3.3. What settings to use
+    3.4. More info about the hardware
+   
+   
+4. Get the installation files
+    4.1. Buying a CD
+    4.2. Download CD images over FTP
+    4.3. Network installation
+   
+   
+5. Make boot floppies
+    5.1. What floppies to make
+    5.2. How to make the bootfloppies
+   
+   
+6. Boot the machine and start the installation program
+    6.1. Boot the machine
+    6.2. Make some hacks
+   
+   
+7. Install the system
+    7.1. The LinuxPPC-2000 installer
+    7.2. Partition the harddisk(s)
+    7.3. Continue installation
+    7.4. Select and install packages
+    7.5. Make a root password and exit
+   
+   
+8. Boot the machine
+9. Set up networking
+    9.1. Support for the integrated ethernet adapter
+    9.2. Configuration files
+    9.3. Set IP address and netmask
+    9.4. Set hostname and gateway
+    9.5. Nameserver specification
+    9.6. The hosts file
+    9.7. Restart the network
+   
+   
+10. Update the kernel and set up the X Window system
+    10.1. Why update the kernel
+    10.2. What files to download
+    10.3. Unpacking and patching the source
+    10.4. Configuring the kernel
+    10.5. Compiling and installing the kernel
+    10.6. Set up X
+   
+   
+11. Set up sound
+    11.1. Support for the integrated sound adapter
+    11.2. Configure and compile the kernel
+    11.3. Configuring the modules
+    11.4. Reboot and pray
+   
+   
+12. Resources
+    12.1. Other resources on Linux/PPC and 43P boxes
+    12.2. Installing other flavours of Linux on the 7248
+   
+   
+13. Todo
+14. Frequently Asked Questions
+    14.1. XF68 or XF86
+    14.2. There is "snow" on my X desktop
+    14.3. I can't get my hardware to work
+    14.4. Me wants another distro!
+    14.5. Boot floppies on other distributions
+    14.6. The PReP boot partition?
+    14.7. It won't boot at all. Could it be bad RAM?
+   
+   
+15. Appendix: Using cfdisk to partition your harddisk
+    15.1. Hardisk names
+    15.2. Harddisk partitions
+    15.3. Starting cfdisk
+    15.4. Using cfdisk
+   
+   
+16. Appendix: More on partitioning
+Index
+
+1. Introducion
+
+This document describes how to install LinuxPPC on the IBM RS/6000 43P 7248
+series, that is, the 43P-100, 43P-120 and 43P-133. It describes quite in
+detail anything to get one of these boxes from a non working stage to a
+networked X workstation. This is the first relase written in SGML for the
+Linux Documentation project.
+
+Some months ago I got a couple of old 7248s for free and I did not have any
+OS to run on them. So I gathered some bits and pieces from the net, and got
+it to install LinuxPPC-1999. Later, I found that a lot of other people may
+have the same problems that I had, so I wrote this document to help. It has
+been availble for some time in HTML form only. Now, it's time to move to SGML
+and get the documents into the LDP.
+-----------------------------------------------------------------------------
+
+1.1. Copyright Information and Legal stuff
+
+This document is copyrighted (c) 2000 Ingvar Hagelund and is distributed
+under the terms of the Linux Documentation Project (LDP) licence, stated
+below.
+
+Unless otherwise stated, Linux HOWTO documents are copyrighted by their
+respective authors. Linux HOWTO documents may be reproduced and distributed
+in whole or in part, in any medium physical or electronic, as long as this
+copyright notice is retained on all copies. Commercial redistribution is
+allowed and encouraged; however, the author would like to be notified of any
+such distributions.
+
+All translations, derivative works, or aggregate works incorporating any
+Linux HOWTO documents must be covered under this copyright notice. That is,
+you may not produce a derivative work from a HOWTO and impose additional
+restrictions on its distribution. Exceptions to these rules may be granted
+under certain conditions; please contact the Linux HOWTO coordinator at the
+address given below.
+
+In short, we wish to promote dissemination of this information through as
+many channels as possible. However, we do wish to retain copyright on the
+HOWTO documents, and would like to be notified of any plans to redistribute
+the HOWTOs.
+
+If you have any questions, please contact <linux-howto@metalab.unc.edu>
+
+"Linux" is a registrated trademark owned by Linus Torvalds. "IBM" and "RS/
+6000" are trademarks owned by IBM Corporation. "MS-DOS" is a trademark owned
+by Microsoft Corporation.
+
+Updated: December 14, 2000.
+-----------------------------------------------------------------------------
+
+1.2. Disclaimer and scope
+
+This document is made after own experiences on a 43P 7248-132. The things I
+did might or might not work for you. You are on your own. I take no
+responsibility whatsoever for any damage, loss or expenses because of
+something you might have done because this document said so. If you want to
+give me feedback on errors, typos, or anything that can make this document
+better, please feel free to contact me by sending an e-mail to <
+ingvar@linpro.no>
+
+No liability for the contents of this documents can be accepted. Use the
+concepts, examples and other content at your own risk. As this is a new
+edition of this document, there may be errors and inaccuracies, that may of
+course be damaging to your system. Proceed with caution, and although this is
+highly unlikely, I do not take any responsibility for that.
+
+This document is about installing LinuxPPC-2000 on the IBM RS/6000 43P, model
+7248. The methods described in this document may or may not work on other
+machines or models. They may or may not work on other Linux distributions.
+Don't ask me about this, as I have not tested others. Look in the Section 12
+for other resources on this. If you find that these instructions work on
+other models or distributions, please let me know, and I'll add that info
+here.
+
+All copyrights are held by their by their respective owners, unless
+specifically noted otherwise. Use of a term in this document should not be
+regarded as affecting the validity of any trademark or service mark.
+
+Naming of particular products or brands should not be seen as endorsements.
+
+You are strongly recommended to take a backup of your system before major
+installation and backups at regular intervals.
+
+Note that the 7248-132 and 43P-132 is two terms for the same model, and the
+same goes for 7248-133 and 43P-133. These four terms describes almost the
+exactly same model, with modifications so small, I have not been able to find
+them. You can safly assume that they are all the same machine.
+
+If you feel that this document makes your life better, makes you glad and
+happy, or if you just are in a good mood, and have nothing to do, feel free
+to donate hardware, money, pizzas, e-mailed thankyous, postcards or anything
+to me. I can be reached at:
+
+          e-mail: <ingvar@linpro.no>
+          snail-mail: Ingvar Hagelund, Asperudlia 15, N-1258 OSLO, NORWAY.
+        
+-----------------------------------------------------------------------------
+
+1.3. New versions
+
+Version 1.40:
+
+  * Added a FAQ section
+   
+  * Reformatted howto to SGML.
+   
+  * New copyright notices.
+   
+  * Ready for bundling with the LPD.
+   
+
+If you are reading an offline version of this document, please note that an
+up to date HTML version can be found at http://intern.linpro.no/~ingvar/43p.
+-----------------------------------------------------------------------------
+
+1.4. Credits
+
+A lot of people have given me suggestions and help on these pages. I might
+have forgotten some of them, and if so, I apologize. Please send me a note to
+me at <ingvar@linpro.no>, and I'll list you here. Thanks to all of you, I
+could not have done this without you.
+
+Ingvar
+
+Here is list of people that have been helpful, in a completely unordered
+fashion :-)
+
+Ingvar Hagelund
+
+James Rooker
+
+Mike McCammant
+
+Alberto Varesio
+
+Rolf Brudeseth
+
+Ian Dale
+
+Hollis R Blanchard
+
+Linar Yusupov
+
+Cort Dougan
+
+Roger Bonussen
+
+Rolf Zimmerli
+
+Philippe Senot
+
+John Roebuck
+
+Jacopo Silva
+
+Martin Espenschied
+
+Dan Burcaw
+
+www.linuxppc.com
+
+Tor Arne Rein
+
+Chien-Yu Chen
+
+Wadamori Naoki
+
+Arne Chr. Jørgensen
+
+Doc Shipley
+
+Thomas M. Nymand
+
+Alberto Varesio
+
+Pat Berge
+
+Kazunori Aoshima
+
+David Monro
+
+Matt Porter
+
+Olaf Hering
+
+Xavier Piednoir
+
+Greg Ferguson
+-----------------------------------------------------------------------------
+
+1.5. Feedback
+
+Feedback is most certainly welcome for this document. Without your
+submissions and input, this document wouldn't exist. Please send your
+additions, comments and criticisms to the following e-mail address : <
+ingvar@linpro.no>.
+-----------------------------------------------------------------------------
+
+1.6. Translations
+
+This document exists in English only. If you want to translate this document
+into an other language, please do so, just give me a note, and read the
+copyright notices above.
+-----------------------------------------------------------------------------
+
+2. Overview
+
+-----------------------------------------------------------------------------
+2.1. The IBM RS6000 43P 7248-133
+
+This chapter contains a short overview over the 7248-133 and Linux for
+PowerPC. The data for the other 7248 models should not be too different from
+this.
+
+The IBM RS/6000 43P model 7248-133 is a not extremely new PReP based PowerPC
+workstation which was produced from 1995 through 1997. The 43P series
+includes a lot of machines, both CHRP and PReP based. Our model has among
+other things this to offer:
+
+  * PReP architecture
+   
+  * 132MHz PowerPC model 604 processor
+   
+  * 512K synchronous L2 cache
+   
+  * Max 192MB RAM (EDO)
+   
+  * Integrated ncr53c810 SCSI-2 controller
+   
+  * Integrated IDE controller
+   
+  * Integrated AMD PCnet32 PCI ethernet adapter
+   
+  * Integrated IBM E15 2MB graphics adapter based on the S3 Vision864 chip
+   
+  * Integrated Crystal Audio cs4232 sound adapter
+   
+  * 1.44MB Floppy disk drive
+   
+  * IBM 8X SCSI CD-ROM drive
+   
+  * Usually equipped with a 1.2MB IBM DPES 31080 SCSI hardisk
+   
+
+You can find more information at IBM's sales manual for this machine, found
+at this horrible URL
+
+Linux has now a native port to the PowerPC processor, and all official code
+is maintained in the main kernel tree. The main part of the port was done by
+Gary Thomas. The story of the port can be found here. For more information on
+running Linux on the PowerPC processor, check out the LinuxPPC homepage http:
+//www.penguinppc.org.
+-----------------------------------------------------------------------------
+
+2.2. What's the matter, why not use the original installation procedure?
+
+The LinuxPPC-2000 distribution has no less than two installation programs
+included on the CD. Unfortunately, there are some bugs that we have to sort
+out to make them work. The first is the "native" LinuxPPC installer, made
+with a graphical user interface. We're going to use this method after some
+hacking to get it to work. The second is a text based simple installation.
+You may want to try it if nothing else works. The installer from the ncurses-
+and text based Red Hat installation program may also occure if you use old
+ramdisks. It's abandoned by LinuxPPC, and will not work with LinuxPPC-2000.
+
+We are actually not going to change much. The only problem is that the X
+installer LinuxPPC has made is made to work on PowerMacs, and is therefore a
+little buggy on our dear 7248 box. So, we have to do some of the
+configuration manually. Don't despair, this document will lead you through
+it, step by step.
+-----------------------------------------------------------------------------
+
+2.3. An overview on what to do
+
+Here is what we are going to do:
+
+  * Set up the hardware properly ("BIOS settings") with IBM's System
+    Management Services (SMS)
+   
+  * Get installation files from CD or FTP
+   
+  * Make boot floppies
+   
+  * Get the machine to boot and start the installation program
+   
+  * Partition the hard drives
+   
+  * Install the system
+   
+  * Boot the system
+   
+  * Set up networking
+   
+  * Update the kernel and set up X
+   
+  * Set up sound
+   
+
+-----------------------------------------------------------------------------
+3. Setting up the hardware with SMS
+
+This chapter describes how to configure the system's Firmware to use the
+hardware properly. To do this we are going to use a software tool from IBM
+called System Management Services, SMS.
+-----------------------------------------------------------------------------
+
+3.1. Where is the BIOS?
+
+Lots of Linux users are familiar with the x86 platform, and immidiatly ask
+"What key may I press to access the BIOS". Well, on the 7248-133 it's not
+that easy, but it's not very difficult either. For hardware system management
+IBM has a software program to be booted from floppy disk, called "SMS" -
+"System Management Services". You can get floppy images and MS-DOS programs
+for creating those here. You might also want to upgrade your Open Firmware.
+Check the README files on the link about this.
+-----------------------------------------------------------------------------
+
+3.2. How to use the SMS
+
+To boot the SMS, turn off the machine, insert the SMS floppy, push the power
+button and press the F2 key while the system check icons pop up in the bottom
+of the screen. (If you prefer a text based interface, try F4 instead.) Basic
+usage is outside the scope of this document, but it's not very difficult.
+-----------------------------------------------------------------------------
+
+3.3. What settings to use
+
+You should have a little look over your system to see whats actually there.
+Then you should check the boot sequence, as it's quite important to make your
+system boot right. The sequence should be: (You guessed it) Floppy disk ->
+CD-player -> first SCSI harddisk -> second SCSI harddisk -> etc.
+-----------------------------------------------------------------------------
+
+3.4. More info about the hardware
+
+You might find good references in IBM's salesmanual for our model.
+
+There are also some reference manuals in pdf format for free download from 
+the IBM RS/6000 pages that might come handy.
+-----------------------------------------------------------------------------
+
+4. Get the installation files
+
+This chapter describes how to get your hands on a copy of the LinuxPPC-2000
+operating system.
+-----------------------------------------------------------------------------
+
+4.1. Buying a CD
+
+The easiest way to get all the files you need is perhaps just to buy an
+official CD set. You may order the CD set directly from http://
+order.linuxppc.com or you may try to find a local reseller, linuxppc.com has 
+a list here.
+-----------------------------------------------------------------------------
+
+4.2. Download CD images over FTP
+
+The other way around is to download preformatted CD images, and burn them out
+yourself. You can download installation CD images from any LinuxPPC mirror.
+You should download the LinuxPPC_2000_Install.image and the
+LinuxPPC_Software_2.image. There are some interesting readme files on the
+download sites on burning the files to a CD-ROM.
+
+To make a CD, you need some CD burning software package. This is outside the
+scope of this document, allthough any good CD burning software should be able
+to do it.
+-----------------------------------------------------------------------------
+
+4.3. Network installation
+
+Other Linux distributions have often support for direct installation via a
+network connection. This is not currently supported in LinuxPPC-2000.
+-----------------------------------------------------------------------------
+
+5. Make boot floppies
+
+In this chapter we will learn how to make useable boot floppies from files
+downloaded from the Internet.
+-----------------------------------------------------------------------------
+
+5.1. What floppies to make
+
+To install LinuxPPC-2000 on the 7248 you need three floppies: One bootfloppy,
+and two ramdisk floppies.
+
+The bootfloppy is a precompiled Linux kernel image called 
+carolina_bootimage_2.2.16pre1_with_fb, and it can be found in the images
+directory on my homepage.
+
+The ramdisk floppies are in the ramdisk.image.gz file found in the install/
+directory on a linuxPPC ftp mirror, but it would be easier, at least for
+ms-dos users to download 1.44MB sliced images, also from my images directory
+over http. Note: The ramdisk image on the CD might not work. If you
+experience strange problems, try downloading the ramdisk image from a
+LinuxPPC ftp mirror or from my images directory.
+
+If you use Netscape or another web browser to download the files, you should
+check that the sizes of the downloaded files are correct. Some versions of
+Netscape tend to uncompress compressed files, and we want to keep them
+compressed. This yields especially for the ramdisk.image.gz file. If strange
+freezes or other things happens at boot time, try using another program for
+downloading the files.
+-----------------------------------------------------------------------------
+
+5.2. How to make the bootfloppies
+
+Use allways errorfree 1.44MB floppies for these images. The commands shown
+here is for a working linux system. They might work on other unix systems as
+well. On some systems you may have to be root to write directly to the
+floppydrive. In those cases, just su root before issuing the commands.
+
+For MS-DOS, you may use the rawrite util. You can download rawrite from
+several places, for example a RedHat mirror as ftp://ftp.freesoftware.com.
+More information on how to use rawrite here.
+
+To make the bootfloppy, insert a floppy in the drive, cd to the directory
+containing the bootfloppy image and issue the command:
+          dd if=carolina_bootimage_2.2.16pre1_with_fb of=/dev/fd0 bs=36b conv=sync 
+                                                                                   
+Label the disk "Boot floppy" or whatever you like.
+
+To make the first ramdisk floppy, insert a floppy in the drive, cd to the
+directory containing the ramdisk image, and issue the command:
+       dd if=ramdisk-2000-floppy-image.1 of=/dev/fd0 bs=36b conv=sync        
+                                                                             
+(If you use the ramdisk.image.gz from the CD or a ftp mirror, try dd if=
+PReP-ramdisk.image.gz of=/dev/fd0 bs=36b conv=sync count=80 ) Label the disk
+"Ramdisk root floppy (#1)" or whatever you like.
+
+To make the second ramdisk floppy, insert a floppy in the drive, cd to the
+directory containing the ramdisk image, and issue the command
+       dd if=ramdisk-2000-floppy-image.2 of=/dev/fd0 bs=36b conv=sync        
+                                                                             
+(If you use the ramdisk.image.gz from the CD or a ftp mirror, try dd if=
+PReP-ramdisk.image.gz of=/dev/fd0 bs=36b conv=sync skip=80) Label the disk
+"Ramdisk floppy #2" or whatever you like.
+-----------------------------------------------------------------------------
+
+6. Boot the machine and start the installation program
+
+In this chapter we will find out how to get the installation program up and
+running.
+-----------------------------------------------------------------------------
+
+6.1. Boot the machine
+
+To boot the 7248, just insert the bootdisk and switch on the machine. Insert
+the installation CD at the PowerPC splash screen. If it won't boot off the
+floppy drive, check SMS settings (Section 3), and try to force a floppy boot
+by pressing F5 (or F6) at the bootscreen while the check icons pop up in the
+bottom of the screen. After a while, the screen blanks out, and Linux will
+boot. At this point, you can shout a little "hooray" for yourself, if there
+are not too many in the room, and Tux, the Linux Penguin will show up in the
+upper left corner of the screen. Insert the ramdisk root floppy and ramdisk
+floppy #2 when prompted.
+
+After some seconds, the installation program will complain about a lot of
+things. It can't find a usb mouse, it can't start the Xpmac X-server, it
+can't open the local display, and that kind of things. Don't worry, we'll
+take care of this in a minute. Just press enter, and you'll be thrown to a
+standard root bash prompt. For those of us who have used Unix systems
+earlier, this is enough to give good vibrations. For all others: Don't Panic
+(TM). If, of some reason, the good old familiar (for some of us) RedHat
+installer program should start up, just press Control+Z to get a shell
+prompt. The Red Hat Installation program will not work.
+-----------------------------------------------------------------------------
+
+6.2. Make some hacks
+
+To be able to start the installation program, we have to change the standard
+PowerMac setup to something that is useable for the 7248. This is what we are
+going to do in this section. Remember that all commands are case sensitive.
+
+First, let's set up the keyboard and mouse, to make them work correctly with
+X. Issue these commands:
+          cd /etc/sysconfig                                                  
+          mv mouse mouse.old                                                 
+          mv mouse.PReP mouse                                                
+          rm -f /dev/mouse                                                   
+          ln -s /dev/psaux /dev/mouse                                        
+          mv keyboard keyboard.old                                           
+          mv keyboard.PReP keyboard                                          
+                                                                             
+Done! Now, that wasn't too difficult, was it? Let's continue with some X
+configuration. Issue these commands:
+        cd /etc                                                              
+        mv XF86Config XF86Config.old                                         
+        mv XF86Config.PReP XF86Config                                        
+        rm -f /root/bin/X                                                    
+        ln -s /usr/X11R6/bin/XF68_FBDev /root/bin/X                          
+                                                                             
+You are now ready to start the installation program. Issue this command, and
+go for it:
+        start_installer                                                      
+                                                                             
+
+I have got reports on some ramdisks where the default font path is not
+correctly set in the XFree86Config. If X dies with font error messages, try
+to edit the file with vi /etc/X11/XF86Config , and look for the line which
+contains the fontpath. It should be set to something /usr/X11R6/lib/X11/fonts
+/ (So you don't like vi? Read this to get started.)
+-----------------------------------------------------------------------------
+
+7. Install the system
+
+In this chapter we will get used to the LinuxPPC-2000 installation
+environment, partition the harddisk(s) and install the operating system
+packages.
+-----------------------------------------------------------------------------
+
+7.1. The LinuxPPC-2000 installer
+
+So, now we're actually getting somewhere! Before doing anything, snoop a
+little around in the installation program. Read the Instructions, and read
+the credits and about items on the Options Menu. Of course, there will be
+some talking about PowerMacs here too. This does not apply to us.
+
+It's quite useful to know how the machine reacts when we do something.
+Therefore: On the Option Menu select Run xinstaller with output window. This
+will bring up the installer again, but with a white message window in the
+background. Note that you can move the windows on the screen around by
+clicking and dragging on the blue top or right borders. To bring a window to
+the front, try clicking on it.
+-----------------------------------------------------------------------------
+
+7.2. Partition the harddisk(s)
+
+The next thing to do is to partition the hard disk(s). Press the Partition
+drives button. Look at the white ouput screen. Oh no! A Horrible, Horrible
+error has happened! WHAT ARE WE GOING TO DO??? Okay, no panic, we are going
+to sort this out in a second.
+
+Press the right mouse button on the background on the screen. What a cute
+little menu! Notice that you can change the colors of the screen with the
+Styles option. This is the first installation program I've ever seen with
+changeable colors :-) !! Select xterm on the Blackbox (background) menu. This
+will bring up a command line terminal window which we will use to start some
+programs that can do what the installation program couldn't.
+
+In the xterm window, issue the command
+        fdisk /dev/sda                                                       
+                                                                             
+This will start the good old fdisk program. Note: This program will wipe away
+anything on the disks in the machine. If there are something on the disks
+that you want to protect, exit the program by hitting Q and press Enter. If
+you like a menu driven program, we'll start using cfdisk in a minute. For an
+overview on the fdisk commands, hit ?. To view the present partition scheme,
+hit P. If there are lots of unknown AIX information there, hit D, and select
+1, D again and 2, and continue all the way up to 5 to be sure all old AIX
+partitions are wiped away. Write the changes to the disk by hitting W, and
+quit the program by hitting Q. If there are no AIX partitions on the disks,
+just quit with the Q command. If you have more than one harddisk in the
+machine, use the commands fdisk /dev/sdb for the second harddisk, fdisk /dev/
+sdc for third and so on, and repeat the steps from the first disk.
+
+You could of course use fdisk to make the new partitions too, but I prefer a
+more user friendly solution. At the shell prompt, type
+        cfdisk /dev/sda                                                      
+                                                                             
+To start the cfdisk program on the first harddisk. Change to sdb and sdc, and
+so on for more harddisks. Basic usage of cfdisk is outside the scope of this
+document, but I have written a little starter. You can read it in the Section
+15.
+
+You should have at least these partitions:
+
+  * A boot partition. It should be the first primary partition on one of the
+    SCSI drives, preferably the first (this naming the partition to sda1). It
+    must have type PReP boot (type 41), and must be large enough to hold a
+    compressed Linux kernel image (zImage). Something like 5-10MB should do.
+   
+  * A swap partition. It can be either a primary or a logical partition on
+    any drive. Any size will do, but a guide may be twice the size of you
+    physical RAM. I have 64MB RAM, so I have a swap partition on 128MB.
+    Remember: This is only a guide.
+   
+  * A system root partition. It can be either a primary or a logical
+    partition, and it should be big enough to hold the main parts of the
+    installation. You should write down the device (disk and partition
+    number, like sda5, for example) for your system's root partition. You
+    will need it later. The easy way is just to use the rest of the harddisk
+    space for this. If you have several harddisks, big drives or special
+    requirements on safety and other things, you should consider to make own
+    partitions for /home, /usr, /usr/local, and other parts of the system.
+    Details on this is outside the scope of this document, but there is a
+    good discussion on this in the Linux Partition HOWTO.
+   
+
+It is a VERY good tip to find a piece of paper and write down which
+partitions you have made, what you want to use them to, and where you want to
+mount them. You will need this information later. When you have finished
+partitioning your disks, exit the terminal window by typing:
+        exit                                                                 
+                                                                             
+And return to the x-installer window.
+-----------------------------------------------------------------------------
+
+7.3. Continue installation
+
+The next step is to select what partitions should be used where. Press the
+Select Partitions button. You'll get a list over all partitions on your hard
+disks. Edit mount points and select format on the partitions that you want to
+erase. You should NOT mount the PReP boot partition (probably sda1) nor any
+swap partition(s).
+
+Press the Format and Mount button. The installation program will format and
+mount the partitions. Look for exciting error messages in the output window.
+If you have /usr on a separate partition, and the root partition is quite
+small because of that, you'll get an error message in a new window. Just
+ignore it, and close that window.
+-----------------------------------------------------------------------------
+
+7.4. Select and install packages
+
+A new window will pop up. Select packages after your own will. What packages
+should I select, you say. Oh, please! I have no idea how you're going to use
+the machine :-). Press Install. Congratulations. After some minutes (not to
+say hours, it feels like that, doesn't it?) the install will be complete.
+-----------------------------------------------------------------------------
+
+7.5. Make a root password and exit
+
+After your selected packages have been installed, you will be prompted for a
+root password. Select a good password, enter it (twice) and press the Set
+password button. Exit the installation program by pressing the Reboot button.
+The system will reboot.
+-----------------------------------------------------------------------------
+
+8. Boot the machine
+
+In this chapter we will boot our fresh installed system for the first time,
+and make some small custom changes to make it work as it should
+
+You are done! If everything worked, you should now be able to reboot you're
+system, and start LinuxPPC-2000 for the first time. Reinsert the boot floppy
+disk in the floppy drive, and switch the machine on again. If it won't boot,
+try to hit F5 at the splash screen while the system check icons pop up in the
+bottom of the screen. At the boot prompt, ("Linux/PPC load:") you must add a
+boot parameter to make the system find your root partition. (That's usually
+the main system partition.) Press backspace to remove what's already there,
+and add something like this:
+       root=/dev/sda5 single                                                 
+                                                                             
+I use sda as sda5 is where I have installed my root partition, that is, the
+partition mounted at "/". You might have something different, and you should
+have written it down when you partitioned you harddisk(s). You did, didn't
+you? We can't boot into the main system yet, because it has not been set up
+correctly with keyboard and mouse. (Stupid, isn't it?) That's why we add the
+single keyword, which makes the system boot into maintenance mode.
+
+If everything goes well, the machine will boot into single mode, and we'll be
+greeted with the now familiar shell prompt.
+
+Before we start, let's check that your timezone is set correctly. Run
+       /usr/sbin/timeconfig                                                  
+                                                                             
+
+And if you're not located in the US, why not set up your keyboard as well.
+Run
+       /usr/sbin/kbdconfig                                                   
+                                                                             
+
+Now we are going to make some small changes to the X configuration file.
+Luckily, there is a nice program called Xconfigurator to do this for us.
+Issue the command
+       /usr/X11R6/bin/Xconfigurator                                          
+                                                                             
+and follow the instructions on the screen. The usage of Xconfigurator is
+beyond the scope of this document, but it's quite easy. If you need help, try
+the Xconfigurator section in the Red Hat Installation guide. Xconfigurator
+should figure out that we use the IBM E15 frame buffer device. Note that the
+frame buffer device has only support for 256 colors, so only 8 bit mode
+should be selected.
+
+After you have ran Xconfigurator, you should look over the configuration
+file, using a text editor like vi or pico. Try
+       pico /etc/X11/XF86Config                                              
+                                                                             
+and scroll down to the Keyboard section. Check that you have settings that
+suits you. Edit as you wish, and press Control+X to save.
+
+Next, you may find that the /dev/cdrom link is not working properly, it
+points to itself. It should point to /dev/scd0, so let's fix this. Issue
+these commands:
+       rm -f /dev/cdrom                                                      
+       ln -s /dev/scd0 /dev/cdrom                                            
+                                                                             
+You should now be able to mount the cdrom using /dev/cdrom. Thanks to Thomas
+M. Nymand for this tip.
+
+Now, you should be all ready. Issue the command
+       init 5                                                                
+                                                                             
+And you should continue booting into LinuxPPC-2000.
+
+The system should boot up, and after a minute or so, greet you with a login
+prompt. Congratulations, you have installed LinuxPPC-2000 on your computer!
+From here, you have to know how to use linux. This is absolutely outside the
+scope of this document, but if you are a complete newbie, you could for
+example check out Linux Administration Made Easy by Steve Frampton, and start
+at chapter 6, since you've already got your system up.
+
+The next time you power-cycle the box, you should be able to boot from the
+floppy, and then start the system directly, so the kernel arguments at the
+boot prompt ("Linux/PPC Load:") should be only something like this:
+       root=/dev/sda5                                                        
+                                                                             
+Where of course, you may have something different from sda5, according to
+where your root partition is.
+
+This is the time to install the rest of the system, with all the packages
+that are on the software CD. Login as root, open a terminal window, insert
+the CD, and mount it like this:
+      mount -t HFS -o ro /dev/scd0 /mnt/cdrom                                
+                                                                             
+Then, start the gnorpm program to install packages.
+-----------------------------------------------------------------------------
+
+9. Set up networking
+
+In this chapter we will set up TCP/IP networking on the integrated ethernet
+adapter
+-----------------------------------------------------------------------------
+
+9.1. Support for the integrated ethernet adapter
+
+The 7248-133 is equipped with an internal AMD PCnet 32 PCI ethernet adapter.
+There is support for this adapter in the Linux kernel source, and if you
+installed from my bootimage, you should have support for it in your kernel
+already. Otherwise, you can compile a new kernel. The bootimage described in 
+Section 5 has support for the adapter too.
+-----------------------------------------------------------------------------
+
+9.2. Configuration files
+
+The configuration files to set up TCP/IP-networking over ethernet on this box
+is the same manual configuration as on any other RedHat-like Linux box
+elsewhere, but here, we do it manually, without any tools other than your
+favourite text editor. This only covers basic installation, and NO EXTRA
+SECURITY AT ALL. There are plenty of other, and much better sources about
+this topic than I can put up here. The files to edit are found in the /etc
+directory and its subdirectories. To edit the files, you should be logged in
+as root.
+-----------------------------------------------------------------------------
+
+9.3. Set IP address and netmask
+
+To set the IP address and netmask, make a file
+        /etc/sysconfig/network-scripts/ifcfg-eth0                            
+                                                                             
+That looks like this:
+        DEVICE="eth0"                                                        
+        ONBOOT="yes"                                                         
+        IPADDR="111.122.133.144"                                             
+        NETMASK="255.255.255.0"                                              
+                                                                             
+Of course, replace the numbers in the IPADDR and NETMASK fields with the ones
+you should use. If you don't know, ask your system administrator.
+-----------------------------------------------------------------------------
+
+9.4. Set hostname and gateway
+
+To set the hostname and gateway, edit the file
+        /etc/sysconfig/network                                               
+                                                                             
+so it looks like this:
+        NETWORKING=yes                                                       
+        FORWARD_IPV4="yes"                                                   
+        HOSTNAME=myhost.mydomain                                             
+        GATEWAY="122.133.144.155"                                            
+                                                                             
+Of course, replace the values in the HOSTNAME and GATEWAY fields with the
+ones you should use. If you don't know, ask your system administrator.
+-----------------------------------------------------------------------------
+
+9.5. Nameserver specification
+
+To specify a nameserver, edit the file
+        /etc/resolv.conf                                                     
+                                                                             
+so it looks like this:
+        search mydomain                                                      
+        nameserver 133.144.155.166                                           
+                                                                             
+Of course, replace the values in the search and nameserver fields with the
+ones you should use. If you don't know, ask your system administrator.
+-----------------------------------------------------------------------------
+
+9.6. The hosts file
+
+Finally, edit the the file
+        /etc/hosts                                                           
+                                                                             
+so it looks like this:
+        127.0.0.1       localhost       localhost.localdomain                
+        111.122.133.144 myhost.mydomain myhost loghost                       
+                                                                             
+The last line should suit the values you added previously as the system's
+IP-address and hostname.
+-----------------------------------------------------------------------------
+
+9.7. Restart the network
+
+This should be everything you need to get started. Now restart networking
+with the command
+        /etc/rc.d/init.d/network restart                                     
+                                                                             
+
+And you should be all up. Note that there is a bug somewhere that makes the
+netcard freeze the whole system when shutting down eth0. According to Martin
+Espenschied, this is a known issue, and can be fixed. When I know how, I'll
+put the information here. Till then, remember to sync your system before
+shutting down, and you should not miss any information. Remember my
+disclaimer in Section 1.2 though.
+
+An ugly hack to resolve this might just be to NOT to shut down eth0 at
+shutdown/reboot. This can be done by editing the file /etc/rc.d/init.d/
+network, and in the stop) case, just comment away the ifdown command, and add
+a phoney command, like this:
+        action "Shutting down interface $i" echo does_nothing # ./ifdown $i boot 
+                                                                                 
+Note that this is a rather ugly hack, that won't actually solve the problem,
+it just hides it. The network won't go properly down until you reboot the
+machine. This is actually the "stupid Windows" way. I really hope that
+somebody have a better fix on this later. Thanks to Doc Shipley for this tip.
+-----------------------------------------------------------------------------
+
+10. Update the kernel and set up the X Window system
+
+In this chapter we will download the Linux kernel sources, add a few patches,
+and compile and install our own custom kernel on the harddisk. When we have
+successfully accomplished this exciting event, we don't have to boot from the
+installation boot floppy anymore.
+-----------------------------------------------------------------------------
+
+10.1. Why update the kernel
+
+The kernel that comes with the system, 2.2.15 is a quite stable kernel. But
+there have been a lot of development since it came out, including just
+recently, frame buffer support for the internal IBM E15 graphics card. To get
+this to work we have to get some kernel sources and patches, and compile a
+new kernel.
+
+As for the installation we just have done, X does work, but only when you
+boot from the boot disk. Would it not have been nice to be able to boot
+directly off the hard disk - and by the way, what about sound support? Let's
+set up this together as quickly as possible.
+
+Before starting downloading files and compiling the kernel, check that you
+have these packages installed:
+
+  * make
+   
+  * gcc
+   
+  * cpp
+   
+  * glibc
+   
+  * glibc-devel
+   
+  * ncurses-devel
+   
+  * kernel-headers
+   
+  * This list should probably be longer
+   
+
+-----------------------------------------------------------------------------
+10.2. What files to download
+
+We'll use the 2.2.16 kernel sources. To add better support for our Carolina
+motherboard, well add two patches from David Monro's Carolina page. This may
+sound complicated, but believe me, it's not. Follow the steps below here, and
+we'll get you up in an hour or so.
+
+Start out by making a brand new directory for the files in a appropriate
+place, like /usr/src/my_new_linux_kernel. (You have to be root to do this.
+Use su to become root, and issue the command 'mkdir /usr/src/
+my_new_linux_kernel' or something like that.) Download all files to this
+directory.
+
+Begin with the linux-2.2.16.tar.gz source from the /pub/linux/kernel/v2.2
+directory at ftp.kernel.org or a local mirror (recommended for faster
+download).
+
+Then, get the Carolina patch and the IBM E15 frame buffer patch from David
+Monro's Carolina page at http://www.amberdata.demon.co.uk/carolina
+-----------------------------------------------------------------------------
+
+10.3. Unpacking and patching the source
+
+The next step is to unpack and patch the source files you just downloaded. cd
+to the directory where you downloaded the files, and unpack the kernel source
+by issuing these commands:
+        gunzip linux-2.2.16.tar.gz                                           
+        tar xvf linux-2.2.16.tar                                             
+                                                                             
+(On some mirrors there are only bz2 files availble. If this is the issue, use
+bunzip2 instead of gunzip.) This will make a directory called "linux" with
+all the kernel source. Now we shall add the patches. If the patches have the
+extentions "gz", unpack them with gunzip like this:
+        gunzip carolina.diff.gz                                              
+        gunzip ibm_e15fb.diff.gz                                             
+                                                                             
+Now add the carolina patch by issuing the commands:
+        mv linux new                                                         
+        patch -p0 <carolina.diff                                             
+                                                                             
+Last, add the IBM E15 patch by issuing the command:
+        patch -p0 <ibm_e15fb.diff                                            
+                                                                             
+For a clean compile later, rename the kernel tree to its original name by
+issuing this command:
+        mv new linux                                                         
+                                                                             
+If you get through these steps succesfully, the kernel source is now ready
+for configuring.
+-----------------------------------------------------------------------------
+
+10.4. Configuring the kernel
+
+The details of configuring the kernel are way outside the scope of this
+document. To get more help, try The Kernel HOWTO. Here, we'll just cover the
+basics to get a working kernel. Download my kernel config file into the linux
+directory in the kernel tree top directory.
+
+In the directory containing the linux kernel tree, start the configuration
+program by issuing these commands:
+        cd linux                                                             
+        make menuconfig                                                      
+                                                                             
+Select the almost last option Load an Alternate Configuration File. Press
+backspace to remove the text in the box, type ingvar.config instead, and
+press enter. This config file has support for most you'll need on this box,
+including sound and the frame buffer device to run X. This should be enough
+to get the kernel to compile, but while you're in there, check over the
+different menus to get to know your possibilities. Don't be afraid to change
+anything. You can always load the configuration file again. A thing you
+really should check, and possibly change, is the Initial kernel command
+string, located in the General setup submenu. Change the value of the root
+device to the device where your root (/) filesystem is mounted. If unsure,
+press ALT+F2, log in and try the command mount. Press ALT+F1 to get back
+again (supposed that you are on virtual terminal 1). Also check your own
+preferences on filesystems and other stuff you might have special need for or
+interest in. If you for some reason don't want (or need) to run X, eg.
+because the console becomes much slower, remove support for the IBM E15 frame
+buffer in the Console drivers submenu.
+
+In the main menu, save your new configuration for later use, if you like, and
+select exit. Answer Yes to the question about saving the changes. You are now
+ready to compile the kernel.
+-----------------------------------------------------------------------------
+
+10.5. Compiling and installing the kernel
+
+To compile the kernel is quite straightforward. If you're not in there
+already, enter the linux directory in the top level of the kernel tree, and
+issue this command series:
+        make dep && make clean && make zImage && make modules && make modules_install  
+                                                                                       
+Now, go and make yourself a cup of tea or coffee or have a beer or a bible
+study for some minutes. This can take some time. If everything is alright,
+you'll finally have a kernel to install when the text stops scrolling after
+maybe as much as 20 minutes, depending on your kernel configuration.
+
+Now it's time to install your fresh-baked kernel. On RedHat-like systems like
+LinuxPPC, we keep kernels and their setupfiles in the /boot directory.
+Assuming you used /usr/src/my_new_linux_kernel previously, let's do some
+copying now:
+        cp /usr/src/my_new_linux_kernel/linux/arch/ppc/boot/zImage /boot/vmlinuz-2.2.16 
+        cp /usr/src/my_new_linux_kernel/linux/System.map /boot/System.map-2.2.16        
+                                                                                        
+Assuming that sda1 is your boot device, install the new kernel by issuing
+this command:
+        dd if=/boot/zimage-2.2.16 of=/dev/sda1                               
+                                                                             
+We also need the System map link to point to our new System.map. Issue these
+commands:
+        mv /boot/System.map /boot/System.map.old                             
+        ln -s /boot/System.map-2.2.16 /boot/System.map                       
+                                                                             
+There! You are ready to reboot. Light some candles, remove the boot disk, and
+issue the command:
+        reboot                                                               
+                                                                             
+If everything works out, the system will go down nicely, and (assuming you
+compiled in support for the E15 frame buffer) come up again with Tux, the
+Linux Penguin Mascot smiling to you while booting.
+-----------------------------------------------------------------------------
+
+10.6. Set up X
+
+In this chapter we will set up X, if it does not work properly already.
+
+To set up X, check that you have installed the following packages:
+
+  * XFree86
+   
+  * XFree86-FBDev
+   
+  * XFree86-100dpi-fonts and/or XFree86-75dpi-fonts
+   
+  * Xconfigurator
+   
+  * Maybe more packages here...
+   
+
+Then as root, just run the command:
+        Xconfigurator                                                        
+                                                                             
+And it will set up X for you. The usage of Xconfigurator is beyond the scope
+of this document, but it's quite easy. If you need help, try the
+Xconfigurator section in the Red Hat Installation guide.
+-----------------------------------------------------------------------------
+
+11. Set up sound
+
+In this chapter we will fix some sparkling sound from the built-in sound
+adapter.
+-----------------------------------------------------------------------------
+
+11.1. Support for the integrated sound adapter
+
+The 7248 is equipped with an internal Crystal Audio cs4232 sound adapter.
+There is support for this adapter in the Linux kernel source, but this is not
+compiled into the standard installed kernel. So, we have to compile a new
+kernel. If you are a total beginner on compiling kernels, you should read the
+excellent kernel howto on how to get started. Download the kernel source from
+ftp.kernel.org or a mirror. I tested this with kernel 2.2.10 and 2.2.16.
+-----------------------------------------------------------------------------
+
+11.2. Configure and compile the kernel
+
+You should configure the kernel as you wish. If you did follow the steps in
+the last chapter, you have allready done this, and can skip to the next
+section. If not, follow the steps as described in the last chapter .
+
+When configuring the kernel, check that the settings for sound are correct.
+They should look like this:
+
+  * Sound: Y
+   
+  * OSS sound modules: Y
+   
+  * Generic OPL2/OPL3 FM synthesizer support: M
+   
+  * Support for Crystal CS4232 based (PnP) cards: M
+   
+
+And check N for everything else in the sound section.
+-----------------------------------------------------------------------------
+
+11.3. Configuring the modules
+
+Before rebooting we must send some parameters to configure the modules at
+boot time. This is done in /etc/conf.modules . Edit this file, and add the
+following lines:
+        alias sound cs4232                                                   
+        pre-install sound /sbin/insmod sound dmabuf=1                        
+        alias midi opl3                                                      
+        options opl3 io=0x388                                                
+        options cs4232 io=0x534 irq=5 dma=1 dma2=0 mpuio=0x330 mpuirq=5      
+                                                                             
+-----------------------------------------------------------------------------
+
+11.4. Reboot and pray
+
+Now, just reboot and pray. If nothing works, you have done something unwise
+when configuring the kernel. Boot from a floppy and try again. If everything
+works, you should for example be able to play an mp3 file using the mpg123
+player from the console. (And yes, of course you might have to install the
+mpg123 package first.)
+
+Note: I have not been able to get midi (the opl3 module) working. If anybody
+has any tips on this, please let me know.
+-----------------------------------------------------------------------------
+
+12. Resources
+
+In this chapter there is a list of resources which include enough reading to
+make us experts in the field in record-time.
+-----------------------------------------------------------------------------
+
+12.1. Other resources on Linux/PPC and 43P boxes
+
+  * linuxppc.org, our home for Linux on the PowerPC.
+   
+  * Linux/PPC PReP page
+   
+  * Linux/PPC CHRP page
+   
+  * Kernel patches, utilities and hints for IBM PPC workstations with
+    Carolina motherboard (like the 7248) by David Monro. (Including frame
+    buffer support to actually get X up and working!)
+   
+  * PowerPC Linux project pages at sourceforge.net
+   
+  * IBM's Linux on PPC project pages
+   
+  * Hollis Blanchard's page for installing Linux on the PowerSeries 850. Add
+    this to David's and my pages, and you should be able to get LinuxPPC-2000
+    up on the 850 too :-)
+   
+  * The Linuxppc-1999 installation instructions for PReP Simple instructions
+    from the ftp site
+   
+  * More info about Linux on PReP machines by Kazunori Aoshima
+   
+  * A newbie's encounter with LinuxPPC is a document which describes a newbie
+    user's results and experiences on installing linuxppc using own
+    experience and this document. Thanks to Arne C. Jørgensen for this
+    document.
+   
+  * A very short view on how to set up LinuxPPC on the 7248 the quick and
+    easy way. Also by Arne C. Jørgensen.
+   
+  * The linuxppc mailing lists. Especially interesting is of course the
+    workstation list.
+   
+  * Some kernel developpment stuff
+   
+  * IBM Sales Manual for the 7248-133 (Detailed description)
+   
+  * Description on 7248 microcode from IBM
+   
+  * Year 2000 info from IBM
+   
+  * Order documentation for the 7248 from IBM
+   
+  * Online books for 43P from IBM, not the 7248, unfortunately.
+   
+  * PReP specification from IBM
+   
+  * Cross Development for Linux/PPC from i386 by Matt Porter
+   
+
+-----------------------------------------------------------------------------
+12.2. Installing other flavours of Linux on the 7248
+
+  * Installation instructions for Debian GNU/Linux on PReP machines. (Note:
+    The bootdisk included in the Debian distro does not work on the 7248-133
+    because of a SCSI driver bug. You might use the bootdisk described in 
+    Section 5 instead. It works.)
+   
+  * Installation instructions for Yellow Dog Linux on RS/6000: Yellow Dog
+    Linux claims to support some, but not all, 43Ps. The 7248-133 is not on
+    the list, but some ideas from this document, including the bootdisk
+    mentioned in Section 5 does actually work.
+   
+  * SuSE's ppc pages. SuSE does include support for PowerPC in their newest
+    version.
+   
+  * NetBSD is working on a port to PReP PowerPCs. (Yes, I know. NetBSD is not
+    a Linux flavour, but I thought I might mention it here anyway.) There is
+    a a special page for our PReP architecture where the 7248 is mentioned
+    explicit.
+   
+
+-----------------------------------------------------------------------------
+13. Todo
+
+There are some things that might be added to this document. If you have
+comments, things to add or want to help, please send an e-mail to <
+ingvar@linpro.no>
+
+  * Get rid of that annoying freeze at eth0 shutdown. This should be a part
+    of the networking chapter. If you know something about this, please let
+    me know.
+   
+  * Dual Boot with AIX. We need some kind of a bootloader. Does such a thing
+    exist? We know quik does not work on the PReP boxes.
+   
+  * Get midi to work. Is this possible?
+   
+
+-----------------------------------------------------------------------------
+14. Frequently Asked Questions
+
+In this final chapter I've included som frequently asked questions. This list
+should probably be much longer. Please let me know if you have something to
+add.
+-----------------------------------------------------------------------------
+
+14.1. XF68 or XF86
+
+What is right, XF68 or XF86?
+
+I have got a lot of questions conserning the name of the X-server in the
+installation program. I have called it "XF68_FBDev". On some CDs the server
+has got another name, "XF86_FBDev". The reason for this naming convention and
+confusion is purely historical. The Linux Frame Buffer Device was first
+developped on m68k Macintoshes, and the XFree86 server for the device was
+hence called XF68_FBDev. Later on the Frame Buffer Device was ported to other
+platforms like the x86 clones and PowerPC. What is the right name? The
+question is left as an exersice for the reader.
+-----------------------------------------------------------------------------
+
+14.2. There is "snow" on my X desktop
+
+How can I configure X so it removes the "snow" on my desktop?
+
+The easy answer is: You can't. The kernel frame buffer device made by David
+Monro is still in an early stage, though working very well. Distortions in
+the picture when moving the mouse or scrolling a window are perfectly normal
+at eg 1024x768@60Hz. If you are a hacker, please fix it and post a patch to
+David. We would all love it very much.
+-----------------------------------------------------------------------------
+
+14.3. I can't get my hardware to work
+
+How can I get my new ultra whizbang XYZ card to work?
+
+The 7248 is a PC-like box with ISA and PCI interfaces, so one should think
+that using "normal" PC hardware made for the x86 platform should work
+flawlessly. Sadly to say, it doesn't. The drivers often have to be ported,
+and there are not that many Carolina motherboard kernel hackers out there. In
+addition, much hardware made for the x86 platforms uses BIOS calls to work
+properly. As the 7248 and its relatives does not have such a BIOS, it's
+extremely difficult to get this hardware to run under Linux. There have been
+rumours about a BIOS-fake-layer in the kernel, but I've still got to see a
+place to download and test it.
+
+That said, there are working hardware for this box that runs with Linux. For
+questions about this, please contact the Workstation list, see Section 12.
+-----------------------------------------------------------------------------
+
+14.4. Me wants another distro!
+
+Why do you not support more distributions in your howto?
+
+There is one easy answer for this: I have not got the time to do this. I got
+LinuxPPC-1999 to work on my 7248 a year or so ago, and have not changed away
+from LinuxPPC since then. I plan to install Debian some time in the future,
+and have tried both SuSE and Yellow Dog, and have found that much of the
+steps are quite equal. The most troublesome part is to get the machine to
+boot the installation program. From there, each installer should do the job
+more or less itself. Getting X and sound to work should be more or less
+similar for all distributions, so just read the steps in this howto and try
+to make it work on your own. Feedback for this document is very welcome.
+-----------------------------------------------------------------------------
+
+14.5. Boot floppies on other distributions
+
+Can I use the floppies mentioned in this howto for other distributions
+
+The bootfloppy mentioned in this howto should have support for all the
+hardware in the 7248, so you should be able to boot any distribution which
+uses the same floppy based installation scheme, that is, with the
+installation program on a ramdisk on one or more floppy disks. This means you
+should be able to boot LinuxPPC, SuSE, Yellow Dog and Debian with the
+bootimage. You have to have each distributions own installer ramdisk
+floppies, though.
+-----------------------------------------------------------------------------
+
+14.6. The PReP boot partition?
+
+Where should I mount the PReP boot partition?
+
+To be able to understand the answer for this question, it's important that
+the reader understands how the 7248 boots into Linux. This is a three step
+procedure. First, the Firmware (which behaves in the same way as a PC BIOS)
+looks for something to boot. Usually, it should check the floppy drive, the
+CD drive, and then the first SCSI disk. On the SCSI disk it will look for a
+special partition called a PReP boot partition. On this partition, it will
+read the first program it can find there. If this is a Linux kernel
+bootloader, it will read and run this, and then the bootloader boots Linux.
+From here, Linux is in charge.
+
+Many have asked where they should mount the PReP boot partition (the type 41
+partition). This is a common misunderstanding. The PReP boot partition,
+usually located on /dev/sda1, should NOT be mounted anywhere. The files on
+this partition, usually only a single Linux kernel with a static linked
+kernel loader, are only used by the firmware when booting. The operating
+system does not use these files after the kernel has booted, so there is no
+need for mounting that partition.
+
+Some people mix the meaning of the /boot directory and the PReP boot
+partition. Both use to contain kernels, but their use are different. /boot is
+used for storing kernels for later use, and for bookholding system info. The
+/boot directory is NOT read by the Firmware at boot time, so changing the
+contents of this directory does not change the way the Firmware loads Linux.
+
+To be able to load a new kernel, you have to replace the existing kernel on
+the PReP partition. This is done with the dd command, see Section 10 for
+details.
+-----------------------------------------------------------------------------
+
+14.7. It won't boot at all. Could it be bad RAM?
+
+The machine won't boot at all. I suspect the RAM could be the problem. What
+kind of RAM should I use for this box?
+
+The 7248 and it's cousines with Carolina motherboard do use special RAM, more
+specifically, they use only parity RAM. David Monro states that is is
+possible to make them work with other types of RAM if you remove the cache.
+Look at Section 12 for details.
+-----------------------------------------------------------------------------
+
+15. Appendix: Using cfdisk to partition your harddisk
+
+-----------------------------------------------------------------------------
+15.1. Hardisk names
+
+SCSI harddisks are named with sdx, where x is a hardisk letter. The disk with
+the lowest SCSI ID on the first controller will become sda, the next lower
+sdb, an so on.
+
+If you have IDE harddisks, they are called hda, hdb, hdc, and so on instead,
+where hda is the master disk on the first controller, hdb is the slave disk
+on the first controller, hdc is the master disk on the second controller, and
+so on.
+-----------------------------------------------------------------------------
+
+15.2. Harddisk partitions
+
+GNU/Linux systems usually use a partition scheme where a harddisk can have up
+to four primary partitions. If you want more, you have to make one of these
+an extended partition where you can make several logical partitions. The
+partitions are named with the disk they belong to, and a number. The first
+primary partition on the first SCSI disk is therefore sda1, the second
+primary partition is sda2, and so on. The first and second logical partition
+on an extended partition on the first SCSI disk is sda5 and sda6, and so on.
+If this makes absolutely no sense to you at all, try to read Section 16.
+-----------------------------------------------------------------------------
+
+15.3. Starting cfdisk
+
+you start cfdisk from the command line with the command
+        cfdisk /dev/sdx                                                      
+                                                                             
+where x is the SCSI hardisk letter, like a, b, c, d, etc. So if I want to
+partition the first harddisk on the SCSI controller, I'll enter the command
+        cfdisk /dev/sda                                                      
+                                                                             
+-----------------------------------------------------------------------------
+
+15.4. Using cfdisk
+
+15.4.1. The user interface
+
+After you have started cfdisk you'll get an interface where the current
+partition table is listed with the names and some data about each partition,
+and some command buttons on the bottom of the screen. To change between
+partitions, use the up and down arrow keys. To change between commands, use
+the left and right arrow keys.
+-----------------------------------------------------------------------------
+
+15.4.2. Deleting a partition
+
+To delete an existing partition, highlight it with the up and down keys,
+select the Delete command with the left and right arrow keys, and press
+Enter.
+-----------------------------------------------------------------------------
+
+15.4.3. Making a new partition
+
+To make a new partition, select the New command with the left and right arrow
+keys, and press enter. You'll get the choice between a primary and a logical
+partition. If you want a logical partition, the program will automatically
+make an extended partition for you. Then you must choose the size of the
+partition (in MB). If you can't enter a value in MB, return to the main
+screen with the Esc key, and select MB with the Units command.
+-----------------------------------------------------------------------------
+
+15.4.4. Set the type of a partition
+
+To set the type of a partition, for bootable PReP, Linux swap or Linux ext2,
+highlight the actual partition, and select the Type command. You'll get a
+list over different types. Press space, and you'll get even more. Find what
+type you need, and enter the number at the prompt.
+-----------------------------------------------------------------------------
+
+15.4.5. Make a partition bootable
+
+To be able to boot from a primary partition, you need to make it bootable.
+Highlight the actual partition and select the Bootable command.
+-----------------------------------------------------------------------------
+
+15.4.6. Write the result to disk and quit
+
+When you are content with the layout of the disk, select the Write command.
+The partition table will be written to disk. Remember that this will destroy
+all data on partitions you have deleted or changed. You should therefore be
+very sure that you want to do this before actually press the Return key.
+
+To exit the program, select the Quit command.
+-----------------------------------------------------------------------------
+
+16. Appendix: More on partitioning
+
+After several questions on what partitioning really is, I'll just quote an
+answer I gave in a mail once.
+
+Okay, here goes:
+
+In an operating system you need several different filesystems for several
+different applications. For example, you need a swap filesystem because your
+main memory can't hold all information the operating system needs, so some of
+it has to be temporary written to disk. You may also need some special
+filesystem from which the machine reads the operating system when you switch
+it on. Finally, you need of course one or more filesystems to store the
+operating system program files and your user files. It may be a good idea to
+put these in different places (ie. on different filesystems) in case you have
+to reinstall the operating system, but don't want to scratch all your work.
+
+The best thing is maybe to have all these filesystems on different disks. But
+one has seldom more than one or two disks in a computer. So what we do is to
+slice up the disk(s) in several slices (partitions) and use the slices for
+several filesystems. Then the operating system mounts the filesystems
+together to one single file tree, so it is easy to access the files.
+
+(Other operating systems, like MS-DOS and NT use some other technology: They
+do not bind the slices together to one file tree, but keeps them separate as
+"stations". What is the best scheme? You figure!)
+
+Here a thought example with one 2GB disk on a 7248: The mount point shows
+where in the file tree a filesystem is mounted.
+
+    Partition   Size   Type             Mountpoint          Bootable         
+    ----------------------------------------------------------------         
+    /dev/sda1     10MB  41 (PReP Boot)     (Not mounted)    yes              
+    /dev/sda2    150MB  82 (Linux Swap)    (Not mounted)     -               
+    /dev/sda3   1840MB  83 (Linux ext2)  / (Root partition)  -               
+                                                                             
+This would give a bootprompt command like this:
+    root=/dev/sda3                                                           
+                                                                             
+
+If you want, you could add own partitions for important directories like /
+home, /boot, /var, /usr/local and so on. Here is an other example with two
+disks, actually my own configuration with two disks:
+      Partition   Size   Type             Mountpoint          Bootable       
+      ----------------------------------------------------------------       
+      /dev/sda1     20MB  43 (PReP Boot)     (Not mounted)    yes            
+      /dev/sda2    133MB  82 (Linux Swap)    (Not mounted)     -             
+      /dev/sda5    930MB  83 (Linux ext2)  / (Root partition)  -             
+      /dev/sdb1    315MB  83 (Linux ext2)  /home               -             
+      /dev/sdb2    770MB  83 (Linux ext2)  /usr/local          -             
+                                                                             
+This would give a bootprompt command like this:
+      root=/dev/sda5                                                         
+                                                                             
+Before you ask:
+
+  * ext2 is Linux' standard filesystem
+   
+  * Linux uses the old partition scheme from MSDOS. This means that if there
+    are more than 3 partitions on one disk, one uses an extended partition
+    (sda3) that may hold several logical partitions (sda5, sda6, sda7, ...)
+   
+  * Yes, my partition scheme is a bad one. My root partition was filled up in
+    a couple of weeks or so. Don't use it. It is an example only.
+   
+
+Hope this clears up some things.
+-----------------------------------------------------------------------------
+
+Index
+
+Symbols
+
+7248
+    7248-133, The IBM RS6000 43P 7248-133
+       
+       
+   
+   
+
+-----------------------------------------------------------------------------
+A
+
+abstract, Installing LinuxPPC-2000 on the IBM RS/6000 43P model 7248 HOWTO
+
+-----------------------------------------------------------------------------
+B
+
+bios, Where is the BIOS?
+boot, Boot the machine
+boot prompt, Boot the machine
+
+-----------------------------------------------------------------------------
+C
+
+CD, Buying a CD
+copyright, Copyright Information and Legal stuff
+credits, Credits
+
+-----------------------------------------------------------------------------
+D
+
+disclaimer, Disclaimer and scope
+
+-----------------------------------------------------------------------------
+E
+
+ethernet, Support for the integrated ethernet adapter
+
+-----------------------------------------------------------------------------
+F
+
+fdisk, Partition the harddisk(s)
+feedback, Feedback
+floppies, Make boot floppies
+Frequently Asked Questions
+    FAQ, Frequently Asked Questions
+       
+       
+   
+   
+FTP, Download CD images over FTP
+
+-----------------------------------------------------------------------------
+H
+
+hacks, Make some hacks
+hardware, More info about the hardware
+hostname
+    gateway, Set hostname and gateway
+       
+       
+   
+   
+hosts file, The hosts file
+
+-----------------------------------------------------------------------------
+I
+
+installation files, Get the installation files
+installation program, Boot the machine and start the installation program
+introduction, Introducion
+ip address, Set IP address and netmask
+
+-----------------------------------------------------------------------------
+K
+
+kernel, Update the kernel and set up the X Window system
+kernel version
+    kernel patches, What files to download
+       
+       
+   
+   
+
+-----------------------------------------------------------------------------
+L
+
+LinuxPPC-2000 installer, The LinuxPPC-2000 installer
+
+-----------------------------------------------------------------------------
+N
+
+nameserver, Nameserver specification
+network, Set up networking
+Network-install, Network installation
+
+-----------------------------------------------------------------------------
+O
+
+overview, Overview
+
+-----------------------------------------------------------------------------
+P
+
+packages, Select and install packages
+partition, Partition the harddisk(s)
+partitioning
+    cfdisk, Appendix: Using cfdisk to partition your harddisk
+       
+       
+   
+   
+partitions, Partition the harddisk(s)
+password, Make a root password and exit
+PReP boot partition, The PReP boot partition?
+
+-----------------------------------------------------------------------------
+R
+
+RAM, It won't boot at all. Could it be bad RAM?
+resources, Resources
+
+-----------------------------------------------------------------------------
+S
+
+SMS, Setting up the hardware with SMS
+sound, Set up sound
+
+-----------------------------------------------------------------------------
+T
+
+todo, Todo
+translations, Translations
+
+-----------------------------------------------------------------------------
+V
+
+versions, New versions
+
+-----------------------------------------------------------------------------
+X
+
+Xconfigurator, Boot the machine
+

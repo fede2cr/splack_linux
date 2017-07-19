@@ -1,0 +1,244 @@
+  Linux Installation on an Acer LapTop HOWTO
+  Harish Thampi S, harish.thampi@wipro.com
+  1.0, 2001-01-08
+
+  This document describes how to install Linux on a Acer LapTop and Var­
+  ious issues related to this. The reader is expected to have some
+  knowledge about Linux Installation.
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+  1. Introduction
+
+     1.1 Preface
+     1.2 Copyright
+     1.3 Disclaimer
+     1.4 Feedback
+
+  2. The Procedure
+
+     2.1 Introduction
+     2.2 Preparing the Disk
+     2.3 Installation
+     2.4 Booting the Machine
+     2.5 Configuring X
+     2.6 Linmodem Source
+
+  3. Conclusion
+
+     3.1 Useful Links
+
+
+  ______________________________________________________________________
+
+  1.  Introduction
+
+  1.1.  Preface
+
+  This is version 1.0 of this document. We faced a lot of problems while
+  installing Linux on a Acer LapTop. We thought this information might
+  be useful to the Linux community.
+
+  This information is intended for Linux on the Intel platform.  Much of
+  this information may be applicable to Linux on other processors, but
+  We have no first-hand experience or information about this.
+
+  This document may be outdated or some other document on this topic may
+  be available. Please check the the Linux Documentation Project
+  <http://www.LinuxDoc.org/> homepage to see if any other documents are
+  available on this.
+
+  1.2.  Copyright
+
+  Copyright is a source of much and continuous debate on the LDP mailing
+  list. For more in depth information please consult the Manifesto at
+  the LinuxDoc <http://www.LinuxDoc.org/> site.  The purpose of having a
+  license is to allow appropriate distribution.  You can use any license
+  that meets the Manifesto.  What follows is a boilerplate licence.
+
+  Copyright (c) 2001 by Harish Thampi S.
+
+  Please freely copy and distribute (sell or give away) this document in
+  any format.  It's requested that corrections and/or comments be
+  forwarded to the document maintainer. You may create a derivative work
+  and distribute it provided that you:
+  ·  Send your derivative work (in the most suitable format such as
+     sgml) to the LDP (Linux Documentation Project) or the like for
+     posting on the Internet.  If not the LDP, then let the LDP know
+     where it is available.
+
+  ·  License the derivative work with this same license or use GPL.
+     Include a copyright notice and at least a pointer to the license
+     used.
+
+  ·  Give due credit to previous authors and major contributors.
+
+
+  If you're considering making a derived work other than a translation,
+  it's requested that you discuss your plans with the current
+  maintainer.
+
+
+  1.3.  Disclaimer
+
+  Use the information in this document at your own risk. I disavow any
+  potential liability for the contents of this document. Use of the
+  concepts, examples, and/or other content of this document is entirely
+  at your own risk.
+
+  All copyrights are owned by their owners, unless specifically noted
+  otherwise.  Use of a term in this document should not be regarded as
+  affecting the validity of any trademark or service mark.
+
+  Naming of particular products or brands should not be seen as
+  endorsements.
+
+  You are strongly recommended to take a backup of your system before
+  major installation and backups at regular intervals.
+
+  1.4.  Feedback
+
+  We welcome any feedback, good or bad, on the content of this document.
+  We have done our best to ensure that the instructions and information
+  herein are accurate and reliable.  Please let us know if you find any
+  errors or omissions.
+
+  Send comments, corrections and questions to the author at
+  harish.thampi@wipro.com.
+
+  2.  The Procedure
+
+
+
+  2.1.  Introduction
+
+  This document for installing Linux on a LapTop (Acer TravelMate 345T)
+  It comprises of the general difficulties you can run into while trying
+  an install on an Acer TravelMate 345T. I have a hand on experience
+  only on Acer TravelMate 345T. This may be applicable to other Models
+  also.
+
+  This document assumes some basic familiarity with concepts of Linux
+  system administration. For example, you should know about directories
+  and filesystems.
+
+  2.2.  Preparing the Disk
+
+  The document specifically tells about the installation of Linux on a
+  Laptop along with Windows 98.
+
+
+  First you should partition the disk according to your choice. You may
+  face problems when you want a dual boot machine. That is you have
+  Windows on /dev/hda1 and Linux '/' on /dev/hda2
+
+  I faced some strange problem here. Initially I had a 5.3 GB disk on
+  which Windows 98 was installed and drive c: constituted the entire
+  5.3GB.
+
+  I wanted to repartition the disk to put Linux on to it. So I booted
+  with a RedHat CD and partitioned the disk as follows.
+
+
+
+         /dev/hda1   3 GB    For Windows 98
+         /dev/hda2   200 MB  For Linux /
+         /dev/hda3   128 MB  For Swap
+         /dev/hda4   2 GB    Extended
+         /dev/hda5   1GB     /usr
+         /dev/hda6   1GB     /home1
+
+
+
+  After installation of Linux, I found that Windows 98 was still running
+  fine on /dev/hda1. Even more interesting fact is that Windows is able
+  to see that entire 5.3 GB of the disk. I doubted that this could lead
+  to corruption of data and had no other way except formatting and start
+  again. Any feedback on this issue is welcome. Any links or references
+  are also welcome.
+
+  Note: When you list the partitions with a dos fdisk, the extended
+  partition made with Linux fdisk is shown as an EXT DOS partition.
+  Later I changed the type of Extended partition to Extended Linux.
+  Still Windows was able to see the entire 5.3 GB of the disk.
+
+  I have put /dev/hda2 as the '/' partition and put /dev/hda5 as '/usr'.
+  This approach will help in separating the files that change frequently
+  from those that doesn't. This is also useful for backup purposes.
+
+  2.3.  Installation
+
+  Installation of RedHat Linux on a Laptop is pretty easy. This is
+  almost like installing Linux on a PC. The only problem we faced was
+  that it was not possible to install Linux from the RedHat CD in any
+  mode other than will cause the installation to hang.
+
+  2.4.  Booting the Machine
+
+  The Acer LapTop had some PCMICA devices. While booting the LapTop, the
+  machine would hang looking for more pcmcia devices. If you face this
+  problem, you need to reboot the machine with the boot floppy and edit
+  the file /etc/sysconfig/pcmcia and set PCIC_OPTS="do_scan=0". The next
+  time you reboot the machine, it should boot up with the newly
+  installed Linux.
+
+  2.5.  Configuring X
+
+  This is problem for which I was not able to find an answer. After
+  booting up the machine, I tried to configure X using xf86config.
+
+  The Acer LapTop had an 800x600 LCD panel. I had selected S-VGA and
+  800x600 resolution. When I tried starting X, I found that the mode is
+  being taken as 320x200. The boot message says that it is the built-in
+  mode. Any Pointers to this are welcome. The output of SuperProbe was:
+
+         First video: Super-VGA
+               Chipset: Trident (chipset unknown) (PCI Probed)
+                       Signature data: 95251023 (please report)
+               Memory:  2048 Kbytes
+               RAMDAC:  Sierra SC1148{2,3,4} 15-bit or SC1148{5,7,9} 15/16-bit HiColor
+                        (with 6-bit wide lookup tables (or in 6-bit mode))
+
+
+
+  2.6.  Linmodem Source
+
+  The Laptop had a softmodem (Linmodem). The driver for this modem is
+  not given in the RedHat distribution. Lucent is providing the driver
+  for this modem in 'object' form. The source for this driver is not
+  available.  It will be good if the Linux community can provide the
+  source for the Linmodem. The difficulty with the Lucent Linmodem
+  driver is that, the driver is written for Linux 2.2.12 Kernel. This is
+  one of the reason why the source code for Linmodem would be considered
+  a great contribution. I have listed some links that could proove to be
+  useful in this venture.
+
+  3.  Conclusion
+
+  This document has covered the problems faced during the installation
+  of Linux on a Laptop. The document may not be complete any feedback or
+  contribution towards this will be appreciated. The main area on which
+  the Linux community can work is in solving out problems in configuring
+  X and getting the source code for the Linmodem driver.
+
+  Please mail your contributions for this document to
+  harish.thampi@wipro.com so that I can come up with the next version of
+  this document.
+
+
+  3.1.  Useful Links
+
+
+  ·  http://www.linuxworld.com/linuxworld/lw-1999-08/lw-08-linmodem.html
+     <http://www.linuxworld.com/linuxworld/lw-1999-08/lw-08-linmodem.html>
+
+  ·  http://www.linmodems.org/ <http://www.linmodems.org/>
+
+  ·  http://www.close.u-net.com/ <http://www.close.u-net.com/>
+
+  ·  http://linuxdoc.org/HOWTO/ <http://linuxdoc.org/HOWTO/>
+
+
+

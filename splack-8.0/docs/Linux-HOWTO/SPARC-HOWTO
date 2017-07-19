@@ -1,0 +1,1110 @@
+  SPARC-HOWTO.
+  Lionel, trollhunter Bouchpan-Lerust-Juéry <trollhunter@lin­
+  uxfr.org>
+
+  v0.0.3 November 2000
+
+  The SPARC family of microprocessors is a very good implementation of
+  the RISC design, SPARC based workstations are usually very well engi­
+  neered products, thus Linux on SPARC is a winning combination both in
+  performance and ease of use. Actually this combination is not as wid­
+  spread as the Linux/x86; this HOWTO should help you step by step to
+  make an informed decision: try it you will not regret it.
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+
+  1. Preface.
+
+  2. SPARC, which one ?
+
+     2.1 Sun SPARC
+     2.2 Super SPARC
+     2.3 Micro SPARC
+     2.4 Hyper SPARC
+     2.5 Ultra SPARC
+     2.6 Deciphering the CPUs
+        2.6.1 Ross Technology.
+        2.6.2 SM modules.
+        2.6.3 Cypress.
+
+  3. Buying a SPARC workstation.
+
+     3.1 Gaigning a visual familiarity with SPARC hardware
+     3.2 Sun made hardware or clones ?
+     3.3 Where to buy.
+     3.4 Checklist
+
+  4. Linux on SPARC: 2 kernels.
+
+  5. Choosing a distribution.
+
+     5.1 Caldera Open Linux.
+     5.2 Debian GNU/Linux.
+     5.3 Linux Mandrake.
+     5.4 RedHat Linux.
+     5.5 Slackware Linux.
+     5.6 SuSe Linux.
+     5.7 TurboLinux.
+
+  6. Working with the Openboot.
+
+     6.1 What is the OpenBoot?
+     6.2 Diagnostics commands.
+     6.3 Boot commands.
+     6.4 Misc commands.
+
+  7. Hard drive buses.
+
+     7.1 SCSI-SCA.
+     7.2 EIDE.
+     7.3 FC-AL
+
+  8. CDROM: specific settings.
+
+  9. SILO.
+
+  10. Keyboard and mouse.
+
+  11. X Window.
+
+  12. SMP.
+
+  13. The sound.
+
+  14. Serial port.
+
+  15. Ressources.
+
+     15.1 Information sites.
+     15.2 Auction sites.
+
+  16. Thanks.
+  17. Copyright, Disclaimer and Trademarks
+
+     17.1 Copyright.
+     17.2 Administrativia.
+
+  18. Revision History.
+
+
+
+  ______________________________________________________________________
+
+  1.  Preface.
+
+  This document is a step by step guide meant to provide information in
+  order to help you running Linux on SPARC based workstations, As these
+  computers are quite different from PCs there is an hardware section,
+  this should help you on understanding, how they work, what to expect
+  from the various CPUs and models.
+
+  I am not a SPARC specialist, nor a Solaris or Linux guru, I am just
+  someone who is realy found of well engineered product, and I wish to
+  help you in choosing your hardware and finding information. Thus I
+  have tried to write down this document in order to ease your path.
+
+
+  I hope this document will help you and you will have a lot of fun with
+  your SPARC Workstation.
+
+
+  2.  SPARC, which one ?
+
+  We are only dealing with, SPARC based workstations, in order to check,
+  just type uname -m command and you should read something like sparc4x
+  where x is blank,c,d,m,u if the system runs Solaris, or sparc for 32
+  bits SPARC architectures and sparc64 for 64 bits SPARC architectures
+  if it runs Linux.  2.2.x
+
+
+
+  SPARC stands for Scalable Processor ARChitecture, it derives from
+  research done between 1984-1988 on the  RISC architecture at UC
+  Berkeley.  It exists 3 versions of this archiecture, SPARC-V7, SPARC-
+  V8 ( 32 bits ) and SPARC-V9 ( 64 bits ).  As you are likely to
+  encounter a lot of implementations of the SPARC architecture, I have
+  summarized the main features of theses processors.
+
+
+  2.1.  Sun SPARC
+
+  This is quite obsolete, it is an implementation of the SPARC-V7 ; its
+  main feature are an Integer unit ( IU ), an external Floating Point
+  Unit ( FPU ), an unified data + instruction 64KB direct associative
+  cache, and an Memory Managment Unit ( MMU ).  There is a 4 stage
+  pipeline for the integer instructions ( fetch F, decode D, exec E,
+  update WB ) FPU and IU are synchronized
+
+
+  2.2.  Super SPARC
+
+  This is Texas Instrument and Sun's brainchild, it is usualy found at
+  clok rates around 50Mhz featuring up to 1MB L2 cache, it is available
+  both on single and dual processor modules ( SparcStation 10 and
+  SparcStation 20 ). The higher clock frequency I have encountered is
+  60Mhz.
+
+
+  On a technical point of view this is a SPARC-V8 implementation, it is
+  a superscalar processor, having 2 caches, one for instruction the
+  other one for data.
+
+  ·  The 20kB instruction cache is a 5 way associative.
+
+  ·  The 16KB data cache is 4 way associative.
+
+
+  2.3.  Micro SPARC
+
+  This is once again Texas Instrument and Sun's brainchild, you can find
+  it in the SparcStation Classic, SparcStation LX, at frequency up to
+  50Mhz. Its derivative the Micro SPARC II can be found in SparcStation
+  4, SparcStation 5 at frequencies up to 110Mhz.
+
+  On a technical point of view, its main features are a high level of
+  integration, having 2 caches, one for instructions, the other one for
+  data.
+
+
+  ·  A 4KB instruction direct associative cache.
+
+  ·  A 2KB data direct associative cache.
+
+
+  It is not possible to had an L2 cache.  If wish to learn more about
+  the MicroSPARC processor you can browse Sun's Ultra SPARC ressources.
+
+
+  2.4.  Hyper SPARC
+
+  This processor was introduced by ROSS in 1993, it is usualy found in
+  the SparcStation 10, and SparcStation 20, at frequencies up to 150Mhz
+  ( I have heard of 200Mhz dual processor modules, but Have not
+  witnessed one yet ). It can be found on single or dual processor
+  modules.
+
+
+  On a technical point of view it is an implementation of the SPARC-V8,
+  it is superscalar. It can be found with L2 cache up to 512KB
+
+
+  2.5.  Ultra SPARC
+
+  The Ultra SPARC processor is an extension of the SPARC-V9
+  architecture, it is a 64 bits processor, it features some video
+  processing instructions. It is found in all the workstation whose name
+  start with Ultra.
+
+  The Ultra SPARC II is an improvement of the Ultra SPARC, the Ultra
+  SPARCIII is actually the second generation of Ultra SPARC processors,
+  it was first introduced in the SunBlade 1000 Workstation.  If wish to
+  learn more about the UltraSPARC processors you can browse Sun's Ultra
+  SPARC ressources.
+
+
+
+  You may read the CPU-Design-HOWTO, this HOWTO has a lot of interesting
+  links when it comes to studying the CPUs.
+
+  To summarize, the 32 bits workstations are the:
+
+  ·  The sun4 workstation is the sun4/330 model.
+
+
+  ·  The sun4c workstations are the SparcStation 1,2, IPC and IPX
+     models.
+
+  ·  The sun4m workstations are the SparcStation 5, 10 and 20.
+
+     Only the SparcStation 10 and SparcStation 20 are SMP capable: up to
+     2 CPU modules.
+
+  For more information on the SparcStation 5, 10, 20 you can read Sun's
+  documentation online or download it available.
+
+  The following model have an 64 bits UltraSPARC architecture ( sun4u ).
+  SunUltra 1, 2, 5, 10, 30, 60, 80 and SunBlade 1000.  The SunUltra 2,
+  60, 80 and SunBlade 1000 are SMP capable, with the Ultra 80 and
+  SunBlade 1000 accepting up to 4 CPU modules, the SunUltra 2 and 60
+  accepting only 2 CPU modules.
+
+  The SunBlade 1000 is the latest one featuring Sun's latest marvel the
+  Ultra III CPU, at a premium price of course.  You can have a summary
+  of the UltraWorkstation still in production at Sun's website.
+
+  A lot of information has been compiled in the Sun hardware reference
+  that is found on AcesHardware's website, or on SunHelp 's  website.
+
+
+  2.6.  Deciphering the CPUs
+
+  At first, a reference like SM61 or RT-200-D-125/512 seems to be, to
+  say the least, quite cryptic.  Actually, understanding theses
+  references is really easy.
+
+
+  2.6.1.  Ross Technology.
+
+  Theses CPUs's naming scheme is RT-a00-b-freq/cache where
+
+  ·  a is a digit:
+
+  ·  1 SparcStation 10.
+
+  ·  2 SparcStation 20.
+
+  ·  6 SPARC MP600 ( not exactly a workstation ).
+
+  ·  b is a letter:
+
+  ·  D Dual CPU.
+
+  ·  Q Quad CPU.
+
+  ·  S Single CPU.
+
+  ·  freq The frequency expressed in Megahertz.
+
+  ·  cache The amount of cache memory expressed in Kilobytes.
+
+  When theses modules are in a workstations the naming convention is
+  HSxy, for example ywing is a SparcStation 20 HS22, thus it is easier
+  to have a look inside the workstation.
+
+  2.6.2.  SM modules.
+
+  This table is extracted from the FAQABOSS
+
+
+
+  ______________________________________________________________________
+  Name  Speed( MHz )  Cache( MB ) Number of    SuperSparc
+                                   Processors   Series
+
+  SM20       33            0            1          I
+  SM30       36            0            1          I
+  SM40       40            0            1          I
+  SM41       40            1            1          I
+  SM50       50            0            1          I
+  SM51       50            1            1          I
+  SM512      50            1            2          I
+  SM51-2     50            2            1          I
+  SM61       60            1            1          I
+  SM61-2     60            2            1          I
+  SM71       75            1            1          II
+  SM71-2     75            2            1          II
+  SM81       85            1            1          II
+  SM81-5     85            2            1          II
+  ______________________________________________________________________
+
+
+
+  Warning: the SM100 is a RT-600-D-40
+
+
+
+  2.6.3.  Cypress.
+
+  Cypress manufactured SPARC compliants processors; AFAIK their naming
+  scheme is CYnnn.
+
+  As you can see, this is easy to understand.
+
+  3.  Buying a SPARC workstation.
+
+
+  You have decided to buy a SPARC based workstation, now you can tell
+  what CPU each model sports, but can you tell how that particuliar
+  model looks like? How its is inside?
+
+  Do not worry, this section will help you on that topic as well as
+  providing you with some hints on how to inspect and test the hardware.
+
+
+  3.1.  Gaigning a visual familiarity with SPARC hardware
+
+
+  PC hardware is everywhere and usualy one is quite familiar with it,
+  this is not exactly the case with SPARC based hardware, even more when
+  it comes to the innards of a workstation. The good news is that it
+  exists some sites on the web, where you can find pictures of Sun
+  hardware, with some very detailed shots, thus you should be able to
+  instantly identify the model and its condition prior to buy it.  The
+  two main site where I usualy go are:
+
+  ·  sun In Sun's database, you can find technical data as well as
+     picture of some of Sun's product, the pictures are crisp, and the
+     hardware is always at its best, this is technicaly interesting, in
+     order to compare brand new hardware and the used one that is usualy
+     featured on the two sites below.
+
+  ·  HAL This site features very detailed pictures of a lot of hardware,
+     from CPU modules to Servers, even mice.
+
+  ·  obsolyte This site has different pictures, it is very useful too.
+
+  3.2.  Sun made hardware or clones ?
+
+  On the one hand, it is very easy to find information on Sun hardware,
+  while it can be difficult to find it for clone systems on the other
+  hand it should be more fun to work with exotic hardware.
+
+  Clone systems have been or are still manufactured, at least by:
+
+  ·  Fujitsu.
+
+  ·  Ross
+
+  ·  Tadpole/RDI manufactures SPARC based laptops.
+
+  ·  Tatung
+
+  ·  Toshiba, used to manufacture SPARC based laptops: The AS1000.
+
+  3.3.  Where to buy.
+
+  Of course if you buy first hand hardware everything should be fine,
+  but if you decide to go for second hand hardware, you will have to
+  decide how you want to buy it, and you should be able to test it by
+  yourself.
+
+  Second hand hardware can be brought from Sun as refurbished hardware,
+  at auction websites, or in specialised stores, or directly from
+  companys that upgrade their hardware.
+
+
+  3.4.  Checklist
+
+  When it comes to second hand hardware one has to be as cautious as
+  possible about the source, and the condition  of that hardware.
+
+  For the source of the hardware, if you can track it, it is a very good
+  point. If you can't track it, it is up to you to decide if you trust
+  the seller or not ( If the seller cannot give you the reference of the
+  hardwre and if, obviously he/she is clueless about Sun hardware, you
+  should switch to condition red ).
+
+  Another interesting point is to see if check is accepted as a
+  payement.
+
+  If you can check the hardware before buying it then first have a
+  general look at it, search for cracks, for stains; check the
+  connector's pin. If this first inspection is OK, then ask to see the
+  inside, look for spills, watch carefuly the connectors, then if it is
+  OK ask to see it running, watch carefully boot messages, issue the
+  dmesg|more or if it runs Solaris you can issue the more
+  /var/adm/messages command, and also very important listen to your
+  computer, do you hear unusual noises? Does it smell OK?. Then enter
+  the OpenBoot by the stop+a command and run some tests ( see the
+  OpenBoot section ).  When you have decided to purchase it, it is very
+  important that you always make sure that the workstation you are
+  purchasing is the one you have tested: always keep an eye on it, do
+  not let someone go to the backoffice with it for example, do not
+  accept to leave without your workstation.
+
+  Then, when you are at home, recheck it as if it was the first time you
+  see it.  If it comes with CDROM drive, try to mount/umount a few CDs
+  and read them in order to check that device. If there is a floppy disk
+  read/write/format a few floppys, this should be a good test.
+
+
+
+  Of course, it exists tools to automaticaly test the hardware, but
+  usualy you do not have them when you need them, thus the script below
+  relies only on ressources provided by a Linux base system.
+
+
+  You should run the following script for three days, basicaly it is
+  going to use the CDROM, floppy and hard drive, and to reboot the
+  computer every 3 hours. This should stress it,
+
+
+
+  ______________________________________________________________________
+  #
+  # Enter this in the crontab(5)
+  # run the torture.sh script every 3 hours if possible
+  #
+  0 */3 * * * /root/torture.sh
+  ______________________________________________________________________
+
+
+  Where torture.sh is
+
+
+
+  ______________________________________________________________________
+  #!/bin/sh
+
+  #
+  # these are for controlling the loops
+  # the CDLIMITS and FDLIMITS
+  # are for the CD and FD loops
+  #
+  CPT=1
+  CDLIMIT=3
+  FDLIMIT=10
+
+  #
+  # to which devices are
+  # CDROM and floppy attached
+  #
+  CDROM=/dev/sr0
+  FLOPPY=/dev/fd0
+
+  #
+  # where is the program we
+  # intend to compile
+
+  PATH=/path_to_big_package_to_compile
+
+  #
+  # this section si meant to
+  # test the CDROM and floppy drives
+  # comment what you do not need to
+  # test
+
+  while [ $CPT -le $CDLIMIT ]
+  do
+   #
+   # CDROM drive
+   #
+
+   mount -rt iso9660 $CDROM /cdrom
+   find /cdrom -exec cat {} \; >>/dev/null 2>/dev/null &
+   umount /cdrom
+   CPT=$(($CPT+1))
+  done
+
+   #
+   # floppy drive
+   #
+  CPT=1
+  while [ $CPT -le $FDLIMIT ]
+  do
+   mke2fs -c $FLOPPY >/dev/null 2>&1
+   mount -t ext2 $FLOPPY /floppy
+   cd /bin/
+   cp dd ps echo sh /floppy
+   find /floppy -exec cat {} \; >>/dev/null 2>/dev/null &
+   umount /floppy
+   CPT=$(($CPT+1))
+  done
+
+
+  #
+  # The big, intensive
+  # compilation
+  #
+
+  cd $PATH
+
+  #
+  # now compile
+  #
+  make
+
+
+  #
+  #
+  # we remove every .a .o .s and every executable
+  #
+
+  find $PATH -name "*.[aos]" -exec rm -f {} \; >/dev/null 2>&1
+  find $PATH -exec test -x {} \; -exec rm -f {} \; >/dev/null 2>&1
+
+  #
+  # time to reboot
+  #
+  reboot
+  ______________________________________________________________________
+
+
+
+  Of course you should run this script once in order to know how much
+  time it takes to complete, this is just an idea on how to automate
+  things.
+
+
+
+  4.  Linux on SPARC: 2 kernels.
+
+  Actually Linux on SPARC architecture comes in two flavors:
+
+  ·  A 32 bits kernel for the Sun SPARC, Super SPARC, Micro SPARC and
+     Hyper SPARC Processors.
+
+  ·  A 64 bits kernel for UltraSPARC based workstations.
+
+     In both case most applications run in 32 bit ( 32 bit userland ).
+     There is a comprehensive FAQ  on UltraLinux's website.
+
+
+  5.  Choosing a distribution.
+
+
+  You are very lucky, it seems that you can pick the one you like.  In
+  order to help you with this task here are some links, that should help
+  you to make an informed decision.
+
+
+
+  5.1.  Caldera Open Linux.
+
+
+  The 2.2 release of OpenLinux for SPARC platform can be downloaded at
+
+  ftp://ftp.openlinux.org/pub/sparclinux/
+
+
+  You can join the mailing list by sending a mail to <
+  majordomo@openlinux.org > with subscribe sparclinux in the body.
+
+
+  5.2.  Debian GNU/Linux.
+
+  Debian GNU/Linux runs on SPARC platform; you can find a lot of
+  informations about this port at the http://www.debian.org/ports/sparc/
+  webpage
+
+
+
+  You can join the mailing list by sending a mail to < debian-sparc-
+  request@lists.debian.org > with subscribe as the subject.
+
+
+  5.3.  Linux Mandrake.
+
+
+  Mandrake corporate server for SPARC can be downloaded at
+  ftp://rpmfind.net/linux/Mandrake/iso/corporate-1.0/sparc
+
+  It consists of two ISOs, the core distribution is the *inst.iso one
+  and the other one, *ext.iso,  is the extension CD.
+
+
+  5.4.  RedHat Linux.
+
+
+  The latest RedHat Linux distriution is the 6.2; you can download it at
+  ftp://rufus.w3.org/linux/redhat/redhat-6.2/sparc/ for example.
+
+  The mailing list can be joined by sending a mail at
+
+  < sparc-list-request@redhat.com > with subscribe as the subject.
+
+  At the time of this writting RedHat has announced its intention not to
+  support anymore SPARC Linux in the future.
+
+
+  5.5.  Slackware Linux.
+
+  This distribution is unsupported at the time of this writting, and is
+  not available as ISO.  You can download it at
+  ftp://ftp.slackware.com/pub/slackware/unsupported/protopkg/
+
+
+
+  5.6.  SuSe Linux.
+
+
+  The SuSe Linux 7.0 distribution is quite complete, you have 4 ISOs to
+  download. You can grab it at the following URL:
+  ftp://ftp.suse.com/pub/suse/sparc
+
+  You can join the mailing list by sending a blank mail to < suse-sparc-
+  subscribe@suse.com >
+
+
+  5.7.  TurboLinux.
+
+  TurboLinux Workstation 6.1 for intel ships with a SPARC developper
+  release CD.
+
+
+  To install Linux on a SPARC based computer, should be strightforward
+  if you follow the informations provided by your distribution.
+
+  To boot from a floppy drive you have to have an install image on a
+  floppy disk and to issue the boot floppy from the OpenBoot.
+
+  If your workstation does not have a CDROM or a floppy drive, you can
+  always try to perform a network installation using NFS as explained by
+  this French document: http://www.linux-
+  france.org/article/materiel/sparc-install/Sparc-netinstall.html .
+  Basicaly, you have to set up an NFS server and to boot your
+  workstation using the boot net vmlinux nfsroot=192.168.52.12:/tmp in
+  order to access the image that is exported by the 192.168.52.12
+  workstation on the /tmp directory.
+
+
+  6.  Working with the Openboot.
+
+  In this section, I will give you an overview of what is the OpenBoot,
+  and you will be given the main commands you need to know in order to
+  test your hardware and to install Linux.
+
+  6.1.  What is the OpenBoot?
+
+
+  If you are used to PC hardware, you are used to interact with its
+  BIOS. SPARC computers have an Openoot, it may seem to be like your
+  BIOS, but it is actually far more powerfull.  The Openoot performs the
+  following tasks:
+
+  ·  Testing and initializing the hardware.
+
+  ·  Starting the operating System.
+
+  ·  Giving you acces to a set of tools to program and to debug it.
+
+     The programming language is FCode, if you can program the Forth
+     langage, you can program it.
+
+  In this section, we will juste use a small set of the OpenBoot's
+  capabilities, in order to test hardware and to boot the system.  First
+  you have to enter in the OpenBoot, just hit the stop and a keys
+  simultaneously. Then you should see a ok prompt, if instead you see
+  the > prompt then type n. Now you can proceed to the next section.
+
+
+  6.2.  Diagnostics commands.
+
+  The OpenBoot, gives you a lot of commands to test and to gather
+  information about your hardware.
+
+  ·  .version Displays version and date of the startup PROM.
+
+  ·  banner You will see the banner, that is displayed at power-on. It
+     is useful to gather some data about CPUs.
+
+  ·  pcia-probe-list Test PCI on computers that have a PCI bus.
+
+  ·  module-info This will display the Buses clockspeed, and processors
+     frequency and amount of cache.
+
+  ·  probe-scsi This will test all devices connected to the on board
+     SCSI controler.
+
+  ·  probe-scsi-all This will test all devices connected to all the SCSI
+     controlers.
+
+  ·  show-devs This displays all installed and probed devices.
+
+  ·  show-sbus Use this, if you just want to display a list of installed
+     and probed SBus devices.
+
+  ·  test-all This will test all devices in the system that have a self
+     test program.
+
+  ·  test floppy If a floppy drive is installed, it will test it
+     reminding you to have a formated floppy disk inside.
+
+  ·  test-memory If the system diag-switch? is set to true, this will
+     test the memory.
+
+  ·  test net This will test the network interfaces
+
+  ·  watch-aui This will test the AUI ethernet link.  You will see '.'
+     for good packets and 'X" for bad ones. Strike any key to abort.
+
+  ·  watch-clock This will test the real time clock chip, it will tick
+     once a second. To stop this test strike any key.
+
+  ·  watch-net This will check the network connection ( both AUI and TP
+     ). You will see '.' for good packets and 'X" for bad ones. Strike
+     any key to abort.
+
+  ·  watch-net-all This will test all Ethernet interfaces.  You will see
+     '.' for good packets and 'X" for bad ones. Strike any key to abort.
+     When you abort one, it will test the next one.
+
+  ·  watch-tpe This will check the TPE ethernet interface.  You will see
+     '.' for good packets and 'X" for bad ones. Strike any key to abort.
+
+
+
+  6.3.  Boot commands.
+
+  The OpenBoot allows you to boot from various devices, the command you
+  are the more likely to enter are below.
+
+  ·  boot Boot kernel from default device.
+
+  ·  boot cdrom Boot kernel from CDROM drive.
+
+  ·  boot net-tpe Boot kernel from network urnel from CDROM drive, this
+     is the command you are the more likely to type when installing
+     Linux.
+
+  ·  boot net Boot kernel from network using auto-selected interface.
+
+  ·  boot net-aui Boot kernel from network using AUI interface.
+
+  ·  boot net-tpe Boot kernel from network using TPE interface.
+
+  ·  boot tape Boot default file from tape.
+
+
+
+  6.4.  Misc commands.
+
+
+
+  ·  eject-floppy Ejects the floppy.
+
+  ·  power-off Poweroff the workstation.
+
+     You can  poweroff your workstation, when you are working with the
+     OpenBoot : just type power-off
+
+  For more informations on the OpenBoot you can read it's FAQ
+
+
+
+  7.  Hard drive buses.
+
+  Depending on their architecture, the worstations are likely to feature
+  one of the following hard drive buses.
+
+
+  7.1.  SCSI-SCA.
+
+  An SCSI connector is located at the rear of the Workstation; the SCA
+  chanel is found on the internal bus of the SPARC Worstations, it can
+  be basicaly seen as an SCSI bus that provides power supply and assigns
+  SCSI ID to the peripherals.
+
+
+  7.2.  EIDE.
+
+  This is found for example in an Ultra 5 or Ultra 10 workstations
+
+
+  7.3.  FC-AL
+
+  It is used by the SunBlade 1000 workstation.
+
+
+  8.  CDROM: specific settings.
+
+  The easiest way to install linux on SPARC workstation is to use a
+  CDROM. If your workstation does not have a CDROM you can plug an
+  external SCSI CDROM drive, but there are two things to do or you are
+  doomed to fail:
+
+  ·  When you issue the boot cdrom command, the CDROM is mapped to ID6.
+
+  ·  Your CDROM player's block size should be setted up on 512.
+
+     As a rule of thumb, nearly all CDROM drives can be assigned to ID
+     #6 but be carefull about the block size setting.
+
+
+
+  9.  SILO.
+
+  The Sparc Improved Boot LOader ( SILO ), is the boot loader that is
+  used in the SPARC architecture. It allows you to boot Linux, Solaris
+  or SunOS. It can load a Linux kernel from ext2, iso9660, UFS or ROMFS.
+  From the SILO's README:
+
+  This is the first attempt at a complete boot loader for Linux on the
+  Sparc.  Because of the lack of space on the bootblock, we have to do
+  it in two steps, the first step is a very simple loader based on Peter
+  Zaitcev's silo (we will call this the first stage loader) which should
+  fit in 512B and its sole purpose is to load a more complete bootstrap
+  loader, herein refered to as the second stage boot loader. The cool
+  thing about the second stage loader we implemented is that it makes
+  use of the ext2 library (provided with the ext2fs tools) and some ufs
+  code, and thus allows the loader to access any file on a ext2 fs and
+  ufs, uses silo.conf, handles gunzipping and a lot of other things.
+  This is different from Linux/i386 lilo which needs a map for each
+  kernel. In silo we just keep one map file for the second stage loader,
+  we don't expect you to be changing the second stage loader on your
+  daily routine (you can do so, you will just need to use a tool to
+  reinstall the maps).
+
+  Actually, IMHO it is easier to use than LILO.
+
+
+  10.  Keyboard and mouse.
+
+  Most of the sun4m workstation have a special connector for the
+  keyboard. In this case the mouse is connected indifferently to left or
+  the right side of the keyboard. Some workstations have a PS2
+  connector, it is very easy to spot the difference.  The keyboards you
+  are the more likely to encounter are the type4 and type5.
+
+
+
+  11.  X Window.
+
+  XFree, usualy, runs fine on theses systems.  The XServer for the Sun
+  hardware should be the Xsun, XsunMono or Xsun24 one.
+
+
+
+  12.  SMP.
+
+
+  Ouaich, SMP is supported, and I am sure that ROSS's dual CPU modules
+  are supported as you can see by yourself:
+
+
+  ______________________________________________________________________
+
+  piou@ywing:~ > cat /proc/cpuinfo
+  cpu             : ROSS HyperSparc RT625 or RT626
+  fpu             : ROSS HyperSparc combined IU/FPU
+  promlib         : Version 3 Revision 2
+  prom            : 2.25
+  type            : sun4m
+  ncpus probed    : 2
+  ncpus active    : 2
+  Cpu0Bogo        : 125.33
+  Cpu1Bogo        : 125.33
+  MMU type        : ROSS HyperSparc
+  invall          : 0
+  invmm           : 0
+  invrnge         : 0
+  invpg           : 0
+  contexts        : 4096
+  CPU0            : online
+  CPU1            : online
+  piou@ywing:~ >
+  ______________________________________________________________________
+
+
+
+  The SparcStation 10 and SparcStations 20 are SMP capable machine and
+  according to the FAQABOSS the following combinations are known to work
+  :
+
+  ·  2xSM40 ( model 402 )
+
+  ·  2xSM41 ( model 412 )
+
+  ·  2xSM51 ( model 512 )
+
+  ·  2xSM512 ( model 514 )
+
+  ·  2xSM61 ( model 612 )
+
+  ·  2xSM71 ( model 712 )
+
+  ·  2xSM81 ( model 812 )
+
+  And, as stated earlier, CPU modules in SparcStations 10 and can run a
+  different clock speeds, the following ones __SHOULD__ work:
+
+
+  ·  2xSM50
+
+  ·  SM41, SM51
+
+  ·  SM41, SM61
+
+  ·  SM51, SM61
+
+  ·  SM71, SM81
+
+
+  If you want to learn more about SMP and Linux you can read the SMP-
+  HOWTO
+
+  How does it performs? Well, it is fast, really fast. Some of the java
+  Demos can run faster on a dual HyperSparc 125Mhz 128MB ( ywing ) than
+  on a dual celeron BP6 433@433Mhz 192MB ( calimero ). The same applies
+  for the Gimp. When it comes to compiling calimero runs faster than
+  ywing. Both computers running 2.2.16 kernel and calimero's hard disk
+  subsystem is full SCSI.
+
+  One important detail when you plan to have different CPU modules in
+  your computer is to have the same kind of modules, you cannot mix
+  SuperSparc and HyperSparc for example, but you can have an odd number
+  of CPUs, for example 3. They are said to be able to run modules at
+  different clock speed as written in this article form AcesHardware ,
+  but I have not witnessed it.
+
+  I plan to upgrade ywing to 4 CPU in order to see how the performance
+  scales.
+
+
+  13.  The sound.
+
+  The sound is supposed to work under Linux, using the ioctl
+  application.  On my SparcStation 20, the sound works fine under
+  Solaris8, but I have not yet managed to hear anything under Linux (
+  The Sound of Silence? ).
+
+  You can read the Linux/Sparc audio webpage at sparcaudio for more
+  informations.
+
+
+
+  14.  Serial port.
+
+  Sun workstations ususaly have 2 serial ports, but on sun4m workstation
+  there is usualy only one serial connector at the rear, you need a
+  special Y cable in order to have access to both ports.
+
+
+  15.  Ressources.
+
+
+  The following sites are given for your information, I am independent
+  from them and does not represent them. If you would like to suggest a
+  website or to add any information do not hesitate to email me.
+
+
+
+  15.1.  Information sites.
+
+
+  ·  Ace's Hardware: http://www.aceshardware.com/ An hardware
+     information site having a SPARC area, actually the whole site runs
+     on a SparcStation 20 SM71, 128MB ! Ouaich, definitively not an
+     Intel clone.
+
+  ·  ArsTechnica: http://arstechnica.com/cpu/index.html ArsTechnica is
+     an information website with a good CPU section.
+
+  ·  Black-Cube: http://www.black-cube.net/Sun/ Pictures of various
+     SPARC hardware : IMHO great site.
+
+  ·  LinuxDoc: http://www.linuxdoc.org homesite of the LDP.
+
+  ·  Obsolyte: http://www.obsolyte.com/sunPICS/ Nice pictures from
+     various sun Hardware.
+
+  ·  SPARC International, Inc.  http://www.sparc.org/ As the name
+     implies, a lot of information about SPARC architecture.
+
+  ·  Sun: http://docs.sun.com/ the starting node to access documentation
+     on Sun Microsystems website.
+
+  ·  SunHelp: http://sunhelp.org A good source of information about Sun
+     Hardware and Solaris OS. Has a lot of links and good documentation
+     on site.
+
+  ·  UltraLinux: http://www.ultralinux.org/ If you need information
+     about the Linux Kernel on SPARC architecture it is a very good
+     place: "Bring your penguin into the Sun".
+
+
+
+  15.2.  Auction sites.
+
+  Among the various Auction websites available on the net you can try
+  theses ones. Remember to be very cautious when you purchase hardware (
+  see the Buying a SPARC workstation section. )
+
+
+  ·  Ebay: http://www.ebay.com Ebay, and its regional sites have got a
+     lot of Workstations.
+
+  ·  Ibazar: http://www.ibazar.com/ The French Ibazar site has ususaly a
+     lot of Workstations.
+
+  ·  Yahoo! Auctions: http://auctions.yahoo.com/ This is the well known
+     site.
+
+
+
+  16.  Thanks.
+
+  Among the many people who showed me how great Unix and the Unix
+  machine can be, some people have earned a special place I would like
+  to thank them:
+
+
+  ·  My "Vieux matou" Michel F. Who gave me my first acount on a real
+     Unix machine, and took the time to answer my questions, showing me
+     among other things how to take advantage of the hardware's feature.
+
+
+  ·  Nathalie S. Who was always able to guess at the speed of light what
+     went wrong and fixed it on the fly. And took time to install the
+     tools I needed.
+
+  ·  Yves D. Who among other things always welcomed my questions, and
+     whose office was always open even late in the evening.
+
+     Both of them beeing real Sysadmin and teatchers from the trenches,
+     have a very deep knowledge and understandement of the Hardware and
+     Software.
+
+
+  17.  Copyright, Disclaimer and Trademarks
+
+
+
+  17.1.  Copyright.
+
+
+  Copyright © 2000 by Lionel, trollhunter Bouchpan-Lerust-Juéry.  This
+  document may be distributed under the terms set forth in the GNU Free
+  Documentation Licence http://www.gnu.org/copyleft/fdl.txt
+  <http://www.gnu.org/copyleft/fdl.txt> .
+
+  This documentation is distributed in the hope that it will be useful,
+  but without any warranty. The information in this document is correct
+  to the best of my knowledge, but there's a always a chance I've made
+  some mistakes, so don't follow everything too blindly, especially if
+  it seems wrong. Nothing here should have a detrimental effect on your
+  computer, but just in case I take no responsibility for any damages
+  ocurred from the use of the information contained herein.
+
+  In this document you will encounter some commercial products and
+  brands. Theses products are cited for information purpose, it is not
+  an endorsement from the author. The trademarks belong to their
+  respective owners.
+
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.1 or
+  any later version published by the Free Software Foundation; with the
+  Invariant Sections being : "Copyright, Disclaimer and Trademarks"
+  "Preface.", "SPARC, which one ?", "Buying a SPARC workstation.",
+  "Linux on SPARC: 2 kernels.", "Choosing a distribution.", "Working
+  with the Openboot.", "Hard drive buses.", "CDROM: specific
+  settings.quot;, "SILO.", "Keyboard and mouse.", "X Window.", "SMP.",
+  "The sound.", "Serial port.", "Ressources.", "Thanks.", "Revision
+  History.",
+
+  , with the Front-Cover Texts being "title" and "abstract."  , and with
+  no Back-Cover Texts .
+
+
+
+  17.2.  Administrativia.
+
+
+  This text is included in the LINUX DOCUMENTATION PROJECT
+  http://www.linuxdoc.org/HOWTO .
+
+  The latest version of this document is available in HTML format at
+
+  http://www.theWearables.com/mirrors/SPARC-HOWTO/SPARC-HOWTO.html If
+  you need a postcript file, you can grab it at
+  http://www.theWearables.com/mirrors/SPARC-HOWTO/SPARC-HOWTO.ps.gz
+
+  If you wish to mirror it or to translate it, please contact me.
+
+  Lionel, Trollhunter Bouchpan-Lerust-Juéry <trollhunter@linuxfr.org> or
+  at <boucli27@altavista.net>
+
+
+  18.  Revision History.
+
+
+
+  ·  November 2000. v0.0.3
+
+  ·  November 2000. First release v0.0.1
+
+
+

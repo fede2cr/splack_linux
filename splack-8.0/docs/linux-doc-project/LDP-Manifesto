@@ -1,0 +1,182 @@
+
+   This is the Linux Documentation Project ``Manifesto''
+   Last Revision 21 December 1993 -- Matt Welsh (email
+   mdw@sunsite.unc.edu)
+   
+   This file describes the goals and current status of the Linux
+   Documentation Project, including names of projects, volunteers, FTP
+   sites, and so on.
+   
+Overview
+
+   The Linux Documentation Project is working on developing good,
+   reliable docs for the Linux operating system. The overall goal of the
+   LDP is to collaborate in taking care of all of the issues of Linux
+   documentation, ranging from online docs (man pages, texinfo docs, and
+   so on) to printed manuals covering topics such as installing, using,
+   and running Linux. The LDP is essentially a loose team of volunteers
+   with no real central organization; anyone who is interested in helping
+   is welcome to join in the effort. We feel that working together and
+   agreeing on the direction and scope of Linux documentation is the best
+   way to go, to reduce problems with conflicting efforts--- e.g. two
+   people writing two books on the same aspect of Linux wastes someone's
+   time along the way.
+   
+   The LDP is set out to produce the canonical set of Linux online and
+   printed documentation. Because our docs will be freely available (as
+   per the GNU GPL; see below) and distributed on the net, we are able to
+   easily update the documentation to stay on top of the many changes in
+   the Linux world. We're also talking with a few companies about
+   possibly publishing the LDP manuals once more of them become
+   available. (A few smaller companies are printing and distributing LDP
+   manuals even now; more on that later). If you're interested in
+   publishing any of the LDP works, see the section ``Publishing LDP
+   Manuals'', below.
+   
+Getting Involved
+
+   The canonical way to get involved with the LDP is to join the
+   linux-doc activists mailing list. To do so, send mail to:
+   majordomo@vger.rutgers.edu with the line
+   subscribe linux-doc
+   in the message body (not the subject). This will add you to the
+   mailing list.
+   
+   Of course, you'll also need to get in touch with the coordinator of
+   whatever LDP projects you're interested in working on; see the next
+   section.
+   
+Current Projects
+
+   For a list of current projects, see the LDP Homepage. The best way to
+   get involved with one of these projects is to pick up the current
+   version of the manual and send revisions, editions, or suggestions to
+   the coordinator.
+   
+Glossary and Global Index
+
+    A glossary of terms and an index for the entire set of LDP manuals. I
+   don't remember who's putting this together; please remind me. :) This
+   should be comprehensive as well as a reference. * FTP sites for LDP
+   works LDP works can be found on sunsite.unc.edu in the directory
+   /pub/Linux/docs. LDP manuals are found in /pub/Linux/docs/LDP, HOWTOs
+   and other documentation found in /pub/Linux/docs/HOWTO. Various ALPHA
+   docs can be found on on tsx-11.mit.edu:/pub/linux/ALPHA/LDP.
+   
+Documentation Conventions
+
+    Here are the conventions that are currently used by LDP manuals. If
+   you are interested in writing another manual using different
+   conventions, please let us know of your plans first. We'd like the LDP
+   manuals to have a common look and feel, and this is implemented with a
+   LaTeX style file (see below).
+   
+   The set of printed manuals (i.e. everything but the man pages) are
+   formatted using LaTeX. The primary objective is to have PRINTED, not
+   online, manuals. The LoTeX tool (currently under development by Olaf
+   Kirch) can be used to generate plain ASCII (and later, texinfo) from
+   the LaTeX source.
+   
+   Please don't mail me saying that I shouldn't be using LaTeX for the
+   LDP manuals; well over 500 pages of material has already been written
+   in LaTeX, and we're not about to convert. Many a flame war has been
+   sparked over this issue, but it's a done deal. New manuals don't
+   necessarily need to be written using LaTeX, but you should use the
+   same conventions and look as we have implemented with the current
+   manuals.
+   
+   The printed manuals should use Michael K. Johnson's "linuxdoc.sty"
+   style sheet and documentation conventions, found in the file
+   "linuxdoc.tar.z" under the alpha directory. We're trying to achieve a
+   unified look in the manuals, both for sake of consistency and
+   portability (in this way, we can easily change the look and feel of
+   the manuals by changing linuxdoc.sty), and so that all of the
+   authors/editors are on common ground using the same style sheet.
+   
+   The LDP license/copyright should be used to copyright all works. It's
+   a liberal copyleft like the GPL, but applies to printed documents and
+   protects the LDP manuals from publication without our permission. The
+   license is printed in the section ``Copyright'', below.
+   
+   The copyright for each manual should be in the name of the head writer
+   or coordinator for the project. ``The Linux Documentation Project''
+   isn't a formal entity and shouldn't be used to copyright the docs.
+   
+Copyright and License
+
+    The following copying license applies to all LDP manuals. Please read
+   it carefully---it is somewhat like the GNU GPL, but there are several
+   conditions in it that differ from what you may be used to. If you have
+   any questions, please mail Matt Welsh and I'll try to clarify.
+   
+   The Linux Documentation Project manuals may be reproduced and
+   distributed in whole or in part, subject to the following conditions:
+   
+   All Linux Documentation Project manuals are copyrighted by their
+   respective authors. THEY ARE NOT IN THE PUBLIC DOMAIN.
+     * The copyright notice above and this permission notice must be
+       preserved complete on all complete or partial copies.
+     * Any translation or derivative work of Linux Installation and
+       Getting Started must be approved by the author in writing before
+       distribution.
+     * If you distribute Linux Installation and Getting Started in part,
+       instructions for obtaining the complete version of this manual
+       must be included, and a means for obtaining a complete version
+       provided.
+     * Small portions may be reproduced as illustrations for reviews or
+       quotes in other works without this permission notice if proper
+       citation is given.
+     * The GNU General Public License referenced below may be reproduced
+       under the conditions given within it.
+       
+   Exceptions to these rules may be granted for academic purposes: Write
+   to the author and ask. These restrictions are here to protect us as
+   authors, not to restrict you as educators and learners.
+   
+   All source code in Linux Installation and Getting Started is placed
+   under the GNU General Public License, available via anonymous FTP from
+   prep.ai.mit.edu:/pub/gnu/COPYING.
+   
+Publishing LDP Manuals
+
+    If you're a publishing company interested in distributing any of the
+   LDP manuals, read on.
+   
+   By the license given in the previous section, anyone is allowed to
+   publish and distribute verbatim copies of the Linux Documentation
+   Project manuals. You don't need our explicit permission for this.
+   However, if you would like to distribute a translation or derivative
+   work based on any of the LDP manuals, you must obtain permission from
+   the author, in writing, before doing so.
+   
+   All translations and derivative works of LDP manuals must be placed
+   under the Linux Documentation License given in the previous section.
+   That is, if you plan to release a translation of one of the manuals,
+   it must be freely distributable by the above terms.
+   
+   You may, of course, sell the LDP manuals for profit. We encourage you
+   to do so. Keep in mind, however, that because the LDP manuals are
+   freely distributable, anyone may photocopy or distribute printed
+   copies free of charge, if they wish to do so.
+   
+   We do not require to be paid royalties for any profit earned from
+   selling LDP manuals. However, we would like to suggest that if you do
+   sell LDP manuals for profit, that you either offer the author
+   royalties, or donate a portion of your earnings to the author, the LDP
+   as a whole, or to the Linux development community. You may also wish
+   to send one or more free copies of the LDP manual that you are
+   distributing to the author. Your show of support for the LDP and the
+   Linux community will be very appreciated.
+   
+   We would like to be informed of any plans to publish or distribute LDP
+   manuals, just so we know how they're becoming available. If you are
+   publishing or planning to publish any LDP manuals, please send mail to
+   Matt Welsh (address at the top of this file). It's nice to keep tabs
+   on who's doing what.
+   
+   We encourage Linux software distributors to distribute the LDP manuals
+   (such as the Installation and Getting Started Guide) with their
+   software. The LDP manuals are intended to be used as the "official"
+   Linux documentation, and we'd like to see mail-order distributors
+   bundling the LDP manuals with the software. As the LDP manuals mature,
+   hopefully they will fulfill this goal more adequately.

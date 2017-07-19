@@ -1,0 +1,368 @@
+<html>
+<head>
+<title>Linux/Sparc audio subsystem information</title>
+</head>
+<body bgcolor="#ffffff" text="#0c0c0c" link="#409090" vlink="#E0A080" alink="#A0C0E0">
+<hr>
+<center><h1>Linux/Sparc audio</h1></center>
+<hr>
+<img src="sparcaudio/pensound.jpg" align=left alt=[Rockin' Penguin]><em>Sound for your Sparc</em><br>Everything you wanted to know about audio for Sun SparcStations and clones running Linux, and then some.</img align="middle">
+<h2>Linux/Sparc audio drivers</h2>
+Linux/Sparc is at the forefront of audio support for free operating systems for the Sparc platform. Why? Because we like music just as much as you do. <A HREF="http://www.dementia.org/~shadow/z107.html">(Me more than most, perhaps?)</a> 
+There's no reason you shouldn't be able to use your Sparc hardware every bit as fully in this respect as a PC (at least with the more recent systems.) 
+<p>
+All you need to get started is a machine running one of the Linux distributions for Sparc processors. Grab an audio snapshot from ftp://ftp.dementia.org/pub/linux/sparc/audio, compile, set up devices, and start enjoying audio. 
+<p>
+Heck, if you have a recent 2.2 or 2.3 kernel, you probably don't even need to do this, what you have should just work!
+<p>
+While some older kernels don't match the minor device assignments currently used, the audio snapshots do, and you should be using these anyway. 
+All devices are character devices with major number 14.
+<p>
+<pre>
+mixer: 0
+sequencer: 1 (not supported)
+midi: 2 (not supported)
+dsp: 3
+audio: 4
+dsp16: 5 (untested)
+sndstat: 6 (not supported)
+audioctl:7 
+sequencer l2: 8 (not supported)
+sndproc: 9 (not supported)
+</pre>
+<p>
+Additional sound devices are offset 16 (e.g. mixer1 is 16, audio1 is 20, etc.).
+The audioctl device is for compatibility with SunOS and Solaris, and allows only ioctls, not reading or writing.
+Its name is the audio device plus the string "ctl", so properly the audioctl device for the second audio card would be audio1ctl.
+audio0 and audio0ctl links to the first set of devices may be useful. 
+<p>
+Sun audio applications expect that the AUDIODEV environment variable can be used to override the default /dev/audio choice.
+<p>
+<h2>Sparc audio hardware</h2>
+<h3>CS4231</h3>
+Sun calls the audio hardware in the SS4, SS5 and the Ultras "audiocs".
+It supports monaural microphone and stereo line in, headphone, and line out ports. 
+There is support for direct audio input from the internal cdrom on some systems;
+Sun claims NO UltraSparc systems support it, but I have not verified this.
+The SS10/LX speakerbox units do not work with this audio hardware.
+There is no way to determine if headphone or microphone are plugged in. 
+The SS4 does not ship with audio support; 
+Instead an add-on module must be purchased and installed. 
+The SunMicrophone II (and not the I) is appropriate for use with this hardware. 
+This microphone does not provide a battery like the older microphones, instead relying on the audio hardware to provide power.
+<br>
+Sparc machines with audiocs have a Crystal Semiconductor 4231A codec. 
+Machines with an sbus use an APC (STP2024) DMA controller.
+PCI machines use the ebus for DMA. 
+<p>
+<h3>DBRI</h3>
+The LX, SS10, and SS20, as well as the Tadpole Sparcbook 3 and the Sun SparcStation Voyager portables use dbri for audio. 
+Some of these machines have onboard isdn provided by the DBRI.
+Most DBRI-equipped systems have an interface for the Sun SpeakerBox. 
+It provides a speaker, and stereo line out, stereo line in, stereo headphone, and monaural microphone connections. 
+LX systems also have a codec onboard (SpeakerBoxes have one integral) and so can be used without the SpeakerBox. 
+The onboard interface lacks line in and line out support. 
+DBRI systems should utilize the SunMicrophone I.
+<br>
+Sparc machines with dbri have an AT&T T5900FC isdn interface.
+LX machines and Sun SpeakerBoxes have Crystal Semiconductor 4215 codecs.
+The 4215 uses a time-based data transfer mechanism with pipes fed by the DBRI.
+<p>
+<h3>AMD 79c30</h3>
+All sun4c machines, the SparcServer 6xx series, and the SparcClassic use the AM79C30A Digital Subscriber Controller (an isdn chip) for audio. 
+Machines provide connectors for microphone and headphone. 
+The 79c30 supports only monaural audio; 
+Some machines also have an onboard monaural speaker.
+<br>
+As I already mentioned, the 79C30 is actually an isdn controller that Sun used for audio on these machines.
+It uses byte-at-a-time data transfer, which effectively makes it very slow.
+<p>
+<h3>Recap</h3>
+If you didn't get it above, here's the info in table form.
+<br>
+For some reason Lynx hates these tables. I apologize.
+<p>
+<table border=1>
+<a name="hardware"><caption><h3>Who's got what</h3></caption></a>
+<tr>
+<th>Model</th>
+<th>amd</th>
+<th>dbri</th>
+<th>4231(apc)</th>
+<th>4231(ebus)</th>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4c pizza boxes</td></tr>
+<tr>
+<td>SS1</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>SS1+</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>SS2</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4c monitor boxes</td></tr>
+<tr>
+<td>SLC</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>ELC</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4c cake boxes</td></tr>
+<tr>
+<td>IPC</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>IPX</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4m cake boxes</td></tr>
+<tr>
+<td>Classic (LC)</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>LX (ZX)</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4m portables</td></tr>
+<tr>
+<td>Voyager</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4m pizza boxes</td></tr>
+<tr>
+<td>10</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>20</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>4</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X*</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>5</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4u deep dish pizza boxes</td></tr>
+<tr>
+<td>Ultra 1</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>Ultra 2</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td COLSPAN=5 align="center">sun4u pci machines</td></tr>
+<tr>
+<td>Ultra 5</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td>Ultra 10</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td>Ultra 30</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td>Ultra 60</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">X</td>
+</tr>
+</table>
+* - Requires purchase of SS4 audio module.
+
+<table border=1 clear="left" align="left">
+<a name="hardware"><caption><h3>Support in Linux/Sparc</h3></caption></a>
+<tr>
+<th>audio hardware</th>
+<th>kernel version</th>
+<th>dma</th>
+<th>play</th>
+<th>record</th>
+<th>16 bit</th>
+<th>isdn</th>
+</tr>
+<tr>
+<td>amd 79c30</td>
+<td>2.2</td>
+<td align="center">&nbsp;</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+<td align="center">X</a>
+</tr>
+<tr>
+<td>amd 79c30</td>
+<td>2.3</td>
+<td align="center">&nbsp;</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+<td align="center">X</a>
+</tr>
+<tr>
+<td>dbri</td>
+<td>2.2</td>
+<td align="center">&nbsp;</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+<td align="center">&nbsp;</a>
+<td align="center">&nbsp;</a>
+</tr>
+<tr>
+<td>dbri</td>
+<td>2.3</td>
+<td align="center">&nbsp;</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+<td align="center">&nbsp;</a>
+<td align="center">&nbsp;</a>
+</tr>
+<tr>
+<td>cs4231 (ebus dma)</td>
+<td>2.2</td>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+</tr>
+<tr>
+<td>cs4231 (ebus dma)</td>
+<td>2.3</td>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+</tr>
+<tr>
+<td>cs4231 (apc dma)</td>
+<td>2.2</td>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+</tr>
+<tr>
+<td>cs4231 (apc dma)</td>
+<td>2.3</td>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">X</a>
+<td align="center">&nbsp;</a>
+</tr>
+</table>
+<h2 align=center clear=right>State of audio support</h2 align=left>
+We currently have:
+<ul>
+<li>Support for SunOS, Solaris, OSS PCM, some NetBSD, and some OSS Mixer ioctls</li>
+<li>Support for SunOS/Solaris audio streams emulation for binary compatibility.</li>
+</ul>
+The OSS mixer ioctl support was heavily reworked in August 1999 to behave more like a PC, and to simply behave better. Control of each input and output is now possible using e.g. aumix.
+<p>
+The SunOS emulation allows raplayer to work; Hopefully rvplayer (5.0) will work under Solaris emulation. 
+<br clear=all></clear>
+<h2 align=center>Linux/Sparc audio info in a Sun world</h2 align=left>
+While I won't say I "miss" audio on my SunOS machine, there were certain tools it had that I really liked. One was audiotool. Another were the play/record that the audio demos had. The really useful one, especially now that we have a dummy audio driver which you can cat from, is raw2audio.
+<p>
+Currently I use <A HREF="ftp://ftp.dementia.org/pub/linux/sparc/audio/audioctl-0.1-2.src.rpm">audioctl</a> as a replacement for audiotool. It's ported from the NetBSD version of same, with slight changes for SparcLinux.
+<br>
+<A HREF="ftp://ftp.dementia.org/pub/linux/sparc/audio/tplay-0.5.5+.tar.gz">tplay</a> makes a nice replacement for play, but sadly does not come with trecord. One of these days...
+</br>
+<A HREF="ftp://ftp.dementia.org/pub/linux/sparc/audio/raw2audio.tar.gz">raw2audio</a> is a small wrapper around sox which will put an AU header on a raw audio file.
+<h2 align=center>Linux/Sparc audio people</h2 align=left>
+The folks responsible for the bulk of what's present in the Linux/Sparc audio subsystem are:
+<dl>
+<dt>Tom Dyas</dt>: <dd>Wrote amd driver and audio midlevel.</dd>
+<dt>Rudolf Koenig</dt>: <dd>Implemented (incomplete but substantial) DBRI driver.</dd>
+<dt>Brent Baccala</dt>: <dd>Redesigned significant portion of amd driver to accomodate ISDN; Completing DBRI driver and working on ISDN support.</dd>
+<dt>David Miller</dt>: <dd>Did most of the work on the cs4231/ebus driver.</dd>
+<dt>Derrick Brashear</dt>: <dd>Wrote cs4231 driver; Rewrote portions of midlevel to support binary compatibility and DMA.</dd>
+</dl>
+<h2>Other info</h2>
+We don't have a monopoly on audio support for Sparc. 
+The good folks who brought you <A HREF="http://www.netbsd.org">NetBSD</a> support the 4231/apc and the amd79c30 on their systems as well. 
+If we can't put you behind the wheel of a Linux system today, please give them a try.
+<p>
+<A HREF="http://www.opensound.com">4Front Technology</a> supports Linux/x86 and Solaris as well as other platforms. 
+<p>
+You might also want to check out the <A HREF="http://alsa.jcu.cz">Advanced Linux Sound Architecture</a> project. It's a reasonable alternative to the support that comes bundled in the Linux kernel.
+<hr>
+Send questions and comments to <A HREF="mailto:shadow@dementia.org">shadow@dementia.org</a>.
+<h6><i>Last update: November 8, 1998</i></h6>
+</body>
+</html>

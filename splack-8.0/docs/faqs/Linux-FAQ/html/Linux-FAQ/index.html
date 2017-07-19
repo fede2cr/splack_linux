@@ -1,0 +1,1366 @@
+<HTML
+><HEAD
+><TITLE
+>Linux Frequently Asked Questions with Answers</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.63
+"><LINK
+REL="NEXT"
+TITLE="Introduction and General Information"
+HREF="x25.html"></HEAD
+><BODY
+CLASS="ARTICLE"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN1"
+>Linux Frequently Asked Questions with Answers</A
+></H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN4"
+>Robert Kiesling</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>     rkiesling@mainmatter.com
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="REVHISTORY"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+COLSPAN="3"
+><B
+>Revision History</B
+></TH
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+>Revision 1.4</TD
+><TD
+ALIGN="LEFT"
+>2001-05-20</TD
+><TD
+ALIGN="LEFT"
+>Revised by: rk</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+COLSPAN="3"
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><A
+NAME="AEN16"
+></A
+><P
+></P
+><P
+>This is the list of Frequently Asked Questions for Linux, the free
+operating system kernel that runs on many modern computer systems.
+The kernel source code documentation says that Linux ``aims for POSIX
+compliance.''  Linux uses mostly free, GNU system utilities and
+application software, although commercial programs are available also.
+Originally written for 386/486/586 Intel/ISA bus machines, Linux
+versions exist for nearly every hardware platform in existence that is
+capable of running it.  (Please refer to the question, ``<A
+HREF="x25.html#AEN27"
+><I
+>What Is Linux?</I
+></A
+>'' below.)  This FAQ
+is meant to be read in conjunction with the Linux Documentation
+Project's HOWTO series.  (``<A
+HREF="x346.html#AEN881"
+><I
+>Where Are the Linux FTP Archives?</I
+></A
+>'' and, ``<A
+HREF="x346.html#AEN370"
+><I
+>Where Is the Documentation?</I
+></A
+>'') The
+<I
+CLASS="CITETITLE"
+>INFO-SHEET</I
+> and <I
+CLASS="CITETITLE"
+>META-FAQ</I
+>
+also list sources of Linux information.  Please read them, and,
+``<A
+HREF="x3621.html#AEN3623"
+><I
+>You Still Haven't Answered My Question!</I
+></A
+>'' before posting to a Usenet news
+group.  You can also get Postscript, HTML, and SGML versions of this
+document.  (``<A
+HREF="x3698.html#AEN3708"
+><I
+>Formats in Which This FAQ Is Available.</I
+></A
+>'')</P
+><P
+></P
+></DIV
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>1. <A
+HREF="x25.html"
+>Introduction and General Information</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="x25.html#AEN27"
+>What Is Linux?</A
+></DT
+><DT
+>1.2. <A
+HREF="x25.html#AEN52"
+>How to Get Started.</A
+></DT
+><DT
+>1.3. <A
+HREF="x25.html#AEN78"
+>What Software does Linux Support?</A
+></DT
+><DT
+>1.4. <A
+HREF="x25.html#AEN103"
+>How to Find a Particular Application.</A
+></DT
+><DT
+>1.5. <A
+HREF="x25.html#AEN136"
+>What Hardware Is Supported?</A
+></DT
+><DT
+>1.6. <A
+HREF="x25.html#AEN149"
+>Ports to Other Processors.</A
+></DT
+><DT
+>1.7. <A
+HREF="x25.html#AEN224"
+>Disk Space Requirements: Minimal, Server, and Workstation.</A
+></DT
+><DT
+>1.8. <A
+HREF="x25.html#AEN229"
+>Minimum and Maximum Memory Requirements.</A
+></DT
+><DT
+>1.9. <A
+HREF="x25.html#AEN260"
+>Does Linux Support Universal System Bus Devices?</A
+></DT
+><DT
+>1.10. <A
+HREF="x25.html#AEN266"
+>What is Linux's Open-Source License?</A
+></DT
+><DT
+>1.11. <A
+HREF="x25.html#AEN280"
+>Is Linux *nix?</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="x286.html"
+>Topics of Current Interest.</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="x286.html#AEN288"
+>What Is the Best Way to Respond to Anti-Linux FUD?</A
+></DT
+><DT
+>2.2. <A
+HREF="x286.html#AEN296"
+>What Are the Reasons to Upgrade to the Version 2.4 Kernel?</A
+></DT
+><DT
+>2.3. <A
+HREF="x286.html#AEN306"
+>When Is It a Good Idea To Use the Red Hat 7.0 <TT
+CLASS="LITERAL"
+>kgcc</TT
+> Compiler?</A
+></DT
+><DT
+>2.4. <A
+HREF="x286.html#AEN321"
+>What Resources Are There for Linux DeCSS and Other Open Source DVD
+Software?</A
+></DT
+><DT
+>2.5. <A
+HREF="x286.html#AEN333"
+>Where Is Information About Electronic Privacy Laws that 
+Affect ISP's?</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="x346.html"
+>Network Sources and Resources</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="x346.html#AEN348"
+>Where Is the Latest Kernel Version on the Internet?</A
+></DT
+><DT
+>3.2. <A
+HREF="x346.html#AEN370"
+>Where Is the Documentation?</A
+></DT
+><DT
+>3.3. <A
+HREF="x346.html#AEN484"
+>Where Is the Linux Stuff on the World Wide Web?</A
+></DT
+><DT
+>3.4. <A
+HREF="x346.html#AEN671"
+>What News Groups Are There for Linux?</A
+></DT
+><DT
+>3.5. <A
+HREF="x346.html#AEN802"
+>What Other FAQ's and Documentation Are There for Linux?</A
+></DT
+><DT
+>3.6. <A
+HREF="x346.html#AEN881"
+>Where Are the Linux FTP Archives?</A
+></DT
+><DT
+>3.7. <A
+HREF="x346.html#AEN1157"
+>How To Get Linux without FTP Access.</A
+></DT
+><DT
+>3.8. <A
+HREF="x346.html#AEN1170"
+>How To Get Information without Usenet Access.</A
+></DT
+><DT
+>3.9. <A
+HREF="x346.html#AEN1176"
+>What Mailing Lists Are There?</A
+></DT
+><DT
+>3.10. <A
+HREF="x346.html#AEN1203"
+>Where Are Linux Legal Issues Discussed?</A
+></DT
+><DT
+>3.11. <A
+HREF="x346.html#AEN1208"
+>Sources of Information for Unmaintained Free Software Projects.</A
+></DT
+><DT
+>3.12. <A
+HREF="x346.html#AEN1216"
+>Are the News Groups Archived Anywhere?</A
+></DT
+><DT
+>3.13. <A
+HREF="x346.html#AEN1230"
+>Where To Find Information About Security Related Issues.</A
+></DT
+><DT
+>3.14. <A
+HREF="x346.html#AEN1242"
+>Where To Find Linux System Specifications.</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="x1247.html"
+>Compatibility with Other Operating Systems</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="x1247.html#AEN1249"
+>Can Linux Use the Same Hard Drive as MS-DOS? OS/2? 386BSD? Win95?</A
+></DT
+><DT
+>4.2. <A
+HREF="x1247.html#AEN1271"
+>How To Access Files on a MS-DOS Partition or Floppy.</A
+></DT
+><DT
+>4.3. <A
+HREF="x1247.html#AEN1286"
+>Does Linux Support Compressed Ext2 File Systems?</A
+></DT
+><DT
+>4.4. <A
+HREF="x1247.html#AEN1306"
+>Can Linux Use Stacked/DBLSPC/Etc. DOS Drives?</A
+></DT
+><DT
+>4.5. <A
+HREF="x1247.html#AEN1312"
+>Can Linux Access OS/2 HPFS Partitions?</A
+></DT
+><DT
+>4.6. <A
+HREF="x1247.html#AEN1319"
+>Can Linux Access Amiga File Systems?</A
+></DT
+><DT
+>4.7. <A
+HREF="x1247.html#AEN1326"
+>Can Linux Access BSD, SysV, Etc. UFS?</A
+></DT
+><DT
+>4.8. <A
+HREF="x1247.html#AEN1331"
+>Can Linux Access SMB File Systems?</A
+></DT
+><DT
+>4.9. <A
+HREF="x1247.html#AEN1344"
+>Can Linux Access Macintosh File Systems?</A
+></DT
+><DT
+>4.10. <A
+HREF="x1247.html#AEN1350"
+>Can Linux Run Microsoft Windows Programs?</A
+></DT
+><DT
+>4.11. <A
+HREF="x1247.html#AEN1370"
+>Where Is Information about NFS Compatibility?</A
+></DT
+><DT
+>4.12. <A
+HREF="x1247.html#AEN1403"
+>Can Linux Use True Type Fonts?</A
+></DT
+><DT
+>4.13. <A
+HREF="x1247.html#AEN1413"
+>Can Linux Boot from MS-DOS?</A
+></DT
+><DT
+>4.14. <A
+HREF="x1247.html#AEN1428"
+>How Can Linux Boot from OS/2's Boot Manager?</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="x1459.html"
+>File Systems, Disks, and Drives</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="x1459.html#AEN1461"
+>How To Get Linux to Work with a Disk.</A
+></DT
+><DT
+>5.2. <A
+HREF="x1459.html#AEN1472"
+>How To Undelete Files.</A
+></DT
+><DT
+>5.3. <A
+HREF="x1459.html#AEN1484"
+>How To Make Backups.</A
+></DT
+><DT
+>5.4. <A
+HREF="x1459.html#AEN1495"
+>How To Resize a Partition (Non-Destructively).</A
+></DT
+><DT
+>5.5. <A
+HREF="x1459.html#AEN1507"
+>Is There a Defragmenter for Ext2fs?</A
+></DT
+><DT
+>5.6. <A
+HREF="x1459.html#AEN1520"
+>How To Create a File System on a Floppy.</A
+></DT
+><DT
+>5.7. <A
+HREF="x1459.html#AEN1545"
+>Does Linux Support Virtualized File Systems Like RAID?</A
+></DT
+><DT
+>5.8. <A
+HREF="x1459.html#AEN1553"
+>Does Linux Support File System Encryption?</A
+></DT
+><DT
+>5.9. <A
+HREF="x1459.html#AEN1558"
+>Linux Prints Nasty Messages about Inodes, Blocks, and the Like.</A
+></DT
+><DT
+>5.10. <A
+HREF="x1459.html#AEN1572"
+>The Swap Area Isn't Working.</A
+></DT
+><DT
+>5.11. <A
+HREF="x1459.html#AEN1602"
+>How To Add Temporary Swap Space.</A
+></DT
+><DT
+>5.12. <A
+HREF="x1459.html#AEN1620"
+>How To Remove LILO So the System Boots DOS Again?</A
+></DT
+><DT
+>5.13. <A
+HREF="x1459.html#AEN1661"
+>Why Does <B
+CLASS="COMMAND"
+>fdformat</B
+> Require Superuser Privileges?</A
+></DT
+><DT
+>5.14. <A
+HREF="x1459.html#AEN1667"
+>The System Checks the Ext2fs Partitions Each Reboot.</A
+></DT
+><DT
+>5.15. <A
+HREF="x1459.html#AEN1671"
+>Root File System Is Read-Only.</A
+></DT
+><DT
+>5.16. <A
+HREF="x1459.html#AEN1683"
+>What Is <TT
+CLASS="FILENAME"
+>/proc/kcore</TT
+>?</A
+></DT
+><DT
+>5.17. <A
+HREF="x1459.html#AEN1690"
+>The AHA1542C Doesn't Work with Linux.</A
+></DT
+><DT
+>5.18. <A
+HREF="x1459.html#AEN1693"
+>Where Is the Journalling File System on the Net?</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="x1700.html"
+>Porting, Compiling and Obtaining Programs</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="x1700.html#AEN1702"
+>How To Compile Programs.</A
+></DT
+><DT
+>6.2. <A
+HREF="x1700.html#AEN1714"
+>How To Install GNU Software.</A
+></DT
+><DT
+>6.3. <A
+HREF="x1700.html#AEN1735"
+>Where To Get Java.</A
+></DT
+><DT
+>6.4. <A
+HREF="x1700.html#AEN1756"
+>How To Port <EM
+>XXX</EM
+> to Linux.</A
+></DT
+><DT
+>6.5. <A
+HREF="x1700.html#AEN1762"
+>What Is <SPAN
+CLASS="APPLICATION"
+>ld.so</SPAN
+> and How To Get It?</A
+></DT
+><DT
+>6.6. <A
+HREF="x1700.html#AEN1774"
+>How To Upgrade the Libraries without Trashing the System.</A
+></DT
+><DT
+>6.7. <A
+HREF="x1700.html#AEN1819"
+>How To Use Code or a Compiler Compiled for a 486 on a 386.</A
+></DT
+><DT
+>6.8. <A
+HREF="x1700.html#AEN1838"
+>What Does ``<TT
+CLASS="LITERAL"
+>gcc -O6</TT
+>'' Do?</A
+></DT
+><DT
+>6.9. <A
+HREF="x1700.html#AEN1848"
+>Where Are <TT
+CLASS="FILENAME"
+>linux/*.h</TT
+> and 
+<TT
+CLASS="FILENAME"
+>asm/*.h</TT
+>?</A
+></DT
+><DT
+>6.10. <A
+HREF="x1700.html#AEN1867"
+>What To Do about Errors Trying to Compile the Kernel.</A
+></DT
+><DT
+>6.11. <A
+HREF="x1700.html#AEN1878"
+>How To Make a Shared Library.</A
+></DT
+><DT
+>6.12. <A
+HREF="x1700.html#AEN1896"
+>Programs Are Very Large.</A
+></DT
+><DT
+>6.13. <A
+HREF="x1700.html#AEN1910"
+>Does Linux Support Threads or Lightweight Processes?</A
+></DT
+><DT
+>6.14. <A
+HREF="x1700.html#AEN1940"
+>Where To Find <TT
+CLASS="LITERAL"
+>lint</TT
+> for Linux.</A
+></DT
+><DT
+>6.15. <A
+HREF="x1700.html#AEN1954"
+>Where To Find Kermit for Linux.</A
+></DT
+><DT
+>6.16. <A
+HREF="x1700.html#AEN1962"
+>How To Use Linux with a Cable Modem.</A
+></DT
+><DT
+>6.17. <A
+HREF="x1700.html#AEN1967"
+>Is There an ICQ Program That Runs under Linux?</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="x1973.html"
+>Solutions to Common Miscellaneous Problems</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="x1973.html#AEN1975"
+>FTP Transfers Seem to Hang.</A
+></DT
+><DT
+>7.2. <A
+HREF="x1973.html#AEN2010"
+>Free Dumps Core.</A
+></DT
+><DT
+>7.3. <A
+HREF="x1973.html#AEN2016"
+>Netscape Crashes Frequently.</A
+></DT
+><DT
+>7.4. <A
+HREF="x1973.html#AEN2037"
+>FTP or Telnet Server Won't Allow Logins.</A
+></DT
+><DT
+>7.5. <A
+HREF="x1973.html#AEN2061"
+>How To Keep Track of Bookmarks in Netscape?</A
+></DT
+><DT
+>7.6. <A
+HREF="x1973.html#AEN2070"
+>The Computer Has the Wrong Time.</A
+></DT
+><DT
+>7.7. <A
+HREF="x1973.html#AEN2086"
+>Setuid Scripts Don't Seem to Work.</A
+></DT
+><DT
+>7.8. <A
+HREF="x1973.html#AEN2093"
+>Free Memory as Reported by <B
+CLASS="COMMAND"
+>free</B
+> Keeps Shrinking.</A
+></DT
+><DT
+>7.9. <A
+HREF="x1973.html#AEN2104"
+>When Adding More Memory, the System Slows to a Crawl.</A
+></DT
+><DT
+>7.10. <A
+HREF="x1973.html#AEN2113"
+>Some Programs (E.g. <B
+CLASS="COMMAND"
+>xdm</B
+>) Won't Allow Logins.</A
+></DT
+><DT
+>7.11. <A
+HREF="x1973.html#AEN2121"
+>Some Programs Allow Logins with No Password.</A
+></DT
+><DT
+>7.12. <A
+HREF="x1973.html#AEN2128"
+>The Machine Runs Very Slowly with GCC / X / ...</A
+></DT
+><DT
+>7.13. <A
+HREF="x1973.html#AEN2137"
+>System Only Allows Root Logins.</A
+></DT
+><DT
+>7.14. <A
+HREF="x1973.html#AEN2146"
+>The Screen Is All Full of Weird Characters Instead of Letters.</A
+></DT
+><DT
+>7.15. <A
+HREF="x1973.html#AEN2216"
+>I Screwed Up the System and Can't Log In to Fix It.</A
+></DT
+><DT
+>7.16. <A
+HREF="x1973.html#AEN2228"
+>I Forgot the <TT
+CLASS="LITERAL"
+>root</TT
+> Password.</A
+></DT
+><DT
+>7.17. <A
+HREF="x1973.html#AEN2260"
+>There's a Huge Security Hole in <B
+CLASS="COMMAND"
+>rm</B
+>!</A
+></DT
+><DT
+>7.18. <A
+HREF="x1973.html#AEN2264"
+><B
+CLASS="COMMAND"
+>lpr</B
+> and/or <B
+CLASS="COMMAND"
+>lpd</B
+> Don't Work.</A
+></DT
+><DT
+>7.19. <A
+HREF="x1973.html#AEN2282"
+>Timestamps on Files on MS-DOS Partitions Are Set Incorrectly</A
+></DT
+><DT
+>7.20. <A
+HREF="x1973.html#AEN2287"
+>How To Get LILO to Boot the Kernel Image.</A
+></DT
+><DT
+>7.21. <A
+HREF="x1973.html#AEN2296"
+>How To Make Sure the System Boots after Re-Installing 
+the Operating System.</A
+></DT
+><DT
+>7.22. <A
+HREF="x1973.html#AEN2318"
+>The PCMCIA Card Doesn't Work after Upgrading the Kernel.</A
+></DT
+><DT
+>7.23. <A
+HREF="x1973.html#AEN2389"
+>How To Remove (or Change) the Colors in the 
+<SPAN
+CLASS="APPLICATION"
+>ls</SPAN
+> Display.</A
+></DT
+><DT
+>7.24. <A
+HREF="x1973.html#AEN2396"
+>Why Won't a Program Work in the Current Directory?</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="x2406.html"
+>How To Do This or Find Out That...</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="x2406.html#AEN2408"
+>How To Find Out If a Notebook Runs Linux.</A
+></DT
+><DT
+>8.2. <A
+HREF="x2406.html#AEN2442"
+>Installing Linux Using FTP.</A
+></DT
+><DT
+>8.3. <A
+HREF="x2406.html#AEN2492"
+>Resuming an Interrupted Download.</A
+></DT
+><DT
+>8.4. <A
+HREF="x2406.html#AEN2500"
+>Boot-Time Configuration.</A
+></DT
+><DT
+>8.5. <A
+HREF="x2406.html#AEN2522"
+>Formatting Man Pages without <B
+CLASS="COMMAND"
+>man</B
+> or 
+<B
+CLASS="COMMAND"
+>groff</B
+>.</A
+></DT
+><DT
+>8.6. <A
+HREF="x2406.html#AEN2547"
+>How To Scroll Backwards in Text Mode.</A
+></DT
+><DT
+>8.7. <A
+HREF="x2406.html#AEN2569"
+>How To Get Email to Work.</A
+></DT
+><DT
+>8.8. <A
+HREF="x2406.html#AEN2581"
+><SPAN
+CLASS="APPLICATION"
+>Sendmail</SPAN
+> Pauses for
+Up to a Minute at Each Command.</A
+></DT
+><DT
+>8.9. <A
+HREF="x2406.html#AEN2629"
+>How To Enable and Select Virtual Consoles.</A
+></DT
+><DT
+>8.10. <A
+HREF="x2406.html#AEN2668"
+>How To Set the Time Zone.</A
+></DT
+><DT
+>8.11. <A
+HREF="x2406.html#AEN2692"
+>Dial-up PPP Configuration.</A
+></DT
+><DT
+>8.12. <A
+HREF="x2406.html#AEN2809"
+>What Version of Linux and What Machine Name Is This?</A
+></DT
+><DT
+>8.13. <A
+HREF="x2406.html#AEN2814"
+>What Is a ``<TT
+CLASS="FILENAME"
+>core</TT
+>'' File?</A
+></DT
+><DT
+>8.14. <A
+HREF="x2406.html#AEN2827"
+>How To Enable or Disable Core Dumps.</A
+></DT
+><DT
+>8.15. <A
+HREF="x2406.html#AEN2845"
+>How To Upgrade/Recompile a Kernel.</A
+></DT
+><DT
+>8.16. <A
+HREF="x2406.html#AEN2888"
+>Can Linux Use More than 3 Serial Ports by Sharing Interrupts?</A
+></DT
+><DT
+>8.17. <A
+HREF="x2406.html#AEN2893"
+>Configuring <SPAN
+CLASS="APPLICATION"
+>Emacs</SPAN
+>'s Default Settings.</A
+></DT
+><DT
+>8.18. <A
+HREF="x2406.html#AEN2927"
+>How To Make a Rescue Floppy.</A
+></DT
+><DT
+>8.19. <A
+HREF="x2406.html#AEN2934"
+>How To Remap a Keyboard to UK, French, Etc.?</A
+></DT
+><DT
+>8.20. <A
+HREF="x2406.html#AEN2945"
+>How To Get NUM LOCK to Default to On.</A
+></DT
+><DT
+>8.21. <A
+HREF="x2406.html#AEN2958"
+>How To Set (Or Reset) Initial Terminal Colors.</A
+></DT
+><DT
+>8.22. <A
+HREF="x2406.html#AEN2975"
+>How To Have More Than 128Mb of Swap.</A
+></DT
+></DL
+></DD
+><DT
+>9. <A
+HREF="x2984.html"
+>Miscellaneous Information and Questions Answered</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="x2984.html#AEN2986"
+>How Do I Program <EM
+>XYZ</EM
+> Under Linux?</A
+></DT
+><DT
+>9.2. <A
+HREF="x2984.html#AEN3000"
+>What's All This about ELF? glibc?</A
+></DT
+><DT
+>9.3. <A
+HREF="x2984.html#AEN3018"
+>How Do I Determine What Packages Are Installed on My System?</A
+></DT
+><DT
+>9.4. <A
+HREF="x2984.html#AEN3029"
+>What Is a <TT
+CLASS="LITERAL"
+>.gz</TT
+> File? And a <TT
+CLASS="LITERAL"
+>.tgz</TT
+>? 
+And <TT
+CLASS="LITERAL"
+>.bz2</TT
+>? And... ?</A
+></DT
+><DT
+>9.5. <A
+HREF="x2984.html#AEN3077"
+>What Does VFS Stand For?</A
+></DT
+><DT
+>9.6. <A
+HREF="x2984.html#AEN3086"
+>What is a BogoMip?</A
+></DT
+><DT
+>9.7. <A
+HREF="x2984.html#AEN3106"
+>What Online/Free Periodicals Exist for Linux?</A
+></DT
+><DT
+>9.8. <A
+HREF="x2984.html#AEN3144"
+>How Many People Use Linux?</A
+></DT
+><DT
+>9.9. <A
+HREF="x2984.html#AEN3158"
+>How Many People Use Linux? (Redux.)</A
+></DT
+><DT
+>9.10. <A
+HREF="x2984.html#AEN3166"
+>What Is the Best (Distribution|SCSI Card|Editor|CD-ROM Drive|....)</A
+></DT
+><DT
+>9.11. <A
+HREF="x2984.html#AEN3170"
+>How Should I Pronounce Linux?</A
+></DT
+></DL
+></DD
+><DT
+>10. <A
+HREF="x3182.html"
+>Frequently Encountered Error Messages</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="x3182.html#AEN3184"
+><B
+CLASS="COMMAND"
+>Modprobe</B
+> Can't Locate Module, 
+<EM
+>XXX</EM
+>, and Similar Messages.</A
+></DT
+><DT
+>10.2. <A
+HREF="x3182.html#AEN3195"
+>Unknown Terminal Type ``<TT
+CLASS="LITERAL"
+>linux</TT
+>'' and Similar.</A
+></DT
+><DT
+>10.3. <A
+HREF="x3182.html#AEN3228"
+><TT
+CLASS="LITERAL"
+>INET: Warning: old style ioctl... called!</TT
+></A
+></DT
+><DT
+>10.4. <A
+HREF="x3182.html#AEN3237"
+><TT
+CLASS="LITERAL"
+>ld: unrecognized option '-m486'</TT
+></A
+></DT
+><DT
+>10.5. <A
+HREF="x3182.html#AEN3245"
+>GCC Says, ``<TT
+CLASS="LITERAL"
+>Internal compiler error</TT
+>.''</A
+></DT
+><DT
+>10.6. <A
+HREF="x3182.html#AEN3255"
+>Make Says, ``<TT
+CLASS="LITERAL"
+>Error 139.</TT
+>''</A
+></DT
+><DT
+>10.7. <A
+HREF="x3182.html#AEN3268"
+>Shell-Init: Permission Denied when I Log In.</A
+></DT
+><DT
+>10.8. <A
+HREF="x3182.html#AEN3272"
+>No Utmp Entry. You Must Exec ... when Logging In.</A
+></DT
+><DT
+>10.9. <A
+HREF="x3182.html#AEN3285"
+>Warning--bdflush Not Running.</A
+></DT
+><DT
+>10.10. <A
+HREF="x3182.html#AEN3296"
+><TT
+CLASS="LITERAL"
+>Warning: obsolete routing request made</TT
+>.</A
+></DT
+><DT
+>10.11. <A
+HREF="x3182.html#AEN3303"
+><TT
+CLASS="LITERAL"
+>EXT2-fs: warning: mounting unchecked file system</TT
+>.</A
+></DT
+><DT
+>10.12. <A
+HREF="x3182.html#AEN3328"
+><TT
+CLASS="LITERAL"
+>EXT2-fs warning: maximal count reached</TT
+>.</A
+></DT
+><DT
+>10.13. <A
+HREF="x3182.html#AEN3336"
+><TT
+CLASS="LITERAL"
+>EXT2-fs warning: checktime reached</TT
+>.</A
+></DT
+><DT
+>10.14. <A
+HREF="x3182.html#AEN3341"
+><B
+CLASS="COMMAND"
+>df</B
+> Says, 
+``<TT
+CLASS="LITERAL"
+>Cannot read table of mounted file systems</TT
+>.''</A
+></DT
+><DT
+>10.15. <A
+HREF="x3182.html#AEN3365"
+><B
+CLASS="COMMAND"
+>fdisk</B
+> Says, 
+``<TT
+CLASS="LITERAL"
+>Partition X has different physical/logical...</TT
+>''</A
+></DT
+><DT
+>10.16. <A
+HREF="x3182.html#AEN3372"
+><TT
+CLASS="LITERAL"
+>fdisk: Partition 1 does not start on cylinder boundary</TT
+>.</A
+></DT
+><DT
+>10.17. <A
+HREF="x3182.html#AEN3398"
+><B
+CLASS="COMMAND"
+>fdisk</B
+> Says Partition <EM
+>n</EM
+> Has 
+an Odd Number of Sectors.</A
+></DT
+><DT
+>10.18. <A
+HREF="x3182.html#AEN3403"
+>A Mtools Utility Says It Cannot Initialize Drive <EM
+>XYZ</EM
+>.</A
+></DT
+><DT
+>10.19. <A
+HREF="x3182.html#AEN3414"
+>At the Start of Booting: <TT
+CLASS="LITERAL"
+>Memory tight</TT
+></A
+></DT
+><DT
+>10.20. <A
+HREF="x3182.html#AEN3419"
+>My Syslog says, ``<TT
+CLASS="LITERAL"
+>end_request: I/O error</TT
+>, ....''</A
+></DT
+><DT
+>10.21. <A
+HREF="x3182.html#AEN3428"
+>``<TT
+CLASS="LITERAL"
+>You don't exist. Go away.</TT
+>''</A
+></DT
+><DT
+>10.22. <A
+HREF="x3182.html#AEN3437"
+>``<TT
+CLASS="LITERAL"
+>Operation not permitted</TT
+>.''</A
+></DT
+><DT
+>10.23. <A
+HREF="x3182.html#AEN3447"
+><EM
+>programname: </EM
+>
+<TT
+CLASS="LITERAL"
+>error in loading shared libraries: lib</TT
+>
+<EM
+>xxx.</EM
+><TT
+CLASS="LITERAL"
+>.so.</TT
+>
+<EM
+>x</EM
+><TT
+CLASS="LITERAL"
+>: cannot open shared object file:
+No such file or directory.</TT
+></A
+></DT
+><DT
+>10.24. <A
+HREF="x3182.html#AEN3475"
+>``<TT
+CLASS="LITERAL"
+>init: Id "x" respawning too fast: disabled for 5 minutes</TT
+>.''</A
+></DT
+><DT
+>10.25. <A
+HREF="x3182.html#AEN3504"
+>FTP server says: ``421 service not available, remote server has closed connection.''</A
+></DT
+></DL
+></DD
+><DT
+>11. <A
+HREF="x3516.html"
+>The X Window System</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="x3516.html#AEN3518"
+>Does Linux Support X?</A
+></DT
+><DT
+>11.2. <A
+HREF="x3516.html#AEN3526"
+>How Do I Get the X Window System to Work?</A
+></DT
+><DT
+>11.3. <A
+HREF="x3516.html#AEN3554"
+>Where Can I Get a Ready-Made <TT
+CLASS="FILENAME"
+>XF86Config</TT
+> for My System?</A
+></DT
+><DT
+>11.4. <A
+HREF="x3516.html#AEN3579"
+>What Desktop Environments Run on Linux?</A
+></DT
+><DT
+>11.5. <A
+HREF="x3516.html#AEN3612"
+><B
+CLASS="COMMAND"
+>xterm</B
+> Logins Show Up Strangely in 
+<B
+CLASS="COMMAND"
+>who</B
+>, <B
+CLASS="COMMAND"
+>finger</B
+>.</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="x3621.html"
+>How to Get Further Assistance</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="x3621.html#AEN3623"
+>You Still Haven't Answered My Question!</A
+></DT
+><DT
+>12.2. <A
+HREF="x3621.html#AEN3661"
+>What to Put in a Request for Help.</A
+></DT
+><DT
+>12.3. <A
+HREF="x3621.html#AEN3693"
+>I Want to Mail Someone about My Problem.</A
+></DT
+></DL
+></DD
+><DT
+>13. <A
+HREF="x3698.html"
+>Acknowledgments and Administrivia</A
+></DT
+><DD
+><DL
+><DT
+>13.1. <A
+HREF="x3698.html#AEN3700"
+>Where To Send Comments.</A
+></DT
+><DT
+>13.2. <A
+HREF="x3698.html#AEN3708"
+>Formats in Which This FAQ Is Available.</A
+></DT
+><DT
+>13.3. <A
+HREF="x3698.html#AEN3734"
+>Authorship and Acknowledgments.</A
+></DT
+><DT
+>13.4. <A
+HREF="x3698.html#AEN3747"
+>Disclaimer and Copyright.</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x25.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introduction and General Information</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

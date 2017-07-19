@@ -1,0 +1,137 @@
+
+JOE COMMAND REFERENCE
+by Paul Sutton 22-5-97 or 22nd May 1997
+Donated free of charge to the Linux Documentation Project.
+I hope you will find this document useful.
+
+
+
+^KH 	help menu on/off
+
+commands and keystrokes used in joe
+^		=	control key
+Basic commands
+
+CURSOR
+
+^B	Left		^F	Right
+^P	Up		^N	Down
+^Z	Previous word	^X	Next word
+
+SEARCH
+^KF	Find Text
+^L	Find Next
+
+GOTO
+
+^U	Prev. screen		^V	Next screen
+^A	Beginning of Line	^E	End of line
+^KU	Top of file		^KV	End of file
+^KL	to line number
+
+BLOCK
+^KB	Begin			^KK	End
+^KM	Move			^KC	Copy
+^KW	File			^KY	Delete
+^K/	filter
+
+DELETE
+
+^D	Char			^Y	Line
+^W	>Word			^O	Word<
+^J	>Line			^_	Undo
+^^	redo
+
+MISC
+
+^KJ	Reformat		^TT	Overtype
+'	ctrl-			^\	Meta-
+^R	Retype			^@	Insert
+
+EXIT	
+
+^KX	Save			^C	Abort
+^KZ	Shell			fg	Return to program.
+
+FILE
+
+^KE	New			^KR	Insert
+^KD	Save
+
+WINDOWS
+
+^KO	Split the window into two. You can then use ^KE to load a file into
+	the new window	
+
+^KG	Make current window bigger	^KT	Make current window smaller
+^KN	Goto window below		^KP	Goto window above
+^C	Eliminate current window	
+^KI	Show all windows/show one window
+
+ADVANCED
+
+^K \		Repeat next command nn times	^G	Goto matching ( [ {
+^K SPACE	Show position status
+^K-		goto prevous place in position history
+^K [ 0-9	Begin recording macro n
+^K ]		Stop recording
+^K A		Center line
+^T X		Rectangle mode
+^K '		Terminal window
+^K =		Goto Next place
+^K,		Indent marked block less
+^K.		Indent marked block more
+^k;		Tag serarch
+
+OPTIONS		[mode settings]
+
+^TT		Insert/overtype		
+^TA		Auto indent on/off
+^TW		Wordwrap on/off
+^TL		Left margin
+^TR		Right margin
+^TP		No. PgUP/PgDn lines
+^TK		Indent character
+^TX		Rectangle mode
+^TM		Recenter cursor when it goes off window
+^TF		Force final NL when file are written
+^TH		Display characters above 127 as-is
+^TC		Show column number on status line
+^TD		Tab width
+^TI		Indent step column width
+
+SEARCH
+
+Special search sequences:
+
+\^	Matches beginning of line
+\<	Matches beginning of word
+\?	matches any single character
+\c	matches any balanced C expression
+\[..]	matches one of a set
+\+	matches 0 or more of the characters which follow the \+
+\$	matches end of line
+\>	matches end of word
+\*	matchs 0 or more characters
+\\	matches a \
+\n	matches a new line
+
+Special replace sequences
+
+\&	replace with text which matched search string
+\0-9	replaced with text which matched Nth \*, \? \c, \+ or \[..]
+\\ 	replaced with \
+\n	replaced with newline
+
+NAMES
+
+Hit TAB at the file name prompts to generate menu of file names
+Or use up/down keys to access history of previously entered names 
+
+Special file names:
+!ccommand			Pipe in/out of a shell command
+>>filename			Append to a file
+-				Read/Write to/from standard I/O
+filename, START, SIZE		Read/Write a part of a file/device
+Give	  START/SIZE	in decimal (255), octal (0377) or hex (0xFF)
+

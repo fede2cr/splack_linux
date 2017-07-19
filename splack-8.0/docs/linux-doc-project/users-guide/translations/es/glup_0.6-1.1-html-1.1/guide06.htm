@@ -1,0 +1,459 @@
+<HTML>
+<HEAD>
+<TITLE>guide6</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide05.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide07.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 6</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>Trabajando con Unix</P><DIR>
+<DIR>
+
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>A UNIX saleslady, Lenore,</P>
+<P>Enjoys work, but she likes the beach more.</P>
+<P>She found a good way</P>
+<P>To combine work and play:</P>
+<P>She sells C shells by the seashore.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Unix es un potente sistema para aquellos que saben c&oacute;mo dominar su poder. En este cap&iacute;tulo, intentar&eacute; describir varias maneras de usar el shell de Unix, bash, m&aacute;s eficientemente.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>6.1 Comodines</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>En el cap&iacute;tulo anterior, se ense&ntilde;aron los comandos para mantener ficheros cp, mv, y rm. A veces, se querr&aacute; tratar con m&aacute;s de un fichero a la vez, en realidad, con muchos a la vez. Por ejemplo, se quiere copiar todos los ficheros que empiecen por data en un directorio llamado /backup. Se podr&iacute;a hacer esto ejecutando muchos comandos cp, o escribiendo cada fichero en una l&iacute;nea de comando. Estos dos m&eacute;todos llevan mucho tiempo, incluso, se tienen muchas posibilidades de cometer errores.</P>
+<P>Una buena manera de hacer este trabajo es teclear:</P><DIR>
+<DIR>
+
+<P>/home/larry/report$ ls -F</P>
+<P>1993-1 1994-1 data1 data5</P>
+<P>1993-2 data-new data2</P>
+<P>/home/larry/report$ mkdir ~/backup</P>
+<P>/home/larry/report$ cp data* ~/backup</P>
+<P>/home/larry/report$ ls -F ~/backup</P>
+<P>data-new data1 data2 data5</P>
+<P>/home/larry/report$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como se puede observar, el asterisco indica a cp que tome todos los ficheros que empiecen por data y los copie a /backup. ¿Qu&eacute; cree que "cp d*w /backup" puede haber hecho?</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.1.1 ¿Qu&eacute; ocurre realmente?</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Buena pregunta. De hecho, hay un par de caracteres especiales interceptados por el shell, bash. El car&aacute;cter "*" , un asterisco, dice "cambia esta palabra con todos los ficheros que se ajusten a esta especificaci&oacute;n". As&iacute;, el comando "cp data* /backup" , como el de arriba, cambia a "cp data-new data1 data2 data5 /backup" antes de ejecutarse.</P>
+<P>Para ilustrar esto, introducir&eacute; un comando nuevo, echo. echo es un comando extremadamente simple; repite, o muestra, cualquier par&aacute;metro. De este modo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ echo Hola!</P>
+<P>Hola!</P>
+<P>/home/larry$ echo Como se encuentra?</P>
+<P>Como se encuentra?</P>
+<P>/home/larry$ cd report</P>
+<P>/home/larry/report$ ls -F</P>
+<P>1993-1 1994-1 data1 data5</P>
+<P>1993-2 data-new data2</P>
+<P>/home/larry/report$ echo 199*</P>
+<P>1993-1 1993-2 1994-1</P>
+<P>/home/larry/report$ echo *4*</P>
+<P>1994-1</P>
+<P>/home/larry/report$ echo *2*</P>
+<P>1993-2 data2</P>
+<P>/home/larry/report$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como se puede ver, el shell expande el comod&iacute;n y pasa todos los ficheros al programa que se va a ejecutar. Esto plantea una pregunta interesante: ¿qu&eacute; ocurre si no hay ficheros que se ajusten a la especificaci&oacute;n del comod&iacute;n? Pruebe "echo /rc/fr*og" y bash pasar&aacute; literalmente la especificaci&oacute;n del comod&iacute;n al programa.</P>
+<P>Otros shells, como tcsh, en vez de pasar el comod&iacute;n literalmente, contestar&aacute;n No match. Aqu&iacute; est&aacute; el mismo comando ejecutado bajo tcsh:</P><DIR>
+<DIR>
+
+<P>mousehouse&gt;echo /rc/fr*og</P>
+<P>echo: No match.</P>
+<P>mousehouse&gt;</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La &uacute;ltima pregunta que podr&iacute;a hacerse es, ¿qu&eacute; pasa si quisiera mostrar data*, en vez de la lista de nombres? Bien, tanto en bash como en tcsh, s&oacute;lo se debe incluir la cadena entre comillas:</P><DIR>
+<DIR>
+
+<P>/home/larry/report$ echo "data*" mousehouse&gt;echo "data*"</P>
+<P>data* &Oacute; bien data*</P>
+<P>/home/larry/report$ mousehouse&gt;</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.1.2 El signo de interrogaci&oacute;n</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Adem&aacute;s del asterisco, el shell tambi&eacute;n interpreta un signo de interrogaci&oacute;n como un car&aacute;cter especial.</P>
+<P>Un signo de interrogaci&oacute;n coincidir&aacute; con un car&aacute;cter, y s&oacute;lo uno. Por ejemplo, "ls /etc/*</P>
+<P>*??" mostrar&aacute; todos los ficheros de dos letras en el directorio /etc.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>6.2 Ganar tiempo con bash</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.2.1 Editando la l&iacute;nea de comandos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>A veces, escribe un comando largo a bash y, antes de pulsar |_Intro_|, se da cuenta de que ha cometido un error al escribirlo. Se puede simplemente borrar todo y volver a teclear correctamente, pero ¡es demasiado esfuerzo! En cambio, se pueden usar las flechas para moverse, borrar el/los car&aacute;cter/es incorrecto/s, y escribir la informaci&oacute;n correctamente.</P>
+<P>Hay muchas teclas especiales que ayudan a editar la l&iacute;nea de comandos, muchas de ellas similares a los comandos usados en GNU Emacs. Por ejemplo, |_C-t_| intercambia dos car&aacute;cteres adyacentes1.</P>
+<P>Se pueden encontrar muchos de los comandos en el cap&iacute;tulo sobre Emacs, Cap&iacute;tulo 8.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.2.2 Completamiento de comandos y nombres de fichero</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Otra peculiaridad de bash es la ejecuci&oacute;n autom&aacute;tica de las l&iacute;neas de comando. Por ejemplo, veamos el siguiente ejemplo de un comando cp t&iacute;pico:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls -F</P>
+<P>esto-es-un-fichero-largo</P>
+<P>/home/larry$ cp esto-es-un-fichero-largo corto</P>
+<P>/home/larry$ ls -F</P>
+<P>corto esto-es-un-fichero-largo</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Es una gran molestia tener que teclear cada letra de esto-es-un-fichero-largo cada vez que se quiere acceder a &eacute;l, sucede lo mismo si queremos crear esto-es-un-fichero-largo copiando en &eacute;l /etc/passwd2. Ahora, aprenderemos a escribir el anterior comando cp m&aacute;s r&aacute;pidamente y con menos posibilidad de error.</P>
+<P>En vez de teclear el nombre del fichero entero, se escribe "cp es" , se pulsa y suelta la tecla |_Tab_|. Por arte de magia, el resto del nombre del fichero aparece en la l&iacute;nea de comandos, y se puede escribir corto. Desgraciadamente, bash no pude leer los pensamientos, por lo que se debe teclear corto.</P>
+<P>Cuando se pulsa |_Tab_|, bash mira lo que hay escrito y busca un fichero que empiece como eso. Por ejemplo, si tecleo /usr/bin/ema y luego pulso |_Tab_|, bash encontrar&aacute; /usr/bin/emacs ya que es el &uacute;nico fichero que empieza por /usr/bin/ema en mi sistema. En cambio, si tecleo /usr/bin/ld y pulso |_Tab_|, bash me avisar&aacute;. Eso es porque tres ficheros, /usr/bin/ld, /usr/bin/ldd, y /usr/bin/ld86 empiezan por /usr/bin/ld en mi sistema.</P>
+<P>Si se intenta un completamiento y bash avisa, se puede pulsar inmediatamente |_Tab_| otra vez para conseguir una lista de todos los ficheros que coincidan con el patr&oacute;n. De este modo, si no se est&aacute; seguro del nombre exacto del fichero, podemos teclear los primeros caracteres del nombre y buscarlo en una lista m&aacute;s peque&ntilde;a de ficheros.</P>
+<P>______________________________________________</P>
+<P>1 |_C-t_|significa mantener pulsada la tecla marcada como "Ctrl", y apretar la tecla "t". Luego soltar ambas.</P>
+<P>2 "cp /etc/passwd esto-es-un-fichero-largo"</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>6.3 La entrada est&aacute;ndar y La salida est&aacute;ndar</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Intentemos abordar un problema simple: conseguir un listado del directorio /usr/bin. Si hacemos "ls /usr/bin" , algunos de los nombres de los ficheros saldr&aacute;n por arriba de la pantalla. ¿Como se pueden ver todos los ficheros?</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.3.1 Algunos conceptos de Unix</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El sistema operativo Unix facilita mucho a los programas el uso del terminal. Cuando un programa escribe algo en la pantalla, est&aacute; usando algo llamado salida est&aacute;ndar. Salida est&aacute;ndar, en ingl&eacute;s standard output o stdout, es la manera que tiene el programa de escribirle cosas al usuario. El nombre por el que se indica un programa es entrada est&aacute;ndar (stdin). Es posible que un programa se comunique con el usuario sin usar la entrada o salida est&aacute;ndar, pero la mayor&iacute;a de los comandos que se tratan en este libro usan stdin y stdout.</P>
+<P>Por ejemplo, el comando ls imprime una lista de los directorios en la salida est&aacute;ndar, que est&aacute; normalmente "conectada" al terminal. Un comando interactivo, como el shell, bash, lee los comandos de la entrada est&aacute;ndar.</P>
+<P>Un programa tambi&eacute;n puede escribir en el error est&aacute;ndar, ya que es muy f&aacute;cil hacer que la salida est&aacute;ndar apunte a cualquier lugar aparte del terminal. El error est&aacute;ndar (stderr) est&aacute; casi siempre conectado al terminal para que alguna persona pueda leer el mensaje.</P>
+<P>En esta secci&oacute;n, examinaremos tres modos de enredarse con la entrada y salida est&aacute;ndar: redireccionar la salida, redireccionar la entrada, y las tuber&iacute;as.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.3.2 Redireccionar la salida</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Un aspecto muy importante de Unix es la posibilidad de redireccionar la salida. Esto permite que, en vez de ver los resultados de un comando, los salvemos en un fichero o los enviemos directamente a una impresora. Por ejemplo, para redireccionar la salida del comando "ls /usr/bin", se coloca un signo "&gt;" al final de la l&iacute;nea, y se indica el fichero donde dejar la salida:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls</P>
+<P>/home/larry$ ls -F /usr/bin &gt; listado</P>
+<P>/home/larry$ ls</P>
+<P>listado</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como se puede ver, en vez de escribir los nombres de todos los ficheros, el comando crea un fichero totalmente nuevo en el directorio actual. Echemos un vistazo a este fichero usando el comando cat.</P>
+<P>Si se recuerda, cat era un comando bastante in&uacute;til que copiaba lo que se escrib&iacute;a (entrada est&aacute;ndar) al terminal (salida est&aacute;ndar). cat tambi&eacute;n imprime un fichero en la salida est&aacute;ndar si se indica el fichero como par&aacute;metro:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat listado</P>
+<P>..</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La salida exacta del comando "ls /usr/bin" aparece en el contenido de listado. Por ahora todo bien, sin embargo no resuelve el problema original.3</P>
+<P>A pesar de todo, cat hace algunas cosas interesantes cuando se redirecciona su salida. ¿Qu&eacute; hace el comando "cat listado &gt; fichero"? Normalmente, el "&gt; fichero" dice "coge toda la salida del comando y ponla en fichero". La salida del comando "cat listado" es el fichero listado. As&iacute; hemos inventado un nuevo (y no tan eficiente) m&eacute;todo de copiar ficheros.</P>
+<P>¿Qu&eacute; ocurre con el comando "cat &gt; zorro" ? cat lee cada l&iacute;nea escrita en el terminal (entrada est&aacute;ndar) y la imprime de vuelta (salida est&aacute;ndar) hasta que lee |_Ctrl-d_|. En este caso, la salida est&aacute;ndar se ha redireccionado al fichero zorro. Ahora cat sirve como un editor rudimentario:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat &gt; zorro</P>
+<P>El rapido zorro marron salta sobre el descuidado perro.</P>
+<P>pulsa Ctrl-d</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Ahora se ha creado el fichero zorro que contiene la frase "El rapido zorro marron salta sobre el descuidado perro". Un &uacute;ltimo uso del vers&aacute;til comando cat es concatenar ficheros. cat imprimir&aacute; cada fichero dado como par&aacute;metro, uno despues de otro. El comando "cat listado zorro" imprimir&aacute; el listado del directorio /usr/bin, y luego la tonta frase. As&iacute;, el comando "cat listado zorro &gt; listyzorro" crear&aacute; un nuevo fichero conteniendo los contenidos de listado y zorro.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.3.3 Redireccionar la entrada</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>As&iacute; como cuando se redirecciona la salida est&aacute;ndar, es posible redireccionar la entrada. En lugar de que un programa lea su entrada desde el teclado, la leer&aacute; desde un fichero. Como redireccionar la entrada est&aacute; relacionado con redireccionar la salida, parece natural que "&lt;" sea el car&aacute;cter para redireccionar la entrada. &Eacute;ste tambi&eacute;n se usa despu&eacute;s del comando que se desee ejecutar.</P>
+<P>Esto es generalmente &uacute;til si se tiene un fichero de datos y un comando que espera sus datos desde la entrada est&aacute;ndar. Muchos comandos permiten especificar un fichero sobre el cual operar, as&iacute; que en las actividades diarias el "&lt;" no se usa tanto como otras t&eacute;cnicas.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.3.4 Las tuber&iacute;as</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Muchos comandos Unix producen gran cantidad de informaci&oacute;n. Por ejemplo, es normal que un comando como "ls /usr/bin" produzca m&aacute;s salida que la que se puede ver en pantalla. Para que se pueda ver toda la informaci&oacute;n de un comando como "ls /usr/bin" , es necesario usar otro comando Unix llamado more4. more parar&aacute; cada vez que la pantalla se llene de informaci&oacute;n. Por ejemplo, "more &lt; /etc/rc" mostrar&aacute; el fichero /etc/rc como lo har&iacute;a "cat /etc/rc" , excepto que more permite leerlo. more tambi&eacute;n admite el comando "more /etc/rc" , y esa es la forma normal de invocarlo.</P>
+<P>_____________________________________________</P>
+<P>3 Para lectores impacientes, el comando que se debe usar es more. Sin embargo, hay que hablar un poco sobre algo m&aacute;s antes de llegar ah&iacute;.</P>
+<P>4 Se llama more porque ese es el indicador que originalmente mostraba: "--more--". En varias versiones de Linux el comando more es identico a un comando m&aacute;s avanzado que hace todo lo que more puede hacer y m&aacute;s a&uacute;n. Como demostraci&oacute;n de que los programadores de ordenadores son malos c&oacute;micos, llamaron a este nuevo programa "less".</P>
+<P>&nbsp;</P>
+<P>Sin embargo, eso no ayuda al problema de que "ls /usr/bin" muestre m&aacute;s informaci&oacute;n de la que se pueda ver. "more &lt; ls /usr/bin" no funciona, ¡la redirecci&oacute;n de entrada s&oacute;lo funciona con ficheros, no comandos! Se podr&iacute;a hacer esto:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ls /usr/bin &gt; temp-ls</P>
+<P>/home/larry$ more temp-ls</P>
+<P>..</P>
+<P>/home/larry$ rm temp-ls</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Pero, Unix propone una forma m&aacute;s limpia de hacerlo. Se puede usar el comando "ls /usr/bin _ more". El car&aacute;cter "_" es una tuber&iacute;a. Como una tuber&iacute;a de agua, una tuber&iacute;a Unix controla el flujo. En vez de agua, se controla el flujo de informaci&oacute;n.</P>
+<P>Los filtros son programas muy &uacute;tiles para usarse en conjunci&oacute;n con las tuber&iacute;as. Un filtro es un programa que lee la entrada est&aacute;ndar, la cambia de alguna manera, y la saca por la salida est&aacute;ndar.</P>
+<P>more es un filtro, lee los datos que coge de la entrada est&aacute;ndar y los muestra por la salida est&aacute;ndar pantalla a pantalla, permitiendo leer el fichero. more no es un gran filtro porque su salida no se puede enviar a otro programa.</P>
+<P>Otros filtros incluyen los programas cat, sort, head, y tail. Por ejemplo, si se quiere leer s&oacute;lo las primeras diez l&iacute;neas de la salida de ls, se puede usar "ls /usr/bin _ head" .</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>6.4 Multitarea</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.4.1 Usando el control de trabajos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Control de trabajos se refiere a la habilidad de poner procesos (esencialmente, otra palabra para programas) en background (segundo plano) y ponerlos de vuelta en foreground (primer plano).</P>
+<P>Esto es como decir, que se quiere ser capaz de ejecutar algo mientras se hacen otras cosas, pero que est&eacute;n ah&iacute; otra vez cuando se les quiera decir algo o pararlos. En Unix, la principal herramienta para el control de procesos es el shell, seguir&aacute; la pista de los procesos por usted, si se aprende como hablar su lenguaje.</P>
+<P>Las dos palabras m&aacute;s importantes en ese lenguaje son fg, para primer plano, y bg, para segundo plano. Para entender como funcionan, use el comando yes en el indicador del sistema.</P><DIR>
+<DIR>
+
+<P>/home/larry$ yes</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Esto produce el maravilloso efecto de desplazar una larga columna de yes por la parte izquierda de la pantalla, tan r&aacute;pido que no se pueden seguir5. Para pararlo, se podr&iacute;a pulsar |_Ctrl-c_| y matarlo, pero esta vez Ud. oprimir&aacute; |_Ctrl-z_|. Parece haberse detenido, pero habr&aacute; un mensaje antes del indicador de sistema, m&aacute;s o menos parecido a este:</P><DIR>
+<DIR>
+
+<P>[1]+ Stopped yes</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>5 Hay buenas razones para que este extra&ntilde;o comando exista. Ciertos comandos esperan una confirmaci&oacute;n, un "si" ([y]es en ingl&eacute;s) a una pregunta. El comando yes permite al programador automatizar la respuesta a esas preguntas.</P>
+<P>&nbsp;</P>
+<P>Significa que el trabajo yes se ha suspendido en el segundo plano. Se puede hacer que siga ejecut&aacute;ndose tecleando fg en el indicador de sistema, que lo pondr&aacute; en primer plano otra vez. Si se desea, se pueden hacer otras cosas antes, mientras est&aacute; suspendido. Pruebe unos cuantos ls o algo antes de ponerlo en primer plano nuevamente.</P>
+<P>Una vez que ha vuelto al primer plano, las yes empezar&aacute;n a salir otra vez, tan r&aacute;pido como antes.</P>
+<P>No hay que preocuparse de que si mientras ha estado suspendido ha "almacenado" m&aacute;s yes para enviarlas a la pantalla: cuando un trabajo se suspende, el programa entero no se ejecuta hasta que se lo vuelva de vuelta a la vida. (Ahora pulse |_Ctrl-c_| para matarlo de veras).</P>
+<P>Pongamos aparte el mensaje que obtuvimos del shell:</P><DIR>
+<DIR>
+
+<P>[1]+ Stopped yes</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El n&uacute;mero entre corchetes es el n&uacute;mero de trabajo de este proceso, y se usar&aacute; cuando se necesite referenciarlo espec&iacute;ficamente. (Naturalmente, desde el momento que tengamos en ejecuci&oacute;n m&uacute;ltiples trabajos, se necesita un modo de acceder a cada uno). El "+" siguiente indica que &eacute;se es el "trabajo actual", esto es, el proceso m&aacute;s reciente que se ha movido del primer plano al segundo.</P>
+<P>Si se tecleara "fg" , se pondr&iacute;a el trabajo con el "+" en primer plano otra vez. (M&aacute;s sobre esto despu&eacute;s, cuando se discuta la ejecuci&oacute;n de m&uacute;ltiples trabajos a la vez). La palabra Stopped significa que el trabajo est&aacute; "parado". El trabajo no est&aacute; muerto, pero actualmente no se ejecuta. Linux lo ha guardado en un estado especial de suspendido, listo para saltar a la acci&oacute;n cuando alguien lo solicite. Finalmente, el yes es el nombre del trabajo que se ha detenido.</P>
+<P>Antes de seguir adelante, matemos este trabajo y lo arrancamos otra vez de forma diferente. El comando se llama kill y se usa del siguiente modo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ kill %1</P>
+<P>[1]+ Stopped yes</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Ese mensaje sobre el proceso que indica "parado" otra vez induce a error. Para saber si a&uacute;n est&aacute; vivo (eso es, tanto en ejecuci&oacute;n como congelado en un estado suspendido), teclee "jobs":</P><DIR>
+<DIR>
+
+<P>/home/larry$ jobs</P>
+<P>[1]+ Terminated yes</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Ahora ya lo sabe: ¡el trabajo ha terminado! (Es posible que el comando jobs no muestre nada, lo que simplemente significa que no hay trabajos ejecut&aacute;ndose en segundo plano. Si se acaba de matar un trabajo, y al teclear jobs no muestra nada, se tiene la seguridad de que el comando kill se ha ejecutado correctamente. Normalmente indicar&aacute; que el trabajo ha "terminado").</P>
+<P>Ahora, ejecute yes de nuevo, de esta forma:</P><DIR>
+<DIR>
+
+<P>/home/larry$ yes &gt; /dev/null</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Si lee la secci&oacute;n sobre la redirecci&oacute;n de entrada y salida, sabr&aacute; que se est&aacute; enviando la salida de yes a un fichero especial llamado /dev/null. /dev/null es un agujero negro que come cualquier salida que se le env&iacute;e (se puede imaginar ese torrente de yes saliendo por detr&aacute;s del ordenador y perforando un agujero en la pared, si eso le hace feliz).</P>
+<P>Despu&eacute;s de teclear esto, no se recuperar&aacute; el indicador de sistema, pero tampoco saldr&aacute; esa columna de yes. Sin embargo la salida se est&aacute; enviando a /dev/null, el trabajo a&uacute;n se ejecuta en primer plano. Como siempre, se puede suspender pulsando |_Ctrl-z_|. H&aacute;galo ahora para volver al indicador del sistema.</P><DIR>
+<DIR>
+
+<P>/home/larry$ yes &gt; /dev/null</P>
+<P>["yes" se ejecuta, y solamente se ha pulsado Ctrl-z]</P>
+<P>[1]+ Stopped yes &gt;/dev/null</P>
+<P>&nbsp;</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Hmm. . . ¿hay alguna forma de ponerlo en ejecuci&oacute;n en segundo plano, mientras deja el indicador del sistema para trabajar de forma interactiva? El comando para hacer eso es bg:</P><DIR>
+<DIR>
+
+<P>/home/larry$ bg</P>
+<P>[1]+ yes &gt;/dev/null &amp;</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Ahora, deber&aacute; tener confianza en m&iacute; sobre esto: despu&eacute;s de teclear bg, el trabajo "yes &gt; /dev/null" habr&aacute; continuado con su ejecuci&oacute;n otra vez, pero esta vez en segundo plano. De hecho, si hace alguna cosa en el prompt, como ls u otros, se dar&aacute; cuenta que su m&aacute;quina se ha ralentizado un poco (¡generar y descargar continuamente una cadena preparada de "yes" lleva algo de tiempo, al fin y al cabo!) Aparte de esto, no hay ning&uacute;n otro efecto. Se puede hacer lo que se desee en el indicador del sistema, y yes continuar&aacute; felizmente enviando su salida al agujero negro.</P>
+<P>Ahora hay dos formas diferentes de matarlo: con el comando kill que ya se explic&oacute;, o poniendo el trabajo en primer plano de nuevo e interrumpirlo con una interrupci&oacute;n, |_Ctrl-c_|. Probemos la segunda forma, s&oacute;lo para entender la relaci&oacute;n entre fg y bg un poco mejor;</P><DIR>
+<DIR>
+
+<P>/home/larry$ fg</P>
+<P>yes &gt;/dev/null</P>
+<P>&nbsp;</P>
+<P>[ahora esta en primer plano. Imagine que pulso Ctrl-c para terminarlo]</P>
+<P>&nbsp;</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Bueno, se acab&oacute;. Ahora, ejecute unos cuantos trabajos simult&aacute;neamente, como estos:</P><DIR>
+<DIR>
+
+<P>/home/larry$ yes &gt; /dev/null &amp;</P>
+<P>[1] 1024</P>
+<P>/home/larry$ yes _ sort &gt; /dev/null &amp;</P>
+<P>[2] 1026</P>
+<P>/home/larry$ yes _ uniq &gt; /dev/null</P>
+<P>[y aqui, pulse Ctrl-z para suspenderlo, por favor]</P>
+<P>&nbsp;</P>
+<P>[3]+ Stopped yes _ uniq &gt;/dev/null</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La primera cosa que le debe llamar la atenci&oacute;n de estos comandos es la terminaci&oacute;n "&amp;" al final de los dos primeros. Poner un "&amp;" despu&eacute;s del comando indica al shell que los ejecute en segundo plano desde el principio. (Es una forma de evitarse tener que ejecutar el programa, pulsar |_Ctrl-z_|, y luego teclear "bg" .) As&iacute;, estos dos comandos han empezado a ejecutarse en segundo plano. El tercero est&aacute; suspendido e inactivo en este momento. Se puede dar cuenta de que la m&aacute;quina se ha vuelto m&aacute;s lenta, ya que los que se est&aacute;n ejecutando requieren un poco de tiempo de CPU.</P>
+<P>Cada uno indica su n&uacute;mero de trabajo. Los dos primeros tambi&eacute;n muestran sus n&uacute;meros de identificaci&oacute;n de proceso, o PID, despu&eacute;s del n&uacute;mero de trabajo. Los PIDs normalmente no son algo que se necesite conocer, pero a veces viene bien.</P>
+<P>Matemos el segundo, ya que creo que est&aacute; ralentizando su m&aacute;quina. Se puede teclear "kill %2", pero eso ser&iacute;a demasiado f&aacute;cil. Por el contrario, haga esto:</P><DIR>
+<DIR>
+
+<P>/home/larry$ fg %2</P>
+<P>yes _ sort &gt;/dev/null</P>
+<P>[pulse Ctrl-c para matarlo]</P>
+<P>&nbsp;</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Como esto demuestra, fg toma par&aacute;metros empezando con "%" . De hecho, se podr&iacute;a teclear s&oacute;lo esto:</P><DIR>
+<DIR>
+
+<P>/home/larry$ %2</P>
+<P>yes _ sort &gt;/dev/null</P>
+<P>[pulse Ctrl-c para matarlo]</P>
+<P>&nbsp;</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Esto funciona por que el shell autom&aacute;ticamente interpreta un n&uacute;mero de trabajo como una petici&oacute;n para poner ese trabajo en primer plano. Se puede indicar los n&uacute;meros de trabajo con otros n&uacute;meros precedidos por un "%". Ahora teclee "jobs" para ver cu&aacute;les trabajos quedan en ejecuci&oacute;n:</P><DIR>
+<DIR>
+
+<P>/home/larry$ jobs</P>
+<P>[1]- Running yes &gt;/dev/null &amp;</P>
+<P>[3]+ Stopped yes _ uniq &gt;/dev/null</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El "-" indica que ese trabajo n&uacute;mero 1 es segundo en la lista para ser puesto en el primer plano, si s&oacute;lo se teclea "fg" sin dar par&aacute;metros. El "+" indica que el trabajo especificado es el primero en la lista un "fg" sin par&aacute;metros pondr&aacute; al trabajo n&uacute;mero 3 en el primer plano. Sin embargo, se puede acceder a &eacute;l llam&aacute;ndolo, si se desea, mediante:</P><DIR>
+<DIR>
+
+<P>/home/larry$ fg %1</P>
+<P>yes &gt;/dev/null</P>
+<P>[ahora pulse Ctrl-z para suspenderlo]</P>
+<P>&nbsp;</P>
+<P>[1]+ Stopped yes &gt;/dev/null</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Al cambiar al trabajo n&uacute;mero 1 y luego suspenderlo han cambiado las prioridades de todos los trabajos de usuario. Esto se puede ver con el comando jobs:</P><DIR>
+<DIR>
+
+<P>/home/larry$ jobs</P>
+<P>[1]+ Stopped yes &gt;/dev/null</P>
+<P>[3]- Stopped yes _ uniq &gt;/dev/null</P>
+<P>/home/larry$</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>Ahora los dos est&aacute;n parados (porque los dos se han suspendido con |_Ctrl-z_|), y el n&uacute;mero 1 es el siguiente en la lista a entrar en el primer plano por defecto. Esto es as&iacute; porque se le puso en el primer plano manualmente, y luego fue suspendido. El "+" siempre se refiere al trabajo m&aacute;s reciente que ha sido suspendido del primer plano. Se puede continuar con su ejecuci&oacute;n otra vez:</P><DIR>
+<DIR>
+
+<P>/home/larry$ bg</P>
+<P>[1]+ yes &gt;/dev/null &amp;</P>
+<P>/home/larry$ jobs</P>
+<P>[1]- Running yes &gt;/dev/null</P>
+<P>[3]+ Stopped yes _ uniq &gt;/dev/null</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>F&iacute;jese que ahora est&aacute; en ejecuci&oacute;n, y el otro trabajo se ha movido en la lista y tiene el "+". Ahora mat&eacute;moslos para que el sistema no est&eacute; permanentemente ralentizado por procesos que no hacen nada.</P><DIR>
+<DIR>
+
+<P>/home/larry$ kill %1 %3</P>
+<P>[3] Terminated yes _ uniq &gt;/dev/null</P>
+<P>/home/larry$ jobs</P>
+<P>[1]+ Terminated yes &gt;/dev/null</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Aparecer&aacute;n varios mensajes sobre la terminaci&oacute;n de los trabajos, nada muere tranquilamente, al parecer. La figura 6.1 de la p&aacute;gina 59 muestra un breve resumen de lo que se debe saber acerca del control de trabajos.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>6.4.2 Teor&iacute;a del control de trabajos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Es importante entender que el control de procesos lo hace el shell. No hay ning&uacute;n programa en el sistema llamado fg; por eso, fg, bg, &amp;, jobs, y kill son internos al shell6. (A veces kill es un programa independiente; en el shell bash usado por Linux pertenece al shell). Esto es una forma l&oacute;gica de hacerlo: ya que cada usuario quiere su propio espacio de control de trabajos, y cada usuario ya tiene su propio shell, es m&aacute;s f&aacute;cil que el shell siga la pista de los trabajos usuario. Por otro lado, cada n&uacute;mero de trabajo de usuario s&oacute;lo tiene significado para ese usuario: mi trabajo n&uacute;mero [1] y su trabajo n&uacute;mero [1] son probablemente dos procesos totalmente diferentes. De hecho, si se est&aacute; conectado m&aacute;s de una vez, cada uno de los shells tendr&aacute; datos &uacute;nicos sobre el control de trabajos, as&iacute; como tambi&eacute;n un usuario puede tener dos trabajos diferentes con el mismo n&uacute;mero ejecut&aacute;ndose en dos shells diferentes.</P>
+<P>_____________________________________________</P>
+<P>6 N. del T.: En el original pone "shell-builtins", eso es que se compilan dentro del shell.</P>
+<P>&nbsp;</P>
+<P>La manera segura de referenciarlos es usar el n&uacute;mero IDentificador de Proceso (PID). Estos n&uacute;meros abarcan todo el sistema, cada proceso tiene su propio (y &uacute;nico) n&uacute;mero. Dos usuarios diferentes pueden referenciar un proceso por su PID y saber que est&aacute;n hablando sobre el mismo proceso (¡asumiendo que est&aacute;n conectados en la misma m&aacute;quina!).</P>
+<P>Ech&eacute;mosle un vistazo a un comando m&aacute;s para entender que son los PIDs. El comando ps lista todos los procesos en ejecuci&oacute;n, incluyendo el shell. Pru&eacute;belo. Tiene tambi&eacute;n unas cuantas opciones, de las cuales las m&aacute;s importantes (para mucha gente) son "a" , "u" , y "x" . La opci&oacute;n "a" lista los procesos pertenecientes a alg&uacute;n usuario, no s&oacute;lo los suyos propios. La "x" lista los procesos que no tienen un terminal asociado a ellos7. Finalmente, la "u" da informaci&oacute;n adicional sobre los procesos que es frecuentemente &uacute;til.</P>
+<P>Para hacerse una idea de lo que realmente est&aacute; haciendo el sistema, se ponen todos juntos: "ps -aux" . Se pueden ver los procesos que usan m&aacute;s memoria mirando la columna %MEM, y m&aacute;s CPU mirando a la columna %CPU. (La columna TIME lista la cantidad total de tiempo de CPU usado).</P>
+<P>Otra nota r&aacute;pida sobre los PIDs. kill, aparte de tomar opciones de la forma %no_trabajo, toma opciones de los PIDs en crudo. Esto es, si pone un "yes &gt; /dev/null" en segundo plano, se ejecuta "ps" , y se busca el yes. Luego se teclea "kill PID" 8 .</P>
+<P>Si empieza a programar en C con su sistema Linux, pronto aprender&aacute; que el control de trabajos del shell es s&oacute;lo una versi&oacute;n interactiva de las llamadas a las funciones fork y execl. Esto es demasiado complejo para explicarlo aqu&iacute;, pero ser&iacute;a &uacute;til recordarlo despu&eacute;s cuando se est&eacute; programando y se quieran ejecutar m&uacute;ltiples procesos desde un simple programa.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>6.5 Consolas virtuales: como estar en varios lugares a la vez</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Linux soporta consolas virtuales. Son una manera de hacer que su simple m&aacute;quina aparezca como m&uacute;ltiples terminales, todos conectados al mismo n&uacute;cleo Linux. Por fortuna, usar las consolas virtuales es una de las cosas m&aacute;s simples en Linux: hay "hot keys"9 para cambiar entre las consolas r&aacute;pidamente. Para probarlo, hay que conectarse al sistema, pulsar la tecla |_Alt_| izquierda, y pulsar |_F2_| (esto es, la tecla de funci&oacute;n n&uacute;mero 2)10 11.&nbsp;</P>
+<P>_____________________________________________</P>
+<P>7 Esto s&oacute;lo tiene sentido para ciertos programas que no tienen que hablar con el usuario a trav&eacute;s del teclado.</P>
+<P>8 En general, es m&aacute;s f&aacute;cil matar el n&uacute;mero del trabajo en vez de usar PIDs.</P>
+<P>9 N.T.: No he creido apropiado traducir este t&eacute;rmino, ya que muchos usuarios saben a lo que se refiere. De todas formas para el que no lo sepa, esto es, una simple combinaci&oacute;n de teclas que hace un cierto trabajo.</P>
+<P>&nbsp;</P>
+<P>Se encontrar&aacute; con otro indicador para conectarse. No se alarme: ahora est&aacute; en la consola virtual (VC) n&uacute;mero 2. Con&eacute;ctese y haga algunas cosas, unos cuantos ls o lo que sea, para confirmar que es un shell real. Ahora puede volver a la VC n&uacute;mero 1, pulsando el |_Alt_| izquierdo y |_F1_|. O se puede mover a una tercera VC, de la forma obvia (|_Alt-F3_|).</P>
+<P>Generalmente los sistemas Linux vienen con cuatro VC activadas por defecto. Esto se puede incrementar a ocho; estos temas se cubrir&aacute;n en The Linux System Administrator's Guide. Ello implica editar uno o dos ficheros en el directorio /etc. Sin embargo, cuatro deben ser suficientes para la mayor&iacute;a de las personas.</P>
+<P>Una vez las haya usado, las VC probablemente se convertir&aacute;n en una herramienta indispensable para tener varias cosas ejecut&aacute;ndose a la vez. Por ejemplo, yo normalmente ejecuto Emacs en la VC 1 (y hago la mayor parte de mi trabajo ah&iacute;), mientras tengo un programa de comunicaciones en la VC 3 (as&iacute; puede coger o dejar ficheros via modem mientras trabajo, o ejecutar programas en m&aacute;quinas remotas), y mantengo un shell en la VC 2 s&oacute;lo en caso de que tenga que ejecutar algo sin involucrar a la VC 1.</P>
+<P>_____________________________________________</P>
+<P>10 Hay que asegurarse de que esto se hace desde consolas en modo texto: si se est&aacute; ejecutando X Window u otra aplicaci&oacute;n gr&aacute;fica, probablemente no funcionar&aacute;, sin embargo corre el rumor de que pronto se podr&aacute; cambiar entre las consolas virtuales en X Window de Linux. </P>
+<P>11 N. del T.: De hecho al momento de la traducci&oacute;n, la combinaci&oacute;n es |_Ctrl-Alt-tecla-de-funci&oacute;n_|.</P>
+<P>&nbsp;</P>
+<P>Figura 6.1 Resumen de comandos y teclas usados para el control de trabajos.</P></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=704>
+<TR><TD WIDTH="29%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<P ALIGN="CENTER"><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">Comando</B></FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP" BGCOLOR="#c0c0c0">
+<B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P ALIGN="CENTER">Explicaci&oacute;n</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="29%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>fg %nº_trabajo</FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este es un comando del shell que devuelve un trabajo al primer plano. Para saber cu&aacute;l es &eacute;ste por defecto, se teclea "jobs" y se busca el que tiene el +.</P>
+<P>Par&aacute;metros: n&uacute;mero de trabajo opcional. El trabajo por defecto se identifica con el +.</FONT></TD>
+</TR>
+<TR><TD WIDTH="29%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&amp;</FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Cuando se a&ntilde;ade un &amp; al final de la l&iacute;nea de comandos, indica al comando que se ejecute en segundo plano autom&aacute;ticamente. Este trabajo est&aacute; entonces sujeto a todos los m&eacute;todos usuales para el control de trabajos aqu&iacute; detallados.</FONT></TD>
+</TR>
+<TR><TD WIDTH="29%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>bg %nº_trabajo</FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este es un comando del shell que manda a un trabajo suspendido ejecutarse en segundo plano. Para saber cual es &eacute;ste por defecto, se teclea "jobs" y se busca el que tiene el +.</P>
+<P>Par&aacute;metros: n&uacute;mero de trabajo opcional. El trabajo por defecto se identifica con el +.</FONT></TD>
+</TR>
+<TR><TD WIDTH="29%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>kill %nº_trabajo PID</FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este es un comando del shell que obliga a un trabajo en segundo plano, ya sea suspendido o en ejecuci&oacute;n, a terminar. Se debe siempre especificar el n&uacute;mero de trabajo o PID, y si se est&aacute;n usando n&uacute;meros de trabajo, no hay que olvidar poner el %.</P>
+<P>Par&aacute;metros: El n&uacute;mero de trabajo (a continuaci&oacute;n del %) o el PID (no es necesario el %). Se puede especificar m&aacute;s de un proceso o trabajo en una l&iacute;nea.</FONT></TD>
+</TR>
+<TR><TD WIDTH="29%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>jobs</FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este comando del shell lista informaci&oacute;n sobre los trabajos que est&aacute;n en ese momento en ejecuci&oacute;n o suspendidos. A veces tambi&eacute;n dice cu&aacute;les son los que acaban de salir o han terminado.</FONT></TD>
+</TR>
+<TR><TD WIDTH="29%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>|_Ctrl-c_|</FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este es el car&aacute;cter gen&eacute;rico de interrupci&oacute;n. Normalmente, si se pulsa mientras un programa se est&aacute; ejecutando en primer plano, matar&aacute; al programa (puede que haya que hacerlo varias veces). Sin embargo, no todos los programas responder&aacute;n a este m&eacute;todo de terminaci&oacute;n.</FONT></TD>
+</TR>
+<TR><TD WIDTH="29%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>|_Ctrl-z_|</FONT></TD>
+<TD WIDTH="71%" VALIGN="TOP">
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Esta combinaci&oacute;n de teclas normalmente suspende un programa, puede que algunos programas lo ignoren. Una vez suspendido, el trabajo se puede reiniciar en el segundo plano o se puede matar.</FONT></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P></FONT></BODY>
+</HTML>

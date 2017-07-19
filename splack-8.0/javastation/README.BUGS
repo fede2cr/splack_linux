@@ -1,0 +1,15 @@
+
+# README.BUGS
+# Last updated by Chris Newport 4 March 2003
+
+Known bugs for the JavaStation.
+
+1) /proc/openprom and /dev/openprom do not exist.
+	This is caused by limitations in PROLL18.
+	prtconf and similar utilities will not work.
+
+2) /dev/audio and /dev/sound/* appear correctly for Mrcoffee 
+	but not for Krups.
+	This is a kernel problem which will probably be fixed 
+	in the (hopefully near) future.
+

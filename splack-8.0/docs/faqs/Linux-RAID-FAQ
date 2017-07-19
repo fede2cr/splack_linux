@@ -1,0 +1,1251 @@
+<?php 
+include_once $_SERVER['DOCUMENT_ROOT'] . '/include/shared-manual.inc';
+manual_setup(array(
+  'head' => array('ISO-8859-1', 'nl'),
+  'home' => array('index.php', 'PHP Handleiding'),
+  'this' => array('ref.fdf.php', 'Forms Data Format Functions'),
+  'prev' => array('function.unlink.php', 'unlink'),
+  'next' => array('function.fdf-add-doc-javascript.php', 'fdf_add_doc_javascript'),
+  'up'   => array('funcref.php', 'Functie naslag'),
+  'toc'  => array(
+      array('ref.apache.php', 'Apache'),
+      array('ref.array.php', 'Arrays'),
+      array('ref.aspell.php', 'Aspell'),
+      array('ref.bc.php', 'BC math'),
+      array('ref.bzip2.php', 'Bzip2'),
+      array('ref.calendar.php', 'Calendar'),
+      array('ref.ccvs.php', 'CCVS'),
+      array('ref.com.php', 'COM'),
+      array('ref.classobj.php', 'Klassen/Objecten functies'),
+      array('ref.cpdf.php', 'ClibPDF'),
+      array('ref.crack.php', 'Crack functies'),
+      array('ref.curl.php', 'CURL'),
+      array('ref.cybercash.php', 'Cybercash'),
+      array('ref.cyrus.php', 'Cyrus IMAP'),
+      array('ref.ctype.php', 'ctype'),
+      array('ref.dba.php', 'dba'),
+      array('ref.datetime.php', 'Datum/tijd'),
+      array('ref.dbase.php', 'dBase'),
+      array('ref.dbm.php', 'DBM'),
+      array('ref.dbx.php', 'dbx'),
+      array('ref.dbplus.php', 'DB++'),
+      array('ref.dio.php', 'Direct IO'),
+      array('ref.dir.php', 'Directories'),
+      array('ref.dom.php', 'DOM'),
+      array('ref.domxml.php', 'DOM XML'),
+      array('ref.dotnet.php', '.NET'),
+      array('ref.errorfunc.php', 'Errors and Logging'),
+      array('ref.fam.php', 'fam'),
+      array('ref.fbsql.php', 'FrontBase'),
+      array('ref.filepro.php', 'filePro'),
+      array('ref.filesystem.php', 'Bestands-systeem'),
+      array('ref.fdf.php', 'FDF'),
+      array('ref.fribidi.php', 'FriBiDi'),
+      array('ref.ftp.php', 'FTP'),
+      array('ref.funchand.php', 'Function handling'),
+      array('ref.gettext.php', 'gettext'),
+      array('ref.gmp.php', 'GMP'),
+      array('ref.http.php', 'HTTP'),
+      array('ref.hw.php', 'Hyperwave'),
+      array('ref.hwapi.php', 'Hyperwave API'),
+      array('ref.iconv.php', 'iconv'),
+      array('ref.image.php', 'Image'),
+      array('ref.imap.php', 'IMAP'),
+      array('ref.ifx.php', 'Informix'),
+      array('ref.ibase.php', 'Firebird/InterBase'),
+      array('ref.id3.php', 'id3'),
+      array('ref.ingres.php', 'Ingres II'),
+      array('ref.ircg.php', 'IRC Gateway'),
+      array('ref.java.php', 'Java'),
+      array('ref.ldap.php', 'LDAP'),
+      array('ref.lzf.php', 'LZF'),
+      array('ref.mail.php', 'Mail'),
+      array('ref.mailparse.php', 'mailparse'),
+      array('ref.math.php', 'Wiskunde'),
+      array('ref.mbstring.php', 'Multibyte String'),
+      array('ref.mcal.php', 'MCAL'),
+      array('ref.mcrypt.php', 'mcrypt'),
+      array('ref.mcve.php', 'MCVE'),
+      array('ref.memcache.php', 'Memcache'),
+      array('ref.mhash.php', 'mhash'),
+      array('ref.mime-magic.php', 'Mimetype'),
+      array('ref.mssql.php', 'MS SQL Server'),
+      array('ref.ming.php', 'Ming (flash)'),
+      array('ref.misc.php', 'Misc.'),
+      array('ref.mnogosearch.php', 'mnoGoSearch'),
+      array('ref.msql.php', 'mSQL'),
+      array('ref.mysql.php', 'MySQL'),
+      array('ref.mysqli.php', 'mysqli'),
+      array('ref.msession.php', 'Msession'),
+      array('ref.muscat.php', 'muscat'),
+      array('ref.network.php', 'Network'),
+      array('ref.ncurses.php', 'Ncurses'),
+      array('ref.notes.php', 'Lotus Notes'),
+      array('ref.nsapi.php', 'NSAPI'),
+      array('ref.uodbc.php', 'ODBC'),
+      array('ref.objaggregation.php', 'Object Aggregation'),
+      array('ref.oci8.php', 'OCI8'),
+      array('ref.openssl.php', 'OpenSSL'),
+      array('ref.oracle.php', 'Oracle'),
+      array('ref.ovrimos.php', 'OvrimosSQL'),
+      array('ref.outcontrol.php', 'Output Control'),
+      array('ref.overload.php', 'Object overloading'),
+      array('ref.pdf.php', 'PDF'),
+      array('ref.pfpro.php', 'Verisign Payflow Pro'),
+      array('ref.info.php', 'PHP Options/Info'),
+      array('ref.posix.php', 'POSIX'),
+      array('ref.pgsql.php', 'PostgreSQL'),
+      array('ref.pcntl.php', 'PCNTL'),
+      array('ref.exec.php', 'Programma uitvoer'),
+      array('ref.printer.php', 'Printer'),
+      array('ref.pspell.php', 'Pspell'),
+      array('ref.readline.php', 'Readline'),
+      array('ref.recode.php', 'Recode'),
+      array('ref.pcre.php', 'PCRE'),
+      array('ref.qtdom.php', 'qtdom'),
+      array('ref.regex.php', 'POSIX Regex'),
+      array('ref.sem.php', 'Semaphore'),
+      array('ref.sesam.php', 'SESAM'),
+      array('ref.session.php', 'Sessions'),
+      array('ref.shmop.php', 'shmop'),
+      array('ref.simplexml.php', 'SimpleXML'),
+      array('ref.soap.php', 'SOAP'),
+      array('ref.sqlite.php', 'SQLite'),
+      array('ref.swf.php', 'SWF'),
+      array('ref.snmp.php', 'SNMP'),
+      array('ref.sockets.php', 'Sockets'),
+      array('ref.spl.php', 'spl'),
+      array('ref.stream.php', 'Streams'),
+      array('ref.strings.php', 'Strings'),
+      array('ref.sybase.php', 'Sybase'),
+      array('ref.tcpwrap.php', 'TCP Wrappers'),
+      array('ref.tidy.php', 'tidy'),
+      array('ref.tokenizer.php', 'Tokenizer'),
+      array('ref.url.php', 'URLs'),
+      array('ref.variables.php', 'Variabelen'),
+      array('ref.vpopmail.php', 'vpopmail'),
+      array('ref.w32api.php', 'W32api'),
+      array('ref.wddx.php', 'WDDX'),
+      array('ref.xml.php', 'XML'),
+      array('ref.xmlrpc.php', 'XML-RPC'),
+      array('ref.xdiff.php', 'xdiff'),
+      array('ref.xsl.php', 'XSL'),
+      array('ref.xslt.php', 'XSLT'),
+      array('ref.yaz.php', 'YAZ'),
+      array('ref.nis.php', 'YP/NIS'),
+      array('ref.zip.php', 'Zip'),
+      array('ref.zlib.php', 'Zlib'),
+)));
+manual_header();
+?><DIV
+CLASS="reference"
+><A
+NAME="ref.fdf"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXXII. Forms Data Format Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN31691"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fdf.intro"
+>Introductie</A
+></H1
+><P
+>&#13;    Forms Data Format (FDF) is a format for handling
+    forms within PDF documents. You should read the documentation at 
+    <A
+HREF="http://partners.adobe.com/asn/acrobat/forms.jsp"
+TARGET="_top"
+>http://partners.adobe.com/asn/acrobat/forms.jsp</A
+>
+    for more information on what FDF is and how it is used in general.
+   </P
+><P
+>&#13;    The general idea of FDF is similar to HTML forms. The difference is
+    basically the format how data is transmitted to the server when the submit
+    button is pressed (this is actually the Form Data Format) and the format
+    of the form itself (which is the Portable Document Format, PDF).
+    Processing the FDF data is one of the features provided by the fdf
+    functions. But there is more.  One may as well take an existing PDF form
+    and populated the input fields with data without modifying the form
+    itself. In such a case one would create a FDF document
+    (<A
+HREF="function.fdf-create.php"
+><B
+CLASS="function"
+>fdf_create()</B
+></A
+>) set the values of each input field
+    (<A
+HREF="function.fdf-set-value.php"
+><B
+CLASS="function"
+>fdf_set_value()</B
+></A
+>) and associate it with a PDF form
+    (<A
+HREF="function.fdf-set-file.php"
+><B
+CLASS="function"
+>fdf_set_file()</B
+></A
+>). Finally it has to be sent to the
+    browser with MimeType <VAR
+CLASS="literal"
+>application/vnd.fdf</VAR
+>. The Acrobat
+    reader plugin of your browser recognizes the MimeType,  reads the
+    associated PDF form and fills in the data from the FDF document.
+   </P
+><P
+>&#13;    If you look at an FDF-document with a text editor you will find a
+    catalogue object with the name <VAR
+CLASS="literal"
+>FDF</VAR
+>. Such an object may
+    contain a number of entries like <VAR
+CLASS="literal"
+>Fields</VAR
+>,
+    <VAR
+CLASS="literal"
+>F</VAR
+>, <VAR
+CLASS="literal"
+>Status</VAR
+> etc..
+    The most commonly used entries are <VAR
+CLASS="literal"
+>Fields</VAR
+> which points
+    to a list of input fields, and <VAR
+CLASS="literal"
+>F</VAR
+> which contains the
+    filename of the PDF-document this data belongs to. Those entries are
+    referred to in the FDF documentation as /F-Key or /Status-Key.
+    Modifying this entries
+    is done by functions like <A
+HREF="function.fdf-set-file.php"
+><B
+CLASS="function"
+>fdf_set_file()</B
+></A
+> and
+    <A
+HREF="function.fdf-set-status.php"
+><B
+CLASS="function"
+>fdf_set_status()</B
+></A
+>. Fields are modified with
+    <A
+HREF="function.fdf-set-value.php"
+><B
+CLASS="function"
+>fdf_set_value()</B
+></A
+>, <A
+HREF="function.fdf-set-opt.php"
+><B
+CLASS="function"
+>fdf_set_opt()</B
+></A
+> etc..
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fdf.requirements"
+>Afhankelijkheden</A
+></H1
+><P
+>&#13;     You need the FDF toolkit SDK available from
+     <A
+HREF="http://partners.adobe.com/asn/acrobat/forms.jsp"
+TARGET="_top"
+>http://partners.adobe.com/asn/acrobat/forms.jsp</A
+>.
+     As of PHP 4.3 you need at least SDK version 5.0. 
+     The FDF toolkit library is available in binary form only,
+     platforms supported by Adobe are Win32, Linux, Solaris and AIX.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fdf.installation"
+>Installatie</A
+></H1
+><P
+>&#13;   You must compile PHP with
+   <VAR
+CLASS="option"
+>--with-fdftk[=DIR]</VAR
+>.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Opmerking: </B
+>
+   If you run into problems configuring PHP with fdftk support, check
+   whether the header file <TT
+CLASS="filename"
+>fdftk.h</TT
+> and the library 
+   <TT
+CLASS="filename"
+>libfdftk.so</TT
+> are at the right place. 
+   The configure script supports both the directory structure of the
+   FDF SDK distribution and the usual <TT
+CLASS="filename"
+>DIR/include</TT
+> / 
+   <TT
+CLASS="filename"
+>DIR/lib</TT
+> layout, so you can point it either 
+   directly to the unpacked distribution directory or put the header 
+   file and the appropriate library for your platform into e.g. 
+   <TT
+CLASS="filename"
+>/usr/local/include</TT
+> and 
+   <TT
+CLASS="filename"
+>/usr/local/lib</TT
+> and configure with 
+   <VAR
+CLASS="literal"
+>--with-fdftk=/usr/local</VAR
+>.
+  </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Note to Win32 Users: </B
+>
+   In order to enable this module on a Windows environment, you must copy
+   <TT
+CLASS="filename"
+>fdftk.dll</TT
+> from the DLL folder of the PHP/Win32 binary
+   package to the SYSTEM32 folder of your windows machine. (Ex: <TT
+CLASS="filename"
+>C:\WINNT\SYSTEM32</TT
+>
+   or <TT
+CLASS="filename"
+>C:\WINDOWS\SYSTEM32</TT
+>)
+  </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fdf.configuration"
+>Configuratie tijdens scriptuitvoer</A
+></H1
+><P
+>Deze extensie gebruikt geen configuratie regels.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fdf.resources"
+>Resource types</A
+></H1
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="fdf.resources.fdf"
+>fdf</A
+></H2
+><P
+>&#13;      Most fdf functions require a <VAR
+CLASS="parameter"
+>fdf</VAR
+> resource
+      as their first parameter. A <VAR
+CLASS="parameter"
+>fdf</VAR
+> resource
+      is a handle to an opened fdf file. <VAR
+CLASS="parameter"
+>fdf</VAR
+>
+      resources may be obtained using <A
+HREF="function.fdf-create.php"
+><B
+CLASS="function"
+>fdf_create()</B
+></A
+>,
+      <A
+HREF="function.fdf-open.php"
+><B
+CLASS="function"
+>fdf_open()</B
+></A
+> and <A
+HREF="function.fdf-open-string.php"
+><B
+CLASS="function"
+>fdf_open_string()</B
+></A
+>.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fdf.constants"
+>Voorgedefineerde constanten</A
+></H1
+><P
+>&#13;Deze constanten worden gedefineerd door deze extensie, en
+zullen alleen beschikbaar zijn als de extensie met PHP is
+meegecompileerd, of als deze dynamisch is geladen vanuit een script.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFValue</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFStatus</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFFile</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFID</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFFf</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFSetFf</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFClearFf</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFFlags</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFSetF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFClrF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFAP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFAS</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFAction</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFAA</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFAPRef</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFIF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFEnter</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFExit</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFDown</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFUp</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFFormat</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFValidate</B
+></TT
+>
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFKeystroke</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFCalculate</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFNormalAP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFRolloverAP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FDFDownAP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.php"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fdf.examples"
+>Voorbeelden</A
+></H1
+><P
+>&#13;     The following examples shows just the evaluation of form data.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN31918"
+></A
+><P
+><B
+>Voorbeeld 1. Evaluating a FDF document</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+>
+<?php
+highlight_php('<?php
+// Open fdf from input string provided by the extension
+// The pdf form contained several input text fields with the names
+// volume, date, comment, publisher, preparer, and two checkboxes
+// show_publisher and show_preparer.
+$fdf = fdf_open_string($HTTP_FDF_DATA);
+$volume = fdf_get_value($fdf, "volume");
+echo "The volume field has the value \'<b>$volume</b>\'<br />";
+
+$date = fdf_get_value($fdf, "date");
+echo "The date field has the value \'<b>$date</b>\'<br />";
+
+$comment = fdf_get_value($fdf, "comment");
+echo "The comment field has the value \'<b>$comment</b>\'<br />";
+
+if (fdf_get_value($fdf, "show_publisher") == "On") {
+  $publisher = fdf_get_value($fdf, "publisher");
+  echo "The publisher field has the value \'<b>$publisher</b>\'<br />";
+} else
+  echo "Publisher shall not be shown.<br />";
+
+if (fdf_get_value($fdf, "show_preparer") == "On") {
+  $preparer = fdf_get_value($fdf, "preparer");
+  echo "The preparer field has the value \'<b>$preparer</b>\'<br />";
+} else
+  echo "Preparer shall not be shown.<br />";
+fdf_close($fdf);
+?>');
+?>
+</TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Inhoudsopgave</B
+></DT
+><DT
+><A
+HREF="function.fdf-add-doc-javascript.php"
+>fdf_add_doc_javascript</A
+>&nbsp;--&nbsp;Adds javascript code to the FDF document</DT
+><DT
+><A
+HREF="function.fdf-add-template.php"
+>fdf_add_template</A
+>&nbsp;--&nbsp;Adds a template into the FDF document</DT
+><DT
+><A
+HREF="function.fdf-close.php"
+>fdf_close</A
+>&nbsp;--&nbsp;Close an FDF document</DT
+><DT
+><A
+HREF="function.fdf-create.php"
+>fdf_create</A
+>&nbsp;--&nbsp;Create a new FDF document</DT
+><DT
+><A
+HREF="function.fdf-enum-values.php"
+>fdf_enum_values</A
+>&nbsp;--&nbsp;Call a user defined function for each document value </DT
+><DT
+><A
+HREF="function.fdf-errno.php"
+>fdf_errno</A
+>&nbsp;--&nbsp;Return error code for last fdf operation</DT
+><DT
+><A
+HREF="function.fdf-error.php"
+>fdf_error</A
+>&nbsp;--&nbsp;Return error description for fdf error code</DT
+><DT
+><A
+HREF="function.fdf-get-ap.php"
+>fdf_get_ap</A
+>&nbsp;--&nbsp;Get the appearance of a field</DT
+><DT
+><A
+HREF="function.fdf-get-attachment.php"
+>fdf_get_attachment</A
+>&nbsp;--&nbsp;Extracts uploaded file embedded in the FDF</DT
+><DT
+><A
+HREF="function.fdf-get-encoding.php"
+>fdf_get_encoding</A
+>&nbsp;--&nbsp;Get the value of the /Encoding key</DT
+><DT
+><A
+HREF="function.fdf-get-file.php"
+>fdf_get_file</A
+>&nbsp;--&nbsp;Get the value of the /F key</DT
+><DT
+><A
+HREF="function.fdf-get-flags.php"
+>fdf_get_flags</A
+>&nbsp;--&nbsp;Gets the flags of a field</DT
+><DT
+><A
+HREF="function.fdf-get-opt.php"
+>fdf_get_opt</A
+>&nbsp;--&nbsp;Gets a value from the opt array of a field</DT
+><DT
+><A
+HREF="function.fdf-get-status.php"
+>fdf_get_status</A
+>&nbsp;--&nbsp;Get the value of the /STATUS key</DT
+><DT
+><A
+HREF="function.fdf-get-value.php"
+>fdf_get_value</A
+>&nbsp;--&nbsp;Get the value of a field</DT
+><DT
+><A
+HREF="function.fdf-get-version.php"
+>fdf_get_version</A
+>&nbsp;--&nbsp;Gets version number for FDF API or file </DT
+><DT
+><A
+HREF="function.fdf-header.php"
+>fdf_header</A
+>&nbsp;--&nbsp;Sets FDF-specific output headers</DT
+><DT
+><A
+HREF="function.fdf-next-field-name.php"
+>fdf_next_field_name</A
+>&nbsp;--&nbsp;Get the next field name</DT
+><DT
+><A
+HREF="function.fdf-open-string.php"
+>fdf_open_string</A
+>&nbsp;--&nbsp;Read a FDF document from a string</DT
+><DT
+><A
+HREF="function.fdf-open.php"
+>fdf_open</A
+>&nbsp;--&nbsp;Open a FDF document</DT
+><DT
+><A
+HREF="function.fdf-remove-item.php"
+>fdf_remove_item</A
+>&nbsp;--&nbsp;Sets target frame for form</DT
+><DT
+><A
+HREF="function.fdf-save-string.php"
+>fdf_save_string</A
+>&nbsp;--&nbsp;Returns the FDF document as a string</DT
+><DT
+><A
+HREF="function.fdf-save.php"
+>fdf_save</A
+>&nbsp;--&nbsp;Save a FDF document</DT
+><DT
+><A
+HREF="function.fdf-set-ap.php"
+>fdf_set_ap</A
+>&nbsp;--&nbsp;Set the appearance of a field</DT
+><DT
+><A
+HREF="function.fdf-set-encoding.php"
+>fdf_set_encoding</A
+>&nbsp;--&nbsp;Sets FDF character encoding</DT
+><DT
+><A
+HREF="function.fdf-set-file.php"
+>fdf_set_file</A
+>&nbsp;--&nbsp;Set PDF document to display FDF data in</DT
+><DT
+><A
+HREF="function.fdf-set-flags.php"
+>fdf_set_flags</A
+>&nbsp;--&nbsp;Sets a flag of a field</DT
+><DT
+><A
+HREF="function.fdf-set-javascript-action.php"
+>fdf_set_javascript_action</A
+>&nbsp;--&nbsp;Sets an javascript action of a field</DT
+><DT
+><A
+HREF="function.fdf-set-opt.php"
+>fdf_set_opt</A
+>&nbsp;--&nbsp;Sets an option of a field</DT
+><DT
+><A
+HREF="function.fdf-set-status.php"
+>fdf_set_status</A
+>&nbsp;--&nbsp;Set the value of the /STATUS key</DT
+><DT
+><A
+HREF="function.fdf-set-submit-form-action.php"
+>fdf_set_submit_form_action</A
+>&nbsp;--&nbsp;Sets a submit form action of a field</DT
+><DT
+><A
+HREF="function.fdf-set-target-frame.php"
+>fdf_set_target_frame</A
+>&nbsp;--&nbsp;Set target frame for form display</DT
+><DT
+><A
+HREF="function.fdf-set-value.php"
+>fdf_set_value</A
+>&nbsp;--&nbsp;Set the value of a field</DT
+><DT
+><A
+HREF="function.fdf-set-version.php"
+>fdf_set_version</A
+>&nbsp;--&nbsp;Sets version number for a FDF file </DT
+></DL
+></DIV
+></DIV
+></DIV
+><?php manual_footer();
+?>

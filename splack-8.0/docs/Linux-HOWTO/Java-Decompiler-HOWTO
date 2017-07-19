@@ -1,0 +1,292 @@
+  Java Decompiler HOW-TO
+  Al Dev (Alavoor Vasudevan)        alavoor@yahoo.com
+  v3.0, 19 July 2000
+
+  This document will help you to de-compile the Java class programs.
+  This documents gives a list of decompilers which can reverse engineer
+  the Java class files and generate the Java source code files.  Thie is
+  very helpful if you do not have the Java source code file and have
+  only the Java class files. The information in this document applies to
+  all the operating sytems where Java language/Java VM runs.
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+  1. Introduction
+
+  2. How can I trust Java Decompiler ??!!
+
+  3. Related URLs
+
+  4. Other Formats of this Document
+
+  5. Copyright
+
+
+
+  ______________________________________________________________________
+
+  1.  Introduction
+
+  Java compiler compiles the Java source code files (*.java) into
+  binaries files (*.class). You would use the Java de-compiler to
+  convert java class files into source code files (*.java).
+
+  Java de-compiler is very useful especially if you have *.class files
+  and you do not have access to the source code. Some vendors do not
+  ship the source code for java class files, in which case you use the
+  java decompiler to look at the source code.
+
+  See also the "javap" command from Sun Microsystems. This command is
+  available as soon as you install the JDK from Sun Microsystems.  At
+  unix prompt type -
+
+  ______________________________________________________________________
+  bash$ javap -help
+  bash$ javap -c  <filename>.class
+  ______________________________________________________________________
+
+
+
+  The following are the list of Java decompilers available -
+
+  ·  Free "Jad" Java Decompiler at
+     <http://www.geocities.com/SiliconValley/Bridge/8617/jad.html#general>
+     and at
+     <http://www.geocities.com/SiliconValley/Bridge/8617/jad.html#gui>
+
+
+
+  ·  List of Decompilers, disassemblers and obfuscators are at
+     <http://dmoz.org/Computers/Programming/Languages/Java>
+
+
+
+  ·  Free "Mocha" Java Decompiler at
+     <http://www.brouhaha.com/~eric/computers> and download at
+     <http://www.brouhaha.com/~eric/computers/mocha-b1.zip>
+
+
+
+  ·  "DeCafe Pro" from DeCafe, France at
+     <http://decafe.hypermart.net/index.htm>
+
+
+
+  ·  "SourceTech Java decompiler" from Source Tech corp at
+     <http://www.srctec.com> and at
+     <http://members.tripod.com/~SourceTec/jasmine.htm>
+
+
+
+  ·  "SourceAgain" from Ahpah corp at  <http://www.ahpah.com>
+
+
+
+  ·  "Class Cracker" from Mayon Software, Australia at
+     <http://www.tip.net.au/~mayon/classcracker/ccorder.html> and at
+     <http://www.pcug.org.au/~mayon>
+
+
+
+  ·  "IceBreaker" from BreakerTech corp, U.K. at
+     <http://www.breakertech.com> and at
+     <http://www.breakertech.com/breaker/ice/ice.html#download>
+
+
+
+  ·  "NMI Java decompiler" from NMI at <http://njcv.htmlplanet.com> and
+     at <http://njcv.htmlplanet.com/njcv.html>
+
+
+
+  2.  How can I trust Java Decompiler ??!!
+
+  For 100% assurance you need a SCIENTIFIC way to validate and trust the
+  Java Decompiler program. The method described in this section will
+  enable the decompiler program to be accepted as "trust-worthy" and
+  reliable.
+
+  In order to verify that the decompiler program is regenerating the
+  Java source-code properly, use the following technique -
+
+  Generate the class file from the generated source code using the
+  compiler -
+
+  ______________________________________________________________________
+  bash$ mv myprogram.class myprogram_orig.class
+  bash$ javac myprogram.java
+  ______________________________________________________________________
+
+
+
+  Now use the unix 'diff' command to compare the two class files -
+
+  ______________________________________________________________________
+  bash$ diff myprogram.class myprogram_orig.class
+  ______________________________________________________________________
+
+
+  Both these files MUST BE IDENTICAL. This verifies that decompiler pro­
+  gram is working perfectly. On DOS or Windows 95 you may want to use
+  the free Cygnus <http://www.cygnus.com> Cygwin
+
+  This step gives 100% guarantee and 100% quality assurance and life
+  term or long term WARRANTY on decompiler programs.
+
+  It is strongly recommended that you do these steps every time you run
+  decompiler programs.
+
+  3.  Related URLs
+
+  Visit following locators which are related to Java -
+
+  ·  <http://www.linuxdoc.org/HOWTO/Enterprise-Java-for-Linux-
+     HOWTO.html>
+
+  ·  <http://www.linuxdoc.org/HOWTO/Java-CGI-HOWTO.html>
+
+  ·  <http://www.linuxdoc.org/HOWTO/JavaStation-HOWTO/index.html>
+
+  ·  Vim color text editor for Java, C++, C
+     <http://metalab.unc.edu/LDP/HOWTO/Vim-HOWTO.html>
+
+  ·  Beautifier HOWTO for Java and C++ programs
+     <http://metalab.unc.edu/LDP/HOWTO/C-C++Beautifier-HOWTO.html>
+
+  ·  C++ Programming HOWTO has support for Java like String objects
+     <http://metalab.unc.edu/LDP/HOWTO/C++Programming-HOWTO.html>
+
+  ·  Linux goodies main site  <http://www.aldev.8m.com>
+
+  ·  Linux goodies mirror site  <http://aldev.webjump.com>
+
+  4.  Other Formats of this Document
+
+  This document is published in 11 different formats namely - DVI,
+  Postscript, Latex, Adobe Acrobat PDF, LyX, GNU-info, HTML, RTF(Rich
+  Text Format), Plain-text, Unix man pages and SGML.
+
+  ·  You can get this HOWTO document as a single file tar ball in HTML,
+     DVI, Postscript or SGML formats from -
+     <ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/other-formats/>
+
+  ·  Plain text format is in:
+     <ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO>
+
+  ·  Translations to other languages like French, German, Spanish,
+     Chinese, Japanese are in
+     <ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO> Any help from you to
+     translate to other languages is welcome.
+
+     The document is written using a tool called "SGML-Tools" which can
+     be got from - <http://www.sgmltools.org> Compiling the source you
+     will get the following commands like
+
+  ·  sgml2html Java-Decompiler-HOWTO.sgml     (to generate html file)
+
+  ·  sgml2rtf  Java-Decompiler-HOWTO.sgml     (to generate RTF file)
+
+  ·  sgml2latex Java-Decompiler-HOWTO.sgml    (to generate latex file)
+
+  LaTeX documents may be converted into PDF files simply by producing a
+  Postscript output using sgml2latex ( and dvips) and running the output
+  through the Acrobat distill ( <http://www.adobe.com>) command as
+  follows:
+  ______________________________________________________________________
+  bash$ man sgml2latex
+  bash$ sgml2latex filename.sgml
+  bash$ man dvips
+  bash$ dvips -o filename.ps filename.dvi
+  bash$ distill filename.ps
+  bash$ man ghostscript
+  bash$ man ps2pdf
+  bash$ ps2pdf input.ps output.pdf
+  bash$ acroread output.pdf &
+  ______________________________________________________________________
+
+
+  Or you can use Ghostscript command ps2pdf.  ps2pdf is a work-alike for
+  nearly all the functionality of Adobe's Acrobat Distiller product: it
+  converts PostScript files to Portable Document Format (PDF) files.
+  ps2pdf is implemented as a very small command script (batch file) that
+  invokes Ghostscript, selecting a special "output device" called
+  pdfwrite. In order to use ps2pdf, the pdfwrite device must be included
+  in the makefile when Ghostscript was compiled; see the documentation
+  on building Ghostscript for details.
+
+  This howto document is located at -
+
+  ·  <http://sunsite.unc.edu/LDP/HOWTO/Java-Decompiler-HOWTO.html>
+
+  Also you can find this document at the following mirrors sites -
+
+  ·  <http://www.caldera.com/LDP/HOWTO/Java-Decompiler-HOWTO.html>
+
+  ·  <http://www.WGS.com/LDP/HOWTO/Java-Decompiler-HOWTO.html>
+
+  ·  <http://www.cc.gatech.edu/linux/LDP/HOWTO/Java-Decompiler-
+     HOWTO.html>
+
+  ·  <http://www.redhat.com/linux-info/ldp/HOWTO/Java-Decompiler-
+     HOWTO.html>
+
+  ·  Other mirror sites near you (network-address-wise) can be found at
+     <http://sunsite.unc.edu/LDP/hmirrors.html> select a site and go to
+     directory /LDP/HOWTO/Java-Decompiler-HOWTO.html
+
+
+  In order to view the document in dvi format, use the xdvi program. The
+  xdvi program is located in tetex-xdvi*.rpm package in Redhat Linux
+  which can be located through ControlPanel | Applications | Publishing
+  | TeX menu buttons.  To read dvi document give the command -
+
+
+               xdvi -geometry 80x90 howto.dvi
+               man xdvi
+
+
+
+  And resize the window with mouse.  To navigate use Arrow keys, Page
+  Up, Page Down keys, also you can use 'f', 'd', 'u', 'c', 'l', 'r',
+  'p', 'n' letter keys to move up, down, center, next page, previous
+  page etc.  To turn off expert menu press 'x'.
+
+  You can read postscript file using the program 'gv' (ghostview) or The
+  ghostscript program is in ghostscript*.rpm package and gv program is
+  in gv*.rpm package in Redhat Linux which can be located through
+  ControlPanel | Applications | Graphics menu buttons. The gv program is
+  much more user friendly than ghostscript.  Also ghostscript and gv are
+  available on other platforms like OS/2, Windows 95 and NT, you view
+  this document even on those platforms.
+
+
+  ·  Get ghostscript for Windows 95, OS/2, and for all OSes from
+     <http://www.cs.wisc.edu/~ghost>
+
+  To read postscript document give the command -
+
+
+                       gv howto.ps
+                       ghostscript howto.ps
+
+
+
+  You can read HTML format document using Netscape Navigator, Microsoft
+  Internet explorer, Redhat Baron Web browser or any of the 10 other web
+  browsers.
+
+  You can read the latex, LyX output using LyX a X-Windows front end to
+  latex.
+
+  5.  Copyright
+
+  Copyright policy is GNU/GPL as per LDP (Linux Documentation project).
+  LDP is a GNU/GPL project.  Additional requests are - you retain the
+  author's name, email address and this copyright notice on all the
+  copies. If you make any changes or additions to this document then you
+  should intimate all the authors of this document.
+
+
+

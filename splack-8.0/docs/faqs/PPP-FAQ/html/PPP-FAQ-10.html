@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Data Transfer related issues</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-9.html">Previous</A>
+<A HREF="PPP-FAQ-11.html">Next</A>
+<A HREF="PPP-FAQ.html#toc10">Table of Contents</A>
+<HR>
+<H2><A NAME="s10">10. Data Transfer related issues</A></H2>
+
+
+
+<H2><A NAME="ss10.1">10.1 The ftp transfers seems to die when I do a \put\ operation. They will work correctly if I \get\ a file. Why?</A></H2>
+
+<P>Do you have the flow control enabled?</P>
+<P>Flow control is set by the pppd option <EM>crtscts</EM> for RTS/CTS
+and <EM>xonxoff</EM> for XON/XOFF. If you don't enable the flow
+control then you will probably overrun the modem\s buffers and this
+will prove to be disastrous with vj header compression.</P>
+<P>It is important that the modem, not just the computer, have the proper
+setting for flow control. If the modem does not do flow control and
+the computer is expecting that the modem will tell it when the buffer
+overruns, then the buffer will overrun because the modem is not
+configured to tell the computer that it is full.</P>
+<P>Likewise if the modem is configured to use RTS/CTS and your computer
+is configured to use XON/XOFF then you will not be able to recognize
+the modem\s request to suspend transmission.</P>
+<P>The modern modems are configured with the use of a command code to do
+flow control. Check in your manual for the appropriate command code and
+include it along with the modem initialization.</P>
+<P>Do not fall into the "well, the modem does this by default so I don't
+have to configure the modem before I use it." trap. Do the
+configuration. Do it explicitly. If the manual says that &amp;H1 sets
+RTS and CTS flow control (what is also commonly called
+\hardware\ flow control) then send the modem AT&amp;H1 to
+set the flow control. Do it before you dial the number. Don't expect
+that just giving the modem ATZ will enable the flow control
+properly.</P>
+
+
+<H2><A NAME="ss10.2">10.2 How do I use XON/XOFF for flow control?</A></H2>
+
+<P>The better flow control is CTS/RTS. However, if you
+can not do the hardware flow control with the signals CTS and
+RTS, then use XON/XOFF. The following three steps need to be performed.
+<UL>
+<LI>You need to specify the pppd option <EM>xonxoff</EM>. This
+tells the pppd process to configure the serial device for XON/XOFF
+flow control and to load the two characters into the tty driver.</LI>
+<LI>You need to specify the XON and XOFF characters in the pppd
+parameter <EM>asyncmap</EM>. This tells the remote system that
+is should quote the XON and XOFF characters when it wishes to
+send them to you. It is normally specified as the pppd parameter
+\<B>asyncmap a0000</B>\.</LI>
+<LI>Of course, don't forget to tell the modem to use XON/XOFF flow
+control. My <EM>ZyXEL</EM> modem uses a sequence
+\&amp;R1&amp;H4\ to do this.</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss10.3">10.3 The modem seems to always connect at a strange rate. When I use minicom, the modem will always use 14400. However, PPP is using 9600 or 7200 or even 2400. How do I fix this?</A></H2>
+
+<P>Put the desired rate as an option to the pppd process.
+If you don't put the rate, then pppd process will use whatever
+rate is set currently at the time. Not all programs will restore
+all of the parameters to the previous settings properly upon exit.
+This may lead to strange rates configured for the serial device.</P>
+<P>Linux does not support modems which use the RPI (<B>R</B>ockwell
+<B>P</B>rotocol <B>I</B>nterface) proprietary specification. Given
+the proprietary nature of the specification (even if you signed
+a NDA Rockwell will not release the code needed to interface to
+the modem) it is <B>extremely</B> unlikely that Linux will <B>ever</B>
+support this modem. The only solution, should you have a RPI modem,
+is to take it back to the dealer and get one which does not use
+RPI.</P>
+<P>Some of the catch phrases to avoid are modems which
+are marked as having error correction in software, \windows\
+compatible, or \requiring a special driver\ for full
+operation. These usually indicate that the modem uses RPI.</P>
+
+
+<H2><A NAME="ss10.4">10.4 The ftp transfers seems to be very slow when I do a \get\ operation. The \put\ operation is much faster. Why?</A></H2>
+
+<P>Did you specify the option:</P>
+<P>
+<PRE>
+asyncmap 0
+</PRE>
+</P>
+<P>when you ran pppd? If you forgot the option, the
+peer must quote (double) all of the control characters in the
+range from 00 to 1F (hex). This will result in a statistical loss
+of about 12.5% in speed for all of the data which you receive.</P>
+<P>Did you configure the remote system? If so, did you
+forget flow control on its modem?</P>
+
+
+<H2><A NAME="ss10.5">10.5 The proxyarp function fails to find the hardware address.</A></H2>
+
+<P>Use the <EM>ppp-2.1.2d.tar.gz</EM>
+package. The <EM>pppd</EM> process was erroneously
+compiled with the 1.1.8 kernel and it used <EM>Net-3</EM>
+rather than <EM>Net-2</EM> definitions.</P>
+<P>Additionally, you should refer to the proxy-ARP mini-HOWTO
+about the requirements for using proxy-ARP.</P>
+<P>The 2.1 package had a limit of 64 network devices.
+At the the that the proxyarp function was written, 64 seemed to
+be a very likely limit as most people had one or two ethernet
+controllers. This is no longer the case when we consider that
+some systems routinely have 128 network devices.</P>
+<P>The 2.2 package has raised the limit to 5000 network devices. That
+limit is excessive. However, it means that in all practial purposes,
+there is no limit. It is a compile-time define in the sys-linux.c
+module.</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-9.html">Previous</A>
+<A HREF="PPP-FAQ-11.html">Next</A>
+<A HREF="PPP-FAQ.html#toc10">Table of Contents</A>
+</BODY>
+</HTML>

@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<TITLE>guide12</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide11.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guidea.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 12</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>Errores, equivocaciones, bugs, y otras molestias</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Unix nunca fue dise&ntilde;ado para evitar que la gente hiciera cosas est&uacute;pidas, porque esa pol&iacute;tica les habr&iacute;a evitado tambi&eacute;n hacer cosas inteligentes.</P>
+<P>Doug Gwyn</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>12.1 Evitando errores</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Muchos usuarios hablan de su frustraci&oacute;n con el sistema operativo Unix en alguna ocasi&oacute;n, a menudo a causa de lo que ellos mismos han hecho. Una caracter&iacute;stica del sistema operativo Unix que muchos usuarios adoran cuando est&aacute;n trabajando bien, y odian despu&eacute;s de una sesi&oacute;n hasta bien avanzada la noche, es que muy pocas &oacute;rdenes piden confirmaci&oacute;n. Cuando un usuario est&aacute; despierto y funcionando, raramente piensa sobre ello, y esto es una ventaja, ya que le permite trabajar m&aacute;s eficientemente.</P>
+<P>De todos modos, hay algunas desventajas. rm y mv no piden nunca confirmaci&oacute;n, y esto conduce frecuentemente a problemas. Por eso, veamos una peque&ntilde;a lista que puede ayudarle a evitar el desastre total:</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> ¡Tenga copias de seguridad! Esto va dirigido especialmente a sistemas de un solo usuario, ¡todos los administradores de sistema deben realizar copias de seguridad de su sistema regularmente! Una vez a la semana es suficiente para salvar muchos ficheros. Para m&aacute;s informaci&oacute;n consulte The Linux System Administrator's Guide.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Los usuarios individuales deben tener sus propias copias de seguridad, si es posible. Si usa m&aacute;s de una m&aacute;quina regularmente, intente mantener copias actualizadas de todos sus ficheros en cada una de las m&aacute;quinas. Si tiene acceso a una unidad de disquetes, puede hacer copias de seguridad en disquetes de su material cr&iacute;tico. En el peor de los casos, mantenga copias adicionales del material m&aacute;s importante que haya en su cuenta en un directorio separado.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Piense sobre las &oacute;rdenes, especialmente las "destructivas" como mv, rm, y cp antes de actuar. Debe ser tambi&eacute;n cuidadoso con las redirecciones (&gt;), sobreescribir&aacute;n sus ficheros cuando no est&eacute; prestando atenci&oacute;n. Incluso el m&aacute;s inofensivo de los comandos puede convertirse en siniestro:</P><DIR>
+<DIR>
+
+<P>/home/larry/report$ cp report-1992 report-1993 backups</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>puede convertirse f&aacute;cilmente en desastre:</P><DIR>
+<DIR>
+
+<P>/home/larry/report$ cp report-1992 report-1993</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> El autor tambi&eacute;n recomienda, a partir de su propia experiencia personal, no hacer limpieza de ficheros a altas horas de la madrugada. ¿Que su estructura de directorios parece un poco desordenada a la 1:32am? D&eacute;jelo estar, un poco de desorden nunca ha da&ntilde;ado un ordenador.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> S&iacute;gale la pista a su directorio actual. A veces, el prompt que est&aacute; usando no muestra en que directorio est&aacute; usted trabajando, y el peligro acecha. ¡Es triste leer un mensaje en comp.unix.admin1 sobre un usuario root que estaba en / en vez de en /tmp! Por ejemplo:</P><DIR>
+<DIR>
+
+<P>mousehouse&gt; pwd</P>
+<P>/etc</P>
+<P>mousehouse&gt; ls /tmp</P>
+<P>passwd</P>
+<P>mousehouse&gt; rm passwd</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>La anterior serie de comandos podr&iacute;a hacer muy infeliz al usuario, al ver como eliminaron el fichero de contrase&ntilde;as de su sistema. ¡Sin &eacute;l la gente no puede acceder!</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>12.2 Qu&eacute; hacer cuando algo va mal</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>12.3 No es fallo tuyo</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Por desgracia para los programadores del mundo, no todos los problemas son a causa de errores del usuario. Unix y Linux son sistemas complicados, y todas las versiones conocidas tienen errores de programaci&oacute;n (bugs2). Algunas veces esos errores son dif&iacute;ciles de encontrar y s&oacute;lo aparecen bajo ciertas circunstancias.</P>
+<P>Ante todo, ¿qu&eacute; es un error? Un ejemplo de error es si le pide al ordenador que calcule "5+3" y contesta "7". Aunque este es un ejemplo trivial de que puede ir mal, la mayor&iacute;a de los errores en programas de computadoras se relacionan con la aritm&eacute;tica en alguna forma extremadamente extra&ntilde;a.</P>
+<P>_____________________________________________</P>
+<P>1 Un foro de discusi&oacute;n internacional en Usenet, que trata sobre la administraci&oacute;n de computadoras Unix.</P>
+<P>2 Bug: (polilla, fam. bicho). Se denomina as&iacute; a los errores que aparecen en un programa. Cuenta la leyenda que cuando los ordenadores eran unos monstruos llenos de v&aacute;lvulas, que ocupaban habitaciones enteras, un t&eacute;cnico que trataba de resolver un error en el Mark II de Harvard detect&oacute; que la causa era una polilla de verdad que se hab&iacute;a colado entre las v&aacute;lvulas y provocaba peque&ntilde;os cortocircuitos al revolotear de un lado a otro.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>12.3.1 Cuando hay un error</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Si la computadora da una respuesta err&oacute;nea (¡compruebe que la respuesta es err&oacute;nea!) o se bloquea, eso es un error. Si cualquier programa se bloquea o da un mensaje de error del sistema operativo, eso es un error.</P>
+<P>Si un comando no finaliza nunca su ejecuci&oacute;n, puede ser un error, pero debe asegurarse de que no le ha pedido que est&eacute; durante mucho tiempo haciendo lo que usted quer&iacute;a que hiciera. Pida ayuda si no sabe lo que hac&iacute;a el comando.</P>
+<P>Algunos mensajes le alertar&aacute;n de la existencia de errores. Algunos mensajes no son errores. Revise la secci&oacute;n 3.4 y el resto de la documentaci&oacute;n para estar seguro de que no son mensajes informativos normales. Por ejemplo, mensajes como "disk full" (disco lleno) o "lp0 on fire" (lp0 ardiendo) no son problemas de software, sino algo incorrecto en su hardware, no hay suficiente espacio libre en el disco, o la impresora est&aacute; mal.</P>
+<P>Si no puede encontrar informaci&oacute;n sobre un programa, es un error en la documentaci&oacute;n, y deber&iacute;a ponerse en contacto con el autor de dicho programa y ofrecerse para escribirla usted mismo. Si algo est&aacute; incorrecto en la documentaci&oacute;n existente3, es un error en ese manual. Si algo aparece incompleto o poco claro en el manual, eso es un error.</P>
+<P>Si no puede vencer al gnuchess al ajedrez, es un fallo de dise&ntilde;o en el algoritmo de ajedrez que usted usa, pero no necesariamente un error en su cerebro.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>12.3.2 Notificando un error</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Cuando est&eacute; seguro de haber encontrado un error, es importante asegurarse de que su informaci&oacute;n llega al lugar adecuado. Intente encontrar que programa causa el error, si no puede encontrarlo, tal vez pueda pedir ayuda en comp.os.linux.help o comp.unix.misc. Una vez encuentre el programa, intente leer la p&aacute;gina del manual para ver quien lo escribi&oacute;.</P>
+<P>El m&eacute;todo preferido para enviar notificaciones de errores en el mundo Linux es v&iacute;a correo electr&oacute;nico. Si no tiene acceso al correo electr&oacute;nico puede ponerse en contacto con la persona que le suministr&oacute; Linux, eventualmente, encontrar&aacute; alguien que o bien tiene correo electr&oacute;nico, o vende Linux comercialmente y por tanto quiere eliminar el mayor n&uacute;mero de errores posibles. Recuerde, en todo caso que nadie est&aacute; obligado a corregir ning&uacute;n error a menos que tenga un contrato.</P>
+<P>Cuando env&iacute;e una notificaci&oacute;n de error, incluya toda la informaci&oacute;n que se le ocurra. Esto incluye:</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Una descripci&oacute;n de lo que usted piensa que es incorrecto. Por ejemplo, "Obtengo 5 cuando calculo 2+2" o "Dice segmentation violation -- core dumped". Es importante decir exactamente que est&eacute; sucediendo para que el responsable del mantenimiento pueda corregir su error.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Incluya cualquier variable de entorno relevante.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> La versi&oacute;n de su n&uacute;cleo (mire en el fichero /proc/version) y sus bibliotecas de sistema (mire en el directorio /lib, si no puede descifrarlo, env&iacute;e un listado de /lib).</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> ¿C&oacute;mo ejecut&oacute; el programa en cuesti&oacute;n?, o, si era un error del n&uacute;cleo, ¿qu&eacute; estaba haciendo en ese momento?.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Toda la informaci&oacute;n complementaria. Por ejemplo, el comando w puede no mostrar el proceso actual para ciertos usuarios. No diga simplemente, "w no funciona para cierto usuario". El error podr&iacute;a ocurrir debido a que el nombre del usuario tiene ocho caracteres de longitud, </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000">o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> cuando est&aacute; accediendo a trav&eacute;s de la red. En su lugar diga, "w no muestra el proceso actual para el usuario greenfie cuando accede a trav&eacute;s de la red".</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Y recuerde, sea amable. La mayor&iacute;a de la gente trabaja en el software libre por el gusto de hacerlo, y porque tienen un gran coraz&oacute;n. No los amargue, la comunidad Linux ha desilusionado ya a demasiados desarrolladores, y a&uacute;n es pronto en la vida del Linux.</P>
+<P>&nbsp;</P>
+<P>_____________________________________________</P>
+<P>3 ¡Especialmente en &eacute;sta!</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

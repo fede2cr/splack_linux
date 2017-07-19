@@ -1,0 +1,518 @@
+<HTML>
+<HEAD>
+<TITLE>guidea</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide12.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guideb.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Ap&eacute;ndice A</P>
+</B></U></FONT><P><HR></P>
+<P>&nbsp;</P>
+<B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>Introducci&oacute;n a vi</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000">
+<P>vi (pronunciado "vi ai" en ingl&eacute;s, o "uve i") es en realidad el &uacute;nico editor que se puede encontrar en pr&aacute;cticamente cualquier instalaci&oacute;n de Unix. Este editor fue escrito originalmente en la Universidad de California en Berkeley y se puede encontrar versiones en casi cualquier edici&oacute;n de Unix, incluido Linux. Al principio cuesta un poco acostumbrarse a &eacute;l, pero tiene muchas caracter&iacute;sticas muy potentes. En general, recomendamos que un nuevo usuario aprenda Emacs, que generalmente es m&aacute;s f&aacute;cil de usar. Sin embargo, la gente que usa m&aacute;s de una plataforma o que encuentra que no le gusta Emacs, puede estar interesada en aprender vi.</P>
+<P>Es necesaria una breve rese&ntilde;a hist&oacute;rica de vi para comprender c&oacute;mo la tecla |_k_| puede significar mover el cursor arriba una l&iacute;nea y porqu&eacute; hay tres diferentes modos de uso. Si no le apetece aprender a usar el editor, los dos tutoriales le llevar&aacute;n de ser un crudo principiante hasta tener el suficiente conocimiento del grupo de comandos que usted puede llegar a usar. El cap&iacute;tulo tambi&eacute;n incluye una gu&iacute;a de comandos, que sirve de &uacute;til referencia para tenerla cerca del terminal.</P>
+<P>Incluso si vi no se convierte en su editor de texto normal, el conocimiento de su uso no ser&aacute; desperdiciado. Es casi seguro que el sistema de Unix que use tendr&aacute; alguna variante del editor vi.</P>
+<P>Puede ser necesario usar vi mientras instala otro editor, como Emacs. Muchas herramientas de Unix, aplicaciones y juegos usan un subconjunto del grupo de comandos de vi.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>A.1 Una r&aacute;pida historia de Vi</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los editores de texto en la antig&uuml;edad funcionaban en modo de una l&iacute;nea y se usaban t&iacute;picamente desde terminales no inteligentes de impresi&oacute;n. Un editor t&iacute;pico que operaba en este modo es Ed. El editor es potente y eficiente, y usa una cantidad muy peque&ntilde;a de recursos del sistema, y funcionaba con las pantallas de aquel entonces. vi ofrece al usuario una alternativa visual con un grupo de comandos notablemente amplio comparado con ed.</P>
+<P>vi como lo conocemos hoy comenz&oacute; como el editor de l&iacute;nea ex. De hecho, ex se ve como un modo especial de edici&oacute;n en vi, aunque ahora lo contrario es verdad. El componente visual de ex puede ser iniciado desde la l&iacute;nea de comando usando el comando vi, o desde dentro de ex.</P>
+<P>El editor ex/vi fue desarrollado en la universidad de California en Berkeley por William Joy. Originalmente se suministraba como una utilidad no soportada hasta su inclusi&oacute;n oficial en la distribuci&oacute;n del Unix AT&amp;T System V. Se ha ido haciendo cada vez m&aacute;s popular, incluso con la competencia de los modernos editores de pantalla completa.</P>
+<P>Debido a la popularidad de vi existen muchas variantes cl&oacute;nicas y se pueden encontrar varias versiones para la mayor&iacute;a de los sistemas operativos. No es el prop&oacute;sito de este cap&iacute;tulo el incluir todos los comandos disponibles bajo vi o sus variantes. Muchos clones han aumentado y modificado el comportamiento original de vi. La mayor&iacute;a de los clones no soportan todos los comandos originales de vi.</P>
+<P>Si tiene un buen conocimiento de trabajo con ed entonces vi presenta una curva de aprendizaje m&aacute;s suave. Aunque usted no tenga ninguna intenci&oacute;n de usar vi como su editor regular, el conocimiento b&aacute;sico de vi solamente puede serle una ventaja.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>A.2 R&aacute;pido tutorial de Ed</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El prop&oacute;sito de esta gu&iacute;a es que usted empiece a usar ed. ed est&aacute; dise&ntilde;ado para ser f&aacute;cil de usar, y requiere poco entrenamiento para comenzar. La mejor manera de aprender es practicando, as&iacute; que siga las instrucciones y pruebe el editor antes de descontar sus ventajas pr&aacute;cticas.</P>
+<P>&nbsp;</P>
+<U><P>A.2.1 Crear un fichero</P>
+</U><P>ed s&oacute;lo puede editar un fichero a la vez. Siga el siguiente ejemplo para crear su primer fichero de texto usando ed.</P><DIR>
+<DIR>
+
+<P>/home/larry$ ed</P>
+<P>a</P>
+<P>Este es mi primer fichero de texto usando Ed.</P>
+<P>Esto es divertido de verdad.</P>
+<P>.</P>
+<P>w primero.txt</P>
+<P>q</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Ahora puede verificar el contenido del fichero usando la utilidad de concatenaci&oacute;n de Unix.</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat primero.txt</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El ejemplo anterior ha mostrado un n&uacute;mero de puntos importantes. Cuando invoca ed como en el ejemplo tendr&aacute; un fichero vac&iacute;o. La tecla |_a_| se usa para a&ntilde;adir texto al fichero. Para finalizar la sesi&oacute;n de entrada de texto, se usa un punto |_._| en la primera columna del texto. Para salvar el texto a un fichero, la tecla |_w_| se usa en combinaci&oacute;n con el nombre del fichero y finalmente la tecla |_q_| se usa para salir del editor.</P>
+<P>La observaci&oacute;n m&aacute;s importante es que hay dos modos de operaci&oacute;n. Al principio el editor est&aacute; en modo de comandos. Un comando se define por caracteres, para asegurarse de cuales son las intenciones del usuario, ed usa un modo de texto, y un modo de comando.</P>
+<P>&nbsp;</P>
+<U><P>A.2.2 Editar un fichero existente</P>
+</U><P>Para a&ntilde;adir una l&iacute;nea de texto a un fichero existente siga el siguiente ejemplo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ ed primero.txt</P>
+<P>a</P>
+<P>Esta es una nueva linea de texto.</P>
+<P>.</P>
+<P>w</P>
+<P>q</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Si comprueba el fichero con cat ver&aacute; que hay una nueva l&iacute;nea insertada entre las dos l&iacute;neas originales. ¿C&oacute;mo supo ed d&oacute;nde poner la nueva l&iacute;nea de texto?.</P>
+<P>Cuando ed lee el fichero, se acuerda de cual es la l&iacute;nea actual. El comando |_a_| a&ntilde;adir&aacute; el texto despu&eacute;s de la l&iacute;nea actual. ed tambi&eacute;n puede poner el texto antes de la l&iacute;nea actual con la tecla |_i_|. El efecto ser&aacute; la inserci&oacute;n del texto antes de la l&iacute;nea actual.</P>
+<P>Ahora es f&aacute;cil ver que ed opera en el texto l&iacute;nea por l&iacute;nea. Todos los comandos se pueden aplicar a una l&iacute;nea elegida.</P>
+<P>Para a&ntilde;adir una l&iacute;nea de texto al final de un fichero.</P><DIR>
+<DIR>
+
+<P>/home/larry$ ed primero.txt</P>
+<P>$a</P>
+<P>La ultima linea de texto.</P>
+<P>.</P>
+<P>w</P>
+<P>q</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>El modificador de comandos ||_$_|| le dice a ed que a&ntilde;ada la l&iacute;nea despu&eacute;s de la &uacute;ltima l&iacute;nea. Para a&ntilde;adir la l&iacute;nea despues de la primera l&iacute;nea el modificador ser&iacute;a |_1_|. Ahora tenemos la posibilidad de seleccionar la l&iacute;nea para a&ntilde;adir una l&iacute;nea de texto despu&eacute;s del n&uacute;mero de l&iacute;nea o insertar una l&iacute;nea antes del n&uacute;mero de l&iacute;nea.</P>
+<P>¿C&oacute;mo sabemos lo que hay en la l&iacute;nea actual? El comando |_p_| muestra el contenido de la l&iacute;nea actual. Si quiere hacer que la l&iacute;nea actual sea la l&iacute;nea 2, y a la vez quiere ver el contenido de esa l&iacute;nea entonces haga lo siguiente.</P><DIR>
+<DIR>
+
+<P>/home/larry$ ed primero.txt</P>
+<P>2p</P>
+<P>q</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<U><P>A.2.3 N&uacute;meros de l&iacute;nea en detalle</P>
+</U><P>Ha visto c&oacute;mo mostrar el contenido de la l&iacute;nea actual, usando el comando |_p_|. Tambi&eacute;n sabemos que hay modificadores del n&uacute;mero de l&iacute;nea para los comandos. Para ver el texto de la segunda l&iacute;nea, </P><DIR>
+<DIR>
+
+<P>2p</P></DIR>
+</DIR>
+
+<P>Hay algunos modificadores especiales que se refieren a posiciones que pueden cambiar durante el tiempo que edita un fichero. El ||_$_||es la &uacute;ltima l&iacute;nea del texto. Para ver la &uacute;ltima l&iacute;nea, </P><DIR>
+<DIR>
+
+<P>$p</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El n&uacute;mero de l&iacute;nea actual usa un s&iacute;mbolo de modificador especial ___|_.|. Para mostrar la l&iacute;nea actual usando un modificador,</P><DIR>
+<DIR>
+
+<P>.p</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Esto puede parecer innecesario, aunque es muy &uacute;til en el contexto de los grupos de n&uacute;meros de l&iacute;nea.</P>
+<P>Para mostrar el contenido del texto desde la l&iacute;nea 1 a la l&iacute;nea 2, se le debe pasar el alcance.</P><DIR>
+<DIR>
+
+<P>1,2p</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El primer n&uacute;mero se refiere a la l&iacute;nea de comienzo y el segundo se refiere a la &uacute;ltima l&iacute;nea. La l&iacute;nea actual ser&aacute; por consiguiente el segundo n&uacute;mero del grupo de l&iacute;neas.</P>
+<P>Si quiere mostrar el contenido del fichero desde el comienzo hasta la l&iacute;nea actual,</P><DIR>
+<DIR>
+
+<P>1,.p</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Para mostrar el contenido desde la l&iacute;nea actual hasta el final del fichero,</P><DIR>
+<DIR>
+
+<P>.,$p</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Todo lo que queda es mostrar el contenido de todo el fichero, y esto queda como un ejercicio para usted.</P>
+<P>¿C&oacute;mo puede borrar las dos primeras l&iacute;neas del fichero?</P><DIR>
+<DIR>
+
+<P>1,2d</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>El comando |_d_| borra el texto l&iacute;nea por l&iacute;nea. Si usted quisiera borrar el contenido completo, lo har&iacute;a con:</P><DIR>
+<DIR>
+
+<P>1,$d</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>Si usted ha hecho muchos cambios y no quiere salvar los contenidos del fichero, lo mejor es salir del editor sin escribir el fichero antes.</P>
+<P>La mayor&iacute;a de los usuarios no usan ed como el principal editor. Los editores m&aacute;s modernos ofrecen una pantalla completa de edici&oacute;n y grupos de comandos m&aacute;s flexibles. ed ofrece una buena introducci&oacute;n a vi y ayuda a explicar c&oacute;mo se originaron los comandos de vi.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>A.3 R&aacute;pido tutorial de Vi</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El prop&oacute;sito de este tutorial es que comience a usar el editor vi. Este tutorial asume que no tiene ninguna experiencia con vi, as&iacute; que le mostraremos los diez comandos m&aacute;s b&aacute;sicos de vi. Estos comandos fundamentales son suficientes para realizar la mayor&iacute;a de sus necesidades de edici&oacute;n, y puede expandir su vocabulario de vi cuanto necesite. Se recomienda que tenga un ordenador para practicar, seg&uacute;n avanza con el tutorial.</P>
+<P>&nbsp;</P>
+<U><P>A.3.1 Ejecutar vi</P>
+</U><P>Para ejecutar vi, simplemente tiene que teclear las letras vi seguidas del nombre de fichero que desea crear. Ver&aacute; una pantalla con una columna de tildes (~) en el lado izquierdo. vi est&aacute; ahora en modo de comando. Cualquier cosa que teclee ser&aacute; interpretado como un comando, no como texto que usted desea escribir. Para introducir texto, tiene que teclear un comando. Los dos comandos de entrada b&aacute;sicos son los siguientes:</P><DIR>
+<DIR>
+
+<P>i insertar texto a la izquierda del cursor.</P>
+<P>a a&ntilde;adir texto a la derecha del cursor.</P></DIR>
+</DIR>
+
+<P>Dado que est&aacute; al comienzo de un fichero vac&iacute;o, no importa cual de estos usar. Escriba uno de ellos, y despu&eacute;s teclee el siguiente texto (un poema de Augustus DeMorgan encontrado en The Unix Programming Environment por B.W. Kernighan y R. Pike):</P>
+<P>&nbsp;</P><DIR>
+<DIR>
+
+<P>Las pulgas grandes tienen peque&ntilde;as pulgas&lt;Intro&gt;</P>
+<P>sobre sus espaldas para que les muerdan.&lt;Intro&gt;</P>
+<P>Y las pulgas peque&ntilde;as tienen pulgas m&aacute;s peque&ntilde;as&lt;Intro&gt;</P>
+<P>y as&iacute; hasta el infinito.&lt;Intro&gt;</P>
+<P>Y las pulgas grandes, a su vez,&lt;Intro&gt;</P>
+<P>tienen pulgas m&aacute;s grandes sobre las que estar;&lt;Intro&gt;</P>
+<P>Mientras que estas de nuevo tienen otras m&aacute;s grandes aun,&lt;Intro&gt;</P>
+<P>y m&aacute;s grandes aun, y as&iacute;.&lt;Intro&gt;</P>
+<P>&lt;Esc&gt;</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>F&iacute;jese que tiene que pulsar la tecla |_Esc_| para finalizar la inserci&oacute;n y volver al modo de comando.</P>
+<P>&nbsp;</P>
+<U><P>A.3.2 Comandos de movimiento del cursor</P><DIR>
+<DIR>
+
+</U><P>h mueve el cursor un espacio a la izquierda.</P>
+<P>j mueve el cursor un espacio abajo.</P>
+<P>k mueve el cursor un espacio arriba.</P>
+<P>l mueve el cursor un espacio a la derecha.</P></DIR>
+</DIR>
+
+<P>Estos comandos se pueden repetir manteniendo la tecla pulsada. Intente mover el cursor por el texto ahora. Si intenta un movimiento imposible, por ejemplo, pulsar la tecla |_k_| cuando el cursor est&aacute; en la l&iacute;nea superior, la pantalla parpadear&aacute; moment&aacute;neamente o el terminal sonar&aacute;. No se preocupe, no muerde, y su fichero no saldr&aacute; da&ntilde;ado.</P>
+<P>&nbsp;</P>
+<U><P>A.3.3 Borrar texto</P><DIR>
+<DIR>
+
+</U><P>x borra el car&aacute;cter que hay en el cursor.</P>
+<P>dd borra la l&iacute;nea donde est&aacute; el cursor.</P></DIR>
+</DIR>
+
+<P>Mueva el cursor a la primera l&iacute;nea y p&oacute;ngalo de modo que est&eacute; bajo la n. Pulse la letra |_x_|, y la n desaparecer&aacute;. Ahora pulse la letra |_i_| para cambiarse al modo de inserci&oacute;n y vuelva a teclear la n. Pulse |_Esc_| cuando haya terminado.</P>
+<P>&nbsp;</P>
+<U><P>A.3.4 Salvar un fichero</P><DIR>
+<DIR>
+
+</U><P>:w salvar (escribir al disco).</P>
+<P>:q salir.</P></DIR>
+</DIR>
+
+<P>Aseg&uacute;rese de que est&aacute; en modo de comando pulsando la tecla |_Esc_|. Ahora pulse :w. Esto salvar&aacute; su trabajo escribi&eacute;ndolo a un fichero de disco.</P>
+<P>El comando para salir de vi es |_q_|. Si quiere combinar el salvar y salir, escriba :wq. Tambi&eacute;n hay una abreviaci&oacute;n para :wq _ ZZ. Dado que gran parte del trabajo de programaci&oacute;n consiste en ejecutar un programa, encontrar alg&uacute;n problema y llamar el programa en el editor para hacer alg&uacute;n peque&ntilde;o cambio, y luego volver a salir del editor para ejecutar el programa otra vez, ZZ ser&aacute; un comando que usar&aacute; a menudo. (En realidad, ZZ no es un sin&oacute;nimo exacto de :wq _ si no ha hecho ning&uacute;n cambio al fichero que est&aacute; editando desde la ultima vez que lo salvo, ZZ simplemente saldr&aacute; del editor mientras que :wq salvar&aacute; (redundantemente) el fichero antes de salir).</P>
+<P>Si usted se lo ha cargado todo sin esperanzas y simplemente quiere volver a empezarlo todo, puede teclear :q! (recuerde pulsar la tecla |_Esc_| primero). Si omite el !, vi no le permitir&aacute; salir sin salvar.</P>
+<P>&nbsp;</P>
+<U><P>A.3.5 ¿Qu&eacute; viene a continuaci&oacute;n?</P>
+</U><P>Los diez comandos que acaba de aprender deber&iacute;an ser suficientes para su trabajo. Sin embargo, solamente ha rozado la superficie del editor vi. Hay comandos para copiar material de un lugar del fichero a otro, para mover material de un lugar a otro, para mover material de un fichero a otro, para ajustar el editor a sus gustos personales, etc. Con todo, hay unos 150 comandos.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>A.4 Tutorial avanzado de Vi</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La ventaja y la potencia de vi est&aacute; en la habilidad de usarlo con &eacute;xito con s&oacute;lo saber unos pocos comandos. La mayor&iacute;a de los usuarios de vi se sienten un poco inc&oacute;modos al principio, sin embargo despu&eacute;s de alg&uacute;n tiempo se encuentran &aacute;vidos de mayor conocimiento de los comandos disponibles.</P>
+<P>El siguiente tutorial asume que el usuario ha completado el tutorial r&aacute;pido (arriba) y por lo tanto se siente a gusto con vi. Este tutorial expone algunas de las caracter&iacute;sticas m&aacute;s poderosas de ex/vi desde copiar texto hasta la definici&oacute;n de macros. Hay una secci&oacute;n sobre ex y los par&aacute;metros para ajustar el editor a su gusto. Este tutorial describe los comandos, en vez de llevarle grupo por grupo.</P>
+<P>Se recomienda que usted disponga de alg&uacute;n tiempo para probar los comandos en alg&uacute;n texto de ejemplo, que se pueda permitir destruir.</P>
+<P>Este tutorial no expone todos los comandos de vi, aunque se cubren los m&aacute;s com&uacute;nmente usados y a&uacute;n otros adicionales. Aunque usted elija usar otro editor de texto, se espera que apreciar&aacute; vi y lo que ofrece a quienes deciden usarlo.</P>
+<P>&nbsp;</P>
+<U><P>A.4.1 Movimiento</P>
+</U><P>La funcionalidad m&aacute;s b&aacute;sica de un editor es el mover el cursor por el texto. Aqu&iacute; est&aacute;n los comandos de movimiento.</P><DIR>
+<DIR>
+
+<P>h mueve el cursor un espacio a la izquierda.</P>
+<P>j mueve el cursor una l&iacute;nea hacia abajo.</P>
+<P>k mueve el cursor una l&iacute;nea hacia arriba.</P>
+<P>l mueve el cursor un espacio a la derecha.</P></DIR>
+</DIR>
+
+<P>Algunas implementaciones tambi&eacute;n permiten el uso de las teclas de cursor para mover el cursor.</P><DIR>
+<DIR>
+
+<P>w mueve al principio de la siguiente palabra.</P>
+<P>e mueve al final de la siguiente palabra.</P>
+<P>E mueve al final de la siguiente palabra antes de un espacio.</P>
+<P>b mueve al principio de la palabra anterior.</P>
+<P>0 mueve al principio de la l&iacute;nea actual.</P>
+<P>^ mueve a la primera palabra de la l&iacute;nea actual.</P>
+<P>$ mueve al final de la l&iacute;nea.</P>
+<P>&lt;CR&gt; mueve al principio de la siguiente l&iacute;nea.</P>
+<P>- mueve al principio de la l&iacute;nea anterior.</P>
+<P>G mueve al final del fichero.</P>
+<P>1G mueve al principio del fichero.</P>
+<P>nG mueve a la l&iacute;nea n.</P>
+<P>&lt;Cntl&gt; G muestra el n&uacute;mero de l&iacute;nea actual.</P>
+<P>% va al par&eacute;ntesis correspondiente.</P>
+<P>H mueve a la l&iacute;nea superior en pantalla.</P>
+<P>M mueve a la l&iacute;nea de en medio de la pantalla.</P>
+<P>L mueve al final de la pantalla.</P>
+<P>n_ mueve el cursor a la columna n.</P></DIR>
+</DIR>
+
+<P>El texto se desplaza autom&aacute;ticamente cuando el cursor alcanza la parte superior o inferior de la pantalla. Tambi&eacute;n hay comandos que permiten controlar el desplazamiento del texto.</P><DIR>
+<DIR>
+
+<P>&lt;Cntl&gt; f desplaza una pantalla hacia delante.</P>
+<P>&lt;Cntl&gt; b desplaza una pantalla hacia atr&aacute;s.</P>
+<P>&lt;Cntl&gt; d desplaza media pantalla hacia abajo.</P>
+<P>&lt;Cntl&gt; u desplaza media pantalla hacia arriba</P></DIR>
+</DIR>
+
+<P>Los comandos anteriores controlan el movimiento del cursor. Algunos de los comandos usan un modificador de comandos en la forma de un n&uacute;mero que precede al comando. Esta caracter&iacute;stica normalmente repite el comando ese n&uacute;mero de veces.</P>
+<P>Para mover el cursor ocho posiciones a la izquierda.</P>
+<P>8l mueve el cursor 8 posiciones a la izquierda.</P>
+<P>Si desea introducir un n&uacute;mero de espacios delante de un texto, podr&iacute;a usar el modificador de comandos con el comando insertar. Introduzca el n&uacute;mero de repeticiones (n) y despu&eacute;s |_i_| seguido por el espacio y luego pulse la tecla |_Esc_|.</P>
+<P>ni inserta alg&uacute;n texto y lo repite n veces.</P>
+<P>Los comandos que tratan con l&iacute;neas usan el modificador para referirse al n&uacute;mero de l&iacute;nea. El |_G_| es un buen ejemplo.</P><DIR>
+<DIR>
+
+<P>1G mueve el cursor a la primera l&iacute;nea.</P></DIR>
+</DIR>
+
+<P>vi tiene un voluminoso grupo de comandos que se puede usar para mover el cursor por el texto.</P>
+<P>vi tambi&eacute;n puede posicionar el cursor en una l&iacute;nea desde la l&iacute;nea de comandos.</P><DIR>
+<DIR>
+
+<P>vi +10 mi_fichero.tex</P></DIR>
+</DIR>
+
+<P>Este comando abre el fichero llamado mi_fichero.tex y pone el cursor 10 l&iacute;neas m&aacute;s abajo del comienzo del fichero.</P>
+<P>Pruebe los comandos de esta secci&oacute;n. Muy poca gente los recuerda todos en una sola sesi&oacute;n. La mayor parte de los usuarios solamente utiliza una parte de estos comandos.</P>
+<P>Ahora se puede mover, pero ¿c&oacute;mo modificar el texto?</P>
+<P>&nbsp;</P>
+<U><P>A.4.2 Modificaci&oacute;n del texto</P>
+</U><P>El prop&oacute;sito es cambiar el contenido del fichero y vi ofrece un amplio conjunto de comandos para ayudarnos en este proceso.</P>
+<P>Esta secci&oacute;n se concentra en a&ntilde;adir texto, cambiar el texto existente y borrar texto. Al final de esta secci&oacute;n usted tendr&aacute; el conocimiento para crear cualquier fichero de texto que desee. Las secciones restantes se concentran en comandos m&aacute;s especializados y convenientes.</P>
+<P>&nbsp;</P>
+<P>Cuando usted teclea nuevo texto puede introducir varias l&iacute;neas usando la tecla |_Intro_|. Si hay que corregir un error tipogr&aacute;fico mientras introduce texto, puede usar la tecla |_Retroceso_| para mover el cursor sobre el texto. Las varias implementaciones de vi se comportan de manera diferente. Algunas simplemente mueven el cursor hacia atr&aacute;s y el texto sigue vi&eacute;ndose y es aceptado. Otras borran el texto cuando pulsa la tecla de borrado. Otras versiones incluso permiten usar las teclas de cursores para mover el cursor mientras se est&aacute; en modo de entrada de texto. Este modo de funcionamiento no es el normal de vi. Si el texto es visible y usa la tecla |_Esc_| mientras est&aacute; en la l&iacute;nea en la que puls&oacute; |_Retroceso_|, entonces el texto que hay despu&eacute;s del cursor se borrar&aacute;. Use el editor para acostumbrarse a este comportamiento.</P><DIR>
+<DIR>
+
+<P>a A&ntilde;adir texto a partir de la posici&oacute;n actual del cursor.</P>
+<P>A A&ntilde;adir al final de la l&iacute;nea.</P>
+<P>i Insertar texto a la izquierda del cursor.</P>
+<P>I Insertar texto a la izquierda del primer caracter que no sea espacio en la l&iacute;nea actual.</P>
+<P>o Abrir una nueva l&iacute;nea y a&ntilde;ade texto debajo de la l&iacute;nea actual.</P>
+<P>O Abrir una nueva l&iacute;nea y a&ntilde;ade texto encima de la l&iacute;nea actual.</P></DIR>
+</DIR>
+
+<P>vi tiene un peque&ntilde;o grupo de comandos para borrar texto que se pueden mejorar con el uso de modificadores.</P><DIR>
+<DIR>
+
+<P>x Borrar el car&aacute;cter que est&aacute; debajo del cursor.</P>
+<P>dw Borrar desde la posici&oacute;n actual al final de la palabra.</P>
+<P>dd Borrar la l&iacute;nea actual.</P>
+<P>D Borrar desde la posici&oacute;n actual al final de la l&iacute;nea.</P></DIR>
+</DIR>
+
+<P>Los modificadores se pueden usar para aumentar la potencia de los comandos. Los siguientes ejemplos son un subgrupo de las posibilidades.</P><DIR>
+<DIR>
+
+<P>nx Borrar n caracteres desde el que est&aacute; bajo el cursor.</P>
+<P>ndd Borrar n l&iacute;neas.</P>
+<P>dnw Borrar n palabras (igual que ndw).</P>
+<P>dG Borrar desde la posici&oacute;n actual hasta el final del fichero.</P>
+<P>d1G Borrar desde la posici&oacute;n actual hasta el principio del fichero.</P>
+<P>d$ Borrar desde la posici&oacute;n actual al final de la l&iacute;nea. (Esto es igual que D).</P>
+<P>dn$ Borrar desde la l&iacute;nea actual al final de la en&eacute;sima l&iacute;nea.</P></DIR>
+</DIR>
+
+<P>La lista de comandos anterior muestra que la operaci&oacute;n de borrado puede ser muy &uacute;til. Esto se hace patente cuando se aplica en combinaci&oacute;n con los comandos de movimiento de cursor. Hay que hacer notar que el comando |_D_| ignora los modificadores que se le apliquen.</P>
+<P>En ocasiones usted puede necesitar deshacer los cambios al texto. Los siguientes comandos recuperan el texto que hab&iacute;a antes de hacer cambios.</P><DIR>
+<DIR>
+
+<P>u Deshacer el &uacute;ltimo comando.</P>
+<P>U Deshacer todos los cambios ocurridos en la l&iacute;nea actual.</P>
+<P>:e! Editar otra vez. Recupera el estado del fichero desde la &uacute;ltima vez que se salv&oacute;.</P></DIR>
+</DIR>
+
+<P>vi no s&oacute;lo le permite deshacer cambios, tambi&eacute;n puede dar la vuelta al comando "deshacer". Por ejemplo, si usamos el comando |_5dd_| para borrar 5 l&iacute;neas, se pueden recuperar usando el comando |_u_|. Si usted usa |_u_| una vez m&aacute;s, las 5 l&iacute;neas desaparecer&aacute;n de nuevo.</P>
+<P>vi ofrece comandos que permiten que se hagan cambios al texto sin tener que borrar y volver a escribir:</P><DIR>
+<DIR>
+
+<P>rc Reemplaza del caracter bajo el cursor con la letra "c". Se Mueve el cursor al modificador de repetici&oacute;n, por ejemplo: 2rc.</P>
+<P>R Sobreescribe el texto con el nuevo texto..</P>
+<P>cw Cambia el texto de la palabra actual.</P>
+<P>c$ Cambia el texto desde la posici&oacute;n actual al final de la l&iacute;nea.</P>
+<P>cnw Cambia las siguientes n palabras. (Igual que ncw).</P>
+<P>cn$ Hacer cambios hasta el final de la en&eacute;sima l&iacute;nea.</P>
+<P>C Hacer cambios hasta el final de la l&iacute;nea actual.</P>
+<P>cc Hacer cambios en la l&iacute;nea actual.</P>
+<P>s Sustituye el texto que escriba por el caracter actual.</P>
+<P>ns Sustituye el texto que escriba por los siguientes n caracteres.</P></DIR>
+</DIR>
+
+<P>Las series de comandos de cambio que permiten que se introduzca un grupo de caracteres se terminan con la tecla |_Esc_|.</P>
+<P>El comando |_cw_| empieza en la posici&oacute;n actual en la palabra y termina al final de la palabra.</P>
+<P>Cuando use un comando de cambio que especifica la distancia sobre la que se aplicar&aacute; el cambio, vi pondr&aacute; un $ en la &uacute;ltima posici&oacute;n de car&aacute;cter. El nuevo texto puede sobrepasar o no llegar a la longitud original de texto.</P>
+<P>&nbsp;</P>
+<U><P>A.4.3 Copiar y mover bloques de texto</P>
+</U><P>El movimiento de texto supone la combinaci&oacute;n de un n&uacute;mero de comandos para conseguir el prop&oacute;sito final. Esta secci&oacute;n introduce los buffers1 con y sin nombre junto a los comandos que cortan y pegan el texto.</P>
+<P>La copia de texto se realiza en tres pasos principales:</P><DIR>
+<DIR>
+
+<P>1. Copia del texto a un buffer.</P>
+<P>2. Movimiento del cursor al lugar de destino.</P>
+<P>3. Pegar (poner) el texto en el buffer de edici&oacute;n.</P></DIR>
+</DIR>
+
+<P>El buffer de edici&oacute;n no es sino el propio fichero en el que usted est&aacute; trabajando.</P>
+<P>Para Copiar texto al buffer sin nombre use el comando |_y_|.</P><DIR>
+<DIR>
+
+<P>yy Mueve una copia de la l&iacute;nea actual al buffer sin nombre.</P>
+<P>Y Mueve una copia de la l&iacute;nea actual al buffer sin nombre.</P>
+<P>nyy Mueve las siguientes n lineas al buffer sin nombre.</P>
+<P>nY Mueve las siguientes n l&iacute;neas al buffer sin nombre.</P>
+<P>yw Mueve una palabra al buffer sin nombre.</P>
+<P>ynw Mueve n palabras al buffer sin nombre.</P>
+<P>nyw Mueve n palabras al buffer sin nombre.</P>
+<P>y$ Mueve el texto desde la posici&oacute;n actual al final de la l&iacute;nea al buffer sin nombre.</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>1 N. del T.: "buffer" es una palabra inglesa que se refiere a un espacio reservado en memoria para guardar alguna informaci&oacute;n temporalmente. En este caso se usan buffers para almacenar una copia temporal del texto que usted desea copiar o mover.</P>
+<P>&nbsp;</P>
+<P>El buffer sin nombre es un buffer temporal que puede ser f&aacute;cilmente afectado por otros comandos comunes. Hay ocasiones en las cuales necesitamos mantener el contenido de un buffer durante un per&iacute;odo m&aacute;s extenso de tiempo. En este caso se usar&iacute;a un buffer con nombre. vi tiene 26 buffers con nombre. Los buffers usan las letras del alfabeto como el nombre de identificaci&oacute;n. Para distinguir un comando de un buffer con nombre, vi usa el car&aacute;cter |_"_|. Cuando use un buffer con nombre de letra min&uacute;scula los contenidos se sobre escriben, mientras que el uso del nombre en letra may&uacute;scula a&ntilde;ade el nuevo texto al contenido actual.</P><DIR>
+<DIR>
+
+<P>"ayy Mueve la l&iacute;nea actual al buffer con nombre a.</P>
+<P>"aY Mueve la l&iacute;nea actual al buffer con nombre a.</P>
+<P>"byw Mueve la palabra actual al buffer con nombre b.</P>
+<P>"Byw A&ntilde;ade la palabra actual al contenido del buffer b.</P>
+<P>"by3w Mueve las siguientes 3 palabras al buffer b.</P></DIR>
+</DIR>
+
+<P>Use el comando |_p_| para pegar el contenido del buffer al buffer de edici&oacute;n.</P><DIR>
+<DIR>
+
+<P>p Pegar del buffer sin nombre a la DERECHA del cursor.</P>
+<P>P Pegar del buffer sin nombre a la IZQUIERDA del cursor.</P>
+<P>nP Pegar n copias del buffer sin nombre a la IZQUIERDA del cursor.</P>
+<P>"aP Pegar del buffer con nombre "a" a la DERECHA del cursor.</P>
+<P>"b3P Pegar 3 copias del buffer con nombre "b" a la IZQUIERDA del cursor.</P></DIR>
+</DIR>
+
+<P>Cuando use vi dentro de un xterm tiene otra opci&oacute;n para copiar texto. Marque el bloque de texto que desea copiar arrastrando el cursor del rat&oacute;n sobre el texto. Si mantiene pulsado el bot&oacute;n izquierdo del rat&oacute;n y arrastra el rat&oacute;n desde el comienzo al final, invertir&aacute; el v&iacute;deo del texto. Esta operaci&oacute;n autom&aacute;ticamente coloca el texto en un buffer reservado para el servidor de X Window.</P>
+<P>Para pegar el texto, pulse el bot&oacute;n de enmedio. Acu&eacute;rdese de poner vi en modo de inserci&oacute;n dado que la entrada de texto se podr&iacute;a interpretar como comandos y el resultado ser&iacute;a cuando menos desagradable. Usando la misma t&eacute;cnica se puede copiar una sola palabra haciendo doble click con el bot&oacute;n izquierdo del rat&oacute;n sobre la palabra. Solamente se copiar&aacute; esa &uacute;nica palabra. Para pegarla se usa el mismo procedimiento que anteriormente. Los contenidos del buffer s&oacute;lo cambian cuando se marca otro bloque de texto.</P>
+<P>Para mover un bloque de texto son necesarios tres pasos.</P><DIR>
+<DIR>
+
+<P>1. Borrar el texto para ponerlo en un buffer con o sin nombre.</P>
+<P>2. Mover el cursor a la posici&oacute;n de destino.</P>
+<P>3. Pegar el buffer.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>El proceso es el mismo que el de copia con un solo cambio en el primer paso para borrar. Cuando</P>
+<P>se usa el comando |_dd_|, la l&iacute;nea se borra y se coloca en el buffer sin nombre. Luego puede poner el</P>
+<P>contenido del mismo modo que lo hizo cuando copi&oacute; el texto en la posici&oacute;n deseada.</P><DIR>
+<DIR>
+
+<P>"add Borrar la l&iacute;nea y ponerla en el buffer con nombre a.</P>
+<P>"a4dd Borrar cuatro l&iacute;neas y ponerlas en el buffer con nombre a.</P>
+<P>dw Borrar una palabra y ponerla en el buffer sin nombre.</P></DIR>
+</DIR>
+
+<P>Vea la secci&oacute;n sobre el modificado de texto para ver m&aacute;s ejemplos de borrado de texto.</P>
+<P>En el caso de que el sistema falle, el contenido de todos los buffers se pierde excepto el contenido de los buffers de edici&oacute;n, que se puede recuperar (ver comandos &Uacute;tiles).</P>
+<P>&nbsp;</P>
+<U><P>A.4.4 B&uacute;squeda y cambio de texto</P>
+</U><P>vi dispone de varios comandos para b&uacute;squeda. Usted puede buscar desde un solo car&aacute;cter hasta una expressi&oacute;n completa.</P>
+<P>Los dos comandos principales de b&uacute;squeda basados en caracteres son |_f_| y |_t_|.</P><DIR>
+<DIR>
+
+<P>fc Encuentra el siguiente caracter c. Se mueve a la derecha del siguiente.</P>
+<P>Fc Encuentra el siguiente caracter c. Se mueve a la izquierda del anterior.</P>
+<P>tc Se mueve a la DERECHA al caracter anterior al siguiente c.</P>
+<P>Tc Se mueve a la IZQUIERDA al car&aacute;cter que sigue al c anterior. vi(En algunas esto es lo mismo que Fc).</P>
+<P>; Repite el &uacute;ltimo comando f,F,t,T.</P>
+<P>, Igual que (;) pero cambiando la direcci&oacute;n del comando original.</P></DIR>
+</DIR>
+
+<P>Si el caracter que usted buscaba no se encuentra, vi emitir&aacute; un pitido o le dar&aacute; otro tipo de se&ntilde;al (tal vez un parpadeo de toda la pantalla).</P>
+<P>vi le permite buscar una cadena de texto en el buffer de edici&oacute;n.</P><DIR>
+<DIR>
+
+<P>/tira Busca hacia la derecha y abajo la siguiente instancia de "tira".</P>
+<P>?tira Busca hacia la izquierda y arriba la siguiente instancia de "tira".</P>
+<P>n Repite el &uacute;ltimo comando / o ?.</P>
+<P>N Repite el &uacute;ltimo comando / o ? en la direcci&oacute;n opuesta.</P></DIR>
+</DIR>
+
+<P>Cuando use los comandos ||/_||or |_?_|, la &uacute;ltima l&iacute;nea en la parte baja de la pantalla se vaciar&aacute;.</P>
+<P>Introduzca en esa l&iacute;nea la tira de caracteres que desea buscar y pulse |_Intro_|.</P>
+<P>La tira en el comando ||/_||or |_?_|puede ser una expresi&oacute;n regular. Una expresi&oacute;n regular puede ser una descripci&oacute;n de un conjunto de tiras. La descripci&oacute;n se construye usando texto entremezclado con caracteres especiales. Los caracteres especiales de una expresi&oacute;n regular son . * [ ] ^ $.</P><DIR>
+<DIR>
+
+<P>. Vale por cualquier car&aacute;cter excepto el car&aacute;cter de nueva l&iacute;nea.</P>
+<P>" Tecla de "escape" para cualquier caracter especial.</P>
+<P>* Vale por 0 o m&aacute;s instancias del caracter anterior.</P>
+<P>[ ] Busca exactamente uno de los caracteres inclu&iacute;dos entre los corchetes.</P>
+<P>^ El caracter que sigue a ^ debe estar al principio de la l&iacute;nea.</P>
+<P>$ El caracter que precede a $ se busca al final de la l&iacute;nea.</P>
+<P>[^] Busca cualquier cosa que no se encuentre despues de ^ dentro de los corchetes.</P>
+<P>[-] Busca un rango de caracteres.</P></DIR>
+</DIR>
+
+<P>El &uacute;nico modo de acostumbrarse a usar las expresiones regulares es us&aacute;ndolas. A continuaci&oacute;n mostramos varios ejemplos de uso:</P><DIR>
+<DIR>
+
+<P>c.ch Coincide con coche, cacho, cochera, etc.</P>
+<P>c".pe Coincide con c.pe, c.per, etc.</P>
+<P>sto*p Coincide con stp, stop, stoop, etc.</P>
+<P>car.*n Coincide con cart&oacute;n, carrill&oacute;n, carmen, etc.</P>
+<P>xyz.* Coincide con xyz al final de la l&iacute;nea.</P>
+<P>^Los Encuentra cualquier l&iacute;nea que empiece con Los.</P>
+<P>abcdef$ Encuentra cualquier l&iacute;nea que termine con abcdef.</P>
+<P>^Solo$ Coincide con cualquier l&iacute;nea que s&oacute;lo tenga la palabra "Solo".</P>
+<P>p[aiue]so Coincide con paso, piso, puso, peso.</P>
+<P>Ver[D-F] Coincide con VerD, VerE, VerF.</P>
+<P>Ver[^1-9] Coincide con Ver siempre que a continuaci&oacute;n NO haya un n&uacute;mero.</P>
+<P>the[ir][re] Coincide con their, therr, there, theie.</P>
+<P>[A-Za-z][A-Za-z]* Coincide con cualquier palabra.</P></DIR>
+</DIR>
+
+<P>vi usa el modo de comandos de ex para llevar a cabo b&uacute;squedas y sustituciones. Todos los comandos que empiezan con dos puntos son comandos en modo ex.</P>
+<P>Los comandos de b&uacute;squeda y sustituci&oacute;n permiten que se usen expresiones regulares sobre un rango de l&iacute;neas y sustituir la tira de caracteres que se busca. El usuario puede pedir confirmaci&oacute;n antes de que se realice la sustituci&oacute;n. Merece la pena hacer una revisi&oacute;n de la representaci&oacute;n de los n&uacute;meros de l&iacute;nea en el tutorial de ed.</P><DIR>
+<DIR>
+
+<P>:&lt;prim&gt;,&lt;ult&gt;s/&lt;busca&gt;/&lt;sust&gt;/g Comando general.</P>
+<P>:1,$s/los/Los/g Buscar el fichero entero y sustituir los por Los.</P>
+<P>:%s/the/The/g % siginifica el fichero entero (igual que arriba).</P>
+<P>:.,5s/^.*//g Borra el contenido de la l&iacute;nea actual hasta la quinta.</P>
+<P>:%s/los/Los/gc Sustituye "los" con "Los" preguntando antes de hacer la operaci&oacute;n.</P>
+<P>:%s/^....//g Borra los primeros cuatro car&aacute;cteres de cada l&iacute;nea.</P></DIR>
+</DIR>
+
+<P>El comando de b&uacute;squeda es muy potente cuando se combina con las expresiones regulares. Si no se incluye la directiva |_g_| entonces el cambio s&oacute;lo se aplica a la primera instancia que se encuentre en cada l&iacute;nea.</P>
+<P>En ocasiones usted quiere usar los caracteres de b&uacute;squeda en los caracteres de sustituci&oacute;n. Se puede reescribir todo el comando en la l&iacute;nea pero vi permite que los caracteres de sustituci&oacute;n incluyan algunos caracteres especiales.</P><DIR>
+<DIR>
+
+<P>:1,5s/ayuda/&amp;ndo/g Sustituye ayuda por ayudando en las cinco primeras l&iacute;neas.</P>
+<P>:%s/ */&amp;&amp;/g Duplica el n&uacute;mero de espacios entre palabras.</P></DIR>
+</DIR>
+
+<P>El uso de la tira de caracteres completa_para b&uacute;squeda_tiene sus l&iacute;mites y por lo tanto vi usa los par&eacute;ntesis en secuencia de escape ||_(_|| y ||_)_||para seleccionar el rango de la sustituci&oacute;n. El uso de un d&iacute;gito en secuencia de escape |_1_| identifica el rango en el orden de la definici&oacute;n y la sustituci&oacute;n se puede hacer.</P><DIR>
+<DIR>
+
+<P>:s/"^"(.*"):.*/"1/g Borra todo despues de e incluyendo los dos puntos.</P>
+<P>:s/"(.*"):"(.*")/"2:"1/g Da la vuelta a las palabras a los dos lados de los dos puntos.</P></DIR>
+</DIR>
+
+<P>vi ofrece comandos muy potentes que muchos editores de texto modernos no tienen o no pueden ofrecer. El coste de esta potencia suele ser tambi&eacute;n el principal argumento en contra de vi. Los comandos pueden ser dif&iacute;ciles de aprender y leer. Sin embargo, la mayor&iacute;a de las cosas buenas suelen ser un poco extra&ntilde;as al principio. Con un poco de pr&aacute;ctica y tiempo, los comandos de vi se convertir&aacute;n en una segunda naturaleza para Ud..</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

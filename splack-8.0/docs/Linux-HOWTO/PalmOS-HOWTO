@@ -1,0 +1,496 @@
+  Palm OS Desktop HOWTO
+  by David H. Silber palm@orbits.com
+  v1.1.1, 28 February 1999
+
+  This HOWTO document explains how to use your Palm OS device with a
+  Linux system.  Although HOWTO documents are targeted towards use with
+  the Linux operating system, this one is not dependent on the version
+  of unix used.
+  ______________________________________________________________________
+
+  Table of Contents
+
+
+  1. Introduction
+
+     1.1 This Document
+     1.2 See Also
+
+  2. General Information
+
+     2.1 Hardware Installation
+
+  3. Sharing Data Between Palm OS and Linux Systems
+
+     3.1 The pilot-link software
+        3.1.1 Installing the pilot-link software
+        3.1.2 Using the pilot-link software
+           3.1.2.1 pilot-xfer
+           3.1.2.2 install-memo
+           3.1.2.3 memos
+           3.1.2.4 pilot-addresses
+        3.1.3 Mailing List
+        3.1.4 Mailing List Archives
+        3.1.5 FTP Site
+
+  4. Linux Applications Which Synchronise with PalmOS Devices.
+
+     4.1 XNotesPlus
+        4.1.1 Installing XNotesPlus
+
+  5. Data Conversion
+
+     5.1 MakeDoc
+        5.1.1 Installing MakeDoc
+        5.1.2 Using MakeDoc
+
+  6. People
+
+  7. A History of Palm OS devices.
+
+
+
+  ______________________________________________________________________
+
+  1.  Introduction
+
+  PalmOS is the operating system used by the Pilot, PalmPilot, WorkPad,
+  Palm III, Palm IIIx, Palm V, and pdQ smartphone devices.  Each of
+  these gadgets is a Personal Digital Assistant (PDA) and comes with
+  programs to help the user keep track of personal information, such as
+  addresses & telephone numbers, meetings, todo lists and general notes.
+  In this way, they replace the traditional paper address book, calendar
+  and notepad.  PalmOS devices improve on earlier PDAs in that they can
+  synchronize their data with another computer.  Of course the other
+  computer must have compatible software in order to communicate with
+  the PalmOS device.  This software is often referred to as a conduit.
+  Although 3Com does not support Linux conduits, Linux developers have
+  provided a wide variety of applications which share data with PalmOS
+  devices.
+
+
+
+  1.1.  This Document
+
+  The latest version of this document can be read at
+  http://www.orbits.com/Palm/PalmOS-HOWTO.html, and is part of the Linux
+  Documentation Project (LDP).  This document superceedes the previous
+  version, which was called the Pilot HOWTO.  See
+  http://sunsite.unc.edu/LDP/ for further information about the LDP and
+  other HOWTO documents.
+
+  If you find anything in this document which needs to be corrected or
+  better explained, please send me e-mail at the address above and
+  specify which version of this document you are referring to.
+
+  This document is Copyright © 1997, 1998 & 1999 by David H. Silber.  It
+  is released under the copyright terms in the LDP HOWTO-INDEX document.
+
+
+  1.2.  See Also
+
+  The http://www.orbits.com/Palm/PalmDevelompent-HOWTO.html document
+  describes how to use the gcc-based development system to write Palm OS
+  applications.
+
+  The http://www.orbits.com/Palm/PalmConduit-HOWTO.html document
+  describes how to use the pilot-link libraries to write Linux-resident
+  conduits for use with Palm OS devices.
+
+  You may also wish to look at http://www.orbits.com/Palm/ for updates
+  on the status of these and related documents.
+
+
+
+  2.  General Information
+
+  2.1.  Hardware Installation
+
+  Palm OS devices come with a ``cradle'' for exchanging data with the
+  desktop computer.  This device is actually a serial cable with a
+  custom holder for the Palm OS devices and an integrated `HotSync'
+  button.  Plug your cradle into a spare serial port on your computer.
+  When you run each of the stand-alone programs, you will need to place
+  your Palm OS device in the cradle and push the `HotSync' button so the
+  Palm OS device knows that it has to communicate.  If the Palm OS
+  device happens to be off when the button is pushed, it will turn
+  itself on.
+
+  For convenience, create a device, /dev/pilot which will be an
+  alternate name for the serial port to which your Palm OS device cradle
+  is connected.  As the root user, enter the following at the shell
+  prompt:
+
+
+       ln /dev/ttyS0 /dev/pilot
+
+
+
+  Replace ttyS0 with the name of the port to which you connected your
+  Palm OS device's cradle.
+
+
+
+  3.  Sharing Data Between Palm OS and Linux Systems
+
+  3.1.  The pilot-link software
+
+  The pilot-link suite of software tools allows you to download programs
+  onto your Palm OS device, and transfer data for the Palm OS device's
+  various built-in programs between the Linux system and the Palm OS
+  device.  While these programs are not quite as seamless as the desktop
+  software that comes with the Palm OS device, they do allow you to copy
+  your data in both directions.  In general, each separate program in
+  the pilot-link suite manages one type of data.
+
+
+
+  3.1.1.  Installing the pilot-link software
+
+  The prepackaged versions will inevitably lag slightly behind the
+  master distribution, but will be easier to install and not require
+  configuration.  The master distribution might be a better choice in
+  those rare occasions when you have been waiting for a particular
+  feature or bug fix.
+
+  You can get the Debian Linux (i386) port of pilot-link version 0.8.7
+  from ftp://ftp.debian.org/pub/debian/dists/stable/main/binary-
+  i386/otherosfs/pilot-link_0.8.7-2.deb.  If this file does not exist,
+  you will likely find a newer version located in the same directory.
+  If all else fails, or if you want a more recent version than has been
+  packaged for Debian, you can install the generic distribution, as
+  detailed below.  Install this file in the normal manner and skip to
+  Using the pilot-link software.
+
+  You can get the RedHat Linux (i386) port of pilot-link version 0.8.9
+  from ftp://ftp.redhat.com/pub/contrib/i386/pilot-
+  link-0.8.9-1.i386.rpm.  If this file does not exist, you will likely
+  find a newer version located in the same directory.  If all else
+  fails, or if you want a more recent version than has been packaged for
+  RedHat, you can install the generic distribution, as detailed below.
+  Install this file in the normal manner and skip to Using the pilot-
+  link software.
+
+  For other versions of Linux or unix, or if you need the absolute
+  latest version, download the version 0.9.0 of pilot-link from
+  ftp://ryeham.ee.ryerson.ca/pub/PalmOS/pilot-link.0.9.0.tar.gz.  The
+  version number is likely to change, but new versions should end up in
+  the same location with a similar name.
+
+  Once you have the software distribution, unpack it with:
+
+
+       tar -xvzf pilot-link.0.9.0.tar.gz
+
+
+
+  If your version of tar does not support the -z option, decompress the
+  archive with gunzip, as follows:
+
+  gunzip pilot-link.0.9.0.tar.gz | tar -xvf -
+
+
+
+  This will create a directory (pilot-link.0.9.0) containing the source.
+
+  Change your working directory to the source (pilot-link.0.9.0)
+  directory.
+
+  Run ./configure.  This will search through your system for information
+  needed to compile the software.  configure will set things up to be
+  installed in /usr/local by default.  If you want to change it, run
+  ./configure --prefix=DIR, where DIR is replaced with the name of the
+  directory to which the software will be installed.
+
+  Run make.  This will compile the software.  The software will not be
+  installed until later, so that you have a chance to try it out first.
+  (If you are replacing an older version with a newer release, you may
+  wish to check and make sure that no functionality that you need has
+  been broken.  Generally, this is not a problem.)
+
+  As the root user, run make install.  This will copy the software into
+  directories under /usr/local (or wherever you specified with the
+  --prefix option).  If you can not log in as root, you can install the
+  software to some directory where you have write access.
+
+  Don't forget to add any new directories of executables to your search
+  path.
+
+
+  3.1.2.  Using the pilot-link software
+
+  Most of the programs in the pilot-link suite are conduits, that is
+  they transfer data into or out of your Palm OS device.
+
+  Each time you use of one of these programs, press the HotSync button
+  on your Palm OS device's cradle.  This will initiate the Palm OS
+  device side of the data transfer.  Note that not all of these programs
+  prompt you to press the `HotSync' button, so you may have to remember
+  to do it yourself.
+
+
+  For more details, and other options to these programs, view the
+  corresponding manual page.  There is an overview manual page under the
+  name pilot-link.  For the pilot-xfer program, for example, type man
+  pilot-xfer at your unix shell prompt.
+
+
+
+  3.1.2.1.  pilot-xfer
+
+  Possibly the most useful program in the pilot-link suite, pilot-xfer
+  allows you to install programs on your Palm OS device, make a backup,
+  and restore that backup.
+
+
+  To install a program:
+
+
+       pilot-xfer /dev/pilot -i program.prc
+
+
+
+  To backup your Palm OS device:
+
+
+       pilot-xfer /dev/pilot -b backup-directory
+
+
+
+  This will copy all of the databases on your Palm OS device, (including
+  programs?)  to a directory called ``backup-directory'', creating it if
+  it does not already exist.
+
+  To restore data to Palm OS device:
+
+
+       pilot-xfer /dev/pilot -r backup-directory
+
+
+
+  Generally, you will only need to do this if your Palm OS device loses
+  power or if you have to do a hard reset.
+
+  To list the programs on your Palm OS device:
+
+
+       pilot-xfer /dev/pilot -l
+
+
+
+  3.1.2.2.  install-memo
+
+  Install a Linux file onto the Palm OS device as a memo.
+
+  To install a memo into your (already existing) project category:
+
+
+       install-memo /dev/pilot -c project project.memo
+
+
+
+  The name of the file will be inserted into the memo as its first line
+  and will appear in the directory of memos on your Palm OS device.
+
+
+
+  3.1.2.3.  memos
+
+  This program grabs each memo from the Palm OS device and prints it out
+  in standard mailbox format.
+
+  To view your memos:
+
+
+       memos /dev/pilot
+
+
+
+  3.1.2.4.  pilot-addresses
+
+  pilot-addresses Transfer the address database to or from the Palm OS
+  device.
+
+  To write your address data to a Linux file from your Palm OS device:
+
+
+       pilot-addresses /dev/pilot -w storage.file
+
+
+
+  To read your address data from a Linux file onto your Palm OS device:
+
+
+       pilot-addresses /dev/pilot -r storage.file
+
+
+
+  3.1.3.  Mailing List
+
+  The pilot-unix mailing list is maintained by Matthew Cravit pilot-
+  unix-owner@lists.best.com.  Its mandate is:
+
+
+       The pilot-unix mailing list is for discussion and idea-sharing for those
+       interested in using the US Robotics Pilot PDAs with UNIX systems. This
+       includes people who are interested in helping to develop tools to allow the
+       Pilot to operate with UNIX, and possibly to develop an SDK for the Pilot
+       for Unix.
+
+
+
+  For more information, including how to subscribe to the list, send
+  mail containing the word ``INFO'' to pilot-unix-
+  request@lists.best.com.  The subject line does not matter.
+
+
+  3.1.4.  Mailing List Archives
+
+  An archive of the pilot-unix mailing list can be found at
+  http:///www.acm.rpi.edu/~albert/pilot/.  It is maintained by Chris
+  Stevens albert@acm.rpi.edu.
+
+
+  3.1.5.  FTP Site
+
+  An FTP site containing an archive of Palm OS tools for use on unix
+  systems is located at ftp://ryeham.ee.ryerson.ca/pub/PalmOS/.  It is
+  maintained by Jeff Dionne jeff@ryeham.ee.ryerson.ca.
+
+
+
+  4.  Linux Applications Which Synchronise with PalmOS Devices.
+
+  4.1.  XNotesPlus
+
+  XNotesPlus provides a means to post small notes on your X-Windows
+  desktop.  These notes can be shared as memos with your PalmOS device.
+
+
+  4.1.1.  Installing XNotesPlus
+
+  The XNotesPlus web page at http://www.graphics-
+  muse.org/xnotes/xnotes.html contains full installation and use
+  instructions.  I suggest using the prebuilt binaries if you can.
+
+  One caveat is that you need to create an ``Xnotes'' category on your
+  PalmOS device, if you intend to export notes.
+
+
+
+  5.  Data Conversion
+
+  5.1.  MakeDoc
+
+  One short-coming of the Palm OS device's built-in memo program is that
+  it does not deal well with large documents.  To compensate for this,
+  Rick Bram <mailto:rbram@concentric.net> wrote Doc, a document reader
+  for the Palm OS device.  (See
+  http://www.concentric.net/~rbram/doc.shtml).  Documents can be
+  converted to the Doc format with MakeDoc, by Pat Beirne
+  <mailto:pat.beirne@sympatico.ca>.
+
+
+
+  5.1.1.  Installing MakeDoc
+
+  MakeDoc can be downloaded from
+  http://www.concentric.net/~rbram/makedoc7.cpp.  Compile it with your
+  C++ compiler and install the resulting executable as ``makedoc'' in a
+  directory in your search path.  There seems to be a small bug in
+  makedoc (version 0.7a) in that it does not output a newline as the
+  last character displayed to the user.  This does not seem to affect
+  the resulting document file, but it is annoying.
+
+
+
+  5.1.2.  Using MakeDoc
+
+  Use MakeDoc as follows:
+
+
+       makedoc data.txt data.prc "Data to display with Doc"
+
+
+
+  This will create a file data.prc, which can be installed on your Palm
+  OS device with pilot-xfer.  The text "Data to display with Doc" will
+  be displayed in the directory of documents that Doc manages.
+
+  The syntax for MakeDoc is as follows:
+
+  makedoc [-n] [-b] <text-file> <prc-file> <story-name>
+  or
+  makedoc -d [-b] <prc-file> <text-file>
+
+
+
+     <text-file>
+        The file that you wish to convert.
+
+     <prc-file>
+        The name of the resulting file.  (End the name with ``.prc''.)
+
+     <story-name>
+        The name you want displayed in the Doc or Jdoc directory of
+        documents.
+
+  There are also options to decode the resulting .prc file and manage
+  various compression options.
+
+
+
+  F.  People
+
+  Kenneth Albanowski <mailto:kjahds@kjahds.com> Maintains the pilot-link
+  suite of tools.
+
+  Donnie Barnes <mailto:djb@redhat.com> Packaged pilot-link suite as Red
+  Hat RPM files.
+
+  Rick Bram <mailto:rbram@concentric.net> Author of Doc.
+
+  Matthew Cravit <mailto:pilot-unix-owner@lists.best.com> List owner for
+  the pilot-unix mailing list.
+
+  Jeff Dionne <mailto:jeff@ryeham.ee.ryerson.ca> Original author of the
+  pilot-link suite of tools.  Manages the FTP area for the UNIX Palm
+  OS/Pilot development project.
+
+  Mark W. Eichin <mailto:eichen@kitten.gen.ma.us> Ported pilot-link
+  suite to Debian Linux.
+
+  David H. Silber <mailto:pilot@orbits.com> Author of this document.
+
+  Chris Stevens <mailto:albert@acm.rpi.edu> Maintains the pilot-unix
+  mailing list archives.
+
+
+  G.  A History of Palm OS devices.
+
+  There are two versions of the Pilot.  They are the 1000 and the 5000
+  and have 128k and 512k of RAM, respectively. They come with Palm OS
+  1.0 in ROM.
+
+  Then came two devices with the name PalmPilot.  They are the PalmPilot
+  Personal and the PalmPilot Professional and have 512k and 1 Meg of
+  RAM, respectively.  They also have a backlighting feature for the LCD
+  panel and version 2.0 of the operating system.  The Professional also
+  comes with a TCP/IP stack and a few extra programs built-in.
+
+  IBM has released a rebadged version of the PalmPilot Professional,
+  which they call a WorkPad.
+
+  Now we have the Palm III, which has a redesigned case and an infrared
+  port, not to mention the 2 Meg of RAM and Palm OS 3.0.
+  There is an announced product from Qualcomm, called the pdQ
+  smartphone, which is a cell phone that incorporates a Palm OS PDA.
+  Don't get all excited about it yet, it will not be released until
+  sometime in 1999.
+
+  It is possible to upgrade any Pilot by swapping out the memory card,
+  which includes both RAM & ROM.  Of course, this doesn't get you
+  backlighting for the original Pilot series.
+
+
+

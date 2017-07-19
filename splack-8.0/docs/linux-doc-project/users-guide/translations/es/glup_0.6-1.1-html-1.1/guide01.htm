@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<TITLE>guide1</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide02.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 1</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000">&nbsp;</P>
+</FONT><P ALIGN="CENTER"><HR></P>
+<P>&nbsp;</P>
+<B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080">
+<P>Introducci&oacute;n</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>How much does it cost to entice a dope-smoking Unix system guru to Dayton?</P>
+<P>Brian Boyle, Unix World's First Annual Salary Survey</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>1.1 ¿Qui&eacute;n debe leer este libro?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>¿Es Ud. la persona que debe leer este libro? Perm&iacute;tame responder a esta pregunta haci&eacute;ndole estas otras: ¿Acaba de obtener Linux de alguna fuente, lo instal&oacute; y ahora quiere saber que puede hacer? O, ¿es un usuario de computadoras que nunca ha utilizado Unix y est&aacute; considerando usar Linux pero quiere saber lo que puede hacer con &eacute;l?</P>
+<P>Si tiene este libro, la respuesta a esas preguntas probablemente es "s&iacute;". Cualquiera que tiene Linux (el clon gratuito de Unix escrito por Linus Torvalds) en su PC, pero no sabe que hacer despu&eacute;s de la instalaci&oacute;n, debe leer este libro. Aqu&iacute; encontrar&aacute; explicaciones sobre la mayor&iacute;a de los comandos b&aacute;sicos de Unix, e incluso de algunos avanzados. Tambi&eacute;n trataremos acerca del potente editor GNU Emacs y de muchas otras aplicaciones importantes en Unix.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>1.1.1 ¿Qu&eacute; debe hacer antes de leer este libro?</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este libro supone que Ud. tiene acceso a un sistema Unix (¡Para aprender a nadar hay que mojarse!). M&aacute;s importante a&uacute;n, el sistema Unix antes mencionado debe ser una PC INTEL corriendo Linux.</P>
+<P>Este requerimiento no es estrictamente necesario, pero cuando las versiones de Unix difieran en su comportamiento, nos ocuparemos de las respuestas que exhiba Linux y no de las otras variantes de Unix.</P>
+<P>Linux est&aacute; disponible de distintas maneras, llamadas distribuciones. Espero que haya encontrado una distribuci&oacute;n completa, como por ejemplo la MCC-Interim, y que la tenga instalada. Existen diferencias entre las distintas distribuciones de Linux, pero la mayor&iacute;a de ellas son insignificantes.</P>
+<P>Ocasionalmente ver&aacute; que en este libro las cosas se ven un poquito distintas a lo que ve en su computadora. Si le sucede esto, es probable que est&eacute; utilizando una versi&oacute;n distinta de la m&iacute;a: estoy interesado en recibir informes de tales casos.</P>
+<P>Si Ud. es el superusuario (el ocupado del mantenimiento, el instalador) del sistema, deber&aacute; crearse una cuenta de usuario normal para Ud. mismo. Consulte por favor los manuales de instalaci&oacute;n para obtener la informaci&oacute;n necesaria. Si no es el superusuario, deber&aacute; solicitarle a quien lo sea que le cree una cuenta.</P>
+<P>Ahora deber&aacute; tener tiempo y paciencia. El aprendizaje de Linux no es f&aacute;cil _la mayor&iacute;a de las personas encuentran que es m&aacute;s f&aacute;cil aprender el sistema operativo del Macintosh. Una vez que aprende Linux las cosas se vuelven mucho m&aacute;s f&aacute;ciles. Unix es un sistema muy poderoso y con &eacute;l es muy f&aacute;cil realizar tareas complejas.</P>
+<P>Adem&aacute;s, este libro supone que Ud. est&aacute; moderadamente familiarizado con algunos t&eacute;rminos computacionales. Aunque este requerimiento no es necesario, hace m&aacute;s f&aacute;cil la lectura. Debe conocer t&eacute;rminos como `programa' o `ejecuci&oacute;n'. Si no los maneja, necesitar&aacute; de la ayuda de alguien m&aacute;s avezado durante su aprendizaje de Unix.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>1.2 ¿C&oacute;mo evitar leer este libro?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La mejor manera de aprender el uso de casi cualquier programa de computadora es poni&eacute;ndose a trabajar sobre la computadora. La mayor&iacute;a de las personas encuentran de poco beneficio la lectura de un libro si no utilizan a la vez el programa. Por lo tanto, la mejor manera de aprender Unix y Linux es utiliz&aacute;ndolos. Utilice Linux para todo lo que pueda. Experimente. No tenga miedo, es posible que haga algunos l&iacute;os, pero siempre puede volver a instalar todo. Mantenga actualizadas las copias de seguridad y ¡divi&eacute;rtase!</P>
+<P>Unix no es un sistema operativo tan intuitivamente obvio como algunos otros. Por lo tanto, es probable que deba leer al menos los cap&iacute;tulos 4, 5, y el 6, antes de empezar a experimentar.</P>
+<P>La manera n&uacute;mero uno para evitar la lectura de este libro es que utilice la documentaci&oacute;n disponible en l&iacute;nea en Linux. Para ello debe aprender a utilizar el comando man, su descripci&oacute;n est&aacute; en la Secci&oacute;n 4.2.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>1.3 ¿C&oacute;mo leer este libro?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La manera sugerida para aprender Unix es leer un poquito, luego jugar un poquito. Juegue hasta que se sienta c&oacute;modo con los conceptos, y luego puede saltar entre los temas que se cubren en el libro. Encontrar&aacute; una variedad de temas, algunos de los cuales ser&aacute;n de su inter&eacute;s. Luego de un tiempo, se sentir&aacute; lo suficientemente confiado como para utilizar comandos sin saber exactamente que es lo que deber&iacute;an hacer. Esta es una buena se&ntilde;al.</P>
+<P>Lo que mucha gente asocia con Unix es el shell de Unix: se trata de un programa especial que interpreta comandos. En la pr&aacute;ctica, &eacute;sta es una manera conveniente de ver las cosas, pero debe saber que Unix es realmente mucho m&aacute;s que el shell, o mucho menos _dependiendo de como lo mire. Este libro le dir&aacute; como utilizar el shell, los programas que usualmente vienen con Unix, y algunos programas que no son muy comunes (pero que Linux casi siempre trae).</P><DIR>
+<DIR>
+
+<P>El cap&iacute;tulo actual es un meta-cap&iacute;tulo, se discute acerca del libro y de como aplicarlo para poder hacer nuestro trabajo. Los otros cap&iacute;tulos contienen:</P>
+<P>Cap&iacute;tulo 2 trata del origen y destino de Unix y Linux. Tambi&eacute;n se habla de la Free Software Foundation y el proyecto GNU.</P>
+<P>Cap&iacute;tulo 3 habla de como arrancar y detener su computadora, y de lo que sucede durante esas operaciones. Gran parte de esto tiene que ver con temas que no es necesario conocer para utilizar Linux, pero a&uacute;n as&iacute; son &uacute;tiles e interesantes.</P>
+<P>Cap&iacute;tulo 4 introduce el shell de Unix. Es con este programa con el cual las personas realizan su trabajo, y corren los programas que necesitan. Trata de los programas y comandos b&aacute;sicos que necesitar&aacute; conocer para utilizar Unix.</P>
+<P>Cap&iacute;tulo 5 cubre el sistema de ventana X2. X es la cara gr&aacute;fica principal de Unix, e incluso algunas distribuciones lo configuran como opci&oacute;n predeterminada.</P>
+<P>Cap&iacute;tulo 6 analiza algunas de las caracter&iacute;sticas m&aacute;s avanzadas del shell de Unix. El aprendizaje de las t&eacute;cnicas tratadas en este cap&iacute;tulo le ayudar&aacute; a ser m&aacute;s eficiente.</P>
+<P>Cap&iacute;tulo 7 tiene breves descripciones de muchos de los comandos Unix. Cuanto m&aacute;s herramientas sabe utilizar un usuario, m&aacute;s r&aacute;pidamente puede concluir su trabajo.</P>
+<P>Cap&iacute;tulo 8 describe el editor de textos Emacs. Se trata de un programa muy extenso que integra varias de las herramientas de Unix bajo una &uacute;nica interfaz.</P>
+<P>Cap&iacute;tulo 9 trata acerca de las distintas maneras que hay de personalizar un sistema Unix para satisfacer sus gustos personales.</P>
+<P>Cap&iacute;tulo 10 investiga los medios por los cuales un usuario Unix puede comunicarse con otras m&aacute;quinas alrededor del mundo, incluyendo el correo electr&oacute;nico y la Red de Alcance Mundial3.</P>
+<P>Cap&iacute;tulo 11 describe algunos de los comandos con m&aacute;s opciones y m&aacute;s dif&iacute;ciles de utilizar.</P>
+<P>Cap&iacute;tulo 12 muestra formas sencillas de evitar errores en Unix y Linux.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>1.4 Documentaci&oacute;n de Linux</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Este libro, Gu&iacute;a de Linux Para el Usuario, est&aacute; pensado para el principiante en Unix. Afortunadamente, el Linux Documentation Project (Proyecto de Documentaci&oacute;n de Linux) tambi&eacute;n est&aacute; escribiendo libros para los usuarios m&aacute;s experimentados4.</P>
+<P>_____________________________________________</P>
+<P>2 N. del T.: X Window System.</P>
+<P>3 N. del T.: tambi&eacute;n conocida como WWW o World Wide Web.</P>
+<P>4 N. del T.: El proyecto LuCAS est&aacute; ocup&aacute;ndose de traducir parte de la documentaci&oacute;n de Linux al castellano. Para obtener informaci&oacute;n actualizada de las traducciones, vea el ap&eacute;ndice D.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>1.4.1 Otros libros de Linux</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los otros libros incluyen Installation and Getting Started 5, que es una gu&iacute;a para obtener e instalar Linux, The Linux System Administrator's Guide, trata como organizar y mantener un sistema Linux, y The Linux Kernel Hacker's Guide, que explica como modificar Linux. The Linux Network Administrator Guide6 muestra como instalar, configurar y utilizar una conexi&oacute;n de red. </P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>1.4.2 COMOs</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Adem&aacute;s de los libros, el Proyecto de Documentaci&oacute;n de Linux7 ha realizado una serie de peque&ntilde;os documentos que describen como configurar alg&uacute;n aspecto particular de Linux. Por ejemplo, el SCSI-COMO describe algunas de las complicaciones que aparecen al utilizar SCSI (que es una manera est&aacute;ndar de comunicarse con ciertos dispositivos) y Linux.</P>
+<P>Estos COMOs est&aacute;n disponibles en varios formatos: en un libro como The Linux Bible o Dr. Linux; en el foro de discusi&oacute;n comp.os.linux.answers; o en varios lugares de la WWW. El sitio central de la informaci&oacute;n acerca de Linux es http://www.linux.org.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>1.4.3 ¿Qu&eacute; es el Proyecto de Documentaci&oacute;n de Linux?</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Como casi todo lo asociado con Linux, el Proyecto de Documentaci&oacute;n de Linux consiste en un conjunto de gente que trabaja alrededor del mundo. Originalmente organizado por Lars Wirzenius, el Proyecto est&aacute; coordinado en la actualidad por Matt Welsh con la ayuda de Michael K. Johnson.</P>
+<P>Se espera que el Proyecto de Documentaci&oacute;n de Linux provea los libros que satisfagan todas las necesidades de documentaci&oacute;n de Linux en alg&uacute;n momento. Por favor, d&iacute;ganos si hemos tenido &eacute;xito o qu&eacute; es lo que debemos mejorar. Puede contactar al autor en leg+@andrew.cmu.edu, a Matt Welsh en mdw@cs.cornell.edu8.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>1.5 Sistemas operativos</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El prop&oacute;sito principal de un sistema operativo es dar el soporte que necesitan los programas que hacen un trabajo de inter&eacute;s para el usuario. Por ejemplo, Ud. puede estar utilizando un editor si quiere crear un documento. Ese editor no puede realizar su trabajo sin la ayuda del sistema operativo _necesitar&aacute; esta ayuda para interactuar con la terminal, los archivos, y el resto de la computadora.</P>
+<P>Si todo lo que hace el sistema operativo es dar soporte a las aplicaciones que Ud. desea utilizar, ¿por qu&eacute; se necesita todo un libro s&oacute;lo para hablar del sistema operativo? Existe un mont&oacute;n de actividades de mantenimiento de rutina (adem&aacute;s de los programas que utilizar&aacute; principalmente) que Ud. tambi&eacute;n necesitar&aacute; realizar. En el caso de Linux, el sistema operativo contiene adem&aacute;s un mont&oacute;n de "mini-aplicaciones" para ayudarle a realizar de manera m&aacute;s eficiente su trabajo. El conocimiento del sistema operativo le ser&aacute; de ayuda si su trabajo no se centra en alguna aplicaci&oacute;n monol&iacute;tica.</P>
+<P>_____________________________________________</P>
+<P>5 N. del T.: Disponible en castellano como Linux: Instalaci&oacute;n y Primeros Pasos. Vea el ap&eacute;ndice D</P>
+<P>6 N. del T.: Disponible en castellano como Gu&iacute;a de Administraci&oacute;n de Redes con Linux. Vea el ap&eacute;ndice D</P>
+<P>7 N. del T.: El grupo INSFLUG ha traducido varios de los documentos HOWTO, acu&ntilde;ando el t&eacute;rmino COMO. Vea el ap&eacute;ndice E.</P>
+<P>8 N. del T.: y al coordinador de esta traducci&oacute;n C&eacute;sar Ballardini en </FONT><A HREF="mailto:cballard@santafe.com.ar">cballard@santafe.com.ar</A><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> </P>
+<P>&nbsp;</P>
+<P>Los sistemas operativos (SO, para abreviar) pueden ser simples y m&iacute;nimos, como DOS, o grandes y complejos, como OS/2 o VMS. Unix trata de estar en un punto medio. A la vez que proporciona m&aacute;s recursos y hace m&aacute;s que los primitivos SO, no trata de hacer todo. Unix se dise&ntilde;&oacute; originalmente como una simplificaci&oacute;n de un sistema operativo que se denomin&oacute; Multics.</P>
+<P>La filosof&iacute;a original de dise&ntilde;o de Unix fue la de distribuir la funcionalidad en peque&ntilde;as partes: los programas9. De esta forma, el usuario puede obtener nueva funcionalidad y nuevas caracter&iacute;sticas de una manera relativamente sencilla mediante las diferentes combinaciones de peque&ntilde;as partes (programas). Adem&aacute;s, en el caso de que aparezcan nuevas utilidades (y de hecho aparecen), puede Ud. integrarlas en su espacio de trabajo. Cuando escribo este documento, por ejemplo, utilizo activamente los siguientes programas: fvwm para manejar mis "ventanas", emacs para editar el texto, LATEX para darle forma, xdvi para ver una presentaci&oacute;n preliminar, dvips para prepararlo para la impresi&oacute;n, y luego lpr para imprimirlo. Si ma&ntilde;ana llegara a conseguir otro programa de presentaci&oacute;n preliminar de archivos dvi, podr&iacute;a utilizarlo en lugar del xdvi sin cambiar el resto de los programas que uso. En el momento actual mi sistema est&aacute; corriendo treinta y ocho programas simult&aacute;neamente. (Gran parte de ellos son programas del sistema que "duermen" hasta que tienen alg&uacute;n trabajo espec&iacute;fico para realizar.)</P>
+<P>Cuando utilice un sistema operativo, desear&aacute; minimizar la cantidad de trabajo que tiene que llevar a cabo para concluir su tarea. Unix proporciona varias herramientas que pueden ayudarle, pero para ello debe conocer que es lo que hacen. No es muy productivo perderse una hora intentando poner a andar alguna cosa y al final tener que abandonar todo. Este libro le ense&ntilde;ar&aacute; qu&eacute; herramientas debe Ud. utilizar en qu&eacute; situaci&oacute;n, y como combinar esas herramientas entre s&iacute;.</P>
+<P>La parte clave de un sistema operativo se denomina "n&uacute;cleo"10. En muchos sistemas operativos, como Unix, OS/2, o VMS, el n&uacute;cleo proporciona las funciones necesarias para los programas que est&aacute;n corriendo, y los planifica para su ejecuci&oacute;n. Esto significa b&aacute;sicamente que el programa A puede tomar una cierta cantidad de tiempo, el programa B la misma cantidad, etc. El n&uacute;cleo siempre est&aacute; funcionando: es el primer programa que arranca cuando se enciende el sistema, y el &uacute;ltimo programa que hace algo cuando se apaga el equipo.</P>
+<P>_____________________________________________</P>
+<P>9 Este dise&ntilde;o estuvo determinado por el hardware sobre el cual funcion&oacute; originalmente Unix. Por alguna extra&ntilde;a raz&oacute;n, el sistema operativo resultante fue muy &uacute;til sobre otras plataformas de hardware. El dise&ntilde;o b&aacute;sico fue tan bueno que a&uacute;n veinticinco a&ntilde;os despu&eacute;s sigue us&aacute;ndose.</P>
+<P>10 N. del T.: n&uacute;cleo del ingl&eacute;s "kernel".</P>
+</FONT></BODY>
+</HTML>

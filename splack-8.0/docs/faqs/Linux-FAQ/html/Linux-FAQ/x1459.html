@@ -1,0 +1,1154 @@
+<HTML
+><HEAD
+><TITLE
+>File Systems, Disks, and Drives</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.63
+"><LINK
+REL="HOME"
+TITLE="Linux Frequently Asked Questions with Answers"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Compatibility with Other Operating Systems"
+HREF="x1247.html"><LINK
+REL="NEXT"
+TITLE="Porting, Compiling and Obtaining Programs"
+HREF="x1700.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Linux Frequently Asked Questions with Answers</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1247.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1700.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN1459"
+>5. File Systems, Disks, and Drives</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1461"
+>5.1. How To Get Linux to Work with a Disk.</A
+></H2
+><P
+>If your disk is an IDE or EIDE drive, you should read the file
+<TT
+CLASS="FILENAME"
+>/usr/src/linux/drivers/block/README.ide</TT
+> 
+(part of the Linux kernel
+source code). This <TT
+CLASS="FILENAME"
+>README</TT
+> contains many 
+helpful hints about IDE
+drives. Many modern IDE controllers do translation between `physical'
+cylinders/heads/sectors, and `logical' ones.</P
+><P
+>SCSI disks are accessed by linear block numbers. The BIOS invents some
+`logical' cylinder/head/sector fiction to support DOS.</P
+><P
+>Older IBM PC-compatible BIOS's will usually not be able to access
+partitions which extend beyond 1024 logical cylinders, and will make
+booting a Linux kernel from such partitions using LILO problematic at
+best.</P
+><P
+>You can still use such partitions for Linux or other operating systems
+that access the controller directly.</P
+><P
+>It's recommend that you create at least one Linux partition entirely
+under the 1024 logical cylinder limit, and boot from that. The other
+partitions will then be okay.</P
+><P
+>Also there seems to be a bit of trouble with the newer Ultra-DMA
+drives. I haven't gotten the straight scoop on them&#8212;but they are
+becoming a very common problem at the SVLUG installfests. When you can
+get 8 to 12 Gig drives for $200 to $300 it's no wonder.</P
+><P
+>[Jim Dennis]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1472"
+>5.2. How To Undelete Files.</A
+></H2
+><P
+>In general, this is very hard to do on unices because of their
+multitasking nature. Undelete functionality for the 
+<I
+CLASS="CITETITLE"
+>ext2fs</I
+> file system
+is being worked on, but don't hold your breath.</P
+><P
+>There are a number of packages available which instead provide new
+commands for deleting and copying which move deleted files into a
+`wastebasket' directory. The files can be recovered until cleaned out
+automatically by background processing.</P
+><P
+>The Midnight Commander file manager provides an undelete facility that
+uses Ext2 file system library functions and an undelete directory
+for each file system.  Commercial distribution packages of MC may or
+may not have this feature enabled, so be sure to look in the source
+code distribution for instructions on how to enable the undelete
+feature.</P
+><P
+>Alternatively, you can search the raw disk device which holds the file
+system in question. This is hard work, and you will need to be logged
+in as root to do this. But it can be done. Run <B
+CLASS="COMMAND"
+>grep</B
+> 
+on the raw device; e.g.:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   grep -b 'bookmarks' /dev/hda</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>If the data has not been overwritten, you should be able to recover it
+with a text editor.</P
+><P
+>[Dave Cinege, Daniel Novotny]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1484"
+>5.3. How To Make Backups.</A
+></H2
+><P
+>You can back up a directory hierarchy or complete file system to any
+media using GNU <B
+CLASS="COMMAND"
+>tar</B
+> or 
+<B
+CLASS="COMMAND"
+>cpio</B
+>, the standard *nix tools for this purpose.
+<B
+CLASS="COMMAND"
+>tar</B
+> seems to be the more commonly 
+used program currently, and includes
+command line options to make compressed, incremental, and multi-volume
+backups. Complete information is contained in the documentation, which
+is in GNU Texinfo format.</P
+><P
+>The free program, <SPAN
+CLASS="APPLICATION"
+>Amanda</SPAN
+>, 
+receives a lot of mentions on Usenet. Its
+home page is 
+<A
+HREF="http://www.amanda.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.amanda.org/</TT
+></A
+>.</P
+><P
+>Several commercial backup utilities also exist. They are often
+included in commercial distributions.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1495"
+>5.4. How To Resize a Partition (Non-Destructively).</A
+></H2
+><P
+>Use the <B
+CLASS="COMMAND"
+>FIPS.EXE</B
+> program, included with 
+most Linux distributions,under MS-DOS.</P
+><P
+>GNU <B
+CLASS="COMMAND"
+>parted</B
+>, a partition editor, is stable enough
+for non-guru, mere-mortal use with relative confidence.  Source code
+for the latest version is at: <A
+HREF="ftp://ftp.gnu.org/pub/gnu/parted/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://ftp.gnu.org/pub/gnu/parted/</TT
+></A
+>.  There's
+also a boot disk image for resizing root partitions and for running
+<B
+CLASS="COMMAND"
+>parted</B
+> on non-Linux machines.  The disk image
+may be easier for beginners.  Building from source could require some
+extra configuration.  </P
+><P
+>Parted also has tutorial-style, plain-text documentation for Linux and
+FAT (MS-DOS) file systems.</P
+><P
+>Also, some commercial distributions come with their own partitioning
+software, like <SPAN
+CLASS="APPLICATION"
+>Partition Magic</SPAN
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1507"
+>5.5. Is There a Defragmenter for Ext2fs?</A
+></H2
+><P
+>Yes. There is <SPAN
+CLASS="APPLICATION"
+>defrag</SPAN
+>, a Linux file 
+system defragmenter for <I
+CLASS="CITETITLE"
+>ext2</I
+>,
+<I
+CLASS="CITETITLE"
+>Minix</I
+>, and old-style 
+<I
+CLASS="CITETITLE"
+>ext</I
+> file systems. 
+It is available at
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/system/filesystems/defrag-0.70.tar.gz"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/system/filesystems/defrag-0.70.tar.gz</TT
+></A
+>.</P
+><P
+>Users of the <I
+CLASS="CITETITLE"
+>ext2</I
+> file system can probably 
+do without <SPAN
+CLASS="APPLICATION"
+>defrag</SPAN
+>, because
+<I
+CLASS="CITETITLE"
+>ext2</I
+> contains extra code to keep 
+fragmentation reduced even in very full file systems.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1520"
+>5.6. How To Create a File System on a Floppy.</A
+></H2
+><P
+>To format a 3.5-inch, high density floppy:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ fdformat /dev/fd0H1440
+   $ mkfs -t ext2 -m 0 /dev/fd0H1440 1440</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>For a 5.25 inch floppy, use <TT
+CLASS="FILENAME"
+>fd0h1200</TT
+> and 
+1200 as appropriate. For the
+<TT
+CLASS="FILENAME"
+>B:</TT
+> drive use <TT
+CLASS="FILENAME"
+>fd1</TT
+> instead of 
+<TT
+CLASS="FILENAME"
+>fd0</TT
+>.</P
+><P
+>The <B
+CLASS="COMMAND"
+>-m 0</B
+> option tells 
+<SPAN
+CLASS="APPLICATION"
+>mkfs.ext2</SPAN
+> not to reserve any space on the disk
+for the superuser&#8212;usually the last 10% is reserved for root.</P
+><P
+>The first command performs a low-level format. The second creates an
+empty file system. You can mount the floppy like a hard disk partition
+and simply <B
+CLASS="COMMAND"
+>cp</B
+> and <B
+CLASS="COMMAND"
+>mv</B
+> files, etc.</P
+><P
+>Device naming conventions generally are the same as for other unices.
+They can be found in Matt Welsh's <I
+CLASS="CITETITLE"
+>Installation and Getting 
+Started</I
+> guide. Refer to 
+(``<A
+HREF="x346.html#AEN370"
+><I
+>Where Is the Documentation?</I
+></A
+>'')
+A more detailed and technical description is 
+<I
+CLASS="CITETITLE"
+>Linux Allocated Devices</I
+> by H. Peter Anvin, 
+<A
+HREF="mailto:hpa@zytor.com"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>hpa@zytor.com</TT
+></A
+>, which is
+included in LaTeX and ASCII form in the kernel source distribution
+(probably in <TT
+CLASS="FILENAME"
+>/usr/src/kernel/Documentation/</TT
+>), 
+as <TT
+CLASS="FILENAME"
+>devices.tex</TT
+> and
+<TT
+CLASS="FILENAME"
+>devices.txt</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1545"
+>5.7. Does Linux Support Virtualized File Systems Like RAID?</A
+></H2
+><P
+>The most recent Linux kernels support software RAID, and they will
+work with RAID disk controllers.</P
+><P
+>An automounter for NFS partitions is part of most Linux distributions.</P
+><P
+>In addition, several virtual file system projects exist. One of them,
+the <I
+CLASS="CITETITLE"
+>Linux Logical Volume Manager</I
+>, is located at
+<A
+HREF="http://linux.msede.com/lvm/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://linux.msede.com/lvm/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1553"
+>5.8. Does Linux Support File System Encryption?</A
+></H2
+><P
+>Yes. One file system, ppdd, is archived at
+<A
+HREF="http://pweb.de.uu.net/flexsys.mtk/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://pweb.de.uu.net/flexsys.mtk/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1558"
+>5.9. Linux Prints Nasty Messages about Inodes, Blocks, and the Like.</A
+></H2
+><P
+>You may have a corrupted file system, probably caused by not shutting
+Linux down properly before turning off the power or resetting. You
+need to use a recent shutdown program to do this&#8212;for example, the one
+included in the util-linux package, available on sunsite and tsx-11.</P
+><P
+>If you're lucky, the program <B
+CLASS="COMMAND"
+>fsck</B
+> (or
+<B
+CLASS="COMMAND"
+>e2fsck</B
+> or <B
+CLASS="COMMAND"
+>xfsck</B
+> as appropriate
+if you don't have the automatic <B
+CLASS="COMMAND"
+>fsck</B
+> front-end)
+will be able to repair your file system. If you're unlucky, the file
+system is trashed, and you'll have to re-initialize it with mkfs (or
+<B
+CLASS="COMMAND"
+>mke2fs</B
+>, <B
+CLASS="COMMAND"
+>mkxfs</B
+>, etc.), 
+and restore from a backup.</P
+><P
+>NB: don't try to check a file system that's mounted read/write&#8212;this
+includes the root partition, if you don't see</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   VFS: mounted root ... read-only</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>at boot time.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1572"
+>5.10. The Swap Area Isn't Working.</A
+></H2
+><P
+>When you boot (or enable swapping manually) you should see</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   Adding Swap: NNNNk swap-space</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>If you don't see any messages at all you are probably missing</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   swapon -av</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>(the command to enable swapping) in your /etc/rc.local or /etc/rc.d/*
+(the system startup scripts), or have forgotten to make the right
+entry in <TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+>:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   /dev/hda2       none       swap       sw</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>for example.</P
+><P
+>If you see:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   Unable to find swap-space signature</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>you have forgotten to run<B
+CLASS="COMMAND"
+> mkswap</B
+>. 
+See the manual page for details; it
+works much like <B
+CLASS="COMMAND"
+>mkfs</B
+>.</P
+><P
+>Running, <B
+CLASS="COMMAND"
+>free</B
+> in addition to showing 
+free memory, should display:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>             total       used       free
+   Swap:        10188       2960       7228</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>If typing ``<TT
+CLASS="LITERAL"
+>cat /proc/swaps</TT
+>'' reveals only file
+or partition names, but no swap space information, then the 
+swap file or partition needs re-initialization.</P
+><P
+>Use <B
+CLASS="COMMAND"
+>fdisk</B
+> (as root) to determine which partition 
+on a hard drive has been designated as the swap partition.  The partition
+still needs to be initialized with <B
+CLASS="COMMAND"
+>mkswap</B
+> before
+enabling it with <B
+CLASS="COMMAND"
+>swapon</B
+>.</P
+><P
+>[Andy Jefferson, Steve Withers]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1602"
+>5.11. How To Add Temporary Swap Space.</A
+></H2
+><P
+>In addition to a swap partition, Linux can also use a swap file. Some
+programs, like <SPAN
+CLASS="APPLICATION"
+>g++</SPAN
+>, can use huge amounts of 
+virtual memory, requiring
+the temporary creation of extra space. To install an extra 64 MB of
+swap space, for example, use the following shell commands:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   # dd if=/dev/zero of=/swap bs=1024 count=65535
+   # mkswap /swap
+   # swapon /swap</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>The <B
+CLASS="COMMAND"
+>count=</B
+> argument to <B
+CLASS="COMMAND"
+>dd</B
+> 
+determines how big the swap file will be. In
+this example the swap file's name is <TT
+CLASS="FILENAME"
+>/swap</TT
+>, 
+but the name and
+location are, generally, arbitrary, depending only on the file
+system's available space and your having write permissions in the
+directory.</P
+><P
+>When you don't need the swap space any more, remove it with the
+following statements:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   # swapoff /swap
+   # rm /swap</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Take a look also at the <I
+CLASS="CITETITLE"
+>Installation HOWTO</I
+> 
+and <I
+CLASS="CITETITLE"
+>Installation &#38; Getting Started</I
+> for 
+detailed instructions.</P
+><P
+>If that still doesn't provide enough swap space, refer to 
+(``<A
+HREF="x2406.html#AEN2975"
+><I
+>How To Have More Than 128Mb of Swap.</I
+></A
+>'')</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1620"
+>5.12. How To Remove LILO So the System Boots DOS Again?</A
+></H2
+><P
+>The <B
+CLASS="COMMAND"
+>lilo</B
+> program (not the complete 
+<SPAN
+CLASS="APPLICATION"
+>LILO</SPAN
+> package), uses the command
+line option <B
+CLASS="COMMAND"
+>-u</B
+> to uninstall the 
+<SPAN
+CLASS="APPLICATION"
+>LILO</SPAN
+> boot loader. You have to supply
+the device name of the device you installed 
+<SPAN
+CLASS="APPLICATION"
+>LILO</SPAN
+> on, for example:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   lilo -u /dev/hda</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This rewrites the original, pre-<SPAN
+CLASS="APPLICATION"
+>LILO</SPAN
+> 
+master boot record back to the
+first hard drive, from the boot record saved in 
+<TT
+CLASS="FILENAME"
+>/boot/boot.0300</TT
+>. If
+you installed <SPAN
+CLASS="APPLICATION"
+>LILO</SPAN
+> to a partition 
+as a secondary boot loader, for
+example, <TT
+CLASS="FILENAME"
+>/dev/hda1</TT
+>, <B
+CLASS="COMMAND"
+>lilo</B
+> 
+re-installs the original boot sector from the
+save file <TT
+CLASS="FILENAME"
+>/boot/boot.0301</TT
+>. 
+Refer to the <B
+CLASS="COMMAND"
+>lilo</B
+> manual page for details.
+Thanks to Villy Kruse for reminding me to update this answer.</P
+><P
+>If you have an earlier version of <SPAN
+CLASS="APPLICATION"
+>LILO</SPAN
+>, you
+will have to use the DOS (MS-DOS 5.0 or later, or OS/2) <TT
+CLASS="LITERAL"
+>FDISK
+/MBR</TT
+> (which is not documented).  This will restore a
+standard <SPAN
+CLASS="APPLICATION"
+>MS-DOS</SPAN
+> Master Boot Record. If you
+have <SPAN
+CLASS="APPLICATION"
+>DR-DOS 6.0</SPAN
+>, go into
+<TT
+CLASS="FILENAME"
+>FDISK.EXE</TT
+> in the normal way and then select the
+<TT
+CLASS="LITERAL"
+>Re-write Master Boot Record</TT
+> option.</P
+><P
+>If you create a boot floppy during the Windows installation process,
+make sure that it contains the programs 
+<SPAN
+CLASS="APPLICATION"
+>FDISK.EXE</SPAN
+>, <SPAN
+CLASS="APPLICATION"
+>FORMAT.COM</SPAN
+>,
+and <SPAN
+CLASS="APPLICATION"
+>SYS.COM</SPAN
+>, and use that to re-install
+MS-DOS on the hard disk.</P
+><P
+>If you don't have MS-DOS or DR-DOS, you need to have the boot sector
+that LILO saved when you first installed
+it. You did keep that file, didn't you?  It's probably called
+<TT
+CLASS="FILENAME"
+>boot.0301</TT
+> or some such. Type:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   dd if=boot.0301 of=/dev/hda bs=445 count=1</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>(or <TT
+CLASS="FILENAME"
+>/dev/sda</TT
+> if you're using a SCSI disk). 
+This may also wipe out your
+partition table, so beware! If you're desperate, you could use</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   dd if=/dev/zero of=/dev/hda bs=512 count=1</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This will erase your partition table and boot sector completely: you
+can then reformat the disk using your favorite software. But this will
+render the contents of your disk inaccessible&#8212;you'll lose it all
+unless you're an expert.</P
+><P
+>Note that the <SPAN
+CLASS="APPLICATION"
+>DOS</SPAN
+> MBR boots 
+whichever (single!) partition is flagged
+as ``active.'' You may need to use <B
+CLASS="COMMAND"
+>fdisk</B
+> 
+to set and clear the active
+flags on partitions appropriately.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1661"
+>5.13. Why Does <B
+CLASS="COMMAND"
+>fdformat</B
+> Require Superuser Privileges?</A
+></H2
+><P
+>The system call to format a floppy can only be done as root,
+regardless of the permissions of <TT
+CLASS="FILENAME"
+>/dev/fd0*</TT
+>. 
+If you want any user to be
+able to format a floppy, try getting the <B
+CLASS="COMMAND"
+>fdformat2</B
+> 
+program. This works
+around the problems by being setuid to root.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1667"
+>5.14. The System Checks the Ext2fs Partitions Each Reboot.</A
+></H2
+><P
+>Refer to (``<A
+HREF="x3182.html#AEN3303"
+><I
+><I
+>EXT2-fs: warning: mounting unchecked file system</I
+>.</I
+></A
+>)</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1671"
+>5.15. Root File System Is Read-Only.</A
+></H2
+><P
+>Remount it. If <TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+> is correct, 
+you can simply type:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   mount -n -o remount /</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>If <TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+> is wrong, you must give 
+the device name and possibly the
+type, too: e.g.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   mount -n -o remount -t ext2 /dev/hda2 /</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>To understand how you got into this state, see, 
+(``<A
+HREF="x3182.html#AEN3303"
+><I
+><I
+>EXT2-fs: warning: mounting unchecked file system</I
+>.</I
+></A
+>'')</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1683"
+>5.16. What Is <TT
+CLASS="FILENAME"
+>/proc/kcore</TT
+>?</A
+></H2
+><P
+>None of the files in <TT
+CLASS="FILENAME"
+>/proc</TT
+> are really 
+there&#8212;they're all, ``pretend,''
+files made up by the kernel, to give you information about the system
+and don't take up any hard disk space.</P
+><P
+><TT
+CLASS="FILENAME"
+>/proc/kcore</TT
+> is like an 
+``alias'' for the memory in your computer. Its
+size is the same as the amount of RAM you have, and if you read it as
+a file, the kernel does memory reads.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1690"
+>5.17. The AHA1542C Doesn't Work with Linux.</A
+></H2
+><P
+>The option to allow disks with more than 1024 cylinders, which the
+AHA1542C card can recognize, is only required as a workaround for a 
+PC-compatible BIOS misfeature and should be turned `off' under Linux. 
+For older Linux kernels you need to turn off most of the `advanced BIOS' 
+options&#8212;all but the one about scanning the bus for bootable devices.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1693"
+>5.18. Where Is the Journalling File System on the Net?</A
+></H2
+><P
+>The journalling file system, named <SPAN
+CLASS="APPLICATION"
+>Reiserfs</SPAN
+> 
+has just been released
+from testing. It is said to make Linux even faster than Linux with the
+<SPAN
+CLASS="APPLICATION"
+>Ext2</SPAN
+> file system installed.
+
+Complete information is available at 
+<A
+HREF="http://devlinux.org/namesys/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://devlinux.org/namesys/</TT
+></A
+>.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1247.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1700.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compatibility with Other Operating Systems</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Porting, Compiling and Obtaining Programs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

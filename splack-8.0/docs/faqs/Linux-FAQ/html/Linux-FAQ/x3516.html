@@ -1,0 +1,570 @@
+<HTML
+><HEAD
+><TITLE
+>The X Window System</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.63
+"><LINK
+REL="HOME"
+TITLE="Linux Frequently Asked Questions with Answers"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Frequently Encountered Error Messages"
+HREF="x3182.html"><LINK
+REL="NEXT"
+TITLE="How to Get Further Assistance"
+HREF="x3621.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Linux Frequently Asked Questions with Answers</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3182.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3621.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN3516"
+>11. The X Window System</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3518"
+>11.1. Does Linux Support X?</A
+></H2
+><P
+>Yes. Linux uses XFree86 (the current version is 4.0, which is based
+on X11R6). You need to have a video card which is supported by
+XFree86. See the <I
+CLASS="CITETITLE"
+>XFree86 HOWTO</I
+> for more details.
+
+Most Linux distributions nowadays come with an X installation.
+However, you can install or upgrade your own, from
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/X11/Xfree86-*"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>"ftp://metalab.unc.edu/pub/Linux/X11/Xfree86-*"</TT
+></A
+>
+and its mirror sites, or from 
+<A
+HREF="http://www.xfree86.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.xfree86.org/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3526"
+>11.2. How Do I Get the X Window System to Work?</A
+></H2
+><P
+>The answers to this question can, and do, fill entire books. If the
+installation program wasn't able to configure the X server correctly,
+Linux will most likely try to start the X display, fail, and drop back
+into text-only terminal mode.</P
+><P
+>First and foremost, make certain that you have provided, as closely as
+possible, the correct information to the installation program of your
+video hardware: the video card and monitor. Some installation programs
+can correctly guess a ``least common denominator'' screen configuration,
+like a 640-by-480 VESA-standard display, but there are many possible
+video hardware configurations that may not be able to display this
+standard.</P
+><P
+>The X Window System configuration file is called (usually)
+<TT
+CLASS="FILENAME"
+>/etc/XF86Config</TT
+>, 
+<TT
+CLASS="FILENAME"
+>/etc/X11/XF86Config</TT
+>, or
+<TT
+CLASS="FILENAME"
+>/usr/X11R6/lib/X11/XF86Config</TT
+>.</P
+><P
+>If you need to manually configure the X server, there are several
+possible methods:</P
+><P
+></P
+><UL
+><LI
+><P
+>Try to use the <B
+CLASS="COMMAND"
+>XF86Setup</B
+> program, which 
+can help identify the
+correct X server and monitor timings for the video hardware.</P
+></LI
+><LI
+><P
+> 
+Make sure that the X server has the correct
+options. If you log in as the superuser, you should be able to use
+<TT
+CLASS="LITERAL"
+>X --probeonly</TT
+> to get a listing of the video card
+chipset, memory, and any special graphics features. Also, refer to the
+manual page for the X server. (E.g.; <TT
+CLASS="LITERAL"
+>man X</TT
+>), and
+try running the X server and redirecting the standard error output to
+a file so you can determine, after you can view text on the screen
+again, what error messages the server is generating; e.g., <TT
+CLASS="LITERAL"
+>X
+2&#62;x.error</TT
+>.  </P
+></LI
+><LI
+><P
+>With that information, you should be able to safely refer to one
+of the references provided by the Linux Documentation Project. 
+("Where can I get the HOWTO's and other documentation? ")
+There are several HOWTO's on the subject, including a HOWTO to
+calculate video timings manually if necessary. Also, the
+<I
+CLASS="CITETITLE"
+>Installation and Getting Started</I
+> guide 
+has a chapter with a step-by-step guide to writing a 
+<TT
+CLASS="FILENAME"
+>XF86Config</TT
+> file.</P
+></LI
+></UL
+><P
+>Also, make sure that the problem really is an incorrect 
+<TT
+CLASS="FILENAME"
+>XF86Config</TT
+>
+file, not something else like the window manager failing to start. If
+the X server is working correctly, you should be able to move the
+mouse cursor on the screen, and pressing 
+<B
+CLASS="KEYCAP"
+>Ctrl</B
+>-<B
+CLASS="KEYCAP"
+>Alt</B
+>-<B
+CLASS="KEYCAP"
+>Backspace</B
+> will shut
+down the X server and return to the shell prompt in one of the virtual
+terminals.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3554"
+>11.3. Where Can I Get a Ready-Made <TT
+CLASS="FILENAME"
+>XF86Config</TT
+> for My System?</A
+></H2
+><P
+>If you can't seem to get X working using the guidelines above, refer
+to the <I
+CLASS="CITETITLE"
+>XFree86 HOWTO</I
+>, recent versions of 
+<I
+CLASS="CITETITLE"
+>Installation and
+Getting Started</I
+>, and the instructions for the 
+<TT
+CLASS="FILENAME"
+>XF86Setup</TT
+> program.
+
+The contents of the <TT
+CLASS="FILENAME"
+>XF86Config</TT
+> file 
+depend on the your exact
+combination of video card and monitor. It can either be configured by
+hand, or using the <B
+CLASS="COMMAND"
+>XF86Setup</B
+> utility. 
+Read the instructions that came
+with XFree86, in <TT
+CLASS="FILENAME"
+>/usr/X11R6/lib/X11/etc</TT
+>. 
+The file you probably need to
+look at most is <TT
+CLASS="FILENAME"
+>README.Config</TT
+>.
+
+You should not use the sample <TT
+CLASS="FILENAME"
+>XF86Config.eg</TT
+> 
+file which is included
+with newer versions of XFree86 verbatim, because the wrong video clock
+settings can damage your monitor.
+
+Please don't post to <I
+CLASS="CITETITLE"
+>comp.os.linux.x</I
+> 
+asking for an <TT
+CLASS="FILENAME"
+>XF86Config</TT
+>, and
+please don't answer such requests.
+
+If you have a laptop, look at the Linux Laptop Web page (``<A
+HREF="x2406.html#AEN2408"
+><I
+>How To Find Out If a Notebook Runs Linux.</I
+></A
+>'')
+Many of the installation notes also have the
+<TT
+CLASS="FILENAME"
+>XF86Config</TT
+> file for the display.  If you have a
+desktop machine, there are a few sample
+<TT
+CLASS="FILENAME"
+>XF86Config</TT
+> files at 
+<A
+HREF="ftp://metalab.unc.edu/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/</TT
+></A
+>. Refer
+also to the <I
+CLASS="CITETITLE"
+>XFree86 FAQ</I
+>
+<A
+HREF="http://www.xfree.org/FAQ/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.xfree.org/FAQ/</TT
+></A
+>
+and the monitor timings list
+<A
+HREF="http://www.xfree.org/#resources/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.xfree.org/#resources/</TT
+></A
+>, and in
+the <TT
+CLASS="FILENAME"
+>/usr/X11R6/lib/X11/</TT
+> directory of your X
+distribution.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3579"
+>11.4. What Desktop Environments Run on Linux?</A
+></H2
+><P
+>Linux with XFree86 supports the KDE, GNOME, and commercial CDE desktop
+environments, and extended window managers like WindowMaker. Each uses
+a different set of libraries and provides varying degrees of MS
+Windows-like look and feel.</P
+><P
+>Information on KDE is available from 
+<A
+HREF="http://www.kde.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.kde.org/</TT
+></A
+>. The KDE
+environment uses the Qt graphics libraries, available from
+<A
+HREF="http://www.qt.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.qt.org/</TT
+></A
+>.  The desktop uses its
+own window manager, kwm, and provides a MS Windows-like look and feel.</P
+><P
+>The GNOME home page is 
+<A
+HREF="http://www.gnome.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.gnome.org/</TT
+></A
+>. The environment
+uses the free GTK libraries, available from 
+<A
+HREF="http://www.gtk.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.gtk.org/</TT
+></A
+>,
+and window managers like Enlightenment, 
+<A
+HREF="http://www.enlightenment.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.enlightenment.org/</TT
+></A
+>,
+SawFish, <A
+HREF="http://www.sawfish.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.sawfish.org/</TT
+></A
+>.  There's
+also a Web page for GNOME installation and upgrade that functions much
+like Debian's <B
+CLASS="COMMAND"
+>apt-get</B
+> utility with a friendly GUI 
+front end.  It's at: 
+<A
+HREF="http://www.helixcode.com/desktop/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.helixcode/com/desktop/</TT
+></A
+>.</P
+><P
+>The commercial CDE environment uses the Motif libraries and a
+variation of the Motif <B
+CLASS="COMMAND"
+>mwm</B
+> window manager,
+<B
+CLASS="COMMAND"
+>dtwm</B
+>, and provides a suite of desktop and
+session-management utilities.  Several vendors have made the source
+code of Motif available and provided binary packages for Linux
+distributions.  As a starting point, download and installation
+information is available at <A
+HREF="http://www.opengroup.org/openmotif/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.opengroup.org/openmotif/</TT
+></A
+>.</P
+><P
+>A free version of Motif, called LessTiF, is available from
+<A
+HREF="http://www.lesstif.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.lesstif.org/</TT
+></A
+>.</P
+><P
+>WindowMaker, 
+<A
+HREF="http://www.windowmaker.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.windowmaker.org/</TT
+></A
+>
+is a window manager that
+has many desktop environment-like features. It provides support for
+GNUstep, 
+<A
+HREF="http://www.gnustep.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.gnustep.org/</TT
+></A
+>, a clone of the
+commercial NeXTStep environment.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN3612"
+>11.5. <B
+CLASS="COMMAND"
+>xterm</B
+> Logins Show Up Strangely in 
+<B
+CLASS="COMMAND"
+>who</B
+>, <B
+CLASS="COMMAND"
+>finger</B
+>.</A
+></H2
+><P
+>The <B
+CLASS="COMMAND"
+>xterm</B
+> that comes with XFree86 2.1 and 
+earlier doesn't correctly
+understand the format that Linux uses for the 
+<TT
+CLASS="FILENAME"
+>/var/adm/utmp</TT
+> file,
+where the system records who is logged in. It therefore doesn't set
+all the information correctly.
+
+The <B
+CLASS="COMMAND"
+>xterms</B
+> in XFree86 3.1 and later versions 
+fix this problem.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3182.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3621.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Frequently Encountered Error Messages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>How to Get Further Assistance</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

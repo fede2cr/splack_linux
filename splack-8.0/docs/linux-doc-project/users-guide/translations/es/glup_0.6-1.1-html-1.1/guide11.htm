@@ -1,0 +1,242 @@
+<HTML>
+<HEAD>
+<TITLE>guide11</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide10.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide12.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 11</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>Comandos divertidos</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Bueno, la mayor&iacute;a de la gente que tiene que ver con los comandos de UNIX expuestos en este cap&iacute;tulo no estar&aacute;n de acuerdo con este t&iacute;tulo. "¡Que diablos! Se me ha ense&ntilde;ado que el interfaz del Linux es muy est&aacute;ndar, y ahora tenemos un grupo de comandos, cada uno trabajando de una manera completamente diferente. Nunca recordar&eacute; todas esas opciones, ¿y dice que son divertidos?"</P>
+<P>S&iacute;, Vd. ha visto un ejemplo del humor de los hackers1. Adem&aacute;s, m&iacute;relo desde el lado positivo: no hay comandos del MS-DOS equivalentes a &eacute;stos. Si los necesita, tiene que adquirirlos por separado, y nunca sabr&aacute; como ser&aacute; su interfaz. Aqu&iacute; hay un &uacute;til (y econ&oacute;mico) valor a&ntilde;adido, ¡¡as&iacute; que disfr&uacute;telo!!.</P>
+<P>El conjunto de comandos explicados en este cap&iacute;tulo cubre find, que permite al usuario buscar grupos de ficheros especificados dentro del &aacute;rbol de directorios; tar, &uacute;til para empaquetar alg&uacute;n archivo para ser enviado o s&oacute;lo salvado; dd, el multicopista de bajo nivel; y sort, el cual . . . s&iacute;, clasifica ficheros. Una &uacute;ltima condici&oacute;n: estos comandos no est&aacute;n bajo ning&uacute;n concepto estandarizados, y si bien podr&iacute;amos encontrar un n&uacute;cleo de opciones comunes en todos los sistemas *IX, las versiones (de GNU) que se explican m&aacute;s abajo, y Vd. puede encontrar en su sistema Linux, usualmente poseen muchas m&aacute;s capacidades. Por tanto, si Vd. planea usar otros sistemas operativos UNIX, por favor, no olvide comprobar la p&aacute;gina del manual del sistema en cuesti&oacute;n para aprender las quiz&aacute;s no tan peque&ntilde;as diferencias.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>11.1 find, el buscador de ficheros</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.1 Generalidades</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Entre los diversos comandos vistos hasta aqu&iacute;, hab&iacute;a algunos que permit&iacute;an al usuario bajar recursivamente el &aacute;rbol del directorio para llevar a cabo alguna acci&oacute;n: los ejemplos can&oacute;nicos son "ls -R" y "rm -R" . Bien. find es el comando recursivo. Cada vez que piense "Bueno, tengo que hacer tal cosa con todos esos ficheros en mi propia partici&oacute;n", har&iacute;a mejor en pensar en usar find. En cierto sentido el hecho que find encuentre ficheros es solo un efecto secundario: su ocupaci&oacute;n real es evaluar.</P>
+<P>_____________________________________________</P>
+<P>1 N.T.: La palabra Hacker en este contexto se refiere a una persona con profundos conocimientos de inform&aacute;tica.</P>
+<P>&nbsp;</P>
+<P>La estructura b&aacute;sica del comando es como sigue:</P>
+<B><P>- find ruta [. . . ] expresi&oacute;n [. . . ]</P>
+</B><P>Esto es al menos en la versi&oacute;n de GNU; otras versiones no permiten especificar m&aacute;s que una ruta, y adem&aacute;s es muy infrecuente la necesidad de hacer tal cosa. La explicaci&oacute;n burda de la sintaxis del comando es bastante simple: Vd. indica desde d&oacute;nde quiere empezar la b&uacute;squeda (la parte de la ruta; con el find de GNU puede omitir esto y ser&aacute; tomado por defecto el directorio en uso .), y que clase de b&uacute;squeda quiere realizar (la parte de la expresi&oacute;n).</P>
+<P>El comportamiento est&aacute;ndar del comando es un poco enga&ntilde;oso, por lo que m&aacute;s vale tenerlo en cuenta. Supongamos que en su directorio principal de usuario existe un directorio llamado basura, el cual contiene un fichero foobar. Vd. felizmente escribe "find . -name foobar" (lo que como puede adivinar busca ficheros llamados foobar), y obtiene . . . nada m&aacute;s que otra vez el prompt. El problema reside en el hecho de que find es por defecto un comando silencioso; s&oacute;lo devuelve 0 si la b&uacute;squeda fue completada (con o sin haber encontrado algo) o un valor distinto de cero si hubiera habido alg&uacute;n problema. Esto no ocurre con la versi&oacute;n que Vd. puede encontrar en el Linux, pero de todas maneras es &uacute;til recordarlo.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.2 Expresiones</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La parte de la expresi&oacute;n puede ser dividida en cuatro grupos diferentes de palabras clave: opciones, tests, acciones, y operadores. Cada uno de ellos puede devolver un valor verdadero/falso, junto con un efecto secundario. La diferencia entre los grupos se muestra a continuaci&oacute;n.</P>
+<B><P>opciones</B> afecta a la funci&oacute;n general de find, m&aacute;s que al procesamiento de un solo fichero. Un ejemplo es "-follow", el cual instruye a find para seguir enlaces simb&oacute;licos en vez de s&oacute;lo presentar el nodo-i. Siempre devuelven verdadero.</P>
+<B><P>tests</B> son verdaderos tests (por ejemplo, "-empty" comprueba si el fichero est&aacute; vac&iacute;o), y puede devolver verdadero o falso.</P>
+<B><P>acciones</B> tienen tambi&eacute;n un efecto secundario sobre el nombre del fichero considerado. Pueden asimismo devolver verdadero o falso.</P>
+<B><P>operadores</B> no devuelven realmente un valor (convencionalmente pueden ser considerados como verdaderos), y se usan para construir expresiones sint&eacute;ticas. Un ejemplo es "-or" , el cual hace la OR l&oacute;gica de las dos subexpresiones a su lado. Note que cuando se yuxtaponen expresiones, est&aacute; involucrada una "-and" .</P>
+<P>&nbsp;</P>
+<P>Debe advertir que find depende del int&eacute;rprete de comandos para tener la l&iacute;nea de comandos analizada sint&aacute;cticamente: esto significa que todas las palabras clave deben ser introducidas entre espacios en blanco y adem&aacute;s, que hay un mont&oacute;n de caracteres bonitos que deber&aacute;n precederse de escape, si no ser&iacute;an destrozados por el propio int&eacute;rprete de comandos. Cada v&iacute;a de escape (barra invertida, simples y dobles comillas) est&aacute; bien; en los ejemplos las palabras clave de un solo car&aacute;cter se se&ntilde;alizar&aacute;n en general mediante con una barra invertida, porque es la manera m&aacute;s simple (al menos en mi opini&oacute;n. ¡Y soy yo quien est&aacute; escribiendo estas notas!).</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.3 Opciones</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Aqu&iacute; est&aacute; la lista de todas las opciones conocidas de la versi&oacute;n GNU de find. Recuerde que siempre devuelven verdadero.</P>
+<B><P>-daystart</B> mide el tiempo transcurrido no desde hace 24 horas si no desde la &uacute;ltima medianoche.</P>
+<P>Un aut&eacute;ntico hacker probablemente no entender&aacute; la utilidad de tal opci&oacute;n, pero un trabajador que programa de ocho a cinco si lo apreciar&aacute;.</P>
+<B><P>-depth</B> procesa el contenido de cada directorio antes que el directorio en si. A decir verdad, no conozco muchos usos de esto, aparte de una emulaci&oacute;n del comando "rm -F" (por supuesto Vd. no puede borrar un directorio antes de que todos sus ficheros sean borrados tambi&eacute;n . . .</P>
+<B><P>-follow</B> respeta (es decir, sigue) los enlaces simb&oacute;licos. Implica la opci&oacute;n "-noleaf" ; ver abajo.</P>
+<B><P>-noleaf</B> desactiva una optimizaci&oacute;n que dice "Un directorio contiene dos subdirectorios menos que su cuenta de enlaces r&iacute;gidos2". Si el mundo fuera perfecto, todos los directorios ser&iacute;an referenciados por cada uno de sus subdirectorios (a causa de la opci&oacute;n ..), como . dentro de s&iacute; mismo, y por su nombre "real" desde su directorio padre.</P>
+<P>Esto significa que cada directorio debe ser referenciado al menos dos veces (una por s&iacute; mismo, otra por su directorio padre) y cualquier referencia adicional es por subdirectorios. En la pr&aacute;ctica, sin embargo, los enlaces simb&oacute;licos y los sistemas de fichero distribuidos3 pueden alterar esto. Esta opci&oacute;n hace que find funcione ligeramente m&aacute;s despacio, pero debe dar los resultados esperados.</P>
+<P>&nbsp;</P>
+<B><P>-maxdepth</B> <B>niveles</B>, <B>-mindepth</B> <B>niveles</B>, donde niveles es un entero no negativo. Indican respectivamente que a lo sumo o que al menos niveles de directorios deber&iacute;an explorarse. Un par de ejemplos son obligados: "-maxdepth 0" indica que el comando deber&iacute;a realizarse s&oacute;lo sobre los argumentos de la l&iacute;nea de comandos, es decir, sin bajar recursivamente el &aacute;rbol de directorios; "-mindepth 1" inhibe el procesamiento del comando para los argumentos en la l&iacute;nea de comandos, pero se consideran todos los otros ficheros debajo.</P>
+<B><P>-version</B> imprime la versi&oacute;n en uso del programa.</P>
+<B><P>-xdev</B>, el cual es un nombre enga&ntilde;oso, instruye a find para no cruzarse de dispositivo4, es decir, no cambiarse de sistema de ficheros. Es muy &uacute;til cuando se tiene que buscar algo en el sistema de ficheros ra&iacute;z; en muchas m&aacute;quinas es una partici&oacute;n algo peque&ntilde;a, pero, sino, ¡un "find /" buscar&iacute;a en la estructura entera! Podemos as&iacute; evitar los sistemas de archivo que no son promisorios.</P>
+<P>_____________________________________________</P>
+<P>2 N.T. hard link count</P>
+<P>3 Los sistemas de fichero distribuidos permiten a los ficheros mostrarse como si fueran locales a una m&aacute;quina cuando realmente est&aacute;n situados en alg&uacute;n otro lugar.</P>
+<P>4 N.T.: to cross device</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.4 Test</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los dos primeros test son muy simples de comprender: "-false" siempre devuelve falso, mientras que "-true" siempre devuelve verdadero. Otros test que no necesitan la especificaci&oacute;n de un valor son "-empty" , el cual devuelve verdadero si el fichero est&aacute; vac&iacute;o, y el par "-nouser" /"-nogroup" , los cuales devuelven verdadero en el caso que ninguna entrada en /etc/passwd o /etc/group cuadre con el identificador de usuario/grupo del propietario del fichero. Veamos un problema com&uacute;n en los sistemas multiusuario: se borra un usuario, pero los ficheros pertenecientes a &eacute;l permanecen en la parte m&aacute;s extra&ntilde;a de los sistemas de ficheros, y debido a las leyes de Murphy ocupan mucho espacio.</P>
+<P>El par de test que hemos visto en &uacute;ltimo lugar nos permitir&aacute; encontrar esos archivos. Por supuesto, es posible buscar un usuario o grupo espec&iacute;fico. Los test son "-uid nn" y "-gid nn" . Desafortunadamente no es posible dar directamente el nombre del usuario, sino que es necesario usar el identificador num&eacute;rico, nn. </P>
+<P>Adem&aacute;s est&aacute; permitido usar las formas "+nn" , que significa "un valor estrictamente m&aacute;s grande que nn", y "-nn" , que significa "un valor estrictamente m&aacute;s peque&ntilde;o que nn". Esto es bastante est&uacute;pido en el caso de identificadores de usuario5, pero se volver&aacute; pr&aacute;ctico con otros test.</P>
+<P>Otra opci&oacute;n &uacute;til es "-type c" , la cual devuelve verdadero si el fichero es del tipo especial de car&aacute;cter. Los mnem&oacute;nicos para las posibles selecciones son las mismas letras que se encuentran en ls; entonces, tenemos bloque cuando el fichero es uno especial de bloque; directorio; pipes para tuber&iacute;as designadas6; link para enlaces simb&oacute;licos, y socketssockets7. Los ficheros regulares se indican con file.</P>
+<P>Un test relacionado es "-xtype", que es similar a "-type" excepto en el caso de enlaces simb&oacute;licos. </P>
+<P>Si se ha proporcionado la opci&oacute;n "-follow" , se examina el enlace, en lugar del fichero al que se apunta. El test "-fstype type " no tiene nada que ver; en este caso, lo que se examina es el tipo del sistema de ficheros. Creo que la informaci&oacute;n se consigue del fichero /etc/mtab, el &uacute;nico que presenta los sistemas de ficheros montados; estoy seguro que los tipos nfs, tmp, msdos y ext2 est&aacute;n entre los reconocidos.</P>
+<P>Los test "-inum nn " y "-links nn " examinan si el fichero tiene n&uacute;mero de nodo-i nn, o nn enlaces, mientras que "-sizenn " es verdadero si el fichero tiene nn bloques de 512 bytes asignados. (Bueno, no precisamente; para ficheros disgregados los bloques no asignados tambi&eacute;n se cuentan).</P>
+<P>Como hoy en d&iacute;a el resultado de "ls -s" no siempre se mide en trozos de 512 bytes (Linux, por ejemplo, usa 1 kbyte como la unidad), es posible adicionar a nn el caracter "b" , el cual significa contar en bytes, o "k" , contar en kilobytes.</P>
+<P>Los bits de permiso son examinados a trav&eacute;s del test "-perm mode " . Si el modo no est&aacute; antecedido por un signo, entonces los bits de permiso del fichero deben cuadrar exactamente con ellos.</P>
+<P>Un "-" al principio significa que todos los bits de permiso deben ser puestos a uno, pero no hace suposiciones sobre los otros; un "+" al principio se satisface s&oacute;lo si cualquiera de los bits est&aacute; a uno.</P>
+<P>_____________________________________________</P>
+<P>5 N.T.: UIDs</P>
+<P>6 N.T.: named pipes</P>
+<P>7 N.T.: enchufe</P>
+<P>&nbsp;</P>
+<P>¡Ups! Olvid&eacute; decir que el modo se escribe en octal o simb&oacute;licamente, como se usa en chmod. El pr&oacute;ximo grupo de test est&aacute; relacionado con el tiempo que hace que se ha utilizado un fichero por &uacute;ltima vez. Esto viene bien cuando un usuario ha llenado su espacio, ya que usualmente hay muchos ficheros que no usaba desde hace a&ntilde;os, y cuyo significado ha olvidado. El problema es localizarlos, y find es la &uacute;nica esperanza a la vista. "-atime nn " es verdadero si la &uacute;ltima vez que se accedi&oacute; al fichero fue hace nn d&iacute;as; "-ctime nn " si el estado del fichero fue cambiado por &uacute;ltima vez hace nn d&iacute;as, por ejemplo, con un chmod, y "-mtime nn " si el fichero fue modificado por &uacute;ltima vez hace nn d&iacute;as. Algunas veces Vd. necesita una marca de tiempo 8 m&aacute;s precisa; el test "-newer archivo " se satisface si el fichero considerado ha sido modificado m&aacute;s tarde que el archivo. Por lo tanto, Vd. s&oacute;lo tiene que usar touch con la fecha deseada, y ya est&aacute;. El find de GNU a&ntilde;ade los test "-anewer" y "-cnewer" los cuales se comportan de una manera similar; y los test "-amin" , "-cmin" y "-mmin" que cuentan el tiempo en minutos en vez de per&iacute;odos de 24 horas.</P>
+<P>Por &uacute;ltimo pero no menos importante, el test que yo uso m&aacute;s a menudo. "-name patr&oacute;n" es verdadero si el nombre del fichero concuerda exactamente con patr&oacute;n, el cual es m&aacute;s o menos el &uacute;nico que se usar&iacute;a en un ls est&aacute;ndar. (¿Por qu&eacute; 'm&aacute;s o menos'? Porque, por supuesto, Vd. tiene que recordar que todos los par&aacute;metros son procesados por el int&eacute;rprete de comandos, y esos encantadores metacaracteres sufren una expansi&oacute;n. As&iacute;, un test como "-name foo*" no devolver&aacute; lo que Vd. desea, y Vd. deber&iacute;a escribir cualquiera de los dos "-name foo" o "-name "foo*"" . Este es probablemente uno de los m&aacute;s comunes errores cometidos por usuarios descuidados, as&iacute; que escr&iacute;balo en letras GRANDES en su pantalla. Otro problema es que, como con ls, no se reconocen los puntos al principio del nombre del archivo. Para hacer frente a esto, puede usar el test "-path patr&oacute;n" el cual no se preocupa acerca de los puntos y barras inclinadas cuando compara la ruta del fichero considerado con patr&oacute;n.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.5 Acciones</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Hemos dicho que las acciones son aquellas que realmente hacen algo. Bueno, "-prune" m&aacute;s bien no hace nada, es decir, al descender el &aacute;rbol de directorios (a menos que se le agregue "-depth" ). Se la encuentra usualmente junto con "-fstype" , para elegir entre varios sistemas de ficheros a aquellos que deber&iacute;an examinarse.</P>
+<P>Las otras acciones pueden ser divididas en dos amplias categor&iacute;as; Acciones que imprimen algo. La m&aacute;s obvia de estas, y en realidad, la acci&oacute;n por defecto de find, es "-print" que imprime el nombre del(os) fichero(s) que concuerde(n) con las otras condiciones en la l&iacute;nea de comandos, y devuelve verdadero. Una variante sencilla de "-print" es "-fprint archivo " , en la cual se usa archivo en vez de la salida est&aacute;ndar; otra es "-ls" lista el fichero en uso en el mismo formato que "ls -dils" ; "-printfformato " se comporta m&aacute;s o menos como la funci&oacute;n de C printf(), para que se pueda especificar que formato deber&iacute;a tener la salida, y "-fprintf archivo formato " hace lo mismo, pero escribi&eacute;ndolo en archivo. Estas acciones tambi&eacute;n devuelven verdadero.</P>
+<P>_____________________________________________</P>
+<P>8 N.T.: timestamp</P>
+<P>&nbsp;</P>
+<P>Acciones que ejecutan algo. Su sintaxis es un poco extra&ntilde;a y su uso est&aacute; muy extendido, por lo que, por favor, consid&eacute;relas.</P>
+<P>"-exec comando ";" ejecuta el comando, y la acci&oacute;n devuelve verdadero si el estado retornado por el comando es 0, lo que significa que la ejecuci&oacute;n fue correcta. La raz&oacute;n para el ";" es bastante l&oacute;gica: find no sabe donde termina el comando, y el truco de poner la acci&oacute;n ejecutable al final del comando no es aplicable. Bueno, la mejor manera para se&ntilde;alar el final del comando es usar el caracter que usa el int&eacute;rprete de comandos para este fin, que es ";", pero, por supuesto, un punto y coma solo en la l&iacute;nea de comandos ser&iacute;a "comido" por el int&eacute;rprete de comandos y nunca llegar&iacute;a a find, as&iacute; que tienen que ser precedidos de escape. La segunda cosa a recordar es como especificar el nombre del fichero en uso dentro del comando, ya que probablemente Vd. hizo todo el esfuerzo al construir la expresi&oacute;n para hacer algo, y no s&oacute;lo para ver la hora. Esto se hace por medio de la cadena de caracteres "{}" . Algunas versiones antiguas de find requieren que coloque las llaves entre espacios en blanco (no muy pr&aacute;ctico si Vd. necesita, por ejemplo, la ruta entera y no s&oacute;lo el nombre del fichero) pero con el find de GNU podr&iacute;a ser cualquier lugar de la cadena de caracteres que compone el comando. ¿Y no deber&iacute;a estar precedido de escape o entrecomillado?, seguramente se estar&aacute; preguntando. Asombrosamente, yo nunca tuve que hacer esto ni bajo tcsh ni bajo bash (sh no considera - y " como car&aacute;cteres especiales, as&iacute; que no es ni mucho menos un problema). Mi idea es que los int&eacute;rpretes de comandos "saben" que -" no es una opci&oacute;n que tenga sentido, por tanto no intentan expandirlas, afortunadamente para find que puede obtenerla intacta. "-ok comando ";" se comporta como "-exec" , con la diferencia que para cada fichero seleccionado se pregunta al usuario que confirme el comando; si la respuesta empieza por y o Y, se ejecuta, de otra manera no, y la acci&oacute;n devuelve falso.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.6 Operadores</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Hay una cierta cantidad de operadores; aqu&iacute; hay una lista, en orden de prioridad decreciente.</P><DIR>
+<DIR>
+
+<B><P>\( expr \)</P>
+</B><P>Fuerza el orden de prioridad. Los par&eacute;ntesis deben, por supuesto, estar entre comillas, ya que tambi&eacute;n son muy significativos para el int&eacute;rprete de comandos.</P>
+<P>&nbsp;</P>
+<B><P>! expr</P>
+<P>-not expr</P>
+</B><P>Cambia el verdadero valor de la expresi&oacute;n, esto es, si expr es verdadera, se vuelve falsa. El signo de exclamaci&oacute;n no tiene que ser precedido de escape, porque est&aacute; seguido por un espacio en blanco.</P>
+<P>&nbsp;</P>
+<B><P>expr1 expr2</P>
+<P>expr1 -a expr2</P>
+<P>expr1 -and expr2</P>
+</B><P>Todas corresponden con la operaci&oacute;n l&oacute;gica AND. El caso m&aacute;s com&uacute;n es el primero, en el cual est&aacute; impl&iacute;cita. expr2 no se eval&uacute;a, si expr1 es falsa.</P>
+<P>&nbsp;</P>
+<B><P>expr1 -o expr2</P>
+<P>expr1 -or expr2</P>
+</B><P>corresponden a la operaci&oacute;n l&oacute;gica OR. expr2 no es evaluada, si expr1 es verdadera.</P>
+<P>&nbsp;</P>
+<B><P>expr1 , expr2</P>
+</B><P>es la declaraci&oacute;n de lista; ambas expr1 y expr2 se eval&uacute;an (junto con todos los efectos secundarios, ¡por supuesto!), y el valor final de la expresi&oacute;n es el de expr2.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.7 Ejemplos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>S&iacute;, find tiene demasiadas opciones, lo se. Pero, hay un mont&oacute;n de casos preparados que valen la pena recordar, porque son usados muy a menudo. Veamos algunos de ellos.</P><DIR>
+<DIR>
+
+<P>$ find . -name foo"* -print</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>encuentra todos los nombres de fichero que empiezan con foo. Si la cadena de caracteres est&aacute; incluida en el nombre, probablemente tiene m&aacute;s sentido escribir algo como ""*foo*"", en vez de "foo". </P><DIR>
+<DIR>
+
+<P>$ find /usr/include -xtype f -exec grep foobar "</P>
+<P>/dev/null -" ";</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Es un grep ejecutado recursivamente que empieza del directorio /usr/include. En este caso, estamos interesados tanto en ficheros regulares como en enlaces simb&oacute;licos que apuntan a ficheros regulares, por tanto el test "-xtype". Muchas veces es m&aacute;s simple evitar especificarlo, especialmente si estamos bastante seguros cuales ficheros binarios no contienen la cadena de caracteres deseada.</P>
+<P>(¿Y por qu&eacute; el /dev/null en el comando? Es un truco para forzar al grep a escribir el fichero del nombre donde se ha encontrado un emparejamiento. El comando grep se aplica a cada fichero con una invocaci&oacute;n diferente, y, por tanto no cree que sea necesario mostrar a la salida el nombre del fichero. Pero ahora hay dos ficheros, esto es: ¡el activo y /dev/null! Otra posibilidad podr&iacute;a ser redirigir la salida9 del comando a xargs y dejarle llevar a cabo el grep. Yo lo intent&eacute;, e hice pedazos completamente mi sistema de ficheros (junto con estas notas que estoy intentando recuperar a mano :-( ).</P><DIR>
+<DIR>
+
+<P>$ find / -atime +1 -fstype ext2 -name core "</P>
+<P>-exec rm -" ";</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Es un trabajo cl&aacute;sico para la tabla de tareas preplaneadas. Borra todos los ficheros llamados core en el sistema de ficheros del tipo ext2 al cual no se ha accedido en las &uacute;ltimas 24 horas. Es posible que alguien quiera usar los ficheros de imagen de memoria10 para realizar un volcado post mortem, pero nadie podr&iacute;a recordar lo que estuvo haciendo despu&eacute;s de 24 horas. . .</P><DIR>
+<DIR>
+
+<P>$ find /home -xdev -size +500k -ls &gt; piggies</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>9 N.T.: to pipe</P>
+<P>10 N.T.: core file</P>
+<P>&nbsp;</P>
+<P>Es &uacute;til para ver qui&eacute;n tiene esos archivos que atascan el sistema de ficheros. Note el uso de "-xdev"; como s&oacute;lo estamos interesados en un sistema de ficheros, no es necesario descender otro sistema de ficheros montado bajo /home.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.1.8 Una &uacute;ltima palabra</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Tenga en mente que find es un comando que consume mucho tiempo, ya que tiene que acceder a cada uno de los nodos-i del sistema para realizar su operaci&oacute;n. Por lo tanto, es sabio combinar cuantas operaciones sean posibles en una &uacute;nica invocaci&oacute;n de find, especialmente en las tareas de 'mantenimiento interno' que usualmente se administran mediante un trabajo de la tabla de tareas planificadas. Un ejemplo informativo es el siguiente: supongamos que queremos borrar los ficheros que acaban en .BAK y cambiar la protecci&oacute;n de todos los directorios a 771 y todos los ficheros que acaban en .sh a 755. Y quiz&aacute;s tengamos montado el sistema de ficheros NFS en un enlace telef&oacute;nico, y no queramos examinar los ficheros ah&iacute;. (¿Por qu&eacute; escribir tres comandos diferentes? La manera m&aacute;s efectiva para realizar la tarea es &eacute;sta:</P><DIR>
+<DIR>
+
+<P>$ find . "( -fstype nfs -prune ") -o "</P>
+<P>"( -type d -a -exec chmod 771 -" "; ") -o "</P>
+<P>"( -name "*.BAK" -a -exec /bin/rm -" "; ") -o "</P>
+<P>"( -name "*.sh" -a -exec chmod 755 -" "; ")</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Parece feo (¡y con mucho abuso de barras invertidas!), pero mir&aacute;ndolo fijamente revela que la l&oacute;gica subyacente es bastante sencilla. Recuerde: lo que se hace es una evaluaci&oacute;n verdadero/falso; el comando introducido es s&oacute;lo un efecto secundario. Pero esto significa que se ejecuta s&oacute;lo si find puede evaluar la parte ejecutable de la expresi&oacute;n, esto es s&oacute;lo si la parte izquierda de la subexpresi&oacute;n se eval&uacute;a como verdadera. As&iacute;, si por ejemplo el fichero considerado en el momento es un directorio entonces el primer ejecutable se eval&uacute;a y el permiso del nodo-i se cambia a 771; de otra manera olvida todo y pasa a la siguiente subexpresi&oacute;n. Probablemente, es m&aacute;s f&aacute;cil verlo en la pr&aacute;ctica que escribirlo; pero despu&eacute;s de un momento, llegar&aacute; a ser una cosa natural para Vd.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>11.2 tar, el archivador en cinta</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.2.1 Introducci&oacute;n</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.2.2 Opciones principales</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.2.3 Modificadores</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.2.4 Ejemplos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>11.3 dd, el duplicador de datos</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>La leyenda dice que all&aacute; lejos en las nieblas del tiempo, cuando el primer UNIX fue creado, sus desarrolladores necesitaron un comando de bajo nivel para copiar datos entre dispositivos. Como ten&iacute;an prisa, decidieron tomar prestada la sintaxis usada en las m&aacute;quinas IBM-360, y desarrollar m&aacute;s tarde un interfaz consistente con la de los otros comandos. El tiempo pas&oacute;, y todos se acostumbraron tanto con la manera extra&ntilde;a de usar dd que ya ha quedado as&iacute;. No se si es verdad, pero es una bonita historia para contar.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.3.1 Opciones</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>A decir verdad, dd no es totalmente distinto de los otros comandos de UNIX: es en realidad un filtro, esto es, lee por defecto de la entrada est&aacute;ndar y escribe en la salida est&aacute;ndar. Por tanto, si Vd. escribe s&oacute;lo dd, la terminal se queda quieta, esperando una entrada, y un |_Ctrl-C_| es la &uacute;nica cosa con sentido a teclear (para cortarlo).</P>
+<P>La sintaxis del comando es como sigue:</P>
+<P>&nbsp;</P>
+<B><P>- dd [if=archivo_entrada] [of=archivo_salida] [ibs=cant_bytes] [obs=cant_bytes]</P>
+<P>[bs=cant_bytes] [cbs=cant_bytes] [skip=cant_bloques]</P>
+<P>[seek=cant_bloques] [count=cant_bloques] [conv={ascii, ebcdic, ibm, block,</P>
+<P>unblock, lcase, ucase, swab, noerror, notrunc, sync}]</P>
+</B><P>Todas las opciones son de la forma opci&oacute;n=valor. No se permite ning&uacute;n espacio ni antes ni despu&eacute;s del signo de igual; esto sol&iacute;a ser molesto, porque el int&eacute;rprete de comandos no expand&iacute;a un nombre de fichero en esta situaci&oacute;n, pero la versi&oacute;n de bash presente en Linux es bastante inteligente, as&iacute; que Vd. no tiene que preocuparse por eso. Es tambi&eacute;n importante recordar que todos los valores numerables (cant_bytes y cant_bloques citados arriba) pueden ser seguidos por un multiplicador.</P>
+<P>Las opciones posibles son b para bloque, el cual multiplica por 512, k para kilobytes (1024), w para palabra (2), y xm que multiplica por m.</P>
+<P>El significado de las opciones se explica a continuaci&oacute;n.</P><DIR>
+<DIR>
+
+<B><P>if=archivo_entrada</B> y <B>of=archivo_salida</B> instruye a dd a respectivamente leer de archivo_entrada y escribir a archivo_salida. En el &uacute;ltimo caso, el fichero de salida es truncado al valor dado por "seek" , o si la palabra clave no est&aacute; presente, a 0 (esto es, borrado), antes de realizar la operaci&oacute;n. Mire tambi&eacute;n la opci&oacute;n "notrunc".</P>
+<B><P>ibs=nn </B>y<B> obs=nn</B> especifican cuantos bytes deben ser le&iacute;dos o escritos a la vez. Creo que por defecto es 1 bloque, esto es, 512 bytes, pero no estoy muy seguro de ello: desde luego funciona de esa manera con ficheros planos11. Estos par&aacute;metros son muy importantes cuando se usa dispositivos especiales como entrada o salida; por ejemplo, leer de la red deber&iacute;a establecer "ibs" a 10 kbyte, mientras que una disquetera 12 de 3.5"de alta densidad tiene como tama&ntilde;o natural de bloque 18 kbyte. Fallar al establecer estos valores podr&iacute;a repercutir no s&oacute;lo a largo plazo al llevar a cabo el comando, sino inclusive en errores de expiraci&oacute;n de plazo, as&iacute; que tenga cuidado.</P>
+<B><P>bs=nn</B> tanto lee y escribe nn bytes a la vez. Este no hace caso a las palabras clave "ibs" y "obs".</P>
+<B><P>cbs=nn</B> establece el buffer de conversi&oacute;n a nn bytes. Este buffer se usa cuando se traduce de ASCII a EBCDIC, o desde un dispositivo no ablocado a uno ablocado13. Por ejemplo, los ficheros creados bajo VMS tienen a menudo un tama&ntilde;o de bloque de 512, as&iacute; que se tiene que poner "cbs" a 1b cuando se lee una cinta externa de VMS. ¡Espero que Vd. no tenga que entretenerse en estas cosas!</P>
+<B><P>skip=nbl</B> y <B>seek=nbl</B> le dicen al programa que omita nbl bloques respectivamente al final de la entrada y al principio de la salida. Por supuesto, el &uacute;ltimo caso tiene sentido si se da la conversi&oacute;n "notrunc" (ver abajo). Cada tama&ntilde;o de bloque es el valor de "ibs" ("obs"). Cuidado: si no establece el "ibs" y escribe "skip=1b" Vd. est&aacute; realmente omitiendo 512x512 bytes, esto es 256KB. No es precisamente lo que Vd. quer&iacute;a, ¿no?</P>
+<B><P>count=nbl</B> pretende copiar s&oacute;lo nbl bloques de la entrada, cada uno de los tama&ntilde;os dados por "ibs". Esta opci&oacute;n, junto con la previa, se vuelve &uacute;til si, por ejemplo, Vd. tiene un fichero corrupto y quiere recuperar cuanto sea posible de &eacute;l. Vd. debe omitir la parte ilegible y copiar lo que resta.</P>
+<B><P>conv=conversi&oacute;n,[conversi&oacute;n. . . ]</B> transforma el fichero de la manera que se especifica en sus argumentos. Transformaciones posibles son "ascii", que convierte de EBCDIC a ASCII; "ebcdic" y "ibm", las cuales realizan una conversi&oacute;n inversa (¡s&iacute;, no existe una &uacute;nica conversi&oacute;n de EBCDIC a ASCII! La primera es la est&aacute;ndar, pero la segunda funciona mejor cuando se imprimen ficheros en una impresora IBM); "block", la cual rellena registros terminados en nueva l&iacute;nea del tama&ntilde;o de "cbs" , reemplazando los cambios de l&iacute;nea con espacios finales; "unblock" , que realiza lo contrario (elimina espacios finales, y los reemplaza con cambios de l&iacute;nea); "lcase" y "ucase" , para convertir a min&uacute;sculas y may&uacute;sculas, respectivamente; "swab", que intercambia cada par de bytes de entrada (por ejemplo, para usar un fichero que contiene enteros de tipo short escritos en una m&aacute;quina 680x0 en una m&aacute;quina basada en Intel se necesita dicha conversi&oacute;n); "noerror", para continuar procesando a&uacute;n despu&eacute;s de encontrar errores; "sync", que rellena los bloques de entrada del tama&ntilde;o de "ibs" con caracteres NUL finales.</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>11 N.T.: plain files</P>
+<P>12 N.T.: floppy</P>
+<P>13 N. del T.: ablocado se refiere a la caracter&iacute;stica de agrupamiento en bloques de los datos en el dispositivo.</P>
+<P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.3.2 Ejemplos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El ejemplo can&oacute;nico es con el &uacute;nico que Vd. probablemente ha chocado hasta ahora, cuando intent&oacute; crear el primer disco de Linux: como escribir a un disco sin un sistema de ficheros MS-DOS. La soluci&oacute;n es simple:</P><DIR>
+<DIR>
+
+<P>$ dd if=disk.img of=/dev/fd0 obs=18k count=80</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Decid&iacute; no usar "ibs" porque no se cual es el mejor tama&ntilde;o de bloque para un disco duro, pero en este caso no habr&iacute;a hecho ning&uacute;n perjuicio si en vez de "obs" usara sencillamente el "bs", inclusive podr&iacute;a haber sido un poquito m&aacute;s r&aacute;pido. Observe la explicaci&oacute;n del n&uacute;mero de sectores a escribir (18 kbyte es lo que ocupa un sector, as&iacute; que "count" se pone a 80) y el uso del nombre de bajo nivel del dispositivo de la disquetera.</P>
+<P>Otra aplicaci&oacute;n &uacute;til de dd est&aacute; relacionada con la copia de seguridad de la red. Supongamos que estamos en una m&aacute;quina alfa y que en la m&aacute;quina beta est&aacute; la unidad de cinta /dev/rst0 con un fichero tar que estamos interesados en obtener. Tenemos los mismos privilegios en ambas m&aacute;quinas, pero no hay espacio en beta para volcar 14 el fichero tar. En este caso, podr&iacute;amos escribir &nbsp;</P><DIR>
+<DIR>
+
+<P>$ rsh beta 'dd if=/dev/rst0 ibs=8k obs=20k' _ tar xvBf -</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>para hacer en un solo paso la operaci&oacute;n completa. En este caso, hemos usado las facilidades de rsh para realizar la lectura de la cinta. Los tama&ntilde;os de entrada y salida est&aacute;n establecidos a los valores por defecto por estas operaciones, esto es 8 kbyte para la lectura de la cinta y 20 kbyte para la escritura en ethernet; desde el punto de vista de la otra cara del tar, hay el mismo flujo de bytes el cual podr&iacute;a ser obtenido de la cinta, excepto el hecho de que llega de una manera bastante err&aacute;tica, y la opci&oacute;n B es necesaria.</P>
+<P>¡Ah! Casi lo olvidaba: No creo para nada que dd sea un acr&oacute;nimo de "data duplicator", pero al menos es una manera divertida de recordar su significado. . .</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>11.4 sort, el clasificador de datos</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.4.1 Introducci&oacute;n</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.4.2 Opciones</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Courier New" SIZE=2 COLOR="#808080"><P>11.4.3 Ejemplos</P>
+</U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>_____________________________________________</P>
+<P>14 N.T.: dump</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

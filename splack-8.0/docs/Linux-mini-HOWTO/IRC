@@ -1,0 +1,663 @@
+Linux IRC mini-HOWTO
+
+Frédéric L. W. Meunier
+
+v0.1 8 January, 2001
+Revision History                                                             
+Revision 0.1        2001-01-08          Revised by: fredlwm                  
+Second revision.                                                             
+
+
+This document aims to describe the basics of IRC and respective applications
+for Linux.
+
+-----------------------------------------------------------------------------
+Table of Contents
+1. Introduction
+    1.1. Objectives
+    1.2. Miscellaneous
+    1.3. Translations
+   
+   
+2. About IRC
+3. Beginner's guide on using IRC
+    3.1. Running the ircII program
+    3.2. Commands
+    3.3. IRC Etiquette
+   
+   
+4. Console IRC Clients
+    4.1. ircII
+    4.2. EPIC
+    4.3. BitchX
+    4.4. irssi
+   
+   
+5. X Window IRC Clients
+    5.1. Zircon
+    5.2. xIrc
+    5.3. KVIrc
+    5.4. X-Chat
+   
+   
+6. IRC Servers
+    6.1. IRCD
+    6.2. IRCD-Hybrid
+    6.3. ircu
+    6.4. Bahamut
+   
+   
+7. IRC Bots
+    7.1. eggdrop
+   
+   
+8. IRC Bouncers (IRC Proxy)
+    8.1. bnc
+    8.2. muh
+    8.3. ezbounce
+   
+   
+9. Installation
+    9.1. Clients
+    9.2. Servers
+   
+   
+10. But what's already included in my distribution? (Linux on x86)
+    10.1. Debian
+    10.2. RedHat
+    10.3. Slackware
+   
+   
+11. Hell and Paradise
+    11.1. Gods
+    11.2. Saints
+    11.3. Angels
+    11.4. Devils
+   
+   
+12. Revision History
+
+-----------------------------------------------------------------------------
+1. Introduction
+
+This document is still WIP, and should be treated as such. I'll do my best to
+keep it updated and accurate.
+
+The following bibles shouldn't be ignored:
+
+  * RFC1459 by Jarkko Oikarinen and Darren Reed was the first about the
+    Internet Relay Chat Protocol. It can be found at [ftp://ftp.isi.edu/
+    in-notes/rfc1459.txt] ftp://ftp.isi.edu/in-notes/rfc1459.txt.
+   
+  * RFC2811 by Christophe Kalt updates RFC1459 and describes the Channel
+    Management of the Internet Relay Chat. It can be found at [ftp://
+    ftp.isi.edu/in-notes/rfc2811.txt] ftp://ftp.isi.edu/in-notes/rfc2811.txt.
+   
+  * RFC2812 by Christophe Kalt updates RFC1459 and describes the Client
+    Protocol of the Internet Relay Chat. It can be found at [ftp://
+    ftp.isi.edu/in-notes/rfc2812.txt] ftp://ftp.isi.edu/in-notes/rfc2812.txt.
+   
+  * RFC2813 by Christophe Kalt updates RFC1459 and describes the Server
+    Protocol of the Internet Relay Chat. It can be found at [ftp://
+    ftp.isi.edu/in-notes/rfc2813.txt] ftp://ftp.isi.edu/in-notes/rfc2813.txt.
+   
+
+Also be sure to check the following sites:
+
+[http://www.irchelp.org/] http://www.irchelp.org/.
+-----------------------------------------------------------------------------
+
+1.1. Objectives
+
+Among others, the objectives of this mini-HOWTO are:
+
+  * Link important resources about IRC;
+   
+  * Avoid common misuses of IRC by writing an IRC Etiquette;
+   
+  * List popular clients, servers, bots, and bouncers, along with their
+    maintainers, #channel, small description, download location, homepage,
+    and hints;
+   
+  * List IRC tools available in the latest release of all major
+    distributions.
+   
+
+-----------------------------------------------------------------------------
+1.2. Miscellaneous
+
+The latest version of this document is available at [http://
+www.pervalidus.net/docs/IRC-mini-HOWTO/] http://www.pervalidus.net/docs/
+IRC-mini-HOWTO/.
+
+A WIP of the next draft may be available at [http://www.pervalidus.net/docs/
+IRC-mini-HOWTO-WIP] http://www.pervalidus.net/docs/IRC-mini-HOWTO/WIP/.
+
+You can e-mail me (in English, French, or Portuguese) with suggestions about
+the mini-HOWTO. I know this is far from finished, but hope you find it
+useful. Just don't ask me to add your application or site. Most likely I
+won't. Also don't ask for technical support. I have no time to help everyone.
+
+BTW, someone to work on the protocol and server sides (if needed) would be
+very welcome to join the project.
+
+Frédéric L. W. Meunier (<linuxdoc @ pervalidus.net>) - fredlwm at BRASnet and
+OPN.
+-----------------------------------------------------------------------------
+
+1.3. Translations
+
+Proposed translations will be linked here. Although I can write in Brazilian
+Portuguese and French, I'm not going to translate this document in the near
+future, so feel free to make them.
+-----------------------------------------------------------------------------
+
+2. About IRC
+
+Excerpt from RFC2810:
+
+The IRC (Internet Relay Chat) protocol is for use with text based
+conferencing. It has been developed since 1989 when it was originally
+implemented as a mean for users on a BBS to chat amongst themselves.
+
+First formally documented in May 1993 by RFC 1459 [IRC], the protocol has
+kept evolving.
+
+The IRC Protocol is based on the client-server model, and is well suited to
+running on many machines in a distributed fashion. A typical setup involves a
+single process (the server) forming a central point for clients (or other
+servers) to connect to, performing the required message delivery/multiplexing
+and other functions.
+
+This distributed model, which requires each server to have a copy of the
+global state information, is still the most flagrant problem of the protocol
+as it is a serious handicap, which limits the maximum size a network can
+reach. If the existing networks have been able keep growing at an incredible
+pace, we must thank hardware manufacturers for giving us ever more powerful
+systems.
+-----------------------------------------------------------------------------
+
+3. Beginner's guide on using IRC
+
+The standard IRC client is the original ircII client. It's part of most Linux
+distributions.
+-----------------------------------------------------------------------------
+
+3.1. Running the ircII program
+
+It's easy to use ircII. Let's say you want to connect to irc.openprojects.net
+with the nick mini-HOWTO.
+
+At the command line, type:
+
+$ irc mini-HOWTO irc.openprojects.net
+
+You can also export variables so you won't need to use them at the command
+line:
+
+$ export IRCNICK=mini-HOWTO IRCSERVER=irc.openprojects.net
+
+Add them to your shell profile (e.g. ~/.bash_profile or ~/.zprofile) when
+you're done.
+
+Other common variables are IRCNAME and IRCUSER, to respectively set the
+ircname part of a /whois and username as seen at the first line 'mini-HOWTO
+is ~username@hostname (IRCNAME)'. Keep in mind that IRCUSER won't work if you
+run an ident daemon (default on most distributions). If you still need to
+change your username (not recommended, and I hope you're not using IRC logged
+as root!), install oidentd from [http://ojnk.sourceforge.net/] http://
+ojnk.sourceforge.net/, create /etc/identd.spoof with a list of users allowed
+to spoof their ident, and ~/.ispoof with their reply (e.g. reply). Finally
+run '/usr/local/sbin/oidentd -g nobody -N -s -u nobody'. Add this to your
+startup scripts (e.g. /etc/rc.d/rc.local) when you're done.
+
+If not set, IRCNICK, IRCUSER, and IRCNAME will be retrieved from /etc/passwd
+.
+-----------------------------------------------------------------------------
+
+3.2. Commands
+
+Use /help to get a list on all available commands (/help help is a good
+start). Replace nick by any IRCNICK.
+
+  * First, /set NOVICE off
+   
+  * /nick IRC-mini-HOWTO changes your IRCNICK to IRC-mini-HOWTO
+   
+  * /set realname The Linux IRC mini-HOWTO changes your IRCNAME to The Linux
+    IRC mini-HOWTO (doesn't change on the same connection)
+   
+  * /j #LinuxHelp joins channel #LinuxHelp
+   
+  * /j #Slackware joins channel #Slackware
+   
+  * /j #LinuxHelp changes the active current channel to #LinuxHelp
+   
+  * /msg nick Hi. sends a private message to nick containing Hi.
+   
+  * /notice nick (or #Linux) Hi. sends a notice to nick (or #Linux)
+    containing Hi.
+   
+  * /query nick starts a private conversation with nick. /query ends the
+    private conversation
+   
+  * /me loves Linux. sends an action to the current channel or query
+    containing IRC-mini-HOWTO loves Linux.
+   
+  * /dcc chat nick starts a chat with nick. Use /msg =nick (notice the =) to
+    send messages over the chat
+   
+  * /dcc send nick /etc/HOSTNAME sends the given file to nick
+   
+  * /dcc get nick receives the file offered by nick
+   
+  * /part leaves the active current channel
+   
+  * /part #Slackware leaves channel #Slackware
+   
+  * /discon disconnects from current IRCSERVER
+   
+  * /server irc.dal.net connects to IRCSERVER irc.dal.net
+   
+  * /quit Bye. quits your IRC session with a reason Bye.
+   
+
+-----------------------------------------------------------------------------
+3.3. IRC Etiquette
+
+WARNING WARNING WARNING WARNING WARNING
+
+  * Never use IRC logged as root or any user with excessive privileges. Bad
+    things may happen sooner or later. You were warned. It's safer if you
+    create 2 users, one of them to only use IRC.
+   
+
+$ man adduser
+
+On Linux channels you shouldn't:
+
+  * Act as an idiot. If you want to be respected, then first respect each
+    other.
+   
+  * Use colors (^C). Most Linux users don't tolerate such mIRC crazes, and
+    ircII doesn't really support them. The same should apply for ANSI.
+   
+  * Use full CAPS, bold (^B), reverse (^V), underline (^_), blink (^K), and
+    bell (^G). The first 4 are here to emphasize words, not the whole text.
+    The last 2 are just very annoying.
+   
+  * Ask if you can ask a question. Just ask, but first read all documentation
+    available on the subject. Start looking at [file:/usr/doc/] /usr/doc/ ,
+    otherwise go to [http://www.linuxdoc.org/] http://www.linuxdoc.org/ or
+    [http://www.ibiblio.org/pub/Linux/docs/] http://www.ibiblio.org/pub/Linux
+    /docs/. And don't repeat your question immediately. Wait at least 10
+    minutes. If you don't get any answer it's because nobody knows or wants
+    to help. Respect their choice, they're not your personal assistant. Also
+    never send mass private messages. It's like SPAM.
+   
+
+-----------------------------------------------------------------------------
+4. Console IRC Clients
+
+4.1. ircII
+
+Maintainer: ircII project (<ircii@eterna.com.au>)
+
+IRC Channel: #ircii (official channel?) on [http://www.efnet.org/
+servers.html] EFNet
+
+Originally written by Michael Sandrof, ircII comes with most Linux
+distributions. It uses termcap and shouldn't be a choice for most users, but
+is a standard. Mathusalem and other gurus will use it. Less ventured will
+regret to have it installed.
+
+You can get the latest version of ircII from [ftp://ircftp.au.eterna.com.au/
+pub/ircII/] ftp://ircftp.au.eterna.com.au/pub/ircII/. Homepage at [http://
+www.eterna.com.au/ircii/] http://www.eterna.com.au/ircii/.
+-----------------------------------------------------------------------------
+
+4.2. EPIC
+
+Maintainer: EPIC Software Labs (<ircii-epic@concentric.net>)
+
+IRC Channel: #epic on EFNet
+
+Based on ircII, EPIC (Enhanced Programmable ircII Client) is meant for real
+scripters and users searching freedom. When you start it for the first time
+you'll notice that you should really learn the basics of scripting.
+
+You can get the latest version of EPIC from [ftp://ftp.epicsol.org/pub/epic/]
+ftp://ftp.epicsol.org/pub/epic/. Homepage at [http://www.epicsol.org/] http:/
+/www.epicsol.org/.
+-----------------------------------------------------------------------------
+
+4.3. BitchX
+
+Maintainer: Colten Edwards (<edwards@bitchx.dimension6.com>)
+
+IRC Channel: #bitchx on EFNet
+
+Based on ircII and EPIC, BitchX could be compared to the Pine MUA. Bloatware
+(doesn't mean you shouldn't use it) and widely used. The choice for users
+that want a client with built-in facilities. It can be built with the GNOME
+libraries by using the configure option --with-gtk. Don't be surprised if all
+you get is a XTerm-BitchX instead.
+
+You can get the latest version of BitchX from [ftp://ftp.bitchx.com/pub/
+BitchX/source/] ftp://ftp.bitchx.com/pub/BitchX/source/. Homepage at [http://
+www.bitchx.com/] http://www.bitchx.com/. Homepage of gtkBitchX at [http://
+www.bitchx.org/gtk/] http://www.bitchx.org/gtk/.
+-----------------------------------------------------------------------------
+
+4.4. irssi
+
+Maintainer: Timo Sirainen (<tss@iki.fi>)
+
+IRC Channel: #irssi on [http://openprojects.nu/services/irc.html] OPN and
+[http://www.ircnet.org/] IRCnet
+
+Timo released yagIRC ~3 years ago. It was a GUI client using the GTK+
+toolkit. The army called on him, and the new maintainers wouldn't do the job.
+yagIRC passed away and he started irssi as a replacement. It used GTK+. GNOME
+and curses versions would appear later. As of 0.7.90 it's only a text client,
+a very good one. Supports Perl scripting.
+
+You can get the latest version of irssi from [http://irssi.org/?page=
+download] http://irssi.org/?page=download. Homepage at [http://irssi.org/]
+http://irssi.org/.
+-----------------------------------------------------------------------------
+
+5. X Window IRC Clients
+
+5.1. Zircon
+
+Maintainer: Lindsay F. Marshall (<Lindsay.Marshall@ncl.ac.uk>)
+
+IRC Channel: None?
+
+Written in Tcl/Tk, uses the native network communications of Tcl.
+
+You can get the latest version of Zircon from [ftp://catless.ncl.ac.uk/pub/]
+ftp://catless.ncl.ac.uk/pub/. Homepage at [http://catless.ncl.ac.uk/Programs/
+Zircon/] http://catless.ncl.ac.uk/Programs/Zircon/.
+-----------------------------------------------------------------------------
+
+5.2. xIrc
+
+Maintainer: Robert Borrell (<borrell@pobox.com>)
+
+IRC Channel: None?
+
+Using the Qt toolkit, xIrc is less featured than KVIrc. As an advantage, it's
+faster.
+
+You can get the latest version of xIrc from [http://www.linuxlots.com/~xirc/
+download.html] http://www.linuxlots.com/~xirc/download.html. Homepage at
+[http://www.linuxlots.com/~xirc/] http://www.linuxlots.com/~xirc/.
+-----------------------------------------------------------------------------
+
+5.3. KVIrc
+
+Maintainer: Szymon Stefanek (<stefanek@tin.it>)
+
+IRC Channel: #kvirc on OPN
+
+Also written with the Qt toolkit, KVIrc is a beast. Supports DCC Voice,
+built-in scripting language, and plugins.
+
+You can get the latest version of KVIrc from [http://www.kvirc.net/
+download.html] http://www.kvirc.net/download.html. Homepage at [http://
+www.kvirc.net/] http://www.kvirc.net/.
+-----------------------------------------------------------------------------
+
+5.4. X-Chat
+
+Maintainer: Peter Zelezny (<zed@linux.com>)
+
+IRC Channel: #linux on [http://www.chatjunkies.org/servers.html] ChatJunkies
+
+Using the GTK+ toolkit and additionaly GNOME, supports Perl and Python
+scripting.
+
+You can get the latest version of X-Chat from [http://xchat.org/
+download.html] http://xchat.org/download.html. Homepage at [http://xchat.org
+/] http://xchat.org/.
+-----------------------------------------------------------------------------
+
+6. IRC Servers
+
+6.1. IRCD
+
+Maintainer: ircd developers(<ircd-dev@irc.org>)
+
+IRC Channel: #ircd on IRCnet
+
+The original IRC daemon, mainly used by IRCnet.
+
+You can get the latest version of IRCD from [ftp://ftp.irc.org/irc/server/]
+ftp://ftp.irc.org/irc/server/. Homepage at [http://www.irc.org/] http://
+www.irc.org/.
+-----------------------------------------------------------------------------
+
+6.2. IRCD-Hybrid
+
+Maintainer: (<ircd-hybrid@the-project.org>)
+
+IRC Channel: None?
+
+Mainly used by EFNet.
+
+You can get the latest version of IRCD-Hybrid from [ftp://ftp.blackened.com/
+pub/irc/hybrid/] ftp://ftp.blackened.com/pub/irc/hybrid/. Homepage at [http:/
+/www.ircd-hybrid.net/] http://www.ircd-hybrid.net/.
+-----------------------------------------------------------------------------
+
+6.3. ircu
+
+Maintainer: Undernet Coder Committee (<coder-com@undernet.org>)
+
+IRC Channel: #ircu on [http://www.undernet.org/servers.shtml] Undernet
+
+Mainly used by Undernet.
+
+You can get the latest version of ircu from [ftp://ftp.coder-com.undernet.org
+/ircu/] ftp://ftp.coder-com.undernet.org/ircu/. Homepage at [http://
+coder-com.undernet.org/] http://coder-com.undernet.org/.
+-----------------------------------------------------------------------------
+
+6.4. Bahamut
+
+Maintainer: DALnet Coding Team (<bahamut@bahamut.net>)
+
+IRC Channel: #bahamut on [http://www.dal.net/servers/] DALnet
+
+Based on DreamForge and Hybrid, Bahamut is the DALnet server.
+
+You can get the latest version of Bahamut from [http://www.bahamut.net/?dir=
+4] http://www.bahamut.net/?dir=4. Homepage at [http://www.bahamut.net/] http:
+//www.bahamut.net/.
+-----------------------------------------------------------------------------
+
+7. IRC Bots
+
+7.1. eggdrop
+
+Maintainer: (<eggdev@eggheads.org>)
+
+IRC Channel: #eggdrop on Undernet
+
+eggdrop is the most known Tcl enabled application on the Net. It's a channel
+robot for IRC that can be tailored to any situation.
+
+You can get the latest version of eggdrop from [ftp://ftp.eggheads.org/pub/
+eggdrop/source/] ftp://ftp.eggheads.org/pub/eggdrop/source/. Homepage at
+[http://www.eggheads.org/] http://www.eggheads.org/.
+-----------------------------------------------------------------------------
+
+8. IRC Bouncers (IRC Proxy)
+
+8.1. bnc
+
+Maintainer: None?
+
+IRC Channel: None?
+
+bnc is the original bouncer.
+
+You can get the latest version of bnc from [http://www.linuxberg.com/files/
+files/console/servers/bnc2.6.4.tar.gz] LinuxBerg.
+-----------------------------------------------------------------------------
+
+8.2. muh
+
+Maintainer: Sebastian Kienzl (<zap@riot.org>)
+
+IRC Channel: None?
+
+muh is a smart and versatile irc-bouncing tool that will also go on IRC as
+soon as it's launched, guarding or attempting to get your nick.
+
+You can get the latest version of muh from [http://mind.riot.org/muh/
+download.rt] http://mind.riot.org/muh/download.rt. Homepage at [http://
+mind.riot.org/muh/] http://mind.riot.org/muh/.
+-----------------------------------------------------------------------------
+
+8.3. ezbounce
+
+Maintainer: Murat Deligönül (<druglord@freelsd.org>)
+
+IRC Channel: None?
+
+ezbounce's basic features include password protection, remote administration,
+logging and listening on multiple ports.
+
+You can get the latest version of ezbounce from his [http://
+druglord.freelsd.org/ezbounce/] Homepage.
+-----------------------------------------------------------------------------
+
+9. Installation
+
+9.1. Clients
+
+All popular clients use GNU autoconf and GNU automake, thus come with a
+configure script. Read the installation instructions after you unpack the
+sources. Be sure you have the required libraries in order to build. Doing cd
+sources;mkdir objdir;cd objdir; ../configure --help;../configure
+your_options_here;make;make install (or make install_strip) > ~/
+sources_install.log is the right procedure. Also note that for ircII, EPIC,
+and BitchX you should really edit include/config.h to suit your needs.
+-----------------------------------------------------------------------------
+
+9.2. Servers
+
+Do you really need help to set up a server?
+
+~$ vim ircd.conf
+-----------------------------------------------------------------------------
+
+10. But what's already included in my distribution? (Linux on x86)
+
+10.1. Debian
+
+Debian includes too many IRC tools to list. You can find them at the
+following places:
+
+  * Debian [ftp://ftp.debian.org/debian/dists/stable/main/binary-i386/net/]
+    stable.
+   
+  * Debian [ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/net/]
+    unstable (didn't receive so much testing).
+   
+  * Also be sure to check the [ftp://ftp.debian.org/debian/dists/
+    proposed-updates/] proposed updates. It may have IRC clients as well.
+   
+  * Debian non-free (applications with a restrictive license) contains [ftp:/
+    /ftp.debian.org/debian/dists/stable/non-free/binary-i386/net/
+    circus_0.43-1.deb] cIRCus.
+   
+
+-----------------------------------------------------------------------------
+10.2. RedHat
+
+RedHat 7.0 includes the following clients:
+
+  * [ftp://ftp.redhat.com/pub/redhat/redhat-7.0/i386/en/RedHat/RPMS/
+    ircii-4.4M-4.i386.rpm] ircII 4.4M.
+   
+  * KSirc from [ftp://ftp.redhat.com/pub/redhat/redhat-7.0/i386/en/RedHat/
+    RPMS/kdenetwork-1.1.2-17.i386.rpm] KDE Network 1.1.2.
+   
+  * [ftp://ftp.redhat.com/pub/redhat/redhat-7.0/i386/en/RedHat/RPMS/
+    xchat-1.4.2-6.i386.rpm] X-Chat 1.4.2.
+   
+
+  * RedHat Powertools (what's worth but they don't want? to include or can't)
+    7.0 includes the following clients:
+   
+  * [ftp://ftp.redhat.com/pub/redhat/redhat-7.0/powertools/i386/RedHat/RPMS/
+    BitchX-1.0c16-4.i386.rpm] BitchX and [ftp://ftp.redhat.com/pub/redhat/
+    redhat-7.0/powertools/i386/RedHat/RPMS/gtkBitchX-1.0c16-4.i386.rpm]
+    gtkBitchX 1.0c16. Later updated to [ftp://updates.redhat.com/powertools/
+    7.0/i386/BitchX-1.0c17-4.i386.rpm] BitchX and [ftp://updates.redhat.com/
+    powertools/7.0/i386/gtkBitchX-1.0c17-4.i386.rpm] gtkBitchX 1.0c17.
+   
+  * [ftp://ftp.redhat.com/pub/redhat/redhat-7.0/powertools/i386/RedHat/RPMS/
+    epic-4_2000-5.i386.rpm] EPIC4-2000.
+   
+  * [ftp://ftp.redhat.com/pub/redhat/redhat-7.0/powertools/i386/RedHat/RPMS/
+    kvirc-2.0.0-6.i386.rpm] KVIrc 2.0.0.
+   
+  * [ftp://ftp.redhat.com/pub/redhat/redhat-7.0/powertools/i386/RedHat/RPMS/
+    tkirc-1.202-8.noarch.rpm] tkIRC 1.202.
+   
+
+-----------------------------------------------------------------------------
+10.3. Slackware
+
+Slackware 7.1 includes the following clients:
+
+  * KSirc from [ftp://ftp.slackware.com/pub/slackware/slackware-7.1/slakware/
+    kde1/ksupport.tgz] KDE Network 1.1.2.
+   
+  * [ftp://ftp.slackware.com/pub/slackware/slackware-7.1/slakware/gtk1/
+    xchat.tgz] X-Chat 1.2.1. Later updated to [ftp:ftp.slackware.com/pub/
+    slackware/slackware-current/slakware/gtk1/xchat.tgz] 1.5.7.
+   
+
+-----------------------------------------------------------------------------
+11. Hell and Paradise
+
+11.1. Gods
+
+  * Thanks to all authors. Without their hard and volunteer work I'd never
+    write it, and we'd never get our hands on Linux (and IRC).
+   
+
+-----------------------------------------------------------------------------
+11.2. Saints
+
+  * Put your name here.
+   
+
+-----------------------------------------------------------------------------
+11.3. Angels
+
+  * Put your name here.
+   
+
+-----------------------------------------------------------------------------
+11.4. Devils
+
+  * Khaled Mardam-Bey must be stopped :)
+   
+  * 'If idiots could fly, IRC would be an airport'. I don't know who wrote
+    that, but it makes sense. For those of you using IRC to annoy and piss
+    off I ordered a /kill for Christmas.
+   
+
+-----------------------------------------------------------------------------
+12. Revision History
+
+  * 20010108 - v0.1, second draft
+   
+

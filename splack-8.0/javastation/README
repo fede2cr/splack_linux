@@ -1,0 +1,172 @@
+
+README.JAVASTATION
+ # Chris Newport, last revised 1 Mar 2003
+
+BEGIN by reading the fine manual at 
+ http://www.linux.org/docs/ldp/howto/ldp/howto/JavaStation-HOWTO/
+
+Please read ALL of this document BEFORE trying to set up a server
+for the javastation.
+
+1) General
+	Javastation support is still beta-quality, please feel free 
+	to contribute any improvements.
+	The javastation root image is a preinstalled root image
+	containing a selection from the A, N, AP, X and XAP
+	disksets. 
+	DO NOT try to re-install the A diskset, many things are
+	patched and you will install unpatched versions.
+	DO NOT use the DHCP client in the N diskset. The kernel
+	has built-in DHCP and BOOTP support. Your machine will
+	not shut down cleanly if you do this because your network
+	will get killed before the root filesystem can be unmounted.
+
+2) Swap
+	Swap is not supported, so you will need enough physical 
+	memory for all processes. A text-only system should run OK 
+	with 8Mb or preferably 16Mb. If you need a GUI you should 
+	use a lightweight such as fvwm and install more memory.
+	We may add network swap support later, but this is almost
+	certain to be horribly slow.
+
+3) Security
+	NFS is fundamentally insecure. If your network is not
+	isolated from the internet by a good firewall you should
+	fix up your security before proceeding.
+	The preinstalled image is a snapshot of Splack. You must
+	apply the latest security patches to stay current.
+
+4) Configure BOOTP or DHCP
+	The Javastation kernel REQUIRES a BOOTP or DHCP server
+	to determine its configuration. It is a BAD IDEA to have
+	more than one DHCP server on the same network, so please
+	take care lest you incur the wrath of your network
+	administrator. You can use either BOOTP or DHCP, the choice
+	is yours, but BOOTP is less likely to cause problems if
+	there are existing DHCP services on your network.
+	If you are running Slackware or Splack on your server the
+	BOOTP and DHCP packages are in the n1 set. Most Linux
+	distributions provide bootpd and dhcpd somewhere in the
+	standard distribution. Other Unix variants should also
+	include them, but the configuration file syntax may vary.
+
+	Here is the entry in my /etc/bootptab , change this to use
+	your addresses :-
+
+# --- begin include ----------------
+
+# name  Entry name - (see hn below)
+# ha=	hardware address, get this from the initial OBP banner when
+#	your client machine boots NOTE that we leave out the colons
+#	here.
+# hn	Use the name of this entry as the hostname
+# ip=	IP address
+# sm=	Subnet mask
+# gw=	Gateway
+# dn=	Domain name
+# ns=	Name (DNS) server
+# sa=	Server address for boot file
+# bf=	boot file name
+# rp=	path to root filesystem
+
+charon:ha=08002086fcb4:hn:ip=193.195.23.86:sm=255.255.255.240:\
+        :gw=193.195.23.81:dn=netunix.com:ns=193.195.23.70:\
+        :sa=193.195.23.85:bf=C1C31756:rp="193.195.23.85:/tftpboot/charon":
+
+# --- end include ---------------------
+
+
+	And here is my entry in /etc/dhcpd.conf , NOTE that you 
+	do not need this if you use BOOTP.
+
+# --- begin include -------------------
+
+# dhcpd.conf
+#
+# Configuration file for ISC dhcpd (see 'man dhcpd.conf')
+#
+
+max-lease-time 3600;
+#ddns-update-style ad-hoc;
+
+ option routers 193.195.23.81;
+ option time-servers 193.195.23.66;
+ option domain-name-servers 193.195.23.70;
+ option domain-name "netunix.com";
+ option broadcast-address 193.195.23.95;
+ option smtp-server 193.195.23.66;
+ option pop-server 193.195.23.66;
+
+subnet 193.195.23.80 netmask 255.255.255.240 {
+ range 193.195.23.90 193.195.23.92;
+# fixed IP for printer
+ host NPIC3579A {
+  fixed-address 193.195.23.93;
+  }
+}
+group {
+        next-server callisto;
+ host charon {
+        fixed-address 193.195.23.86;
+        hardware ethernet 8:0:20:86:fc:b4;
+        option host-name "charon";
+ }
+}
+
+# --- end include ---------------
+
+5) Disk space.
+	The Javastation root filesystem needs about 500MB of free 
+	space, and this is sure to grow as you use it.
+	It is a bad idea to have this in your root filesystem, so
+	you need to find a good hunk of free space in a more
+	sensible location. You might want to modify your fstab
+	after installation to have separate /home and /var
+	filesystems. For the initial installation just create
+	a directory in a suitable place and make a symlink
+	to /tftpboot/(name)
+	The usual convention is to use /export/root/(name) but
+	the choice is yours. 
+	mkdir /export/root/charon
+	ln -s /export/root/charon /tftpboot/charon
+	ln -s /export/root/charon /tftpboot/193.195.23.86
+	tftpconfig will now unpack the root image into the 
+	correct place.
+
+6) Configure NFS.
+	You now need to set up NFS to export /tftpboot and
+	/export/root.
+	The method depends on which flavour of Unix your server is
+	using, if you are using Slackware you need to do this :-
+	a) edit /etc/rc.d/rc.inet2 to enable NFS and the portmapper
+	b) start the portmapper
+		/sbin/rpc.portmap
+	c) edit /etc/exports to set up NFS , here is my file :-
+
+# ---- begin include -------------
+
+# See exports(5) for a description.
+# This file contains a list of all directories exported to other computers.
+# It is used by rpc.nfsd and rpc.mountd.
+/cdrom  *(ro)
+/export/root     193.195.23.80/28(rw,no_root_squash)
+/tftpboot	 193.195.23.80/28(rw,no_root_squash)
+
+# ---- end include ---------------
+
+	d) setup /etc/hosts.allow and /etc/hosts.deny as per 
+	   the hosts_access man page
+	    man hosts_access
+
+	e) start the NFS server
+	    /etc/rc.d/rc.nfsd start
+
+	f) export the filesystems
+	    exportfs -a
+
+7) Run tftpconfig
+	cd /cdrom/tftpboot
+	./tftpconfig
+
+8) Switch on your Javastation and ENJOY.
+

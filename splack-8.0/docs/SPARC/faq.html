@@ -1,0 +1,2348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>UltraLinux FAQ</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#000000">
+
+<CENTER>
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="0" BORDER="0">
+
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+
+<!-- Header top right -->
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="0" BORDER="0">
+<TR>
+<TD VALIGN="top" BGCOLOR="#FF9900" ALIGN="left">
+    <A HREF="index.html">
+    <IMG BORDER="0" WIDTH="374" HEIGHT="112" SRC="images/title.gif" ALT="UltraLinux Home"></A>
+</TD><TD ROWSPAN="2">
+
+<!-- Header middle -->
+<TABLE WIDTH="100%" BORDER="0">
+<TR><TD ALIGN="CENTER">
+    <FONT SIZE="5"><STRONG>Bring your penguin into the Sun</STRONG></FONT>
+</TD></TR>
+<TR><TD ALIGN=center>
+    <A HREF="faq.html">
+    <IMG BORDER="0" WIDTH="60" HEIGHT="40" SRC="images/faq-k.gif" ALT="Frequently Asked Questions"></A>
+    <A HREF="links.html">
+    <IMG BORDER="0" WIDTH="60" HEIGHT="40" SRC="images/links-k.gif" ALT="Web Links"></A>
+    <A HREF="lists.html">
+    <IMG BORDER="0" WIDTH="60" HEIGHT="40" SRC="images/lists-k.gif" ALT="Mailing Lists"></A>
+    <A HREF="people.html">
+    <IMG BORDER="0" WIDTH="60" HEIGHT="40" SRC="images/people-k.gif" ALT="UltraLinux People"></A>
+    <BR>
+    <A HREF="linux.html">
+    <IMG BORDER="0" WIDTH="40" HEIGHT="40" SRC="images/peng-k.gif" ALT="About Linux"></A>
+    <A HREF="about.html">
+    <IMG BORDER="0" WIDTH="60" HEIGHT="40" SRC="images/about-k.gif" ALT="About UltraLinux"></A>
+    <A HREF="dists.html">
+    <IMG BORDER="0" WIDTH="100" HEIGHT="40" SRC="images/dists-k.gif" ALT="Distributions"></A>
+    <A HREF="news.html">
+    <IMG BORDER="0" WIDTH="60" HEIGHT="40" SRC="images/news-k.gif" ALT="News and Announcements"></A>
+    <A HREF="linux.html">
+    <IMG BORDER="0" WIDTH="40" HEIGHT="40" SRC="images/peng-k.gif" ALT="About Linux"></A>
+</TD></TR>
+</TABLE></TD>
+
+<!-- Header top left -->
+<TD ALIGN="right" VALIGN="top">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/rhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- Header bottom -->
+<TR>
+<TD VALIGN="bottom" BGCOLOR="#FF9900" ALIGN="left">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/llhs.gif" ALT=""></TD>
+<TD VALIGN="bottom" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/lrhs-white.gif" ALT=""></TD>
+</TR></TABLE>
+</TD></TR>
+
+<!-- Black space -->
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+<!-- Top of the Rounded Rectangle with Title -->
+<TR><TD BGCOLOR="#FF9900">
+    <IMG BORDER="0" WIDTH="200" HEIGHT="25" SRC="images/faq.gif" ALT=""></TD>
+<TD BGCOLOR="#FF9900" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="25" SRC="images/rhs.gif" ALT=""></TD>
+</TR>
+
+<!-- The body of the Rounded Rectangle -->
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="5" BORDER="0">
+<TR><TD>
+<FONT COLOR="#FF0000">
+Version: 2.21
+<BR> Last Update: Januari 27, 2001
+</FONT><P>
+<BR><IMG SRC="images/redball.gif"><A HREF="#s_1"><FONT SIZE=4 COLOR=red>Section 1: General
+</FONT></A><BR><UL>
+<LI><A HREF="#q_1_1">1. About the UltraLinux FAQ.</A><BR>
+<LI><A HREF="#q_1_2">2. What is the history/design/philosophy of UltraLinux ?</A><BR>
+<LI><A HREF="#q_1_3">3. What is up with all the names (Ultra, SPARC, S/Linux) ?</A><BR>
+<LI><A HREF="#q_1_4">4. Why are there two ports for the SPARC, 32- and 64-bit ?</A><BR>
+<LI><A HREF="#q_1_5">5. Is everything 64-bit on sparc64, and can I compile 64-bit applications ?</A><BR>
+<LI><A HREF="#q_1_6">6. When will it be done ?</A><BR>
+<LI><A HREF="#q_1_7">7. I'm having a problem with .... What should I do ?</A><BR>
+<LI><A HREF="#q_1_8">8. Does David Miller work on UltraLinux full-time ?</A><BR>
+<LI><A HREF="#q_1_9">9. Will UltraLinux run regular Linux (Intel) binaries ?</A><BR>
+<LI><A HREF="#q_1_10">10. Will UltraLinux run SunOS/Solaris binaries ?</A><BR>
+<LI><A HREF="#q_1_11">11. How good is the SunOS/Solaris emulation ?</A><BR>
+<LI><A HREF="#q_1_12">12. What kind of file systems does UltraLinux use ?</A><BR>
+<LI><A HREF="#q_1_13">13. Can I share a swap partition between SunOS/Solaris and UltraLinux ?</A><BR>
+<LI><A HREF="#q_1_14">14. I heard that UltraLinux is faster then SunOS/Solaris. Is this true ?</A><BR>
+</UL>
+<BR><IMG SRC="images/redball.gif"><A HREF="#s_2"><FONT SIZE=4 COLOR=red>Section 2: Hardware
+</FONT></A><BR><UL>
+<LI><A HREF="#q_2_1">1. What machines WILL currently run UltraLinux ?</A><BR>
+<LI><A HREF="#q_2_2">2. What additional hardware is supported ?</A><BR>
+<LI><A HREF="#q_2_3">3. What machines do not YET run UltraLinux ?</A><BR>
+<LI><A HREF="#q_2_4">4. What Sun machines will NEVER run UltraLinux ?</A><BR>
+<LI><A HREF="#q_2_5">5. What about the Sun4 machines (such as 4/330) ?</A><BR>
+<LI><A HREF="#q_2_6">6. Where can I find more information on older Sun hardware ?</A><BR>
+<LI><A HREF="#q_2_7">7. Where can I find out lots more information about Sun stuff ?</A><BR>
+<LI><A HREF="#q_2_8">8. Can I use every Weitek POWER uP chip ?</A><BR>
+<LI><A HREF="#q_2_9">9. Can I use ISA/PCI cards from my PC on my (Ultra)SPARC machine ?</A><BR>
+<LI><A HREF="#q_2_10">10. How can I make my JavaStation/Engine to work ?</A><BR>
+<LI><A HREF="#q_2_11">11. How can I make a Linux X-Terminal from my old SPARCstation ?</A><BR>
+<LI><A HREF="#q_2_12">12. Can I use the ISDN capabilities of my SPARCstation ?</A><BR>
+<LI><A HREF="#q_2_13">13. Is there support for audio on my SPARC ?</A><BR>
+<LI><A HREF="#q_2_14">14. Can I select the internal speaker or line-out for audio ?</A><BR>
+</UL>
+<BR><IMG SRC="images/redball.gif"><A HREF="#s_3"><FONT SIZE=4 COLOR=red>Section 3: Distributions
+</FONT></A><BR><UL>
+<LI><A HREF="#q_3_1">1. What distributions are available for UltraLinux ?</A><BR>
+<LI><A HREF="#q_3_2">2. Red Hat Linux</A><BR>
+<LI><A HREF="#q_3_3">3. Debian GNU/Linux </A><BR>
+<LI><A HREF="#q_3_4">4. Linux-Mandrake</A><BR>
+<LI><A HREF="#q_3_5">5. Caldera OpenLinux</A><BR>
+<LI><A HREF="#q_3_6">6. SuSE Linux</A><BR>
+<LI><A HREF="#q_3_7">7. UltraPenguin</A><BR>
+</UL>
+<BR><IMG SRC="images/redball.gif"><A HREF="#s_4"><FONT SIZE=4 COLOR=red>Section 4: Building
+</FONT></A><BR><UL>
+<LI><A HREF="#q_4_1">1. What operating systems can I use to build a kernel ?</A><BR>
+<LI><A HREF="#q_4_2">2. What tools do I need to compile an UltraLinux kernel from SunOS ?</A><BR>
+<LI><A HREF="#q_4_3">3. What tools do I need to compile a new kernel on an UltraSPARC ?</A><BR>
+<LI><A HREF="#q_4_4">4. Why does the program &quot;make&quot; complain about a non-existent sparc64-linux-gcc ?</A><BR>
+<LI><A HREF="#q_4_5">5. Can a just grab the latest Linux source tree and compile it ?</A><BR>
+<LI><A HREF="#q_4_6">6. Where can I find the most recent kernel anyway ?</A><BR>
+<LI><A HREF="#q_4_7">7. When I configure the kernel what options should I choose ?</A><BR>
+<LI><A HREF="#q_4_8">8. How do I compile the kernel for UltraLinux ?</A><BR>
+<LI><A HREF="#q_4_9">9. What should I do after a new kernel has been compiled ?</A><BR>
+<LI><A HREF="#q_4_10">10. Do I need to compress the kernel ?</A><BR>
+<LI><A HREF="#q_4_11">11. What do I need to put in the root directory ?</A><BR>
+<LI><A HREF="#q_4_12">12. What is this RPM stuff people keep talking about ?</A><BR>
+<LI><A HREF="#q_4_13">13. How do I set up init ?</A><BR>
+<LI><A HREF="#q_4_14">14. What do I need to get networking running ?</A><BR>
+<LI><A HREF="#q_4_15">15. How do I get YP (NIS) working ?</A><BR>
+<LI><A HREF="#q_4_16">16. What do I need to do to get X11r6 running ?</A><BR>
+</UL>
+<BR><IMG SRC="images/redball.gif"><A HREF="#s_5"><FONT SIZE=4 COLOR=red>Section 5: Booting
+</FONT></A><BR><UL>
+<LI><A HREF="#q_5_1">1. What is a boot prompt, and how can I get to it ?</A><BR>
+<LI><A HREF="#q_5_2">2. Why can't I see &quot;ok&quot; at the boot prompt ?</A><BR>
+<LI><A HREF="#q_5_3">3. How can I see all the PROM parameters ?</A><BR>
+<LI><A HREF="#q_5_4">4. What other commands are available at the boot prompt ?</A><BR>
+<LI><A HREF="#q_5_5">5. How can I boot directly from the floppy/CD-ROM/Tape Drive ?</A><BR>
+<LI><A HREF="#q_5_6">6. How can I eject my floppy disk or CD ?</A><BR>
+<LI><A HREF="#q_5_7">7. How can I set it to automatically boot from a different device ?</A><BR>
+<LI><A HREF="#q_5_8">8. How can I <EM>unset</EM> a PROM parameter ?</A><BR>
+<LI><A HREF="#q_5_9">9. How can I install UltraLinux software from the network ?</A><BR>
+<LI><A HREF="#q_5_10">10. How do I set up RARP so I can boot my Sun via the network ?</A><BR>
+<LI><A HREF="#q_5_11">11. ARP/RARP do not seem to be working on my boot server?</A><BR>
+<LI><A HREF="#q_5_12">12. My ethernet address is shown as &quot;ff:ff:ff:ff..&quot; and my machine can't boot from the network.</A><BR>
+<LI><A HREF="#q_5_13">13. I have a dead/corrupted/password protected NVRAM chip.</A><BR>
+<LI><A HREF="#q_5_14">14. How do I set up a tftp server to boot from ?</A><BR>
+<LI><A HREF="#q_5_15">15. What boot image will the client ask from the network ?</A><BR>
+<LI><A HREF="#q_5_16">16. Is there an easy way to set up the network boot image structure ?</A><BR>
+<LI><A HREF="#q_5_17">17. Running a tftp boot server doesn't seem to work ?</A><BR>
+<LI><A HREF="#q_5_18">18. By using what commands can I boot UltraLinux from the network ?</A><BR>
+<LI><A HREF="#q_5_19">19. My Sun doesn't seem to understand the 'boot net' command.</A><BR>
+<LI><A HREF="#q_5_20">20. Booting over the network responds: &quot;receive failed: The file just loaded does not appear to be executable&quot;.</A><BR>
+<LI><A HREF="#q_5_21">21. Booting over the network responds: &quot;is not executable&quot;, or: &quot;not in correct format!&quot;.</A><BR>
+<LI><A HREF="#q_5_22">22. Booting over the network still doesn't work...</A><BR>
+<LI><A HREF="#q_5_23">23. How can I connect a machine for an installation via a serial cable ?</A><BR>
+<LI><A HREF="#q_5_24">24. When using a serial console, the installation stops after booting from the network ?</A><BR>
+<LI><A HREF="#q_5_25">25. Why does the system respond &quot;Inconsistent console&quot; when using a serial console ?</A><BR>
+<LI><A HREF="#q_5_26">26. Why can't my sparc64 boot from floppy ?</A><BR>
+<LI><A HREF="#q_5_27">27. Why can't my Ultra5/10 boot when I have more than 512 MB of memory installed ?</A><BR>
+<LI><A HREF="#q_5_28">28. Why does the system respond &quot;Wrong label&quot; when I reboot it after installation ?</A><BR>
+<LI><A HREF="#q_5_29">29. Why does the system respond &quot;Could not find /vmlinux..&quot; when I reboot it after installation ?</A><BR>
+<LI><A HREF="#q_5_30">30. Fdisk dies with a segfault during partitioning.</A><BR>
+<LI><A HREF="#q_5_31">31. Why does the system respond &quot;Bad Magic Number in Disk Label&quot; after replacing a (boot) HDD ?</A><BR>
+<LI><A HREF="#q_5_32">32. The PROM refuses to recognize my disk.</A><BR>
+<LI><A HREF="#q_5_33">33. The kernel is panicking, or refuses to boot.</A><BR>
+<LI><A HREF="#q_5_34">34. Why does the system respond &quot;the file just loaded doesn't appear to be executable&quot; after installing SILO ?</A><BR>
+<LI><A HREF="#q_5_35">35. Do I need to run silo every time I change my silo.conf ?</A><BR>
+<LI><A HREF="#q_5_36">36. SILO doesn't time out before booting the kernel.</A><BR>
+<LI><A HREF="#q_5_37">37. I've changed silo.conf, rebooted, and the system now responds: &quot;boot: ..wrong syntax..&quot.</A><BR>
+<LI><A HREF="#q_5_38">38. I'm still having lots of problems with SILO.</A><BR>
+<LI><A HREF="#q_5_39">39. Why does my machine only boot properly when I hard-boot it  ?</A><BR>
+</UL>
+<BR><IMG SRC="images/redball.gif"><A HREF="#s_6"><FONT SIZE=4 COLOR=red>Section 6: Running
+</FONT></A><BR><UL>
+<LI><A HREF="#q_6_1">1. Is there an emergency boot disk anywhere ?</A><BR>
+<LI><A HREF="#q_6_2">2. Why can't I compile certain software on my sparc64 ?</A><BR>
+<LI><A HREF="#q_6_3">3. How can I create a bootable CD ?</A><BR>
+<LI><A HREF="#q_6_4">4. How do I find out kernel state information ?</A><BR>
+<LI><A HREF="#q_6_5">5. How do I set up SunOS/Solaris emulation ?</A><BR>
+<LI><A HREF="#q_6_6">6. Why do I get: &quot;crt0: no /dev/zero&quot; when running a SunOS program ?</A><BR>
+<LI><A HREF="#q_6_7">7. Running a SunOS executable gives: &quot;ld.so not found&quot;</A><BR>
+<LI><A HREF="#q_6_8">8. How can I mount my Sun UFS partition read/write ?</A><BR>
+<LI><A HREF="#q_6_9">9. Is it possible to run Netscape ?</A><BR>
+<LI><A HREF="#q_6_10">10. The serial ports don't seem to work well.</A><BR>
+<LI><A HREF="#q_6_11">11. Setserial reports &quot;unknown UART&quot;, or &quot;Cannot get serial info: Invalid argument&quot;.</A><BR>
+<LI><A HREF="#q_6_12">12. Why do init and getty keep complaining when there is no keyboard or monitor connected ?</A><BR>
+<LI><A HREF="#q_6_13">13. Why don't I get a login screen when a serial terminal is attached ?</A><BR>
+<LI><A HREF="#q_6_14">14. Why can't I login as &quot;root&quot; on my headless machine ?</A><BR>
+<LI><A HREF="#q_6_15">15. How can I send the &quot;Stop-A&quot; key combination from a serial terminal ?</A><BR>
+<LI><A HREF="#q_6_16">16. After booting the Red Hat release, the &quot;Stop-A&quot; key combination doesn't work.</A><BR>
+<LI><A HREF="#q_6_17">17. The parallel port doesn't work and I get an &quot;Operation not supported by device&quot;.</A><BR>
+<LI><A HREF="#q_6_18">18. After booting the Red Hat version, networking doesn't work.</A><BR>
+<LI><A HREF="#q_6_19">19. Why won't my older program run under newer distributions ?</A><BR>
+<LI><A HREF="#q_6_20">20. Why do all the network interfaces have the same hardware ethernet address ?</A><BR>
+<LI><A HREF="#q_6_21">21. Why doesn't HTTPD start correctly on my machine ?</A><BR>
+<LI><A HREF="#q_6_22">22. How can I use multiple video cards ?</A><BR>
+<LI><A HREF="#q_6_23">23. How can I get my Elite3D card to run in accelerated mode with Xsun24 ?</A><BR>
+<LI><A HREF="#q_6_24">24. Why does the X server report: &quot;Fatal server error: ...&quot; ?</A><BR>
+<LI><A HREF="#q_6_25">25. Why does the X server report &quot;Permission denied&quot; upon restarting X ?</A><BR>
+<LI><A HREF="#q_6_26">26. Why do I see <EM>snow</EM> when the TCX framebuffer is being accessed ?</A><BR>
+<LI><A HREF="#q_6_27">27. Xscreensaver and xlock give a white background instead of black.</A><BR>
+<LI><A HREF="#q_6_28">28. X doesn't work anymore after upgrading from kernel 2.0.x to 2.2.x</A><BR>
+<LI><A HREF="#q_6_29">29. How can I stop the system starting X every time after booting ?</A><BR>
+<LI><A HREF="#q_6_30">30. X runs very slow on my older machine, what can I do ?</A><BR>
+<LI><A HREF="#q_6_31">31. I have heard that I can change the OEM logo on my machine.</A><BR>
+</UL>
+<BR>
+</TD></TR>
+</TABLE>
+</TD></TR>
+
+<!-- Bottom of Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF" ALIGN="left" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/llhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/lrhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- Black space -->
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+<!-- Top of the Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF">
+    <IMG BORDER=0 WIDTH=20 HEIGHT=18 SRC="images/lhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/rhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- The body of the Rounded Rectangle -->
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="5" BORDER="0">
+<TR><TD VALIGN="top">
+<A NAME="s_1"><FONT SIZE=4 COLOR=red><B>Section 1: General
+</B></FONT></A><BR><BR>
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_1>1.</A> About the UltraLinux FAQ.</FONT><P>
+
+The entire contents of this document are copyright 1995 - 2000 by
+<A HREF="mailto:jim@ic.uva.nl">Jim Mintha</A> and
+<A HREF="mailto:pkrul@auxio.net">Pieter Krul</A>,
+all rights reserved.
+<P>
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the 
+<A HREF="fdl.txt">GNU Free Documentation License</A>, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, with no Front-Cover Texts and with no
+Back-Cover Texts.
+<BR>
+A copy of the license can be found at
+<A HREF="fdl.txt">http://www.ultralinux.org/fdl.txt</A> and at
+<A HREF="http://www.gnu.org/copyleft/fdl.txt">
+http://www.gnu.org/copyleft/fdl.txt</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_2>2.</A> What is the history/design/philosophy of UltraLinux ?</FONT><P>
+
+See 
+<A HREF="http://www.nuclecu.unam.mx/~miguel/uselinux/SparcLinux.html">
+The UltraLinux paper from the 1997 Uselinux conference</A> by
+David Miller and Miguel de Icaza, which gives an overview from the start of
+the project up to the first Linux distribution with SPARC support, Red Hat 
+Linux 4.0.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_3>3.</A> What is up with all the names (Ultra, SPARC, S/Linux) ?</FONT><P>
+
+A bit of history.  In the beginning the port was called SparcLinux.
+Unfortunately the owners of the SPARC trademark (SPARC International)
+felt that this was not a valid use of their trademark and that
+customers might feel that SPARC Intl. was sponsoring or endorsing the
+product in some way.  So, in order not to get sued I changed the name
+on the web site to S/Linux.  When David Miller, Jakub Jelinek and
+Eddie C. Dost began to develop the 64-bit port for the UltraSPARC
+machines, they used the term UltraLinux. It made the most sense to call 
+the project as a whole UltraLinux.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_4>4.</A> Why are there two ports for the SPARC, 32- and 64-bit ?</FONT><P>
+
+Originally the port was done to 32-bit SPARC machines.  Later a kernel
+was developed to exploit the 64-bit features of Sun's newer UltraSPARC
+chips. Under Linux, the 32-bit SPARC architecture is known as 
+&quot;sparc&quot;, and the 64-bit as &quot;sparc64&quot;. The architecture 
+dependent parts for the sparc64 were included in the Linux kernel tree as 
+of version 2.2.5
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_5>5.</A> Is everything 64-bit on sparc64, and can I compile 64-bit applications ?</FONT><P>
+
+The kernel and kernel modules are 64-bit on sparc64, userland is still
+32-bit, and in fact the same as on sparc32. The conversion between native 32-
+and 64-bit function calls is being done via the kernel. Allthough you can compile 
+a kernel with egcs64, you can't really use this compiler for building 64-bit 
+userland binaries. See also &quot;Why can't I compile certain software on my sparc64
+?&quot; in <A HREF="#s_9">Section 9</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_6>6.</A> When will it be done ?</FONT><P>
+
+Done implies that there is no more work to do.  In that sense it
+will never be done.  There will always be more features to
+add, machines to support, and better performance to be had.
+
+On the other hand, things work quite well right now.  There are a
+number of distributions available now.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_7>7.</A> I'm having a problem with .... What should I do ?</FONT><P>
+
+The best thing to do when you find a problem is to send a message to
+one of the mailing lists.  All of the developers read the lists and 
+possibly someone else can help you.  David (and the other developers) 
+are too busy to answer every email that gets sent to them.
+<BR>For more information about the available mailing lists, see
+<A HREF="http://www.ultralinux.org/lists.html">
+http://www.ultralinux.org/lists.html</A>
+<P>The <A HREF="http://www.linuxdoc.org/HOWTO/SPARC-HOWTO.html">
+SPARC-HOWTO</A> also provides more information on Linux on SPARC.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_8>8.</A> Does David Miller work on UltraLinux full-time ?</FONT><P>
+
+Dave works for Red Hat now.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_9>9.</A> Will UltraLinux run regular Linux (Intel) binaries ?</FONT><P>
+
+No.  Among other things (such as completely different processors),
+Intel machines are little-endian and SPARC machines are big-endian.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_10>10.</A> Will UltraLinux run SunOS/Solaris binaries ?</FONT><P>
+
+Yes, there is SunOS emulation, you will require the shared libraries
+from SunOS (See the related question in the Running section).
+Solaris as well as NetBSD/OpenBSD support is being worked on.  Miguel
+on the Solaris emulation:
+
+<BLOCKQUOTE>
+Solaris emulation is not yet finished, but will let you run small
+Solaris programs (Solaris Netscape does not work for example).  You
+need the <A HREF="ftp://tsx-11.mit.edu/pub/linux/BETA/ibcs2">
+ibcs2</A> package, compile it, create the devices with the script
+on the package and insert the module.  You may need Solaris shared
+libraries and configuration files.  Make sure you host your Solaris
+stuff under /usr/gnemul/solaris
+</BLOCKQUOTE>
+
+With the newer 2.2.x kernels on sparc64, you have the option to choose 
+Solaris Binary Emulation (CONFIG_SOLARIS_EMUL), which will produce a
+kernel module called solaris.o<BR>
+See the question in the Running section for more details.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_11>11.</A> How good is the SunOS/Solaris emulation ?</FONT><P>
+
+From Miguel:
+<BLOCKQUOTE>
+Mhm, this one is hard to tell.  I can tell you that achieving 100%
+SunOS binary compatibility is not possible without making UltraLinux
+incompatible with the other ports.  We have a pretty good SunOS
+emulation that should be able to run most SunOS programs though. 
+</BLOCKQUOTE>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_12>12.</A> What kind of file systems does UltraLinux use ?</FONT><P>
+
+The native file system for UltraLinux is ext2fs.  The later 2.0.x
+kernels can read UFS (standard Sun) file systems.  The 2.2.x kernels
+can read and write UFS partitions, which makes it easy to share
+information with Solaris systems.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_13>13.</A> Can I share a swap partition between SunOS/Solaris and UltraLinux ?</FONT><P>
+
+It should not be a problem at all.  The only prerequisite is that you
+run &quot;mkswap /dev/sda1&quot; on that partition in your startup scripts on
+the Linux installation.  This is because SunOS uses the swap as just a
+raw device and doesn't have magic numbers etc. like Linux does.  So if
+you didn't do the mkswap then SunOS would spam all the control
+information and Linux wouldn't be able to use the swap partition
+anymore.  SunOS doesn't care what is on there.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_1_14>14.</A> I heard that UltraLinux is faster then SunOS/Solaris. Is this true ?</FONT><P>
+
+Faster is a very relative term.  UltraLinux takes a smaller amount of
+memory to start up, so for machines with a small amount of memory it
+will tend to seem faster.  For most low level kernel functions
+UltraLinux is faster as you can see from these benchmark results:
+
+<FONT SIZE=-1>
+<PRE>
+                    L M B E N C H  1 . 0   S U M M A R Y
+                    ------------------------------------
+
+            Processor, Processes - times in microseconds
+            --------------------------------------------
+Host                 OS  Mhz    Null    Null  Simple /bin/sh Mmap 2-proc 8-proc
+                             Syscall Process Process Process  lat  ctxsw  ctxsw
+--------- ------------- ---- ------- ------- ------- ------- ---- ------ ------
+trombetas  Linux 2.0.27   50      10    4.8K   59.3K    159K  182     58     77
+shakedown   SunOS 5.5.1   49      34   36.0K  158.9K    290K  471    163    201
+geneva.ru     SunOS 5.5   50      31   33.7K  148.2K    274K  596    174    205
+negro.rut SunOS 4.1.3_U   49     124   18.3K   63.9K    110K  470    152    262
+
+            *Local* Communication latencies in microseconds
+            -----------------------------------------------
+Host                 OS  Pipe       UDP    RPC/     TCP    RPC/
+                                            UDP             TCP
+--------- ------------- ------- ------- ------- ------- -------
+trombetas  Linux 2.0.27     209     972    1608    1183    2160
+shakedown   SunOS 5.5.1     556    1646    2125    1423    2518
+geneva.ru     SunOS 5.5     530    1563    2080    1354    2398
+negro.rut SunOS 4.1.3_U     890    1375    2287    1573    2804
+
+            *Local* Communication bandwidths in megabytes/second
+            ----------------------------------------------------
+Host                 OS Pipe  TCP  File   Mmap  Bcopy  Bcopy  Mem   Mem
+                                  reread reread (libc) (hand) read write
+--------- ------------- ---- ---- ------ ------ ------ ------ ---- -----
+trombetas  Linux 2.0.27    9  7.3   16.9   24.3     19     25   40    37
+shakedown   SunOS 5.5.1    7  6.9   18.0   19.6     18     24   40    36
+geneva.ru     SunOS 5.5    8  7.0   12.6   19.5     18     18   40    36
+negro.rut SunOS 4.1.3_U    4  2.0   19.5    8.2     18     24   41    36
+
+            Memory latencies in nanoseconds
+            (WARNING - may not be correct, check graphs)
+            --------------------------------------------
+Host                 OS   Mhz  L1 $   L2 $    Main mem    TLB    Guesses
+--------- -------------   ---  ----   ----    --------    ---    -------
+trombetas  Linux 2.0.27    49    20    172         180     -1    No L2 cache?
+shakedown   SunOS 5.5.1    49    20    175         182    600    No L2 cache?
+geneva.ru     SunOS 5.5    49     -      -           -      -    Bad mhz?
+negro.rut SunOS 4.1.3_U    49    20    175         183    659    No L2 cache?
+</PRE>
+</FONT>
+Also lm@neteng.engr.sgi.com (Larry McVoy) wrote:
+<BLOCKQUOTE>
+OK, I think I can handle this.  Tell your friend that I used to work at
+SunSoft, in the kernel group, I did posix, ufs clustering, the sun source
+mgmt system, started 100baseT, architected the cluster product line (from
+which came vlans which I invented), etc.  I think my credentials are 
+probably enough to impress a sys admin :-)
+</BLOCKQUOTE>
+ 
+The main reasons that Linux is faster than commercial Unices:
+<P>
+ 
+<UL> 
+<LI> the system call entry is a better design.  All Unix systems
+other than Linux use the design done by Bell Labs 20 years ago and the
+Linux design is simply lighter - it approaches a procedure call in
+cost.  The complaint is always that Linux can't possibly be supporting
+all the features, such as restartable system calls, if it is that
+fast.  Those claims turn out to be false - Linux supports the same
+features, including security, as any commercial Unix.  It's just
+designed better.  And commercial Unices are starting to pick up the
+ideas.
+ 
+<LI>Linux kernel hacks count instructions and cache misses and
+eliminate them.  This is a biggy.  When each &quot;feature&quot; 
+is added into a kernel, people will do gross measurement to show
+that it made no difference.  
+And each feature doesn't make a measurable difference - one or two
+more cache misses in a code path won't show up.  But do that a 100
+times and all the &quot;features&quot; taken together start to hurt.
+Linux is far ahead of the rest of the world, including NT, in that
+Linus and the other senior kernel folks do not kid themselves that a
+cache miss here and there doesn't matter.  I frequently see the Linux
+development effort keep working at it until the feature they are
+working on can not go faster because it is running at hardware speeds
+- there is no more room for optimization.  Contrast that with the
+commercial approach of &quot;well, it didn't slow down for me&quot; and 
+you can start to see how things get out of hand.  Kudos to Linus, David 
+and Alan for being the smartest coders in this regard.  I'd like to be
+that good.
+ 
+<LI>Linux is a redesign.  Many ideas have been rethought using current
+thinking.  All other Unix implementations (exceptions are things like
+QNX - which also performs at Linux like speeds and has also been
+shown to be posix/xpg4 etc compliant) are basically the same under the
+covers.  It isn't surprising that fresh minds can do better - one
+would hope that we have learned something in 20 years.
+</UL>
+
+<BR>
+</TD></TR>
+</TABLE>
+</TD></TR>
+
+<!-- Bottom of Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF" ALIGN="left" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/llhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/lrhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- Black space -->
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+<!-- Top of the Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF">
+    <IMG BORDER=0 WIDTH=20 HEIGHT=18 SRC="images/lhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/rhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- The body of the Rounded Rectangle -->
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="5" BORDER="0">
+<TR><TD VALIGN="top">
+<A NAME="s_2"><FONT SIZE=4 COLOR=red><B>Section 2: Hardware
+</B></FONT></A><BR><BR>
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_1>1.</A> What machines WILL currently run UltraLinux ?</FONT><P>
+
+<STRONG>Supported by the 32-bit UltraLinux project (sparc):</STRONG><P>
+<UL>
+   <LI>Sun4 architecture:
+   <UL>
+      <LI>Sun 4/330
+   </UL>
+   <BR>
+   <LI>Sun4c architecture(*):
+   <UL>
+      <LI>SPARCstation SLC (4/20)
+      <LI>SPARCstation ELC (4/25) 
+      <LI>SPARCstation IPC (4/40) 
+      <LI>SPARCstation IPX (4/50) 
+      <LI>SPARCstation/server 1 (4/60) 
+      <LI>SPARCstation/server 1+ (4/65) 
+      <LI>SPARCstation/server 2 (4/75) 
+   </UL>
+   <BR>
+   <LI>Sun4m architecture:
+   <UL>
+      <LI>SPARCclassic 
+      <LI>SPARCstation LC (4/15) 
+      <LI>SPARCstation LX (4/30) 
+      <LI>SPARCstation 4
+      <LI>SPARCstation/server 5 (70, 85, 110, and 170(**) Mhz)
+      <LI>SPARCstation/server 10 (with most MBUS processor cards)
+      <LI>SPARCstation/server 20 (with most MBUS processor cards)
+      <LI>JavaStation 1 (***)
+      <LI>JavaStation 10 (***)
+      <LI>JavaStation E (***)
+      <LI>JavaEngine 1 (***)
+   </UL>
+</UL>
+
+(*) There are some kernel related memory management problems with sun4c. 
+This is being worked on.
+<BR>(**) The 170MHz SPARC 5 (Also known as the TurboSPARC) is only supported 
+in the newer kernel releases. There is not much active 
+development, and UltraLinux on this processor is not very stable.
+<BR>(***) See the related question further in this section.<P>
+
+<UL>
+   <LI>The following MBUS modules are known to work:<P>
+   <UL>
+      <LI>SuperSPARC Model 20, 30, 40, 402, 41, 412, 51, 512, 514, 52, 54,
+       61, 612, 71, 712, 81
+      <LI>All HyperSPARC modules
+      <LI>Cypress modules
+   </UL>
+</UL>
+<STRONG>Supported by the 64-bit UltraLinux project (sparc64):</STRONG><P>
+<UL>
+   <LI>Sun4d architecture
+   <LI>Sun4u architecture:
+   <UL>
+      <LI>UltraSPARC PCI based board computers: SPARCengine CP1400, CP1500 (*)
+      <LI>UltraSPARC Sbus based workstations: Ultra1, Ultra2, Ultra1 Creator, 
+          Ultra2 Creator
+      <LI>UltraSPARC PCI based workstations: Ultra30, UltraAXi, UltraAXmp, 
+          Ultra5, Ultra10, Ultra60, Ultra80
+      <LI>UltraSPARC Sbus based servers: Netra i, Enterprise 1, 2, 150
+      <LI>UltraSPARC Sbus based large servers: Enterprise 3000, 3500, 4000, 
+          4500, 5000, 6000, 6500, 10000
+      <LI>UltraSPARC PCI based servers: Enterprise 250, 450
+   </UL>
+</UL>
+(*) These boards are known to work without any modifications.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_2>2.</A> What additional hardware is supported ?</FONT><P>
+
+Currently the following SPARC hardware is supported:
+
+<UL>
+   <LI>SCSI:
+   <UL>
+      <LI>Sun/PTI Qlogic SCSi cards
+      <LI>SCSI/ether Sbus expansion cards
+      <LI>SCSI CD-ROM drives
+      <LI>SCSI Tape drives
+   </UL>
+   <BR>
+   <LI>3rd party SCSI(*):
+   <UL>
+      <LI>NCR53c8xx
+      <LI>Adaptec SCSI
+      <LI>Qlogic/ISP
+   </UL>
+   <BR>
+   <LI>Ethernet cards:
+   <UL>
+      <LI>Onboard SunLance
+      <LI>Sun QuadEthernet (**)
+      <LI>Sunswift Happy Meal SCSI/Ethernet
+      <LI>Myricom Gigabit Ethernet (Sbus)
+      <LI>Several Linux supported PCI based ethernet cards.
+   </UL>
+   <BR>
+   <LI>Framebuffers:
+   <UL>
+      <LI>MG1/MG2 - bwtwo (monochrome)
+      <LI>CG3 - cgthree (8-bit)
+      <LI>GX, GX+, TGX and TGX+ - cgsix (8-bit)
+      <LI>SX - cgfourteen (support for 8-bit only)
+      <LI>TCX - SS4 and SS5 (resp. 8-bit and 24-bit, AFX bus)
+      <LI>LEO - ZX/TurboZX (24-bit)   
+      <LI>FFB/FFB2 - Creator/Creator3D (24-bit)
+      <LI>PGX - ATI Rage Pro (8-bit)
+      <LI>PGX24 - ATI Mach64 (8 and 24-bit)
+      <LI>AFB - Elite3D (accelerated only ***, 24-bit)
+      <BR>
+      <LI>OEM framebuffers:
+      <UL>
+         <LI>cgRDI (cgthree, 8-bit)
+	 <LI>Raptor GFX (8-bit and 24-bit)
+      </UL> 
+   </UL>
+   <BR>
+   <LI>Storage:
+   <UL>
+      <LI>All tape drives and changers
+      <LI>StorEdge T3 (****)
+   </UL>
+   <BR>
+   <LI>Miscellaneous:
+   <UL> 
+      <LI>serial console
+      <LI>CS4231 based audio
+      <LI>Floppy drive(*****)
+   </UL>
+</UL>
+
+(*) Booting from these cards requires OBP firmware.
+<BR>(**) The sun4c platform has problems with these card due to firmware 
+problems.
+<BR>(***) Use the Xsun24 X server with the the &quot;-noFFB&quot; option to 
+disable acceleration.
+<BR>(****) See <A HREF="http://open-projects.linuxcare.com/t3/">
+http://open-projects.linuxcare.com/t3</A> for more driver information.
+<BR>(*****) Booting from floppy might not work on certain sparc64 based 
+machines. 
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_3>3.</A> What machines do not YET run UltraLinux ?</FONT><P>
+
+These machines are not yet supported, either due to lack of time, 
+lack of access to test machines, or simply because they're very new.  
+It is expected that they will be supported in the near future, 
+especially the Sparcbook 3:
+<UL>
+   <LI>Solbourne clones
+   <LI>Tadpole SPARCbooks
+</UL>
+The older SPARCbooks (1,2) have very different hardware and are likely to 
+be difficult to support.  The newer 3 and up ones are much more standard.
+
+The Tadpole Sparcbook 3 is now supported to the point where it will run X 
+in the vger CVS tree, and soon in 2.3 kernels.
+
+A way to run Linux on a TadPole SPARCbook 3GX is described in the
+<A HREF="http://home.kabelfoon.nl/~hvdkooij/SparcBook-FAQ/sparcbook-faq.html">
+SparcBook F.A.Q.</A>, by Hugo van der Kooij.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_4>4.</A> What Sun machines will NEVER run UltraLinux ?</FONT><P>
+
+The Sun 3 (or for that matter the <EM>really</EM> old Sun 2 and Sun 1)
+machines (such as Sun 3/50, Sun 3/60) are based on the Motorola 680x0
+processor, as opposed to the SPARC processor. There is experimental 
+support for Sun3 series of workstations in later Linux/m68k kernels.
+<P>There is a port for the Sun 3/50, 3/60 and 3/160 machines, and can 
+be found at
+<A HREF="http://www.netppl.fi/~pp/sun3/">The Linux/sun3 homepages</A>
+<BR>
+Patches to Linux on m68k for the Sun 3/80 can be found at
+<A HREF="http://homepages.ihug.co.nz/~icecube/sun3x/">Linux/sun3x port
+status</A>, although the page is very outdated.
+<BR>
+There is a mailing list for Linux/Sun3, which you can subscribe to by sending 
+an email with &quot;subscribe&quot; in the body to:
+<A HREF="mailto:sun3-list-request@redhat.com">sun3-list-request@redhat.com
+</A>.
+<BR>
+The Sun i386 which is based on the Intel 80386, and not on a SPARC chip,
+can't run UltraLinux nor Linux/Intel.
+<P>
+If you are interested in running something other than SunOS on these
+machines you should take a look at the NetBSD project which also does
+support some of them.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_5>5.</A> What about the Sun4 machines (such as 4/330) ?</FONT><P>
+
+There are quite a few differences with the Sun4 machines vs. the
+Sun4cdmu types, such as MMU, ethernet chip, disk controller and
+graphics cards. There is support for sun4 in more recent kernels, allthough
+the 4/330 is likely to be the only one that actually is supported.
+<P>
+There has been a mailing list set up for people who are interested in the Sun4 
+port. This list does not seem to exist anymore, but Red Hat does have the 
+intention to restore the mailing list archive in the near future.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_6>6.</A> Where can I find more information on older Sun hardware ?</FONT><P>
+
+Gregory Leblanc, James Birdsall and others started a project to resurrect
+the Sun Hardware Reference, to describe all Sun hardware, old and new.
+The new Sun Hardware Reference project can be found at
+<A HREF="http://sun-ref.sunhelp.org">http://sun-ref.sunhelp.org</A>.
+<P>
+James Birdsall's original Sun Hardware Reference, which describes
+Sun hardware up to the year 1995 is also available at
+<A HREF="http://sun-ref.sunhelp.org">http://sun-ref.sunhelp.org</A>.
+<P>
+<A HREF="http://www.obsolyte.com/">http://www.obsolyte.com</A> also has
+practical information about older Sun hardware.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_7>7.</A> Where can I find out lots more information about Sun stuff ?</FONT><P>
+
+<A HREF="http://www.sunhelp.org/">http://www.sunhelp.org</A> has a
+fairly comprehensive list of resources for Sun related things
+including a list of FAQ's. 
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_8>8.</A> Can I use every Weitek POWER uP chip ?</FONT><P>
+
+The chips with at least revision code 9518 or later are known to
+work perfectly, lower revisions do not.
+This code can be found in the lower right hand corner if you look
+at the top of the chip. The bottom line reads eg. &quot;Weitek   9518-T&quot;,
+with 9518 being the revision number. A close-up picture of this
+chip can be found at the
+<A HREF="http://www.auxio.org/cgi-bin/display?hardware=Weitek%20PowerUp&size=medium&view=front">
+Auxio hardware archive</A>, with thanks to Tad Bilby.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_9>9.</A> Can I use ISA/PCI cards from my PC on my (Ultra)SPARC machine ?</FONT><P>
+
+This depends on your system. If your system is Sbus based, the answer
+is no. The same for ISA cards. On PCI based systems however your card can 
+work if there is driver support within Linux. Known to work are
+PCI SCSI cards, PCI TV cards, PCI video cards, PCI (Fast)EtherNet cards. 
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_10>10.</A> How can I make my JavaStation/Engine to work ?</FONT><P>
+
+You will need a very recent 32-bit Linux kernel compiled on a SPARC machine
+with several options enabled in order to get the JavaStation/Engine to boot.
+There is a web page about Linux on the Sun JavaStation/Engine at
+<A HREF="http://studsys.mscs.mu.edu/~dubinski/Linux_on_JS/">
+http://studsys.mscs.mu.edu/~dubinski/Linux_on_JS/</A>, with the official
+mirror at 
+<A HREF="http://www.linuxdoc.org/HOWTO/JavaStation-HOWTO/index.html">
+http://www.linuxdoc.org/HOWTO/JavaStation-HOWTO/index.html</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_11>11.</A> How can I make a Linux X-Terminal from my old SPARCstation ?</FONT><P>
+
+You can try the SLXT package for the SPARC, available from 
+<A HREF="http://www2.gol.com/users/gaijin/Linux/">
+http://www2.gol.com/users/gaijin/Linux</A>. The package is still
+being developed, although slowly.
+<P>
+A description and references on how to use a Sun3/50 as a Linux X-Terminal 
+can be found at
+<A HREF="http://www.sfn.saskatoon.sk.ca/~aa113/sunxterm.html">
+http://www.sfn.saskatoon.sk.ca/~aa113/sunxterm.html</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_12>12.</A> Can I use the ISDN capabilities of my SPARCstation ?</FONT><P>
+
+Unfortunately no. Several SPARCstation models, such as the SPARCstation 10, 
+20, LX and Voyager, use an Sbus based DBRI chip (Dual Basic Rate ISDN),
+often combined with an audio part either onboard or in a Sun SpeakerBox. 
+The audio part works under Linux, but the ISDN part has not been completed.
+The are no drivers known for other Sbus based ISDN cards. Probably the best
+what can be done is to connect an external ISDN terminal adapter to a serial
+port.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_13>13.</A> Is there support for audio on my SPARC ?</FONT><P>
+
+Yes, there is (experimental) support for audio in recent kernels. 
+For a complete list of supported audiodevices you can visit the
+<A HREF="http://www.dementia.org/~shadow/sparcaudio.html">
+Linux/SPARC audio subsystem information</A> page. 
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_2_14>14.</A> Can I select the internal speaker or line-out for audio ?</FONT><P>
+
+You can use the program <STRONG>audioctl</STRONG> for that.
+Audioctl is a utility for displaying or setting various audio system
+driver variables on SPARC systems, and can be used to display or
+change the settings for audio parameters like volume, sampling rate
+and output device. It ships with most distributions, but the original
+sourcecode for Linux can be downloaded from
+<A HREF="ftp://ftp.dementia.org/pub/linux/sparc/audio/">
+ftp://ftp.dementia.org/pub/linux/sparc/audio</A>.
+
+<BR><BR>
+<BR>
+</TD></TR>
+</TABLE>
+</TD></TR>
+
+<!-- Bottom of Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF" ALIGN="left" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/llhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/lrhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- Black space -->
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+<!-- Top of the Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF">
+    <IMG BORDER=0 WIDTH=20 HEIGHT=18 SRC="images/lhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/rhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- The body of the Rounded Rectangle -->
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="5" BORDER="0">
+<TR><TD VALIGN="top">
+<A NAME="s_3"><FONT SIZE=4 COLOR=red><B>Section 3: Distributions
+</B></FONT></A><BR><BR>
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_3_1>1.</A> What distributions are available for UltraLinux ?</FONT><P>
+
+The following distributions are known at this moment:
+<UL>
+   <LI><A HREF="http://www.redhat.com">Red Hat Linux</A>
+   <LI><A HREF="http://www.debian.org">Debian GNU/Linux</A>
+   <LI><A HREF="http://www.linux-mandrake.com">Linux-Mandrake</A>
+   <LI><A HREF="http://www.suse.com">SuSE Linux</A>
+   <LI>UltraPenguin
+   <LI><A HREF="http://www.openlinux.org">Caldera OpenLinux</A>
+</UL>
+Other distributions from which is known that they are working on Ultralinux
+to a degree are
+<A HREF="http://www.turbolinux.com">TurboLinux</A> and
+<A HREF="http://www.slackware.com">Slackware Linux</A>.
+<P>
+For more information about the available mailing lists for these
+distributions, please see <A HREF="http://www.ultralinux.org/lists.html">
+http://www.ultralinux.org/lists.html</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_3_2>2.</A> Red Hat Linux</FONT><P>
+
+<A HREF="http://www.redhat.com">Red Hat, Inc.</A> has been releasing 
+versions of it's distribution for SPARC since 1996 and was the first
+company to have a SPARC version.
+The latest version of Red Hat Linux for SPARC is 6.2 (Zoot).
+<P>
+Red Hat has so far released the following versions for SPARC:
+<UL>
+   <LI>Red Hat 3.0.4 (beta for 4.0) (Rembrandt)
+   <LI>Red Hat 4.0 (Colgate)
+   <LI>Red Hat 4.1 (Vanderbilt)
+   <LI>Red Hat 4.2 (Biltmore)
+   <LI>Red Hat 5.1 (Manhattan)
+   <LI>Red Hat 5.2 (Apollo)
+   <LI>Red Hat 6.1 (Cartman)
+   <LI>Red Hat 6.2 (Zoot)
+</UL>
+As you can see, there is a sort of &quot;tradition&quot; in not releasing
+x.0 versions for SPARC.
+<P>
+For information on purchasing the Red Hat SPARC Distribution visit
+<A HREF="https://www.redhat.com/apps/commerce/">
+https://www.redhat.com/apps/commerce/</A>
+<P>
+You can also download version 6.2 via anonymous FTP from
+<A HREF="ftp://ftp.redhat.com/pub/redhat/redhat-6.2/sparc/">
+ftp://ftp.redhat.com/pub/redhat/redhat-6.2/sparc/</A>, and as
+ISO CD image at
+<A HREF="ftp://ftp.redhat.com/pub/redhat/redhat-6.2/iso/redhat-6.2-sparc.iso">
+ftp://ftp.redhat.com/pub/redhat/redhat-6.2/iso/redhat-6.2-sparc.iso</A>
+<BR>A list of mirror sites can be found at
+<A HREF="http://www.redhat.com/mirrors.html">
+http://www.redhat.com/mirrors.html</A>.
+
+<P>Various errata and fixes for the Red Hat Linux distribution are listed at
+<A HREF="http://www.redhat.com/support/errata/">
+http://www.redhat.com/support/errata</A>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_3_3>3.</A> Debian GNU/Linux </FONT><P>
+
+Debian GNU/Linux is the result of a volunteer effort to create a free, 
+high-quality Unix-compatible operating system, complete with a suite of
+applications. 
+<P>
+Debian was created by Ian Murdock in 1993, initially under the sponsorship 
+of the Free Software Foundation's GNU project. Today, Debian's developers 
+think of it as a direct descendent of the GNU project. 
+The Debian SPARC port was included as of version 2.1 (slink).
+<P>
+Unlike for instance Red Hat, Debian does not produce their own CD's, but
+instead builds ISO images which are distributed to CD vendors like 
+<A HREF="http://www.cheapbytes.com">Cheap*Bytes</A>,
+<A HREF="http://www.linuxmall.com">LinuxMall</A> or 
+<A HREF="http://www.infomagic.com">InfoMagic</A>.
+<BR>For a list of vendors, visit 
+<A HREF="http://www.debian.org/distrib/vendors">
+http://www.debian.org/distrib/vendors</A>
+<P>
+What the latest version is of Debian GNU/Linux can be seen at
+<A HREF="http://www.debian.org/releases/">http://www.debian.org/releases</A>.
+All Debian versions have codenames like Red Hat has, to be able to keep stable
+versions apart from the unstable. All about the Debian codenames can be found 
+at <A HREF="http://www.debian.org/doc/FAQ/ch-ftparchives.html">
+http://www.debian.org/doc/FAQ/ch-ftparchives.html</A>.
+<P>
+ISO CD images of Debian GNU/Linux can be downloaded from
+<A HREF="http://cdimage.debian.org">http://cdimage.debian.org</A>.
+<P>
+You can also download Debian via anonymous FTP from 
+<A HREF="ftp://ftp.debian.org">ftp.debian.org</A>.
+<P>For more information and documentation about Debian for SPARC, see the 
+<A HREF="http://www.debian.org/ports/sparc/">Debian SPARC Port</A>, or
+<A HREF="http://www.debian.org/ports/sparc64/">Debian SPARC 64 Port</A> pages.
+<P>
+<A HREF="http://www.debian.org/ports/sparc/problems">Debian SPARC Errata</A>
+contains a list of well-known problems with Debian SPARC, and also 
+includes the status and errata of sparc64.
+<P>
+Debian security updates can be found at <A HREF="http://security.debian.org/">
+http://security.debian.org</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_3_4>4.</A> Linux-Mandrake</FONT><P>
+
+Linux-Mandrake is a Linux distribution, being produced and published by
+<A HREF="http://www.mandrakesoft.com">MandrakeSoft S.A.</a>, located in
+Paris, France.
+
+<P>You can download bootable ISO images of
+<A HREF="http://www.linux-mandrake.com/en/corposerver.php3">
+Linux-Mandrake Corporate Server</A> for SPARC and UltraSPARC via anonymous 
+FTP. A list of FTP servers can be found at
+<A HREF="http://www.linux-mandrake.com/en/ftp.php3#corpo">
+http://www.linux-mandrake.com/en/ftp.php3#corpo</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_3_5>5.</A> Caldera OpenLinux</FONT><P>
+
+Caldera, Inc. is a company that exists since 1994, and was founded by Bryan 
+Sparks. At the end of 1998, Caldera Systems, Inc. was created, who build
+the OpenLinux distribution.
+A distribution for Linux/SPARC was released as of OpenLinux 2.2.
+
+<P>The homepage for Caldera Openlinux for SPARC and UltraSPARC can be found at
+<A HREF="http://www.openlinux.org/sparc/">http://www.openlinux.org/sparc/</A>,
+and you can download Caldera OpenLinux as a bootable ISO image from
+<A HREF="ftp://ftp.openlinux.org/pub/sparclinux/">
+ftp://ftp.openlinux.org/pub/sparclinux/</A>.
+<P>Please note that there are still warnings that OpenLinux for SPARC and
+UltraSPARC is considered to be in an Alpha state, and that the ISO images
+have not been updated since August of 1999.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_3_6>6.</A> SuSE Linux</FONT><P>
+
+SuSE Linux AG is a European company that exists since 1992, and has released
+the SPARC version of their distribution since SuSE Linux 7.0. 
+
+<P>Four ISO-images containing the US-version of SuSE Linux 7.0 
+for SPARC can be downloaded via anonymous FTP from 
+<A HREF="ftp://ftp.suse.com/pub/suse/sparc/">
+ftp://ftp.suse.com/pub/suse/sparc</a>.
+<BR>
+Also via anonymous FTP available is a version in the German language,
+from
+<A HREF="ftp://ftp.gwdg.de/pub/linux/suse/sparc/">
+ftp://ftp.gwdg.de/pub/linux/suse/sparc</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_3_7>7.</A> UltraPenguin</FONT><P>
+
+This is the original port to the sparc64 machines, based on the 32-bit 
+Red Hat Linux distribution. David Miller and Jakub Jelinek 
+<A HREF="http://lwn.net/1999/0429/a/up-dead.html">annouced</A> April 27th, 
+1999, that they had stopped general maintenance of UltraPenguin. One of the 
+reasons for this was that as most of the differences between the Red Hat 5.
+distribution and UltraPenguin 1.1.9 had been merged into Red Hat 6.0, it was 
+just duplicated work for them.
+<P>Several mirrors still have a copy of the UltraPenguin distributions
+available, for instance at <A HREF="http://rpmfind.net/linux/ultrapenguin">
+rpmfind.net</A>.
+<BR>If you want to learn more about Linux on UltraSPARC machines, there is a
+mailing list.  Send a message to
+<A HREF="mailto:Majordomo@vger.kernel.org">Majordomo@vger.kernel.org</A>
+<BR>
+The message doesn't need a subject just a line like:
+subscribe ultralinux your_email@your.domain
+<BR><BR>
+
+<BR>
+</TD></TR>
+</TABLE>
+</TD></TR>
+
+<!-- Bottom of Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF" ALIGN="left" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/llhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/lrhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- Black space -->
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+<!-- Top of the Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF">
+    <IMG BORDER=0 WIDTH=20 HEIGHT=18 SRC="images/lhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/rhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- The body of the Rounded Rectangle -->
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="5" BORDER="0">
+<TR><TD VALIGN="top">
+<A NAME="s_4"><FONT SIZE=4 COLOR=red><B>Section 4: Building
+</B></FONT></A><BR><BR>
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_1>1.</A> What operating systems can I use to build a kernel ?</FONT><P>
+
+Except Linux itself, the only guaranteed environment is SunOS 4.1.x where x&gt;3. 
+It is possible to build it under Solaris using the same tools, and Pete Zaitcev's
+(zaitcev@metabyte.com) elf2aout program to convert the kernel at the end.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_2>2.</A> What tools do I need to compile an UltraLinux kernel from SunOS ?</FONT><P>
+
+You will need the following tools in order to compile the kernel.
+Make sure they are in your path ahead of the SunOS versions.
+
+<UL>
+   <LI>GNU binutils
+   <LI>GCC 2.6.3 (later versions will most likely work, but 2.6.3
+definitely does work)
+   <LI>GNU bash (having it in /bin is the easiest)
+   <LI>GNU make
+</UL>
+
+You can find these tools for Sun Solaris 2.3 and up at
+<A HREF="http://www.ibiblio.org/pub/solaris/sparc/">
+http://www.ibiblio.org/pub/solaris/sparc</A>
+<P>
+Please note that for the newer kernels you will need GCC version
+2.7.x, or 
+<A HREF="http://egcs.cygnus.com">EGCS</A> 1.0.3 and up.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_3>3.</A> What tools do I need to compile a new kernel on an UltraSPARC ?</FONT><P>
+
+In order to produce a 64-bit kernel for an UltraSPARC based machine (sparc64),
+you will need an appropriate compiler and libraries. In this case that's egcs64,
+the Experimental GNU Compiler System for sparc64. If you are not using any
+distribution, the best thing to do is extract this package from one.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_4>4.</A> Why does the program &quot;make&quot; complain about a non-existent sparc64-linux-gcc ?</FONT><P>
+
+You will need egcs64. See the question above.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_5>5.</A> Can a just grab the latest Linux source tree and compile it ?</FONT><P>
+
+As of kernel version 2.2.5 UltraLinux (sparc and sparc64) is completely 
+supported.  If you need earlier kernel versions you can get some precompiled 
+versions from
+<A HREF="ftp://ftp.auxio.org/pub/vger/Sparc/kernel/v2.0/">
+ftp://ftp.auxio.org/pub/vger/Sparc/kernel/v2.0</A>
+<!---A HREF="ftp://vger.rutgers.edu/pub/linux/Sparc/kernel/v2.0/"--->
+<!---ftp://vger.rutgers.edu/pub/linux/Sparc/kernel/v2.0</A>--->
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_6>6.</A> Where can I find the most recent kernel anyway ?</FONT><P>
+
+You can use CVS to obtain the most recent kernel. See
+<A HREF="http://vger.samba.org/">http://vger.samba.org</A> for more 
+information.
+<BR>CVS can be found in almost every distribution, but if you need to obtain
+CVS, you can take a look at
+<A HREF="http://www.sourcegear.com/CVS/">http://www.sourcegear.com/CVS</A>.
+<BR>Since the SPARC development tree is synchronised with the Linus tree,
+another option is to download the latest version from
+<A HREF="http://www.kernel.org/">http://www.kernel.org</A>, or one of
+it's mirrors. You can find all versions of the linux kernel there, including
+development versions.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_7>7.</A> When I configure the kernel what options should I choose ?</FONT><P>
+
+The default configuration has already been set to provide maximal
+compatibility for all sparc and sparc64 machines. The default 
+options are stored in <STRONG>arch/sparc[64]/defconfig</STRONG>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_8>8.</A> How do I compile the kernel for UltraLinux ?</FONT><P>
+
+Compile the kernel in the normal way (Follow the instructions in
+/usr/src/linux/README), but at the end, instead of <EM>make
+zImage</EM> or <EM>make zlilo</EM>, you should do
+<PRE>
+   <STRONG># make vmlinux</STRONG>
+   <STRONG># make modules</STRONG>
+   <STRONG># make modules_install</STRONG>
+</PRE>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_9>9.</A> What should I do after a new kernel has been compiled ?</FONT><P>
+
+A few simple steps after the compiling of the kernel, the modules, and the
+installation of the modules:
+<OL>
+   <LI>Copy linux/System.map to your bootfile directory (eg. /boot), and
+       rename this file to System.map-&lt;kernel-version&gt;.
+   <LI>Copy linux/vmlinux to your bootfile directory, and rename this file
+       to vmlinux-&lt;kernel-version&gt;.
+   <LI>Edit /etc/silo.conf, and add your new kernel to this file.
+   <LI>Reboot your machine.
+</OL>
+
+Ofcourse there are various ways of doing this, but this way works best for me.
+See also the questions about SILO in the section Booting of this FAQ.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_10>10.</A> Do I need to compress the kernel ?</FONT><P>
+
+There are no size limitations on the SPARC architecture so you don't
+<em>need</em> to compress (gzip or bzip2) the kernel.  It will save you 
+some space at the cost of a slightly longer bootup.
+The slower SPARC machines do not really like the compressed images
+(zImage, bzImage).
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_11>11.</A> What do I need to put in the root directory ?</FONT><P>
+
+(This is still a bit sketchy...)
+<P>
+In the directory that you exported the kernel from, you need to
+create the directories: etc/ lib/ bin/ tmp/ dev/ sbin/ proc/ usr/ var/
+<BR>
+You will need to create all the devices in dev/. The <STRONG>MAKEDEV</STRONG>
+script will do this (although it seems to want to be run on a Linux machine
+which might create a chicken and egg problem.  
+<P>
+Then, check out the UltraLinux archives in:
+<A HREF="ftp://ftp.auxio.org/pub/vger/Sparc/">
+ftp://ftp.auxio.org/pub/vger/Sparc</A> 
+<!---A HREF="ftp://vger.rutgers.edu/pub/linux/Sparc"--->
+<!---ftp://vger.rutgers.edu/pub/linux/Sparc</A>--->
+and grab anything that looks interesting to you.
+Unpack these from the root or your exported directory
+(they should fill up your usr/ sbin/ and etc/ directories.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_12>12.</A> What is this RPM stuff people keep talking about ?</FONT><P>
+
+RPM is a software packaging tool, originally pushed by the Red Hat 
+GNU/Linux people. It can be used to build and install software 
+packages. See 
+<A HREF="http://www.rpm.org/">http://www.rpm.org</A>, or the
+RPM Documentation Project at
+<A HREF="http://www.rpmdp.org/">http://www.rpmdp.org</A>.
+<P>
+If you need to get a statically linked RPM binary (so you can unpack the
+latest version of RPM which itself is an RPM file) you can find
+it at
+<A HREF="ftp://ftp.rpm.org/pub/rpm/dist/">ftp://ftp.rpm.org/pub/rpm/dist</A>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_13>13.</A> How do I set up init ?</FONT><P>
+
+The best thing to do is grab SysVinit, for example from
+<A HREF="http://www.ibiblio.org/pub/Linux/system/daemons/init/">
+http://www.ibiblio.org/pub/Linux/system/daemons/init</A>
+<P>
+Commands such as <TT>shutdown</TT> and <TT>halt</TT> can be found at
+<A HREF="ftp://ftp.kernel.org/pub/linux/utils/util-linux/">
+ftp://ftp.kernel.org/pub/linux/utils/util-linux</A>. They used to be
+part of the SysVinit package.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_14>14.</A> What do I need to get networking running ?</FONT><P>
+
+This is what I do once I have logged in to the UltraLinux machine as root:
+<BR>
+Notes:
+<BR>
+137.82.51.3 is the IP address of the UltraLinux machine named dodo<BR>
+137.82.51.254 is our gateway to the internet
+<P>
+o Add the loopback interface:<BR>
+<PRE>   <STRONG># ifconfig lo 127.0.0.1</STRONG></PRE>
+o Add a route to it<BR>
+<PRE>   <STRONG># route add -net 127.0.0.0</STRONG></PRE>
+o Add the ethernet interface and address:<BR>
+<PRE>   <STRONG># ifconfig eth0 137.82.51.3 broadcast 137.82.51.255 netmask 255.255.255.0</STRONG></PRE>
+o Add a route to it<BR>
+<PRE>   <STRONG># route add -net 137.82.51.0 netmask 255.255.255.0</STRONG></PRE>
+o Add a route to the outside world<BR>
+<PRE>   <STRONG># route add default gw 137.82.51.254 metric 1</STRONG></PRE>
+o Give my machine a name<BR>
+<PRE>   <STRONG># hostname dodo</STRONG></PRE>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_15>15.</A> How do I get YP (NIS) working ?</FONT><P>
+
+If you are running a recent distribution then NIS support is
+compiled into the libc library.  To enable it:
+
+<UL>
+   <LI>Set the domainname for your NIS domain:<BR>
+      <PRE># domainname physics.ucla</PRE>
+   <LI>Edit /etc/yp.conf with the line:<BR>
+      <PRE>ypserver NIS.SERVER.IP.ADDRESS<BR>ypserver 137.81.56.22</PRE>
+   <LI>Edit /etc/nsswitch.conf to make sure that the correct services
+    will query NIS (ie passwd, hosts, groups)  E.g.:<BR>
+      <PRE>passwd:     files nis<BR>group:      files nis</PRE>
+
+</UL>
+<P>
+NOTE: Always use yppasswd instead of passwd when changing your passwd
+or else a little feature will happen... your locale passwd file will
+be appended with the NIS passwd...
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_4_16>16.</A> What do I need to do to get X11r6 running ?</FONT><P>
+
+You need the following:
+<P>
+
+o An X11r6 'tree' mounted under /usr/local.  I use the tree from SunOS
+and mount it like:<P>
+<PRE>   
+   <STRONG># mount -t nfs 137.82.51.1:/share/sunos/local /usr/local</STRONG>
+</PRE>
+o Create the devices that X11 needs
+<PRE>   
+   <STRONG># mknod /dev/kbd c 11 0</STRONG>
+   <STRONG># mknod /dev/sunmouse c 10 6</STRONG>
+   <STRONG># mknod /dev/fb0 c 29 0</STRONG>
+</PRE>
+o Create a symbolic link from /dev/sunmouse to /dev/mouse.
+o Create links from your graphics card (you only need the relevant
+one, but having all doesn't hurt.
+<PRE>	
+   <STRONG># ln -s /dev/fb0 /dev/cgsix0</STRONG>
+   <STRONG># ln -s /dev/fb0 /dev/bwtwo0</STRONG>
+   <STRONG># ln -s /dev/fb0 /dev/cgthree0</STRONG>
+</PRE>
+o Start the X server (-ac turns off access control)
+<PRE>   <STRONG>$ Xsun -ac</STRONG></PRE>
+
+<BR>
+</TD></TR>
+</TABLE>
+</TD></TR>
+
+<!-- Bottom of Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF" ALIGN="left" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/llhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/lrhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- Black space -->
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+<!-- Top of the Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF">
+    <IMG BORDER=0 WIDTH=20 HEIGHT=18 SRC="images/lhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/rhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- The body of the Rounded Rectangle -->
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="5" BORDER="0">
+<TR><TD VALIGN="top">
+<A NAME="s_5"><FONT SIZE=4 COLOR=red><B>Section 5: Booting
+</B></FONT></A><BR><BR>
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_1>1.</A> What is a boot prompt, and how can I get to it ?</FONT><P>
+
+Sun *SPARC based machines have a <STRONG>OpenBoot PROM</STRONG> which takes 
+control of the computer when you turn it on.  This is sort of similar to the
+<STRONG>BIOS</STRONG> in a PC computer, except that the Sun boot PROMs have a 
+built in Forth interpreter which lets you do quite a number of things 
+with the computer without/before booting an operating system, such as
+listening to the network, looking at the scsi bus, testing memory, setting the 
+default boot device and setting other parameters.
+<P>
+In order to get to the OpenBoot PROM command line (we'll call it the <STRONG>
+boot prompt (ok)</STRONG> from here), you need to hold down the <STRONG>Stop
+</STRONG> key (or <STRONG>L1</STRONG> key on older type 4 keyboards) and 
+simultaneously press the <STRONG>A</STRONG> key.  This will bring you to the 
+prompt (usually <STRONG>ok</STRONG> but see the next question).  If there is 
+an operating system running on the system, will this be <EM>suspended</EM> if 
+you use this key combination.  To resume where you were type <STRONG>go
+</STRONG>.
+<P>
+Normally you would hold <STRONG>Stop-A</STRONG> while the machine is checking
+it's memory before boot time, or by typing <STRONG>halt</STRONG> from the SILO 
+boot prompt if SILO is already installed.
+<BR>
+If you want to see or change a number of settings, you can also use the program
+<STRONG>eeprom</STRONG> from a running system. It is included with Solaris, but 
+Jakub Jelinek has also made a Linux version of it, included in his
+<STRONG>prtconf</STRONG> package. This package can be obtained from the Red Hat
+distribution source, or alternatively from
+<A HREF="ftp://ftp.auxio.org/pub/linux/SOURCES/">
+ftp://ftp.auxio.org/pub/linux/SOURCES</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_2>2.</A> Why can't I see &quot;ok&quot; at the boot prompt ?</FONT><P>
+
+Older Sun machines default to the <STRONG>&gt;</STRONG> prompt.  You can change 
+this to the <EM>new command mode</EM> by typing the letter <STRONG>n</STRONG>, 
+which will give the <STRONG>ok</STRONG> prompt. If you want to make this 
+permanent type:
+<PRE>
+   <STRONG>ok setenv sunmon-compat? false</STRONG>
+</PRE>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_3>3.</A> How can I see all the PROM parameters ?</FONT><P>
+
+From the <STRONG>ok</STRONG> prompt, type <STRONG>printenv</STRONG>,
+or use <STRONG>eeprom</STRONG> from a shell.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_4>4.</A> What other commands are available at the boot prompt ?</FONT><P>
+
+The <A HREF="http://docs.sun.com/ab2/coll.216.1/@Ab2CollView?DwebQuery=OpenBoot">
+OpenBoot Command reference</A> at <A HREF="http://docs.sun.com">docs.sun.com</A>
+provides detailed information. Here's a small list of handy commands:
+<PRE>
+   help           Display command line help
+   banner         Display power-on banner
+   module-info    Display CPU speed (OpenBoot 2.x)
+   .speed         Display CPU and bus speeds (OpenBoot 3.x)
+   .version       Display version of the Boot PROM
+   .enet-addr     Display ethernet address
+   watch-net      Monitor network connection
+   test-net       Test the onboard network interface
+   devalias       Display all current device aliases
+   probe-scsi     Identify the devices attached to the onboard SCSI bus
+   probe-scsi-all Identify the devices attached to all SCSI busses
+   show-disks     Display device paths of installed SCSI disks
+   show-displays  Display device paths of installed display devices
+   show-sbus      Display a list of probed SBus devices
+</PRE>
+Examples for commands such as <TT>boot</TT> and <TT>setenv</TT> can be found
+throughout this FAQ.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_5>5.</A> How can I boot directly from the floppy/CD-ROM/Tape Drive ?</FONT><P>
+
+At the boot prompt (<STRONG>ok</STRONG>) you can type the command 
+<STRONG>boot</STRONG>, followed by the device that you want to boot from. 
+Examples:
+<PRE>
+   <STRONG>ok boot floppy</STRONG>    Boot from the floppy disk
+   <STRONG>ok boot fd(0,0,0)</STRONG> Boot from the floppy disk
+   <STRONG>ok boot cdrom</STRONG>     Boot from the CD-ROM
+   <STRONG>ok boot sd(0,6,2)</STRONG> Boot from the CD-ROM
+   <STRONG>ok boot tape</STRONG>      Boot from the tape device
+   <STRONG>ok boot sd(0,4,0)</STRONG> Boot from the tape device
+   <STRONG>ok boot disk</STRONG>      Boot from the hard drive
+   <STRONG>ok boot disk2</STRONG>     Boot from the hard drive with SCSI ID: 2
+   <STRONG>ok boot sd(0,2,0)</STRONG> Boot from the hard drive with SCSI ID: 2
+   <STRONG>ok boot sd(0,1,3)</STRONG> Boot from the 4th partition of SCSI ID: 1
+</PRE>
+
+Some older proms do not understand some of the &quot;short&quot; device
+aliases (i.e. <STRONG>cdrom</STRONG>), and you will need to use the longer 
+explicit form.
+ 
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_6>6.</A> How can I eject my floppy disk or CD ?</FONT><P>
+
+Besides running the command <STRONG>eject floppy</STRONG>, or <STRONG>eject
+cdrom</STRONG> from a shell, you can also run this from the boot prompt 
+(<STRONG>ok</STRONG>).
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_7>7.</A> How can I set it to automatically boot from a different device ?</FONT><P>
+
+At the boot prompt (<STRONG>ok</STRONG>) you can type:<P>
+
+<PRE>
+   <STRONG>ok setenv boot-from disk2</STRONG>     to boot from SCSI ID: 2 by default
+   <STRONG>ok setenv boot-from sd(0,2,0)</STRONG> to boot from SCSI ID: 2 by default
+   <STRONG>ok setenv boot-from disk3:a</STRONG>   to boot from SCSI ID: 3 partition 0 or a
+</PRE>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_8>8.</A> How can I <EM>unset</EM> a PROM parameter ?</FONT><P>
+
+Use <STRONG>set-default</STRONG> followed by the variable name:
+<P>
+At the boot prompt (<STRONG>ok</STRONG>) you can type for example:
+<PRE>	
+   <STRONG>ok set-default boot-file</STRONG>
+</PRE>
+With the command <TT>printenv</TT> you can also see what all the default 
+settings are for what parameter.
+	
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_9>9.</A> How can I install UltraLinux software from the network ?</FONT><P>
+
+The basic idea is this:
+<UL>
+   <LI> Add an entry for the new machine to the ARP/RARP cache.
+   <LI> Set up a TFTP server where the bootimage can be transferred from.
+   <LI> Set up a file server where you can install the software from 
+   (NFS, FTP etc).
+   <LI> Boot the machine and install the software.
+</UL> 
+
+Most distributions allow the client to boot via either an NFS mounted root,
+or a network-loaded ramdisk where the root filesystem is being loaded in 
+memory.
+Be sure that server and client are allowed access to the services 
+that are needed when your system is using tcp-wrappers. See also the manual 
+page for hosts_access(5).
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_10>10.</A> How do I set up RARP so I can boot my Sun via the network ?</FONT><P>
+
+This will depend on what type of machine you want to set up as a RARP
+server. First of all you will need to obtain the hardware ethernet address,
+which you can find on your screen when your start the machine. An example:
+<PRE>
+   SPARCSTATION 5, No Keyboard
+   ROM Rev. 2.15 Pilot, 64 MB memory installed, Serial #1234567.
+   Ethernet address <STRONG>8:0:20:1f:cd:8e</STRONG>, Host ID: 12345a9b.
+</PRE>
+So we now know that <STRONG>8:0:20:1f:cd:8e</STRONG> is our hardware ethernet 
+address.
+Under Solaris, you will need to make sure that the hardware ethernet address
+for the UltraLinux machine is in the <STRONG>ethers</STRONG> database (either
+/etc/ethers or via NIS/NIS+), and that it is listed in the <STRONG>hosts
+</STRONG> database.  If so, simply start the RARP daemon:<BR>
+<PRE>
+   <STRONG># /usr/sbin/in.rarpd -a</STRONG>
+</PRE>
+If you want to use a machine running Linux you will need to populate the
+kernel's RARP table.
+You might need to use the `arp` command in addition to the `rarp` command. 
+Linux used to use a single rarp/arp cache in which case you used the 
+`arp` command, but now it uses separate commands so just a `rarp` should 
+be sufficient.
+<BR>
+<PRE>
+   <STRONG># /sbin/rarp -s  phoenix   08:00:20:1f:cd:8e</STRONG>
+   <STRONG># /sbin/arp -s 137.82.51.3 08:00:20:1f:cd:8e</STRONG>
+</PRE>
+
+You might also need to use the hardware address with or without the padded 
+0's.  For example if the hardware address is:
+<TT><STRONG>8:0:20:1a:15:9e</STRONG></TT> you might also want to try
+<TT><STRONG>08:00:20:1a:15:9e</STRONG></TT>
+Also ensure yourself that the machine is listed in the /etc/hosts file.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_11>11.</A> ARP/RARP do not seem to be working on my boot server?</FONT><P>
+
+If you have no support for RARP in your Linux kernel, you will either
+have to compile it in, or build it as a loadable kernel module which is
+called <STRONG>rarp.o</STRONG>. If you use a Linux distribution on your server,
+you can try 
+<PRE>
+   <STRONG># modprobe rarp</STRONG>
+</PRE>
+The RARP kernel-module is included with most distributions by default.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_12>12.</A> My ethernet address is shown as &quot;ff:ff:ff:ff..&quot; and my machine can't boot from the network.</FONT><P>
+
+You probably have a hardware problem and will need to replace the NVRAM.
+<BR>For more information visit Mark Henderson's
+<A HREF="http://www.squirrel.com/sun-nvram-hostid.faq.html">
+SUN NVRAM/hostid FAQ</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_13>13.</A> I have a dead/corrupted/password protected NVRAM chip.</FONT><P>
+
+Please see the previous question.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_14>14.</A> How do I set up a tftp server to boot from ?</FONT><P>
+
+Under SunOS/Solaris you need to uncomment the line in your /etc/inetd.conf
+file that refers to tftpboot.  It should look like
+<FONT SIZE=-1>
+<PRE>
+<STRONG>tftp dgram udp wait root /usr/sbin/in.tftpd in.tftpd -s /tftpboot</STRONG>
+</PRE></FONT>
+
+If necessary, restart the inetd process.  You can change 
+<STRONG>/tftpboot</STRONG> to a directory where you want to put the UltraLinux
+bootimage.  
+<P>
+Under Linux, tftp does <STRONG>not</STRONG> need the &quot;-s&quot; options.
+The line in /etc/inetd.conf should look something like this:
+<FONT SIZE=-1><PRE>
+<STRONG>tftp   dgram   udp     wait    root    /usr/sbin/tcpd  in.tftpd</STRONG>
+</PRE></FONT>
+
+After this, you will probably have to create a directory /tftpboot on your 
+server, where you can place the boot image and a required symbolic link. 
+(See the next question)
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_15>15.</A> What boot image will the client ask from the network ?</FONT><P>
+
+When the client tries to boot from the network, it will ask for a file with
+a special name that the boot image should have. The file name is determined 
+by the IP address of the client, and by it's architecture on non-sun4u based
+systems. 
+<P>
+This is normally done by placing the appropriate boot image in the
+directory /tftpboot on the server, and then create a symbolic link with
+the special file name that points to the boot image.
+<P>
+To find the name for the link you will have to convert the four numbers 
+between the dots of the decimal IP-address into hexadecimal. You should then
+put the hexadecimal figures together.
+<P>
+Besides calculating the numbers by hand or using a battery feeded calculator,
+you have several ways of converting the IP address:
+<STRONG>addr</STRONG>, which is included in the Bind (the name server) 
+package, the program <STRONG>bc</STRONG>, the converter from the package 
+<STRONG>ghex</STRONG>, and of course from the OpenBoot PROM of your machine.
+<BR>An example of converting the IP address 172.28.230.104:
+<PRE>
+   172 = <STRONG>AC</STRONG>
+    28 = <STRONG>1C</STRONG>
+   230 = <STRONG>E6</STRONG>
+   104 = <STRONG>68</STRONG>
+</PRE>
+With the addr utility:
+<PRE>
+   $ addr -p 172.28.230.104
+   Input: "172.28.230.104"
+   Network: [af2 len4] <STRONG>ac 1c e6 68</STRONG>
+   Presentation: "172.28.230.104"
+</PRE>
+From the OpenBoot PROM:
+<PRE>
+   ok d# 172 .
+   <STRONG>ac</STRONG>
+   ok d# 28 .
+   <STRONG>1c</STRONG>
+   ok d# 230 .
+   <STRONG>e6</STRONG>
+   ok d# 104 .
+   <STRONG>68</STRONG>
+</PRE>
+When put together, this will result into <STRONG>AC1CE668</STRONG>, what will
+become the name of the symbolic link.
+If the architecture of the client is <STRONG>not</STRONG> sun4u (UltraSPARC), 
+you will have to add the systems' architecture name to the symbolic link, 
+where our example would become <STRONG>AC1CE668.SUN4M</STRONG> for a 
+SPARCstation 5 (sun4m).
+<P>
+Finally, you will have to decide what file to point the symbolic link to.
+Most distributions support two ways of booting from the network:
+<UL>
+   <LI>Booting a kernel with an NFS-mounted root filesystem.
+   <LI>Booting from a network-loaded ramdisk (mostly called tftpboot.img).
+</UL>
+Bootimages can be found in respectively <STRONG>images</STRONG> for Red Hat 
+and Mandrake, and <STRONG>dists/&lt;release&gt;/main/disks-sparc/sun4xx</STRONG> 
+for Debian.
+<P>
+<TABLE BORDER="1" CELLSPACING="0" CELLPADDING="5">
+<TR>
+<TD><STRONG>Distribution</STRONG></TD>
+<TD><STRONG>sun4cdm</STRONG></TD>
+<TD><STRONG>sun4dm-pci</STRONG></TD>
+<TD><STRONG>sun4u</STRONG></TD>
+</TR>
+<TR>
+   <TD>Red Hat</TD>
+   <TD>images/tftp32.img</TD>
+   <TD>images/tftp32.img</TD>
+   <TD>images/tftp64.img</TD>
+</TR>
+<TR>
+   <TD>Mandrake</TD>
+   <TD>images/tftprd32.img</TD>
+   <TD>images/tftprd32.img</TD>
+   <TD>images/tftprd64.img</TD>
+</TR>
+<TR>
+   <TD>Debian</TD>
+   <TD>sun4cdm/tftpboot.img</TD>
+   <TD>sun4dm-pci/tftpboot.img</TD>
+   <TD>sun4u/tftpboot.img</TD>
+</TR>
+</TABLE>
+<P>
+Copy the appropriate bootfile for the clients' architecture to /tftpboot on the 
+server, and create the symbolic link. For the example client above, the following
+would be needed on the server for a Red Hat system:
+<PRE>
+   <STRONG># cp /mnt/cdrom/images/tftp32.img /tftpboot
+   # cd /tftpboot
+   # ln -s tftpboot.img AC1CE668.SUN4M</STRONG>
+</PRE>
+You will also need to ensure that the directory with the Linux installation
+software or filesystem tree is being exported via NFS and that your UltraLinux 
+machine will be able to mount it.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_16>16.</A> Is there an easy way to set up the network boot image structure ?</FONT><P>
+
+Yes, you can use the <STRONG>tftptool</STRONG> utility, written in Python, 
+that comes with the Red Hat distribution. It will ask you for information
+about your client, and then installs the appropriate image and creates a 
+symbolic link with the special name for your client. The tftptool is located 
+in the <TT>utils</TT> directory of the Red Hat distribution as of version 6.1. You 
+can also download this tool via one of the many 
+<A HREF="http://www.redhat.com/mirrors.html">Red Hat mirrors</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_17>17.</A> Running a tftp boot server doesn't seem to work ?</FONT><P>
+
+First go to /tmp on your TFTP server, and try to get the bootimage via localhost:
+
+<PRE>
+   $ tftp localhost
+   tftp> get AC1CE668.SUN4M
+   Received 1905590 bytes in 8.3 seconds
+</PRE>
+
+If this works, you might want to check for obvious reasons why it does not work, 
+such as a firewall, wrong or bad cabling etc..
+<P>
+Older tftp daemons for Linux only accepted requests for absolute
+filenames (i.e. it had to start with a '/') which isn't what the Sun requests.
+If the method above does not work, please upgrade your tftp server software to 
+a more recent version.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_18>18.</A> By using what commands can I boot UltraLinux from the network ?</FONT><P>
+
+From the boot prompt (<STRONG>ok</STRONG>), type the following for an NFS mounted root:
+<PRE>
+   <STRONG>ok boot net linux nfsroot=nfs.server.ip.address:/exported/path</STRONG>
+</PRE>
+and the following for the network-loaded ramdisk:
+<PRE>
+   <STRONG>ok boot net</STRONG>
+</PRE>
+
+Where <STRONG>nfs.server.ip.address</STRONG> is the IP address of the machine that 
+is providing the RARP and tftpboot services, and exporting the directory
+<STRONG>/exported/path</STRONG> (or whatever you called it). When no arguments for
+the exported path are given, the Linux kernel will expect the NFS root path to be
+<TT>/tftpboot/&lt;client.ip.address&gt;/</TT>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_19>19.</A> My Sun doesn't seem to understand the 'boot net' command.</FONT><P>
+
+Older Sun's default to the 'old command mode' when you are in the boot
+prom.  If you get the prompt <STRONG>&gt;</STRONG> instead of <STRONG>ok</STRONG> then type
+<STRONG>n</STRONG> to get the new prompt.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_20>20.</A> Booting over the network responds: &quot;receive failed: The file just loaded does not appear to be executable&quot;.</FONT><P>
+
+Upon booting, Sun machines look for a file with the name which is the
+hexadecimal representation of their IP address, followed by the machine
+architecture if .  So if your IP address is 137.82.51.4 then it will try to load
+the file called 89523304.SUN4M (see the question above for information
+on what file the client asks for on the network.) If you are unsure
+what it is trying to load try looking at wat is happening on the network.
+Please see "Booting over the network still doesn't work".
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_21>21.</A> Booting over the network responds: &quot;is not executable&quot;, or: &quot;not in correct format!&quot;.</FONT><P>
+
+Nowadays, if you have compiled the kernel sources under Solaris or Linux, the
+newly built kernel will be in the ELF (Executable and Linking Format) binary
+format. The PROM however will only boot the image served from the network if 
+the image is in a.out (Assembler Output) binary format, which is the original
+executable format for UNIX.
+<P>
+To convert the format from ELF into a.out you can use the program 
+<TT>elftoaout</TT>.
+Besides with several distributions, you can find the elftoaout utility at
+<A HREF="ftp://ultra.linux.cz/OS/Linux/Sparc/local/elftoaout/">
+ftp://ultra.linux.cz/OS/Linux/Sparc/local/elftoaout
+or
+<A HREF="ftp://ftp.auxio.org/pub/vger/Sparc/tools/">
+ftp://ftp.auxio.org/pub/vger/Sparc/tools</A>
+<!---A HREF="ftp://vger.rutgers.edu/pub/linux/Sparc/tools/"--->
+<!---ftp://vger.rutgers.edu/pub/linux/Sparc/tools</A>--->
+If you are unsure of what type of file you have, use the command <STRONG>file
+</STRONG> on the kernel image.
+<P>
+Be certain that if the kernel is compressed (vmlinuz name) you uncompress 
+it first before using the elftoaout program. It might be necessary to add a .gz 
+suffix to the filename. Again, be sure what type of file you have by using the 
+<STRONG>file</STRONG> command.
+<P>
+Another thing to try: (this is untested, and may not even be relevant
+any more!)
+<P>
+If you build an UltraLinux kernel on a SunOS system then you will find that a
+SLC will refuse to net-boot it directly. It will say "not executable" or
+something like that.
+<P>
+Just change the 4th byte of the file to a control-g (ascii 7) to fix
+it. You can use emacs and ^Q^G to insert the control-g
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_22>22.</A> Booting over the network still doesn't work...</FONT><P>
+
+The easiest way to debug network problems is to look at what is
+happening on the network.  There is a program snoop that will display
+traffic on the network.  Something like: (as root)<P>
+<PRE>
+   <STRONG># snoop dragon</STRONG>
+</PRE>
+where dragon is your UltraLinux machine.  If you have a machine
+running Solaris this command is part of the operating system.
+<BR>
+There is also a program called <STRONG>tcpdump</STRONG> that could prove useful.
+It is available via <A HREF="ftp://ftp.ee.lbl.gov/">ftp.ee.lbl.gov</A>,
+and is also included in many distributions.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_23>23.</A> How can I connect a machine for an installation via a serial cable ?</FONT><P>
+
+Essentially, if there is no keyboard plugged in when the Sun has booted,
+it will use the serial interface (port A), By default it is set to 9600bps
+8,n,1  You can force the serial console from the boot 
+(<STRONG>ok</STRONG>) prompt:
+<PRE>
+   <STRONG>ok setenv input-device ttya</STRONG>
+   <STRONG>ok setenv output-device ttya</STRONG>
+</PRE>
+
+On the other (PC?) side running any terminal emulator will work
+(kermit, minicom, seyon)
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_24>24.</A> When using a serial console, the installation stops after booting from the network ?</FONT><P>
+
+Try the argument &quot;serial&quot;:
+<PRE>
+   <STRONG>ok boot net linux serial nfsroot=nfs.server.ip.address:/exported/path</STRONG>
+</PRE>
+for an NFS-mounted root filesystem, or:
+<PRE>
+   <STRONG>ok boot net serial</STRONG>
+</PRE>
+if you are booting from a network-loaded ramdisk (eg. tftpboot.img).
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_25>25.</A> Why does the system respond &quot;Inconsistent console&quot; when using a serial console ?</FONT><P>
+
+You might want to check the NULL-modem cable from the console to the machine.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_26>26.</A> Why can't my sparc64 boot from floppy ?</FONT><P>
+
+Due to a bug in the firmware of some Ultra based machines, booting
+from the floppy drive does not work yet. In this case, you should boot
+from either the CD-rom drive, of from the network.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_27>27.</A> Why can't my Ultra5/10 boot when I have more than 512 MB of memory installed ?</FONT><P>
+
+Linux does not support more than 512 MB of memory in the 2.2.x kernels on
+Ultra5 and 10 machines.
+
+If you have more than 512 MB of physical memory installed, you really should
+use a 2.4.x kernel (or remove memory boards). 
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_28>28.</A> Why does the system respond &quot;Wrong label&quot; when I reboot it after installation ?</FONT><P>
+
+The system needs a Sun disklabel to find it's partition information.
+This information is stored in the first block of the drive.
+If your bootdrive doesn't contain such a disklabel, you will have to 
+create it using <STRONG>fdisk</STRONG>. Within fdisk, you have the command 
+<STRONG>s</STRONG>, which can be used to build a new Sun disklabel for your 
+drive.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_29>29.</A> Why does the system respond &quot;Could not find /vmlinux..&quot; when I reboot it after installation ?</FONT><P>
+
+Older machines can only boot properly when the boot image and configuration 
+file are located within the first GB, and sometimes within the first 2 GB 
+of it's boot disk. 
+It is generally a good idea to create a separate <TT>/boot</TT> partition
+under the 1GB border where the boot images and configurationfiles can be 
+placed.
+<TT>/etc/silo.conf</TT> should also be located under the this border, so
+either create the root directory under the 1 GB border, or put silo.conf
+in the <TT>/boot</TT> directory, and create a symbolic link from 
+<TT>/boot/silo.conf</TT> to <TT>/etc/silo.conf</TT>. This does not apply
+to sparc64, since they can read far beyond this limit.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_30>30.</A> Fdisk dies with a segfault during partitioning.</FONT><P>
+
+You need to zero the first 5k of the disk (e.g. with dd), if the disk
+doesn't contain a Sun disklabel.  fdisk could not recover from random
+bits in the disklabel area, but if there were a load of zeros it would
+get it and create a label. Newer versions of fdisk will complain about
+the lack of a Sun disklabel, and will create a disklabel for you.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_31>31.</A> Why does the system respond &quot;Bad Magic Number in Disk Label&quot; after replacing a (boot) HDD ?</FONT><P>
+
+You will have to run <STRONG>fdisk</STRONG> under Linux or 
+<STRONG>format</STRONG> under SunOS first. This will write out a magic 
+number as part of the partition table.
+<BR>
+Use one of the methods to boot as described above to be able to run fdisk or 
+format. 
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_32>32.</A> The PROM refuses to recognize my disk.</FONT><P>
+
+Possible solution (given in the Sun hardware reference) is to disable
+&quot;synchronous negotiation initiation&quot; from the disk 
+(by closing a jumper). 
+Apparently the PROM gets confused if the disk initiates the negotiation.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_33>33.</A> The kernel is panicking, or refuses to boot.</FONT><P>
+
+Make sure that you have don't have IPX packets enabled in the kernel 
+configuration.
+<P>
+
+Disable 802/IPX protocols from your kernel, if you have those
+enabled.  This would mean taking away the loadable kernel module from
+/lib/modules or building a new kernel if they are compiled in.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_34>34.</A> Why does the system respond &quot;the file just loaded doesn't appear to be executable&quot; after installing SILO ?</FONT><P>
+
+The SPARC machines do not really have the concept of a Master Boot
+Record like on a PC. You can boot from any sector of the disk with a SPARC. 
+When you install SILO on /dev/sda (block 0), you must request the PROM to boot 
+from a partition that starts at 0.  The default installation FAQs advises users 
+to create /dev/sda1 starting from block 1.  Therefore the partition on boot 
+line must be the partition that spans the whole disk (i.e. from block 0) and 
+not /dev/sda1.  If your &quot;whole disk&quot; partition is /dev/sda3 you can 
+boot with &quot;boot /sbus/esp/sd@3,0:c&quot; (assuming target 3 for sda) on v2 
+PROMs. I believe it would be &quot;boot sd(0,0,2)&quot; on v0 proms.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_35>35.</A> Do I need to run silo every time I change my silo.conf ?</FONT><P>
+
+No. SILO understands ext2 filesystems and can therefore read the file 
+silo.conf itself during startup to find out where the kernel you want to boot
+is. This is different than LILO which does not know how to read filesystems 
+and must hardcode physical disk offsets into the map loader. That is why LILO 
+must always be reinstalled when lilo.conf changes.
+ 
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_36>36.</A> SILO doesn't time out before booting the kernel.</FONT><P>
+
+When you need to press enter, or enter a kernel-label each time to get 
+the machine to boot, you can try the following at the boot prompt
+(<STRONG>ok</STRONG>):
+
+<PRE>
+   <STRONG>ok setenv boot-file linux</STRONG>
+   <STRONG>ok setenv auto-boot? true</STRONG>
+</PRE>
+
+This will set the default bootimage to be &quot;linux&quot;.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_37>37.</A> I've changed silo.conf, rebooted, and the system now responds: &quot;boot: ..wrong syntax..&quot.</FONT><P>
+
+These are messages from SILO to say that you've done something wrong in 
+silo.conf. SILO mostly tells you what to do in such a case.
+<BR>
+If you're not succeeding, you can still boot from disk with the following 
+command at the boot prompt (<STRONG>ok</STRONG>):<P>
+
+<PRE>
+   <STRONG>ok boot disk /boot/kernel_name</STRONG>
+</PRE>
+
+or one of the other boot-methods described above.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_38>38.</A> I'm still having lots of problems with SILO.</FONT><P>
+
+Best advice is to get the latest version of SILO and try that.
+<BR>
+You can get it via anonymous FTP from 
+<A HREF="ftp://ultra.linux.cz/OS/Linux/Sparc/local/silo/">
+ftp://ultra.linux.cz/OS/Linux/Sparc/local/silo</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_5_39>39.</A> Why does my machine only boot properly when I hard-boot it  ?</FONT><P>
+
+Older PROMS do not reset the machine on soft boots.  You can also
+type <STRONG>reset</STRONG> at the boot prompt (<STRONG>ok</STRONG>) 
+instead of turning off the machine.
+<P>
+
+You might also want to do the following command at the boot 
+(<STRONG>ok</STRONG>) prompt:<P>
+<PRE>
+   <STRONG>ok setenv sunmon-compat? false</STRONG>
+</PRE>
+
+This will cause old proms to come up in the new command mode, and will allow 
+the kernel to call the &quot;reset&quot; command properly for automatic 
+reboots.
+<BR><BR>
+<BR>
+</TD></TR>
+</TABLE>
+</TD></TR>
+
+<!-- Bottom of Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF" ALIGN="left" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/llhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right" VALIGN="bottom">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/lrhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- Black space -->
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+<!-- Top of the Rounded Rectangle -->
+<TR><TD BGCOLOR="#FFFFFF">
+    <IMG BORDER=0 WIDTH=20 HEIGHT=18 SRC="images/lhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right">
+    <IMG BORDER="0" WIDTH="20" HEIGHT="18" SRC="images/rhs-white.gif" ALT=""></TD>
+</TR>
+
+<!-- The body of the Rounded Rectangle -->
+<TR><TD COLSPAN="2" BGCOLOR="#FFFFFF">
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="5" BORDER="0">
+<TR><TD VALIGN="top">
+<A NAME="s_6"><FONT SIZE=4 COLOR=red><B>Section 6: Running
+</B></FONT></A><BR><BR>
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_1>1.</A> Is there an emergency boot disk anywhere ?</FONT><P>
+
+<P>
+Karel van Houten (K.H.C.vanHouten@psi.research.kpn.com) has created a 
+root/boot floppy disk set for sparc32 a while ago, which can be used as 
+a rescue system when your real root disk is unbootable, a tryout 
+system to see how UltraLinux works on your hardware, or (with lots of 
+manual operation) to install a basic system on your hard disk.
+<P>
+<STRONG>Features:</STRONG>
+<UL>
+   <LI> Disk repair tools
+   <LI> FS restore tools, including rpm
+   <LI> Networking commands to restore lost files over the network
+   <LI> Uses multiple VT's
+   <LI> Automatically detects serial consoles
+</UL>
+<P>
+It is available at:
+<A HREF="ftp://ftp.auxio.org/pub/vger/Sparc/rescue/">
+ftp://ftp.auxio.org/pub/vger/Sparc/rescue</A>
+<!---A HREF="ftp://vger.rutgers.edu/pub/linux/Sparc/rescue/"--->
+<!---ftp://vger.rutgers.edu/pub/linux/Sparc/rescue/</A>--->
+<P>
+Booting a rescue image for sparc64 can only be done from a local cdrom, or 
+from the network. See &quot;Why can't I boot from floppy on my sparc64&quot; 
+in the section above.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_2>2.</A> Why can't I compile certain software on my sparc64 ?</FONT><P>
+
+Certain code in your software believes that you are working on a 64-bit 
+system, and will attempt to build 64-bit userland binaries. Upon linking
+it turns out that you have a 32-bit userland, and it fails. SSH for one is 
+known to do this. To 'fool' the software, you can use <STRONG>sparc32</STRONG> 
+to create a sparc32 environment:
+<PRE>
+   <STRONG>$ uname -m
+   sparc64
+   
+   $ sparc32 /bin/bash
+   $ uname -m
+   sparc</STRONG>
+</PRE>
+The sparc32 program can be obtained by installing the sparc32 RPM from the
+Red Hat distribution. Alternatively you can download the source code at
+<A HREF="ftp://ftp.auxio.org/pub/linux/SOURCES/">
+ftp://ftp.auxio.org/pub/linux/SOURCES</A>.
+   
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_3>3.</A> How can I create a bootable CD ?</FONT><P>
+
+There are a few ways to create a bootable CD for SPARC.
+<P>The old way was to use mkisofs together with SILO (Sparc Improved Boot 
+Loader). That is, if the version of SILO was lower than 0.8.7.
+This worked by making an ISO image with the help of mkisofs, and then mount 
+that ISO file via a loopback device. After that, SILO was run on the ISO 
+filesystem in order to make the image bootable.
+<P>SILO 0.8.7 and up do not longer support creating bootable CDs, and instead
+you only need to use a patched version of mkisofs.
+<BR>Matt Housh wrote a tutorial on 
+<A HREF="http://jaeger.morpheus.net/linux/bootable-sparc-redhat-cd.html">
+How To Create a Bootable Red Hat Linux 6.1 CD For a SPARC</A>.
+There is also a CDROM.HOWTO included with the SILO package which explains
+in detail how to create bootable CDs for SPARC. SILO can be obtained via
+<A HREF="ftp://ultra.linux.cz/OS/Linux/Sparc/local/silo/">
+ftp://ultra.linux.cz/OS/Linux/Sparc/local/silo</A>.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_4>4.</A> How do I find out kernel state information ?</FONT><P>
+
+The following key combinations are active while UltraLinux is running:
+<P>
+
+<STRONG>Control-ScrollLock</STRONG> - A listing of the current processes.<BR>
+<STRONG>RightShift-ScrollLock</STRONG> - Memory Management information.<BR>
+<STRONG>RightAltGraph-ScrollLock</STRONG> - SPARC Register Dump.<BR>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_5>5.</A> How do I set up SunOS/Solaris emulation ?</FONT><P>
+
+If the SunOS binary needs any shared libraries or other files they
+need to placed under the following directories:<P>
+
+/usr/gnemul/sunos/<BR>
+/usr/gnemul/solaris/
+<P>
+<STRONG>NOTE:</STRONG> Do <STRONG>not</STRONG> just mount your SunOS or 
+Solaris root directory at the above directories.  The system will then find the
+wrong /dev directory and you will have problems.  UltraLinux uses
+different major/minor numbers than SunOS and Solaris.
+<P>
+For emulation purposes the system will consider these the root
+directory.  So it will look for SunOS shared libraries in
+/usr/gnemul/sunos/usr/lib, and Solaris /etc files will go in
+/usr/gnemul/solaris/etc
+<P>
+Do not ever put a Solaris or SunOS shared lib or configuration files
+in /etc or /usr/lib, use the places we have provided for it.
+<P>
+For SunOS/Solaris emulation you will need (at a minimum):
+<UL>
+   <LI>/usr/gnemul/&lt;sunos or solaris&gt;/
+   <UL>
+      <LI>etc/ld.so.cache
+      <LI>usr/lib/ld.so
+      <LI>usr/lib/libdl.so.*
+      <LI>usr/lib/libc*so*
+      <LI>any other libraries the binary dynamically links with (use the
+      &quot;ldd&quot; command to check)
+   </UL>
+</UL>
+
+For Solaris emulation on non-sparc64, you will also need the iBCS package.
+<P>
+On sparc64 machines you can select CONFIG_SOLARIS_EMUL when 
+configuring the kernel, which by default produces a loadable module 
+called solaris.o. You will still need to set the directory
+structure up as described above, because the module expects this.
+The IBCS package is not needed when you use this kernel module.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_6>6.</A> Why do I get: &quot;crt0: no /dev/zero&quot; when running a SunOS program ?</FONT><P>
+
+See the question above about setting up SunOS emulation.  You do not
+want to mount the SunOS root directory in /usr/gnenul/sunos. If you'll do this, 
+the system will find the SunOS /dev directory which will not work.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_7>7.</A> Running a SunOS executable gives: &quot;ld.so not found&quot;</FONT><P>
+
+If the SunOS binary is dynamically linked then you will need the SunOS
+shared libraries.  Copy from SunOS /usr/lib/ld.so, /usr/lib/lib*.so.*
+and /etc/ld.so.cache onto your UltraLinux /usr/gnemul/sunos/usr/lib and
+/usr/gnemul/sunos/etc directories.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_8>8.</A> How can I mount my Sun UFS partition read/write ?</FONT><P>
+
+This is possible as of the 2.2.x series of Linux kernels.
+First of all you will need CONFIG_UFS_FS and CONFIG_UFS_FS_WRITE enabled
+in your Linux kernel.  CONFIG_UFS_FS can also be compiled as a loadable
+kernel module. If you want to mount an UFS partition, your will need to
+specify the <STRONG>ufstype</STRONG>, in our case <STRONG>sun</STRONG>:
+
+<PRE>
+   <STRONG># mount -t ufs -o ufstype=sun /dev/sdn8 /mnt</STRONG>
+</PRE>
+
+This will mount the under SunOS created partition with the &quot;usr&quot;
+label of your <EM>n</EM>th disk to /mnt.<BR>
+Please read Documentation/filesystems/ufs.txt for further reference.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_9>9.</A> Is it possible to run Netscape ?</FONT><P>
+
+Yes, the SunOS version of Netscape will run if you set up the correct
+SunOS emulation files (see the question above). You will probably also
+need the SunOS version that supports DNS.<BR>
+As of Netscape 4, there is a native Linux/SPARC version available.
+These versions are not available anymore via Netscape's ftp sites, but
+can be obtained as *.rpm files from Red Hat, or via Debian's
+source packages.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_10>10.</A> The serial ports don't seem to work well.</FONT><P>
+
+Most Sun machines (with the exception of the newer Ultra machines) do
+not have a very good serial controller chip.  The maximum DTE rate is
+38400 bps.  On older machines (SPARC 1 or less) this is even difficult
+to maintain.
+<P>
+There is a hack to get the serial ports to do 76.8kb/s but this is a
+very non-standard rate.
+<P>
+There should be no problems with the UltraSPARC models, as the internal
+serial controller is capable of speeds well over 460kb/s.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_11>11.</A> Setserial reports &quot;unknown UART&quot;, or &quot;Cannot get serial info: Invalid argument&quot;.</FONT><P>
+
+There is no reason to use setserial on SPARC machines.
+If you want to set the baudbase, just use the setup from your terminal, 
+set jumpers, or set it in your software (minicom/pppd/chat..).
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_12>12.</A> Why do init and getty keep complaining when there is no keyboard or monitor connected ?</FONT><P>
+
+This can happen if you wanted to run your machine &quot;headless&quot; for instance,
+and removed the keyboard after the initial installation of the software.
+If this occurs your will have to edit /etc/inittab, and disable the getty's
+for the console (tty1, tty2, etc.)
+This can be done by removing the lines, placing a comment (#), or
+changing <STRONG>respawn</STRONG> into <STRONG>off</STRONG>. 
+Please don't forget to read the next question.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_13>13.</A> Why don't I get a login screen when a serial terminal is attached ?</FONT><P>
+
+In order to get a login screen, <STRONG>getty</STRONG> should be told
+that there is a terminal attached to the serial port. What getty does is
+first open tty lines, print a login prompt and get the username, and
+finally initiate a login process for the user. Because the tty line is
+serial, change the line in /etc/inittab that reads
+<PRE>
+   <STRONG>1:2345:respawn:/sbin/mingetty tty1</STRONG>
+   to eg.:
+   <STRONG>1:2345:respawn:/sbin/getty ttyS0 9600 vt100</STRONG>
+</PRE>
+
+Add that line when there is no entry yet for tty1.
+
+Please note that the cua device is obsolete, and should only be used
+with Linux 2.0.x
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_14>14.</A> Why can't I login as &quot;root&quot; on my headless machine ?</FONT><P>
+
+You will have to add the name of the devicefile of the serial port that 
+you use to login as &quot;root&quot; to /etc/securetty. This can be 
+<STRONG>cua</STRONG><I>n</I> for systems that run Linux 2.0.x, and
+<STRONG>ttyS</STRONG><I>n</I> for Linux 2.2.x and above, where <I>n</I>
+is the portnumber.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_15>15.</A> How can I send the &quot;Stop-A&quot; key combination from a serial terminal ?</FONT><P>
+
+The Stop-A combination is nothing more than sending a 
+<STRONG>break</STRONG> signal over the serial line. In the Keyboard Set-up
+menu of your terminal, or terminal emulator, you can send a break which
+will halt your machine. You can also try to turn the terminal off and on.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_16>16.</A> After booting the Red Hat release, the &quot;Stop-A&quot; key combination doesn't work.</FONT><P>
+
+This is a configurable option since the Red Hat 6.1 release. You can enable
+or disable the Stop-A key combination by setting MAGIC_SYSRQ to yes or no
+in /etc/sysconfig/init, or by setting <TT>kernel.stop-a = 1</TT> in
+/etc/sysctl.conf. Details about it can be found in 
+/usr/doc/initscripts*/sysconfig.txt.
+For production machines, you way want to leave the Stop-A combination 
+disabled.
+<P>
+From the SILO prompt at boot time, you can enter &quot;halt&quot;, which will
+give you the boot <STRONG>ok</STRONG> prompt.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_17>17.</A> The parallel port doesn't work and I get an &quot;Operation not supported by device&quot;.</FONT><P>
+
+Go into drivers/sbus/char/bpp.c in your kernel source tree, find the 
+<STRONG>bpp_regs</STRONG> structure, and change all of the field declarations 
+to include <STRONG>__volatile__</STRONG> at the beginning. Recompile the kernel,
+install it and reboot.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_18>18.</A> After booting the Red Hat version, networking doesn't work.</FONT><P>
+
+You probably have pcmcia support enabled.  Try:
+<PRE>
+   <STRONG># rm -f /etc/sysconfig/pcmcia</STRONG>
+</PRE>
+
+Then reboot or run:
+<PRE>
+   <STRONG># /etc/rc.d/init.d/network stop</STRONG>
+   <STRONG># /etc/rc.d/init.d/network start</STRONG>
+</PRE>
+This problem has been fixed in later versions of Red Hat Linux.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_19>19.</A> Why won't my older program run under newer distributions ?</FONT><P>
+
+Red Hat 5.x and 6.0 and later Debian distributions are libc6 
+(a.k.a. GNU Libc 2 or glibc2) based. This is a new version of the standard 
+C library which is incompatible with the libc5 that for instance Red Hat 4.2 
+was based on.  
+You will need to recompile your program, or get an updated package.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_20>20.</A> Why do all the network interfaces have the same hardware ethernet address ?</FONT><P>
+
+This is a Sun feature. By default, all additional network interfaces
+take the ethernet address of the embedded network interface.
+This behaviour can be changed by typing the following 
+at the boot prompt (<STRONG>ok</STRONG>):<P>
+<PRE>
+   <STRONG>ok setenv local-mac-address? true</STRONG>
+</PRE>
+You can also try to use <STRONG>/sbin/ifconfig</STRONG> for changing the address.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_21>21.</A> Why doesn't HTTPD start correctly on my machine ?</FONT><P>
+
+To solve the httpd not starting problem, you need to edit /etc/hosts and
+remove everything after &quot;localhost&quot; on that line.
+It has probably put your full hostname there, and that's wrong.  Just
+remove that part ,and *leave* the line after it.  Then you can
+start httpd. 
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_22>22.</A> How can I use multiple video cards ?</FONT><P>
+
+This works almost the same as under Solaris. From the command
+line you can use the following:
+<PRE>
+   <STRONG>$ startx -- -dev /dev/fb0 -dev /dev/fb1</STRONG>
+</PRE>
+
+This should work for Xsun and Xsun24.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_23>23.</A> How can I get my Elite3D card to run in accelerated mode with Xsun24 ?</FONT><P>
+
+Acceleration for these cards is disabled in most of the distributions.
+In order to fix this you will need to load the microcode to the card, 
+which is shipped with the driver for the Sun Elite3D graphics card.
+The microcode file, called <TT>afb.ucode</TT>, can be loaded with
+<TT>afbinit</TT> from Linux. 
+<P>
+The microcode file can be found as <TT>/usr/lib/afb.ucode</TT> under Solaris
+(it is NOT shipped with the afbinit tool, but with the Solaris drivers
+for the Elite3D). To obtain the afbinit tool and it's boottime init-script,
+you will have to use CVS:
+<PRE>
+   <STRONG>$ cvs -d :pserver:cvs@vger.samba.org:/vger login</STRONG>
+   (Logging in to cvs@vger.samba.org)
+   CVS password: <STRONG>cvs</STRONG>
+   <STRONG>$ cvs -z3 -d :pserver:cvs@vger.samba.org:/vger co afb</STRONG>
+</PRE>
+Now just type &quot;make&quot; in the afb directory, copy the afbinit
+program to /usr/bin and make it so that the rc.afb script starts
+from your init scripts. afbinit expects that the file with the microcode
+to be /usr/lib/afb.ucode
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_24>24.</A> Why does the X server report: &quot;Fatal server error: ...&quot; ?</FONT><P>
+ 
+Make sure you have write access to /dev/kbd, /dev/fb and /dev/sunmouse.
+<P>
+There should be a symbolic link from /dev/sunmouse to /dev/mouse for most
+distributions, and make sure that in /etc/X11/XF86Config, in the Pointer
+section, the Device is set to /dev/mouse.
+<P>
+Also make sure that /usr/bin/X11/X is linked to the proper suid root binary
+(Xwrapper, Xsun, Xsun24 or Xsunmono). If you are using Xwrapper, then Xsun 
+etc. should <STRONG>not</STRONG> be setuid root.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_25>25.</A> Why does the X server report &quot;Permission denied&quot; upon restarting X ?</FONT><P>
+
+Type the following from your home-directory:
+<PRE>
+   <STRONG>$ rm -rf .Xauth* .xauth .ICE*</STRONG>
+</PRE>
+Then log out and back in, and try to start it again.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_26>26.</A> Why do I see <EM>snow</EM> when the TCX framebuffer is being accessed ?</FONT><P>
+
+Try commenting out the following in drivers/video/tcxfb.c
+<BR>
+<PRE>
+   #if 0
+       if (prom_getbool (fb-&gt;prom_node, &quot;hw-cursor&quot;)) {
+       fb-&gt;setcursor = tcx_setcursor;
+       fb-&gt;setcursormap = tcx_setcursormap;
+       fb-&gt;setcurshape = tcx_setcurshape;
+       }
+   #endif</PRE>
+
+After this change you should rebuild the kernel, install it,  and reboot.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_27>27.</A> Xscreensaver and xlock give a white background instead of black.</FONT><P>
+
+This is known to possibly be caused by the Window Manager you use.
+<P>
+For xscreensaver, open the file 
+/usr/X11R6/lib/X11/app-defaults/XScreenSaver in an editor, search
+for the line that reads
+<PRE>   *installColormap:    True</PRE> and set it the last part to 
+<STRONG>False</STRONG>.
+Also try adding the following line
+<PRE>   *visualID:           PseudoColor</PRE> 
+<P>
+For xlock, open the file /usr/X11R6/lib/X11/app-defaults/XLock in
+an editor, search for the line that reads
+<PRE>   XLock.install:       on</PRE> and set the last part to 
+<STRONG>off</STRONG>.
+If the line does not exist in the file, you should add it.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_28>28.</A> X doesn't work anymore after upgrading from kernel 2.0.x to 2.2.x</FONT><P>
+
+You are probably use a machine with a <STRONG>BWtwo</STRONG> framebuffer.
+The BWtwo driver has been broken in version 2.0.37 and early 2.2.x versions 
+of  the Linux kernel. There seem to be two remedies:<P>
+<UL>
+   <LI> Boot the older kernel that worked.
+   <LI> Use Derrick J. Brashear's solution: <BR>
+   Edit linux/drivers/video/bwtwofb.c, find the line which reads
+   <PRE><STRONG>fb-&gt;physbase = phys;</STRONG></PRE>
+   and make it read:
+   <PRE><STRONG>fb-&gt;physbase = __get_phys(fb-&gt;sbdp-&gt;sbus_vaddrs[0]);</STRONG></PRE>
+   Rebuild and install the new kernel, and reboot.
+</UL>
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_29>29.</A> How can I stop the system starting X every time after booting ?</FONT><P>
+
+Starting X directly after the system has booted can be a problem on 
+slower SPARC machines without enough memory.
+By editing the file /etc/inittab, this behaviour can be stopped.
+<BR>
+Boot Linux into single-user-mode by entering <STRONG>linux s</STRONG> or 
+<STRONG>linux single</STRONG> at the SILO prompt.
+Change the line in /etc/inittab that reads
+<PRE>   <STRONG>id:5:initdefault:</STRONG></PRE>
+into
+<PRE>   <STRONG>id:3:initdefault:</STRONG></PRE>
+
+See the manual page for inittab(5) for more details of this file.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_30>30.</A> X runs very slow on my older machine, what can I do ?</FONT><P>
+
+Older machines such as the SPARCstation IPX or SPARCstation 1+ can have 
+some trouble with the large size of window managers like GNOME and 
+KDE. If you really want or need a window manager, you can try to 
+install a lightweight window manager. A few examples are 
+<A HREF="http://blackbox.alug.org">BlackBox</A>, 
+<A HREF="http://www.windowmaker.org">WindowMaker</A> and
+the <A HREF="http://step.polymtl.ca/~coyote">OpenLook Window Manager</A>
+(olwm, olvwm), also known as OpenWindows, which can also be found in the 
+Debian distribution.
+You can also try to start Enlightenment from your $HOME/.xinitrc file.
+
+<BR><BR><FONT SIZE=4 COLOR=blue><A NAME=q_6_31>31.</A> I have heard that I can change the OEM logo on my machine.</FONT><P>
+
+The OEM logo is, when enabled, the picture you can see in the upper left
+corner on the white screen when you have just turned on your machine and 
+it's checking memory, before loading a kernel. When disabled, you can see a
+Sun logo, and hardware information. 
+Under Linux, you can change this into a logo of your choice by following 
+Bert de Bruijn's 
+<A HREF="http://www.ccl.kuleuven.ac.be/~bob/oem-logo.html">Openprom
+oem-logo creation instructions</A>.
+
+<BR><BR>
+</TD></TR>
+</TABLE>
+</TD></TR>
+
+<!-- Bottom of Rounded Rectangle with signature -->
+<TR>
+<TD BGCOLOR="#FFFFFF" ALIGN=left VALIGN=bottom>
+<IMG BORDER="0" WIDTH="20" HEIGHT="18" ALIGN="top" SRC="images/llhs-white.gif" ALT=""></TD>
+<TD BGCOLOR="#FFFFFF" ALIGN="right" VALIGN="bottom">
+<FONT SIZE="2">Originally written by 
+<A HREF="http://www.ultralinux.org/jim">Jim Mintha </A>
+<A HREF="mailto:jim@ic.uva.nl">(jim@ic.uva.nl)</A>.
+Maintained by
+<A HREF="mailto:pkrul@ultralinux.nl">Pieter Krul (pkrul@ultralinux.nl)</A>
+</FONT>
+<BR>
+<IMG BORDER="0" WIDTH="20" HEIGHT="18" ALIGN=top SRC="images/lrhs-white.gif" ALT="">
+</TD></TR>
+
+<TR><TD BGCOLOR="#000000" COLSPAN="2">&nbsp;</TD></TR>
+
+</TABLE>
+</CENTER>
+</BODY>
+</HTML>

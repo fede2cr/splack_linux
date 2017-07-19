@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: Network routing issues (using PPP as a \cheap\ bridge)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-13.html">Previous</A>
+<A HREF="PPP-FAQ-15.html">Next</A>
+<A HREF="PPP-FAQ.html#toc14">Table of Contents</A>
+<HR>
+<H2><A NAME="s14">14. Network routing issues (using PPP as a \cheap\ bridge)</A></H2>
+
+
+
+<H2><A NAME="ss14.1">14.1 Slattach and ifconfig don't work as they do with SLIP</A></H2>
+
+<P>Do not use <EM>slattach</EM> and <EM>ifconfig</EM> with PPP. These are
+used for SLIP. The <EM>pppd</EM> process does these functions at the
+appropriate time. These must occur after the <EM>LCP</EM> and
+<EM>IPCP</EM> protocols have been exchanged.</P>
+<P>You can not replace <EM>pppd</EM> with <EM>slattach</EM> and
+<EM>ifconfig</EM>. Most of the protocol support for PPP is in the
+<EM>pppd</EM> process. Only the IP and IPX processing is in the kernel.</P>
+<P>The host route to the remote system will be automatically added by
+pppd. There is no option to NOT add the route. The pppd process will
+terminate if the route could not be added.</P>
+<P>The default route may or may not be added. This is controlled by the
+option \<EM>defaultroute</EM>\.  If you have a default
+route, it will not be changed.</P>
+<P>If you must do routing for an entire network, then put the route
+command into the <EM>/etc/ppp/ip-up</EM> script. The parameters to the
+script are:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+$0 - name of the script (/etc/ppp/ip-up or /etc/ppp/ip-down)
+$1 - name of the network device (such as ppp0)
+$2 - name of the tty device (such as /dev/cua0)
+$3 - speed of the tty device in Bits Per Second (such as 38400)
+$4 - the local IP address in dotted decimal notation
+$5 - the remote IP address in dotted decimal notation
+$6 - the value of the ipparam parameter
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="ss14.2">14.2 I want the route to the network and not the route to the host.</A></H2>
+
+<P>On <EM>sunsite</EM> there is
+a package called <EM>devinfo.tar.gz</EM>.
+It contains some useful little programs which will extract the
+data from the device and to do various things with the dotted
+IP addresses.</P>
+<P>The documentation is in the man pages in the file.</P>
+<P>For example, if you want to route the entire IP domain
+to the remote, the following may be used in <EM>/etc/ppp/ip-up</EM>.</P>
+<P>Of course, if the values are not variable, then simply
+use the appropriate entry in the route command.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# Obtain the netmask for the ppp0 (or whatever) device
+NETMASK = `devinfo -d $1 -t mask`
+
+# Obtain the IP domain (without the host address by removing the extra bits)
+DOMAIN = `netmath -a $5 $NETMASK`
+
+# Do the network route now that the IP domain is known
+route -net add $DOMAIN gw $5
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-13.html">Previous</A>
+<A HREF="PPP-FAQ-15.html">Next</A>
+<A HREF="PPP-FAQ.html#toc14">Table of Contents</A>
+</BODY>
+</HTML>

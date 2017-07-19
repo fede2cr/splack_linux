@@ -1,0 +1,21 @@
+Begin3
+Title:          trimman
+Version:        1.06
+Entered-date:   03APR99
+Description:	Trims the fat from your man-pages.
+		Looks for redundant versions of the same man-pages, such as
+		gzipped and plain versions of the same files, and keeps only
+		the most recent version. Then compresses every page with gzip,
+		converting .Z compressed pages if necessary. Then reconstructs
+		all symlinks. Finally, it cleans up the file modes, making
+		every page owned by root, executable by no one, writeable by
+		root only, and readable by all.
+		This version converts bz2 pages from previous trimman to gzip.
+Keywords:       man man-pages compressed gzip
+Author:         Brian K. White <linut@squonk.net>
+Maintained-by:  Brian K. White <linut@squonk.net>
+Primary-site:	http://www.squonk.net/users/linut/linux/
+		6kB trimman-1.06.tar.bz2
+Platform:	Bash (written/tested on linux only) other unices may try ksh.
+Copying-policy: GPL
+End

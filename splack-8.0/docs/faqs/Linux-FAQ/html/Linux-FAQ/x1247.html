@@ -1,0 +1,984 @@
+<HTML
+><HEAD
+><TITLE
+>Compatibility with Other Operating Systems</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.63
+"><LINK
+REL="HOME"
+TITLE="Linux Frequently Asked Questions with Answers"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Network Sources and Resources"
+HREF="x346.html"><LINK
+REL="NEXT"
+TITLE="File Systems, Disks, and Drives"
+HREF="x1459.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Linux Frequently Asked Questions with Answers</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x346.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1459.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN1247"
+>4. Compatibility with Other Operating Systems</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1249"
+>4.1. Can Linux Use the Same Hard Drive as MS-DOS? OS/2? 386BSD? Win95?</A
+></H2
+><P
+>Yes. Linux uses the standard MS-DOS partitioning scheme, so it can
+share your disk with other operating systems. </P
+><P
+>Linux has loadable kernel modules for (presumably) all versions of
+Microsoft FAT and VFAT file systems, including Windows 2000 and 
+WindowsMe.  In a correctly configured system, they should load 
+automatically when the partitions are mounted.</P
+><P
+>Note, however, that many other operating systems may not be exactly
+compatible. DOS's <TT
+CLASS="FILENAME"
+>FDISK.EXE</TT
+> and
+<TT
+CLASS="FILENAME"
+>FORMAT.EXE</TT
+>, for example, can overwrite data in a
+Linux partition, because they sometimes incorrectly use partition data
+from the partition's boot sector rather than the partition table.</P
+><P
+>In order to prevent programs from doing this, it is a good idea to
+zero out&#8212;under Linux&#8212;the start of a partition you created, before
+you use MS-DOS&#8212;or whatever&#8212;to format it. Type:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ dd if=/dev/zero of=/dev/hdXY bs=512 count=1</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>where <EM
+>hdXY</EM
+> is the relevant partition; e.g.,
+<TT
+CLASS="FILENAME"
+>/dev/hda1</TT
+> for the first partition of the first
+(IDE) disk.</P
+><P
+>Linux can read and write the files on your DOS and OS/2 FAT partitions
+and floppies using either the DOS file system type built into the
+kernel or mtools. There is kernel support for the VFAT file system
+used by Windows 9x and Windows NT.</P
+><P
+>There is reportedly a GPL'd OS/2 device driver that will read and
+write Linux ext2 partitions.</P
+><P
+>For information about FAT32 partition support, see
+<A
+HREF="http://bmrc.berkeley.edu/people/chaffee/fat32.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://bmrc.berkeley.edu/people/chaffee/fat32.html</TT
+></A
+>.</P
+><P
+>See, (``<A
+HREF="x25.html#AEN78"
+><I
+>What Software does Linux Support?</I
+></A
+>'') for details and status
+of the emulators for DOS, MS Windows, and System V programs.</P
+><P
+>See also, "Can Linux access Amiga file systems? ", "Can
+Linux access Macintosh file systems? ", "Can Linux access BSD,
+SysV, etc., UFS? ", and "Can Linux access SMB file systems? "</P
+><P
+>There are said to be NTFS drivers under development, which should
+support compression as a standard feature.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1271"
+>4.2. How To Access Files on a MS-DOS Partition or Floppy.</A
+></H2
+><P
+>Use the DOS file system, type, for example:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ mkdir /dos
+   $ mount -t msdos -o conv=text,umask=022,uid=100,gid=100 /dev/hda3 /dos</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>If it's a floppy, don't forget to umount it before ejecting it!</P
+><P
+>You can use the <TT
+CLASS="LITERAL"
+>conv=text/binary/auto</TT
+>,
+<TT
+CLASS="LITERAL"
+>umask=nnn</TT
+>, <TT
+CLASS="LITERAL"
+>uid=nnn</TT
+>, and
+<TT
+CLASS="LITERAL"
+>gid=nnn</TT
+> options to control the automatic
+line-ending conversion, permissions and ownerships of the files in the
+DOS file system as they appear under Linux. If you mount your DOS file
+system by putting it in your <TT
+CLASS="FILENAME"
+>/etc/fstab</TT
+>, you can
+record the options (comma-separated) there, instead of defaults.</P
+><P
+>Alternatively, you can use mtools, available in both binary and source
+form on the FTP sites. 
+(``<A
+HREF="x346.html#AEN881"
+><I
+>Where Are the Linux FTP Archives?</I
+></A
+>'')</P
+><P
+>A kernel patch (known as the fd-patches) is available which allows
+floppies with nonstandard numbers of tracks and/or sectors to be used;
+this patch is included in the 1.1 alpha testing kernel series.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1286"
+>4.3. Does Linux Support Compressed Ext2 File Systems?</A
+></H2
+><P
+>The <TT
+CLASS="LITERAL"
+>ext2compr</TT
+> project provides a 
+kernel patch Information about them is located at
+<A
+HREF="http://e2ompr.memalpha.cx/e2compr/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://e2ompr.memalpha.cx/e2compr/</TT
+></A
+>.</P
+><P
+>There is also a Web site for the e2compr patches.  The code is still
+experimental and consists of patches for the 2.0 and 2.1 kernels. For
+more information about the project, including the latest patches, and
+the address of the mailing list, look up the URL at
+<A
+HREF="http://debs.fuller.edu/e2compr/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://debs.fuller.edu/e2compr/</TT
+></A
+>.</P
+><P
+>[Roderich Schupp, Peter Moulder]</P
+><P
+><I
+CLASS="CITETITLE"
+>zlibc</I
+> is a program that allows existing
+applications to read compressed (GNU gzip'ed) files as if they were
+not compressed. Look at 
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/libs/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/libs/</TT
+></A
+>. The
+author is Alain Knaff.</P
+><P
+>There is also a compressing block device driver, "DouBle," by
+Jean-Marc Verbavatz, which can provide on-the-fly disk compression in
+the kernel. The source-only distribution is located at 
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/patches/diskdrives/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/patches/diskdrives/</TT
+></A
+>. This driver compresses inodes and directory information as
+well as files, so any corruption of the file system is likely to be
+serious.</P
+><P
+>There is also a package called tcx (Transparently Compressed
+Executables), which allows you to keep infrequently used
+executables compressed and only uncompress them temporarily when in
+use. It is located at 
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/utils/compress/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/utils/compress/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1306"
+>4.4. Can Linux Use Stacked/DBLSPC/Etc. DOS Drives?</A
+></H2
+><P
+>Until recently, not very easily. You can access DOS 6.X volumes from
+the DOS emulator ("What software does Linux support? "), but
+it's harder than accessing a normal DOS volume via the DOS kernel
+option, a module, or mtools.</P
+><P
+>There is a recently added package, dmsdos, that reads and writes
+compressed file systems like DoubleSpace/DriveSpace in MS-DOS 6.x and
+Win95, as well as Stacker versions 3 and 4. It is a loadable kernel
+module. Look at
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/system/filesystems/dosfs/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/system/filesystems/dosfs/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1312"
+>4.5. Can Linux Access OS/2 HPFS Partitions?</A
+></H2
+><P
+>Yes, but Linux access to HPFS partitions is read-only. HPFS file
+system access is available as an option when compiling the kernel or
+as a module. See the
+<TT
+CLASS="FILENAME"
+>Documentation/filesystems/hpfs.txt</TT
+> file in the
+kernel source distribution.  (``<A
+HREF="x2406.html#AEN2845"
+><I
+>How To Upgrade/Recompile a Kernel.</I
+></A
+>'') Then you can mount HPFS
+partition, using, for example:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   $ mkdir /hpfs
+   $ mount -t hpfs /dev/hda5 /hpfs</PRE
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1319"
+>4.6. Can Linux Access Amiga File Systems?</A
+></H2
+><P
+>The Linux kernel has support for the Amiga Fast File System (AFFS)
+version 1.3 and later, both as a compile-time option and as a module.
+The file <TT
+CLASS="FILENAME"
+>Documentation/filesystems/affs.txt</TT
+> in
+the Linux kernel source distribution has more information.</P
+><P
+>See 
+(``<A
+HREF="x2406.html#AEN2845"
+><I
+>How To Upgrade/Recompile a Kernel.</I
+></A
+>'')</P
+><P
+>Linux supports AFFS hard-drive partitions only. Floppy access is not
+supported due to incompatibilities between Amiga floppy controllers
+and PC and workstation controllers. The AFFS driver can also mount
+disk partitions used by the Un*x Amiga Emulator, by Bernd Schmidt.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1326"
+>4.7. Can Linux Access BSD, SysV, Etc. UFS?</A
+></H2
+><P
+>Recent kernels can mount (read only) the UFS file system used by
+System V; Coherent; Xenix; BSD; and derivatives like SunOS, FreeBSD,
+NetBSD, and NeXTStep. UFS support is available as a kernel
+compile-time option and a module.</P
+><P
+>See, 
+(``<A
+HREF="x2406.html#AEN2845"
+><I
+>How To Upgrade/Recompile a Kernel.</I
+></A
+>'')</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1331"
+>4.8. Can Linux Access SMB File Systems?</A
+></H2
+><P
+>Linux supports read/write access of Windows for Workgroups and Windows
+NT SMB volumes. See the file Documentation/filesystems/smbfs.txt of
+the Linux kernel source distribution, and 
+(``<A
+HREF="x2406.html#AEN2845"
+><I
+>How To Upgrade/Recompile a Kernel.</I
+></A
+>'')</P
+><P
+>There is also a suite of programs called Samba which provide support
+for WfW networked file systems (provided they're for TCP/IP).
+Information is available in the <TT
+CLASS="FILENAME"
+>README</TT
+> file at
+<A
+HREF="metalab.unc.edu/pub/Linux/system/network/samba/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>metalab.unc.edu/pub/Linux/system/network/samba/</TT
+></A
+>.</P
+><P
+>The SMB Web site is 
+<A
+HREF="http://www.samba.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.samba.org/</TT
+></A
+>, and there is also a
+Web site at <A
+HREF="samba.anu.edu.au/samba/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>samba.anu.edu.au/samba/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1344"
+>4.9. Can Linux Access Macintosh File Systems?</A
+></H2
+><P
+>There is a set of user-level programs that read and write the older
+Macintosh Hierarchical File System (HFS). It is available at
+<A
+HREF="metalab.unc.edu/pub/Linux/utils/disk-management/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>metalab.unc.edu/pub/Linux/utils/disk-management/</TT
+></A
+>.</P
+><P
+>Access to the newer, HFS+ file systems is still under development.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1350"
+>4.10. Can Linux Run Microsoft Windows Programs?</A
+></H2
+><P
+>WINE, a MS Windows emulator for Linux, is still not ready for general
+distribution. If you want to contribute to its development, look for
+the status reports in the 
+<I
+CLASS="CITETITLE"
+>comp.emulators.ms-windows.wine</I
+> newsgroup.</P
+><P
+>There is also a FAQ, compiled by P. David Gardner, at
+<A
+HREF="ftp://metalab.unc.edu/pub/Linux/docs/faqs/Wine-FAQ/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://metalab.unc.edu/pub/Linux/docs/faqs/Wine-FAQ/</TT
+></A
+>.</P
+><P
+>In the meantime, if you need to run MS Windows programs, the best
+bet&#8212;seriously&#8212;is to reboot. LILO, the Linux boot loader, can boot
+one of several operating systems from a menu. See the LILO
+documentation for details.</P
+><P
+>Also, <TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> (a DOS program to load a Linux,
+or other OS, kernel is one way to make Linux co-exist with DOS.
+<TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> is particularly handy when you want
+to install Linux on a 3rd or 4th drive on a system (or when you're
+adding a SCSI drive to a system with an existing IDE).</P
+><P
+>In these cases, it is common for LILO's boot loader to be unable to
+find or load the kernel on the "other" drive. So you just create a
+<TT
+CLASS="FILENAME"
+>C:\LINUX</TT
+> directory (or whatever), put
+<TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> in it with a copy of your kernel, and
+use that.</P
+><P
+><TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> is a VCPI compliant program. Win95
+will want to, "shutdown into DOS mode," to run it (as it would with
+certain other DOS protected-mode programs).</P
+><P
+>Earlier versions of <TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> sometimes
+required a package called <TT
+CLASS="FILENAME"
+>REALBIOS.COM</TT
+>, which
+required a boot procedure on an (almost) blank floppy to map the
+interrupt vectors (prior to the loading of any software
+drivers). (Current versions don't seem to ship with it, and don't seem
+to need it).</P
+><P
+>[Jim Dennis]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1370"
+>4.11. Where Is Information about NFS Compatibility?</A
+></H2
+><P
+>This information is partly taken from Nicolai Langfeldt's excellent
+NFS HOWTO, and is current as of 10/1/1999.</P
+><P
+>Most version 2.2.x kernels need a set of patches to install the 
+<B
+CLASS="COMMAND"
+>knfsd</B
+>
+subsystem, maintained by H.J. Lu, to communicate efficiently (if at
+all) with Sparc, IBM RS, and Alpha machines, and probably others. This
+package is actually a collection of patches to the kernel sources.
+Better support for non-Intel architectures is included in the 
+2.4 kernels.</P
+><P
+>There is also a user-space server. Although it lacks remote file
+locking, it is easier to install. It may be equally efficient.</P
+><P
+>In the <TT
+CLASS="FILENAME"
+>Documentation/Changes</TT
+> of recent kernel
+distributions, there is a list of URL's for both the
+<B
+CLASS="COMMAND"
+>knfsd</B
+> server and the user-space server.</P
+><P
+>There is a CVS server available for the kernel-space NFS subsystem, as
+well as a NFS WWW page at 
+<A
+HREF="http://www.linuxnfs.sourceforge.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.linuxnfs.sourceforge.org/</TT
+></A
+>,
+although the URL requires a password for access. The relevant URL's
+are listed in the <TT
+CLASS="FILENAME"
+>README.nfs</TT
+> file at 
+<A
+HREF="ftp://ftp.us.kernel.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://ftp.us.kernel.org/</TT
+></A
+>, and other kernel
+archive sites, along with login information. Patches are at
+<A
+HREF="ftp://ftp.varesearch.com/pub/kernel/latest/patches/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://ftp.varesearch.com/pub/kernel/latest/patches/</TT
+></A
+>.</P
+><P
+>The source archives of the user-space server and utilities currently
+reside on
+<A
+HREF="ftp://linux.mathematik.tu-darmstadt.de:/pub/linux/people/okir/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>ftp://linux.mathematik.tu-darmstadt.de:/pub/linux/people/okir/</TT
+></A
+>.</P
+><P
+>In the case of older Solaris releases, the lack of
+<TT
+CLASS="LITERAL"
+>statd</TT
+> or <TT
+CLASS="LITERAL"
+>lockd</TT
+> on a client or
+server machine may cause incompatibility.  On some versions of
+Solaris, <TT
+CLASS="LITERAL"
+>statd</TT
+> can be used to exploit features of
+the automounter.  Sun released a patch to correct this, but <TT
+CLASS="LITERAL"
+>statd</TT
+> still needs to be started by root on such systems.  On
+recent Solaris systems, refer to the information in
+<TT
+CLASS="LITERAL"
+>/etc/dfs/dfstab</TT
+> and the
+<TT
+CLASS="LITERAL"
+>share(1M)</TT
+> manual page to enable volume sharing.  In
+addition, the <TT
+CLASS="LITERAL"
+>rpcinfo</TT
+> program can tell you if
+<TT
+CLASS="LITERAL"
+>statd</TT
+> or <TT
+CLASS="LITERAL"
+>lockd</TT
+> are available on
+the local or remote machines.</P
+><P
+>The <TT
+CLASS="LITERAL"
+>linux-kernel</TT
+> mailing list has on-and-off
+discussions of the status of the NFS subsystem, which appears to be
+changing rapidly.</P
+><P
+>[Nicolai Langfeldt, Robert Kiesling, Anders Hammarquist]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1403"
+>4.12. Can Linux Use True Type Fonts?</A
+></H2
+><P
+>Yes. There are a number of True Type font servers for the X Window
+System. One of them is <B
+CLASS="COMMAND"
+>xfsft</B
+>. Its home page is
+<A
+HREF="http://www.dcs.ed.ac.uk/home/jec/programs/xfsft/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.dcs.ed.ac.uk/home/jec/programs/xfsft/</TT
+></A
+>.
+There are also instructions for configuration.</P
+><P
+>People have reported success with other True Type font servers. There
+are links from the <B
+CLASS="COMMAND"
+>xfsft</B
+> Home Page to them as well.</P
+><P
+>You can also compile True Type Font support into your X server
+directly. Again, refer to the <B
+CLASS="COMMAND"
+>xfsft</B
+> Home Page for
+details.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1413"
+>4.13. Can Linux Boot from MS-DOS?</A
+></H2
+><P
+>If LILO doesn't work, and if the machine has MS-DOS or Microsoft
+Windows, you may be left with a computer that won't boot. This can
+also happen on an upgrade to your Linux distribution. Re-installing
+LILO is the last thing that the installation does. So it is vitally
+important when installing or upgrading Linux on a dual boot machine,
+to have a MS-DOS or Windows rescue disk nearby so you can
+<TT
+CLASS="LITERAL"
+>FDISK -MBR</TT
+>.  Then you can go about using
+<TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> instead of LILO.</P
+><P
+>This <TT
+CLASS="FILENAME"
+>config.sys</TT
+> file is one possible way to
+invoke <TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> and boot MS-DOS or Linux.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   [menu]
+   menuitem=DOS, Dos Boot
+   menuitem=LINUX, Linux Boot
+
+   [LINUX]
+   shell=c:\redhat\loadlin.exe c:\redhat\autoboot\vmlinuz vga=5 root=/dev
+
+   [DOS]
+   STACKS = 0,0
+   rem all the other DOS drivers get loaded here.</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>This creates a menu where you can directly jump to
+<TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> before all of the MS-DOS drivers get
+loaded.</P
+><P
+>The paths and options are peculiar to one machine and should be
+intuitively obvious to the most casual observer. See the
+<TT
+CLASS="FILENAME"
+>LOADLIN.EXE</TT
+> docs for options. They are the same
+as LILO, and options are just passed to the kernel, anyhow.</P
+><P
+>[Jim Harvey]</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN1428"
+>4.14. How Can Linux Boot from OS/2's Boot Manager?</A
+></H2
+><P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> Create a partition using OS/2's
+<TT
+CLASS="FILENAME"
+>FDISK.EXE</TT
+> (Not Linux's <B
+CLASS="COMMAND"
+>fdisk</B
+>).</P
+></LI
+><LI
+><P
+> Format the partition under OS/2,
+either with FAT or HPFS. This is so that OS/2 knows about the
+partition being formatted. (This step is not necessary with OS/2
+`warp' 3.0.)  </P
+></LI
+><LI
+><P
+> Add the partition to
+the Boot Manager.  </P
+></LI
+><LI
+><P
+> Boot Linux, and
+create a file system on the partition using <B
+CLASS="COMMAND"
+>mkfs -t
+ext2</B
+> or <B
+CLASS="COMMAND"
+>mke2fs</B
+>.  At this point you may,
+if you like, use Linux's <B
+CLASS="COMMAND"
+>fdisk</B
+> to change the code
+of the new partition to type 83 (Linux Native)&#8212;this may help some
+automated installation scripts find the right partition to use.</P
+></LI
+><LI
+><P
+> Install Linux on the partition.</P
+></LI
+><LI
+><P
+>Install LILO on the Linux partition&#8212;NOT on the master boot record
+of the hard drive. This installs LILO as a second-stage boot
+loader on the Linux partition itself, to start up the kernel
+specified in the LILO configuration file. To do this, you should
+put</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>   boot = /dev/hda2</PRE
+></TD
+></TR
+></TABLE
+><P
+>(where <TT
+CLASS="FILENAME"
+>/dev/hda2</TT
+> is the partition you 
+want to boot from) in your
+<TT
+CLASS="FILENAME"
+>/etc/lilo/config</TT
+> or 
+<TT
+CLASS="FILENAME"
+>/etc/lilo.config</TT
+> file.</P
+></LI
+><LI
+><P
+>Make sure that it is the Boot Manager partition that is marked
+active, so that you can use Boot Manager to choose what to boot.</P
+></LI
+></OL
+></P
+><P
+>    
+There is a set of HOWTO's on the subject of multi-boot systems at the
+LDP Home Page, 
+<A
+HREF="http://www.linuxdoc.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.linuxdoc.org/</TT
+></A
+>.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x346.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1459.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Network Sources and Resources</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>File Systems, Disks, and Drives</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

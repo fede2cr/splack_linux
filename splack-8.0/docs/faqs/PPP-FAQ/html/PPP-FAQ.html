@@ -1,0 +1,197 @@
+
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ</TITLE>
+</HEAD>
+<BODY>
+Previous
+<A HREF="PPP-FAQ-1.html">Next</A>
+Table of Contents
+<HR>
+<H1>Linux PPP FAQ</H1>
+
+<H2>Al Longyear, 
+<A HREF="mailto:longyear@netcom.com">longyear@netcom.com</A></H2>v1.13, 9 December 1996
+<P><HR><EM>This document contains a list the most Frequently Asked Questions
+(FAQ) about PPP for Linux (and their answers). It is really
+<EM>not</EM> a HOWTO, but is in \classical\ Question / Answer form.
+We have a different document which represents the PPP-HOWTO. It is
+written by Robert Hart.</EM><HR></P>
+<P>
+<H2><A NAME="toc1">1.</A> <A HREF="PPP-FAQ-1.html">Preface</A></H2>
+
+<P>
+<H2><A NAME="toc2">2.</A> <A HREF="PPP-FAQ-2.html">General information</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-2.html#ss2.1">2.1 What is PPP?</A>
+<LI><A HREF="PPP-FAQ-2.html#ss2.2">2.2 My university (company) does not support PPP. Can I use PPP?</A>
+<LI><A HREF="PPP-FAQ-2.html#ss2.3">2.3 Where is PPP?</A>
+<LI><A HREF="PPP-FAQ-2.html#ss2.4">2.4 I just obtained PPP. What do I do with it?</A>
+<LI><A HREF="PPP-FAQ-2.html#ss2.5">2.5 Where are additional sources of information for PPP?</A>
+<LI><A HREF="PPP-FAQ-2.html#ss2.6">2.6 Would someone please send me scripts for PPP so that I may see how they are written?</A>
+<LI><A HREF="PPP-FAQ-2.html#ss2.7">2.7 Where should I post questions about PPP?</A>
+<LI><A HREF="PPP-FAQ-2.html#ss2.8">2.8 The PPP software doesn't work. HELP!!!</A>
+</UL>
+
+<P>
+<H2><A NAME="toc3">3.</A> <A HREF="PPP-FAQ-3.html">Other implementations</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-3.html#ss3.1">3.1 Do you know of a implementation for PPP other than Linux? I would like one for HP-UX, or AIX, or ... (you fill in the blank)?</A>
+<LI><A HREF="PPP-FAQ-3.html#ss3.2">3.2 Did you know that there is a program called \dp\?</A>
+<LI><A HREF="PPP-FAQ-3.html#ss3.3">3.3 What RFCs describe the PPP protocol?</A>
+</UL>
+
+<P>
+<H2><A NAME="toc4">4.</A> <A HREF="PPP-FAQ-4.html">Compatibility</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-4.html#ss4.1">4.1 Can PPP talk to a SLIP interface?</A>
+<LI><A HREF="PPP-FAQ-4.html#ss4.2">4.2 Which is better? PPP or SLIP?</A>
+<LI><A HREF="PPP-FAQ-4.html#ss4.3">4.3 Is CHAP or PAP better for authentication?</A>
+<LI><A HREF="PPP-FAQ-4.html#ss4.4">4.4 What about CHAP which Microsoft uses with Windows NT?</A>
+</UL>
+
+<P>
+<H2><A NAME="toc5">5.</A> <A HREF="PPP-FAQ-5.html">Authentication files</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-5.html#ss5.1">5.1 What goes into the /etc/ppp/pap-secrets file? Do you have a sample? Or, my ISP requires that I use PAP. How do I do that?</A>
+<LI><A HREF="PPP-FAQ-5.html#ss5.2">5.2 What goes into the /etc/ppp/chap-secrets file? Do you have a sample?</A>
+</UL>
+
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="PPP-FAQ-6.html">Construction problems</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-6.html#ss6.1">6.1 I get compile errors when I try to compile the kernel</A>
+</UL>
+
+<P>
+<H2><A NAME="toc7">7.</A> <A HREF="PPP-FAQ-7.html">Problems running pppd</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-7.html#ss7.1">7.1 pppd says that version 0.0.0 is out of date</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.2">7.2 pppd says that that the kernel is not configured for PPP. I know that I enabled the option and built the kernel.</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.3">7.3 pppd wont run unless you are root</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.4">7.4 unable to create pid file: no such file or directory</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.5">7.5 /etc/ppp/options: no such file or directory</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.6">7.6 Could not determine local IP address</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.7">7.7 Could not determine remote IP address</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.8">7.8 I keep getting the message to the effect that the magic number is always NAKed. The system will not connect.</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.9">7.9 protocol reject for protocol fffb</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.10">7.10 The PPP software connects, sends quite a few frames, but still does not seem to connect. Why is that?</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.11">7.11 The /etc/ppp/ip-up scripts won't work.</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.12">7.12 I can't execute /etc/ppp/ip-up: Exec format error</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.13">7.13 How do I use PPP with a system which uses dynamic IP assignments? It assigns a different IP address to me with each call.</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.14">7.14 How do I know what IP address was given to me when it is dynamically assigned?</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.15">7.15 I just upgraded my system and now pppd reports that the option -v is not supported. Why?</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.16">7.16 The pppd process reports that it won't replace the existing default route. How do I get it to use the default route?</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.17">7.17 When I run pppd it says that support is not in the kernel.</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.18">7.18 How do I use PPP and a local network at the same time?</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.19">7.19 Can I use the same local IP address for each line of a PPP server?</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.20">7.20 How do I find my local IP address??</A>
+<LI><A HREF="PPP-FAQ-7.html#ss7.21">7.21 I can't connect to the merit network.</A>
+</UL>
+
+<P>
+<H2><A NAME="toc8">8.</A> <A HREF="PPP-FAQ-8.html">DIP</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-8.html#ss8.1">8.1 DIP does not have support for PPP\s mode</A>
+<LI><A HREF="PPP-FAQ-8.html#ss8.2">8.2 DIP dies immediately when I do \mode ppp\</A>
+</UL>
+
+<P>
+<H2><A NAME="toc9">9.</A> <A HREF="PPP-FAQ-9.html">Process termination</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-9.html#ss9.1">9.1 Is there a \dip -k\ for PPP?</A>
+<LI><A HREF="PPP-FAQ-9.html#ss9.2">9.2 PPP does not hangup the modem when it terminates</A>
+</UL>
+
+<P>
+<H2><A NAME="toc10">10.</A> <A HREF="PPP-FAQ-10.html">Data Transfer related issues</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-10.html#ss10.1">10.1 The ftp transfers seems to die when I do a \put\ operation. They will work correctly if I \get\ a file. Why?</A>
+<LI><A HREF="PPP-FAQ-10.html#ss10.2">10.2 How do I use XON/XOFF for flow control?</A>
+<LI><A HREF="PPP-FAQ-10.html#ss10.3">10.3 The modem seems to always connect at a strange rate. When I use minicom, the modem will always use 14400. However, PPP is using 9600 or 7200 or even 2400. How do I fix this?</A>
+<LI><A HREF="PPP-FAQ-10.html#ss10.4">10.4 The ftp transfers seems to be very slow when I do a \get\ operation. The \put\ operation is much faster. Why?</A>
+<LI><A HREF="PPP-FAQ-10.html#ss10.5">10.5 The proxyarp function fails to find the hardware address.</A>
+</UL>
+
+<P>
+<H2><A NAME="toc11">11.</A> <A HREF="PPP-FAQ-11.html">Routing and other problems</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-11.html#ss11.1">11.1 My route to the remote keeps disappearing! It last for about 3 minutes and then the route just goes away. Help!</A>
+<LI><A HREF="PPP-FAQ-11.html#ss11.2">11.2 I would like to attach my other computers on my network to the Internet through my PPP connection. I have only the one IP address which is assigned to me from my service provider. (It may even have been dynamically assigned.) How may I do this?</A>
+<LI><A HREF="PPP-FAQ-11.html#ss11.3">11.3 I can reach the remote server, but I can not get anywhere else.</A>
+<LI><A HREF="PPP-FAQ-11.html#ss11.4">11.4 I have a default route and I still can't get anywhere else! Now what?</A>
+<LI><A HREF="PPP-FAQ-11.html#ss11.5">11.5 I can not ping my local IP address</A>
+</UL>
+
+<P>
+<H2><A NAME="toc12">12.</A> <A HREF="PPP-FAQ-12.html">Interactions with other PPP implementations</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-12.html#ss12.1">12.1 How do I connect to a Windows NT server?</A>
+<LI><A HREF="PPP-FAQ-12.html#ss12.2">12.2 I tried to use MSCHAP or PAP with Windows NT and it fails with "E=691". Now what?</A>
+<LI><A HREF="PPP-FAQ-12.html#ss12.3">12.3 How do I support Windows 95?</A>
+<LI><A HREF="PPP-FAQ-12.html#ss12.4">12.4 I am using a Trumpet (for MSDOS) and the connection simply terminates. Why is this happening?</A>
+<LI><A HREF="PPP-FAQ-12.html#ss12.5">12.5 I am using dp-3.1.2 (with SunOS) and the system will not allow me to use anything but ping, or nslookup. Why is this happening?</A>
+<LI><A HREF="PPP-FAQ-12.html#ss12.6">12.6 My provider wants to use a dynamic DNS address which is not the same with every connection. Yet, Linux wants just one address in the /etc/resolv.conf file. This works with Microsoft Windows 95, but how do I make it work with Linux?</A>
+</UL>
+
+<P>
+<H2><A NAME="toc13">13.</A> <A HREF="PPP-FAQ-13.html">Other messages written to the system log</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-13.html#ss13.1">13.1 Alarm</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.2">13.2 SIGHUP</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.3">13.3 SIGINT</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.4">13.4 Unknown protocol (c025) received!.</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.5">13.5 Unknown protocol (80fd) received!.</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.6">13.6 The connection fails with errors \ioctl(TIOCGETD): I/O error\ or \ioctl(PPPIOCSINPSIG): I/O error\. What now?</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.7">13.7 Sometimes the messages \ioctl(PPPIOCGDEBUG): I/O error\, \ioctl(TIOCSETD): I/O error\ and \ioctl(TIOCNXCL): I/O error\ occur. Why?</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.8">13.8 My ifconfig has strange output for PPP.</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.9">13.9 The file /proc/net/dev seems to be empty</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.10">13.10 The kernel reports that the PPP devices are being unlinked when the system is being started.</A>
+<LI><A HREF="PPP-FAQ-13.html#ss13.11">13.11 I just checked /proc/net/dev and there are no PPP devices. Where did they go?</A>
+</UL>
+
+<P>
+<H2><A NAME="toc14">14.</A> <A HREF="PPP-FAQ-14.html">Network routing issues (using PPP as a \cheap\ bridge)</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-14.html#ss14.1">14.1 Slattach and ifconfig don't work as they do with SLIP</A>
+<LI><A HREF="PPP-FAQ-14.html#ss14.2">14.2 I want the route to the network and not the route to the host.</A>
+</UL>
+
+<P>
+<H2><A NAME="toc15">15.</A> <A HREF="PPP-FAQ-15.html">Other features and protocols</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-15.html#ss15.1">15.1 What about support for \demand dial\</A>
+<LI><A HREF="PPP-FAQ-15.html#ss15.2">15.2 What about \filtering\</A>
+<LI><A HREF="PPP-FAQ-15.html#ss15.3">15.3 How about <EM>IPX</EM>?</A>
+<LI><A HREF="PPP-FAQ-15.html#ss15.4">15.4 How about NETBIOS?</A>
+<LI><A HREF="PPP-FAQ-15.html#ss15.5">15.5 I need ISDN support. Is there any?</A>
+<LI><A HREF="PPP-FAQ-15.html#ss15.6">15.6 I would like multi-point support. Is there any support?</A>
+<LI><A HREF="PPP-FAQ-15.html#ss15.7">15.7 How about just standard synchronous PPP?</A>
+</UL>
+
+<P>
+<H2><A NAME="toc16">16.</A> <A HREF="PPP-FAQ-16.html">Miscellaneous</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-16.html#ss16.1">16.1 Do you have a PPP compatible mail reader?</A>
+<LI><A HREF="PPP-FAQ-16.html#ss16.2">16.2 How about a news reader?</A>
+</UL>
+
+<P>
+<H2><A NAME="toc17">17.</A> <A HREF="PPP-FAQ-17.html">Questions about chat</A></H2>
+<UL>
+<LI><A HREF="PPP-FAQ-17.html#ss17.1">17.1 My modem wont dial when I run chat</A>
+<LI><A HREF="PPP-FAQ-17.html#ss17.2">17.2 The modem dials only on every second attempt</A>
+<LI><A HREF="PPP-FAQ-17.html#ss17.3">17.3 The chat script stops after sending the account name and it never receives the password prompt.</A>
+<LI><A HREF="PPP-FAQ-17.html#ss17.4">17.4 The chat script stops before finishing and fails to make the connection</A>
+<LI><A HREF="PPP-FAQ-17.html#ss17.5">17.5 When I attempt to run chat, it says that the -l parameter is invalid. Why?</A>
+<LI><A HREF="PPP-FAQ-17.html#ss17.6">17.6 I ran chat. It seems to want to use the local terminal as the modem and it does not talk to the modem. How do I specify the modem name to chat?</A>
+<LI><A HREF="PPP-FAQ-17.html#ss17.7">17.7 When I run pppd and chat along with mgetty then the connection does not start. If I stop mgetty, then pppd will work. Why?</A>
+</UL>
+
+
+<HR>
+Previous
+<A HREF="PPP-FAQ-1.html">Next</A>
+Table of Contents
+</BODY>
+</HTML>

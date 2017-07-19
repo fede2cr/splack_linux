@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<TITLE>guide7</TITLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080"  BGCOLOR="#FFFFFF">
+
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+<TR><TD WIDTH="46%" VALIGN="TOP">
+<P><A HREF="guide06.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+<TD WIDTH="11%" VALIGN="TOP">
+<P ALIGN="CENTER"><A HREF="guide.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=37></A></TD>
+<TD WIDTH="43%" VALIGN="TOP">
+<P ALIGN="RIGHT"><A HREF="guide08.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=37 HEIGHT=34></A></TD>
+</TR>
+</TABLE>
+
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=6 COLOR="#800000"><P ALIGN="CENTER">Cap&iacute;tulo 7</P>
+</B></U></FONT><P><HR></P>
+<FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>Peque&ntilde;os programas potentes</P><DIR>
+<DIR>
+
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>better !pout !cry</P>
+<P>better watchout</P>
+<P>lpr why</P>
+<P>santa claus &lt;north pole &gt;town</P>
+<P>&nbsp;</P>
+<P>cat /etc/passwd &gt;list</P>
+<P>ncheck list</P>
+<P>ncheck list</P>
+<P>cat list _ grep naughty &gt;nogiftlist</P>
+<P>cat list _ grep nice &gt;giftlist</P>
+<P>santa claus &lt;north pole &gt; town</P>
+<P>&nbsp;</P>
+<P>who _ grep sleeping</P>
+<P>who _ grep awake</P>
+<P>who _ egrep 'bad_good'</P>
+<P>for (goodness sake) -</P>
+<P>be good</P>
+<P>"</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>7.1 El poder de Unix</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>El poder de Unix1 se esconde en peque&ntilde;os comandos que no parecen ser muy &uacute;tiles cuando se utilizan por separado, pero combinados con otros (directa o indirectamente) proporcionan un entorno mucho m&aacute;s potente y flexible que la mayor&iacute;a de los otros sistemas operativos. Los comandos de los que hablaremos en este cap&iacute;tulo son entre otros: sort, grep, more, cat, wc, spell, diff, head, y tail.</P>
+<P>Veremos lo que cada una de las utilidades hace por separado y luego daremos algunos ejemplos de como utilizarlos conjuntamente2.</P>
+<P>_____________________________________________</P>
+<P>1 N. del T.: El cookie de apertura de este cap&iacute;tulo es la traducci&oacute;n a comandos Unix de una canci&oacute;n de navidad:</P>
+<P>"Santa Claus is coming to town" (escrita por H. Gillespie, J. F. Coots)</P>
+<P>2 N&oacute;tese que los res&uacute;menes de los comandos en este cap&iacute;tulo no son extensos. Para mas informaci&oacute;n vea la p&aacute;gina del manual correspondiente con el comando man.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>7.2 Trabajando con ficheros</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Junto a comandos como cd, mv, y rm que ya se vieron en el Cap&iacute;tulo 4, hay otros comandos que trabajan con ficheros pero no con los datos contenidos en ellos. Estos son touch, chmod, du, y df.</P>
+<P>Ninguno de ellos se preocupa por lo que contiene el fichero, simplemente modifican algunas de las informaciones que Unix guarda acerca del fichero.</P>
+<P>Estos comandos manipulan:</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Los registros de tiempo. Todo fichero tiene tres fechas asociadas a &eacute;l.3 Las tres fechas son las siguientes: creaci&oacute;n del fichero, &uacute;ltima modificaci&oacute;n (cuando se produjo el &uacute;ltimo cambio en el fichero), y &uacute;ltimo acceso (cuando se produjo la &uacute;ltima lectura del fichero).</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> El due&ntilde;o. Cada fichero en Unix pertenece a un &uacute;nico propietario.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> El grupo. Cada fichero tiene tambi&eacute;n asociados un grupo de usuarios. El grupo m&aacute;s usual para los ficheros de usuario se denomina users, que es al cual, por lo general, pertenecen todos los usuarios con cuenta en el sistema.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#ff0000"><P>o</B></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"> Los permisos. Cada fichero tiene ciertos permisos (tambi&eacute;n llamados "privilegios") asociados a &eacute;l, que indican a Unix qui&eacute;n puede acceder a ese fichero, cambiarlo o en el caso de ser un programa, ejecutarlo. Cada uno de estos permisos puede ser establecido por separado para el due&ntilde;o, el grupo, y el resto de usuarios.</P>
+<P>&nbsp;</P>
+<B><P>- touch fichero1 fichero2 . . . ficheroN</P>
+</B><P>touch actualiza los registros de fecha y hora con la fecha y hora actual de los ficheros indicados en la linea de comandos. Si el fichero no existe, touch lo crear&aacute;. Tambi&eacute;n es posible especificar la fecha y hora a registrar en la informaci&oacute;n de los ficheros_consulte la p&aacute;gina del manual (comando man) para m&aacute;s informaci&oacute;n sobre touch.</P>
+<P>&nbsp;</P>
+<B><P>- chmod [-Rfv] modo fichero1 fichero2 . . . ficheroN</P>
+</B><P>El comando que se utiliza para modificar los permisos de un fichero es el chmod4. Antes de</P>
+<P>meternos en como utilizar este comando, veamos primero que permisos hay en Unix. Cada fichero tiene asociados un grupo de permisos. Estos permisos le indican al sistema operativo quien puede leer, escribir o ejecutar como programa el fichero. (A continuaci&oacute;n, se explica como puede un usuario hacer estas cosas. Un programa ejecutado por un usuario puede hacer las mismas cosas que las que le est&eacute;n permitidas al propio usuario; esto puede suponer un problema de seguridad, si se desconoce lo que hace cada programa en particular.)</P>
+<P>_____________________________________________</P>
+<P>3 Los antiguos sistemas de ficheros de Linux s&oacute;lo almacenaban una fecha, ya que derivaban de Minix. Si se utiliza alguno de estos sistemas de ficheros, parte de la informaci&oacute;n no estar&aacute; disponible y las operaciones que se realicen sobre ellas ser&aacute;n in&uacute;tiles.</P>
+<P>4 N. del T.: Abreviatura de change mode, cambiar modo.</P>
+<P>&nbsp;</P>
+<P>Unix reconoce tres tipos diferentes de individuos: primero, el propietario del fichero (y la persona que puede utilizar el comando chmod sobre ese fichero). Segundo, el "grupo". El grupo de la mayor&iacute;a de los ficheros normales de un usuario del sistema ser&aacute; "users". (Para ver el grupo de un fichero en particular, utilizar "ls -l fichero" .) Por &uacute;ltimo, est&aacute; el "resto" que no son ni propietarios ni pertenecen al grupo, denominados "otros"5</P>
+<P>De esta forma, por ejemplo, un fichero puede tener permisos de lectura y escritura para el propietario, permiso de lectura para el grupo y ning&uacute;n tipo de permisos para otros. O por alguna raz&oacute;n, un fichero puede tener permisos de lectura/escritura para el grupo y otros, pero ¡ning&uacute;n privilegio para el propietario!</P>
+<P>Veamos algunos ejemplos de como cambiar permisos utilizando chmod. Primero creamos un fichero utilizando cat, emacs, o cualquier otro programa. Por defecto, son posibles las operaciones de lectura y de escritura sobre el fichero. (Los permisos dados a otros usuarios dependen de c&oacute;mo est&eacute;n establecidas las variables del sistema y de la cuenta del usuario). Podemos asegurarnos de que tenemos permiso de lectura utilizando el comando cat, a continuaci&oacute;n eliminamos el privilegio de lectura para nosotros mismos utilizando "chmod u-r fichero" 6 . Ahora si intentamos leer el fichero, obtendremos el mensaje de error Permission denied. Devolvemos el privilegio de lectura utilizando "chmod u+r fichero".</P>
+<P>Los permisos de directorio utilizan las tres mismas ideas anteriores: leer, escribir, y ejecutar, pero con ligeras variaciones. El privilegio de lectura permite al usuario (o al grupo, o a otros) leer el directorio, listar los nombres de los ficheros. El permiso de escritura permite a&ntilde;adir o borrar ficheros. El permiso de ejecuci&oacute;n permite al usuario acceder a ficheros en el directorio o a cualquier subdirectorio. (Si un usuario no tiene permisos de ejecuci&oacute;n para un directorio, entonces no puede siquiera hacer un cd al mismo).</P>
+<P>Para utilizar chmod, reemplazar el modo por el usuario, grupo, otro o todos (all) y la operaci&oacute;n a realizar. (Es decir, utilizar un signo m&aacute;s "+" para a&ntilde;adir privilegios y un menos "-" para quitarlos.</P>
+<P>Un signo igual "=" indica los mismos permisos para los usuarios involucrados en el modo). Los permisos posibles son lectura (read), escritura (write) , y ejecuci&oacute;n (execute).</P>
+<P>La opci&oacute;n "-R" al utilizar chmod cambiar&aacute; los permisos de un directorio, de todos los ficheros contenidos en &eacute;l, y de forma recursiva los permisos del &aacute;rbol de subdirectorios a partir de &eacute;l. La opci&oacute;n "-f" fuerza a que chmod intente cambiar los permisos incluso si el usuario no es el due&ntilde;o del fichero. (Si se utiliza el par&aacute;metro "f" al ejecutar chmod no se mostrar&aacute; un mensaje de error en caso de que no pueda cambiar los permisos del fichero.), por &uacute;ltimo la opci&oacute;n "v" hace que la ejecuci&oacute;n del chmod informe de todo lo que hace.</P>
+<P>_____________________________________________</P>
+<P>5 N. del T.: En ingles: "owner" (con "u" de "user"), "group" and "others" respectivamente.</P>
+<P>6 N. del T.: El par&aacute;metro u-r indica "user minus read", es decir: usuario menos lectura.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>7.3 Estad&iacute;sticas del sistema</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Los comandos de esta secci&oacute;n son de utilidad a la hora de mostrar las estad&iacute;sticas del sistema operativo, o de una parte de &eacute;l.</P>
+<P>&nbsp;</P>
+<B><P>- du [-abs] [trayectoria1 trayectoria2 . . . trayectoriaN]</P>
+</B><P>El comando du7 contabilizar&aacute; el espacio de disco ocupado por un subdirectorio y todos sus subdirectorios. El uso de este comando sin utilizar par&aacute;metros devolver&aacute; una lista de cuanto disco consume cada subdirectorio del directorio actual, y al final del informe, cuanto disco utiliza el directorio (y todos sus subdirectorios). Si se le pasa uno o m&aacute;s par&aacute;metros, devolver&aacute; la cantidad de espacio utilizado por esos ficheros o directorios en lugar de la del directorio actual.</P>
+<P>La opci&oacute;n "a" mostrar&aacute; adem&aacute;s del espacio de los directorios, el de los ficheros. Utilizando "b" como opci&oacute;n presentar&aacute; el total en bytes, en lugar de kilobytes (1 kilobyte = 1024 caracteres)8.</P>
+<P>Finalmente el par&aacute;metro "s" informar&aacute; s&oacute;lo acerca de los directorios explic&iacute;tos en la linea de comando y no de sus subdirectorios.</P>
+<P>&nbsp;</P>
+<B><P>- df</P>
+</B><P>El comando df9 resume la cantidad de espacio utilizada en el disco. Para cada sistema de ficheros (recuerde que sistemas de ficheros diferentes son o bien unidades f&iacute;sicas o particiones diferentes) muestra el espacio total de disco, la cantidad utilizada, la cantidad disponible y la capacidad total del sistema de ficheros que se utiliza.</P>
+<P>Un caso extra&ntilde;o que puede darse es la posibilidad de tener una capacidad superior al 100%, o que la cantidad utilizada m&aacute;s la disponible no sea igual a la total. Esto es debido a que Unix reserva parte del espacio de cada sistema de ficheros para el directorio ra&iacute;z. De esta forma aunque alg&uacute;n usuario accidentalmente sature el disco, el sistema todav&iacute;a tendr&aacute; un poco de espacio para seguir operativo.</P>
+<P>Este comando no ofrece opciones que puedan ser de utilidad al usuario.</P>
+<P>&nbsp;</P>
+<B><P>- uptime</P>
+</B><P>El comando uptime10 informa sobre el tiempo en el que el sistema ha estado activo, es decir el tiempo transcurrido desde que Unix arranc&oacute; por &uacute;ltima vez.</P>
+<P>Este comando tambi&eacute;n devuelve la hora actual y el promedio de carga que soporta el sistema. El promedio de carga es el n&uacute;mero medio de procesos esperando a ejecutar en un determinado periodo de tiempo. uptime muestra el promedio de carga del &uacute;ltimo minuto y de los cinco y diez &uacute;ltimos minutos. Si este promedio de carga se aproxima a cero indica que el sistema ha estado relativamente desocupado; por el contrario si el promedio es cercano al uno indica que el sistema ha estado casi completamente utilizado pero en ning&uacute;n momento sobrecargado. Los promedios de carga altos son el resultado de la ejecuci&oacute;n simult&aacute;nea de varios programas.</P>
+<P>Extraordinariamente, uptime es uno de los pocos comandos de Unix que ¡no tienen opciones!</P>
+<P>_____________________________________________</P>
+<P>7 N. del T.: Abreviatura de disk usage, utilizaci&oacute;n del disco.</P>
+<P>8 Un byte es el equivalente de una letra en un documento de texto.</P>
+<P>9 N. del T.: Abreviatura de disk filling, espacio disponible en el disco.</P>
+<P>10 N. del T.: Tiempo en estado activo.</P>
+<P>&nbsp;</P>
+<P>- <B>who</P>
+</B><P>El comando who muestra los usuarios activos en ese momento en el sistema y cuando han iniciado su respectiva sesi&oacute;n. Si le damos los par&aacute;metros "am i" (es decir : "who am i" ), nos devuelve la informaci&oacute;n relativa a nosotros mismos.11</P>
+<P>&nbsp;</P>
+<P>- <B>w</B> <B>[-f]</B> <B>[nombre_usuario]</B> </P>
+<P>El programa w devuelve los usuarios actuales del sistema y que est&aacute;n haciendo. (B&aacute;sicamente combina la funcionalidad de uptime y who. La cabecera del informe que presenta w es exactamente la misma que uptime, siendo la informaci&oacute;n de cada una de las l&iacute;neas la siguiente: el nombre del usuario, hora de inicio de la sesi&oacute;n (y cuanto tiempo ha estado ocioso). JCPU es la cantidad total de tiempo de CPU utilizada por ese usuario, mientras que PCPU es la cantidad total de tiempo utilizada por sus tareas actuales.</P>
+<P>Si al comando se le pasa la opci&oacute;n "f", mostrar&aacute; los sistemas remotos desde los que los usuarios acceden, si los hay. Puede indicarse un nombre de usuario como par&aacute;metro para mostrar s&oacute;lo informaci&oacute;n relativa a &eacute;l.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>7.4 ¿Qu&eacute; hay en un fichero?</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Principalmente hay dos comandos en Unix para listar ficheros, cat y more. Sobre ambos ya se habl&oacute; en el Cap&iacute;tulo 6.</P>
+<P>&nbsp;</P>
+<B><P>- cat [-nA] [fichero1 fichero2 . . . ficheroN]</P>
+</B><P>cat no es un comando de uso amigable, no espera a que el usuario acabe de leer el fichero, y se utiliza generalmente en contextos de tuber&iacute;as. Aunque pueden utilizarse algunas opciones muy &uacute;tiles del comando, por ejemplo, "n" numera todas las l&iacute;neas del fichero, y "A" mostrar&aacute; los car&aacute;cteres de control como car&aacute;cteres normales en lugar de hacer (posiblemente) cosas extra&ntilde;as en la pantalla.</P>
+<P>(Recuerde que para ver las opciones m&aacute;s curiosas y quiz&aacute; "menos &uacute;tiles" utilice el comando man: "man cat". Si no se especifican ficheros en la l&iacute;nea de comandos, cat aceptar&aacute; la entrada desde stdin12.</P>
+<P>_____________________________________________</P>
+<P>11 N. del T.: literalmente es como preguntar al sistema ¿qui&eacute;n soy yo?</P>
+<P>&nbsp;</P>
+<B><P>- more [-l] [+n&uacute;mero_l&iacute;nea] [fichero1 fichero2 . . . ficheroN]</P>
+</B><P>more es m&aacute;s &uacute;til, y adem&aacute;s es el comando recomendado para ver ficheros de texto ASCII. La &uacute;nica opci&oacute;n interesante es "l" , que indica al comando que no se desea interpretar el car&aacute;cter |_Ctrl-L_| como car&aacute;cter de "nueva p&aacute;gina". El comando comenzar&aacute; en la l&iacute;nea n&uacute;mero_l&iacute;nea especificada.</P>
+<P>Al ser more un comando interactivo, hemos resumido a continuaci&oacute;n las &oacute;rdenes m&aacute;s comunes:</P><DIR>
+<DIR>
+
+<P>|_Barra-espaciadora_| Pasar a la siguiente pantalla de texto.</P>
+<P>|_d_| Pasar 11 l&iacute;neas de pantalla, o aproximadamente la mitad de una pantalla normal: 25 l&iacute;neas.</P>
+<P>|_/_|Busca una expresi&oacute;n regular. La construcci&oacute;n de una expresi&oacute;n regular puede ser muy complicada por lo que es recomendable teclear simplemente el texto a buscar. Por ejemplo, /sapo |_Intro_| buscar&aacute; la primera ocurrencia de "sapo" en el fichero a partir de la posici&oacute;n actual.</P>
+<P>La misma tecla seguida por un |_Intro_| buscar&aacute; la siguiente ocurrencia de la &uacute;ltima expresi&oacute;n buscada.</P>
+<P>|_n_| Buscar&aacute; la pr&oacute;xima aparici&oacute;n de la expresi&oacute;n regular especificada.</P>
+<P>|_:_||_n_| Pasar al siguiente fichero, en caso de que se especifique m&aacute;s de un fichero en la l&iacute;nea de comandos.</P>
+<P>|_:_||_p| Pasar al fichero anterior.</P>
+<P>|_q_| Terminar more.</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<B><P>- head [-l&iacute;neas] [fichero1 fichero2 . . . ficheroN]</P>
+</B><P>head mostrar&aacute; las primeras diez l&iacute;neas de los ficheros especificados, o las primeras diez l&iacute;neas de la stdin si no se especifica ning&uacute;n fichero en la l&iacute;nea de comandos. Cualquier opci&oacute;n num&eacute;rica se tomar&aacute; como el n&uacute;mero de l&iacute;neas a mostrar, por ejemplo "head -15 rana" mostrar&aacute; las primeras quince l&iacute;neas del fichero rana.</P>
+<P>&nbsp;</P>
+<B><P>- tail [-l&iacute;neas] [fichero1 fichero2 . . . ficheroN]</P>
+</B><P>Como head, tail mostrar&aacute; solo una parte del fichero, en este caso el final del fichero, las &uacute;ltimas diez l&iacute;neas del fichero, o que provengan de la stdin. tail tambi&eacute;n acepta la opci&oacute;n de especificar el n&uacute;mero de l&iacute;neas, como en el caso anterior.</P>
+<P>_____________________________________________</P>
+<P>12 N. del T.: standard input, entrada est&aacute;ndar, generalmente entrada de datos por teclado.</P>
+<P>&nbsp;</P>
+<B><P>- file [fichero1 fichero2 . . . ficheroN]</P>
+</B><P>El comando file intenta identificar que tipo de formato tiene un fichero en particular. Debido a que no todos los ficheros tienen extensi&oacute;n o otras formas de identificarlos f&aacute;cilmente, este comando realiza algunas comprobaciones rudimentarias para intentar comprender exactamente que contiene el fichero.</P>
+<P>Hay que tener cuidado ya que es bastante posible que file realice una identificaci&oacute;n incorrecta.</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Courier New" SIZE=2 COLOR="#008080"><P>7.5 Comandos de edici&oacute;n</P>
+</B></U></FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000000"><P>Esta secci&oacute;n trata de los comandos que alteran un fichero, realizando sobre el fichero operaciones concretas o mostrando estad&iacute;sticas del mismo.</P>
+<P>&nbsp;</P>
+<B><P>- grep [-nvwx] [-n&uacute;mero] expresi&oacute;n [fichero1 fichero2 . . . ficheroN ]</P>
+</B><P>Uno de los comandos m&aacute;s &uacute;tiles de Unix es el grep13, utilizado para buscar expresiones en un fichero de texto. La forma m&aacute;s sencilla de usarlo es:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat animales</P>
+<P>Los animales son unas criaturas muy interesantes. Uno de mis animales favoritos es el tigre, una temible bestia con grandes colmillos.</P>
+<P>Tambien me gusta el leon--- realmente increible!</P>
+<P>/home/larry$ grep igre animales</P>
+<P>el tigre, una temible bestia con grandes colmillos.</P>
+<P>/home/larry$</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>Una de los problemas de esta forma de usarlo, es que simplemente muestra las l&iacute;neas que contienen la palabra a buscar, no aporta informaci&oacute;n acerca de donde buscar en el fichero, es decir el n&uacute;mero de l&iacute;nea. Pero dependiendo de lo que se pretenda puede ser hasta m&aacute;s que suficiente, por ejemplo si se buscan los errores de la salida de un programa, se puede probar "a.out _ grep error" , donde "a.out" es el nombre del programa.</P>
+<P>Cuando es necesario conocer donde est&aacute;n las palabras a buscar, es decir el n&uacute;mero de l&iacute;nea, hay que utilizar la opci&oacute;n "n" . Si lo que se desea es ver todas las l&iacute;neas donde no se encuentra la expresi&oacute;n especificada, entonces utilice la opci&oacute;n "v".</P>
+<P>Otra posibilidad que ofrece el grep es la b&uacute;squeda de partes de una palabra, como en el ejemplo anterior que "igre" se equipar&oacute; con "tigre" . Para buscar s&oacute;lo palabras completas hay que pasarle al grep la opci&oacute;n "w" , y para l&iacute;neas completas la opci&oacute;n es "x" .</P>
+<P>Si no se especifica ning&uacute;n fichero (por ejemplo: "grep igre" ), grep examinar&aacute; la stdin.</P>
+<P>_____________________________________________</P>
+<P>13 N. del T.: Abreviatura de generalized regular expression parser, analizador general de expresiones regulares.</P>
+<P>&nbsp;</P>
+<B><P>- wc [-clw] [fichero1 fichero2 . . . ficheroN ]</P>
+</B><P>El comando wc14 simplemente cuenta el n&uacute;mero de palabras, l&iacute;neas y caracteres en los ficheros pasados como par&aacute;metros. Si no se especifica ning&uacute;n fichero, operar&aacute; sobre la stdin. Los tres par&aacute;metros, "clw" , indican el elemento a contar: caracteres, l&iacute;neas y "w" para palabras.</P>
+<P>Por ejemplo, "wc -cw" contar&aacute; el n&uacute;mero de caracteres y palabras, pero no el n&uacute;mero de l&iacute;neas. Si no se indica ning&uacute;n par&aacute;metro wc cuenta todo: palabras, l&iacute;neas y caracteres.</P>
+<P>Se puede utilizar wc para saber el n&uacute;mero de ficheros de un directorio: "ls _ wc -w". Si se desea saber el n&uacute;mero de ficheros que acaban en .c, entonces ejecute "ls *.c _ wc -w".</P>
+<P>&nbsp;</P>
+<B><P>- spell [fichero1 fichero2 . . . ficheroN]</P>
+</B><P>spell es el corrector ortogr&aacute;fico m&aacute;s sencillo de Unix generalmente para ingl&eacute;s americano15.</P>
+<P>spell es un filtro, igual que la mayor&iacute;a de los comandos que hemos comentado antes, que toma el fichero de texto ASCII y devuelve todas las palabras que considera err&oacute;neas. spell opera sobre los ficheros especificados, y si no se incluye ninguno, entonces utiliza la stdin.</P>
+<P>Tambi&eacute;n es posible que est&eacute; disponible en su m&aacute;quina ispell, que es un corrector ortogr&aacute;fico un poco m&aacute;s sofisticado. ispell ofrece diversos vocabularios y un men&uacute; m&aacute;s manejable en caso de ejecutarlo con un fichero en la l&iacute;nea de comandos. Tambi&eacute;n puede ejecutarse como un filtro si no se especifica ning&uacute;n fichero.</P>
+<P>La forma de trabajar con ispell es bastante obvia, pero si necesita m&aacute;s ayuda consulte la p&aacute;gina del manual correspondiente: "man ispell" .</P>
+<P>&nbsp;</P>
+<B><P>- cmp fichero1 [fichero2]</P>
+</B><P>cmp compara dos ficheros. El primero debe ser obligatoriamente pasado como par&aacute;metro, mientras que el segundo puede ser pasado como un segundo par&aacute;metro o le&iacute;do desde la entrada est&aacute;ndar. cmp es muy sencillo, y simplemente dice donde se diferencian los dos ficheros.</P>
+<P>&nbsp;</P>
+<B><P>- diff fichero1 fichero2</P>
+</B><P>Uno de los comandos est&aacute;ndar m&aacute;s complejos de Unix es el diff. La versi&oacute;n GNU de diff tiene hasta ¡veinte opciones! en la l&iacute;nea de comandos. Es una versi&oacute;n mucho m&aacute;s potente que cmp y muestra cuales son las diferencias en lugar de decir simplemente donde est&aacute; la primera.</P>
+<P>Ya que una buena parte de las opciones del diff est&aacute;n m&aacute;s all&aacute; del alcance de este manual, simplemente hablaremos del funcionamiento b&aacute;sico. Brevemente, diff toma dos par&aacute;metros y muestra las diferencias entre ellos l&iacute;nea a l&iacute;nea. Por ejemplo:</P><DIR>
+<DIR>
+
+<P>/home/larry$ cat rana</P>
+<P>Los animales son una criaturas muy interesantes. Uno de mis animales favoritos es el tigre, una temible bestia con grandes colmillos.</P>
+<P>Tambien me gusta el leon--- realmente increible!</P>
+<P>/home/larry$ cp rana sapo</P>
+<P>/home/larry$ diff rana sapo</P>
+<P>/home/larry$ cat perro</P>
+<P>Los animales son una criaturas muy nteresantes. Uno de mis animales favoritos es</P>
+<P>el tigre, una temible bestia con grandes colmillos.</P>
+<P>Tambien me gusta el leon--- realmente increible!</P>
+<P>/home/larry$ diff rana perro</P>
+<P>1c1,2</P>
+<P>&lt; Los animales son una criaturas muy interesantes. Uno de mis animales favoritos es</P>
+<P>----</P>
+<P>&gt; Los animales son una criaturas muy nteresantes. Uno de mis animales favoritos es</P>
+<P>&gt;</P>
+<P>3c4</P>
+<P>&lt; Tambien me gusta el leon--- realmente increible!</P>
+<P>----</P>
+<P>&gt; Tambien me gusta el leon--- realmente increible!</P>
+<P>/home/larry$</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<P>_____________________________________________</P>
+<P>14 N. del T.: Abreviatura de word count, contar palabras.</P>
+<P>15 Aunque hay versiones del corrector para diversas lenguas europeas, la copia que puede encontrarse en su m&aacute;quina Linux es con toda probabilidad para ingl&eacute;s americano.</P>
+<P>&nbsp;</P>
+<P>Como puede observarse, diff no devuelve nada cuando los dos ficheros son iguales. Pero cuando hemos comparado dos ficheros diferentes, se muestra una cabecera de secci&oacute;n, "1c1,2" indicando que ha comparando la l&iacute;nea 1 del fichero de la izquierda, rana, con las l&iacute;neas 1-2 de perro y las diferencias que ha encontrado. Luego ha comparado la l&iacute;nea 3 de rana con la l&iacute;nea 4 de perro.</P>
+<P>Aunque pueda parecer extra&ntilde;o que compare diferentes n&uacute;meros de l&iacute;nea, es bastante eficiente ya que es posible que pueda haber alg&uacute;n retorno de l&iacute;nea de m&aacute;s en alguno de los ficheros.</P>
+<P>&nbsp;</P>
+<B><P>- gzip [-v#] [fichero1 fichero2 . . . ficheroN]</P>
+<P>- gunzip [-v] [fichero1 fichero2 . . . ficheroN]</P>
+<P>- zcat [fichero1 fichero2 . . . ficheroN]</P>
+</B><P>Estos tres programas se utilizan para comprimir y descomprimir datos. gzip, o GNU Zip, es un programa que lee de los ficheros originales y devuelve ficheros m&aacute;s peque&ntilde;os, borra los ficheros especificados en la l&iacute;nea de comandos y los reemplaza con ficheros que tienen el mismo nombre pero con .gz a&ntilde;adido a su nombre.</P>
+<P>&nbsp;</P>
+<B><P>- tr cadena1 cadena2</P>
+</B><P>El comando de "traducci&oacute;n de caracteres" opera sobre la entrada est&aacute;ndar, no acepta un nombre de fichero como par&aacute;metro. Reemplaza todas las ocurrencias de cadena1 en la entrada con la cadena2. En comparaci&oacute;n con llamadas tan sencillas como "tr rana sapo" , tr puede aceptar comandos m&aacute;s complejos. Por ejemplo, hay una forma r&aacute;pida de convertir los caracteres en min&uacute;scula por otros en may&uacute;scula:</P><DIR>
+<DIR>
+
+<P>/home/larry$ tr -:lower:] [:upper:]</P>
+<P>Esta es una frase RARA.</P>
+<P>ESTA ES UNA FRASE RARA.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>tr es relativamente complejo y se usa normalmente en peque&ntilde;os programas shell, como filtro.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

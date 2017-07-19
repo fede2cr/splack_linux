@@ -1,0 +1,372 @@
+<HTML
+><HEAD
+><TITLE
+>Topics of Current Interest.</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.63
+"><LINK
+REL="HOME"
+TITLE="Linux Frequently Asked Questions with Answers"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Introduction and General Information"
+HREF="x25.html"><LINK
+REL="NEXT"
+TITLE="Network Sources and Resources"
+HREF="x346.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Linux Frequently Asked Questions with Answers</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x25.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x346.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN286"
+>2. Topics of Current Interest.</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN288"
+>2.1. What Is the Best Way to Respond to Anti-Linux FUD?</A
+></H2
+><P
+>Basically, ignore it.  When confronted with anti-Linux misinformation
+(FUD; or Fear, Uncertaintly, and Doubt), respond with information
+about Linux that correlates with its <EM
+>actual</EM
+>
+capabilities, not advertising hype and buzzwords.  </P
+><P
+>This FAQ adheres to several simple guidelines for non-Linux content,
+which are briefly described in an article written 
+by the FAQ Maintainer: <A
+HREF="http://www.mainmatter.com/fud.txt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.mainmatter.com/fud.txt</TT
+></A
+>, reprinted
+from <I
+CLASS="CITETITLE"
+>Linux Today.</I
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN296"
+>2.2. What Are the Reasons to Upgrade to the Version 2.4 Kernel?</A
+></H2
+><P
+>The kernel 2.4 source code, the product of countless hours of
+coding, testing, and re-coding, by dogged kernel hackers, is
+being upgraded with patches and bug fixes.</P
+><P
+>Among the new kernel's features are: support for the IBM S/390, the
+Logical Volume Manager, NFS Version 3 servers, PCMCIA CardBus devices,
+USB peripherals, the Device File System, 64 GB of RAM (yes, that's
+memory, not disk space), Itanium and MMX processors, drivers for many
+additional hardware devices, greater maximum file sizes, and vastly
+improved Symmetric Multiprocessing capabilities, at least for
+certain processors.</P
+><P
+>The changes are more significant for non-i386 platforms, although
+developers on i386 platforms can make use of the improvements&#8212;
+and stumble over the incompatibilities&#8212;of the new kernel as well.</P
+><P
+>If there's a compelling reason to upgrade, the source code is
+available, in the tar archive:
+<TT
+CLASS="FILENAME"
+>linux-2.4.</TT
+><EM
+>x</EM
+><TT
+CLASS="FILENAME"
+>.tar.gz</TT
+>.  (Refer to: ``<A
+HREF="x346.html#AEN348"
+><I
+>Where Is the Latest Kernel Version on the Internet?</I
+></A
+>,'' below.)  It
+will likely be several months at least before the commercial vendors
+upgrade their distributions to the new kernel.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN306"
+>2.3. When Is It a Good Idea To Use the Red Hat 7.0 <TT
+CLASS="LITERAL"
+>kgcc</TT
+> Compiler?</A
+></H2
+><P
+>Red Hat Linux 7.0 ships with two compilers, GCC 2.96, and KGCC, a.k.a,
+EGCS 1.1.2, a.k.a GCC 2.91.66.  Confusing?  You bet it is.  It's
+probably better to use one of the standard GCC releases.  The Free
+Software Foundation says that GCC 2.96, contains extensions that
+produce object code which is not compatible with previous versions of
+GCC, in addition to the normal bugs found in development software.
+The FSF changed the version number of their current development
+compiler to 2.97 to distinguish them.  The FSF's statement is at
+<A
+HREF="http://www.fsf.org/software/gcc/gcc-2.96.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.fsf.org/software/gcc/gcc-2.96.html</TT
+></A
+>.</P
+><P
+>You can determine the compiler version numbers by typing ``<TT
+CLASS="LITERAL"
+>gcc
+--version</TT
+>'' and ``<TT
+CLASS="LITERAL"
+>kgcc --version</TT
+>.''  The
+latest stable GCC release is 2.95.2.</P
+><P
+>Any recent, officially released GNU C compiler from versions 2.7.2
+onward should compile the generic kernel source code, unless it's the
+Version 2.4 kernel, in which case you'll need GCC 2.91.66 (EGCS
+1.1.2).  Don't expect any support from the kernel developers if you're
+using an earlier compiler.  </P
+><P
+>Does that clarify everything?</P
+><P
+>You can download source code distributions from one of the
+<TT
+CLASS="LITERAL"
+>kernel.org</TT
+> mirror sites.  (Refer to: ``<A
+HREF="x346.html#AEN348"
+><I
+>Where Is the Latest Kernel Version on the Internet?</I
+></A
+>,'' below.)  The
+kernel source code included with Red Hat 7.0 is kernel version 2.2.16,
+and is archived generically as
+<TT
+CLASS="FILENAME"
+>linux-2.2.16.tar.gz</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN321"
+>2.4. What Resources Are There for Linux DeCSS and Other Open Source DVD
+Software?</A
+></H2
+><P
+>There is a DeCSS Resource Site at
+<A
+HREF="http://www.pzcommunications.com/main.htm"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.pzcommunications.com/main.htm</TT
+></A
+>.
+A site with DeCSS code is at: 
+<A
+HREF="http://www.cs.cmu.edu/~dst/DeCSS/Gallery/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.cs.cmu.edu/~dst/DeCSS/Gallery/</TT
+></A
+>.
+For information about the legal action to bar distributing DeCSS code 
+and information, refer also to <I
+CLASS="CITETITLE"
+>2600's</I
+> Web site: 
+<A
+HREF="http://www.2600.com/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.2600.com/</TT
+></A
+>, and the Electronic
+Frontier Foundation, <A
+HREF="http://www.eff.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.eff.org/</TT
+></A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN333"
+>2.5. Where Is Information About Electronic Privacy Laws that 
+Affect ISP's?</A
+></H2
+><P
+>The U.S. Federal Trade Commission has issued a report to Congress 
+that recommends regulations to guarantee privacy for customers of
+Internet Service Providers.  The text of the report is at 
+<A
+HREF="http://www.ftc.gov/acoas/papers/finalreport.htm"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.ftc.gov/acoas/papers/finalreport.htm</TT
+></A
+>.  The FTC E-commerce site is at 
+<A
+HREF="http://www.ftc.gov/bcp/menu-internet.htm/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.ftc.gov/bcp/menu-internet.htm/</TT
+></A
+></P
+><P
+>The New York Times on the Web has a page of electronic privacy
+information resources at
+<A
+HREF="http://www.nytimes.com/library/tech/reference/index-privacy.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.nytimes.com/library/tech/reference/index-privacy.html</TT
+></A
+>  Access is free but requires registration.</P
+><P
+>The Electronic Privacy Information Center maintains a Web page at 
+<A
+HREF="http://www.epic.org/"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>http://www.epic.org/</TT
+></A
+>.  The site also has pointers
+to information about international laws that affect cryptographic 
+software.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x25.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x346.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introduction and General Information</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Network Sources and Resources</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

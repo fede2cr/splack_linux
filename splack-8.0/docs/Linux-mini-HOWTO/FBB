@@ -1,0 +1,1102 @@
+  FBB Packet-radio BBS mini-HOWTO
+  Miroslav "Misko" Skoric, YT7MPB, m.skoric@eunet.yu
+  v1.8, 17 March 2001
+
+  This mini-HOWTO covers the installation and use of the most popular
+  amateur packet-radio BBS software FBB. That software works under
+  Linux, DOS and Windows operating systems. It serves as a bulletin
+  board system (BBS), a mailbox for personal messages, a database for
+  various texts, documents and binary files, a server for small useful
+  calculations etc. Packet radio is a way of connecting computers via
+  amateur radio stations.
+
+  1.  Introduction
+
+  I have been using FBB amateur radio software since early nineties. It
+  was the time of DOS operating system, so most of us, system
+  administrators (or, so called system operators - sysop's), used
+  various packet radio software for DOS. Versions of FBB packet radio
+  BBS software for DOS, today are known as DosFBB.
+
+
+  I still administer one DosFBB database in the SRV (Amateur Radio Union
+  of Vojvodina, a part of SRJ). It is DosFBB v7.00g23 that runs on a
+  486DX computer with 16 MB of RAM and Hercules b/w graphics. Since last
+  December, it runs without any re-boot (excepting some power failures).
+  Before that, it was a bit tricky to set up all memory management
+  properly, in order to avoid "frozen" system. Although this server runs
+  under DOS, its "radio clients" don't depend on that. In fact, users of
+  that DosFBB might run their client software under DOS, Windows, Linux
+  or any other operating system that offer amateur packet radio
+  abilities.
+
+
+  Two years ago, after I got my new box, Pentium 166 with 32 MB of RAM
+  and VGA color graphics, I switched to a Windows version of FBB (so
+  called WinFBB). Author of the software, an radio amateur from France,
+  Jean-Paul F6FBB, has made many versions of WinFBB, including 16 bit
+  variant for Windows 3.x and Windows 9x as well as 32 bit variant for
+  Windows NT. I have run both variants until now (at the moment it is 16
+  bit WinFBB v7.00g25 that runs ok under Windows NT 4.0).
+
+
+  The main difference between DosFBB and WinFBB is that the second one
+  offers you to do other jobs with your computer, while FBB is running
+  as just any other application. Beside that, it is always nice to copy
+  a text from another application (for example, from an Internet email)
+  and to paste it into a packet radio message.
+
+
+  In the mean time, I upgraded my system to the Celeron 400 MHz with 96
+  MB of RAM and a big hard disk that has enough room to install Linux
+  and try LinFBB ...
+
+
+
+  2.  How to install X11 (Xwindows) version of LinFBB
+
+
+  ·  First of all, you should have running Linux with a GUI installed. I
+     am fully satisfied with Gnome GUI but I suppose that KDE will be ok
+     too (or any other GUI available).
+
+
+
+  ·  Download or copy LinFBB (the main ftp site is ftp.f6fbb.org
+     <http://ftp.f6fbb.org/> but there are many mirror sites too). For
+     example, if you get a file like
+
+
+       x700e_full.tgz
+
+
+
+  it means that it is X11 version 7.00e and it contains all you need in
+  tgz archive to install the BBS. On the other hand, a name like
+
+
+       xd700g_full.tgz
+
+
+
+  means that it is not X11 but daemon version 7.00g and it is also com­
+  plete to unpack. Further,
+
+
+       x700f01.tgz
+
+
+
+  and
+
+
+       x700g.tgz
+
+
+
+  are "upgrades" to any previous "full" package.  For example, after I
+  have upgraded to x700g.tgz I started to run X11 LinFBB 7.00g (04.
+  August 1998).  BTW, X11 versions are not maintained anymore, so I
+  still run it here. It has some bugs but I like it.
+
+
+
+  ·  Copy the archive file in /tmp directory.
+
+
+
+  ·  You have to make a "base" directory where your FBB will be
+     installed. For example you may type: mkdir /usr/local/fbb if you
+     want FBB to be there. You have to be logged as
+
+
+
+  ·  Then, you should locate yourself in that directory: cd
+     /usr/local/fbb.
+
+
+
+  ·  Now, you should unpack the archive: tar xvzf /tmp/x700b25.tgz (<--
+     use the right name of the archive here).
+
+
+
+  ·  When you finished unpacking the archive, you may continue
+     installing the software: ./install.sh is the command for that. The
+     setup will ask you for the 'base' directory where FBB will be
+     installed. If you chose /usr/local/fbb again, you will be told that
+     such directory already exists and all files will be overwritten. It
+     is ok, so you should answer yes. If everything is ok, you should
+     see on the screen that fbb system directories are created. At the
+     beginning of that procedure, program will ask you for bbs's
+     callsign, name of the city, QTH locator, your name etc. That
+     details will become a part of /usr/local/fbb/init.srv file.
+
+
+
+  ·  After that, you MUST check this file again manually in order to fix
+     some other details needed (because installation script does not fix
+     all parts within that file).
+
+
+
+  ·  Well, so far - so good. After you have checked all configuration
+     files, you may start the software: ./xfbb.sh (<-- type this within
+     an xterm or something similar). When you start your BBS for the
+     first time, it will ask you to create some files it needs, so you
+     should answer "yes" to the questions.
+
+
+
+  3.  How to install LinFBB in addition to existing WinFBB
+
+  Notice: Folks, you see, at my place, I have a dual-boot system,
+  consisting of Windows NT and Linux (each of them having their own
+  partition(s) and file system). I wanted to have 'independent'
+  operating systems that won't see each other. So I made two NT's
+  partitions as NTFS partitions and rest of the space used Linux as ext2
+  partitions.  Well, first I have installed WinFBB under NT and X11
+  LinFBB under Linux. Both of them worked, but there was a big
+  "problem": I could not share their system files. You might say: So,
+  what a big deal.  But, my FBB's should serve as packet-radio
+  forwarding stations (regardless of which one I boot at the moment), so
+  it was really needed for new LinFBB to "know", for example, the
+  position where WinFBB has stopped the mail exchange last time (and
+  vice versa, of course).
+
+
+
+  ·  Well, in order to allow both WinFBB under Windows NT and LinFBB
+     under Linux to use some common files, it is needed to put these
+     files in a place where both operating systems can "see". So I do
+     that by re-installing WinFBB onto a FAT (FAT16) partition that is
+     recognized by NT and Linux too. The best way to do that is to
+     install a "fresh" copy of WinFBB on a FAT partition and to copy
+     complete "old" WinFBB from NTFS partition over the fresh
+     installation (whenever you are asked to rewrite existing files, you
+     should answer "yes").
+
+
+
+  ·  When that is finished, you should have a "clone" of the existing
+     old WinFBB, but this time on the FAT partition that is visible from
+     under Linux. Anyway, you should check if the "new" installation is
+     able to run as the "old" one.
+
+
+
+  ·  I could also recommend you to check the file tree of WinFBB in
+     order to become more familiar with it. The file tree of LinFBB is a
+     bit different so it is advisable to note various details here and
+     there.
+
+
+
+  ·  Some files can't be used as they are under both operating systems
+     (without some neccesary changes). That's why some file names should
+     be renamed (or, at least, you should make appropriate copies of
+     some files):
+
+
+
+             init.srv    ->  init_w.srv
+             forward.sys ->  forw_w.sys
+             port.sys    ->  port_w.sys
+             protect.sys ->  prot_w.sys
+
+
+
+  FBB is able to recognize and accept those renamed files.
+
+
+
+  ·  Make a backup of the actual WinFBB (I do this by copying the whole
+     WinFBB file structure into the other Windows partition that won't
+     be shared with Linux, like NTFS one). You'll never know when a
+     catastrophe may happen, so as a result, you won't be able to start
+     neither of WinFBB or new LinFBB. As a precaution, the backup might
+     be the easiest way to recover at least the old WinFBB for a while
+     (until you configure your new LinFBB, ok?).
+
+
+
+  ·  Now, you should restart your machine and boot into Linux. Log on as
+     'root' or make 'su' from a user's account.
+
+
+
+  ·  Mount a shared FAT directory (where FBB files are): mount -t vfat
+     /dev/hda2 /mnt/win (for example).
+
+
+
+  ·  Copy LinFBB archive to /tmp directory.
+
+
+
+  ·  Position yourself to the 'base' directory: cd /usr/local/fbb (for
+     example).
+
+
+
+  ·  Unpack the archive: tar xvzf /tmp/filename.
+
+
+
+  ·  Start the installation script ./install.sh and, after asked for the
+     'base' installation directory, chose /usr/local/fbb. It doesn't
+     matter if the program warns you that such directory already exists
+     so existing files will be overwritten (by the way, if you choose a
+     mounted directory shared with NT, many original WinFBB files,
+     located there, would be over-written by LinFBB files, so after
+     returning to Windows, WinFBB might not be functional like before).
+
+
+
+  ·  Copy /usr/local/fbb to /mnt/win/fbb but do *not* rewrite existing
+     files with the new files having the same names.
+
+
+
+  ·  Copy /mnt/win/fbb/init_w.srv to /mnt/win/fbb/init_l.srv file.
+
+
+
+  ·  Edit /mnt/win/fbb/init_l.srv to what is needed for Linux. You may
+     use the existing file /mnt/win/fbb/init.srv as an example.
+
+
+
+  ·  Copy newly edited /mnt/win/fbb/init_l.srv over the
+     /mnt/win/fbb/init.srv (if you do not do that, maybe you wouldn't be
+     able to start LinFBB using ./xfbb.sh, like me at first).
+
+
+
+  ·  Copy /mnt/win/fbb/system/port_w.sys to
+     /mnt/win/fbb/system/port_l.sys file.
+
+
+
+  ·  Edit /mnt/win/fbb/system/port_l.sys to what is needed for Linux and
+     LinFBB. You may use the existing file /mnt/win/fbb/system/port.sys
+     as an example.
+
+
+
+  ·  Edit /mnt/win/fbb/xfbb.sh in order to fix the right path.
+
+
+
+  ·  Ensure that you are in FBB's main directory: cd /mnt/win/fbb (for
+     example).
+
+
+
+  ·  Start the script ./xfbb.sh to run LinFBB.  If everything is ok,
+     your LinFBB under Linux should run with the same configuration as
+     your "old" WinFBB under Windows. From this point, both FBB's should
+     behave very similar (actually, I must admit that WinFBB has much
+     better visual quality than X11 LinFBB, but probably the reasons for
+     that you may find in Windows-vs.-Linux-GUI quality battles). FYI,
+     my actual WinFBB is v7.00g25 (05. January 2000) and X11 LinFBB is
+     v7.00g (04.August 1998).
+
+
+
+  4.  How to install Protus password utility
+
+  Notice: Well, I have been using Protus connection filters for a long
+  time now. At first, it was version 3.1/1.2 for DosFBB515c and, later,
+  version 3.3 for Dos/WinFBB700.  I have found Protus as very useful
+  utility because of its implementation of BBS-to-BBS forwarding
+  protection using MD2 algorythm.  One of the reasons I am going to
+  cover Protus in this document is a fact that its author haven't made a
+  manual in english yet. I keep trying to translate the original manuals
+  from spanish into english, but it is a hard process. Any good
+  'spanish-to-english' translator is welcomed to contact me:
+  m.skoric@eunet.yu.
+
+
+
+  Protus offers several interesting features:
+
+
+
+  ·  It can send a presentation message to all users, informing about
+     possibility to make users' access more safe,
+
+
+
+  ·  It can send messages to users who have normal access, informing
+     about utility's existence,
+
+
+
+  ·  It can send messages to users who have no valid access (before
+     disconnecting them),
+
+
+
+  ·  It can send messages to new users who have connected the BBS for
+     the first time, informing them about the password utility.
+
+
+
+  ·  It can send messages to users who have entered wrong password
+     (before disconnecting them),
+
+
+
+  ·  It can inform sysop about almost everything related to users'
+     connections (new user on the system, unsuccessful connections etc),
+
+
+
+  ·  Messages mentioned above could be translated into various languages
+     and used similarly as various language files that FBB uses,
+
+
+
+  ·  Messages mentioned above could be different for different BBS
+     ports,
+
+
+
+  ·  Protus could be activated/deactivated at various intervals of time
+     using CRON.SYS system file,
+
+
+
+  ·  Passwords could be managed remotely, using an external server,
+     developed by Jose EB5IVB,
+
+
+
+  ·  ...
+
+
+
+  Well, let's see what should be done in order to implement secure
+  access to the FBB packet radio BBS, using Protus type of, so called,
+  c_filter:
+
+
+
+  ·  Users of Dos/WinFBB versions of Protus already know that it is
+     needed to create a new directory \FBB\PROTUS where several *.PRT
+     files should be placed. In addition, the main C_FILT*.DLL files
+     should be copied into \FBB\BIN as well as a couple of "system",
+     (i.e. config) *.PRT files that are going to be within \FBB\SYSTEM
+     directory.
+
+
+
+  ·  After the sysop has copied all files into the proper locations, it
+     is needed to make some configuration. The most important files are
+     two "system" ones: CONFIG.PRT and USERS.PRT that should be
+     carefully adopted to any particular situation. Other *.PRT files
+     will work as they are in original, but they might be translated
+     because they are originated in spanish (those files are just
+     textual information that are sent to users who connect to the BBS).
+     For your information, I usualy don't care much about, because my
+     BBS's are so called "open systems". It means they work quite normal
+     for all users in the same way as they worked before implementing
+     Protus.  Only a couple of callsigns have password installed and,
+     when connecting, they know what they are doing, so, they don't need
+     any additional info. Your mileage may vary.
+
+
+
+  ·  So far - so good. When everything mentioned is done, you have to
+     restart your FBB in order for Protus utility to be activated. In
+     all connections to your BBS (including console), you should see a
+     line like this: {PROTUS-4.0} just after a line
+     [FBB-7.00-AB1FHMRX$]. It only gives an information that Protus is
+     active on the system. Users of your system who don't have their
+     passwords, connect just normally as before.  Users who's callsigns
+     have password implemented, are prompted for password just after
+     their connections.  roman }
+
+
+  ·  The author of Protus, Jesus EB5AGF, has made several working
+     "modes" of its utility. It is possible for users to get various
+     kinds of security: a fixed phrase as a password (similar when you
+     connect to the Internet via telephone line, but this way the phrase
+     can be masqueraded within the longer answer); a changeable answer
+     to the 5 numbers (just like usual FBB sysop's password); a mode
+     that uses automatic answer from user's client packet programs;
+     implementation of MD2 and MD5 algorythms; FBB-to-FBB automatic
+     forward protection etc. FYI, my WinFBB is equipped with 16-bit
+     Protus 4.0 (13. August 1999).  There is also a 32-bit module of the
+     same date that would be called from within 32-bit WinFBB (I haven't
+     tested those two).
+
+
+
+  ·  Well, the situation regarding working location of Protus files
+     under LinFBB is somewhat different.  I have become familiar to the
+     directory structure that DosFBB and WinFBB versions of Protus have
+     been using, so I considered that it was enough just to copy the
+     same directory structure when I started the installation of Protus
+     under LinFBB.  It was wrong. After having pulled out the remaining
+     hair, the things started to work, so, now I am going to tell you
+     what to do.
+
+
+
+  ·  I have already told you that I have been running here both WinFBB
+     under Windows NT and LinFBB under Linux (see also Linux+WinNT mini-
+     HOWTO and Lilo mini-HOWTO). That means all Protus stuff has already
+     been installed in a way WinFBB has required, except Linux
+     executable of c_filter file. I put that file into /fbb/bin
+     directory and, after the next restart of LinFBB, I got the info
+     mentioned above: {PROTUS-4.0}. But the password protection was not
+     likely to work.  I was told to make a new directory
+     /var/ax25/fbb/protus and put *.prt files there. I didn't move *.PRT
+     files from \FBB\PROTUS but copied them into the new location,
+     because I wanted Protus to run further under WinFBB as before. The
+     utility still didn't want to run, unless I copied also *.PRT files
+     from \FBB\SYSTEM to the new location (/var/ax25/fbb/protus). After
+     I did that, Protus became fully functional.
+
+
+
+  ·  Well, I suppose, the above info would be useful for those of you
+     who intend to run *both* Windows and Linux FBB's on the same
+     machine.  For the majority of LinFBB-only users, it is just
+     important to make /var/ax25/fbb/protus where all *.prt files should
+     be placed. Only c_filter executable should go to /fbb/bin and
+     that's it.
+
+
+
+  ·  About FBB-to-FBB protection: *both* partners have to install
+     Protus. Password for the forwarding partner's callsign must be the
+     same at *both* sides of the link. The versions of Protus don't need
+     to be the same (neither the versions of FBB, neither the operating
+     systems, HI!). Anyway, MD5 algorythm will only work if both parties
+     have Protus 4.x and above (I still don't use that, but it is not a
+     problem, because my two boxes, DosFBB/Protus3.3 and
+     WinFBB/LinFBB/Protus4.0, make all things ok with MD2).
+
+
+
+  ·  One of the interesting features of Protus is to log unsuccessful
+     connections. Due to the different locations of *.prt files here, I
+     have separate logs for WinFBB and LinFBB c_filtering.  Those of you
+     who are going to run only one version of FBB, will have one
+     complete log of connection errors, your users make when they try
+     connecting your BBS.
+
+
+
+  ·  As it was told earlier, if you implemented password protection for
+     only some of your users (but not for all of them who connect
+     normally) - your system is considered as an "open" one. It means
+     that will be logged only unsuccessful tries to enter the system by
+     "protected" callsigns. But, if you decided that your BBS can be
+     accessed by only those callsigns who are protected with Protus, it
+     means that your system is the "closed" one.  Then, there is no way
+     a user could enter your FBB unless its callsign has given a
+     password within your Protus. Any unauthorized try to connect your
+     BBS is logged.
+
+
+
+  ·  In addition, you may decide to have a "guest" access or a "read-
+     only" as default for some ports and/or for users who enter the
+     wrong password.  Many combinations are possible. You could even
+     password protect your own FBB console!
+
+
+
+  ·  To finish with this topic for now, just to inform you that my X11
+     LinFBB is equipped with Protus v4.1b7 (15. February 2000). It has
+     some minor bugs, for example, it logs incoming connections with a
+     SSID of -48 if a user doesn't have a SSID at all (of course, a SSID
+     of -0 would be expectible in such case).
+
+     }
+
+
+
+  5.  How to install daemon version of LinFBB
+
+  Notice: You see, folks, that I keep trying to get as many as possible
+  versions of this great software (Jean-Paul, F6FBB, must be very proud
+  after reading these words now). What I think when mention "as many as
+  possible versions" means that we have learned how to get both WinFBB
+  and LinFBB for X11 on the same computer. But, that's not all. There is
+  a variety of daemon versions of LinFBB. In this section we are going
+  to discuss how to *add* a daemon LinFBB to the existing two: X11
+  LinFBB and WinFBB!
+
+
+
+  ·  Well, many amateurs suggested me to install some packages that
+     looked to me as not too much needed for LinFBB itself - to be run.
+     Anyway, I have installed those packages before the installation of
+     LinFBB daemon version itself:
+
+
+
+             libax25.rpm
+             ax25apps.rpm
+             ax25tool.rpm
+
+
+
+  ·  Now it is the right time to install fbbsrv.rpm package. The archive
+     is composed to make its own directories, as "base" directories. The
+     last new daemon version to start with, that I managed to find as a
+     .rpm package, was 7.01f Release 4 (09. December 1999).
+
+
+
+  ·  A file fbb.conf, that serves as the replacement for init.srv, is
+     located in the following location: /etc/ax25/fbb.conf
+
+
+
+  ·  Unless you are going to install daemon-only system, you should make
+     a backup of the existing following files:
+
+
+
+             dirmes.sys
+             etat.sys
+             heard.bin
+             inf.sys
+             statis.dat
+             tpstat.sys
+
+
+
+  ·  Now you have to edit /etc/ax25/fbb.conf and change some paths in
+     case you already have X11 LinFBB installed on a different path.
+     Here you have some examples that cover my particular situation...
+
+
+
+  ·  Directory of data files, instead of /var/ax25/fbb, should be
+     /mnt/win/fbb/system
+
+
+
+  ·  Directory of config files, instead of /etc/ax25/fbb, should be
+     /mnt/win/fbb/system
+
+
+
+  ·  Directory of message files, instead of /var/ax25/fbb/mail, should
+     be /mnt/win/fbb/mail
+
+
+
+  ·  Directory of compressed files, instead of /var/ax25/fbb/binmail,
+     should be /mnt/win/fbb/binmail
+
+
+
+  ·  Directory of users, instead of .../home/fbbdos/..., should be
+     .../mnt/win/fbb/users... (<-- case you don't mind that both your
+     WinFBB and LinFBB users handle the same location for users' files)
+
+
+
+  ·  Directory of YAPP files, instead of /home/fbbdos/yapp, should be
+     /mnt/win/fbb/users/yapp (<-- the same reason as above)
+
+
+
+  ·  Directory of documentation files, instead of /var/ax25/fbb/docs,
+     should be /mnt/win/fbb/docs
+
+
+
+  ·  Directory of pg programs, instead of /usr/local/pg, should be
+     /mnt/win/fbb/pg
+
+
+
+  ·  Path and filename for import file, instead of C:\FBB\MAIL.IN should
+     be /mnt/win/fbb/mail.in
+
+
+
+  ·  Now you have to edit /usr/sbin/xfbb.sh and change some paths in
+     case you already have running X11 version of LinFBB on a different
+     path. Here you have an example that cover my particular
+     situation...
+
+
+
+  ·  Base directory of XFBB software, instead of /var/ax25/fbb, should
+     be /mnt/win/fbb
+
+
+
+  ·  So far - so good. Now it is the time to start LinFBB daemon. The
+     command for that is in the location: /usr/sbin/xfbb.sh and it may
+     be executed within an xterm. If everything is OK, you should get
+     several system messages on your screen, ending with something like:
+
+
+
+             xfbbC/X server running ...
+             xfbbd ready and running ...
+
+
+
+  ·  Well, daemon itself can't be used to access the BBS so it is needed
+     to activate a client that is /usr/sbin/xfbbC. It has a couple of
+     parameters (a callsign/password pairs that are stored in
+     /fbb/passwd.sys). Note that xfbbC can also be activated within
+     another xterm.
+
+
+
+  ·  If you are like me, you would like to activate one more xterm with
+     xfbbC in a way to monitor your radio frequency. If you have enough
+     room on your screen, you may place all three xterm windows side by
+     side.
+
+
+
+  ·  When you finish your xfbbC console session, it is suitable to use
+     the same xterm to eventually stop the daemon. First of all, with
+     the command ps ax you should locate PIDs of xfbb.sh shell and
+     daemon itself, that you may kill after that.
+
+
+
+  6.  How to install an "upgrade" to daemon version of LinFBB
+
+
+  6.1.  LinFBB v7.02g
+
+  Notice: Well, the main trouble I have discovered with 7.01f daemon was
+  the absence of Protus c_filter protection. As I told you before,
+  Protus is a "third-party" product, so it might have some problems with
+  the compatibility to LinFBB itself. Anyway, it is also possible that a
+  daemon version of LinFBB has some special requirements over some
+  "third-party" software.
+
+
+
+  ·  I also noticed that my version of Protus was newer than the version
+     of daemon LinFBB I had at first. Beside that, some hams, as well as
+     F6FBB himself, have suggested me to upgrade LinFBB. I have also
+     found a "problem" that I am still new in compiling Linux software,
+     so, I'd rather look for pre-compiled packages to install easily.
+
+
+
+  ·  Jose, HI8GN, has offered daemon LinFBB v7.02g as a .rpm package
+     (18. September 2000). I got it from his site:
+     http://hi8gn.dynip.com/indice.html
+     <http://hi8gn.dynip.com/indice.html>. But, when I tried to install
+     it over the previous version 7.01f, it complained about some
+     existing LinFBB files.
+
+
+  ·  Then I had to uninstall the old package, after what some config
+     files remained in their locations, but with new .rpmsave
+     extensions. It was nice, so I could use them later to update my
+     new-installed config files.
+
+
+
+  ·  Btw, the installation of Jose's package was performed without
+     problems, but the new daemon was not likely to run as I expected,
+     although I tried to configure it as best as I could. Not quite
+     sure, but it looked to me that F6FBB is likely to implement some
+     changes not only to the main executables but to shell files too.
+     So, I have decided to save copies of these new xfbbd and xfbbC
+     executables from 7.02g package (I have made it with adding
+     extensions like .702 to the files). After that, I *uninstalled* the
+     rest of that 7.02 .rpm, in order to install the previous version of
+     LinFBB once again - the version that I was satisfied with.
+
+
+
+  ·  So far - so good. The "old" 7.01f version was installed again and
+     tested one more time to be sure it was ok. Then, I just copied the
+     previously saved executables from the new package, over the "old"
+     executables. In a couple of minutes, the new daemon LinFBB v7.02g
+     has come in place and function. Comments...?
+
+
+
+  ·  Well, the new daemon is likely to check for some more directories
+     than the older version (mostly regarding 7plus operations). Next,
+     its xfbbC console client looks better than the previous version.
+     But, I still miss xfbbX client, that I have found not functional.
+     I hope it will be fixed soon. Finally, Protus c_filter utility is
+     active too.
+
+
+
+  ·  An interesting question might be: is that now a really upgraded
+     LinFBB daemon or not? Actually, I haven't changed the "old" script
+     xfbbd.sh with the new one, because during the first tests with the
+     new 7.02 I was getting lots of error messages.  Looks that the
+     directory structure was a bit complicated for me to set properly
+     within the new version of xfbbd.sh.  After I returned to xfbbd.sh
+     from 7.01 package, the BBS finally started to be run, though
+     without some functions like over-night maintaining (that one
+     problem I solve in a way to boot the BBS as WinFBB under Windows NT
+     where that task is ok).  In addition, there are still some
+     mysterious messages telling that m_filter has not been found or
+     something like that.  The next tasks are to solve these issues.
+
+
+
+  6.2.  LinFBB v7.03
+
+  Notice: As I have said in the previous section, I haven't found an
+  easy way to upgrade FBB's (its main executables), without temporary
+  uninstalling of an older version, then to install a newer version in
+  order to get new executables. After that, a reverse procedure must be
+  put in place.
+
+
+
+  ·  Well, it was needed to get 7.03 package (09. December 2000) as an
+     .rpm package from www.f6fbb.org/versions.html
+     <http://www.f6fbb.org/versions.html>, that was suggested by Jean-
+     Paul, F6FBB. Anyway, soon after there appeared several mirror
+     sites, offering 7.03 too.
+
+
+
+  ·  If you use GnomeRPM, it is easy to uninstall your actual LinFBB (If
+     you just try to install new .rpm over the existing LinFBB you will
+     get some error messages complaining that you already have FBB
+     installed on the computer). Anyway, after the uninstallation, there
+     you will find some config files as .rpmsave files, so you could use
+     them later again.
+
+
+
+  ·  Installation of 7.03 package will give you new executables in
+     /usr/sbin directory.  Those new executables should be temporary
+     given extensions like .703 (for example).
+
+
+
+  ·  So far - so good. Now you should *uninstall* the 7.03 package (of
+     course, .703 files won't be unistalled automatically).
+
+
+
+  ·  Once again, you should *install* the last one version of LinFBB
+     daemon, that works ok with its own xfbb.sh (in my case, that is
+     7.01f).
+
+
+
+  ·  For sure, many of you might find it odd, but now it is the right
+     time for the executables from /usr/sbin (I mean of all fbb
+     executables, except those who were renamed to .703) to get their
+     new extensions (in my case, that is .701).
+
+
+
+  ·  Well, after that is performed, .703 files should *lose* their
+     previously attached extensions, in order to become usable.
+
+
+
+  ·  Folks, on that point I usually hold my breath, cd to /usr/sbin and
+     type: xfbb.sh following with an Enter. If everything is fine,
+     several lines should scroll on the screen, ending with something
+     like:
+
+
+
+             xfbbC/X server running ...
+             xfbbd ready and running ...
+
+
+
+  ·  If you don't get something similar on your xterm utility), you're
+     out of luck, so you might go thru the procedure once again in order
+     to be sure you did all what was needed to be done :->
+
+
+
+  ·  /usr/sbin/xfbbC is the easiest way to check if your new 7.03 is in
+     the game or not. When I mention xfbbC it is good to let you know,
+     that I kept living in a belief that xfbbC is also useful for
+     regular telnet users (who are also supposed to 'connect' to the BBS
+     via the same computer's console, where LinFBB is running from).
+     But, I have discovered that my users, who were not declared as
+     sysops, are allowed to read all messages (including all private
+     messages), as well as to have some other sysop's abilities. I did
+     think it was a matter of probably wrong declared security flags.
+     But, it was not.
+
+
+
+  ·  Recently, I was informed that xfbbC is suitable only for sysops,
+     but other users (who also might have local keyboard access) should
+     rather try:
+
+
+
+             telnet localhost 6300
+
+
+
+  ·  ... where 'localhost' and '6300' may vary from system to system. I
+     was pleasently surprised when discovered that telnet is much more
+     useful for regular users than xfbbC.
+
+
+
+  ·  Folks, I think of making a section about the FBB's system
+     configuration. Until something like that appear on the net, you
+     should know that all of those callsigns who are going to use xfbbC
+     have to be added into your passwd.sys file. And, all of those who
+     are going to telnet into the BBS have to be declared as users with
+     a 'M' flag (modem users). It is up to your security precautions, if
+     either of them will have 'root' abilities to the Linux box.
+
+
+  ·  My next issue is to use an old 286/12 MHz box, having 1 MB of RAM
+     and running DOS 5.0 as a a NIC and I would like to 'connect' to the
+     BBS computer from that 'telnet client' box.  Due to my preparation
+     for starting another LinFBB in the local school club, where I
+     should have several old 286 boxes, would be nice to offer more than
+     one kid to a bunch of 'telnet client' computers.
+
+
+
+  7.  Further information
+
+
+  7.1.  Copyright
+
+  Copyright is a source of much and continuous debate on the LDP mailing
+  list. For more in depth information please consult the Manifesto at
+  the LinuxDoc <http://www.linuxdoc.org/> site. The purpose of having a
+  license is to allow appropriate distribution. You can use any license
+  that meets the Manifesto. What follows is a boilerplatte license.
+
+  Copyright (c) 2000 by Miroslav "Misko" Skoric, YT7MPB.
+
+  Please freely copy and distribute (sell or give away) this document in
+  any format. It is requested that corrections and/or comments be
+  forwarded to the document maintainer. You may create a derivative work
+  and distribute it provided that you:
+
+
+  ·  Send your derivative work (in the most suitable format such as
+     sgml) to the LDP (Linux Documentation Project) or the like for
+     posting on the Internet. If not the LDP, then let the LDP know
+     where it is available.
+
+  ·  License the derivative work with this same license or use GPL.
+     Include a copyright notice and at least a pointer to the license
+     used.
+
+  ·  Give due credit to previous authors and major contributors.
+
+
+  If you're considering making a derived work other than a translation,
+  it's requested that you discuss your plans with the current
+  maintainer.
+
+
+  7.2.  Disclaimer
+
+
+  Use the information in this document at your own risk. I disavow any
+  potential liability of this document. Use of the concepts, examples,
+  and/or other content of this document is entirely at your own risk.
+
+  All copyrights are owned by their owners, unless specifically noted
+  otherwise. Use of a term in this document should not be regarded as
+  affecting the validity of any trademark or service mark.
+
+  Naming of particular products or brands should not be seen as
+  endorsements.
+
+  You are strongly recommended to take a backup of your system before
+  major installation and backups at regular intervals.
+
+
+  7.3.  News
+
+
+  This is not the first release of this mini-HOWTO. I hope to improve it
+  whenever possible. Beside that, there are other documents that may
+  help you to use amateur radio stuff on your computer. You may look for
+  AX.25 (mini-)HOWTO at the same location where you get FBB mini-HOWTO.
+
+  This mini-HOWTO would be improved from time to time. If you think that
+  the HOWTO on your Linux installation CD is some out-of-date, you may
+  check for newest release on the Internet. It could be found within the
+  main Linux Documentation Project <http://www.linuxdoc.org/> homepage.
+
+
+  7.4.  Credits
+
+  This version of mini-HOWTO can thanks to:
+
+
+
+       Jean-Paul Roubelat, F6FBB, the author of FBB.
+       Per Olsen, LA6CU, the author of FBB documentation.
+       Jesus R., EB5AGF, the author of Protus.
+       Jose Marte, HI8GN, the packager of 7.02g package.
+
+
+
+  Any comments or suggestions can be mailed to my email address:
+  m.skoric@eunet.yu.
+
+
+  7.5.  HOWTO
+
+  These are intended as the primary starting points to get the
+  background information as well as show you how to solve a specific
+  problem.  Some relevant HOWTOs are Bootdisk, Installation,  SCSI and
+  UMSDOS.  The main site for these is the LDP archive
+  <http://metalab.unc.edu/LDP/> at Metalab (formerly known as Sunsite).
+
+
+  7.6.  Mini-HOWTO
+
+  These are the smaller free text relatives to the HOWTOs.  Some
+  relevant mini-HOWTOs are Backup-With-MSDOS, Diskless, LILO, Large
+  Disk, Linux+DOS+Win95+OS2, Linux+OS2+DOS, Linux+Win95, Linux+WinNT,
+  Linux+NT-Loader, NFS-Root, Win95+Win+Linux, ZIP Drive, FBB packet-
+  radio BBS.  You can find these at the same place as the HOWTOs,
+  usually in a sub directory called mini. Note that these are scheduled
+  to be converted into SGML and become proper HOWTOs in the near future.
+
+
+  7.7.  Local Resources
+
+  In most distributions of Linux there is a document directory
+  installed, have a look in the /usr/doc directory.  where most packages
+  store their main documentation and README files etc.  Also you will
+  here find the HOWTO archive ( /usr/doc/HOWTO) of ready formatted
+  HOWTOs and also the mini-HOWTO archive ( /usr/doc/HOWTO/mini
+  <file:///usr/doc/HOWTO/mini>) of plain text documents.
+
+  Many of the configuration files mentioned earlier can be found in the
+  /etc directory. In particular you will want to work with the
+  /etc/fstab file that sets up the mounting of partitions and possibly
+  also /etc/mdtab file that is used for the md system to set up RAID.
+
+  The kernel source in /usr/src/linux <file:///usr/src/linux> is, of
+  course, the ultimate documentation. In other words, use the source,
+  Luke.  It should also be pointed out that the kernel comes not only
+  with source code which is even commented (well, partially at least)
+  but also an informative documentation directory
+  <file:///usr/src/linux/Documentation>.  If you are about to ask any
+  questions about the kernel you should read this first, it will save
+  you and many others a lot of time and possibly embarrassment.
+
+  Also have a look in your system log file ( /var/log/messages) to see
+  what is going on and in particular how the booting went if too much
+  scrolled off your screen. Using tail -f /var/log/messages in a
+  separate window or screen will give you a continuous update of what is
+  going on in your system.
+
+  You can also take advantage of the /proc file system that is a window
+  into the inner workings of your system.  Use cat rather than more to
+  view the files as they are reported as being zero length. Reports are
+  that less works well here.
+
+
+  7.8.  Web Pages
+
+  There is a huge number of informative web pages out there and by their
+  very nature they change quickly so don't be too surprised if these
+  links become quickly outdated.
+
+
+  A good starting point is of course the Linux Documentation Project
+  <http://www.linuxdoc.org/> home page, an information central for
+  documentation, project pages and much, much more.
+
+  Please let me know if you have any other leads that can be of
+  interest.
+
+
+
+  8.  GETTING HELP
+
+
+  In the end you might find yourself unable to solve your problems and
+  need help from someone else. The most efficient way is either to ask
+  someone local or in your nearest Linux user group, search the web for
+  the nearest one.
+
+  Another possibility is to ask on Usenet News in one of the many, many
+  newsgroups available. The problem is that these have such a high
+  volume and noise (called low signal-to-noise ratio) that your question
+  can easily fall through unanswered.
+
+  No matter where you ask it is important to ask well or you will not be
+  taken seriously. Saying just my disk does not work is not going to
+  help you and instead the noise level is increased even further and if
+  you are lucky someone will ask you to clarify.
+
+  Instead describe your problems in some detail that will enable people
+  to help you. The problem could lie somewhere you did not expect.
+  Therefore you are advised to list up the following information on your
+  system:
+
+
+     Hardware
+
+     ·  Processor
+
+     ·  DMA
+
+     ·  IRQ
+
+     ·  Chip set (LX, BX etc)
+
+     ·  Bus (ISA, VESA, PCI etc)
+
+     ·  Expansion cards used (Disk controllers, video, IO etc)
+
+
+     Software
+
+     ·  BIOS (On motherboard and possibly SCSI host adapters)
+
+     ·  LILO, if used
+
+     ·  Linux kernel version as well as possible modifications and
+        patches
+
+     ·  Kernel parameters, if any
+
+     ·  Software that shows the error (with version number or date)
+
+
+     Peripherals
+
+     ·  Type of disk drives with manufacturer name, version and type
+
+     ·  Other relevant peripherals connected to the same busses
+
+
+  Remember that booting text is logged to /var/log/messages which can
+  answer most of the questions above. Obviously if the drives fail you
+  might not be able to get  the log saved to disk but you can at least
+  scroll back up the screen using the SHIFT and PAGE UP keys. It may
+  also be useful to include part of this in your request for help but do
+  not go overboard, keep it brief as a complete log file dumped to
+  Usenet News is more than a little annoying.
+
+
+

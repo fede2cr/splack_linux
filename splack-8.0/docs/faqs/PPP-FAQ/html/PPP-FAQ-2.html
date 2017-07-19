@@ -1,0 +1,191 @@
+<HTML>
+<HEAD>
+<TITLE>Linux PPP FAQ: General information</TITLE>
+</HEAD>
+<BODY>
+<A HREF="PPP-FAQ-1.html">Previous</A>
+<A HREF="PPP-FAQ-3.html">Next</A>
+<A HREF="PPP-FAQ.html#toc2">Table of Contents</A>
+<HR>
+<H2><A NAME="s2">2. General information</A></H2>
+
+
+
+<H2><A NAME="ss2.1">2.1 What is PPP?</A></H2>
+
+<P>PPP, or Point-to-Point Protocol, is a recognized
+\official\ Internet protocol. It is a protocol used to exchange
+IP frames (and others) over a serial link. The current base RFC for
+PPP is 1661. There are many related ones.</P>
+<P>Contrary to what some people think, it does not mean
+\Peer to Peer Processing\; although you may do peer-peer
+communications using TCP/IP over a PPP link.</P>
+
+
+<H2><A NAME="ss2.2">2.2 My university (company) does not support PPP. Can I use PPP?</A></H2>
+
+<P>In general, no. A \classical\ PPP implementation
+requires that you make changes to the routes and network devices
+supported by the operating system. This may mean that you will
+have to rebuild the kernel for the remote computer.</P>
+<P>This is not a job for a general user. If you can
+convince your administration people that PPP is a \good thing\
+then you stand a chance of getting it implemented. If you can't,
+then you probably can't use PPP.</P>
+<P>However, if you are using a system which is supported
+by the people who are marketing the \TIA\ (The Internet
+Adapter) package, then there is hope. I do not have much information
+on this package, however, from what I have found, they plan to
+support PPP in \the next version\. (My information may
+be old. Contact them directly. Information on TIA is available
+at <EM>ftp.marketplace.com</EM> in the <EM>/pub/tia</EM>
+directory.)</P>
+<P>If your system is not supported by TIA, and you choose not to use
+slirp, and you can\t convince the admin group to support PPP then
+you should use the \<EM>term</EM>\ package. Some service
+providers will object to you running \<EM>term</EM>\. They
+have many different reasons, however the most common is \security
+concerns\.</P>
+<P>There is a version of TIA for Linux.</P>
+<P>In addition to TIA, Danny Gasparovski wrote a program
+called <EM>slirp</EM> which will perform functions
+similar to TIA. The program is currently available with the source
+code from the ftp site <EM>blitzen.canberra.edu.au:/pub/slirp</EM>.
+You should obtain the code if you wish additional information
+about this program. From the initial examination, it is seems
+to be an excellent contender to the commercial TIA program.</P>
+
+<H2><A NAME="ss2.3">2.3 Where is PPP?</A></H2>
+
+<P>It is in two parts. The first part is in the kernel.
+In the kernels from 1.1.13, the driver is part of the network
+system drivers.</P>
+<P>The second part is the \daemon\ process, <EM>pppd</EM>.
+This is a <B>required</B> process. The source to it is in the
+file <EM>ppp-2.2.0e.tar.gz</EM> located on
+<EM>sunsite.unc.edu</EM> in the <EM>/pub/Linux/system/Network/serial</EM>
+directory.</P>
+<P>Version 2.2 and above are designed to be used only
+with the 1.2 and later kernels. Please don't use this version
+with the 1.1 series kernels as they are out of date for either
+the tty driver or the networking software.</P>
+
+<H2><A NAME="ss2.4">2.4 I just obtained PPP. What do I do with it?</A></H2>
+
+<P><B>R</B>ead <B>T</B>he <B>F</B>ine <B>M</B>aterial available.</P>
+<P>Start by reading the <EM>README</EM>
+file and then the <EM>README.linux</EM> file.
+The documentation sources are listed below.</P>
+
+
+<H2><A NAME="ss2.5">2.5 Where are additional sources of information for PPP?</A></H2>
+
+<P>(Where\s the documentation? Is there a HOWTO?, etc.)</P>
+<P>There are several sources of information for the
+PPP protocol as implemented under Linux.
+<UL>
+<LI>The <EM>README</EM> file in the source package.</LI>
+<LI>The <EM>README.linux</EM> file in the source package.</LI>
+<LI>The <EM>Net-2-HOWTO</EM> document.</LI>
+<LI>The <EM>PPP-HOWTO</EM> document.</LI>
+<LI>The Network Administration Guide.</LI>
+<LI>The <EM>pppd</EM> man page.</LI>
+<LI>The FAQ document for the comp.protocols.ppp newsgroup.</LI>
+</UL>
+</P>
+<P>The HOWTO and this FAQ are stored in the usual place
+for the Linux HOWTOs. That is currently on <EM>sunsite.unc.edu</EM>
+in the directory <EM>/pub/Linux/docs/HOWTO</EM>.</P>
+<P>The Network Administration Guide is available in
+the <EM>/pub/Linux/docs/LPD/network-guide </EM>directory
+on sunsite. It is also published by O\Riellly and Associates.
+So, if you want a really professional document, then buy a copy
+from your local bookstore.</P>
+<P>The \<EM>man</EM>\ pages are
+included in the source package. You will probably have to move
+them to the normal man directory, <EM>/usr/man/man8</EM>
+before the <EM>man</EM> command may find them.
+Alternately, you may use <EM>nroff</EM> and
+<EM>more</EM> to view them directly.</P>
+<P>The FAQ for comp.protocols.ppp describes the PPP
+protocol itself and the various implementations. You will find
+the FAQ for the usenet news group, <EM>comp.protocols.ppp</EM>,
+archived on <EM>rtfm.mit.edu</EM> in the <EM>/usenet</EM>
+directory. It is in eight parts at the present time.</P>
+
+<H2><A NAME="ss2.6">2.6 Would someone please send me scripts for PPP so that I may see how they are written?</A></H2>
+
+<P>There are a few scripts which are included with the
+source package for pppd. It will cover the normal types of access
+where you are requested to enter a UNIX login and password.</P>
+<P>Specific \scripts\ for specific systems are not included.
+If you have problems with a specific connection then you should
+contact the help desk for your site, the local news group at the
+site, or the general usenet groups for Linux. Unfortunately, time
+does not permit me to answer questions for help on supplying a
+script for your specific system.</P>
+
+
+<H2><A NAME="ss2.7">2.7 Where should I post questions about PPP?</A></H2>
+
+<P>The primary usenet group for the PPP implementations
+is <EM>comp.protocols.ppp</EM> or <EM>comp.os.linux.setup</EM>.
+Use this group for general questions such as \How do I use
+pppd?\ or \Why doesn't this work?\.</P>
+<P>Questions such as \Why wont pppd compile?\
+are generally linux related and belong on the comp.os.linux.networking
+group.</P>
+<P>Please don't use comp.os.linux.help even if your site should still
+carry this obsolete news group.</P>
+
+
+<H2><A NAME="ss2.8">2.8 The PPP software doesn't work. HELP!!!</A></H2>
+
+<P>This is one of the most sickening questions. I realize
+that this is a plea for help. However, it is practically useless
+to post this message <B>with no other information</B>. I, and
+most others, will only ignore it.</P>
+<P>Please see the question regarding errors which normally
+occur at the modem\s disconnection. They are not the cause of
+a problem, only a symptom. Posting a message with only those errors
+is also meaningless.</P>
+<P>What is needed is the output of the system log (syslog)
+when you run the <EM>pppd</EM> program with
+the option \debug\. In addition,
+if you are using chat then please use the \<EM>-v</EM>\
+option to run the sequence with verbose output.</P>
+<P>Please include the output from the kernel\s startup.
+This shows the various kernel hardware information such as your
+UART type, PPP version, etc.</P>
+<P>Please include all information that you can relating
+to the problem. However your system configuration, disk drive
+configuration, terminal type, mouse location and button status,
+etc. are irrelevant. What is important is the system to which
+your are trying to contact, the PPP (or terminal server) that
+they are using, the modem types and speed that you are using,
+etc.</P>
+<P>Take care and go through the output. Remove the references
+to the telephone number, your account name, and the password.
+They are not important to analyzing the problem and would pose
+a security risk to you if you published them to usenet. Also discard
+the lines which neither come from the kernel nor pppd.</P>
+<P>Do <B>NOT</B> run the pppd program with the option \kdebug 31\
+and post that!</P>
+<P>If the problem warrants examining the data stream,
+then you will be contacted by email and asked to mail the trace.
+Usenet already costs too much for too many people.</P>
+<P>Information is written to various levels. The debug
+information is written to the debug level. The informational messages
+are written to the info level. The errors are written to the error
+level. Please include all levels the \local2\
+group which come from the <EM>pppd</EM> process.</P>
+<P>In addition, please do not delete the time stamp
+information. It is important.</P>
+
+
+<HR>
+<A HREF="PPP-FAQ-1.html">Previous</A>
+<A HREF="PPP-FAQ-3.html">Next</A>
+<A HREF="PPP-FAQ.html#toc2">Table of Contents</A>
+</BODY>
+</HTML>

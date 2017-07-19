@@ -1,0 +1,1955 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Liip4</TITLE>
+<META NAME="Versión" CONTENT="8.0.3514">
+<META NAME="Fecha" CONTENT="05/12/96">
+<META NAME="Template" CONTENT="C:\ARCHIVOS DE PROGRAMA\MICROSOFT OFFICE\OFFICE\html.dot">
+<STYLE type="text/css"><!--         
+A:LINK {COLOR:BLUE; TEXT-DECORATION:NONE}
+A:VISITED {COLOR:GREY; TEXT-DECORATION:NONE}
+A:HOVER {COLOR:RED; TEXT-DECORATION:UNDERLINE}
+--></STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=737>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><A HREF="lipp3.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=36 HEIGHT=34></A> 
+    </TD>
+    <TD WIDTH="11%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><A HREF="lipp.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=36></A> 
+    </TD>
+    <TD WIDTH="43%" VALIGN="TOP"> 
+      <P ALIGN="RIGHT"><A HREF="lipp5.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=36 HEIGHT=34></A> 
+    </TD>
+  </TR>
+</TABLE>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><font size="2" color="#000000"><b><u><font size="6">Cap&iacute;tulo 
+  4</font></u></b></font></P>
+<P> 
+<HR>
+<p><font color="#000000" size="2"><a name="indice"></a><a href="#administ"><b><u>Administraci&oacute;n 
+  del Sistema</u></b></a></font></p>
+<dir> 
+  <dir> 
+    <p><font color="#000000" size="2"><a href="#4.1">4.1 Acerca de Ra&iacute;ces, 
+      Sombreros y la Sensaci&oacute;n de Poder</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.1.1">4.1.1 La cuenta root</a><br>
+          <a href="#4.1.2">4.1.2 Abusando del sistema</a><br>
+          <a href="#4.1.3">4.1.3 Como proceder con los usuarios</a><br>
+          <a href="#4.1.4">4.1.4 Fijando las reglas</a><br>
+          <a href="#4.1.5">4.1.5 Lo que todo esto significa</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.2">4.2 Arrancando el Sistema</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.2.1">4.2.1 Utilizando un 
+          disquete de arranque</a><br>
+          <a href="#4.2.2">4.2.2 Utilizando LILO</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.3">4.3 Cerrando el Sistema</a></font></p>
+    <p><font color="#000000" size="2"><a href="#4.4">4.4 Gesti&oacute;n de Usuarios</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.4.1">4.4.1 Conceptos de 
+          gesti&oacute;n de usuarios</a><br>
+          <a href="#4.4.2">4.4.2 A&ntilde;adiendo usuarios</a><br>
+          <a href="#4.4.3">4.4.3 Borrando usuarios</a><br>
+          <a href="#4.4.4">4.4.4 Poniendo atributos de usuario</a><br>
+          <a href="#4.4.5">4.4.5 Grupos</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.5">4.5 Archivando y Comprimiendo 
+      Ficheros</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.5.1">4.5.1 Utilizando tar</a><br>
+          <a href="#4.5.2">4.5.2 gzip y compress</a><br>
+          <a href="#4.5.3">4.5.3 Junt&aacute;ndolo todo</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.6">4.6 Usando Disquetes y Haciendo 
+      Copias de Seguridad</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.6.1">4.6.1 Utilizando disquetes 
+          para copias de seguridad</a><br>
+          <a href="#4.6.2">4.6.2 Utilizando disquetes como sistemas de ficheros</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.7">4.7 Actualizando e Instalando 
+      Nuevo Software</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.7.1">4.7.1 Actualizando 
+          el n&uacute;cleo</a><br>
+          <a href="#4.7.2">4.7.2 Actualizando las librer&iacute;as</a><br>
+          <a href="#4.7.3">4.7.3 Actualizando gcc</a><br>
+          <a href="#4.7.4">4.7.4 Actualizando otro software</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.8">4.8 Gestionando Sistemas 
+      de Ficheros</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.8.1">4.8.1 Montando sistemas 
+          de ficheros</a><br>
+          <a href="#4.8.2">4.8.2 Comprobando sistemas de ficheros</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.9">4.9 Utilizando un fichero 
+      de intercambio</a></font></p>
+    <p><font color="#000000" size="2"><a href="#4.10">4.10 Tareas Varias</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.10.1">4.10.1 Ficheros de 
+          arranque del sistema</a><br>
+          <a href="#4.10.2">4.10.2 Estableciendo el nombre del ordenador</a></font></p>
+      </dir>
+    </dir>
+    <p><font color="#000000" size="2"><a href="#4.11">4.11 Que Hacer En Una Emergencia</a></font></p>
+    <dir> 
+      <dir> 
+        <p><font color="#000000" size="2"><a href="#4.11.1">4.11.1 Recuperaci&oacute;n 
+          utilizando un disquete de mantenimiento</a><br>
+          <a href="#4.11.2">4.11.2 Arreglando la password de root</a><br>
+          <a href="#4.11.3">4.11.3 Arreglando sistemas de ficheros corrompidos</a><br>
+          <a href="#4.11.4">4.11.4 Recuperando ficheros perdidos</a><br>
+          <u><a href="#4.11.5">4.11.5 Arreglando librer&iacute;as corrompidas</a><br>
+          <br>
+          </u></font></p>
+      </dir>
+    </dir>
+  </dir>
+</dir>
+<P><font size="2" color="#000000"><b><u><a name="administ"></a><font size="3">Administraci&oacute;n 
+  del Sistema<br>
+  </font></u></b><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2">Anterior- 
+  <a href="#4.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Este capitulo es una visi&oacute;n general de 
+  la administraci&oacute;n de un sistema Linux, incluyendo un n&uacute;mero de 
+  posibilidades avanzadas que no son, necesariamente, solo para administradores 
+  de sistemas. Igual que cada perro tiene su d&iacute;a, cada sistema tiene su 
+  administrador, y poner en marcha el sistema es un trabajo muy importante y a 
+  veces consume mucho tiempo, incluso si se es el &uacute;nico usuario en el sistema.<br>
+  </font><font color="#000000" size="2">Hemos intentado cubrir aqu&iacute; los 
+  elementos m&aacute;s importantes acerca de la administraci&oacute;n de sistemas 
+  que se necesitan conocer cuando se use Linux, en suficiente detalle para empezar 
+  confortablemente. Para mantenerlo corto y agradable, solo hemos cubierto los 
+  niveles m&aacute;s b&aacute;sicos y nos hemos saltado muchos e importantes detalles. 
+  Se debe leer el Linux System Administrator's Guide si se quiere ejecutar Linux 
+  en serio. Le ayudara a comprender mejor como funcionan las cosas y como se ensamblan 
+  juntas. Al menos hoj&eacute;elo para que pueda conocer que contiene y que tipo 
+  de ayuda puede esperar de &eacute;l.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.1"></a><font size="3">4.1 Acerca 
+  de Ra&iacute;ces, Sombreros y la Sensaci&oacute;n de Poder<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#administ">Anterior</a>- 
+  <a href="#4.1.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Como sabe, UNIX distingue entre diferentes usuarios 
+  para que lo que hagan a los dem&aacute;s y al sistema pueda ser regulado (uno 
+  no desear&iacute;a que nadie pudiese leer nuestras cartas de amor, por ejemplo).<br>
+  </font><font color="#000000" size="2">Cada usuario recibe una cuenta que incluye 
+  un nombre de usuario, un directorio inicial, y otras cosas por el estilo. Adem&aacute;s 
+  de las cuentas dadas a personas reales, existen cuentas especiales, definidas 
+  por el sistema, que tienen privilegios especiales. La m&aacute;s importante 
+  de estas es la cuenta ra&iacute;z, con el nombre de usuario root.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.1.1"></a>4.1.1 La cuenta root<br>
+  <font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.1">Anterior</a>- 
+  <a href="#4.1.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Los usuarios normales est&aacute;n restringidos 
+  normalmente para que no puedan da&ntilde;ar a nadie mas en el sistema, solo 
+  a ellos mismos. Los permisos de los ficheros en el sistema est&aacute;n preparados 
+  para que los usuarios normales no tengan permitido borrar o modificar ficheros 
+  en directorios compartidos por todos los usuarios (como son /bin y /usr/bin. 
+  Muchos usuarios tambi&eacute;n protegen sus propios ficheros con los permisos 
+  adecuados para que otros usuarios no puedan acceder o modificar estos ficheros.<br>
+  </font><font color="#000000" size="2">Estas restricciones desaparecen para root. 
+  El usuario root puede leer, modificar o borrar cualquier fichero en el sistema, 
+  cambiar permisos y pertenencias en cualquier fichero, y ejecutar programas especiales, 
+  como pueden ser los que particionan un disco o crean sistemas de ficheros. La 
+  idea b&aacute;sica es que la persona o personas que ejecutan y cuidan del sistema 
+  entren como root cuando sea necesario para realizar tareas que no pueden ser 
+  ejecutadas por un usuario normal. Puesto que root puede hacer todo, es f&aacute;cil 
+  cometer errores que tengan consecuencias catastr&oacute;ficas cuando se trabaja 
+  utilizando esta cuenta.<br>
+  </font><font color="#000000" size="2">Por ejemplo, como 
+  un usuario normal, si inadvertidamente se intentase borrar todos los ficheros 
+  en /etc, el sistema no lo permitir&iacute;a. Sin embargo, como usuario root, 
+  el sistema no dir&iacute;a nada. Es muy simple el da&ntilde;ar el sistema utilizando 
+  root. La mejor forma de evitar accidentes es:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>o</b> Pens&aacute;rselo dos veces antes 
+      de apretar |_return_| en un comando que pueda causar da&ntilde;o. Por ejemplo, 
+      si se va a borrar un directorio, antes de pulsar |_return_|, releer el comando 
+      completo y asegurarse que es correcto.<br>
+      </font><font size="2" color="#000000"><B>o</b> No acostumbrarse a utilizar 
+      root. Cuanto m&aacute;s confortable se encuentre uno trabajando con el usuario 
+      root, m&aacute;s seguro que se confundir&aacute;n los privilegios con los 
+      de un usuario normal.<br>
+      </font><font color="#000000" size="2">Por ejemplo, puede uno pensar que 
+      se esta conectado como larry, cuando realmente se esta conectado como root.<br>
+      </font><font size="2" color="#000000"><B>o</b> Utilice un marcador distinto 
+      para la cuenta root. Se debe cambiar el fichero .bashrc o el .login de root 
+      para poner el marcador del interprete a algo distinto del marcador de usuario 
+      normal. Por ejemplo, mucha gente utiliza el car&aacute;cter "$" como marcador 
+      para los usuarios normales, y reserva el car&aacute;cter "#" como marcador 
+      para el usuario root.<br>
+      </font><font size="2" color="#000000"><B>o</b> Conectarse 
+      como root solo cuando sea absolutamente necesario. Y desconectarse tan pronto 
+      como se haya terminado el trabajo. Cuanto menos se use la cuenta root, menos 
+      posibilidades habr&aacute; de da&ntilde;ar el sistema.</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Por supuesto, existe una variante de hackers 
+  de UNIX que utilizan root para pr&aacute;cticamente todo. Pero cada uno de ellos 
+  ha cometido, en alg&uacute;n momento, alg&uacute;n error tonto como root y corrompido 
+  el sistema. La regla general es que hasta que se familiarice con la falta de 
+  restricciones de root, y este c&oacute;modo utilizando el sistema sin dichas 
+  restricciones, procure conectarse como root lo menos posible.<br>
+  </font><font color="#000000" size="2">Por supuesto, todo el mundo comete errores. 
+  El mismo Linus Torvalds borr&oacute; accidentalmente una vez el &aacute;rbol 
+  de directorios completo del n&uacute;cleo de su sistema. Horas de trabajo se 
+  perdieron para siempre. Afortunadamente, sin embargo, gracias a su conocimiento 
+  del c&oacute;digo del sistema de ficheros, fue capaz de reiniciar el sistema 
+  y reconstruir el &aacute;rbol de directorios del disco a mano.<br>
+  </font><font color="#000000" size="2">Pong&aacute;moslo de otra forma, si se 
+  imagina la utilizaci&oacute;n de la cuenta root como la utilizaci&oacute;n de 
+  un sombrero m&aacute;gico especial que le da montones de poderes, pudiendo, 
+  con un gesto de la mano, destruir ciudades enteras, es una buena idea de lo 
+  que es ser un poco cauto con lo que se hace con las manos. Puesto que es f&aacute;cil 
+  mover la mano de manera destructiva por accidente, no es una buena idea el llevar 
+  el sombrero m&aacute;gico cuando no es necesario, a pesar de la maravillosa 
+  sensaci&oacute;n.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.1.2"></a>4.1.2 Abusando del sistema<br>
+  <font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.1.1">Anterior</a>- 
+  <a href="#4.1.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Junto con el sentimiento de poder llega la tendencia 
+  a hacer da&ntilde;o. Este es uno de los puntos oscuros de la administraci&oacute;n 
+  de sistemas UNIX, pero todo el mundo pasa por ello en alg&uacute;n momento. 
+  Muchos usuarios de sistemas UNIX nunca tienen la posibilidad de manejar este 
+  poder en los sistemas UNIX de universidad y de empresas, solo los altamente 
+  cualificados (y altamente pagados) administradores de sistemas llegan a conectarse 
+  como root. De hecho, en muchas de esas instituciones, la clave de root es un 
+  secreto celosamente guardado: es tratado como el Sagrado Grial de la instituci&oacute;n. 
+  Se monta mucho jaleo con la conexi&oacute;n como root; esta visto como un sabio 
+  y a la vez espantoso poder, dado solo a un reducido grupo de elegidos.<br>
+  </font><font color="#000000" size="2">Este tipo de actitud hacia la cuenta root 
+  es, sencillamente, el tipo de actitud que alimenta la malicia y el desprecio. 
+  Ya que root es tan atractivo, cuando algunos usuarios tienen su primera oportunidad 
+  de conectarse como root (ya sea en un sistema Linux, o en cualquier otro sitio), 
+  la tendencia es a utilizar los privilegios de root de forma descuidada. Yo he 
+  conocido "administradores de sistemas" (por llamarlos de alguna forma) que leen 
+  el correo de otros usuarios, borran ficheros de usuario sin avisar y que, de 
+  forma general, se comportan como ni&ntilde;os cuando se les da un "juguete" 
+  poderoso.<br>
+  </font><font color="#000000" size="2">Puesto que root tiene tantos privilegios 
+  en el sistema, se necesita una cierta madurez y autocontrol para utilizar la 
+  cuenta de la forma para la que esta dise&ntilde;ada para ejecutar el sistema.<br>
+  </font><font color="#000000" size="2">Existe un c&oacute;digo de honor no hablado 
+  entre el administrador y los usuarios del sistema. ¿C&oacute;mo se sentir&iacute;a 
+  si su administrador de sistemas leyese su correo electr&oacute;nico o mirase 
+  sus ficheros? Aun no hay ning&uacute;n precedente legal firme acerca de la intimidad 
+  electr&oacute;nica en sistemas de ordenadores de tiempo compartido. En sistemas 
+  UNIX, el usuario root tiene la posibilidad de saltarse todos los mecanismos 
+  de seguridad y privacidad del sistema. Es importante que el administrador del 
+  sistema desarrolle una relaci&oacute;n de confianza con los usuarios del sistema. 
+  Es algo en lo que nunca se puede insistir lo suficiente.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.1.3"></a>4.1.3 Como proceder con 
+  los usuarios<br>
+  <font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.1.2">Anterior</a>- 
+  <a href="#4.1.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">La seguridad en UNIX es bastante laxa por dise&ntilde;o. 
+  La seguridad del sistema fue un pensamiento posterior, el sistema se desarrollo 
+  originalmente en un entorno donde las intrusiones de un usuario en otro eran 
+  algo inaudito. Por esto, incluso con medidas de seguridad, aun existe la posibilidad 
+  de que usuarios normales hagan da&ntilde;o.<br>
+  </font><font color="#000000" size="2">Los administradores de sistemas pueden 
+  tomar dos posturas cuando traten con usuarios abusivos: ser paranoicos o confiados.<br>
+  </font><font color="#000000" size="2">El administrador de sistemas paranoico 
+  normalmente causa mas da&ntilde;o que el que previene. Una de mis citas favoritas 
+  es, "nunca atribuyas a la malicia nada que pueda ser atribuido a la estupidez." 
+  Dicho de otra forma, muchos usuarios no tienen la habilidad o el conocimiento 
+  para hacer da&ntilde;o real al sistema. El 90% del tiempo, cuando un usuario 
+  causa problemas en el sistema (por ejemplo, rellenando la partici&oacute;n de 
+  usuarios con grandes ficheros, o ejecutando m&uacute;ltiples instancias de un 
+  gran programa), el usuario simplemente desconoce que lo que esta haciendo es 
+  un problema. He ido a ver a usuarios que estaban causando una gran cantidad 
+  de problemas, pero su actitud estaba causada por la ignorancia no por la malicia.<br>
+  </font><font color="#000000" size="2">Cuando se enfrente con usuarios que puedan 
+  causar problemas potenciales no sea acusativo.<br>
+  </font><font color="#000000" size="2">La antigua regla de "inocente hasta que 
+  se demuestre lo contrario" sigue siendo valida. Es mejor una simple charla con 
+  el usuario, pregunt&aacute;ndole acerca del problema, en lugar de causar una 
+  confrontaci&oacute;n. Lo ultimo que se desea es estar entre los malos desde 
+  el punto de vista del usuario.<br>
+  </font><font color="#000000" size="2">Esto levantar&iacute;a un mont&oacute;n 
+  de sospechas acerca de si usted (el administrador de sistemas) tiene el sistema 
+  correctamente configurado. Si un usuario cree que usted le disgusta o no le 
+  tiene confianza, le puede acusar de borrar ficheros o romper la privacidad del 
+  sistema. Esta no es, ciertamente, el tipo de situaci&oacute;n en la que quisiera 
+  estar.<br>
+  </font><font color="#000000" size="2">Si encontrase que un usuario ha estado 
+  intentando "romper" el sistema, o ha estado haciendo da&ntilde;o al sistema 
+  de forma intencionada, no devuelva el comportamiento malicioso a su vez. En 
+  vez de ello, simplemente, dele un aviso pero sea flexible. En muchos casos, 
+  se puede cazar a un usuario "con las manos en la masa" da&ntilde;ando al sistema, 
+  av&iacute;sele. D&iacute;gale que no lo vuelva a repetir. Sin embargo, si le 
+  vuelve a cazar haciendo da&ntilde;o, entonces puede estar absolutamente seguro 
+  de que es intencionado. Ni siquiera puedo empezar a describir la cantidad de 
+  veces que parec&iacute;a que hab&iacute;a un usuario causando problemas al sistema, 
+  cuando de hecho, era o un accidente o un fallo m&iacute;o.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.1.4"></a>4.1.4 Fijando las reglas<br>
+  <font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.1.3">Anterior</a>- 
+  <a href="#4.1.5">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">La mejor forma de administrar un sistema no 
+  es con un pu&ntilde;o de hierro. As&iacute; puede ser como se haga lo militar, 
+  pero UNIX no fue dise&ntilde;ado para ese tipo de disciplina. Tiene sentido 
+  el escribir un conjunto sencillo y flexible de reglas para los usuarios, pero 
+  recuerde, cuantas menos reglas tenga, menos posibilidades habr&aacute; de romperlas. 
+  Incluso si sus reglas para utilizar el sistema son perfectamente razonables 
+  y claras, siempre habr&aacute; momentos en que los usuarios romper&aacute;n 
+  dichas reglas sin pretenderlo. Esto es especialmente cierto en el caso de usuarios 
+  UNIX nuevos, que est&aacute;n aprendiendo los entresijos del sistema. No esta 
+  suficientemente claro, por ejemplo, que uno no debe bajarse un gigabyte de ficheros 
+  y envi&aacute;rselo por correo a todos los usuarios del sistema. Los usuarios 
+  necesitan comprender las reglas y por que est&aacute;n establecidas.<br>
+  </font><font color="#000000" size="2">Si especifica reglas de uso para su sistema, 
+  aseg&uacute;rese de que el motivo detr&aacute;s de cada regla particular este 
+  claro. Si no lo hace, los usuarios encontraran toda clase de formas creativas 
+  de salt&aacute;rsela y no saber que en realidad la est&aacute;n rompiendo.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.1.5"></a>4.1.5 Lo que todo esto 
+  significa<br>
+  <font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.1.4">Anterior</a>- 
+  <a href="#4.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">No podemos decirle como ejecutar su sistema 
+  al ultimo detalle. Mucha de la filosof&iacute;a depende en como se use el sistema. 
+  Si se tienen muchos usuarios, las cosas son muy diferentes de si solo tiene 
+  unos pocos o si se es el &uacute;nico usuario del sistema. Sin embargo, siempre 
+  es una buena idea en cualquier situaci&oacute;n comprender lo que ser administrador 
+  de sistema significa en realidad.<br>
+  </font><font color="#000000" size="2">Ser el administrador de un sistema no 
+  le hace a uno un mago del UNIX. Hay muchos administradores de sistemas que conocen 
+  muy poco acerca de UNIX. Igualmente, hay muchos usuarios "normales" que saben 
+  mas acerca de UNIX que lo que cualquier administrador de sistemas. Tambi&eacute;n, 
+  ser el administrador de sistemas no le permite el utilizar la malicia contra 
+  sus usuarios. Aunque el sistema le d&eacute; el privilegio de enredar en los 
+  ficheros de los usuarios, no significa que se tenga ning&uacute;n derecho a 
+  hacerlo.<br>
+  </font><font color="#000000" size="2">Por ultimo, ser el administrador del sistema 
+  no es realmente una gran cosa. No importa si sus sistema es un peque&ntilde;o 
+  386 o un super ordenador Cray. La ejecuci&oacute;n del sistema es la misma. 
+  El saber la clave de root no significa ganar dinero o fama. Tan solo le permitir&aacute; 
+  ejecutar el sistema y mantenerlo funcionando. Eso es todo.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.2"></a><font size="3">4.2 Arrancando 
+  el Sistema<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.1.5">Anterior</a>- 
+  <a href="#4.2.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Hay varias maneras de arrancar el sistema, bien 
+  sea desde disquete o bien desde el disco duro.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.2.1"></a>4.2.1 Utilizando un disquete 
+  de arranque<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.2">Anterior</a>- 
+  <a href="#4.2.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Mucha gente arranca Linux utilizando un "disquete 
+  de arranque" que contiene una copia del n&uacute;cleo de Linux. Este n&uacute;cleo 
+  tiene la partici&oacute;n ra&iacute;z de Linux codificada en el, para que sepa 
+  donde buscar en el disco duro el sistema de ficheros ra&iacute;z. (El comando 
+  rdev puede ser utilizado para poner la partici&oacute;n ra&iacute;z en la imagen 
+  del n&uacute;cleo; ver mas adelante.) Por ejemplo, este es el tipo de disquete 
+  creado por Slackware durante la instalaci&oacute;n.<br>
+  </font><font color="#000000" size="2">Para crear su propio disquete de arranque, 
+  localice en primer lugar la imagen del n&uacute;cleo en su disco duro. Debe 
+  estar en el fichero /Image o /etc/Image. Algunas instalaciones utilizan el fichero 
+  /vmlinux para el n&uacute;cleo.<br>
+  </font><font color="#000000" size="2">En su lugar, puede que tenga un n&uacute;cleo 
+  comprimido. Un n&uacute;cleo comprimido se descomprime a si mismo en memoria 
+  en tiempo de arranque, y utiliza mucho menos espacio en el disco duro. Si se 
+  tiene un n&uacute;cleo comprimido, puede encontrarse en el fichero /zImage o 
+  /etc/zImage. Algunas instalaciones utilizan el fichero /vmlinuz para el n&uacute;cleo 
+  comprimido.<br>
+  </font><font color="#000000" size="2">Una vez que se sabe donde esta 
+  el n&uacute;cleo, hay que poner el nombre de la partici&oacute;n ra&iacute;z 
+  de un dispositivo ra&iacute;z en la imagen del n&uacute;cleo, utilizando el 
+  comando rdev. El formato de este comando es</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">rdev &lt;nombre-de-nucleo&gt; &lt;dispositivo-raiz&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">donde &lt;nombre-del-nucleo&gt; es el nombre 
+  de la imagen del n&uacute;cleo, y &lt;dispositivo-raiz&gt; es el nombre de la 
+  partici&oacute;n ra&iacute;z de Linux. Por ejemplo, para hacer que el dispositivo 
+  ra&iacute;z en el n&uacute;cleo /etc/Image sea /dev/hda2, utilice el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># rdev /etc/Image /dev/hda2</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">rdev tambi&eacute;n puede poner otras opciones 
+  en el n&uacute;cleo, como puede ser el modo SVGA por defecto a utilizar en tiempo 
+  de arranque. Tan solo utilice "rdev -h" para obtener un mensaje de ayuda.<br>
+  </font><font color="#000000" size="2">Una vez puesto el dispositivo ra&iacute;z, 
+  tan solo hay que copiar la imagen del n&uacute;cleo al disquete.<br>
+  </font><font color="#000000" size="2">Siempre que se copia datos a un disquete, 
+  es una buena idea formatear previamente el disquete en MS-DOS. Esto establece 
+  la informaci&oacute;n de pista y sector en el disquete con la que puede detectarse 
+  como de alta o baja densidad.<br>
+  </font><font color="#000000" size="2">Por ejemplo, 
+  para copiar el n&uacute;cleo en el fichero /etc/Image al disquete en /dev/fd0, 
+  se puede utilizar el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># cp /etc/Image /dev/fd0</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Este disquete debe arrancar ahora Linux.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.2.2"></a>4.2.2 Utilizando LILO<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.2.1">Anterior</a>- 
+  <a href="#4.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Otro m&eacute;todo de arranque es utilizar LILO, 
+  un programa que reside en el sector de arranque del disco duro. Este programa 
+  se ejecuta cuando el sistema se inicia desde el disco duro, y puede arrancar 
+  autom&aacute;ticamente Linux desde una imagen de n&uacute;cleo almacenada en 
+  el propio disco duro.<br>
+  </font><font color="#000000" size="2">LILO puede utilizarse tambi&eacute;n como 
+  una primera etapa de carga de varios sistemas operativos, permitiendo seleccionar 
+  en tiempo de arranque que sistema operativo (como Linux o MS-DOS) arrancar. 
+  Cuando se arranca utilizando LILO, se inicia el sistema operativo por defecto, 
+  a menos que pulse |_ctrl_|, |_alt_|, o |_shift_| durante la secuencia de arranque. 
+  Si se pulsa cualquiera de estas teclas, se le presentara un indicador de arranque, 
+  donde debe teclear el nombre del sistema operativo a arrancar (como puede ser 
+  "linux" o "msdos"). Si se pulsa la tecla |_tab_| en el indicador de arranque, 
+  se le presentara una lista de los sistemas operativos disponibles.<br>
+  </font><font color="#000000" size="2">La 
+  forma mas simple de instalar LILO es editar el fichero de configuraci&oacute;n, 
+  /etc/lilo.conf, y ejecutar el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># /sbin/lilo</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El fichero de configuraci&oacute;n de LILO contiene 
+  una "estrofa" para cada sistema operativo que se pueda querer arrancar. La mejor 
+  forma de mostrarlo es con un ejemplo de un fichero de configuraci&oacute;n LILO. 
+  El ejemplo siguiente es para un sistema que tiene una partici&oacute;n ra&iacute;z 
+  Linux en /dev/hda1 y una partici&oacute;n MS-DOS en /dev/hda2.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># Le indicamos a LILO que modifique el registro 
+      de arranque de<br>
+      </font><font color="#000000" size="2"># /dev/hda (el primer disco duro no-SCSI). 
+      Si se quiere arrancar desde<br>
+      </font><font color="#000000" size="2"># una unidad distinta de /dev/hda, 
+      se debe cambiar la siguiente l&iacute;nea<br>
+      </font><font color="#000000" size="2">boot = /dev/hda</font></P>
+    <P><font color="#000000" size="2"># Nombre del cargador de arranque. No hay 
+      raz&oacute;n para cambiarlo, a menos<br>
+      </font><font color="#000000" size="2"># que se este haciendo una modificaci&oacute;n 
+      seria del LILO<br>
+      </font><font color="#000000" size="2">install = /boot/boot.b</font><br>
+    </P>
+    <P><font color="#000000" size="2"># Dejemos a LILO efectuar alguna optimizaci&oacute;n.<br>
+      </font><font color="#000000" size="2">compact</font></P>
+    <P><font color="#000000" size="2"># Estrofa para la partici&oacute;n ra&iacute;z 
+      de Linux en /dev/hda1.<br>
+      </font><font color="#000000" size="2">image = /etc/Image # Ubicaci&oacute;n 
+      del kernel<br>
+      </font><font color="#000000" size="2">label = linux # Nombre del SO (para 
+      el men&uacute; de arranque de LILO)<br>
+      </font><font color="#000000" size="2">root = /dev/hda1 # Ubicaci&oacute;n 
+      de la partici&oacute;n ra&iacute;z<br>
+      </font><font color="#000000" size="2">vga = ask # Indicar al n&uacute;cleo 
+      que pregunte por modos SVGA<br>
+      </font><font color="#000000" size="2"># en tiempo de arranque</font></P>
+    <P><font color="#000000" size="2"># Estrofa para la partici&oacute;n MSDOS 
+      en /dev/hda2.<br>
+      </font><font color="#000000" size="2">other = /dev/hda2 # Ubicaci&oacute;n 
+      de la partici&oacute;n<br>
+      </font><font color="#000000" size="2">table = /dev/hda # Ubicaci&oacute;n 
+      de la tabla de partici&oacute;n para /dev/hda2<br>
+      </font><font color="#000000" size="2">label 
+      = msdos # Nombre del SO (para el men&uacute; de arranque)</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">La primera "estrofa" de sistema operativo en 
+  el men&uacute; del fichero de configuraci&oacute;n ser&aacute; el sistema operativo 
+  que arrancara LILO por defecto. Se puede seleccionar otro sistema operativo 
+  en el indicador de arranque de LILO, tal y como se indico anteriormente.<br>
+  </font><font color="#000000" size="2">Recuerde que cada vez que actualice la 
+  imagen del n&uacute;cleo en disco, se debe reejecutar /sbin/lilo para que los 
+  cambios queden reflejados en el sector de arranque de su unidad.<br>
+  </font><font color="#000000" size="2">Tambi&eacute;n tenga en cuenta que si 
+  utiliza la l&iacute;nea "root =", no hay motivo para utilizar rdev para poner 
+  la partici&oacute;n ra&iacute;z en la imagen del n&uacute;cleo. LILO se encarga 
+  de ponerlo en tiempo de arranque.<br>
+  </font><font color="#000000" size="2">Las FAQ (Preguntas frecuentemente formuladas) 
+  (ver Ap&eacute;ndice A) dan mas informaci&oacute;n sobre LILO, incluyendo como 
+  utilizar LILO con el "OS/2's Boot Manager".</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.3"></a><font size="3">4.3 Cerrando 
+  el Sistema<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.2.2">Anterior</a>- 
+  <a href="#4.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"><br>
+  </font></u></font></P>
+<P><font color="#000000" size="2">Cerrar un sistema Linux tiene algo de truco. 
+  Recuerde que nunca se debe cortar la corriente o pulsar el bot&oacute;n de reset 
+  mientras el sistema este ejecut&aacute;ndose. El n&uacute;cleo sigue la pista 
+  de la entrada/salida a disco en buffers de memoria. Si se reinicializa el sistema 
+  sin darle al n&uacute;cleo la oportunidad de escribir sus buffers a disco, puede 
+  corromper sus sistemas de ficheros.<br>
+  </font><font color="#000000" size="2">En tiempo de cierre se toman tambi&eacute;n 
+  otras precauciones. Todos los procesos reciben una se&ntilde;al que les permite 
+  morir airosamente (escribiendo y cerrando todos los ficheros y ese tipo de cosas).<br>
+  </font><font color="#000000" size="2">Los sistemas de ficheros se desmontan 
+  por seguridad. Si se desea, el sistema tambi&eacute;n puede alertar a los usuarios 
+  de que se esta cerrando y darles la posibilidad de desconectarse.<br>
+  </font><font color="#000000" size="2">La 
+  forma mas simple de cerrar el sistema es con el comando shutdown. El formato 
+  del comando es</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">shutdown &lt;tiempo&gt; &lt;mensaje-de-aviso&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El argumento &lt;tiempo&gt; es el momento de 
+  cierre del sistema (en el formato hh:mm:ss), y &lt;mensaje-de-aviso&gt; es un 
+  mensaje mostrado en todos los terminales de usuario antes de cerrar. Alternativamente, 
+  se puede especificar el par&aacute;metro &lt;tiempo&gt; como "now", para cerrar 
+  inmediatamente. Se le puede suministrar la opci&oacute;n -r a shutdown para 
+  reinicializar el sistema tras el cierre.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, para cerrar el sistema a las 8:00pm, se puede utilizar el siguiente 
+  comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># shutdown -r 20:00</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El comando halt puede utilizarse para forzar 
+  un cierre inmediato, sin ning&uacute;n mensaje de aviso ni periodo de gracia. 
+  halt se utiliza si se es el &uacute;nico usuario del sistema y se quiere cerrar 
+  el sistema y apagarlo.<br>
+  </font><font color="#000000" size="2">3 No apague o reinicialice 
+  el sistema hasta que vea el mensaje:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">The system is halted</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Es muy importante que cierre el sistema "limpiamente" 
+  utilizando el comando shutdown o el halt.<br>
+  </font><font color="#000000" size="2">En algunos sistemas, se reconocer&aacute; 
+  el pulsar |_ctrl-alt-del_|, que causara un shutdown; en otros sistemas, sin 
+  embargo, el utilizar el "Apret&oacute;n de Cuello de Vulcano" reinicializar&aacute; 
+  el sistema inmediatamente y puede causar un desastre.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.4"></a><font size="3">4.4 Gesti&oacute;n 
+  de Usuarios<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.3">Anterior</a>- 
+  <a href="#4.4.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"><br>
+  </font></u></font></P>
+<P><font color="#000000" size="2">Independientemente de que tenga muchos usuarios 
+  o no en su sistema, es importante comprender los aspectos de la gesti&oacute;n 
+  de usuarios bajo Linux. Incluso si se es el &uacute;nico usuario, se debe tener, 
+  presumiblemente, una cuenta distinta de root para hacer la mayor parte del trabajo.<br>
+  </font><font color="#000000" size="2">Cada persona que utilice el sistema debe 
+  tener su propia cuenta. Raramente es una buena idea el que varias personas compartan 
+  la misma cuenta. No solo es un problema de seguridad, sino que las cuentas se 
+  utilizan para identificar un&iacute;vocamente a los usuarios al sistema. Se 
+  necesita ser capaz de saber quien esta haciendo que.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.4.1"></a>4.4.1 Conceptos de gesti&oacute;n 
+  de usuarios<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.4">Anterior</a>- 
+  <a href="#4.4.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font><br>
+  </u></font></P>
+<P><font color="#000000" size="2">El sistema mantiene una cierta cantidad de informaci&oacute;n 
+  acerca de cada usuario. Dicha informaci&oacute;n se resume a continuaci&oacute;n.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font size="2" color="#000000"><B>nombre de usuario</b> El nombre de usuario 
+      es el identificador &uacute;nico dado a cada usuario del sistema. Ejemplos 
+      de nombres de usuario son larry, karl y mdw. Se pueden utilizar letras y 
+      d&iacute;gitos junto a los caracteres "_" (subrayado) y "." (punto). Los 
+      nombres de usuario se limitan normalmente a 8 caracteres de longitud.</font></P>
+    <P><font size="2" color="#000000"><B>user ID</b> El user ID, o UID, es un 
+      numero &uacute;nico dado a cada usuario del sistema. El sistema normalmente 
+      mantiene la pista de la informaci&oacute;n por UID, no por nombre de usuario.</font></P>
+    <P><font size="2" color="#000000"><B>group ID</b> El group ID, o GID, es la 
+      identificaci&oacute;n del grupo del usuario por defecto. En la secci&oacute;n 
+      3.9 discutimos los permisos de grupo; cada usuario pertenece a uno o mas 
+      grupos definidos por el administrador del sistema. Mas sobre esto mas adelante.</font></P>
+    <P><font size="2" color="#000000"><B>clave</b> El sistema tambi&eacute;n almacena 
+      la clave encriptada del usuario. El comando passwd se utiliza para poner 
+      y cambiar las claves de los usuarios.</font></P>
+    <P><font color="#000000" size="2"><B>nombre completo<I> </I></b>El "nombre 
+      real" o "nombre completo" del usuario se almacena junto con el nombre de 
+      usuario. Por ejemplo, el usuario schmoj puede tener el nombre "Jos Schmo" 
+      en la vida real.</font></P>
+    <P><font color="#000000" size="2"><B>directorio inicial<I> </I></b>El directorio 
+      inicial es el directorio en el que se coloca inicialmente al usuario en 
+      tiempo de conexi&oacute;n. Cada usuario debe tener su propio directorio 
+      inicial, normalmente situado bajo /home.</font></P>
+    <P><font size="2" color="#000000"><B>int&eacute;rprete de inicio</b> El interprete 
+      de inicio del usuario es el interprete de comandos que es arrancado para 
+      el usuario en tiempo de conexi&oacute;n. Ejemplos pueden ser /bin/bash y 
+      /bin/tcsh.</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El fichero /etc/passwd contiene la informaci&oacute;n 
+  anterior acerca de los usuarios. Cada l&iacute;nea del fichero contiene informaci&oacute;n 
+  acerca de un &uacute;nico usuario; el formato de cada l&iacute;nea es</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">nombre:clave encriptada:UID:GID:nombre completo:dir.inicio:interprete</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Un ejemplo puede ser:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">kiwi:Xv8Q981g71oKK:102:100:Laura Poole:/home/kiwi:/bin/bash</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Como puede verse, el primer campo , "kiwi", 
+  es el nombre de usuario.<br>
+  </font><font color="#000000" size="2">El siguiente campo, "Xv8Q981g71oKK", es 
+  la clave encriptada. Las claves no se almacenan en el sistema en ning&uacute;n 
+  formato legible por el hombre. Las claves se encriptan utiliz&aacute;ndose a 
+  si mismas como clave secreta. En otras palabras, solo si se conoce la clave, 
+  esta puede ser desencriptada. Esta forma de encriptaci&oacute;n es bastante 
+  segura.<br>
+  </font><font color="#000000" size="2">Algunos sistemas utilizan "claves en sombra" 
+  en la que la informaci&oacute;n de las claves se relega al fichero /etc/shadow. 
+  Puesto que /etc/passwd es legible por todo el mundo, /etc/shadow suministra 
+  un grado extra de seguridad, puesto que este no lo es. Las claves en sombra 
+  suministran algunas otras funciones como puede ser la expiraci&oacute;n de claves; 
+  no entraremos a detallar estas funciones aqu&iacute; .<br>
+  </font><font color="#000000" size="2">El tercer campo "102", es el UID. Este 
+  debe ser &uacute;nico para cada usuario. El cuarto campo, "100", es el GID. 
+  Este usuario pertenece al grupo numerado 100. La informaci&oacute;n de grupos, 
+  como la informaci&oacute;n de usuarios, se almacena en el fichero /etc/group. 
+  V&eacute;ase la secci&oacute;n 4.4.5 para mas informaci&oacute;n.<br>
+  </font><font color="#000000" size="2">El quinto campo es el nombre completo 
+  del usuario. "Laura Poole". Los dos &uacute;ltimos campos son el directorio 
+  inicial del usuario (/home/kiwi) y el interprete de conexi&oacute;n (/bin/bash), 
+  respectivamente. No es necesario que el directorio inicial de un usuario tenga 
+  el mismo nombre que el del nombre de usuario. Sin embargo, ayuda a identificar 
+  el directorio.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.4.2"></a>4.4.2 A&ntilde;adiendo 
+  usuarios<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.4.1">Anterior</a>- 
+  <a href="#4.4.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Cuando se a&ntilde;ade un usuario hay varios 
+  pasos a seguir. Primero, se le debe crear una entrada en /etc/passwd, con un 
+  nombre de usuario y UID &uacute;nicos. Se debe especificar el GID, nombre completo 
+  y resto de informaci&oacute;n. Se debe crear el directorio inicial, y poner 
+  los permisos en el directorio para que el usuario sea el due&ntilde;o. Se deben 
+  suministrar ficheros de comandos de inicializaci&oacute;n en el nuevo directorio 
+  y se debe hacer alguna otra configuraci&oacute;n del sistema (por ejemplo, preparar 
+  un buz&oacute;n para el correo electr&oacute;nico entrante para el nuevo usuario).<br>
+  </font><font color="#000000" size="2">Aunque no es dif&iacute;cil el a&ntilde;adir 
+  usuarios a mano (yo lo hago), cuando se esta ejecutando un sistema con muchos 
+  usuarios, es f&aacute;cil el olvidarse de algo. La manera mas simple de a&ntilde;adir 
+  usuarios es utilizar un programa interactivo que vaya preguntando por la informaci&oacute;n 
+  necesaria y actualice todos los ficheros del sistema autom&aacute;ticamente. 
+  El nombre de este programa es useradd o adduser dependiendo del software que 
+  este instalado. Las paginas man para estos comandos deber&iacute;an ser suficientemente 
+  autoexplicatorias.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.4.3"></a>4.4.3 Borrando usuarios<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.4.2">Anterior</a>- 
+  <a href="#4.4.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font><br>
+  </u></font></P>
+<P><font color="#000000" size="2">De forma parecida, borrar usuarios puede hacerse 
+  con los comandos userdel o deluser dependiendo de que software fuera instalado 
+  en el sistema.<br>
+  </font><font color="#000000" size="2">Si se desea "deshabilitar" temporalmente 
+  un usuario para que no se conecte al sistema (sin borrar la cuenta del usuario), 
+  se puede prefijar con un asterisco ("*") el campo de la clave en /etc/passwd.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, cambiando la l&iacute;nea de /etc/passwd correspondiente a kiwi a &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">kiwi:*Xv8Q981g71oKK:102:100:Laura Poole:/home/kiwi:/bin/bash</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">evitara que kiwi se conecte.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.4.4"></a>4.4.4 Poniendo atributos 
+  de usuario<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.4.3">Anterior</a>- 
+  <a href="#4.4.5">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Despu&eacute;s de que haya creado un usuario, 
+  puede necesitar cambiar alg&uacute;n atributo de dicho usuario, como puede ser 
+  el directorio inicial o la clave. La forma mas simple de hacer esto es cambiar 
+  los valores directamente en /etc/passwd. Para poner clave a un usuario, utilice 
+  el comando passwd.<br>
+  </font><font color="#000000" size="2">Por ejemplo,</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># passwd larry</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">cambiara la clave de larry. Solo root puede 
+  cambiar la clave de otro usuario de esta forma. Los usuarios pueden cambiar 
+  su propia clave con passwd tambi&eacute;n.<br>
+  </font><font color="#000000" size="2">En algunos sistemas, los comandos chfn 
+  y chsh est&aacute;n disponibles, permitiendo a los usuarios el cambiar sus atributos 
+  de nombre completo e interprete de conexi&oacute;n. Si no, deben pedir al administrador 
+  de sistemas que los cambie por ellos.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.4.5"></a>4.4.5 Grupos<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.4.4">Anterior</a>- 
+  <a href="#4.5">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Como hemos citado anteriormente, cada usuario 
+  pertenece a uno o mas grupos. La &uacute;nica importancia real de las relaciones 
+  de grupo es la perteneciente a los permisos de ficheros, como dijimos en la 
+  secci&oacute;n 3.9, cada fichero tiene un "grupo propietario" y un conjunto 
+  de permisos de grupo que define de que forma pueden acceder al fichero los usuarios 
+  del grupo.<br>
+  </font><font color="#000000" size="2">Hay varios grupos definidos en el sistema, 
+  como pueden ser bin, mail, y sys. Los usuarios no deben pertenecer a ninguno 
+  de estos grupos; se utilizan para permisos de ficheros del sistema. En su lugar, 
+  los usuarios deben pertenecer a un grupo individual, como users. Si se quiere 
+  ser detallista, se pueden mantener varios grupos de usuarios como por ejemplo 
+  estudiantes, soporte y facultad.<br>
+  </font><font color="#000000" size="2">El fichero 
+  /etc/group contiene informaci&oacute;n acerca de los grupos. El formato de cada 
+  l&iacute;nea es &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">nombre de grupo:clave:GID:otros miembros</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Algunos ejemplos de grupos pueden ser:</font></P>
+<DIR> 
+  <DIR> 
+    <p><font color="#000000" size="2">root:*:0:<br>
+      </font><font color="#000000" size="2">usuarios:*:100:mdw,larry<br>
+      </font><font color="#000000" size="2">invitados:*:200:<br>
+      </font><font color="#000000" size="2">otros:*:250:kiwi</font></p>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El primer grupo, root, es un grupo especial 
+  del sistema reservado para la cuenta root. El siguiente grupo, users, es para 
+  usuarios normales. Tiene un GID de 100. Los usuarios mdw y larry tienen acceso 
+  a este grupo. Recu&eacute;rdese que en /etc/passwd cada usuario tiene un GID 
+  por defecto. Sin embargo, los usuarios pueden pertenecer a mas de un grupo, 
+  a&ntilde;adiendo sus nombres de usuario a otras l&iacute;neas de grupo en /etc/group. 
+  El comando groups lista a que grupos se tiene acceso.<br>
+  </font><font color="#000000" size="2">El tercer grupo, invitados, es para usuarios 
+  invitados, y otros es para "otros" usuarios. El usuario kiwi tiene acceso a 
+  este grupo.<br>
+  </font><font color="#000000" size="2">Como se puede ver, el campo "clave" de 
+  /etc/group raramente se utiliza. A veces se utiliza para dar una clave para 
+  acceder a un grupo. Esto es raras veces necesario. Para evitar el que los usuarios 
+  cambien a grupos privilegiados (con el comando newgroup), se pone el campo de 
+  la clave a "*".<br>
+  </font><font color="#000000" size="2">Se pueden usar los comandos addgroup o 
+  groupadd para a&ntilde;adir grupos a su sistema. Normalmente es mas sencillo 
+  a&ntilde;adir l&iacute;neas a /etc/group uno mismo, puesto que no se necesitan 
+  mas configuraciones para a&ntilde;adir un grupo. Para borrar un grupo, solo 
+  hay que borrar su entrada de /etc/group.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.5"></a><font size="3">4.5 Archivando 
+  y Comprimiendo Ficheros<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.4.5">Anterior</a>- 
+  <a href="#4.5.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Antes de que podamos hablar acerca de copias 
+  de seguridad, necesitamos presentar las herramientas utilizadas para archivar 
+  ficheros y programas en los sistemas UNIX.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.5.1"></a>4.5.1 Utilizando tar<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.5">Anterior</a>- 
+  <a href="#4.5.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">El comando tar es utilizado normalmente para 
+  archivar ficheros. El formato del comando tar es</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">tar &lt;opciones&gt; &lt;fichero1&gt; &lt;fichero2&gt; 
+      ...&lt;ficheroN&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">donde &lt;opciones&gt; es la lista de comandos 
+  y opciones para tar, y &lt;fichero1&gt; hasta &lt;ficheroN&gt; es la lista de 
+  ficheros a a&ntilde;adir o extraer del archivo.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar cvf backup.tar /etc</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">empaquetara todos los ficheros de /etc en el 
+  fichero tar backup.tar. El primer argumento de tar ("cvf") es el "comando" tar. 
+  "c" le dice a tar que cree un nuevo fichero de archivo. La opci&oacute;n "v" 
+  fuerza a tar en el modo detallado, imprimiendo los nombres de los ficheros seg&uacute;n 
+  se archivan. La opci&oacute;n "f" le dice a tar que el siguiente argumento (backup.tar) 
+  es el nombre del archivo a crear. El resto de los argumentos de tar son los 
+  nombres de ficheros y directorios a a&ntilde;adir al archivo.<br>
+  </font><font color="#000000" size="2">El 
+  comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar xvf backup.tar</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">extraer&aacute; el fichero tar backup.tar en 
+  el directorio actual. Esto puede ser peligroso a veces, cuando se extraen ficheros 
+  de un fichero tar, los ficheros antiguos se sobreescriben.<br>
+  </font><font color="#000000" size="2">Por 
+  otra parte, antes de extraer ficheros tar es importante conocer donde se deben 
+  desempaquetar los ficheros. Por ejemplo, digamos que se archivaron los siguientes 
+  ficheros: /etc/hosts, /etc/group, y /etc/passwd. Si se uso el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar cvf backup.tar /etc/hosts /etc/group 
+      /etc/passwd</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">el nombre de directorio /etc se a&ntilde;adi&oacute; 
+  al principio de cada nombre de fichero. Para poder extraer los ficheros en la 
+  localizaci&oacute;n correcta, se necesitara utilizar los siguientes comandos:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># cd /<br>
+      </font><font color="#000000" size="2"># 
+      tar xvf backup.tar</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Puesto que los ficheros se extraen con el nombre 
+  de camino almacenado en el fichero de archivo. Sin embargo, si se archivaron 
+  los ficheros con los comandos</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># cd /etc<br>
+      </font><font color="#000000" size="2"># 
+      tar cvf hosts group passwd</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Los nombres de directorio no se salvaron en 
+  el fichero de archivo. Por esto se necesitara hacer "cd /etc" antes de extraer 
+  los ficheros. Como se puede ver, el c&oacute;mo haya sido creado un fichero 
+  tar marca una gran diferencia en como se extrae. Se puede usar el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar tvf backup.tar</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">para mostrar un "&iacute;ndice" del fichero 
+  tar antes de desempaquetarlo. De esta forma se puede ver que directorio se utilizo 
+  como origen de los nombres de los ficheros, y se puede extraer el archivo desde 
+  la localizaci&oacute;n correcta.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.5.2"></a>4.5.2 gzip y compress<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.5.1">Anterior</a>- 
+  <a href="#4.5.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">A diferencia de los programas de archivo para 
+  MS-DOS, tar no comprime autom&aacute;ticamente los ficheros seg&uacute;n los 
+  archiva. Por ello, si se est&aacute;n archivando dos ficheros de un megabyte, 
+  el fichero tar resultante tendr&aacute; dos megabytes. El comando gzip puede 
+  utilizarse para comprimir un fichero (el fichero a comprimir no necesita ser 
+  un fichero tar). El comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># gzip -9 backup.tar</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">comprimir&aacute; backup.tar y le dejara con 
+  backup.tar.gz, que es la versi&oacute;n comprimida del fichero. La opci&oacute;n 
+  -9 le dice a gzip que utilice el mayor factor de compresi&oacute;n.<br>
+  </font><font color="#000000" size="2">El comando gunzip puede ser utilizado 
+  para descomprimir un fichero comprimido con gzip. Equivalentemente, se puede 
+  utilizar "gzip -d". gzip es una herramienta relativamente nueva en la comunidad 
+  UNIX. Durante muchos a&ntilde;os, se utilizo en su lugar el comando compress. 
+  Sin embargo, debido a varios factores1, compress se esta volviendo desfasado.<br>
+  </font><font color="#000000" size="2">Los ficheros comprimidos con compress 
+  terminan en la extensi&oacute;n .Z. Por ejemplo, backup.tar.Z es la versi&oacute;n 
+  comprimida con compress de backup.tar, mientras que backup.tar.gz es la versi&oacute;n 
+  comprimida con gzip2. El comando uncompress se utiliza para expandir un fichero 
+  comprimido con compress; gunzip sabe tambi&eacute;n como tratar los ficheros 
+  comprimidos con compress.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.5.3"></a>4.5.3 Junt&aacute;ndolo 
+  todo<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.5.2">Anterior</a>- 
+  <a href="#4.6">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Por lo tanto, para archivar un grupo de ficheros 
+  y comprimir el resultado, se pueden utilizar los comandos:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar cvf backup.tar /etc<br>
+      </font><font color="#000000" size="2"># 
+      gzip -9 backup.tar</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">1 Estos factores incluyen una disputa por una 
+  patente software contra el algoritmo de compress y el hecho de que gzip es mucho 
+  mas eficiente que compress.<br>
+  </font><font color="#000000" size="2">2 Para a&ntilde;adir mas confusi&oacute;n, 
+  durante alg&uacute;n tiempo la extensi&oacute;n .z ("z" min&uacute;scula) fue 
+  utilizada para los ficheros comprimidos con gzip. La extensi&oacute;n oficial 
+  de los ficheros gzip ahora es .gz.</font></P>
+<P><font color="#000000" size="2">El resultado ser&aacute; backup.tar.gz. Para 
+  desempaquetar este fichero, se usan los comandos contrarios:</font></P>
+<DIR> 
+  <DIR> 
+    <p><font color="#000000" size="2"># gunzip backup.tar.gz<br>
+      </font><font color="#000000" size="2"># 
+      tar xvf backup.tar</font></p>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Por supuesto, aseg&uacute;rese siempre de que 
+  esta en el directorio correcto antes de desempaquetar un fichero tar.<br>
+  </font><font color="#000000" size="2">Se 
+  pueden utilizar algunas ma&ntilde;as UNIX para hacer todo esto en una sola l&iacute;nea 
+  de comando, como por ejemplo:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar cvf - /etc | gzip -9c &gt; backup.tar.gz</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Aqu&iacute; estamos enviando el fichero tar 
+  a "-", que representa la salida est&aacute;ndar de tar. Esto es encolado hacia 
+  gzip, que comprime el fichero tar de entrada, y el resultado se salva en backup.tar.gz.<br>
+  </font><font color="#000000" size="2">La 
+  opci&oacute;n -c de gzip le dice que env&iacute;e su salida hacia la salida 
+  est&aacute;ndar, que es redirigida a backup.tar.gz.<br>
+  </font><font color="#000000" size="2">Un comando &uacute;nico para desempaquetar 
+  este archivo seria:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># gunzip -c backup.tar.gz | tar xvf -</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">De nuevo, gunzip descomprime el contenido de 
+  backup.tar.gz y env&iacute;a el fichero tar resultante hacia la salida est&aacute;ndar. 
+  Esta es redirigida hacia tar, que lee de "-", refiri&eacute;ndose esta vez a 
+  la entrada est&aacute;ndar de tar.<br>
+  </font><font color="#000000" size="2">Felizmente, el comando tar tambi&eacute;n 
+  incluye la opci&oacute;n z para comprimir/descomprimir autom&aacute;ticamente 
+  los ficheros al vuelo, utilizando el algoritmo de compresi&oacute;n de gzip.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar cvfz backup.tar.gz /etc</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">es equivalente a</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar cvf backup.tar /etc<br>
+      </font><font color="#000000" size="2"># 
+      gzip backup.tar</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Igual que el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar xvfz backup.tar.Z</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">se puede utilizar en vez de</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># uncompress backup.tar.Z<br>
+      </font><font color="#000000" size="2"># 
+      tar xvf backup.tar</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Rem&iacute;tase a las paginas man para obtener 
+  mas informaci&oacute;n acerca de tar y gzip.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.6"></a><font size="3">4.6 Usando 
+  Disquetes y Haciendo Copias de Seguridad<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.5.3">Anterior</a>- 
+  <a href="#4.6.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Los disquetes son utilizados normalmente como 
+  medio para copias de seguridad. Si no se tiene una unidad de cinta conectada 
+  al sistema, se pueden utilizar disquetes (a pesar de que sean mas lentos y ligeramente 
+  menos seguros).<br>
+  </font><font color="#000000" size="2">Tambi&eacute;n puede utilizar disquetes 
+  para contener sistemas de ficheros individuales, de esta forma, se puede montar 
+  mount el disquete para acceder a los datos contenidos en el.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.6.1"></a>4.6.1 Utilizando disquetes 
+  para copias de seguridad<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.6">Anterior</a>- 
+  <a href="#4.6.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b><u><br>
+  </u></font><font color="#000000" size="2">La forma mas simple de hacer una copia 
+  de seguridad es con tar. El comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar cvfzM /dev/fd0 /</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">har&aacute; una copia de seguridad completa 
+  de su sistema utilizando el disquete /dev/fd0. La opci&oacute;n "M" de tar permite 
+  que la copia de seguridad sea una copia multi-volumen; esto es, cuando un disquete 
+  esta lleno, tar pedir&aacute; el siguiente. El comando &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># tar xvfzM /dev/fd0</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">ser utilizado para recuperar la copia de seguridad 
+  completa. Este m&eacute;todo puede ser utilizado tambi&eacute;n si se tiene 
+  una unidad de cinta (/dev/rmt0) conectada al sistema.<br>
+  </font><font color="#000000" size="2">Existen otros programas para hacer copias 
+  de seguridad multi-volumen; el programa backflops disponible en tsx-11.mit.edu 
+  puede ser &uacute;til.<br>
+  </font><font color="#000000" size="2">Hacer una copia de seguridad completa 
+  del sistema puede ser costoso en tiempo y recursos. Muchos administradores de 
+  sistemas utilizan una pol&iacute;tica de copias de seguridad incrementales, 
+  en la que cada mes se hace una copia de seguridad completa, y cada semana solo 
+  se copian aquellos ficheros que hayan sido modificados en esa semana. En este 
+  caso, si el sistema se viene abajo a mitad de mes, solo tiene que restaurar 
+  la ultima copia de seguridad mensual completa y, despu&eacute;s, las ultimas 
+  copias semanales seg&uacute;n el caso.<br>
+  </font><font color="#000000" size="2">El comando find puede ser &uacute;til 
+  para localizar ficheros que hayan cambiado desde una cierta fecha.<br>
+  </font><font color="#000000" size="2">Se pueden encontrar varios ficheros de 
+  comandos para manejar copias de seguridad incrementales en sunsite.unc.edu.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.6.2"></a>4.6.2 Utilizando disquetes 
+  como sistemas de ficheros<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.6.1">Anterior</a>- 
+  <a href="#4.7">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Puede crearse un sistema de ficheros en un disquete 
+  igual que lo har&iacute;a en una partici&oacute;n de un disco duro. Por ejemplo,</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># mke2fs /dev/fd0 1440</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">crea un sistema de ficheros en el disquete en 
+  /dev/fd0. El tama&ntilde;o del sistema de ficheros debe corresponder al tama&ntilde;o 
+  del disquete. Los disquetes de alta densidad de 3.5" tienen un tama&ntilde;o 
+  de 1.44 megabytes, o 1440 bloques. Los disquetes de alta densidad de 5.25" tienen 
+  1200 bloques.<br>
+  </font><font color="#000000" size="2">Para poder acceder a un disquete, 
+  se debe montar mount el sistema de ficheros que contiene. El comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># mount -t ext2 /dev/fd0 /mnt</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">montara el disquete en /dev/fd0 en el directorio 
+  /mnt. Ahora todos los ficheros del disquete aparecer&aacute;n bajo /mnt en su 
+  unidad. "-t ext2" especifica el tipo de sistema de ficheros como ext2fs. Si 
+  crea otro tipo de sistema de ficheros en el disquete, necesitara especific&aacute;rselo 
+  al comando mount.<br>
+  </font><font color="#000000" size="2">El "punto de montaje" (el directorio donde 
+  esta montando el sistema de ficheros) debe existir en el momento de utilizar 
+  el comando mount. Si no existiese, deba crearlo con el comando mkdir.<br>
+  </font><font color="#000000" size="2">Para 
+  mas informaci&oacute;n sobre sistemas de ficheros, montaje y puntos de montaje, 
+  ver secci&oacute;n 4.8.3 Tenga en cuenta que cualquier entrada/salida al disquete 
+  se gestiona con buffers igual que si fuese de disco duro. Si cambia datos en 
+  el disquete, puede que no vea encenderse la luz de la unidad hasta que el n&uacute;cleo 
+  decida vaciar sus buffers. Es importante que no quite un disquete antes de haberlo 
+  desmontado; esto puede hacerse con el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># umount /dev/fd0</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">No cambie los disquetes como se hace en un sistema 
+  MS-DOS; siempre que cambie disquetes, desmonte umount el primero y monte mount 
+  el siguiente.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.7"></a><font size="3">4.7 Actualizando 
+  e Instalando Nuevo Software<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.6.2">Anterior</a>- 
+  <a href="#4.7.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Otra tarea del administrador de sistemas es 
+  la actualizaci&oacute;n e instalaci&oacute;n de nuevo software.<br>
+  </font><font color="#000000" size="2">La comunidad Linux es muy din&aacute;mica. 
+  Las versiones nuevas del n&uacute;cleo aparecen cada pocas semanas, y otros 
+  programas se actualizan casi tan a menudo. Por esto, los nuevos usuarios de 
+  Linux sienten a menudo la necesidad de actualizar sus sistemas constantemente 
+  para mantener el paso de los cambios. No solo esto no es necesario, sino que 
+  es una perdida de tiempo. Para mantenerse al di a de todos los cambios del mundo 
+  Linux, deber&iacute;a utilizar todo su tiempo actualizando en vez de usando 
+  su sistema.<br>
+  </font><font color="#000000" size="2">Pero entonces, ¿cuando se debe actualizar?. 
+  Alguna gente piensa que se debe actualizar cuando se libera una nueva versi&oacute;n 
+  de distribuci&oacute;n, por ejemplo, cuando Slackware presenta una nueva versi&oacute;n. 
+  Muchos usuarios Linux reinstalan completamente sus sistemas con la nueva versi&oacute;n 
+  Slackware, cada vez. Esto, tambi&eacute;n, es una perdida de tiempo. En general, 
+  los cambios de las versiones Slackware son peque&ntilde;os. Bajarse y reinstalar 
+  30 discos cuando solo ha cambiado un 10% del software es, por supuesto, in&uacute;til.<br>
+  </font><font color="#000000" size="2">La mejor forma de actualizar su sistema 
+  es haci&eacute;ndolo a mano: actualizando solo aquellos paquetes de software 
+  que sepa que hay que actualizar. Esto asusta a un mont&oacute;n de gente: quieren 
+  saber que actualizar y como, y que se romper&aacute; si no actualizan. Para 
+  tener &eacute;xito con Linux, es importante superar los temores del "h&aacute;galo 
+  usted mismo", que es lo que Linux es, a fin de cuentas.<br>
+  </font><font color="#000000" size="2">De hecho, una vez que tenga su sistema 
+  trabajando y todo el software correctamente configurado, la reinstalaci&oacute;n 
+  de una nueva versi&oacute;n no dudara en limpiar toda la configuraci&oacute;n 
+  y todo estar&aacute; roto otra vez, igual que la primera vez que instalo su 
+  sistema. Volver atr&aacute;s de esta forma no es necesario, todo lo que se necesita 
+  es alg&uacute;n conocimiento acerca de como actualizar el sistema y de c&oacute;mo 
+  hacerlo bien.<br>
+  </font><font color="#000000" size="2">Se encontrara con que cuando actualice 
+  un componente de su sistema, no tienen por que fallar los dem&aacute;s. Por 
+  ejemplo, la mayor parte del software de mi sistema se quedo en una instalaci&oacute;n 
+  antigua basada en el nivel 0.96 MCC Interim. Ciertamente, utilizo la versi&oacute;n 
+  mas reciente del n&uacute;cleo y de las librer&iacute;as con este software sin 
+  problemas. Realmente, la actualizaci&oacute;n insensata para "mantenerse en 
+  la ola" no es tan importante. Esto no es MS-DOS o Microsoft Windows. No hay 
+  ninguna raz&oacute;n importante para ejecutar la versi&oacute;n mas reciente 
+  de todo el software. Si encuentra que desea o necesita funciones de una versi&oacute;n 
+  nueva, entonces actualice. Si no, no lo haga. En otras palabras, actualice solo 
+  lo que tenga que hacerlo y cuando tenga que hacerlo. No actualice solo por el 
+  mero hecho de actualizar. Hacerlo solo gastar&iacute;a un mont&oacute;n de tiempo 
+  y esfuerzo intentando mantenerse al d&iacute;a.<br>
+  </font><font color="#000000" size="2">El software mas importante para actualizar 
+  en su sistema es el n&uacute;cleo, las librer&iacute;as y el compilador gcc. 
+  Estas son las tres partes esenciales de su sistema, y en algunos casos cada 
+  uno depende de las otras para que todo funcione bien. La mayor parte del resto 
+  del software de su sistema no necesita ser actualizado peri&oacute;dicamente.</font></P>
+<P><font color="#000000" size="2"><a name="4.7.1"></a>4.7.1 Actualizando el n&uacute;cleo<br>
+  <u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.7">Anterior</a>- 
+  <a href="#4.7.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><br>
+  </font></P>
+<P><font color="#000000" size="2">Actualizar el n&uacute;cleo es simplemente asunto 
+  de coger los fuentes y compilarlos uno mismo. Debe compilar el n&uacute;cleo 
+  por si mismo para poder activar o desactivar ciertas funciones, adem&aacute;s 
+  de asegurarse de que el n&uacute;cleo estar&aacute; optimizado para correr en 
+  su maquina. El proceso es casi indoloro.<br>
+  </font><font color="#000000" size="2">Los fuentes del n&uacute;cleo pueden obtenerse 
+  de cualquiera de los servidores FTP de Linux (para una lista, v&eacute;ase Ap&eacute;ndice 
+  C). En sunsite.unc.edu, por ejemplo, los fuentes del n&uacute;cleo se encuentran 
+  en /pub/Linux/kernel. Las versiones del n&uacute;cleo se numeran utilizando 
+  un numero de versi&oacute;n y un nivel de "parche". Por ejemplo, la versi&oacute;n 
+  de n&uacute;cleo 0.99, nivel de parche 11 es nombrada como 0.99.pl11, o simplemente 
+  0.99.11.<br>
+  </font><font color="#000000" size="2">Los fuentes del n&uacute;cleo se presentan 
+  en un fichero tar comprimido con gzip3. Por ejemplo, el fichero conteniendo 
+  los fuentes del n&uacute;cleo 0.99.pl11 es linux-0.99.11.tar.gz.<br>
+  </font><font color="#000000" size="2">Se desempaqueta este fichero tar desde 
+  el directorio /usr/src; esto crea el directorio /usr/src/linux que contiene 
+  los fuentes del n&uacute;cleo. Se debe borrar o cambiar de nombre el directorio 
+  /usr/src/linux existente antes de desempaquetar la nueva versi&oacute;n.<br>
+  </font><font color="#000000" size="2">Una 
+  vez que se han desempaquetado los fuentes, es necesario asegurarse que dos enlaces 
+  simb&oacute;licos son correctos. Para crear estos enlaces, se utilizan los comandos:</font></P>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">3 A menudo, se suministra un fichero de parches 
+  para la versi&oacute;n actual del n&uacute;cleo, que permite parchear los fuentes 
+  actuales desde el nivel anterior al actual (utilizando el programa patch). En 
+  muchos casos, sin embargo, es normalmente mas sencillo el instalar la nueva 
+  versi&oacute;n de los fuentes del n&uacute;cleo completa.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># ln -sf /usr/src/linux/include/linux /usr/include/linux<br>
+      </font><font color="#000000" size="2"># 
+      ln -sf /usr/src/linux/include/asm /usr/include/asm</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Una vez creados estos enlaces una vez, no hay 
+  raz&oacute;n para crearlos de nuevo cuando se instale la siguiente versi&oacute;n 
+  de los fuentes del n&uacute;cleo. (V&eacute;ase secci&oacute;n 3.10 para mas 
+  informaci&oacute;n sobre enlaces simb&oacute;licos.)<br>
+  </font><font color="#000000" size="2">Hay que advertir, que para poder compilar 
+  el n&uacute;cleo, se debe tener gcc y g++, compiladores C y C++, instalados 
+  en el sistema. Puede necesitar tener la versi&oacute;n mas reciente de estos 
+  compiladores: ver secci&oacute;n 4.7.3, mas adelante, para mas informaci&oacute;n.<br>
+  </font><font color="#000000" size="2">Para compilar el n&uacute;cleo, primero 
+  cambie de directorio usando cd a /usr/src/linux. Ejecute el comando make config. 
+  Este comando le ira preguntando por un numero de opciones de configuraci&oacute;n, 
+  como puede ser que tipos de sistemas de ficheros se desea incluir en el nuevo 
+  n&uacute;cleo.<br>
+  </font><font color="#000000" size="2">Despu&eacute;s, edite /usr/src/linux/Makefile. 
+  Aseg&uacute;rese que la definici&oacute;n para ROOT_DEV sea correcta, define 
+  el dispositivo utilizado como sistema de ficheros ra&iacute;z en tiempo de arranque. 
+  La definici&oacute;n normal es</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ROOT_DEV = CURRENT</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">A menos que este cambiando el dispositivo ra&iacute;z 
+  del sistema de ficheros, no hay raz&oacute;n para cambiar esto.<br>
+  </font><font color="#000000" size="2">Despu&eacute;s, ejecute el comando make 
+  dep para asegurar que se cumplen todas las dependencias del fuente. Este es 
+  un paso muy importante.<br>
+  </font><font color="#000000" size="2">Finalmente, se esta listo para compilar 
+  el n&uacute;cleo. El comando make Image compilara el n&uacute;cleo y dejara 
+  la nueva imagen del n&uacute;cleo en el fichero /usr/src/linux/Image. Alternativamente, 
+  el comando make zImage compilara una imagen comprimida del n&uacute;cleo, que 
+  se descomprime a si misma en tiempo de arranque y utiliza menos espacio en el 
+  disco.<br>
+  </font><font color="#000000" size="2">Una vez que esta el n&uacute;cleo compilado, 
+  se necesita, o bien copiarlo a un disquete de arranque (con un comando como 
+  "cp Image /dev/fd0") o bien instalarlo utilizando LILO para arrancar desde el 
+  disco duro. Ver secci&oacute;n 4.2.2 para mas informaci&oacute;n.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.7.2"></a>4.7.2 Actualizando las 
+  librer&iacute;as<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.7.1">Anterior</a>- 
+  <a href="#4.7.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Como se menciono antes, la mayor parte del software 
+  del sistema esta compilado para que utilice las librer&iacute;as compartidas, 
+  que contienen subrutinas comunes compartidas entre distintos programas.<br>
+  </font><font color="#000000" size="2">Si 
+  le aparece el mensaje</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Incompatible library versi&oacute;n</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">cuando se intenta ejecutar un programa, entonces 
+  necesita actualizar a la versi&oacute;n de las librer&iacute;as que el programa 
+  requiere. Las librer&iacute;as son compatible-ascendentes; esto es, un programa 
+  compilado para utilizar una versi&oacute;n antigua de las librer&iacute;as, 
+  debe trabajar con la nueva versi&oacute;n de las librer&iacute;as instalada. 
+  Sin embargo, lo contrario no es cierto.<br>
+  </font><font color="#000000" size="2">La ultima versi&oacute;n de las librer&iacute;as 
+  se puede encontrar en los servidores FTP de Linux. En sunsite.unc.edu, est&aacute;n 
+  disponibles en /pub/Linux/GCC. Los ficheros de "versi&oacute;n" que se encuentran 
+  ah&iacute; deben explicar que ficheros se necesita obtener y como instalarlos. 
+  R&aacute;pidamente, se deben coger los ficheros image-version.tar.gz y inc-version.tar.gz 
+  donde versi&oacute;n es la versi&oacute;n de las librer&iacute;as a instalar, 
+  por ejemplo 4.4.1. Son ficheros tar comprimidos con gzip; el fichero image contiene 
+  las im&aacute;genes de las librer&iacute;as a instalar en /lib y /usr/lib. El 
+  fichero inc contiene los ficheros de inclusi&oacute;n a instalar en /usr/include.<br>
+  </font><font color="#000000" size="2">El fichero release-version.tar.gz debe 
+  explicar el m&eacute;todo de instalaci&oacute;n detalladamente (las instrucciones 
+  exactas var&iacute;an para cada versi&oacute;n). En general, se necesita instalar 
+  los ficheros de librer&iacute;as .a y .sa en /usr/lib. Estas son las librer&iacute;as 
+  utilizadas en tiempo de compilaci&oacute;n.<br>
+  </font><font color="#000000" size="2">Adem&aacute;s, los ficheros imagen de 
+  las librer&iacute;as compartidas libc.so.version se instalan en /lib. Estas 
+  son las im&aacute;genes de las librer&iacute;as compartidas que son cargadas 
+  en tiempo de ejecuci&oacute;n por los programas que utilizan las librer&iacute;as. 
+  Cada librer&iacute;a tiene un enlace simb&oacute;lico utilizando el numero de 
+  versi&oacute;n mayor de la librer&iacute;a en /lib<br>
+  </font><font color="#000000" size="2">Por ejemplo, la versi&oacute;n 4.4.1 de 
+  la librer&iacute;a libc tiene un numero de versi&oacute;n mayor de 4. El fichero 
+  que contiene la librer&iacute;a es libc.so.4.4.1. Existe un enlace simb&oacute;lico 
+  del nombre libc.so.4 en /lib apuntando a este fichero. Por ejemplo, cuando se 
+  actualiza de libc.so.4.4 a libc.so.4.4.1, necesita cambiar el enlace simb&oacute;lico 
+  para apuntar a la nueva versi&oacute;n.<br>
+  </font><font color="#000000" size="2">3 Es muy importante que se cambie el enlace 
+  simb&oacute;lico en un solo paso, como se indica mas abajo.<br>
+  </font><font color="#000000" size="2">Si 
+  de alguna forma borrase el enlace simb&oacute;lico libc.so.4, los programas 
+  que dependen del enlace (incluyendo utilidades b&aacute;sicas como ls y cat) 
+  dejaran de funcionar. Utilice el siguiente comando para actualizar el enlace 
+  simb&oacute;lico libc.so.4 para que apunte al fichero libc.so.4.4.1:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># ln -sf /lib/libc.so.4.4.1 /lib/libc.so.4</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Se necesita tambi&eacute;n cambiar el enlace 
+  simb&oacute;lico libm.so.version de la misma forma. Si se esta actualizando 
+  a una versi&oacute;n diferente de las librer&iacute;as, sustituya lo anterior 
+  con los nombres adecuados.<br>
+  </font><font color="#000000" size="2">La nota de la versi&oacute;n de la librer&iacute;a 
+  debe explicar los detalles. (Ver secci&oacute;n 3.10 para mas informaci&oacute;n 
+  acerca de los enlaces simb&oacute;licos).</font></P>
+<P><font size="2" color="#000000"><u><a name="4.7.3"></a>4.7.3 Actualizando gcc<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.7.2">Anterior</a>- 
+  <a href="#4.7.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">El compilador de C y C++ gcc se utiliza para 
+  compilar software en su sistema, siendo el mas importante el n&uacute;cleo. 
+  La versi&oacute;n mas reciente de gcc se encuentra en los servidores FTP de 
+  Linux.<br>
+  </font><font color="#000000" size="2">En sunsite.unc.edu se encuentra en el 
+  directorio /pub/Linux/GCC (junto con las librer&iacute;as). Debe existir un 
+  fichero rel&eacute;ase para la distribuci&oacute;n gcc detallando que ficheros 
+  se necesitan obtener y como instalarlos.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.7.4"></a>4.7.4 Actualizando otro 
+  software<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.7.2">Anterior</a>- 
+  <a href="#4.8">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">La actualizaci&oacute;n de otro software solo 
+  suele consistir en obtener los ficheros apropiados e instalarlos.<br>
+  </font><font color="#000000" size="2">Mucho software para Linux se distribuye 
+  como ficheros tar comprimidos con gzip, incluyendo, ya sea fuentes, ejecutables 
+  o ambos. Si los ejecutables no se incluyen con la versi&oacute;n, puede ser 
+  necesario recompilarlos uno mismo; normalmente esto significa teclear make en 
+  el directorio que tiene los fuentes.<br>
+  </font><font color="#000000" size="2">Leer el newsgroup de USENET comp.os.linux.announce 
+  en busca de anuncios de nuevas versiones de software es la mejor manera de enterarse 
+  de la aparici&oacute;n de nuevo software. Siempre que busque software en un 
+  servidor FTP b&aacute;jese el fichero de &iacute;ndice ls-lR del servidor FTP 
+  y utilice grep para encontrar los ficheros en cuesti&oacute;n, es la forma mas 
+  simple de localizar software. Si tiene la posibilidad de utilizar archie, este 
+  puede servirle de ayuda. Si no tiene archie, puede conectarse con telnet a un 
+  servidor archie como puede ser archie.rutgers.edu, identificarse como "archie" 
+  y utilizar el comando "help". V&eacute;ase Ap&eacute;ndice A para mas detalles.<br>
+  </font><font color="#000000" size="2">Una fuente &uacute;til de software para 
+  Linux, son las im&aacute;genes de los discos de la distribuci&oacute;n Slackware.<br>
+  </font><font color="#000000" size="2">Cada disco contiene varios ficheros .tgz 
+  que son simples ficheros tar comprimidos con gzip. En vez de bajarse los discos, 
+  puede bajar solo los ficheros .tgz deseados de los directorios Slackware del 
+  servidor FTP e instalarlos directamente. Si puede ejecutar la distribuci&oacute;n 
+  Slackware, puede utilizar el comando setup para cargar e instalar autom&aacute;ticamente 
+  una serie completa de discos.<br>
+  </font><font color="#000000" size="2">Insistimos, normalmente no es una buena 
+  idea el actualizar reinstalando desde cero la versi&oacute;n mas reciente de 
+  Slackware, u otra distribuci&oacute;n. Si se reinstala de esta forma, no lo 
+  dude, arruinara su instalaci&oacute;n actual. La mejor forma de actualizar software 
+  es por partes; esto es, si hay un programa que se usa a menudo y tiene una nueva 
+  versi&oacute;n, actual&iacute;celo. Si no, no se moleste. Regla practica: Si 
+  no tiene nada roto, no lo repare. Si su software actual funciona, no hay motivo 
+  para actualizar.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.8"></a><font size="3">4.8 Gestionando 
+  Sistemas de Ficheros<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.7.4">Anterior</a>- 
+  <a href="#4.8.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Otra tarea del administrador de sistemas es 
+  el cuidado de los sistemas de ficheros. Mucho de este trabajo se basa en comprobaciones 
+  peri&oacute;dicas del sistema de ficheros en busca de ficheros da&ntilde;ados 
+  o corrompidos; muchos sistemas comprueban autom&aacute;ticamente los sistemas 
+  de ficheros en tiempo de arranque.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.8.1"></a>4.8.1 Montando sistemas 
+  de ficheros<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.8">Anterior</a>- 
+  <a href="#4.8.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Para empezar, algunos conceptos acerca de sistemas 
+  de ficheros. Antes de que un sistema de ficheros sea accesible al sistema, debe 
+  ser montado en alg&uacute;n directorio. Por ejemplo, si se tiene un sistema 
+  de ficheros en un disquete, se debe montar bajo alg&uacute;n directorio, digamos 
+  /mnt, para poder acceder a los ficheros que contiene (v&eacute;ase la secci&oacute;n 
+  4.6.2). Tras montar el sistema de ficheros, todos los ficheros en dicho sistema 
+  aparecen en ese directorio. Tras desmontar el sistema de ficheros, el directorio 
+  (en este caso, /mnt) estar&aacute; vac&iacute;o.<br>
+  </font><font color="#000000" size="2">Lo mismo es valido para los sistemas de 
+  ficheros del disco duro. El sistema monta autom&aacute;ticamente los sistemas 
+  de ficheros del disco duro en tiempo de arranque. El as&iacute; llamado "sistema 
+  de ficheros ra&iacute;z" es montado en el directorio /. Si se tiene un sistema 
+  de ficheros separado para /usr, por ejemplo, se monta en /usr. Si solo se tiene 
+  un sistema de ficheros ra&iacute;z, todos los ficheros (incluyendo los de /usr) 
+  existen en ese sistema de ficheros.<br>
+  </font><font color="#000000" size="2">El 
+  comando mount se utiliza para montar un sistema de ficheros. El comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">mount -av</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">se ejecuta desde el fichero /etc/rc (que es 
+  el fichero de inicializaci&oacute;n del sistema, ejecutado en tiempo de arranque; 
+  v&eacute;ase la secci&oacute;n 4.10.1). El comando mount -av obtiene informaci&oacute;n 
+  de los sistemas de ficheros y puntos de montaje del fichero /etc/fstab. Este 
+  es un ejemplo de fichero fstab:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># dispositivo directorio tipo opciones<br>
+      </font><font color="#000000" size="2">/dev/hda2 / ext2 defaults<br>
+      </font><font color="#000000" size="2">/dev/hda3 /usr ext2 defaults<br>
+      </font><font color="#000000" size="2">/dev/hda4 none swap sw<br>
+      </font><font color="#000000" size="2">/proc 
+      /proc proc none</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El primer campo es el dispositivo, el nombre 
+  de la partici&oacute;n a montar. El segundo campo es el punto de montaje. El 
+  tercero es el tipo de sistema de ficheros, como puede ser ext2 (para ext2fs) 
+  o minix (para sistemas de ficheros Minix). La tabla 4.1 lista los distintos 
+  tipos de sistemas de ficheros disponibles en Linux.4 Puede que no todos estos 
+  tipos de sistemas de ficheros est&eacute;n disponibles en su sistema; el n&uacute;cleo 
+  debe tener soporte para ellos compilado en el. V&eacute;ase secci&oacute;n 4.7 
+  para informaci&oacute;n sobre como construir un n&uacute;cleo.</font></P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=769>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><b><font color="#000000" size="3">Sistema de ficheros</font> </b>
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><b><font color="#000000" size="3">Nombre de tipo</font> </b>
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><b><font color="#000000" size="3">Comentarios</font> </b>
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Second Extended Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">ext2</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Sistema de ficheros mas com&uacute;n en 
+        Linux.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Extended Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">ext</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Reemplazado por ext2.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Minix Filesystem </font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">minix</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Sistema de ficheros Minix original; pocas 
+        veces usado.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Xia Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">xia</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Como ext2, pero raras veces usado.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">UMSDOS Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">umsdos</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Usado para instalar Linux en una partici&oacute;n 
+        MS-DOS.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">MS-DOS Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">msdos</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Utilizado para acceder a ficheros MS-DOS.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">/proc Fliesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">proc</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Suministra informaci&oacute;n de proceso 
+        para ps, etc.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">ISO 9660 Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">iso9660</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Formato utilizado por muchos CD-ROMs.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Xenix Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">xenix</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Sistema de ficheros Xenix.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">System V Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">sysv</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Variantes del System V para el x86.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Coherent Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">coherent</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Acceso a ficheros de Coherent.</font> 
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="32%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">HPFS Filesystem</font> 
+    </TD>
+    <TD WIDTH="19%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">hpfs</font> 
+    </TD>
+    <TD WIDTH="49%" VALIGN="TOP"> 
+      <P><font color="#000000" size="2">Acceso en lectura a particiones HPFS (DoubleSpace)</font> 
+    </TD>
+  </TR>
+</TABLE>
+<P><font color="#000000" size="2">Tabla 4.1: Tipos de Sistemas de Ficheros en 
+  Linux<br>
+  </font><font color="#000000" size="2">El ultimo campo del fichero fstab contiene 
+  las opciones del comando mount, normalmente, esta puesto a "defaults" (defecto).<br>
+  </font><font color="#000000" size="2">Como 
+  se puede ver, las particiones de intercambio est&aacute;n incluidas en /etc/fstab 
+  tambi&eacute;n. Tienen un punto de montaje de none y tipo swap. El comando swapon 
+  -a, que se ejecuta tambi&eacute;n desde /etc/rc, se utiliza para activar el 
+  intercambio en todos los dispositivos de intercambio listados en /etc/fstab.</font></P>
+<P><font color="#000000" size="2">__________________________________</font></P>
+<P><font color="#000000" size="2">4 Esta tabla es valida a la versi&oacute;n de 
+  n&uacute;cleo 1.1.37.<br>
+  </font><font color="#000000" size="2">El fichero fstab contiene una entrada 
+  especial para el sistema de ficheros /proc. Tal y como se menciono en la secci&oacute;n 
+  3.11.1, el sistema de ficheros /proc se utiliza para almacenar informaci&oacute;n 
+  acerca de los procesos del sistema, memoria disponible, y otros datos del mismo 
+  tipo. Si /proc no esta montado, no funcionaran comandos como ps.<br>
+  </font><font color="#000000" size="2">3 El comando mount solo puede ser utilizado 
+  por root. Esto es as&iacute; para garantizar la seguridad del sistema; no es 
+  deseable que usuarios normales est&eacute;n montando y desmontando sistemas 
+  de ficheros a su antojo. Existen varios paquetes disponibles que permiten a 
+  los usuarios normales montar y desmontar sistemas de ficheros (disquetes en 
+  particular) sin comprometer la seguridad del sistema.<br>
+  </font><font color="#000000" size="2">El comando mount -av realmente monta todos 
+  los sistemas de ficheros excepto el sistema de ficheros ra&iacute;z (en la tabla 
+  anterior, /dev/hda2). El sistema de ficheros ra&iacute;z es montado autom&aacute;ticamente 
+  en tiempo de arranque por el n&uacute;cleo.<br>
+  </font><font color="#000000" size="2">En 
+  vez de utilizar el comando mount -av, se puede montar un sistema de ficheros 
+  a mano. El comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># mount -t ext2 /dev/hda3 /usr</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">es equivalente a montar el sistema de ficheros 
+  con la entrada /dev/hda3 del ejemplo de fichero fstab anterior.<br>
+  </font><font color="#000000" size="2">En general, nunca se debe montar o desmontar 
+  sistemas de ficheros a mano. El comando mount -av en /etc/rc se encarga de montar 
+  los sistemas de ficheros en tiempo de arranque. Los sistemas de ficheros son 
+  desmontados por los comandos shutdown o halt antes de cerrar el sistema.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.8.2"></a>4.8.2 Comprobando sistemas 
+  de ficheros<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.8.1">Anterior</a>- 
+  <a href="#4.9">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Normalmente es una buena idea el comprobar de 
+  vez en cuando los sistemas de ficheros en busca de ficheros da&ntilde;ados o 
+  corrompidos. Algunos sistemas comprueban autom&aacute;ticamente sus sistemas 
+  de ficheros en tiempo de arranque (con los comandos apropiados en /etc/rc).<br>
+  </font><font color="#000000" size="2">El 
+  comando utilizado para comprobar un sistema de ficheros depende del tipo de 
+  sistema de ficheros en cuesti&oacute;n. Para sistemas de ficheros ext2fs (el 
+  tipo mas utilizado normalmente), el comando es e2fsck. Por ejemplo, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># e2fsck -av /dev/hda2</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">comprobara el sistema de ficheros ext2fs de 
+  /dev/hda2 y corregir&aacute; autom&aacute;ticamente cualquier error.<br>
+  </font><font color="#000000" size="2">Normalmente 
+  es una buena idea el desmontar un sistema de ficheros antes de comprobarlo. 
+  Por ejemplo, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># umount /dev/hda2</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">desmontara el sistema de ficheros en /dev/hda2, 
+  tras lo cual podr&aacute; ser comprobado. La &uacute;nica excepci&oacute;n es 
+  que no se puede desmontar el sistema de ficheros ra&iacute;z. Para poder comprobar 
+  el sistema de ficheros ra&iacute;z cuando esta desmontado, se debe utilizar 
+  un disquete de arranque/ra&iacute;z (v&eacute;ase la secci&oacute;n 4.11.1). 
+  Tampoco se puede desmontar un sistema de ficheros si alguno de sus ficheros 
+  esta "ocupado", esto es, siendo utilizado por un proceso en ejecuci&oacute;n. 
+  Por ejemplo, no se puede desmontar un sistema de ficheros si el directorio de 
+  trabajo de alg&uacute;n usuario esta en ese sistema de ficheros. Se recibir&aacute; 
+  un error "Device busy" (dispositivo ocupado) si se intenta desmontar un sistema 
+  de ficheros que este en uso.<br>
+  </font><font color="#000000" size="2">Otros tipos de sistemas de ficheros utilizan 
+  formas diferentes del comando e2fsck, como pueda ser efsck y xfsck. En algunos 
+  sistemas, se puede utilizar el comando fsck, que determina el tipo de sistema 
+  de ficheros y ejecuta el comando apropiado.<br>
+  </font><font color="#000000" size="2">3 Es importante que se reinicialice el 
+  sistema inmediatamente despu&eacute;s de comprobar un sistema de ficheros montado, 
+  si es que se hizo alguna correcci&oacute;n al sistema de ficheros. (Sin embargo, 
+  en general, no se deben comprobar sistemas de ficheros que est&eacute;n montados.) 
+  Por ejemplo, si e2fsck informa que ha corregido alg&uacute;n error en el sistema 
+  de ficheros, se debe apagar el sistema con shutdown -r para rearrancarlo. Esto 
+  permite al sistema resincronizar su informaci&oacute;n acerca del sistema de 
+  ficheros cuando e2fsck lo modifica.<br>
+  </font><font color="#000000" size="2">El sistema de ficheros /proc no necesita 
+  nunca ser comprobado de esta forma. /proc es un sistema de ficheros en memoria, 
+  gestionado directamente por el n&uacute;cleo.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.9"></a><font size="3">4.9 Utilizando 
+  un fichero de intercambio<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.8.2">Anterior</a>- 
+  <a href="#4.10">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">En vez de reservar una partici&oacute;n individual 
+  para espacio de intercambio, se puede usar un fichero.<br>
+  </font><font color="#000000" size="2">Sin embargo, hay que instalar todo Linux 
+  y hacer todas las tareas de configuraci&oacute;n antes de crear el fichero de 
+  intercambio.<br>
+  </font><font color="#000000" size="2">Si tiene un sistema Linux 
+  instalado, puede utilizar los siguientes comandos para crear un fichero de intercambio. 
+  A continuaci&oacute;n vamos a crear un fichero de intercambio de 8208 bloques 
+  de tama&ntilde;o (unos 8 megas).</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># dd if=/dev/zero of=/swap bs=1024 count=8208</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Este comando crea el fichero de intercambio 
+  propiamente dicho. Reemplace "count=" con el tama&ntilde;o del fichero de intercambio 
+  en bloques.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># mkswap /swap 8208</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Este comando inicializar&aacute; el fichero 
+  de intercambio swap; como antes, se debe cambiar el nombre y tama&ntilde;o del 
+  fichero de intercambio a los valores apropiados.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># /etc/sync<br>
+      </font><font color="#000000" size="2"># 
+      swapon /swap</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Ahora, tras sincronizar, lo que asegura que 
+  el fichero haya sido escrito a disco, ya estamos utilizando el fichero /swap 
+  que hab&iacute;amos creado como fichero de intercambio.<br>
+  </font><font color="#000000" size="2">El principal inconveniente de utilizar 
+  un fichero de intercambio de esta forma es que todos los accesos al fichero 
+  de intercambio se realizan a trav&eacute;s del sistema de ficheros. Esto significa 
+  que los bloques que forman el fichero de intercambio pueden no ser contiguos. 
+  Por esto, el rendimiento no puede ser tan alto como cuando se utiliza una partici&oacute;n 
+  de intercambio, en la que los bloques est&aacute;n siempre contiguos y las peticiones 
+  de entrada/salida se hacen directamente al dispositivo.<br>
+  </font><font color="#000000" size="2">Otra desventaja a la hora de utilizar 
+  un fichero de intercambio es la posibilidad de corromper los datos del sistema 
+  de ficheros _cuando se utilizan grandes ficheros de intercambio, existe la posibilidad 
+  de que se pueda corromper el sistema de ficheros si algo va mal. Manteniendo 
+  los sistemas de ficheros y particiones de intercambio separados prevendr&aacute; 
+  la posibilidad de que esto llegue a ocurrir.<br>
+  </font><font color="#000000" size="2">La utilizaci&oacute;n de un fichero de 
+  intercambio puede ser muy &uacute;til si se tiene una necesidad temporal de 
+  mas espacio de intercambio. Por ejemplo, si se esta compilando un gran programa 
+  y se quiere acelerar las cosas, se puede crear un fichero de intercambio de 
+  forma temporal y utilizarlo conjuntamente con el espacio habitual de intercambio.<br>
+  </font><font color="#000000" size="2">Para 
+  eliminar un fichero de intercambio, primero se usa swapoff de esta forma</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># swapoff /swap</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Y ahora se puede borrar de forma segura el fichero.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># rm /swap</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Recuerde que cada fichero de intercambio (o 
+  partici&oacute;n) puede ser de hasta 16 megabytes, pero se pueden usar hasta 
+  8 ficheros o particiones de intercambio en un sistema.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.10"></a><font size="3">4.10 
+  Tareas Varias<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.9">Anterior</a>- 
+  <a href="#4.10.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Lo crea o no, hay un numero de tareas domesticas 
+  para el administrador de sistemas que no caen en ninguna categor&iacute;a principal.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.10.1"></a>4.10.1 Ficheros de arranque 
+  del sistema<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.10">Anterior</a>- 
+  <a href="#4.10.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Cuando el sistema arranca, se ejecutan autom&aacute;ticamente 
+  una serie de ficheros de comandos (scripts) en el sistema, antes de que ning&uacute;n 
+  usuario entre. Aqu&iacute; tenemos una descripci&oacute;n de lo que ocurre:<br>
+  </font><font color="#000000" size="2">En tiempo de arranque, el n&uacute;cleo 
+  arranca el proceso /etc/init. init es un programa que lee su fichero de configuraci&oacute;n, 
+  /etc/inittab, y arranca otros procesos basados en el contenido de este fichero. 
+  Uno de los procesos mas importantes arrancado desde inittab es el proceso /etc/getty, 
+  arrancado en cada consola virtual. El proceso getty dispone la consola virtual 
+  para ser utilizada y arranca un proceso login en ella. Esto le permite conectarse 
+  a cada consola virtual; si /etc/inittab no contiene un proceso getty para una 
+  consola virtual determinada, no se podr&aacute; conectar nadie a ella.<br>
+  </font><font color="#000000" size="2">Otro proceso ejecutado desde /etc/inittab 
+  es /etc/rc, el fichero de inicializaci&oacute;n principal del sistema. Este 
+  fichero es simplemente un fichero de comandos que ejecuta cualquier comando 
+  de inicializaci&oacute;n necesario en tiempo de arranque, como es montar los 
+  sistemas de ficheros (v&eacute;ase secci&oacute;n 4.8) e inicializar el espacio 
+  de intercambio (memoria virtual).<br>
+  </font><font color="#000000" size="2">Su sistema puede ejecutar otros ficheros 
+  de comandos de inicializaci&oacute;n tambi&eacute;n, como puede ser /etc/rc.local. 
+  /etc/rc.local contiene normalmente comandos de inicializaci&oacute;n espec&iacute;ficos 
+  de su sistema, como puede ser el establecimiento del nombre del ordenador (v&eacute;ase 
+  la siguiente secci&oacute;n).<br>
+  </font><font color="#000000" size="2">rc.local puede ser arrancado desde /etc/rc 
+  o directamente desde /etc/inittab.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.10.2"></a>4.10.2 Estableciendo 
+  el nombre del ordenador<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.10.1">Anterior</a>- 
+  <a href="#4.11">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">En un entorno de red el nombre del ordenador 
+  es utilizado para identificar un&iacute;vocamente una maquina particular, mientras 
+  que en un entorno aut&oacute;nomo, el nombre del ordenador da a la maquina personalidad 
+  y encanto. Es como darle nombre a un animal domestico: siempre puede dirigirse 
+  a su perro como "El perro", pero es mucho mas interesante asignarle al perro 
+  un nombre como "Mancha" o "Tes". Poner el nombre del sistema se limita a utilizar 
+  el comando hostname. Si se esta en una red, su nombre debe ser el nombre completo 
+  de su maquina, por ejemplo, goober.norelco.com. Si no se esta en una red de 
+  ning&uacute;n tipo, se pueden escoger nombre de ordenador y de dominio arbitrarios, 
+  como por ejemplo loomer.vpizza.com, shoop.nowhere.edu, o floof.org.<br>
+  </font><font color="#000000" size="2">Cuando se pone el nombre del ordenador, 
+  dicho nombre debe aparecer en el fichero /etc/hosts, que asigna una direcci&oacute;n 
+  IP a cada ordenador. Incluso si su ordenador no esta en una red, se debe incluir 
+  el nombre del ordenador en /etc/hosts.<br>
+  </font><font color="#000000" size="2">Por 
+  ejemplo, si no se esta en una red TCP/IP, y el nombre del ordenador es floof.org, 
+  incluya la l&iacute;nea siguiente en /etc/hosts:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">127.0.0.1 floof.org localhost</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Esto asigna el nombre del ordenador, floof.org, 
+  a la direcci&oacute;n de bucle 127.0.0.1 (utilizada si no se esta en una red). 
+  El alias localhost se asigna tambi&eacute;n a dicha direcci&oacute;n.<br>
+  </font><font color="#000000" size="2">Si 
+  se esta en una red TCP/IP, sin embargo, su direcci&oacute;n y nombre de ordenador 
+  real deben aparecer en /etc/hosts. Por ejemplo, si su nombre de ordenador es 
+  goober.norelco.com y su direcci&oacute;n IP es 128.253.154.32, a&ntilde;ada 
+  la siguiente l&iacute;nea a /etc/hosts:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">128.253.154.32 goober.norelco.com</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Si el nombre de su ordenador no aparece en /etc/hosts 
+  no ser&aacute; posible establecerlo. Para establecer el nombre de su ordenador, 
+  utilice el comando hostname. Por ejemplo, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># hostname -S goober.norelco.com</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">pone el nombre del ordenador a goober.norelco.com. 
+  En muchos casos, el comando hostname se ejecuta en alguno de los ficheros de 
+  inicializaci&oacute;n del sistema, como puede ser /etc/rc o /etc/rc.local. Edite 
+  estos ficheros y cambie el comando hostname existente para poner su propio nombre 
+  de ordenador; al rearrancar el sistema, el nombre del ordenador cambiara al 
+  nuevo valor.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="4.11"></a><font size="3">4.11 
+  Que Hacer En Una Emergencia<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.10.2">Anterior</a>- 
+  <a href="#4.11.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">En algunas ocasiones, el administrador de sistemas 
+  se encuentra con el problema de recuperarse de un desastre completo, como puede 
+  ser el olvidarse la palabra clave del usuario ra&iacute;z, o el enfrentarse 
+  con sistemas de ficheros da&ntilde;ados. El mejor consejo es, obrar sin p&aacute;nico. 
+  Todo el mundo comete errores est&uacute;pidos, esta es la mejor forma de aprender 
+  sobre administraci&oacute;n de sistemas: la forma dif&iacute;cil.<br>
+  </font><font color="#000000" size="2">Linux no es una versi&oacute;n inestable 
+  de UNIX. De hecho, he tenido menos problemas con cuelgues de sistemas Linux 
+  que con versiones comerciales de UNIX en muchas plataformas. Linux tambi&eacute;n 
+  se beneficia de un fuerte complemento de asistentes que pueden ayudar a salir 
+  del agujero.<br>
+  </font><font color="#000000" size="2">El primer paso al investigar cualquier 
+  problema es intentar arreglarlo uno mismo. Hurgue alrededor, vea como funcionan 
+  las cosas. Demasiadas veces, un administrador de sistemas pondr&aacute; un mensaje 
+  desesperado rogando ayuda antes de investigar el problema. Muchas de las veces, 
+  encontrara que arreglar problemas por uno mismo es realmente muy f&aacute;cil. 
+  Este es el camino que debe seguir para convertirse en un gur&uacute;.<br>
+  </font><font color="#000000" size="2">Hay pocos casos en los que sea necesario 
+  reinstalar el sistema desde cero. Muchos nuevos usuarios borran accidentalmente 
+  alg&uacute;n fichero esencial del sistema, e inmediatamente acuden a los discos 
+  de instalaci&oacute;n. Esta no es una buena idea. Antes de tomar medidas dr&aacute;sticas 
+  como esa, investigar el problema y preguntar a otros ayudara a solucionar las 
+  cosas. En pr&aacute;cticamente todos los casos, podr&aacute; recuperar el sistema 
+  desde un disquete de mantenimiento.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.11.1"></a>4.11.1 Recuperaci&oacute;n 
+  utilizando un disquete de mantenimiento<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.11">Anterior</a>- 
+  <a href="#4.11.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Una herramienta indispensable para el administrador 
+  de sistemas es el llamado "disco arranque/ra&iacute;z" ("boot/root disk") _un 
+  disquete desde el que se puede arrancar un sistema Linux completo, independiente 
+  del disco duro. Los discos de arranque/ra&iacute;z son realmente muy simples, 
+  se crea un sistema de ficheros ra&iacute;z en el disquete, se ponen todas las 
+  utilidades necesarias en el y se instala LILO y un n&uacute;cleo arrancable 
+  en el disquete. Otra t&eacute;cnica es usar un disquete para el n&uacute;cleo 
+  y otro para el sistema de ficheros ra&iacute;z. En cualquier caso, el resultado 
+  es el mismo: Ejecutar un sistema Linux completamente desde disquete.<br>
+  </font><font color="#000000" size="2">El ejemplo mas claro de un disco de arranque/ra&iacute;z 
+  son los discos de arranque Slackware5. Estos disquetes contienen un n&uacute;cleo 
+  arrancable y un sistema de ficheros ra&iacute;z, todo en disquete. Est&aacute;n 
+  dise&ntilde;ados para usarse en la instalaci&oacute;n de la distribuci&oacute;n 
+  Slackware, pero vienen muy bien cuando hay que hacer mantenimiento del sistema.<br>
+  </font><font color="#000000" size="2">El 
+  disco de arranque/ra&iacute;z de H.J Lu, disponible en /pub/Linux/GCC/rootdisk 
+  en sunsite.unc.edu, es otro ejemplo de este tipo de discos de mantenimiento. 
+  O, si se es ambicioso, se puede crear uno su propio disco. En muchos casos, 
+  sin embargo, la utilizaci&oacute;n de un disco de arranque/ra&iacute;z prefabricado 
+  es mucho mas simple y probablemente ser&aacute; mas completo.</font></P>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">5 V&eacute;ase la secci&oacute;n 2.1.1 para 
+  la informaci&oacute;n sobre como obtener esta desde Internet. Para este procedimiento, 
+  no se necesita obtener la versi&oacute;n completa de Slackware, solo los disquetes 
+  de arranque y ra&iacute;z.<br>
+  </font><font color="#000000" size="2"><br>
+  La utilizaci&oacute;n de un disco de arranque/ra&iacute;z es muy simple. Tan 
+  solo arranque el sistema con el disco, y haga login como root (normalmente sin 
+  password). Para poder acceder a los ficheros del disco duro, se necesitara montar 
+  el sistema de ficheros a mano. Por ejemplo, el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># mount -t ext2 /dev/hda2 /mnt</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">montara un sistema de ficheros ext2fs existente 
+  en /dev/hda2 bajo /mnt. Recuerde que / es ahora el propio disco de arranque/ra&iacute;z; 
+  se necesitara montar los sistemas de ficheros de su disco duro bajo alg&uacute;n 
+  directorio para poder acceder a los ficheros. Por lo tanto, el fichero /etc/passwd 
+  de su disco duro es ahora /mnt/etc/passwd si se monto el sistema de ficheros 
+  ra&iacute;z bajo /mnt.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.11.2"></a>4.11.2 Arreglando la 
+  password de root<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.11.1">Anterior</a>- 
+  <a href="#4.11.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Si se olvida de la password de root, no hay 
+  problema. Solo hay que arrancar del disco de arranque/ra&iacute;z, montar su 
+  sistema de ficheros ra&iacute;z en /mnt, y eliminar el campo de password de 
+  /root en /mnt/etc/passwd, como por ejemplo:</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">root::0:0:root:/:/bin/sh</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Ahora root no tiene password; al rearrancar 
+  desde el disco duro deber&iacute;a ser capaz de hacer login como root y poner 
+  la password que desee utilizando passwd.<br>
+  </font><font color="#000000" size="2">¿No le gusto el haber aprendido a utilizar 
+  vi? En su disco de arranque/ra&iacute;z probablemente no estar&aacute;n disponibles 
+  otros editores como pueda ser Emacs, pero vi deber&iacute;a estarlo.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.11.3"></a>4.11.3 Arreglando sistemas 
+  de ficheros corrompidos<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.11.2">Anterior</a>- 
+  <a href="#4.11.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Si se corrompiese de alguna forma el sistema 
+  de ficheros, se puede ejecutar e2fsck (si se usa el sistema de ficheros ext2fs, 
+  por supuesto) para corregir desde disquete cualquier dato da&ntilde;ado en el 
+  sistema de ficheros. Otros tipos de sistemas de ficheros utilizan diferentes 
+  formas de comando fsck; v&eacute;ase la Secci&oacute;n 4.8 para mas detalles.<br>
+  </font><font color="#000000" size="2">Cuando se comprueba el sistema de ficheros 
+  desde disquete, es mejor que no este montado.<br>
+  </font><font color="#000000" size="2">Una causa com&uacute;n de da&ntilde;o 
+  en un sistema de ficheros es la corrupci&oacute;n del super bloque. El super 
+  bloque es la "cabecera" del sistema de ficheros que contiene informaci&oacute;n 
+  acerca del estado del sistema de ficheros, tama&ntilde;o, bloques libres, y 
+  dem&aacute;s. Si se corrompe el super bloque (por ejemplo, escribiendo accidentalmente 
+  datos directamente a la partici&oacute;n del sistema de ficheros), el sistema 
+  no puede reconocer nada del sistema de ficheros. Cualquier intento de montar 
+  el sistema de ficheros fallara y e2fsck no ser&aacute; capaz de arreglar el 
+  problema.<br>
+  </font><font color="#000000" size="2">Felizmente, el tipo de sistema 
+  de ficheros ext2fs salva copias del super bloque en los limites de "grupos de 
+  bloques" en el disco _normalmente cada 8K bloques. Para poder decirle al e2fsck 
+  que utilice una copia del super bloque, se puede utilizar un comando tal que</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># e2fsck -b 8193 &lt;partici&oacute;n&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">donde &lt;partici&oacute;n&gt; es la partici&oacute;n 
+  en la que reside el sistema de ficheros. La opci&oacute;n -b 8193 le dice al 
+  e2fsck que utilice la copia del super bloque almacenada en el bloque 8193 del 
+  sistema de ficheros.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.11.4"></a>4.11.4 Recuperando ficheros 
+  perdidos<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.11.3">Anterior</a>- 
+  <a href="#4.11.5">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Si accidentalmente se borrasen ficheros importantes 
+  del sistema no habr&iacute;a forma de "desborrarlos".<br>
+  </font><font color="#000000" size="2">Sin 
+  embargo, se pueden copiar los ficheros relevantes desde el disquete al disco 
+  duro. Por ejemplo, si se hubiese borrado /bin/login de su sistema (que le permite 
+  hacer login), simplemente arranque del disquete de arranque/ra&iacute;z, monte 
+  el sistema de ficheros ra&iacute;z en /mnt, y use el comando &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2"># cp -a /bin/login /mnt/bin/login</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">La opci&oacute;n -a le dice a cp que conserve 
+  los permisos en los ficheros que se est&aacute;n copiando. Por supuesto, si 
+  los ficheros que se borraron no fueses ficheros esenciales del sistema que tengan 
+  contrapartidas en el disquete de arranque/ra&iacute;z, se habr&aacute; acabado 
+  la suerte. Si se hicieron copias de seguridad, siempre se podr&aacute; recuperar 
+  de ellas.</font></P>
+<P><font size="2" color="#000000"><u><a name="4.11.5"></a>4.11.5 Arreglando librer&iacute;as 
+  corrompidas<br>
+  <font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#4.11.4">Anterior</a>- 
+  Siguiente - <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"></font></u></b><u></u><u></u><u></u><u><br>
+  </u></font></P>
+<P><font color="#000000" size="2">Si accidentalmente se llegasen a corromper las 
+  librer&iacute;as de enlaces simb&oacute;licos en /lib, es mas que seguro que 
+  comandos que dependan de estas librer&iacute;as no vuelvan a funcionar (V&eacute;ase 
+  la secci&oacute;n 4.7.2).<br>
+  </font><font color="#000000" size="2">La soluci&oacute;n 
+  mas simple es arrancar del disquete de arranque/ra&iacute;z, montar el sistema 
+  de ficheros ra&iacute;z y arreglar las librer&iacute;as en /mnt/lib.</font></P>
+</BODY>
+</HTML>

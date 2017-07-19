@@ -1,0 +1,301 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+
+                Cryptographic File System under Linux HOW-TO
+                             LINUX SECURITY FAQ
+                               March 14, 1996
+      Copyright (C) 1996 Alexander O. Yuriev (alex@bach.cis.temple.edu)
+                              CIS Laboratories
+                              TEMPLE UNIVERSITY
+                                     USA
+
+ 	This document describes how to compile, install and setup CFS 
+	that was written by Matt Blaze of AT&T, under Linux.  The following 
+	copyright statement copied directly from CFS 1.12 describes 
+	the restrictions on the CFS usage:
+ 
+ * The author of this software is Matt Blaze.
+ *              Copyright (c) 1992, 1993, 1994 by AT&T.
+ * Permission to use, copy, and modify this software without fee
+ * is hereby granted, provided that this entire notice is included in
+ * all copies of any software which is or includes a copy or
+ * modification of this software and in all copies of the supporting
+ * documentation for such software.
+ *
+ * This software is subject to United States export controls.  You may
+ * not export it, in whole or in part, or cause or allow such export,
+ * through act or omission, without prior authorization from the United
+ * States government and written permission from AT&T.  In particular,
+ * you may not make any part of this software available for general or
+ * unrestricted distribution to others, nor may you disclose this software
+ * to persons other than citizens and permanent residents of the United
+ * States and Canada. 
+ *
+ * THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ * WARRANTY.  IN PARTICULAR, NEITHER THE AUTHORS NOR AT&T MAKE ANY
+ * REPRESENTATION OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY
+ * OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
+
+	Although the information in this document is believed to be
+	correct, neither the Author nor CIS Laboratories, nor Temple University
+	provides any kind of WARRANTIES and is not/are not responsible for
+	what happens if you follow these guidelines. The information in this
+	document is provided AS IS! 
+
+ABOUT CFS
+
+	CFS provides application-independent encryption/decryption of the
+ 	filesystem layer that does not require modification of the
+ 	underlying filesystem code nor any kind of modification of the
+ 	kernel source.  The symmetric cipher implemented in the mainstream
+ 	version of CFS is based on the modified DES cipher running in CBC
+ 	mode making the brute-force attack against the usual 56-bit DES
+ 	key-space unrealistic.  The structure of CFS makes replacement of
+ 	the mainstream DES cipher with a Fast-DES or any other symmetric
+ 	cipher an extremely straightforward process.  Please refer to the
+ 	"White" paper about CFS for more information
+ 	(ftp://bach.cis.temple.edu/pub/Papers/cfs.ps)
+
+COMPILING AND INSTALLING CFS
+
+	CFS does not compile "out of the box" under Linux. Follow these
+	instructions to get CFS running or your Linux system. There are
+	several methods to make CFS work under Linux, the cleanest one of
+	which is based on the modifications performed by Olaf Kirch. His
+	version of CFS is available from:
+
+	ftp://ftp.mathematik.th-darmstadt.de/pub/linux/okir/cfs-1.1.2.tar.gz
+
+	Olaf signed the modified archive. The PGP signature for the modified 
+	version of the cfs-1.1.2 can be obtained from 
+
+	ftp://ftp.mathematik.th-darmstadt.de/pub/linux/okir/cfs-1.1.2.pgp
+
+	In single-user mode, compile CFS by using the "make" command.
+
+	After compilation is completed, install "cfsd", "cdetach", "ccat",
+	"cmkdir", "cname" and "cattach" to the /usr/local/sbin directory
+	with the ownership "root:wheel" and the access mode "551".
+	Generate a list of MD5 hashes of the clean binaries. Now copy these
+	files together with the "md5sum" to a media such as an image of a CD
+	or a floppy and make the media write protected.
+
+	Create the directory /.cfsfs which will be used as a hook for the
+	CFS server.  Make that directory owned by root:root and protected
+	with access mode "000".  Create the directory /securefs which will
+	become a root of the CFS tree.
+
+	Add the following lines into your /etc/rc.d/rc.local:
+
+	echo -n "Initializing secure filesystem: "
+        if [ -x /usr/local/sbin/cfsd ]; then
+                /usr/local/sbin/cfsd > /dev/null
+		echo -n "cfsd "
+                /bin/mount -o port=3049,intr localhost:/.cfsfs /securefs
+		echo -n "loopback "
+                echo "done"
+        else 
+	   echo "Cryptographic Filesystem is not installed"
+	fi
+
+	Users of the Caldera Network Desktop and Red Hat Commercial Linux
+	distributions should add the file "cfsfs" that is attached at the end
+	of this document to their /etc/rc.d/init.d directory. Then symlink
+	the file "S65cfsfs" to it in the appropriate run-level directories
+	using the command:
+
+		ln -s ../init.d/cfsfs S65cfsfs
+
+	in /etc/rc.d/rcX.d, where X is a run-level number, add the line:
+
+		/.cfsfs		localhost
+
+	to /etc/exports. Finally, add the line:
+
+		portmap: 127.0.0.1
+
+	to the /etc/hosts.allow file. 
+
+	You should now restart your computer.  When it comes back into a
+	multiuser mode, issue a mount command to verify that CFS is running.
+	If everything was successful, you should see a new line in a list of
+	filesystems:
+		
+localhost:/.cfsfs on /securefs type nfs (rw,port=3049,intr,addr=127.0.0.1)
+
+
+CREATING CFS DIRECTORY
+
+	To create a CFS protected directory called "secret" use the command
+
+		cmkdir secret
+
+	You will be requested to supply and verify the passphrase.  If you
+	succeed, a new directory named "secret" will appear in the current
+	directory. This directory will contain encrypted information which
+	will be accessible only in the encrypted form unless it is attached
+	to the CFS tree.
+	
+	In order to add the "secret" directory to a list of directories
+	managed by CFS, it has to be attached to the CFS tree using the
+	command:
+	
+		cattach secret Big-Secret
+				  
+	CFS will request you to type the access passphrase. If it matches
+	the passphrase supplied to the "cmkdir" command that created the
+	directory originally, then the information in the secret directory
+	will be accessible in a non-encrypted form under /securefs/Big-Secret
+	to the user who supplied the correct passphrase.  Please note that
+	usually it takes about a minute to attach a protected directory to
+	the CFS tree. When the user is finished manipulating the information 
+	they should issue the command:
+	
+	        cdetach Big-Secret
+		
+	to destroy the access key. This command removes the directory
+	"secret" from the list of directories managed by CFS making it
+	impossible to access cleartext information in that directory until
+	it is again attached using the "cattach" command.
+
+PROTECTION OF CFS
+
+	In order to grant a user access to encrypted parts of the directory
+	tree, CFS requires the user to supply a passphrase that is used to
+	generate a set of access keys. A compromise of a passphrase allows
+	an intruder to access the encrypted information through the Unix
+	security model. Therefore it is extremely important to protect
+	access passphrases. There are two basic ways that can be used by
+	intruders to gain access to your passphrase. They are (1) Sniffer
+	attacks (2) Attack against the protocol.  The following simple
+	guidelines can be used to minimize the possibility of a successful
+	attack against CFS:
+
+		1. Make sure that the CFS binaries are not compromised in
+		   any form. 
+
+			* Ensure that "cattach", "ccat", "cmkdir", "cname",
+		          the CFS server "cfsd" and finally, "cdattach" 
+			  are not replaced with Trojan versions that record 
+			  access passphrases or, in a case of "cfsd", 
+			  access keys.  
+
+			* Ensure that the CFS server is not compromised in a 
+			  way that it does not perform the encryption 
+			  procedure correctly. 
+
+			* An attack against "cdeattach" usually involves a 
+			  small modification that prevents correct 
+			  destruction of access keys allowing an intruder 
+			  to gain access to a supposedly detached part of 
+			  the directory tree.
+
+		   The simplest way to verify that binaries are not
+		   compromised is to statically link them and place them on
+		   a CD.  Another way is to again statically link the
+		   binaries, use "md5sum" message-digest calculator and
+		   write their MD5 hashes onto a write-protected media.
+		   Prior to using any CFS programs on a system, mount
+		   the floppy disk and compare MD5 hashes of binaries on the
+		   system with the hashes of the clean statically linked
+		   copies located on the floppy disk, replacing the
+		   compromised versions.
+		   
+		2. Keyboard grabbers used to grab passphrases as they are
+		   being typed rely on the fact that most users are careless
+		   enough to ignore the following simple guidelines:
+		   
+		   	1. When typing a passphrase in an xterm, make sure
+			   that the xterm program is not compromised and use
+			   the "Secure Keyboard" option while typing the
+			   passphrase. This prevents keystrokes from being
+			   intercepted by X grabbers.
+			   
+			2. Type passphrases from a terminal attached directly
+			   to a serial port of the system when such terminal
+			   is available.
+			   
+			3. Make sure that your pty and ttys permissions
+			   disallow others from reading your keystrokes
+			   directly from the device node.
+
+		3. Never type your passphrase across the network, even if
+		   the network is located behind a firewall and you trust
+		   everybody who is connected to your network not to use
+		   sniffers. This also applies to networks that use
+		   scrambling routers, because there is absolutely no
+		   guarantee that routers use a strong encryption or do not
+		   have a back door or a loophole that potentially can allow
+		   an intruder to defeat encryption used by a router.  If
+		   you have to type your password across the network, do it
+		   only if you are using an encrypted tunnel between systems
+		   such as the one created by the deslogin(8) protocol.
+		   		
+		4. Always de-attach CFS protected trees from the  filesystem when
+		   not using them, even when you are leaving your system for 
+		   "only" a couple of minutes.
+
+KNOWN PROBLEMS WITH CFS
+
+	At this moment there is only one problem that can be reproduced. 
+	"Permission denied" error is generated when a user attempts to 
+	access the files located on a compact disc.
+
+
+CREDITS
+
+	The following people helped in the preporation process of this
+	document: Topher Hughes of the Dickinson College, Elie Rosenblum of
+	the Montgomery Blair High School, Mario D. Santana of the Florida
+	State University, Daniel P Zepeda and Olaf Kirch.
+
+
+====================[cfsfs]======================
+#!/bin/sh
+#
+# $Header: /Secure/secure-doc/linux/CFS/RCS/CFS-Doc,v 1.4 1996/03/15 04:49:37 alex Exp alex $
+#
+# cfsfs		Crypto filesystem 
+#
+# Author:	Alexander O. Yuriev <alex@bach.cis.temple.edu>
+#		Derived from cron		
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# See how we were called.
+case "$1" in
+  start)
+	echo -n "Starting Crypto Filesystem: "
+	if [ -x /usr/local/sbin/cfsd ]; then
+		/usr/local/sbin/cfsd > /dev/null
+		/bin/mount -o port=3049,intr localhost:/.cfsfs /securefs
+		echo "done"
+	else 
+		echo -n "Crypto Filesystem is not installed"
+	fi
+	touch /var/lock/subsys/cfsfs
+	;;
+  stop)
+	echo -n "Stopping Crypto filesystem: "
+	umount /securefs
+	killproc cfsd
+	echo
+	rm -f /var/lock/subsys/cfsfs
+	;;
+  *)
+	echo "Usage: cfsfs {start|stop}"
+	exit 1
+esac
+
+exit 0
+====================[end of cfsfs]======================
+
+-----BEGIN PGP SIGNATURE-----
+Version: 2.6.2
+
+iQCVAwUBMXVewoxFUz2t8+6VAQHHoAP/WEZ9luRJ/gFgQydBbEfM2vXTF/1VCe7D
+KoT3X5bRP+zZVufGt6B6n0IjDUXFX/Lv6264ZZ6jF/BKO9mrLxoGI5sA6Y6HQ7fb
+DFy8+XdZhponnuih3eJ5z46bRwLWVd+lr2+ORK17ukTLbsY65kzF3wTzczRNqL9G
+wPN6j3+LVXE=
+=BEE2
+-----END PGP SIGNATURE-----

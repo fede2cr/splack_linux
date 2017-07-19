@@ -1,0 +1,526 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>LippC</TITLE>
+<META NAME="Versión" CONTENT="8.0.3514">
+<META NAME="Fecha" CONTENT="05/12/96">
+<META NAME="Template" CONTENT="C:\ARCHIVOS DE PROGRAMA\MICROSOFT OFFICE\OFFICE\html.dot">
+<STYLE type="text/css"><!--         
+A:LINK {COLOR:BLUE; TEXT-DECORATION:NONE}
+A:VISITED {COLOR:GREY; TEXT-DECORATION:NONE}
+A:HOVER {COLOR:RED; TEXT-DECORATION:UNDERLINE}
+--></STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#FFFFFF">
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=735>
+  <TR> 
+    <TD WIDTH="46%" VALIGN="TOP"> 
+      <P><A HREF="lippb.htm"><IMG SRC="left.gif" BORDER=0 WIDTH=36 HEIGHT=34></A> 
+    </TD>
+    <TD WIDTH="11%" VALIGN="TOP"> 
+      <P ALIGN="CENTER"><A HREF="lipp.htm"><IMG SRC="up.gif" BORDER=0 WIDTH=34 HEIGHT=36></A> 
+    </TD>
+    <TD WIDTH="43%" VALIGN="TOP"> 
+      <P ALIGN="RIGHT"><A HREF="lippd.htm"><IMG SRC="right.gif" BORDER=0 WIDTH=36 HEIGHT=34></A> 
+    </TD>
+  </TR>
+</TABLE>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><font size="2" color="#000000"><b><u><font size="6">Ap&eacute;ndice 
+  C</font></u></b></font></P>
+<P> 
+<HR>
+<p></P>
+<P><font color="#000000" size="2"><a name="indice"></a><a href="#tutorial"><b><u>Tutorial 
+  de FTP y Lista de Sites</u></b></a><br>
+<dir>
+<dir>
+  <br>
+  <a href="#C.1">C.1 Aprendiendo FTP<br>
+  <br>
+  </a></font><font color="#000000" size="2"><a href="#C.2">C.2 Registr&aacute;ndose</a></font></P>
+<p><font color="#000000" size="2"><a href="#C.3">C.3 Movi&eacute;ndonos dentro</a></font></p>
+<p><font color="#000000" size="2"><a href="#C.4">C.4 Traerse ficheros</a></font></p>
+<p><font color="#000000" size="2"><a href="#C.5">C.5 Saliendo de FTP</a></font></p>
+<p><font color="#000000" size="2"><a href="#C.6">C.6 Usando ftpmail</a></font></p>
+<p><font color="#000000" size="2"><a href="#C.7">C.7 Lista de FTP Sites de Linux</a><br>
+  <br>
+</dir>
+</dir>
+  </font></p>
+<P><font size="2" color="#000000"><b><u><a name="tutorial"></a><font size="3">Tutorial 
+  de FTP y Lista de Sites<br>
+  </font></u></b></font><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2">Anterior- 
+  <a href="#C.1">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font><br>
+  <font color="#000000" size="2">FTP ("File Transfer Protocol") es el conjunto 
+  de programas que se usa en Internet para transferir ficheros entre sistemas. 
+  La mayor&iacute;a de los sistemas UNIX, VMS y MS-DOS de Internet tienen un programa 
+  llamado ftp que se usa para transferir estos ficheros, y si usted tiene acceso 
+  a Internet, el mejor modo de descargarse el software de Linux es usando ftp. 
+  Este ap&eacute;ndice cubre el uso de ftp a nivel b&aacute;sico, por supuesto, 
+  hay muchas mas funciones y usos del ftp de los que se dan aqu&iacute;.<br>
+  </font><font color="#000000" size="2">Al final de este ap&eacute;ndice hay una 
+  lista de sites FTP donde se puede encontrar el software de Linux. Adem&aacute;s, 
+  si no tiene acceso directo a internet, pero puede intercambiar correo electr&oacute;nico 
+  con Internet, abajo se incluye informaci&oacute;n sobre como usar el ftpmail.<br>
+  </font><font color="#000000" size="2">Si esta usando un sistema MS-DOS, UNIX, 
+  o VMS para traer ficheros desde Internet, entonces ftp ser&aacute; un programa 
+  a base de comandos. Sin embargo, existen otras implementaciones de ftp, como 
+  la versi&oacute;n Macintosh (llamada Fetch) con un bonito interface guiado por 
+  men&uacute;s, que lo hacen mas amigable y c&oacute;modo de usar. Incluso si 
+  no esta usando la versi&oacute;n de comandos de ftp, la informaci&oacute;n que 
+  se facilita deber&iacute;a serle de ayuda.<br>
+  </font><font color="#000000" size="2">ftp puede usarse tanto para "subir" (enviar) 
+  como para "bajar" (recibir) ficheros desde los sites de Internet. En la mayor&iacute;a 
+  de situaciones, usted estar&aacute; bajando software. En Internet hay un gran 
+  numero de FTP archive sites de acceso publico, maquinas que permiten a cualquiera 
+  hacer ftp sobre ellas y bajarse el software. Un "archive site" de este tipo 
+  es sunsite.unc.edu, que contiene un mont&oacute;n de software de Sun Microsystems, 
+  y que act&uacute;a como uno de los principales sites de Linux.<br>
+  </font><font color="#000000" size="2">Adem&aacute;s, 
+  los FTP archive sites se reflejan (mirror) el software unos a otros, es decir, 
+  el software que se sube a un site ser&aacute; autom&aacute;ticamente copiado 
+  a un gran numero de otros sites. De modo que no se sorprenda si ve exactamente 
+  los mismos ficheros en muchos sites diferentes.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="C.1"></a><font size="3">C.1 Aprendiendo 
+  ftp<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#tutorial">Anterior</a>- 
+  <a href="#C.2">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">F&iacute;jese que en el ejemplo "screens" que 
+  figura debajo solamente estoy mostrando la informaci&oacute;n mas relevante, 
+  y lo que usted vea podr&iacute;a diferir. Tome nota tambi&eacute;n de que los 
+  comandos en it&aacute;licas representan comandos que usted teclea; todo lo dem&aacute;s 
+  es la salida de pantalla.<br>
+  </font><font color="#000000" size="2">Para arrancar 
+  el ftp y conectar con un site, use simplemente el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp &lt;hostname&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">donde &lt;hostname&gt; es el nombre del site 
+  al que se quiere conectar. Por ejemplo, para conectar con el ya m&iacute;tico 
+  site shoop.vpizza.com se puede usar el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp shoop.vpizza.com</font></P>
+  </DIR>
+</DIR>
+<P><font size="2" color="#000000"><b><u><a name="C.2"></a><font size="3">C.2 Registr&aacute;ndose<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#C.1">Anterior</a>- 
+  <a href="#C.3">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u><b><u><font size="3"><br>
+  </font></u></b></font></P>
+<P><font color="#000000" size="2">Cuando comienza el ftp deber&iacute;a verse 
+  algo como</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Connected to shoop.vpizza.com.<br>
+      </font><font color="#000000" size="2">220 Shoop.vpizza.com FTPD ready at 
+      15 Dec 1992 08:20:42 EDT<br>
+      </font><font color="#000000" size="2">Name (shoop.vpizza.com:mdw):</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">En este punto, ftp nos esta pidiendo que le 
+  demos el nombre de usuario con el que nos queremos registrar en shoop.vpizza.com. 
+  El nombre por defecto aqu&iacute; es mdw, que corresponde con mi nombre de usuario 
+  del sistema desde el que estoy usando el FTP. Como no tengo cuenta en shoop.vpizza.com 
+  no me podr&eacute; registrar como yo mismo. En cambio, para acceder al software 
+  disponible p&uacute;blicamente en un FTP site hay que registrarse como anonymous, 
+  y dar la direcci&oacute;n de e-mail Internet (si se tiene) como password. De 
+  modo que teclear&iacute;amos</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">Name (shoop.vpizza.com:mdw): anonymous<br>
+      </font><font color="#000000" size="2">331-Guest login ok, send e-mail address 
+      as password.<br>
+      </font><font color="#000000" size="2">Password: mdw@sunsite.unc.edu<br>
+      </font><font color="#000000" size="2">230- Welcome to shoop.vpizza.com.<br>
+      </font><font color="#000000" size="2">230- Virtual Pizza Delivery[tm]: Download 
+      pizza in 30 cycles or less<br>
+      </font><font color="#000000" size="2">230- or you get it FREE!<br>
+      </font><font color="#000000" size="2">ftp&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Por supuesto, usted deber&iacute;a dar su direcci&oacute;n 
+  de e-mail en vez de la m&iacute;a, y no se reflejara en pantalla mientras la 
+  este escribiendo (ya que t&eacute;cnicamente es un "password" o contrase&ntilde;a). 
+  El ftp nos deber&iacute;a permitir registrarnos y ya estar&iacute;amos preparados 
+  a bajarnos el software.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="C.3"></a><font size="3">C.3 Movi&eacute;ndonos 
+  dentro<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#C.2">Anterior</a>- 
+  <a href="#C.4">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u></font></u><b><u><font size="2" color="#000000"><b><u><font size="3"><br>
+  </font></u></b></font><font size="3"><br>
+  </font></u></b></font><font color="#000000" size="2">Perfecto, ya estamos dentro. 
+  Nuestro prompt es ftp&gt;, y el programa ftp esta a la espera de comandos. Hay 
+  unos pocos comandos b&aacute;sicos que deber&iacute;a conocer. Primero, los 
+  comandos</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ls &lt;fichero&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">y</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">dir &lt;fichero&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">ambos dan un listado de ficheros (donde &lt;fichero&gt; 
+  es un argumento opcional que especifica un fichero particular a listar). La 
+  diferencia es que ls generalmente produce un listado corto y dir produce un 
+  listado mas largo (es decir, con mas informaci&oacute;n sobre los tama&ntilde;os 
+  de los ficheros, fechas de modificaci&oacute;n, etc.).<br>
+  </font><font color="#000000" size="2">El 
+  comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">cd &lt;directorio&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">mover&aacute; al directorio dado (exactamente 
+  como el comando cd en sistemas UNIX o MS-DOS). Puede usar tambi&eacute;n el 
+  comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">cdup</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">para cambiar al directorio padre1.<br>
+  </font><font color="#000000" size="2">El 
+  comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">help &lt;comando&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">proporciona ayuda en el citado &lt;comando&gt; 
+  ftp (como puede ser ls o cd). Si no se especifica comando, ftp listara todos 
+  los comandos disponibles.<br>
+  </font><font color="#000000" size="2">Si tecleamos dir en este punto, veremos 
+  un listado del directorio inicial en el que nos encontramos.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp&gt; dir<br>
+      </font><font color="#000000" size="2">200 PORT command successful.<br>
+      </font><font color="#000000" size="2">150 Opening ASCII mode data connection 
+      for /bin/ls.<br>
+      </font><font color="#000000" size="2">total 1337<br>
+      </font><font color="#000000" size="2">dr-xr-xr-x 2 root wheel 512 Aug 13 
+      13:55 bin<br>
+      </font><font color="#000000" size="2">drwxr-xr-x 2 root wheel 512 Aug 13 
+      13:58 dev<br>
+      </font><font color="#000000" size="2">drwxr-xr-x 2 root wheel 512 Jan 25 
+      17:35 etc<br>
+      </font><font color="#000000" size="2">drwxr-xr-x 19 root wheel 1024 Jan 
+      27 21:39 pub<br>
+      </font><font color="#000000" size="2">drwxrwx-wx 4 root ftp-admi 1024 Feb 
+      6 22:10 uploads<br>
+      </font><font color="#000000" size="2">drwxr-xr-x 3 root wheel 512 Mar 11 
+      1992 usr</font><br>
+    </P>
+    <P><font color="#000000" size="2">226 Transfer complete.<br>
+      </font><font color="#000000" size="2">921 bytes received in 0.24 seconds 
+      (3.7 Kbytes/s)<br>
+      </font><font color="#000000" size="2">ftp&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">_____________________________________________</font></P>
+<P><font color="#000000" size="2">1 el directorio por encima del actual.</font></P>
+<P><font color="#000000" size="2">Cada una de estas entradas es un directorio, 
+  no un fichero individual que nos podamos traer (especificado por la d de la 
+  primera columna del listado). En la mayor&iacute;a de los "FTP archive sites" 
+  </font><font color="#000000" size="2">(Servidores de FTP), el software p&uacute;blicamente 
+  accesible esta bajo el directorio /pub, de modo que vamos a &eacute;l.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp&gt; cd pub<br>
+      </font><font color="#000000" size="2">ftp&gt; dir<br>
+      </font><font color="#000000" size="2">200 PORT command successful.<br>
+      </font><font color="#000000" size="2">150 ASCII data connection for /bin/ls 
+      (128.84.181.1,4525) (0 bytes).<br>
+      </font><font color="#000000" size="2">total 846<br>
+      </font><font color="#000000" size="2">-rw-r--r-- 1 root staff 1433 Jul 12 
+      1988 README<br>
+      </font><font color="#000000" size="2">-r--r--r-- 1 3807 staff 15586 May 
+      13 1991 US-DOMAIN.TXT.2<br>
+      </font><font color="#000000" size="2">-rw-r--r-- 1 539 staff 52664 Feb 20 
+      1991 altenergy.avail<br>
+      </font><font color="#000000" size="2">-r--r--r-- 1 65534 65534 56456 Dec 
+      17 1990 ataxx.tar.Z<br>
+      </font><font color="#000000" size="2">-rw-r--r-- 1 root other 2013041 Jul 
+      3 1991 gesyps.tar.Z<br>
+      </font><font color="#000000" size="2">-rw-r--r-- 1 432 staff 41831 Jan 30 
+      1989 gnexe.arc<br>
+      </font><font color="#000000" size="2">-rw-rw-rw- 1 615 staff 50315 Apr 16 
+      1992 linpack.tar.Z<br>
+      </font><font color="#000000" size="2">-r--r--r-- 1 root wheel 12168 Dec 
+      25 1990 localtime.o<br>
+      </font><font color="#000000" size="2">-rw-r--r-- 1 root staff 7035 Aug 27 
+      1986 manualslist.tblms<br>
+      </font><font color="#000000" size="2">drwxr-xr-x 2 2195 staff 512 Mar 10 
+      00:48 mdw<br>
+      </font><font color="#000000" size="2">-rw-r--r-- 1 root staff 5593 Jul 19 
+      1988 t.out.h</font><br>
+      <br>
+    </P>
+    <P><font color="#000000" size="2">226 ASCII Transfer complete.<br>
+      </font><font color="#000000" size="2">2443 bytes received in 0.35 seconds 
+      (6.8 Kbytes/s)<br>
+      </font><font color="#000000" size="2">ftp&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Aqu&iacute; podemos ver un numero de (&gt;interesantes?) 
+  ficheros, uno de los cuales se llama README, que deber&iacute;amos bajarnos 
+  (la mayor&iacute;a de FTP sites tienen un fichero README en el directorio /pub).</font></P>
+<P><font size="2" color="#000000"><b><u><a name="C.4"></a><font size="3">C.4 Traerse 
+  ficheros<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#C.3">Anterior</a>- 
+  <a href="#C.5">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u></font></u><b><u><font size="2" color="#000000"><b><u><font size="3"><br>
+  </font></u></b></font><font size="3"><br>
+  </font></u></b></font><font color="#000000" size="2">Antes de traer ficheros, 
+  hay algunas cosas que deber&iacute;a tener en cuenta.<br>
+  </font><font size="2" color="#000000"><B>o</b> Conectar las marcas de progreso. 
+  Las Marcas de Progreso se imprimen en pantalla mientras se est&aacute;n transfiriendo 
+  ficheros; le permitir&aacute;n saber como de avanzada va su transferencia, y 
+  que su conexi&oacute;n no se ha cortado (de modo que no este sentado 20 minutos 
+  pensando que aun esta tray&eacute;ndose un fichero). En general, una marca de 
+  progreso aparece como una almohadilla (#), y se imprime una por cada 1024 o 
+  8192 bytes transferidos, dependiendo del sistema.<br>
+  </font><font color="#000000" size="2">Para 
+  activar la impresi&oacute;n de marcas de progreso, utilice el comando hash.</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp&gt; hash<br>
+      </font><font color="#000000" size="2">Hash mark printing on (8192 bytes/hash 
+      mark).<br>
+      </font><font color="#000000" size="2">ftp&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font size="2" color="#000000"><B>o</b> Determinar el tipo de fichero que va 
+  a transferir. En lo que concierne al FTP, los ficheros van en dos formatos: 
+  binario y texto. La mayor&iacute;a de los ficheros que usted transferir&aacute; 
+  ser&aacute;n binarios: es decir, programas, ficheros comprimidos, ficheros de 
+  datos, etc. Sin embargo, muchos ficheros (tales como READMEs y dem&aacute;s) 
+  son ficheros de texto.<br>
+  </font><font color="#000000" size="2">¿Por que es importante el tipo de fichero? 
+  Simplemente porque en algunos sistemas (como el MS-DOS), ciertos caracteres 
+  de un fichero de texto, tales como retornos de carro, necesitan convertirse 
+  de modo que los ficheros puedan ser legibles. Mientras las transferencias en 
+  modo binario, no realizan ninguna conversi&oacute;n, el fichero se transfiere 
+  byte a byte.<br>
+  </font><font color="#000000" size="2">Los comandos bin y ascii ponen el modo 
+  de transferencia en binario y texto respectivamente. Si esta en duda, use siempre 
+  el modo binario para transferir ficheros. Si intenta transferir un fichero binario 
+  en modo texto, obtendr&aacute; un fichero corrupto que no podr&aacute; utilizar. 
+  (Este es uno de los fallos mas corrientes cuando se usa el FTP.) Sin embargo, 
+  puede usar tranquilamente el modo texto para ficheros de texto (aquellos cuyos 
+  nombres terminan habitualmente en .txt).<br>
+  </font><font color="#000000" size="2">En 
+  nuestro ejemplo traeremos el fichero README, que por lo general es un fichero 
+  de texto, para lo cual usaremos el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp&gt; ascii<br>
+      </font><font color="#000000" size="2">200 Type set to A.<br>
+      </font><font color="#000000" size="2">ftp&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font size="2" color="#000000"><B>o</b> Establecer el directorio local. El 
+  directorio local es el directorio de su sistema en el que quiere que vayan a 
+  parar los ficheros tra&iacute;dos. Mientras el comando cd cambia el directorio 
+  remoto (de la maquina remota a la que esta haciendo FTP), el comando lcd cambia 
+  el directorio local.<br>
+  </font><font color="#000000" size="2">Por ejemplo, para cambiar el directorio 
+  local a /home/db/mdw/tmp, utilice el siguiente comando </font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp&gt; lcd /home/db/mdw/tmp<br>
+      </font><font color="#000000" size="2">Local directory now /home/db/mdw/tmp<br>
+      </font><font color="#000000" size="2">ftp&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Ahora ya esta listo para traerse el fichero. 
+  El comando</font></P>
+<DIR> 
+  <DIR>
+    <P><font color="#000000" size="2">get &lt;nombre-remoto&gt; &lt;nombre-local&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">se usa para esto, donde &lt;nombre-remoto&gt; 
+  es el nombre del fichero de la maquina remota, y &lt;nombre-local&gt; es el 
+  nombre que le quiere dar al fichero en su maquina local. El argumento &lt;nombre-local&gt; 
+  es opcional; por defecto el nombre fichero local es el mismo que el remoto. 
+  Sin embargo, si est&aacute; tray&eacute;ndose el fichero README, y ya tiene 
+  un README en su directorio local, necesitara darle un &lt;nombre-local&gt; distinto 
+  para que no se sobrescriba el primero.<br>
+  </font><font color="#000000" size="2">En 
+  nuestro ejemplo, para traer el fichero README, usamos simplemente</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp&gt; get README<br>
+      </font><font color="#000000" size="2">200 PORT command successful.<br>
+      </font><font color="#000000" size="2">150 ASCII data connection for README 
+      (128.84.181.1,4527) (1433 bytes).<br>
+      </font><font color="#000000" size="2">#<br>
+      </font><font color="#000000" size="2">226 ASCII Transfer complete.<br>
+      </font><font color="#000000" size="2">local: README remote: README<br>
+      </font><font color="#000000" size="2">1493 bytes received in 0.03 seconds 
+      (49 Kbytes/s)<br>
+      </font><font color="#000000" size="2">ftp&gt;</font></P>
+  </DIR>
+</DIR>
+<P><font size="2" color="#000000"><b><u><a name="C.5"></a><font size="3">C.5 Saliendo 
+  de FTP<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#C.4">Anterior</a>- 
+  <a href="#C.6">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u></font></u><b><u><font size="2" color="#000000"><b><u><font size="3"><br>
+  </font></u></b></font><font size="3"><br>
+  </font></u></b></font><font color="#000000" size="2">Para terminar una sesi&oacute;n 
+  FTP, solo tiene que usar el comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">quit</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">El comando</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">close</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">se puede usar para cerrar la conexi&oacute;n 
+  con el FTP site actual; el comando open se puede usar para comenzar una sesi&oacute;n 
+  con otro site distinto (sin salir completamente del programa FTP).</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">ftp&gt; close<br>
+      </font><font color="#000000" size="2">221 Goodbye.<br>
+      </font><font color="#000000" size="2">ftp&gt; 
+      quit</font></P>
+  </DIR>
+</DIR>
+<P><font size="2" color="#000000"><b><u><a name="C.6"></a><font size="3">C.6 Usando 
+  ftpmail<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#C.5">Anterior</a>- 
+  <a href="#C.7">Siguiente </a>- <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u></font></u><b><u><font size="2" color="#000000"><b><u><font size="3"><br>
+  </font></u></b></font><font size="3"><br>
+  </font></u></b></font><font color="#000000" size="2">ftpmail es un servicio 
+  que le permite obtener ficheros de FTP sites a trav&eacute;s del correo electr&oacute;nico 
+  de Internet. Si no tiene acceso directo a Internet, pero al menos puede enviar 
+  correo a Internet (desde un servicio como CompuServe, por ejemplo), entonces 
+  ftpmail es un buen m&eacute;todo para conseguir los ficheros de los FTP archive 
+  sites. Desafortunadamente, ftpmail puede ser lento, sobre todo cuando env&iacute;a 
+  grandes trabajos. Antes de intentar traerse gran cantidad de software usando 
+  ftpmail, aseg&uacute;rese de que su cola de correo pueda manejar el trafico 
+  entrante. Muchos sistemas ponen cuotas de correo entrante, y pueden borrar su 
+  cuenta si su correo se excede de esta cuota. Solamente tiene que usar el sentido 
+  com&uacute;n.<br>
+  </font><font color="#000000" size="2">sunsite.unc.edu, uno de los mas grandes 
+  FTP sites de Linux, posee un servidor de ftpmail.<br>
+  </font><font color="#000000" size="2">Para 
+  usar este servicio, env&iacute;e un e-mail a ftpmail@sunsite.unc.edu </font><font color="#000000" size="2">en 
+  cuyo cuerpo del mensaje contenga solamente la palabra: help<br>
+  </font><font color="#000000" size="2">Esto le enviara de vuelta una lista de 
+  comandos ftpmail y un breve tutorial de uso del sistema. Por ejemplo, para conseguir 
+  una lista de los ficheros de Linux encontrados en sunsite.unc.edu, env&iacute;e 
+  un correo a la direcci&oacute;n mencionada y que contenga el siguiente texto 
+  &nbsp;</font></P>
+<DIR> 
+  <DIR> 
+    <P><font color="#000000" size="2">open sunsite.unc.edu<br>
+      </font><font color="#000000" size="2">cd /pub/Linux<br>
+      </font><font color="#000000" size="2">dir<br>
+      </font><font color="#000000" size="2">quit</font></P>
+  </DIR>
+</DIR>
+<P><font color="#000000" size="2">Podr&aacute; usar el servicio ftpmail para conectar 
+  con cualquier FTP site; no esta limitado a sunsite.unc.edu. La siguiente secci&oacute;n 
+  lista un numero de FTP sites de Linux.</font></P>
+<P><font size="2" color="#000000"><b><u><a name="C.7"></a><font size="3">C.7 Lista 
+  de FTP Sites de Linux<br>
+  </font></u></b><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font size="2" color="#000000"><u><font color="#000000" size="2"><u><font color="#000000" size="2"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000"><u><font size="2"><font color="#000000" size="2"><a href="#C.6">Anterior</a>- 
+  Siguiente - <a href="#indice">&Iacute;ndice</a> </font></font></u></font></font></u></font></font></u></font></font></u></font></u></font></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font></u></font><font size="3"></font></u></font></u><b><u><font size="2" color="#000000"><b><u><font size="3"><br>
+  </font></u></b></font><font size="3"><br>
+  </font></u></b></font><font color="#000000" size="2">La tabla C.1 es una lista 
+  de los mas conocidos FTP sites que mantienen software de Linux. Tenga en cuenta 
+  tambi&eacute;n que un gran numero de otros sites son copia de estos, y muy probablemente 
+  podr&aacute; encontrar Linux en un mont&oacute;n de sites que no est&aacute;n 
+  en esta lista.</font></P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=619>
+  <TR> 
+    <TD WIDTH="41%" VALIGN="TOP" HEIGHT=14> 
+      <P><b><font color="#000000" size="3">Nombre del site</font> </b>
+    </TD>
+    <TD WIDTH="27%" VALIGN="TOP" HEIGHT=14> 
+      <P><b><font color="#000000" size="3">Direcci&oacute;n IP</font> </b>
+    </TD>
+    <TD WIDTH="32%" VALIGN="TOP" HEIGHT=14> 
+      <P><b><font color="#000000" size="3">Directorio</font> </b>
+    </TD>
+  </TR>
+  <TR> 
+    <TD WIDTH="41%" VALIGN="TOP" HEIGHT=14> 
+      <P><font color="#000000" size="2">tsx-11.mit.edu</font></P>
+      <P><font color="#000000" size="2">sunsite.unc.edu</font></P>
+      <P><font color="#000000" size="2">nic.funet.fi</font></P>
+      <P><font color="#000000" size="2">ftp.mcc.ac.uk</font></P>
+      <P><font color="#000000" size="2">fgb1.fgb.mw.tu-muenchen.de</font></P>
+      <P><font color="#000000" size="2">ftp.informatik.tu-muenchen.de</font></P>
+      <P><font color="#000000" size="2">ftp.dfv.rwth-aachen.de</font></P>
+      <P><font color="#000000" size="2">ftp.informatik.rwth-aachen.de</font></P>
+      <P><font color="#000000" size="2">ftp.ibp.fr</font></P>
+      <P><font color="#000000" size="2">kirk.bu.oz.au</font></P>
+      <P><font color="#000000" size="2">ftp.uu.net</font></P>
+      <P><font color="#000000" size="2">wuarchive.wustl.edu</font></P>
+      <P><font color="#000000" size="2">ftp.win.tue.nl</font></P>
+      <P><font color="#000000" size="2">ftp.ibr.cs.tu-bs.de</font></P>
+      <P><font color="#000000" size="2">ftp.denet.dk</font> 
+    </TD>
+    <TD WIDTH="27%" VALIGN="TOP" HEIGHT=14> 
+      <P><font color="#000000" size="2">18.172.1.2</font></P>
+      <P><font color="#000000" size="2">152.2.22.81</font></P>
+      <P><font color="#000000" size="2">128.214.6.100</font></P>
+      <P><font color="#000000" size="2">130.88.200.7</font></P>
+      <P><font color="#000000" size="2">129.187.200.1</font></P>
+      <P><font color="#000000" size="2">131.159.0.110</font></P>
+      <P><font color="#000000" size="2">137.226.4.105</font></P>
+      <P><font color="#000000" size="2">137.226.112.172</font></P>
+      <P><font color="#000000" size="2">132.227.60.2</font></P>
+      <P><font color="#000000" size="2">131.244.1.1</font></P>
+      <P><font color="#000000" size="2">137.39.1.9</font></P>
+      <P><font color="#000000" size="2">128.252.135.4</font></P>
+      <P><font color="#000000" size="2">131.155.70.100</font></P>
+      <P><font color="#000000" size="2">134.169.34.15</font></P>
+      <P><font color="#000000" size="2">129.142.6.74</font> 
+    </TD>
+    <TD WIDTH="32%" VALIGN="TOP" HEIGHT=14> 
+      <P><font color="#000000" size="2">/pub/linux</font></P>
+      <P><font color="#000000" size="2">/pub/Linux</font></P>
+      <P><font color="#000000" size="2">/pub/OS/Linux</font></P>
+      <P><font color="#000000" size="2">/pub/linux</font></P>
+      <P><font color="#000000" size="2">/pub/linux</font></P>
+      <P><font color="#000000" size="2">/pub/Linux</font></P>
+      <P><font color="#000000" size="2">/pub/linux</font></P>
+      <P><font color="#000000" size="2">/pub/Linux</font></P>
+      <P><font color="#000000" size="2">/pub/linux</font></P>
+      <P><font color="#000000" size="2">/pub/OS/Linux</font></P>
+      <P><font color="#000000" size="2">/systems/unix/linux</font></P>
+      <P><font color="#000000" size="2">/systems/linux</font></P>
+      <P><font color="#000000" size="2">/pub/linux</font></P>
+      <P><font color="#000000" size="2">/pub/os/linux</font></P>
+      <P><font color="#000000" size="2">/pub/OS/linux</font> 
+    </TD>
+  </TR>
+</TABLE>
+<P><font color="#000000" size="2">Tabla C.1: Linux FTP Sites<br>
+  <br>
+  </font><font color="#000000" size="2">tsx-11.mit.edu, sunsite.unc.edu, y nic.funet.fi 
+  son los "home sites" del software de Linux, donde se deja la mayor&iacute;a 
+  del nuevo software. La mayor&iacute;a de los otros sites de la lista se hacen 
+  copia de alguna combinaci&oacute;n de estos tres. Para reducir el trafico en 
+  la red, elija un site que este geogr&aacute;ficamente lo mas cerca de usted.</font></P>
+</BODY>
+</HTML>

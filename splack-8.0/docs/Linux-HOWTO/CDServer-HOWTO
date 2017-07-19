@@ -1,0 +1,410 @@
+
+CDServer-HOWTO
+
+Randolph Tata
+
+   randy@talcon.com
+   
+   v1.00, 23 September 2000
+   Revision History
+   Revision v1.00 23 September 2000 Revised by: rjt
+   Conversion from linuxdoc sgml to DocBook v3.1
+   Revision v0.10 1 September 2000 Revised by: rjt
+   Conversion to linuxdoc sgml from text/html
+   Revision v0.01 18 August 2000 Revised by: rjt
+   First version released in text and html. Still need to add section on
+   kernel modifications and creating more loop devices.
+   
+   The CD Server HOWTO describes the steps and commands you can use to
+   setup your own CD Server using Linux and some built-in Unix commands
+   along with other freely available software packages. The CD Server can
+   then share the CD's via the network to Windows and/or other client
+   machines.
+     _________________________________________________________________
+   
+   Table of Contents
+   1. [1]Introduction
+          
+        1.1. [2]Intended Audience
+        1.2. [3]Things You'll Need
+        1.3. [4]Suggested Reading
+        1.4. [5]Copyright
+        1.5. [6]Disclaimer
+        1.6. [7]News
+        1.7. [8]Credits
+        1.8. [9]Translations
+                
+   2. [10]Procedure
+          
+        2.1. [11]Creating the ISO Images
+        2.2. [12]Mounting the ISO Images
+        2.3. [13]Mounting the Image upon System Restart
+        2.4. [14]Sharing it on a Windows Network using Samba
+        2.5. [15]Sharing the Images on a Unix network using NFS
+                
+   3. [16]Adding Support for More Loop Devices
+          
+        3.1. [17]Tweaking the Kernel
+        3.2. [18]Creating the Loop Devices in /dev
+                
+1. Introduction
+
+   With disk space becoming less expensive (30GB IBM 7200rpm for $160 in
+   08/2000), it is now viable to use an Open Source software-based CD
+   Server solution, instead of paying $800-$4,000 for a software,
+   thin-server, or CD Jukebox solution.
+   
+   I've setup my CD Server on a P120 with 64MB RAM, using one of these
+   large drives.
+     _________________________________________________________________
+   
+1.1. Intended Audience
+
+   This HOWTO is specifically directed toward System Administrators and
+   uses Linux for the examples. It should work with other flavors of Unix
+   provided that they have a loop device or a method of mounting a CD
+   image file within the directory tree as a block device using the
+   iso9660 file system.
+     _________________________________________________________________
+   
+1.2. Things You'll Need
+
+   The commands and utilities needed to setup your own CD Server are
+   already included in most (if not all) Linux distributions.
+   
+     * Linux Distribution (This HOWTO uses [19]Linux-Mandrake for the
+       examples)
+     * dd - Converts and copies a file (a standard Unix command)
+     * mount - Mounts and Unmounts filesystems (a standard Unix command)
+     * [20]Samba - A Windows SMB/CIFS fileserver for Unix
+     * NFS (optional) - Network File System (usually included in Linux
+       distributions)
+       
+   Caveats
+          The Linux-Mandrake distribution I'm using (7.0), only has
+          support for 8 loop devices compiled into the kernel (see
+          [21]Section 3 to increase this number). In short, you'll only
+          be able to share 8 CD's on a network at most with this default
+          value, to share more than 8, you'll need to do a little more
+          work.
+     _________________________________________________________________
+   
+1.3. Suggested Reading
+
+   [22]Using Samba by: Robert Eckstein, David Collier-Brown, Peter Kelly
+   1st Edition November 1999, O'Reilly and Associates, Inc. ISBN
+   1-56592-449-5,
+     _________________________________________________________________
+   
+1.4. Copyright
+
+   CDServer-HOWTO, Copyright (c) 2000, Randolph Tata, All Rights Reserved
+   
+   Please freely copy and distribute (sell or give away) this document in
+   any format. It's requested that corrections and/or comments be
+   fowarded to the document maintainer ([23]Randolph Tata). You may
+   create a derivative work and distribute it provided that you:
+   
+     * Send your derivative work (in the most suitable format such as
+       sgml) to the LDP ([24]Linux Documentation Project) or the like for
+       posting on the Internet. If not the LDP, then let the LDP know
+       where it is available.
+     * License the derivative work with this same license or use GPL.
+       Include a copyright notice and at least a pointer to the license
+       used.
+     * Give due credit to previous authors and major contributors.
+       
+   If you're considering making a derived work other than a translation,
+   it's requested that you discuss your plans with the current
+   maintainer.
+     _________________________________________________________________
+   
+1.5. Disclaimer
+
+   Use the information in this document at your own risk. I disavow any
+   potential liability for the contents of this document. Use of the
+   concepts, examples, and/or other content of this document is entirely
+   at your own risk.
+   
+   All copyrights are owned by their owners, unless specifically noted
+   otherwise. Use of a term in this document should not be regarded as
+   affecting the validity of any trademark or service mark.
+   
+   Naming of particular products or brands should not be seen as
+   endorsements.
+   
+   You are strongly recommended to make a backup of your system before
+   major installation and should make backups at regular intervals.
+     _________________________________________________________________
+   
+1.6. News
+
+   This is the first sgml release (version 1.00). [25]SGML source for
+   this document is available. Any additions/changes should be made to
+   the sgml source, not derivative formats.
+   
+   This documents home page is at the [26]Open CD Server Project site
+   page in case you need the latest version, or there is a problem with
+   the page format you are viewing.
+   
+   If you have the capacity it would be nice to make the CDServer-HOWTO
+   available in a number of formats and languages.
+     _________________________________________________________________
+   
+1.7. Credits
+
+   In this version I have the pleasure of acknowledging
+   
+Mark F. Komarinski    markk (at) linuxdoc.org         LDP Author Guide
+Jorge Godoy           godoy (at) metalab.unc.edu      LDP Author Guide
+David C. Merrill      dcmerrill (at) mindspring.com   LDP Author Guide
+Stein Gjoen           sgjoen (at) nyx.net             HOWTO-Template
+Gregory Leblanc       gleblanc (at) cu-portland.edu   HOWTO-Template
+Greg Ferguson         gferg (at) sgi.com              HOWTO-Template
+     _________________________________________________________________
+   
+1.8. Translations
+
+   No Translations yet.
+   
+   Any comments or suggestions can be mailed to my email address at
+   [27]Talcon Information Systems: <[28]randy@talcon.com>.
+     _________________________________________________________________
+   
+2. Procedure
+
+   Summary of Steps
+   
+     * Create a large partition to hold the CD Image Files.
+     * Copy the CD to an image file using the "dd" command.
+     * Mount the CD image file within the directory tree.
+     * Share the directory on the network using Samba, NFS, etc.
+     _________________________________________________________________
+   
+2.1. Creating the ISO Images
+
+   Choose (or create) a file system with the largest available disk space
+   on it. Keep in mind that CD-ROM's can hold around 640MB of data, so if
+   you want to share 8 full CD's on your network, you'll need 5.1GB of
+   space available.
+   
+Login as root or "su" to root.
+
+bash# df -h
+
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/hda5             1.4G   82M  1.3G   6% /
+/dev/hda1              15M  827k   14M   6% /boot
+/dev/hda7             2.4G 1008M  1.3G  43% /usr
+/dev/hda8            23.6G 11.7G 11.7G  50% /home
+
+   Here the /home filesystem has the most available space, so it is the
+   most suitable filesystem to use for dumping the CD images to.
+   
+
+bash# cd /home
+bash# mkdir image
+bash# cd image
+
+   Now, copy the CD to an iso image. You must know the device name of
+   your CD-ROM drive (usually /dev/cdrom, it could be /dev/scd0 for SCSI
+   CD-ROM's) I'll use the Mandrake distribution CD-ROM as an Example:
+   
+bash# dd if=/dev/cdrom of=mndrk71.iso
+
+   The "if=" is the input file, the "of=" is the output file. You should
+   see a message stating the number of records in and number of records
+   out (hopefully with no i/o errors).
+     _________________________________________________________________
+   
+2.2. Mounting the ISO Images
+
+   The next step is to mount the iso image file. Let's create a directory
+   under /mnt to place the mounted file.
+   
+bash# cd /mnt
+bash# mkdir iso
+bash# cd iso
+bash# mkdir mndrk71
+
+   Now mount the ISO image file to this newly created directory
+   
+bash# mount -o loop -t iso9660 -r /home/image/mndrk71.iso /mnt/iso/mndrk71
+
+   The "-o loop" means use the option that mounts a file as a block
+   device. The "-t iso9660" means that the file is in the iso9660 CD-ROM
+   format. The "-r" means to mount read-only.
+   
+   Now you can:
+   
+bash# cd mndrk71
+bash# ls -al
+
+   You should see a listing (ls) of the files and directories that are on
+   the actual CD (only now they're inside the iso image file, and that's
+   what you're currently looking at!)
+     _________________________________________________________________
+   
+2.3. Mounting the Image upon System Restart
+
+   Now that we've manually mounted the image, and made sure it works, an
+   entry needs to made in the /etc/fstab file so that the image is
+   remounted on the next system startup. It's important to make the entry
+   AFTER the entry for the parent filesystem, e.g. /home (I use vim, but
+   Emacs, Joe, Pico or Jed will work just as well):
+   
+bash# vim /etc/fstab
+
+   After the line that looks like the following (or whichever filesystem
+   you've placed your images):
+   
+/dev/hda8 /home ext2 defaults 1 2
+
+   Insert the following line with your text editor:
+   
+/home/image/mndrk71.iso /mnt/iso/mndrk71 iso9660 ro,loop,auto 0 0
+     _________________________________________________________________
+   
+2.4. Sharing it on a Windows Network using Samba
+
+   You'll need to have Samba installed and working to perform the next
+   steps (that's outside the scope of this instruction). If it's not yet
+   installed, consult your Linux distribution's instructions for
+   installing the Samba package. Or you can visit the Samba website at
+   http://us1.samba.org/samba/samba.html for installation instructions,
+   binaries, and/or the source code.
+   
+   To share your mounted CD's on a windows network, simply create a
+   stanza in the /etc/smb.conf file similar to the following:
+   
+[cdimages]
+  comment = All Shared CD Images
+  path = /mnt/iso
+  public = yes
+  writable = no
+
+   This will share all the subdirectories under the /mnt/iso directory on
+   the network. To mount the share to a local drive (in this case the I:
+   drive), bring up an MS-DOS Prompt on the Windows machine and type the
+   following:
+   
+C:\> net use I: \\yourlinuxmachine\cdimages
+
+   Each CD image will now appear as a subdirectory on the I: drive of
+   your Windows machine.
+   
+   To mount ONLY the Mandrake CD image to a drive letter (we'll use M:,
+   the root drive of which, will correspond exactly to the CD as if it
+   was just inserted in the CD-ROM drive), create the following stanza in
+   the /etc/smb.conf file.
+   
+[mndrk71]
+  comment = Mandrake Linux 7.1
+  path = /mnt/iso/mndrk71
+  public = yes
+  writable = no
+
+   Then, at your MS-DOS Prompt, mount it with the following command:
+   
+C:\> net use m: \\yourlinuxmachine\mndrk71
+
+   Note:
+          The Samba smb.conf file stanzas presented here are simplified,
+          and not entirely secure. Many more options exist for a Samba
+          share which limit who can mount the shares, control how user
+          authentication is performed, whether the share is even
+          browseable through Network Neighborhood on the Windows
+          machines.
+     _________________________________________________________________
+   
+2.5. Sharing the Images on a Unix network using NFS
+
+   Make sure that NFS is running and configured correctly on your Linux
+   machine, then add the following to the /etc/exports file using your
+   own preferred options:
+   
+# sample /etc/exports file
+       /mnt/iso            (ro,insecure,all_squash)
+
+   Now, when typing "showmount -e yourlinuxmachine" you should see that
+   the /mnt/iso is included in the exports list.
+     _________________________________________________________________
+   
+3. Adding Support for More Loop Devices
+
+   The Linux-Mandrake distribution I'm using (7.0), only has support for
+   8 loop devices compiled into the kernel. In short, you'll only be able
+   to share 8 CD's on a network with this default value. To support more
+   than the default, you'll need to follow this section. If you're new to
+   Linux, you've going to learn some cool things by accomplishing this.
+     _________________________________________________________________
+   
+3.1. Tweaking the Kernel
+
+   To increase the number of loop devices supported by the kernel, you'll
+   need to edit the /usr/src/linux/drivers/block/loop.c file.
+   
+   If you find that the kernel sources are not installed on your machine,
+   you'll need to consult your Linux Distribution's documentation on how
+   to install them (the Kernel Sources come with all distributions - it's
+   part of the GPL licensing).
+   
+   Change the number in the following line to however many loop devices
+   you'll need.
+   
+#define MAX_LOOP 16
+
+   Compile the new kernel or module as the case may be. If you need some
+   help getting started with this, read /usr/src/linux/README.
+     _________________________________________________________________
+   
+3.2. Creating the Loop Devices in /dev
+
+   The mknod command creates the devices in /dev. The loop devices have a
+   major number of "7", and the minor numbers begin at "0". If your
+   MAX_LOOP was defined as 8 in /usr/src/linux/drivers/block/loop.c, you
+   should have loop0 thru loop7 in /dev. To create the /dev/loop8 device,
+   use the following command (subsitute the appropriate number for the
+   "8" in the example below).
+   
+mknod -m660 /dev/loop8 b 7 8
+
+   Check Owner/Group & Permissions on the new file. You can change the
+   owner and group with the following command:
+   
+chown root.disk /dev/loop8
+
+   You can change the permissions using the following command:
+   
+chmod 666 /dev/loop8
+
+References
+
+   1. CDServer-HOWTO.html#INTRODUCTION
+   2. CDServer-HOWTO.html#AUDIENCE
+   3. CDServer-HOWTO.html#NEEDED
+   4. CDServer-HOWTO.html#READING
+   5. CDServer-HOWTO.html#COPYRIGHT
+   6. CDServer-HOWTO.html#DISCLAIMER
+   7. CDServer-HOWTO.html#NEWS
+   8. CDServer-HOWTO.html#CREDITS
+   9. CDServer-HOWTO.html#TRANSLATIONS
+  10. CDServer-HOWTO.html#PROCEDURE
+  11. CDServer-HOWTO.html#CREATEIMAGE
+  12. CDServer-HOWTO.html#MOUNTIMAGE
+  13. CDServer-HOWTO.html#SYSTEMRESTART
+  14. CDServer-HOWTO.html#SHARING
+  15. CDServer-HOWTO.html#NFS
+  16. CDServer-HOWTO.html#KERNELTWEAK
+  17. CDServer-HOWTO.html#EDITKERNEL
+  18. CDServer-HOWTO.html#LOOPDEV
+  19. http://www.linux-mandrake.com/
+  20. http://www.samba.org/
+  21. CDServer-HOWTO.html#KERNELTWEAK
+  22. http://www.oreilly.com/catalog/samba/
+  23. mailto:randy@talcon.com
+  24. http://www.linuxdoc.org/
+  25. CDServer-HOWTO.sgml
+  26. http://talcon.com/opencdserver/
+  27. http://www.talcon.com/
+  28. mailto:randy@talcon.com
