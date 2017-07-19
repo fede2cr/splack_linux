@@ -1,0 +1,56 @@
+CONTENTS: tetex tex_bin tex_doc transfig xfig
+tetex: teTeX-1.0.7 base support files.
+tetex: 
+tetex: This package contains the support files required for the teTeX TeX
+tetex: distribution, such as input files for TeX, runtime configuration
+tetex: files, hyphenation tables, manpages, and the computer modern fonts.
+tetex: 
+tetex: 
+tetex: 
+tetex: 
+tetex: 
+tetex: 
+tex_bin: teTeX-1.0.7 binaries.
+tex_bin: 
+tex_bin: This package installs the teTeX binaries for Linux in
+tex_bin: /usr/share/texmf/bin/ and edits /etc/profile and /etc/csh.login to
+tex_bin: add this directory to the default PATH.
+tex_bin: 
+tex_bin: 
+tex_bin: 
+tex_bin: 
+tex_bin: 
+tex_bin: 
+tex_doc: Documentation for teTeX-1.0.7.
+tex_doc: 
+tex_doc: This package contains documentation for AMSTeX, BibTeX, extended plain
+tex_doc: format, font packages, format files (babel, texdraw, pstricks, xypic),
+tex_doc: LaTeX, MetaPost, Makeindex, pdftex, the Kpathsea library, as well as
+tex_doc: general information about TeX such as a list of ftp servers, a draft
+tex_doc: for the TeX Directory Standard (TDS), The TeX and LaTeX Catalogue, and
+tex_doc: TeX FAQs.
+tex_doc: 
+tex_doc: 
+tex_doc: 
+transfig: transfig 3.2.3c.
+transfig: 
+transfig: This package contains the binaries to transform .fig files (created by
+transfig: xfig) to some other formats like epsf and LaTeX. If you have
+transfig: installed xfig, you should also install this package if you want to
+transfig: use xfig to create other files than .fig files, which can then be
+transfig: included in your LaTeX documents.
+transfig: 
+transfig: 
+transfig: 
+transfig: 
+xfig: xfig 3.2.3c.
+xfig: 
+xfig: This package contains the binary for xfig, an interactive drawing tool
+xfig: under X. Xfig can create fig, epsf, and LaTeX files with various
+xfig: options. You also have to install the transfig package so that xfig
+xfig: can export fig files as epsf and LaTeX files. This package also
+xfig: contains a set of basic examples of fig files in the directory
+xfig: /usr/doc/xfig.3.2.3c/Examples.
+xfig: 
+xfig: 
+xfig: 

@@ -1,0 +1,61 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+#item   ####description                                      ###on off ###
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING X SERVER FROM SERIES X (XFree86 4.0.3)" \
+       --checklist "Please select the packages you wish to install \
+from series X. Recommended packages have already been selected. \
+Press ENTER when you are done." 21 70 12 \
+"lesstif" "A Motif clone" "on" \
+"xaw3d" "A replacement for libXaw with a 3D look" "on" \
+"xf86doc" "Documentation for XFree86 4.0.3" "on" \
+"xf86html" "HTML documentation for XFree86 4.0.3" "off" \
+"xf86jdoc" "Japanese documentation for XFree86 4.0.3" "off" \
+"xf86prog" "Libraries and headers for X programming" "on" \
+"xf86ps" "PostScript documentation for XFree86 4.0.3" "off" \
+"xfnts" "Basic fonts needed to run X" "on" \
+"xfnts100" "100dpi screen fonts" "off" \
+"xfntscal" "Scalable Speedo/Type1 fonts" "on" \
+"xfntscyr" "Cyrillic fonts" "off" \
+"xfntslt2" "Latin-2 (ISO8859-2) 75/100dpi fonts" "off" \
+"xfree86" "XFree86-4.0.3 main package" "on" \
+"xma64" "XF86_Mach64 server (for the Ultra 5/10)" "on" \
+"x3dl" "XF86_3DLabs server (for Permedia boards)" "on" \
+"xnest" "Experimental nested X server" "off" \
+"xprt" "Print-only X server" "off" \
+"xvfb" "Virtual framebuffer X server" "off" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in lesstif xaw3d xf86doc xf86html xf86jdoc xf86prog xf86ps \
+              xfnts xfnts100 xfntscal xfntscyr xfntslt2 xfree86 xma64 \
+              x3dl xnest xprt xvfb 
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in lesstif xaw3d xf86doc xf86html xf86jdoc xf86prog xf86ps \
+               xfnts xfnts100 xfntscal xfntscyr xfntslt2 xfree86 xma64 \
+               x3dl xnest xprt xvfb
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs

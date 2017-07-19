@@ -1,0 +1,859 @@
+CONTENTS: aaagnome abi audiofil bonobo bugbuddy control ee enlight eog esound eterm fnlib gal galeon gconf gdkpixbf gdm gedit gftp ggv ghex gimp gimplibs gladedev glib gmp gnoadmin gnoaudio gnogames gnomapps gnomcore gnomedia gnomeicu gnomemm gnomenet gnomepim gnometop gnomevfs gnomlibs gnomobjc gnoprint gnotepad gnoutils gnpython gnumeric gqmpeg gtkeng gtkhtml gtkmm gtkplus gtm guile imlib libghttp libglade libgtop libole2 librep libsigc libungif libxml1 lunicode mozilla nautilus oaf orbit pan panelmm repgtk sawfish scrollkp userdocs wmaker xalf xchat xmms xscrsave xvim       
+aaagnome: GNOME/GTK+ preparation package
+aaagnome:
+aaagnome: Since most of the GNOME/GTK+ packages are installed with a --prefix
+aaagnome: of /opt/gnome, this package adds /opt/gnome/lib to ld.so.conf, and
+aaagnome: /opt/gnome/bin to the PATH.  GNOME will not run otherwise.
+aaagnome:
+aaagnome: This is a required package.
+aaagnome:
+aaagnome:
+aaagnome:
+aaagnome:
+abi:      AbiWord Personal (abi-0.7.14-2)
+abi:
+abi:      AbiWord Personal is a lean and fast full-featured word processor.
+abi:      It can import many formats including Word97/2000 and RTF, Palm, Psion,
+abi:      DocBook and XHTML documents, and can export to RTF, Palm, Psion,
+abi:      XHTML, Text, and LaTeX formats.
+abi:
+abi:      Linux Journal calls it "an elegant, open source word processor that
+abi:      delivers the Word functionality most people use."
+abi:      
+abi:      
+audiofil: audiofile-0.2.1
+audiofil:
+audiofil: Audiofile is a library to handle various audio file formats, and is
+audiofil: used by the esound daemon.  You can also use it to develop your own
+audiofil: audiofile applications.
+audiofil:
+audiofil:
+audiofil:
+audiofil:
+audiofil:
+audiofil:
+bonobo:   bonobo-1.0.4
+bonobo:
+bonobo:   Bonobo is a library that provides the necessary framework for GNOME
+bonobo:   applications to deal with compound documents, i.e. those with a
+bonobo:   spreadsheet and graphic embedded in a word-processing document.
+bonobo:
+bonobo:
+bonobo:
+bonobo:
+bonobo:
+bonobo:
+bugbuddy: bug-buddy-2.0.1
+bugbuddy:
+bugbuddy: Utility to ease the reporting of bugs within the GNOME Desktop
+bugbuddy: Environment.
+bugbuddy:
+bugbuddy:
+bugbuddy:
+bugbuddy:
+bugbuddy:
+bugbuddy:
+bugbuddy:
+control:  control-center-1.4.0.1
+control:
+control:  The GNOME control center.  Control-center is a configuration tool for
+control:  easily setting up your GNOME environment.  GNOME is the GNU Network
+control:  Object Model Environment.  That's a fancy name, but really GNOME is a
+control:  nice GUI desktop environment.  It's a powerful, easy to configure
+control:  environment which helps to make your computer easy to use.
+control:
+control:
+control:
+control:
+ee:       ee-0.3.12
+ee:
+ee:       The ee package contains the Electric Eyes image viewer for the GNOME
+ee:       desktop environment.  Electric Eyes is primary an image viewer, but
+ee:       it also allows many types of image manipulations.  Electric Eyes can
+ee:       handle almost any type of image.
+ee:
+ee:
+ee:
+ee:
+ee:
+enlight:  enlightenment-0.16.5.
+enlight:
+enlight:  Enlightenment is a window manager for the X Window System that is
+enlight:  designed to be powerful, extensible, configurable and pretty darned
+enlight:  good looking!  It is one of the more graphically intense window
+enlight:  managers for X.  Enlightenment goes beyond managing windows by
+enlight:  providing a useful and appealing graphical shell from which to work.
+enlight:  It is open in design and instead of dictating a policy, allows the
+enlight:  user to define their own policy, down to every last detail.
+enlight:
+enlight:
+eog:      eog-0.6
+eog:
+eog:      This is the Eye of Gnome, an image viewer program.  It is meant to be
+eog:      a fast and functional image viewer as well as an image cataloging
+eog:      program.
+eog:
+eog:
+eog:
+eog:
+eog:
+eog:
+esound:   esound-0.2.22
+esound:
+esound:   EsounD, the Enlightened Sound Daemon, is a server process that mixes
+esound:   several audio streams for playback by a single audio device. For
+esound:   example, if you're listening to music on a CD and you receive a
+esound:   sound-related event from ICQ, the two applications won't have to
+esound:   jockey for the use of your sound card.  Install esound if you'd like
+esound:   to let sound applications share your audio device.
+esound:
+esound:
+esound:
+eterm:    Eterm-0.8.10
+eterm:
+eterm:    Eterm is a color vt102 terminal emulator intended as an xterm
+eterm:    replacement for users who want a term program integrated with thei
+eterm:    Enlightenment window manager,  or simply want a little more "eye 
+eterm:    candy".  Eterm uses Imlib for advanced graphic abilities.
+eterm:
+eterm:
+eterm:
+eterm:
+eterm:
+fnlib:    fnlib-0.5
+fnlib:
+fnlib:    Fnlib is a library that provides full scalable 24-bit color font
+fnlib:    rendering abilities for X.
+fnlib:
+fnlib:
+fnlib:
+fnlib:
+fnlib:
+fnlib:
+fnlib:
+gal:      gal-0.8
+gal:
+gal:      GNOME Application Library.  Required by the Gnumeric spreadsheet.
+gal:
+gal:
+gal:
+gal:
+gal:
+gal:
+gal:
+gal:
+galeon:   galeon-0.11.0
+galeon:
+galeon:   Lean and fast GNOME browser based on Gecko (Mozilla rendering engine).
+galeon:
+galeon:
+galeon:
+galeon:
+galeon:
+galeon:
+galeon:
+galeon:
+gconf:    GConf-1.0.1
+gconf:
+gconf:    GConf is the GNOME Configuration database system.
+gconf:
+gconf:
+gconf:
+gconf:
+gconf:
+gconf:
+gconf:
+gconf:
+gdkpixbf: gdk-pixbuf-0.10.1
+gdkpixbf:
+gdkpixbf: The GdkPixBuf library provides a number of features, including :
+gdkpixbf:
+gdkpixbf:    o  GdkPixbuf structure for representing images.
+gdkpixbf:    o  Image loading facilities.
+gdkpixbf:    o  Rendering of a GdkPixBuf into various formats:
+gdkpixbf:       drawables (windows, pixmaps), GdkRGB buffers.
+gdkpixbf:    o  Fast scaling and compositing of pixbufs.
+gdkpixbf:    o  Simple animation loading (ie. animated gifs)
+gdkpixbf:
+gdm:      gdm-2.2.2.1
+gdm:
+gdm:      The Gnome Display Manager is a reimplementation of the well known
+gdm:      xdm program.  gdm implements all significant features required for
+gdm:      managing local and remote displays.
+gdm:
+gdm:
+gdm:
+gdm:
+gdm:
+gdm:
+gedit:    gedit-0.9.6
+gedit:
+gedit:    gEdit is a small but powerful text editor designed for GNOME.  It
+gedit:    includes such features as split-screen mode, a plugin API, which
+gedit:    allows gEdit to be extended to support many features while remaining
+gedit:    small at its core, multiple document editing through the use of a
+gedit:    'tabbed' notebook and many more functions.
+gedit:
+gedit:
+gedit:
+gedit:
+gftp:     gftp-2.0.8
+gftp:
+gftp:     gFTP is a multithreaded FTP client for X written using GTK+.  It
+gftp:     features simultaneous downloads, resuming of interrupted file
+gftp:     transfers, file transfer queues, downloading of entire directories,
+gftp:     ftp proxy support, remote directory caching, passive and non-passive
+gftp:     file transfers, drag-n-drop support, bookmarks menu, stop button,
+gftp:     and many more features.
+gftp:
+gftp:
+gftp:
+ggv:      ggv-1.0.1
+ggv:
+ggv:      ggv allows you to view PostScript documents, and print ranges of
+ggv:      pages.
+ggv:
+ggv:
+ggv:
+ggv:
+ggv:
+ggv:
+ggv:
+ghex:     ghex-1.2
+ghex:
+ghex:     GHex allows the user to load data from any file, view and edit it in
+ghex:     either hex or ascii. A must for anyone playing games that use
+ghex:     non-ascii format for saving.  ;^)
+ghex:
+ghex:
+ghex:
+ghex:
+ghex:
+ghex:
+gimp:     The GIMP -- GNU Image Manipulation Program version 1.2.1
+gimp:
+gimp:     The GIMP is a powerful tool for the preparation and manipulation of
+gimp:     digital images.  The GIMP provides the user with a wide variety of
+gimp:     image manipulation, painting, processing, and rendering tools.  The
+gimp:     key to the GIMP's power lies in its flexible core and easily
+gimp:     extensible design.  The GIMP's open design and extensible architecture
+gimp:     make for a very powerful end product for photo and image retouching,
+gimp:     web graphics design, or digital illustration.
+gimp:
+gimp:
+gimplibs: Extra libraries for the GIMP
+gimplibs:
+gimplibs: This package contains two libraries needed by GIMP (aalib-1.2 and
+gimplibs: mpeg_lib-1.3.1).
+gimplibs:
+gimplibs: AA-lib is a powerful ascii-art renderer.
+gimplibs:
+gimplibs: The MPEG Library is a collection of C routines to decode MPEG-1 video
+gimplibs: streams to a variety of colour schemes.
+gimplibs:
+gimplibs:
+gladedev: glade-0.6.2
+gladedev:
+gladedev: Glade is a GUI builder for GTK+ that quick & easy development of user
+gladedev: interfaces for the GTK+ toolkit and the Gnome desktop environment. It
+gladedev: also contains built-in support for generating the C source code needed
+gladedev: to recreate the interfaces.  The user interfaces designed in Glade are
+gladedev: stored in the well-known XML format, enabling easy integration with
+gladedev: external tools.
+gladedev:
+gladedev:
+gladedev:
+glib:     glib-1.2.10
+glib:
+glib:     This is GLib version 1.2.10. GLib is a library which includes support
+glib:     routines for C such as lists, trees, hashes, memory allocation, and
+glib:     many other things.
+glib:
+glib:     GLib is required by nearly everything in the GTK series.
+glib:
+glib:
+glib:
+glib:
+gmp:      gmp-3.1.1
+gmp:
+gmp:      GNU MP is a library for arbitrary precision arithmetic, operating on
+gmp:      signed integers, rational numbers, and floating point numbers.  It has
+gmp:      a rich set of functions, and the functions have a regular interface.
+gmp:
+gmp:      Sawfish (the default GNOME window manager) uses the GMP library.
+gmp:
+gmp:
+gmp:
+gmp:
+gnoadmin: gnome-admin-1.0.3
+gnoadmin:
+gnoadmin: GNOME system administration administration programs.
+gnoadmin:
+gnoadmin:
+gnoadmin:
+gnoadmin:
+gnoadmin:
+gnoadmin:
+gnoadmin:
+gnoadmin:
+gnoaudio: gnome-audio-1.4.0
+gnoaudio:
+gnoaudio: This package contains extra sound files useful for customizing the
+gnoaudio: sounds that the GNOME desktop environment makes.  If you use the 
+gnoaudio: GNOME desktop environment, you may want to install this package of
+gnoaudio: complementary sounds.
+gnoaudio:
+gnoaudio:
+gnoaudio:
+gnoaudio:
+gnoaudio:
+gnogames: gnome-games-1.4.0.1
+gnogames:
+gnogames: A collection of games for GNOME:
+gnogames:
+gnogames:     GnomeScott ctali freecell gataxx glines gnibbles gnobots2
+gnogames:     gnome-stones gnome-xbill gnometris gnomine gnotravex gnotski gtali
+gnogames:     gturing iagno mahjongg same-gnome sol
+gnogames:
+gnogames:
+gnogames:
+gnogames:
+gnomapps: gnome-applets-1.4.0.1
+gnomapps:
+gnomapps: This package contains applets for use with the GNOME panel.
+gnomapps:
+gnomapps:
+gnomapps:
+gnomapps:
+gnomapps:
+gnomapps:
+gnomapps:
+gnomapps:
+gnomcore: gnome-core-1.4.0.4
+gnomcore:
+gnomcore: The core programs for the GNOME GUI desktop environment.
+gnomcore:
+gnomcore:
+gnomcore:
+gnomcore:
+gnomcore:
+gnomcore:
+gnomcore:
+gnomcore:
+gnomedia: gnome-media-1.2.3
+gnomedia:
+gnomedia: GNOME multimedia programs.
+gnomedia:
+gnomedia:
+gnomedia:
+gnomedia:
+gnomedia:
+gnomedia:
+gnomedia:
+gnomedia:
+gnomeicu: gnomeicu-0.96.1
+gnomeicu:
+gnomeicu: GnomeICU is a clone of Mirabilis' popular ICQ written with GTK.  The
+gnomeicu: original source was taken from Matt Smith's mICQ.  This is meant as a
+gnomeicu: replacement for the JavaICQ, which is slow and buggy.  If you would
+gnomeicu: like to contribute, please contact Jeremy Wise <jwise@pathwaynet.com>.
+gnomeicu: You may also want to visit The ICQ Protocol Site at: 
+gnomeicu:     http://www.student.nada.kth.se/~d95-mih/icq/
+gnomeicu: for information about the ICQ protocol and mailing list.
+gnomeicu:
+gnomeicu:
+gnomemm:  gnomemm-1.1.16
+gnomemm:
+gnomemm:  This package provides a C++ interface for GnomeUI.  It is a subpackage
+gnomemm:  of the Gtk-- project.  The interface provides a convenient interface
+gnomemm:  for C++ programmers to create Gnome GUIs with GTK+'s flexible object-
+gnomemm:  oriented framework.
+gnomemm:
+gnomemm:
+gnomemm:
+gnomemm:
+gnomemm:
+gnomenet: gnome-network-1.0.2
+gnomenet:
+gnomenet: Network programs for GNOME.
+gnomenet:
+gnomenet:
+gnomenet:
+gnomenet:
+gnomenet:
+gnomenet:
+gnomenet:
+gnomenet:
+gnomepim: gnome-pim-1.4.0
+gnomepim:
+gnomepim: The GNOME Personal Information Manager consists of applications to
+gnomepim: make keeping up with your busy life easier.
+gnomepim:
+gnomepim: Currently these apps are present:
+gnomepim:
+gnomepim:     gnomecal :  personal calendar and todo list
+gnomepim:     gnomecard:  contact list of friends and business associates
+gnomepim:
+gnomepim:
+gnometop: gtop-1.0.13
+gnometop:
+gnometop: GNOME System Monitor.  gtop is a graphical version of a text program
+gnometop: called top.  It displays information about all the programs running on
+gnometop: your computer.
+gnometop:
+gnometop:
+gnometop:
+gnometop:
+gnometop:
+gnometop:
+gnomevfs: gnome-vfs-1.0.1, gnome-vfs-extras-0.1.1
+gnomevfs:
+gnomevfs: This is the GNOME Virtual File System, currently used as one of the
+gnomevfs: foundations of the Nautilus file manager.
+gnomevfs:
+gnomevfs: Also includes gnome-vfs-extras, which contains SMB and Icecast support.
+gnomevfs:
+gnomevfs:
+gnomevfs:
+gnomevfs:
+gnomevfs:
+gnomlibs: gnome-libs-1.2.13
+gnomlibs:
+gnomlibs: The gnomlibs package includes libraries that are needed to run GNOME.
+gnomlibs:
+gnomlibs:
+gnomlibs:
+gnomlibs:
+gnomlibs:
+gnomlibs:
+gnomlibs:
+gnomlibs:
+gnomobjc: gnome-objc-1.0.40
+gnomobjc:
+gnomobjc: Basic libraries you must have installed to use GNOME programs that
+gnomobjc: are built with Objective C.
+gnomobjc:
+gnomobjc:
+gnomobjc:
+gnomobjc:
+gnomobjc:
+gnomobjc:
+gnomobjc:
+gnoprint: gnome-print-0.29
+gnoprint:
+gnoprint: The gnome-print package contains libraries and fonts that are needed
+gnoprint: by GNOME applications wanting to print.  You should install the 
+gnoprint: gnome-print package if you intend on using any of the GNOME
+gnoprint: applications that can print. 
+gnoprint:
+gnoprint:
+gnoprint:
+gnoprint:
+gnoprint:
+gnotepad: gnotepad+-1.3.3
+gnotepad:
+gnotepad: gnotepad+ is an easy-to-use, yet fairly feature-rich, simple text
+gnotepad: editor for Unix based systems running X11 and using GTK (the Gimp
+gnotepad: ToolKit).  gnotepad+ was designed to have as little bloat as
+gnotepad: possible, while still providing many of the common features found in
+gnotepad: a modern GUI-based text editor.  It is still fairly light-weight,
+gnotepad: especially for the features it offers, and aims to remain that way.
+gnotepad:
+gnotepad:
+gnotepad:
+gnoutils: gnome-utils-1.4.0.1
+gnoutils:
+gnoutils: This package will install some GNOME utilities, such as the 
+gnoutils: calculator, search tool, and system information overview tool.
+gnoutils:
+gnoutils:
+gnoutils:
+gnoutils:
+gnoutils:
+gnoutils:
+gnoutils:
+gnpython: gnome-python-1.4.1
+gnpython:
+gnpython: PyGTK is an extension module for python that gives you access to the
+gnpython: GTK+ widget set.  Just about anything you can write in C with GTK+
+gnpython: you can write in python with PyGTK (within reason), but with all of
+gnpython: python's benefits.
+gnpython:
+gnpython:
+gnpython:
+gnpython:
+gnpython:
+gnumeric: gnumeric-0.65
+gnumeric:
+gnumeric: This is the Gnumeric, the GNOME spreadsheet program. If you are
+gnumeric: familiar with Excel, you should be ready to use Gnumeric.  We have
+gnumeric: tried to clone all of the good features and stay as compatible as
+gnumeric: possible with Excel in terms of usability. Hopefully we left the
+gnumeric: bugs behind :).
+gnumeric:
+gnumeric:
+gnumeric:
+gnumeric:
+gqmpeg:   gqmpeg-0.6.3
+gqmpeg:
+gqmpeg:   GQmpeg is a graphical frontend for mpg123, a Linux MP3 player.
+gqmpeg:   A collection of skins is included.
+gqmpeg:
+gqmpeg:   GQmpeg requires the mp3.tgz package in series AP.
+gqmpeg:
+gqmpeg:
+gqmpeg:
+gqmpeg:
+gqmpeg:
+gtkeng:   gtk-engines-0.12
+gtkeng:
+gtkeng:   These are the graphical engines for the various GTK+ toolkit themes.
+gtkeng:   Included themes are:
+gtkeng:
+gtkeng:       Notif
+gtkeng:       redmond95
+gtkeng:       Pixmap
+gtkeng:       Metal (Java swing-like)
+gtkeng:
+gtkeng:
+gtkhtml:  gtkhtml-0.9.2
+gtkhtml:
+gtkhtml:  GtkHTML is a lightweight HTML rendering/printing/editing engine.  It
+gtkhtml:  was originally based on KHTMLW, part of the KDE project.
+gtkhtml:
+gtkhtml:
+gtkhtml:
+gtkhtml:
+gtkhtml:
+gtkhtml:
+gtkhtml:
+gtkmm:    gtkmm-1.2.5
+gtkmm:
+gtkmm:    This package provides a C++ interface for GTK+ (the Gimp ToolKit) GUI
+gtkmm:    library.  Features include type safe callbacks, widgets that are
+gtkmm:    extensible using inheritance and over 110 classes that can be freely
+gtkmm:    combined to quickly create complex user interfaces.
+gtkmm:
+gtkmm:
+gtkmm:
+gtkmm:
+gtkmm:
+gtkplus:  gtk+-1.2.10
+gtkplus:
+gtkplus:  GTK+, which stands for the Gimp ToolKit, is a library for creating
+gtkplus:  graphical user interfaces for the X Window System.  This library is
+gtkplus:  needed for GIMP (the GNU Image Manipulation Program) and programs
+gtkplus:  comprising the GNOME project (most of the things in this GTK package
+gtkplus:  series).
+gtkplus:
+gtkplus:
+gtkplus:
+gtkplus:
+gtm:      gtm-0.4.9
+gtm:
+gtm:      This is gtm, the GNOME Transfer Manager.  GTM allows the user to
+gtm:      download files.  These files can be retrieved in multiple parts, and
+gtm:      and each part retrieved on a separate session that the user is
+gtm:      connected to the Internet. This is most useful to users with dialup
+gtm:      connections. The program performs these tasks using wget.
+gtm:
+gtm:
+gtm:
+gtm:
+guile:    guile-1.4
+guile:
+guile:    This is Guile, Project GNU's extension language library.  Guile is an
+guile:    interpreter for Scheme, packaged as a library that you can link into
+guile:    your applications to give them their own scripting language.  Guile
+guile:    will eventually support other languages as well, giving users of
+guile:    Guile-based applications a choice of languages.
+guile:
+guile:
+guile:
+guile:
+imlib:    imlib-1.9.10
+imlib:
+imlib:    Imlib is a display depth-independent image loading and rendering
+imlib:    library.  Imlib is designed to simplify and speed up the process of
+imlib:    loading images and obtaining X Window System drawables.  Imlib
+imlib:    provides many simple manipulation routines which can be used for
+imlib:    common operations.
+imlib:
+imlib:
+imlib:
+imlib:
+libghttp: libghttp-1.0.9
+libghttp:
+libghttp: GNOME http client library.
+libghttp:
+libghttp:
+libghttp:
+libghttp:
+libghttp:
+libghttp:
+libghttp:
+libghttp:
+libglade: libglade-0.16
+libglade:
+libglade: The GLADE library allows loading user interfaces which are stored
+libglade: externally into a program.  This allows the interface to be changed
+libglade: without recompiling the program.
+libglade:
+libglade: The interfaces can also be edited with GLADE.
+libglade:
+libglade:
+libglade:
+libglade:
+libgtop:  libgtop-1.0.12
+libgtop:
+libgtop:  A library that fetches information about the running system such as
+libgtop:  cpu and memory usage, active processes etc.  On Linux systems, these
+libgtop:  information are taken directly from the /proc filesystem.
+libgtop:
+libgtop:
+libgtop:
+libgtop:
+libgtop:
+libgtop:
+libole2:  libole2-0.2.3.
+libole2:
+libole2:  A library containing functionality to manipulate OLE2 Structured
+libole2:  Storage files. It is used by Gnumeric and AbiWord Personal.
+libole2:
+libole2:
+libole2:
+libole2:
+libole2:
+libole2:
+libole2:
+librep:   librep-0.13.6
+librep:
+librep:   This is a lightweight Lisp environment for UNIX. It contains a Lisp
+librep:   interpreter, byte-code compiler and virtual machine. Applications may
+librep:   use the Lisp interpreter as an extension language, or it may be used
+librep:   for standalone scripts.  Originally inspired by Emacs Lisp, the
+librep:   language dialect combines many of the elisp features while trying to
+librep:   remove some of the main deficiencies, with features from Common Lisp
+librep:   and Scheme.
+librep:
+librep:
+libsigc:  libsigc++-1.0.3
+libsigc:
+libsigc:  This library implements a full callback system for use in widget
+libsigc:  libraries, abstract interfaces, and general programming. Originally
+libsigc:  part of the Gtk-- widget set, libsigc++ is now a seperate library to
+libsigc:  provide for more general use. It is the most complete library of its
+libsigc:  kind with the ablity to connect an abstract callback to a class
+libsigc:  method, function, or function object. It contains adaptor classes for
+libsigc:  connection of dissimilar callbacks and has an ease of use unmatched
+libsigc:  by other C++ callback libraries.
+libsigc:
+libungif: libungif-4.1.0
+libungif:
+libungif: GIF loading and saving shared library.  (Saving uses an uncompressed
+libungif: GIF algorithm that does not use LZW compression.)
+libungif:
+libungif:
+libungif:
+libungif:
+libungif:
+libungif:
+libungif:
+libxml1:  libxml-1.8.13
+libxml1:
+libxml1:  This library allows you to manipulate XML files.
+libxml1:
+libxml1:
+libxml1:
+libxml1:
+libxml1:
+libxml1:
+libxml1:
+libxml1:
+lunicode: libunicode-0.4
+lunicode:
+lunicode: libunicode is a library for manipulating Unicode characters and
+lunicode: strings.  It understands both the UTF-8 and UCS-2 encodings, and has a
+lunicode: framework for adding support for new encodings.
+lunicode:
+lunicode: libunicode is required by gnumeric.
+lunicode:
+lunicode:
+lunicode:
+lunicode:
+mozilla:  mozilla-0.9.1
+mozilla:
+mozilla:  The Mozilla web browser.  Mozilla is a cousin to Netscape
+mozilla:  Communicator that is being developed by the Free Software Community
+mozilla:  with the cooperation and support of Netscape.  Mozilla uses a next-
+mozilla:  generation browser engine known as Gecko.  The mozilla package is
+mozilla:  required by the GNOME programs Galeon and Nautilus (which also use
+mozilla:  Mozilla's Gecko rendering engine).
+mozilla:
+mozilla:
+mozilla:
+nautilus: nautilus-1.0.3
+nautilus:
+nautilus: Nautilus is a highly-polished content manager for GNOME.  Nautilus
+nautilus: integrates access to files, applications, media, Internet-based
+nautilus: resources and the Web, delivering a dynamic and rich user experience.
+nautilus: Nautilus, developed by Eazel, Inc., is a free software project
+nautilus: developed under the GNU General Public License and is a core
+nautilus: component of the GNOME desktop project.
+nautilus:
+nautilus: The Nautilus package also includes Medusa, an indexing daemon.
+nautilus:
+oaf:      oaf-0.6.5
+oaf:
+oaf:      OAF is an object activation framework for GNOME.
+oaf:
+oaf:
+oaf:
+oaf:
+oaf:
+oaf:
+oaf:
+oaf:
+orbit:    ORBit-0.5.8
+orbit:
+orbit:    ORBit is a high-performance CORBA (Common Object Request Broker
+orbit:    Architecture) ORB (object request broker). It allows programs to send
+orbit:    requests and receive replies from other programs, regardless of the
+orbit:    locations of the two programs. CORBA is an architecture that enables
+orbit:    communication between program objects, regardless of the programming
+orbit:    language they're written in or the operating system they run on.
+orbit:
+orbit:
+orbit:
+pan:      pan-0.9.7
+pan:
+pan:      This is PAN, a powerful and user-friendly USENET newsreader for GNOME.
+pan:
+pan:
+pan:
+pan:
+pan:
+pan:
+pan:
+pan:
+panelmm:  panelmm-0.1
+panelmm:
+panelmm:  Panel--, A GTK-- wrapper for applet_widget.  This is a wrapper for
+panelmm:  the applet_widget component of GNOME for use with the GTK-- wrapper
+panelmm:  for GTK, the Gimp Toolkit and libgnomeui, the GNOME UI library.
+panelmm:
+panelmm:
+panelmm:
+panelmm:
+panelmm:
+panelmm:
+repgtk:   rep-gtk-0.15
+repgtk:
+repgtk:   This is a binding of GTK+ for the librep Lisp interpreter.
+repgtk:   librep and rep-gtk are used by the Sawfish window manager.
+repgtk:
+repgtk:
+repgtk:
+repgtk:
+repgtk:
+repgtk:
+repgtk:
+sawfish:  sawfish-0.38
+sawfish:
+sawfish:  This is an extensible window manager using a LISP-based scripting
+sawfish:  language--all window decorations are configurable, the basic idea is
+sawfish:  to have as much user-interface policy as possible controlled through
+sawfish:  the Lisp language.  Sawfish is the default window manager for GNOME.
+sawfish:
+sawfish:
+sawfish:
+sawfish:
+sawfish:
+scrollkp: scrollkeeper-0.2
+scrollkp:
+scrollkp: ScrollKeeper is a cataloging system for documentation. It manages
+scrollkp: documentation metadata as specified by the Open Source Metadata
+scrollkp: Framework (OMF) and provides a simple API to allow help browsers to
+scrollkp: find, sort, and search the document catalog. It will also be able to
+scrollkp: communicate with catalog servers on the Net to search for documents
+scrollkp: which are not on the local system.
+scrollkp:
+scrollkp:
+scrollkp:
+userdocs: gnome-user-docs-1.4.1
+userdocs:
+userdocs: This package contains the GNOME User's Guide, an introduction to
+userdocs: GNOME, and a basic UNIX primer.
+userdocs:
+userdocs:
+userdocs:
+userdocs:
+userdocs:
+userdocs:
+userdocs:
+wmaker:   WindowMaker-0.65.0
+wmaker:
+wmaker:   Window Maker is the GNU window manager for the X Window System. It
+wmaker:   was designed to emulate the look and feel of part of the NEXTSTEP(tm)
+wmaker:   GUI. It's supposed to be relatively fast and small, feature rich,
+wmaker:   easy to configure and easy to use, with a simple and elegant 
+wmaker:   appearance borrowed from NEXTSTEP(tm).  Window Maker was designed
+wmaker:   keeping integration with GNUstep in mind and is the "official" window
+wmaker:   manager for it.
+wmaker:
+wmaker:
+xalf:     xalf-0.12
+xalf:
+xalf:     This is a small utility to provide feedback when starting X11
+xalf:     applications.  Feedback can be given via four different indicators:
+xalf:     An invisible window (to be used in conjunction with a task pager like
+xalf:     Gnomes tasklist_applet or KDE Taskbar), an generic splashscreen, an
+xalf:     hourglass attached to the mouse cursor or an animated star.
+xalf:
+xalf:
+xalf:
+xalf:
+xchat:    xchat-1.6.4
+xchat:
+xchat:    X-Chat is yet another IRC client for the X Window System, using the
+xchat:    GTK+ toolkit. It is pretty easy to use compared to the other GTK+ IRC
+xchat:    clients and the interface is quite nicely designed.
+xchat:
+xchat:    A console version (xchat-text) is included.
+xchat:
+xchat:
+xchat:
+xchat:
+xmms:     xmms-1.2.5
+xmms:
+xmms:     XMMS is a cross-platform multimedia player.  Since it uses the WinAmp
+xmms:     GUI, it can use WinAmp skins. It can play audio formats such as mp3,
+xmms:     mod, s3m, and ogg.  It has support for input, output, general, and
+xmms:     visualization plugins.
+xmms:
+xmms:
+xmms:
+xmms:
+xmms:
+xscrsave: xscreensaver-3.32
+xscrsave:
+xscrsave: A modular screen saver and locker for the X Window System.  Highly
+xscrsave: customizable:  allows the use of any program that can draw on the
+xscrsave: root window as a display mode.  More than 100 display modes are
+xscrsave: included in this package.
+xscrsave:
+xscrsave:
+xscrsave:
+xscrsave:
+xscrsave:
+xvim:     X enabled version of vim-5.8
+xvim:
+xvim:     Vim is an almost compatible version of the UNIX editor vi.  Only the
+xvim:     'Q' command is missing (you don't need it).  Many new features have
+xvim:     been added: multi level undo, command line history, filename
+xvim:     completion, block operations, etc.
+xvim:
+xvim:
+xvim:
+xvim:
+xvim:

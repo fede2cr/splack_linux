@@ -1,0 +1,45 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+#item   ####description                                      ###on off ###
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING SOFTWARE FROM SERIES K (Linux kernel source)" \
+       --checklist "Please select the source code you wish to install \
+from series K. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the items you wish to install. \
+Press ENTER when you are \
+done." 12 70 2 \
+"linux" "Linux kernel source version 2.2.20pre2" "on" \
+"lnx245" "Linux kernel source version 2.4.5" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in linux lnx245
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in linux lnx245
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs

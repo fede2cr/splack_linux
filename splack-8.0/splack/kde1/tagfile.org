@@ -1,0 +1,83 @@
+# This is a Slackware Installation Tagfile.
+#
+# A backup copy called "tagfile.org" can be found on the same disk. You
+# should never edit the "tagfile.org" copy, only the one called "tagfile". Use
+# the "tagfile.org" only if you want to restore original installation defaults
+# by copying it over the top of "tagfile".
+#
+# It is used to automate software installation.
+# There are two labels that you can use: ADD and SKP.
+#
+# If the PROMPT option is used during installation, this file will be checked
+# to determine the installation default. First, all the lines beginning with
+# <package_name>:
+# will be extracted. Then, the last line in the extracted segment will be
+# checked for the flags ADD, REC, OPT and SKP.
+#
+# If ADD is found, then a priority of [required] will be displayed, and the
+# package will be automatically installed.
+#
+# If SKP is found, then a priority of [skip] will be displayed, and
+# the package will be automatically skipped.
+#
+# All other packages will be prompted for. There are two optional flags you
+# can use to change the package priority level shown when the user is
+# prompted: REC and OPT. If REC is found, the priority shown will be
+# [recommended], while if OPT is found, the user sees priority [optional].
+#
+# If no flags are found for a given package, the user is shown priority
+# [unknown], and is prompted for whether the package should be installed.
+#
+# If you mess this file up beyond recognition, just restore from "tagfile.org"
+#
+#
+htdig: ADD
+kde_i18n_ca: OPT
+kde_i18n_cs: OPT
+kde_i18n_da: OPT
+kde_i18n_de: OPT
+kde_i18n_el: OPT
+kde_i18n_eo: OPT
+kde_i18n_es: OPT
+kde_i18n_et: OPT
+kde_i18n_fi: OPT
+kde_i18n_fr: OPT
+kde_i18n_he: OPT
+kde_i18n_hu: OPT
+kde_i18n_is: OPT
+kde_i18n_it: OPT
+kde_i18n_ja: OPT
+kde_i18n_ko: OPT
+kde_i18n_lt: OPT
+kde_i18n_nl: OPT
+kde_i18n_no: OPT
+kde_i18n_no_NY: OPT
+kde_i18n_pl: OPT
+kde_i18n_pt: OPT
+kde_i18n_pt_BR: OPT
+kde_i18n_ro: OPT
+kde_i18n_ru: OPT
+kde_i18n_sk: OPT
+kde_i18n_sl: OPT
+kde_i18n_sr: OPT
+kde_i18n_sv: OPT
+kde_i18n_tr: OPT
+kde_i18n_uk: OPT
+kde_i18n_zh_CN: OPT
+kde_i18n_zh_TW: OPT
+kdeadmin: REC
+kdebase: ADD
+kdegames: OPT
+kdegraphics: OPT
+kdelibs: ADD
+kdemultimedia: OPT
+kdenetwork: REC
+kdepim: OPT
+kdesdk: OPT
+kdesupport: ADD
+kdetoys: OPT
+kdeutils: REC
+kdevelop: OPT
+kdoc: OPT
+koffice: OPT
+qt: ADD

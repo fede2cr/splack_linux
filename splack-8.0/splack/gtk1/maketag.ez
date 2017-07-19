@@ -1,0 +1,114 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES GTK (GTK/GNOME APPS)" \
+       --checklist "Please select the packages you wish to install \
+from series GTK. This series consists of the GNOME desktop environment \
+and other programs that use GTK+, such as GIMP.  Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the packages you wish to install. Recommended packages have \
+already been selected for you, but you may unselect them if you wish. \
+If you're planning to run GNOME, be careful not to unselect any required \
+packages marked with a (*). \
+Press ENTER when you are \
+done." 21 70 7 \
+"aaagnome" "* Prepares PATH and ld.so.conf for GNOME" "on" \
+"abi" "AbiWord Personal word processor" "on" \
+"audiofil" "* GNOME audio file format library" "on" \
+"bonobo" "* GNOME document handling library" "on" \
+"bugbuddy" "GNOME Desktop bug reporting tool" "on" \
+"control" "* The GNOME control center" "on" \
+"ee" "Electric Eyes image viewer" "on" \
+"enlight" "Enlightenment window manager" "on" \
+"eog" "Eye of GNOME image viewer" "on" \
+"esound" "* Enlightened Sound Daemon" "on" \
+"eterm" "* snazzy xterm replacement" "on" \
+"fnlib" "* color font rendering library" "on" \
+"gal" "GNOME Application Library (for Gnumeric)" "on" \
+"galeon" "A nimble GNOME web browser (needs Mozilla)" "on" \
+"gconf" "* handles the configuration database" "on" \
+"gdkpixbf" "* The GdkPixBuf library" "on" \
+"gdm" "GNOME Display Manager" "on" \
+"gedit" "text editor for GNOME" "on" \
+"gftp" "multithreaded FTP client" "on" \
+"ggv" "GNOME PostScript viewer" "on" \
+"ghex" "GNOME hex editor" "on" \
+"gimp" "GNU Image Manipulation Program" "on" \
+"gimplibs" "Additional libraries needed by GIMP" "on" \
+"gladedev" "Glade -- a GUI builder for Gtk" "off" \
+"glib" "* support library used by GTK+ and GNOME" "on" \
+"gmp" "* a library for arithmetic" "on" \
+"gnoadmin" "* GNOME system admin programs" "on" \
+"gnoaudio" "extra sound files for GNOME" "on" \
+"gnogames" "games for GNOME" "on" \
+"gnomapps" "* GNOME applets" "on" \
+"gnomcore" "* core programs for the GNOME GUI" "on" \
+"gnomedia" "GNOME multimedia programs" "on" \
+"gnomeicu" "clone of ICQ for GNOME" "on" \
+"gnomemm" "C++ interface for GnomeUI" "on" \
+"gnomenet" "* Network programs for GNOME" "on" \
+"gnomepim" "GNOME Personal Information Manager" "on" \
+"gnometop" "GNOME system monitor" "on" \
+"gnomevfs" "* GNOME virtual file system library" "on" \
+"gnomlibs" "* libraries needed by GNOME" "on" \
+"gnomobjc" "* GNOME Objective C libraries" "on" \
+"gnoprint" "* print related GNOME libraries" "on" \
+"gnotepad" "simple text editor" "on" \
+"gnoutils" "* Some utilities for GNOME" "on" \
+"gnpython" "GTK extension module for Python" "on" \
+"gnumeric" "GNOME spreadsheet program" "on" \
+"gqmpeg" "A GTK frontend for the mpg123 MP3 player" "on" \
+"gtkeng" "* graphical engines for GTK+ themes" "on" \
+"gtkhtml" "* HTML rendering/printing/editing engine" "on" \
+"gtkmm" "* GTK--, a C++ interface to GTK+" "on" \
+"gtkplus" "* GTK+ library for GIMP/GNOME" "on" \
+"gtm" "GNU Transfer Manager download program" "on" \
+"guile" "* extension language library" "on" \
+"imlib" "* image loading and rendering library" "on" \
+"libghttp" "* GNOME http client library" "on" \
+"libglade" "* user interface library" "on" \
+"libgtop" "* system information library" "on" \
+"libole2" "* library for handling OLE2 storage files" "on" \
+"librep" "* a lightweight Lisp environment" "on" \
+"libsigc" "* C++ library used by GNOME" "on" \
+"libungif" "* non-LZW GIF handling library" "on" \
+"libxml1" "* library for handling XML" "on" \
+"lunicode" "* library for Unicode characters" "on" \
+"mozilla" "* Mozilla web browser" "on" \
+"nautilus" "* an integrated file/web browser for GNOME" "on" \
+"oaf" "* object activation framework for GNOME" "on" \
+"orbit" "* CORBA ORB (object request broker)" "on" \
+"pan" "Pan newsreader (good for Reading News)" "on" \
+"panelmm" "* GTK-- wrapper for applet_widget" "on" \
+"repgtk" "* GTK+ binding for librep" "on" \
+"sawfish" "* default GNOME window manager" "on" \
+"scrollkp" "* Table Of Contents extraction utility" "on" \
+"userdocs" "Complete GNOME documentation" "on" \
+"wmaker" "GNU window manager for X" "on" \
+"xalf" "* provides feedback while apps are launched" "on" \
+"xchat" "IRC client for X" "on" \
+"xmms" "A great audio player app similar to WinAmp" "on" \
+"xscrsave" "screen saver and locker for X" "on" \
+"xvim" "X version of VIM editor" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+ rm -f $TMP/SeTpkgs
+ > $TMP/SeTnewtag
+ for pkg in aaagnome abi audiofil bonobo bugbuddy control ee enlight eog esound eterm fnlib gal galeon gconf gdkpixbf gdm gedit gftp ggv ghex gimp gimplibs gladedev glib gmp gnoadmin gnoaudio gnogames gnomapps gnomcore gnomedia gnomeicu gnomemm gnomenet gnomepim gnometop gnomevfs gnomlibs gnomobjc gnoprint gnotepad gnoutils gnpython gnumeric gqmpeg gtkeng gtkhtml gtkmm gtkplus gtm guile imlib libghttp libglade libgtop libole2 librep libsigc libungif libxml1 lunicode mozilla nautilus oaf orbit pan panelmm repgtk sawfish scrollkp userdocs wmaker xalf xchat xmms xscrsave xvim ; do
+  echo "$pkg: SKP" >> $TMP/SeTnewtag
+ done
+ exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in aaagnome abi audiofil bonobo bugbuddy control ee enlight eog esound eterm fnlib gal galeon gconf gdkpixbf gdm gedit gftp ggv ghex gimp gimplibs gladedev glib gmp gnoadmin gnoaudio gnogames gnomapps gnomcore gnomedia gnomeicu gnomemm gnomenet gnomepim gnometop gnomevfs gnomlibs gnomobjc gnoprint gnotepad gnoutils gnpython gnumeric gqmpeg gtkeng gtkhtml gtkmm gtkplus gtm guile imlib libghttp libglade libgtop libole2 librep libsigc libungif libxml1 lunicode mozilla nautilus oaf orbit pan panelmm repgtk sawfish scrollkp userdocs wmaker xalf xchat xmms xscrsave xvim ; do
+ if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+ else
+  echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+ fi
+done
+rm -f $TMP/SeTpkgs

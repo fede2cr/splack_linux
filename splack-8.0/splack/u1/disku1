@@ -1,0 +1,23 @@
+CONTENTS: afbinit egcs64
+afbinit: afbinit-1.1.1.1
+afbinit: 
+afbinit: Loads the afb.ucode file from Solaris. This is necessary for Elite3D
+afbinit: framebuffers. See /usr/doc/afbinit/README for more details.
+afbinit: 
+afbinit: 
+afbinit: 
+afbinit: 
+afbinit: 
+afbinit: 
+afbinit: 
+egcs64: GNU C compiler (64-bit version)
+egcs64: 
+egcs64: This is the "egcs64" compiler. It can only be used to build kernels on
+egcs64: Sun UltraSPARC (sun4u) based computers. It cannot build 64-bit
+egcs64: applications.
+egcs64: 
+egcs64: 
+egcs64: 
+egcs64: 
+egcs64: 
+egcs64: 

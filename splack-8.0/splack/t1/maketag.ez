@@ -1,0 +1,49 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES T (teTeX)" \
+       --checklist "Use this menu to select the packages you \
+wish to install for series T (The teTeX distribution of TeX). Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to \
+toggle packages on or off. RECOMMENDED and REQUIRED packages have \
+been preselected. REQUIRED packages have also been marked with a [*]. \
+Press ENTER when you are \
+done." 17 70 5 \
+"tetex" "teTeX base package *" "on" \
+"tex_bin" "teTeX binaries *" "on" \
+"tex_doc" "teTeX documentation" "on" \
+"transfig" "transfig (used by xfig)" "off" \
+"xfig" "drawing tool for LaTeX" "off" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in tetex tex_bin tex_doc transfig xfig
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in tetex tex_bin tex_doc transfig xfig
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs

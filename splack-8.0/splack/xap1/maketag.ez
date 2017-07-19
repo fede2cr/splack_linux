@@ -1,0 +1,69 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES XAP (X APPLICATIONS)" \
+       --checklist "Please select the packages you wish to install \
+from series XAP. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the packages you wish to install. Recommended packages have \
+already been selected for you, but you may unselect them if you wish. \
+Press ENTER when you are \
+done." 21 70 10 \
+"freefont" "Free fonts" "on" \
+"fvwm2" "FVWM window manager" "on" \
+"fvwmicons" "Color icons from xpm3icons.tar.Z" "on" \
+"fvwm95" "A Win95-like window manager for X" "on" \
+"gnuchess" "GNU chess and xboard" "on" \
+"gnuplot" "Gnuplot function plotting utility" "off" \
+"gs_x11" "Adds X11 driver to Ghostscript" "on" \
+"gv" ".ps/.pdf viewer based on Ghostview" "on" \
+"imagemagick" "ImageMagick image utilities" "on" \
+"rxvt" "Lightweight xterm alternative" "on" \
+"seyon" "A complete telecommunications package" "off" \
+"xfm" "xfm, a filemanager for X" "off" \
+"x3270" "x3270 - IBM host access tool" "off" \
+"xgames" "A collection of games for X" "on" \
+"xfractint" "Fractint for X" "on" \
+"xlockmore" "A screensaver/locker for X" "on" \
+"xpaint" "A color painting/image editing program" "off" \
+"xpdf" "Portable Document Format (PDF) viewer" "off" \
+"xspread" "A spreadsheet for X" "off" \
+"xv" "XV GIF/TIFF/JPEG/PostScript Image Viewer" "on" \
+"xxgdb" "X frontend for the GNU gdb debugger" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in freefont fvwm2 fvwmicons fvwm95 gnuchess gnuplot gs_x11 gv imagemagick \
+              rxvt seyon xfm x3270 xgames xfractint xlockmore xpaint xpdf \
+              xspread xv xxgdb
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in freefont fvwm2 fvwmicons fvwm95 gnuchess gnuplot gs_x11 gv imagemagick \
+               rxvt seyon xfm x3270 xgames xfractint xlockmore xpaint xpdf \
+               xspread xv xxgdb
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs
