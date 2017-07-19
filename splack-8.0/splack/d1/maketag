@@ -1,0 +1,87 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES D (PROGRAM DEVELOPMENT)" \
+       --checklist "Please select the packages you wish to install \
+from series D. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the packages you wish to install. Recommended packages have \
+already been selected for you, but you may unselect them if you wish. \
+Press ENTER when you are \
+done." 22 70 11 \
+"autoconf" "GNU source autoconfig system" "on" \
+"automake" "GNU makefile generator" "on" \
+"binutils" "GNU C compiler utilities" "on" \
+"bison" "GNU bison parser generator" "on" \
+"byacc" "Berkeley Yacc" "on" \
+"cvs" "Concurrent Versions System" "on" \
+"flex" "Fast lexical analyzer generator" "on" \
+"egcs" "GNU egcs-1.1.2 C compiler (for the kernel only)" "on" \
+"gcc" "GNU gcc-2.95.3 C/C++ compiler" "on" \
+"gcc_g77" "GNU Fortran-77 compiler (requires gcc)" "off" \
+"gcc_objc" "GNU Objective-C compiler (requires gcc)" "off" \
+"gdb" "The GNU debugger" "on" \
+"gdbm" "The GNU gdbm database library" "on" \
+"gettext" "GNU internationalization support package" "on" \
+"glibc" "Libraries for developing ELF binaries" "on" \
+"glocale" "Internationalization support for glibc" "off" \
+"gmake" "GNU make" "on" \
+"jpeg6" "JPEG image library and tools" "on" \
+"libgr" "Various graphics libraries and tools" "on" \
+"libpng" "Portable Network Graphics library" "on" \
+"libtiff" "Tag Image File format library" "on" \
+"libtool" "GNU libtool library support script" "on" \
+"lxinclude" "Linux kernel include files" "on" \
+"m4" "GNU m4 macro processor" "on" \
+"ncurses" "CRT screen handling package" "on" \
+"p2c" "A Pascal to C translator" "off" \
+"perl" "Larry Wall's systems language" "on" \
+"pmake" "Parallel make from BSD" "on" \
+"python" "An interpreted object-oriented language" "off" \
+"rcs" "GNU revision control system" "off" \
+"readline" "Input library with editing" "on" \
+"slang" "S-Lang interpreted language and library" "on" \
+"strace" "Traces program execution" "on" \
+"termcap" "GNU terminal control library" "on" \
+"zlib" "general purpose data compression library" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in autoconf automake binutils bison byacc cvs flex egcs \
+              gcc gcc_g77 gcc_objc gdb gdbm gettext glibc \
+              glocale gmake jpeg6 libgr libpng libtiff libtool lxinclude \
+              m4 ncurses p2c perl pmake python rcs readline slang \
+              strace termcap zlib
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in autoconf automake binutils bison byacc cvs flex egcs \
+               gcc gcc_g77 gcc_objc gdb gdbm gettext glibc \
+               glocale gmake jpeg6 libgr libpng libtiff libtool lxinclude \
+               m4 ncurses p2c perl pmake python rcs readline slang \
+               strace termcap zlib
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs

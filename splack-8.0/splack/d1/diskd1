@@ -1,0 +1,386 @@
+CONTENTS: autoconf automake binutils bison byacc cvs egcs flex gcc gcc_g77 gcc_objc gdb gdbm gettext glibc glocale gmake jpeg6 libgr libpng libtiff libtool lxinclude m4 ncurses p2c perl pmake python rcs readline slang strace termcap zlib
+autoconf: GNU autoconf 2.50
+autoconf: 
+autoconf: Autoconf is an extensible package of m4 macros that produce shell
+autoconf: scripts to automatically configure software source code packages.
+autoconf: These scripts can adapt the packages to many kinds of UNIX-like
+autoconf: systems without manual user intervention. Autoconf creates a
+autoconf: configuration script for a package from a template file that lists the
+autoconf: operating system features that the package can use, in the form of m4
+autoconf: macro calls.
+autoconf: You must install the "m4" package to be able to use autoconf.
+autoconf: 
+automake: GNU automake 1.4-p2
+automake: 
+automake: This is automake, a Makefile generator. It was inspired by the 4.4BSD
+automake: make and include files, but aims to be portable and to conform to the
+automake: GNU standards for Makefile variables and targets.
+automake: Automake is a Perl script. The input files are called Makefile.am.
+automake: The output files are called makefile.in; they are intended for use
+automake: with Autoconf. Automake requires certain things to be done in your
+automake: configure.in.
+automake: You must install the "m4" and "perl" packages to be able to use
+automake: automake.
+binutils: GNU binutils-2.10.1.0.4
+binutils: 
+binutils: Includes these development utilities:
+binutils: 
+binutils: addr2line ar as c++filt gasp gprof ld nm objcopy objdump ranlib
+binutils: size strings-GNU strip
+binutils: 
+binutils: These utilities are REQUIRED to compile C, C++, Objective-C,
+binutils: Fortran, and many other programming languages.
+binutils: 
+binutils: 
+bison: GNU bison-1.28
+bison: 
+bison: Bison is a parser generator in the style of yacc(1). It should be
+bison: upwardly compatible with input files designed for yacc.
+bison: 
+bison: 
+bison: 
+bison: 
+bison: 
+bison: 
+bison: 
+byacc: Berkeley Yacc
+byacc: 
+byacc: Berkeley Yacc is an LALR(1) parser generator. Berkeley Yacc
+byacc: has been made as compatible as possible with AT&T Yacc. Berkeley
+byacc: Yacc can accept any input specification that conforms to the AT&T
+byacc: Yacc documentation. Specifications that take advantage of
+byacc: undocumented features of AT&T Yacc will probably be rejected.
+byacc: If you skip this package and install GNU Bison, a /usr/bin/yacc
+byacc: shell script will be created which will allow you to use bison
+byacc: instead. (It contains 'bison -y ')
+byacc: 
+cvs: cvs-1.11.1p1 - Concurrent Versions System
+cvs: 
+cvs: CVS is a version control system, which allows you to keep old versions
+cvs: of files (usually source code), keep a log of who, when, and why
+cvs: changes occurred, etc., like RCS or SCCS. It handles multiple
+cvs: developers, multiple directories, triggers to enable/log/control
+cvs: various operations, and can work over a wide area network.
+cvs: 
+cvs: Some of the people who have worked on CVS include: Dick Grune,
+cvs: Brian Berliner, Jeff Polk, and others too numerous to mention.
+cvs: 
+egcs: The egcs-1.1.2 C compiler.
+egcs: 
+egcs: This package contains only the C compiler from egcs-1.1.2. The
+egcs: recommended compiler for the kernel is egcs 1.1.2 (gcc 2.91.66), and
+egcs: it should be used when you need absolute stability. You may use gcc
+egcs: instead if you wish, although it may cause problems. (Quoted from the
+egcs: 2.4 kernel source documentation) To use this, you'll also need to
+egcs: have gcc installed (for cpp). Do not use this compiler for non-kernel
+egcs: source code; it no longer works well with glibc's header files.
+egcs: 
+egcs: 
+flex: flex - fast lexical analyzer generator version 2.5.4a
+flex: 
+flex: flex is a tool for generating scanners: programs which recognize
+flex: lexical patterns in text.
+flex: 
+flex: 
+flex: 
+flex: 
+flex: 
+flex: 
+flex: 
+gcc: The GNU C and C++ compilers (gcc-2.95.3).
+gcc: 
+gcc: This package contains the GNU C and C++ compilers and libstdc++ from
+gcc: gcc-2.95.3. To compile, you'll also need (at least) these packages:
+gcc: binutils, gmake, glibc, and lxinclude
+gcc: 
+gcc: 
+gcc: 
+gcc: 
+gcc: 
+gcc: 
+gcc_g77: GNU Fortran-77 compiler from the gcc-2.95.3 release.
+gcc_g77: 
+gcc_g77: This package contains the GNU Fortran-77 compiler from gcc. To use
+gcc_g77: this compiler, you'll also need to install the gcc C/C++ compiler
+gcc_g77: package, binutils, gmake, glibc, and lxinclude.
+gcc_g77: 
+gcc_g77: 
+gcc_g77: 
+gcc_g77: 
+gcc_g77: 
+gcc_g77: 
+gcc_objc: GNU Objective-C compiler from the gcc-2.95.3 release.
+gcc_objc: 
+gcc_objc: This package contains the GNU Objective-C compiler from the gcc
+gcc_objc: release. To use this compiler, you'll also need to install the
+gcc_objc: gcc C/C++ compiler package, binutils, gmake, glibc, and lxinclude.
+gcc_objc: 
+gcc_objc: 
+gcc_objc: 
+gcc_objc: 
+gcc_objc: 
+gcc_objc: 
+gdb: The GNU debugger. (v. 5.0)
+gdb: 
+gdb: You can use GDB to debug programs written in C, C++, and Modula-2.
+gdb: GDB now includes support for GNU Fortran 77.
+gdb: 
+gdb: 
+gdb: 
+gdb: 
+gdb: 
+gdb: 
+gdb: 
+gdbm: GNU gdbm-1.8.0
+gdbm: 
+gdbm: GNU dbm is a set of database routines that work similar to the
+gdbm: standard UNIX dbm routines. (but better :)
+gdbm: 
+gdbm: 
+gdbm: 
+gdbm: 
+gdbm: 
+gdbm: 
+gdbm: 
+gettext: GNU gettext-0.10.38
+gettext: 
+gettext: The GNU gettext package is useful for authors and maintainers of
+gettext: internationalized software, or for anyone compiling programs that
+gettext: use it. GNU gettext provides the needed tools and library functions
+gettext: for the handling of messages in different languages. Some other GNU
+gettext: packages use the gettext program (included in this package) to
+gettext: internationalize the messages given by shell scripts.
+gettext: 
+gettext: 
+gettext: 
+glibc: GNU glibc-2.2.3
+glibc: 
+glibc: This package contains the GNU C libraries and header files. The GNU
+glibc: C library was written originally by Roland McGrath, and is currently
+glibc: maintained by Ulrich Drepper. Some parts of the library were
+glibc: contributed or worked on by other people. The BSD database libraries,
+glibc: no longer officially part of glibc, have been added back by Slackware.
+glibc: 
+glibc: You'll need this package to compile programs.
+glibc: 
+glibc: 
+glocale: locale files from glibc-2.2.3
+glocale: 
+glocale: These files go in /usr/lib/locale to provide internationalization
+glocale: support. You'll need this unless you will be using US English only.
+glocale: 
+glocale: 
+glocale: 
+glocale: 
+glocale: 
+glocale: 
+glocale: 
+gmake: GNU make-3.79.1
+gmake: 
+gmake: This is the GNU implementation of make, which was written by Richard
+gmake: Stallman and Roland McGrath. The purpose of the make utility is to
+gmake: determine automatically which pieces of a large program need to be
+gmake: recompiled, and issue the commands to recompile them.
+gmake: 
+gmake: This is needed to compile just about any major C program, including
+gmake: the Linux kernel.
+gmake: 
+gmake: 
+jpeg6: Independent JPEG Group's JPEG software version 6b
+jpeg6: 
+jpeg6: Software to implement JPEG image compression and decompression. JPEG
+jpeg6: (pronounced 'jay-peg') is a standardized compression method for
+jpeg6: full-color and gray-scale images. JPEG is intended for compressing
+jpeg6: 'real-world' scenes; cartoons and other non-realistic images are not
+jpeg6: its strong suit. JPEG is lossy, however, on typical images of
+jpeg6: real-world scenes, very good compression levels can be obtained with
+jpeg6: no visible change, and amazingly high compression levels are possible
+jpeg6: if you can tolerate a low-quality image.
+jpeg6: 
+libgr: libgr-2.0.13
+libgr: 
+libgr: Shared and static graphics-related ELF libraries and header files.
+libgr: 
+libgr: Includes several graphic libraries (libpbm, libpgm, libppm, libpnm,
+libgr: libfbm, librle), and a collection of graphics utilities.
+libgr: 
+libgr: 
+libgr: 
+libgr: 
+libgr: 
+libpng: libpng-1.0.11
+libpng: 
+libpng: PNG (Portable Network Graphics) is an extensible file format for the
+libpng: lossless, portable, well-compressed storage of raster images. PNG
+libpng: provides a patent-free replacement for GIF and can also replace many
+libpng: common uses of TIFF. Indexed-color, grayscale, and truecolor images
+libpng: are supported, plus an optional alpha channel. Sample depths range
+libpng: from 1 to 16 bits.
+libpng: 
+libpng: 
+libpng: 
+libtiff: libtiff-3.5.5
+libtiff: 
+libtiff: This library provides support for the Tag Image File Format (TIFF),
+libtiff: a widely used format for storing image data. A small assortment of
+libtiff: TIFF-related software for UNIX is also included.
+libtiff: 
+libtiff: 
+libtiff: 
+libtiff: 
+libtiff: 
+libtiff: 
+libtool: GNU libtool 1.4
+libtool: 
+libtool: This is GNU Libtool, a generic library support script. Libtool hides
+libtool: the complexity of using shared libraries behind a consistent, portable
+libtool: interface. To use libtool, add the new generic library building
+libtool: commands to your Makefile, Makefile.in, or Makefile.am. See the
+libtool: documentation for details.
+libtool: 
+libtool: You must install the "m4" package to be able to use libtool.
+libtool: 
+libtool: 
+lxinclude: Linux 2.2.19 kernel include files
+lxinclude: 
+lxinclude: These are the include files from the 2.2.19 Linux kernel. You'll
+lxinclude: need these to compile most system software for Linux.
+lxinclude: 
+lxinclude: 
+lxinclude: 
+lxinclude: 
+lxinclude: 
+lxinclude: 
+lxinclude: 
+m4: GNU m4 1.4
+m4: 
+m4: This is release 1.4 of GNU m4, a program which copies its input to
+m4: the output, expanding macros as it goes. m4 has built-in functions
+m4: for including named files, running Unix commands, doing integer
+m4: arithmetic, manipulating text in various ways, recursion, etc...
+m4: Macros can also be user-defined, and can take any number of arguments.
+m4: GNU 'm4' has been originally written by Rene Seindal, from Denmark.
+m4: 
+m4: 
+m4: 
+ncurses: ncurses-5.2
+ncurses: 
+ncurses: The ncurses (new curses) library is a free software emulation of
+ncurses: curses in System V Release 4.0, and more. It uses terminfo format,
+ncurses: supports pads and color and multiple highlights and forms characters
+ncurses: and function-key mapping, and has all the other SYSV-curses
+ncurses: enhancements over BSD curses.
+ncurses: 
+ncurses: 
+ncurses: 
+ncurses: 
+p2c: p2c-1.21alpha2
+p2c: 
+p2c: P2c is a tool for translating Pascal programs into C. The input
+p2c: consists of a set of source files in any of the following Pascal
+p2c: dialects: HP Pascal, Turbo/UCSD Pascal, DEC VAX Pascal, Oregon
+p2c: Software Pascal/2, Macintosh Programmer's Workshop Pascal,
+p2c: Sun/Berkeley Pascal, Texas Instruments Pascal, Apollo Domain Pascal.
+p2c: Modula-2 syntax is also supported. Output is a set of .c and .h
+p2c: files that comprise an equivalent program in any of several dialects
+p2c: of C.
+p2c: 
+perl: perl-5.6.1
+perl: 
+perl: Larry Wall's "Practical Extraction and Report Language". Perl is a
+perl: language optimized for scanning arbitrary text files, extracting
+perl: information from those text files, and printing reports based on that
+perl: information. It's also a good language for many system management
+perl: tasks. The language is intended to be practical (easy to use,
+perl: efficient, complete) rather than beautiful (tiny, elegant, minimal).
+perl: This package includes these additional modules: DBI, Data-ShowTable,
+perl: Getopt-Mixed, TermReadKey, MD5, and libnet.
+perl: 
+pmake: pmake-2.1.34
+pmake: 
+pmake: This is release 2.1 of PMake -- a parallel Make program originally
+pmake: written for the Sprite operating system, ported from BSD UNIX. This
+pmake: may be useful if you're going to port software with Makefiles designed
+pmake: for BSD. The binary is installed as /usr/bin/pmake.
+pmake: 
+pmake: PMake was written by Adam de Boor and Andreas Stolcke.
+pmake: 
+pmake: 
+pmake: 
+python: python-2.0
+python: 
+python: Python is an interpreted, interactive, object-oriented programming
+python: language that combines remarkable power with very clear syntax.
+python: Python's basic power can be extended with your own modules written in
+python: C or C++. Python is also adaptable as an extension language for
+python: existing applications.
+python: 
+python: 
+python: 
+python: 
+rcs: GNU revision control system. (v. 5.7)
+rcs: 
+rcs: RCS, the Revision Control System, manages multiple revisions of files.
+rcs: 
+rcs: RCS can store, retrieve, log, identify, and merge revisions. It is
+rcs: useful for files that are revised frequently, e.g. programs,
+rcs: documentation, graphics, and papers.
+rcs: 
+rcs: 
+rcs: 
+rcs: 
+readline: GNU readline-4.1
+readline: 
+readline: The Readline library provides a set of functions for use by
+readline: applications that allow users to edit command lines as they are typed
+readline: in. Both Emacs and vi editing modes are available. The Readline
+readline: library includes additional functions to maintain a list of previously
+readline: entered command lines, to recall and perhaps edit those lines, and
+readline: perform csh-like history expansion on previous commands.
+readline: 
+readline: 
+readline: 
+slang: slang-1.4.3
+slang: 
+slang: S-Lang is an interpreted language that was designed from the start
+slang: to be easily embedded into a program to provide it with a powerful
+slang: extension language. S-Lang is also a programmer's library that
+slang: permits a programmer to develop sophisticated platform-independent
+slang: software. In addition to providing the S-Lang extension language,
+slang: the library provides facilities for screen management, keymaps,
+slang: low-level terminal I/O, etc.
+slang: 
+slang: 
+strace: strace-4.2 - traces system calls and signals.
+strace: 
+strace: Strace allows you to trace the execution of a command. It runs the
+strace: specified command until it exits, intercepting signals and system
+strace: calls and dumping the information to the standard output.
+strace: 
+strace: 
+strace: 
+strace: 
+strace: 
+strace: 
+termcap: termcap-2.0.8
+termcap: 
+termcap: This is the GNU termcap library -- a library of C functions that
+termcap: enable programs to send control strings to terminals in a way
+termcap: independant of the terminal type. Most of this package is also
+termcap: distributed with GNU Emacs, but it is available in this separate
+termcap: distribution to make it easier to install as -ltermcap.
+termcap: 
+termcap: 
+termcap: 
+termcap: 
+zlib: zlib-1.1.3
+zlib: 
+zlib: zlib is a general purpose thread safe data compression library. The
+zlib: data format used by the zlib library is described by RFCs 1950 to
+zlib: 1952 in the files ftp://ds.internic.net/rfc/rfc1950.txt (zlib format)
+zlib: rfc1951.txt (deflate format) and rfc1952.txt (zlib format).
+zlib: 
+zlib: 
+zlib: 
+zlib: 
+zlib: 

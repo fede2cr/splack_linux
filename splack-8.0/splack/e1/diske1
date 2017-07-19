@@ -1,0 +1,67 @@
+CONTENTS: elisp emac_nox emacinfo emacleim emacmisc emacsbin
+elisp: Emacs lisp source files.
+elisp: 
+elisp: This package contains source code for the parts of Emacs that are
+elisp: written in Emacs Lisp. *.el files are Emacs Lisp source, and the
+elisp: corresponding *.elc files are byte-compiled versions.
+elisp: 
+elisp: The emacsbin package contains all of the *.el files that Emacs
+elisp: requires to run, but these are probably good to have if you've got
+elisp: the space on your hard drive.
+elisp: 
+elisp: 
+emac_nox: Emacs binary without X support.
+emac_nox: 
+emac_nox: A replacement /usr/bin/emacs binary that is not compiled with X11 menu
+emac_nox: support. This version of emacs is about 400K smaller than the full
+emac_nox: version of emacs, and is the same in every respect except for X11
+emac_nox: extensions. It can still run in an xterm or rxvt if you wish to run
+emac_nox: it under X, but it is mainly included for those folks who don't have X
+emac_nox: (or the X11, Xaw, and Xt shared libs) installed on their machines.
+emac_nox: You might want to remove the version that requires X if you install
+emac_nox: and use this one.
+emac_nox: 
+emacinfo: Info files for emacs-20.7
+emacinfo: 
+emacinfo: These gzipped info files go in /usr/info, providing online
+emacinfo: documentation for Emacs.
+emacinfo: 
+emacinfo: 
+emacinfo: 
+emacinfo: 
+emacinfo: 
+emacinfo: 
+emacinfo: 
+emacleim: leim-20.7 (Library of Emacs Input Method)
+emacleim: 
+emacleim: The leim package for Emacs provides input methods for many languages
+emacleim: including Chinese, Tibetan, Vietnamese, Thai, Korean, and more. It
+emacleim: also provides improved handling of many non-US keyboard layouts.
+emacleim: 
+emacleim: 
+emacleim: 
+emacleim: 
+emacleim: 
+emacleim: 
+emacmisc: Miscellaneous files for emacs-20.7.
+emacmisc: 
+emacmisc: This package contains the architecture-independent files used by or
+emacmisc: with Emacs. This includes various text files containing documentation
+emacmisc: for GNU Emacs, or of interest to Emacs users. These files are
+emacmisc: installed in /usr/share/emacs/20.7/etc/.
+emacmisc: 
+emacmisc: 
+emacmisc: 
+emacmisc: 
+emacmisc: 
+emacsbin: GNU Emacs 20.7
+emacsbin: 
+emacsbin: Base binaries and support files for the GNU Emacs editor/environment.
+emacsbin: This version supports X. If you do not have X installed, you will
+emacsbin: also have to install the replacement /usr/bin/emacs-20.7 that does not
+emacsbin: require the X11, Xaw, and Xt libraries from XFree86.
+emacsbin: 
+emacsbin: The emacs binary in this package was configured with these options:
+emacsbin:  sparc-slackware-linux --prefix=/usr --with-x11 --with-x-toolkit
+emacsbin:  --with-pop
+emacsbin: 

@@ -1,0 +1,50 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES TCL (Tcl/Tk/TclX)" \
+       --checklist "Please select the packages you wish to install \
+from series TCL. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the packages you wish to install. Recommended packages have \
+already been selected for you, but you may unselect them if you wish. \
+Press ENTER when you are \
+done." 17 70 6 \
+"tcl" "The TCL script language" "on" \
+"tk" "The TK toolkit for TCL" "on" \
+"tclx" "Extended Tcl" "on" \
+"tix" "Tix widget library for Tk" "on" \
+"expect" "A tool for automating interactive applications" "off" \
+"hfsutils" "Tools for reading/writing Macintosh volumes" "off" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -rf $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in tcl tk tclx tix expect hfsutils
+   do
+#      rpkg="`find_packcage $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in tcl tk tclx tix expect hfsutils
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs

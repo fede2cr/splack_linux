@@ -1,0 +1,97 @@
+#!/bin/sh
+find_package() { basename `/bin/ls -1 *.tgz | grep "^$1-"` .tgz; }
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]
+then
+   mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES N (NETWORK/NEWS/MAIL/UUCP)" \
+       --checklist "Please select the packages you wish to install \
+from series N. Use the \
+UP/DOWN keys to scroll through the list, and the SPACE key to select \
+the packages you wish to install. Recommended packages have \
+already been selected for you, but you may unselect them if you wish. \
+Press ENTER when you are \
+done." 22 70 11 \
+"apache" "Apache WWW (HTTP) server" "on" \
+"autofs" "Linux automounter" "on" \
+"bind" "Berkeley Internet Name Domain server" "on" \
+"bitchx" "Internet Relay Chat (IRC) client" "on" \
+"bootp" "Internet Bootstrap Protocol server" "off" \
+"dhcp" "DHCP client and server utilities" "on" \
+"dip" "Handles SLIP/CSLIP connections" "off" \
+"elm" "Menu-driven user mail program" "off" \
+"epic4" "EPIC4 Internet Relay Chat (IRC) client" "on" \
+"fetchmail" "fetchmail - get mail from POP/IMAP/ETRN servers" "on" \
+"imapd" "ipop3d/imapd remote mail access daemons" "off" \
+"inn" "InterNetNews news transport system" "on" \
+"ipchains" "Firewall configuration utility for 2.2" "on" \
+"iptables" "Firewall configuration utility for 2.4" "on" \
+"mailx" "The mailx mailer" "on" \
+"metamail" "Metamail multimedia mail extensions" "on" \
+"mod_php" "PHP scripting language for Apache" "off" \
+"mod_ssl" "OpenSSL-based SSL security for Apache" "off" \
+"mutt" "The Mutt E-Mail Client" "on" \
+"ncftp" "NcFTP file transfer utilities" "on" \
+"netatalk" "Print/file server for Apple Macs" "off" \
+"netpipes" "Network pipe utilities" "off" \
+"netwatch" "Ncurses network monitor" "on" \
+"nn_nntp" "The 'nn' news reader" "off" \
+"ntp" "Network Time Protocol" "off" \
+"lynx" "Text-based World Wide Web browser" "on" \
+"openssh" "OpenSSH Secure Shell" "on" \
+"openssl" "OpenSSL Secure Sockets Layer toolkit" "on" \
+"pine" "Pine menu-driven mail program" "on" \
+"ppp" "Point-to-point protocol" "on" \
+"procmail" "Mail delivery/filtering utility" "on" \
+"proftpd" "Professional File Transfer Protocol (FTP) daemon" "on" \
+"rdist" "Remote file distribution utility" "off" \
+"rsync" "Enhanced replacement for rcp" "off" \
+"samba" "SMB print/file server for Win95/NT LANs" "off" \
+"sendmail" "The sendmail mail transport agent" "on" \
+"smailcfg" "Extra configuration files for sendmail" "off" \
+"tcpdump" "Tool for dumping network packets" "on" \
+"tcpip1" "TCP/IP networking programs" "on" \
+"tin" "The 'tin' news reader" "on" \
+"trn" "A threaded news reader" "on" \
+"uucp" "Taylor UUCP 1.06.1 with HDB && Taylor configs" "off" \
+"wget" "WWW/FTP retrieval tool" "on" \
+"yptools" "NIS servers and clients" "off" \
+"ytalk" "Multi-user talk program" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]
+then
+   rm -f $TMP/SeTpkgs
+   > $TMP/SeTnewtag
+   for pkg in apache autofs bind bitchx bootp dhcp dip elm epic4 fetchmail \
+              imapd inn ipchains iptables mailx metamail mod_php mod_ssl \
+              mutt ncftp netatalk netpipes netwatch nn_nntp ntp lynx openssh \
+              openssl pine ppp procmail proftpd rdist rsync samba sendmail \
+              smailcfg tcpdump tcpip1 tin trn uucp wget yptools ytalk
+   do
+#      rpkg="`find_package $pkg`"
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$pkg: SKP" >> $TMP/SeTnewtag
+   done
+   exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in apache autofs bind bitchx bootp dhcp dip elm epic4 fetchmail \
+               imapd inn ipchains iptables mailx metamail mod_php mod_ssl \
+               mutt ncftp netatalk netpipes netwatch nn_nntp ntp lynx openssh \
+               openssl pine ppp procmail proftpd rdist rsync samba sendmail \
+               smailcfg tcpdump tcpip1 tin trn uucp wget yptools ytalk
+do
+#   rpkg="`find_package $PACKAGE`"
+   if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null
+   then
+#      echo "$rpkg: ADD" >> $TMP/SeTnewtag
+      echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+   else
+#      echo "$rpkg: SKP" >> $TMP/SeTnewtag
+      echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+   fi
+done
+rm -f $TMP/SeTpkgs

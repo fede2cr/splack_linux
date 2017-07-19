@@ -1,0 +1,67 @@
+CONTENTS: expect hfsutils tcl tclx tix tk
+expect: expect-5.32.1.
+expect: 
+expect: Expect is a program that talks to other interactive programs according
+expect: to a script. Following the script, Expect knows what can be expected
+expect: from a program and what the correct response should be. An
+expect: interpreted language provides branching and high-level control
+expect: structures to direct the dialogue.
+expect: 
+expect: Expect was written by Don Libes of the National Institute of Standards
+expect: and Technology.
+expect: 
+hfsutils: hfsutils-3.2.6.
+hfsutils: 
+hfsutils: hfsutils is a collection of tools for reading and writing Macintosh
+hfsutils: HFS volumes. These utilities can manipulate HFS volumes on nearly any
+hfsutils: medium. Since hfs and xhfs are linked with Tcl/Tk shared libraries,
+hfsutils: the hfsutils package is included here in the TCL software series.
+hfsutils: 
+hfsutils: hfsutils was written by Robert Leslie <rob@mars.org>
+hfsutils: 
+hfsutils: 
+hfsutils: 
+tcl: The Tcl script language, version 8.3.3.
+tcl: 
+tcl: Tcl, developed by Dr. John Ousterhout, is a simple to use text-based
+tcl: script language with many built-in features which make it especially
+tcl: nice for writing interactive scripts.
+tcl: 
+tcl: 
+tcl: 
+tcl: 
+tcl: 
+tcl: 
+tclx: Extended Tcl (TclX) 8.3.
+tclx: 
+tclx: Extended Tcl (TclX), is a set of extensions to Tcl 8.x.x, the Tool
+tclx: Command Language invented by Dr. John Ousterhout. Extended Tcl is
+tclx: oriented towards Unix system programming tasks and large application
+tclx: development. Many additional interfaces to the Unix operating system
+tclx: are provided. Extended Tcl was designed and implemented by Karl
+tclx: Lehenbauer (karl@NeoSoft.com) and Mark Diekhans (markd@Grizzly.com),
+tclx: with help in the early stages from Peter da Silva (peter@NeoSoft.com).
+tclx: 
+tclx: 
+tix: Tix4.1.0.006.
+tix: 
+tix: The Tix library is an extension to the Tk toolkit that contains over
+tix: 40 new widgets for Tk. Highlights include: Hierarchical Listbox,
+tix: Directory List/Tree View, SpreadSheet, Tabular Listbox, ComboBox,
+tix: Motif style FileSelectBox, MS Windows style FileSelectBox,
+tix: PanedWindow, NoteBook, Spin Control widget, and many more. With these
+tix: new widgets, your applications will look great and interact with your
+tix: users in intuitive ways.
+tix: 
+tix: 
+tk: The Tk toolkit for Tcl, version 8.3.3.
+tk: 
+tk: Tk is an extension to Tcl that allows you to quickly and easily build
+tk: X11 applications that have the look and feel of Motif apps.
+tk: 
+tk: 
+tk: 
+tk: 
+tk: 
+tk: 
+tk: 

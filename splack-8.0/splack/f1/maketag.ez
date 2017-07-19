@@ -1,0 +1,33 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES F (FAQS/DOCS)" \
+       --checklist "Please select the packages you wish to install \
+from series F. \
+Press ENTER when you are \
+done." 11 70 3 \
+"manyfaqs" "Lots of Linux documentation" "on" \
+"howto" "HOWTOs from the Linux Doc Project" "on" \
+"mini"  "Linux mini-HOWTOs on a variety of tasks" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+ rm -f $TMP/SeTpkgs
+ > $TMP/SeTnewtag
+ for pkg in howto manyfaqs mini ; do
+  echo "$pkg: SKP" >> $TMP/SeTnewtag
+ done
+ exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in manyfaqs mini howto ; do
+ if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+ else
+  echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+ fi
+done
+rm -f $TMP/SeTpkgs

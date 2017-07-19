@@ -1,0 +1,496 @@
+CONTENTS: apache autofs bind bitchx bootp dhcp dip elm epic4 fetchmail imapd inn ipchains iptables lynx mailx metamail mod_php mod_ssl mutt ncftp netatalk netpipes netwatch nn_nntp ntp openssh openssl pine ppp procmail proftpd rdist rsync samba sendmail smailcfg tcpdump tcpip1 tin trn uucp wget yptools ytalk
+apache: Apache WWW server v 1.3.20
+apache: 
+apache: Apache is an HTTP server designed as a plug-in replacement for the
+apache: NCSA HTTP server. It fixes numerous bugs in the NCSA server and
+apache: includes many frequently requested new features, and has an API which
+apache: allows it to be extended to meet users' needs more easily.
+apache: 
+apache: Apache is the most popular web server in the known universe; over
+apache: half of the servers on the Internet are running Apache or one of
+apache: its variants.
+apache: 
+autofs: autofs-3.1.7
+autofs: 
+autofs: autofs is a kernel-based automounter for Linux. It performs a job
+autofs: similar to amd(8) but relies on a small stub of kernel code instead of
+autofs: pretending to be an NFS server. The result is simpler code, better
+autofs: reliability, and much faster operation in the common case (everything
+autofs: already mounted.)
+autofs: 
+autofs: 
+autofs: 
+autofs: 
+bind: bind-9.1.2
+bind: 
+bind: The named daemon and support utilities such as dig, host, and
+bind: nslookup. Sample configuration files for running a simple caching
+bind: nameserver are included. Documentation for advanced name server
+bind: setup can be found in /usr/doc/bind-9.1.2/.
+bind: 
+bind: 
+bind: 
+bind: 
+bind: 
+bitchx: BitchX-1.0c18
+bitchx: 
+bitchx: BitchX is an advanced Internet Relay Chat (IRC) client.
+bitchx: 
+bitchx: 
+bitchx: 
+bitchx: 
+bitchx: 
+bitchx: 
+bitchx: 
+bitchx: 
+bootp: bootp-DD2.4.3
+bootp: 
+bootp: This is an enhanced version of the CMU BOOTP server which was derived
+bootp: from the original BOOTP server created by Bill Croft at Stanford.
+bootp: This version merges all the enhancements and bug-fixes from the
+bootp: NetBSD, Columbia, and other versions.
+bootp: 
+bootp: 
+bootp: 
+bootp: 
+bootp: 
+dhcp: dhcp-2.0pl5, dhcpcd-1.3.20-pl0
+dhcp: 
+dhcp: This package provides DHCP utilities for Linux, including both
+dhcp: servers and clients. The DHCP protocol allows a host to contact a
+dhcp: central server which maintains a list of IP addresses which may be
+dhcp: assigned on one or more subnets. A DHCP client may request an
+dhcp: address from this pool, and then use it temporarily for communication
+dhcp: on the network. The DHCP protocol also provides a mechanism whereby
+dhcp: a client can learn important details about the network to which it is
+dhcp: attached, such as the location of a default router or name server.
+dhcp: 
+dip: DIP - dialup IP connection handler 3.3.7p
+dip: 
+dip: Uri Blumenthal's version of Fred N. van Kempen's DIP utility. DIP
+dip: handles the connections needed for dialup IP links, like SLIP or
+dip: CSLIP. It can handle both incoming and outgoing connections, using
+dip: password security for incoming connections.
+dip: 
+dip: 
+dip: 
+dip: 
+dip: 
+elm: Menu-driven user mail program. (v. 2.5.3)
+elm: 
+elm: Elm is an interactive screen-oriented mailer program originally
+elm: written by Dave Taylor, and continued by the Elm Development Group.
+elm: 
+elm: 
+elm: 
+elm: 
+elm: 
+elm: 
+elm: 
+epic4: epic4-1.0
+epic4: 
+epic4: EPIC is the (E)nhanced (P)rogrammable (I)RC-II (C)lient.
+epic4: 
+epic4: The EPIC home page is: http://www.epicsol.org/
+epic4: The EPIC main ftp site is: ftp://ftp.epicsol.org/
+epic4: The EPIC IRC channel is: #epic on EFNet
+epic4: 
+epic4: 
+epic4: 
+epic4: 
+fetchmail: fetchmail-5.8.1
+fetchmail: 
+fetchmail: fetchmail is a mail-retrieval and forwarding utility. It fetches
+fetchmail: mail from a POP, IMAP, or ETRN-capable remote mailserver and forwards
+fetchmail: it to your local (client) machine's delivery system. You can then
+fetchmail: handle the retrieved mail using normal mail user agents such as elm,
+fetchmail: pine, or Mail. The fetchmail utility can be run in a daemon mode to
+fetchmail: repeatedly poll one or more systems at a specified interval.
+fetchmail: 
+fetchmail: 
+fetchmail: 
+imapd: imapd (IMAP4rev1 2000.287 from pine4.33)
+imapd: 
+imapd: /sbin/ipop3d and /sbin/imapd are servers supporting the POP3 and
+imapd: IMAP remote mail access protocols. They allow users to download
+imapd: mail from your Linux system for remote viewing.
+imapd: 
+imapd: 
+imapd: 
+imapd: 
+imapd: 
+imapd: 
+inn: inn-2.3.2
+inn: 
+inn: Rich Salz's InterNetNews news transport system. The core part of the
+inn: package is a single long-running daemon that handles all incoming NNTP
+inn: connections. It files the articles and arranges for them to be
+inn: forwarded to downstream sites.
+inn: 
+inn: 
+inn: 
+inn: 
+inn: 
+ipchains: ipchains-1.3.10, ipmasqadm-0.4.2
+ipchains: 
+ipchains: These are tools for setting up a firewall or masquerading with a
+ipchains: 2.2.x Linux kernel.
+ipchains: 
+ipchains: 
+ipchains: 
+ipchains: 
+ipchains: 
+ipchains: 
+ipchains: 
+iptables: iptables-1.2.2
+iptables: 
+iptables: iptables is a packet filter administration tool for Linux 2.4,
+iptables: replacing the ipchains tool that was used with the 2.2 kernel. The
+iptables: iptables tool is used to set up, maintain, and inspect the tables of
+iptables: IP packet filter rules in the Linux kernel for packet filtering,
+iptables: firewalling, and NAT (Network Address Translation).
+iptables: 
+iptables: If you plan to set up a firewall with Linux 2.4, you'll need this.
+iptables: 
+iptables: 
+lynx: Lynx 2.8.3rel.1
+lynx: 
+lynx: Lynx is a distributed hypertext browser with full World Wide Web
+lynx: capabilities. Lynx can be used to access information on the World
+lynx: Wide Web, or to build information systems intended primarily for local
+lynx: access. For example, Lynx has been used to build several Campus Wide
+lynx: Information Systems (CWIS).
+lynx: 
+lynx: Lynx's authors include Lou Montulli, Garrett Blythe, Craig Lavender,
+lynx: Michael Grobe, and Charles Rezac.
+lynx: 
+mailx: BSD mailx 8.1.1-10
+mailx: 
+mailx: Mail is a intelligent mail processing system, which has a command
+mailx: syntax reminiscent of ed with lines replaced by messages. It's small;
+mailx: it's the standard; it's a good thing to install if you're going to use
+mailx: mail.
+mailx: 
+mailx: 
+mailx: 
+mailx: 
+mailx: 
+metamail: metamail-2.7
+metamail: 
+metamail: Metamail is an implementation of MIME, the Multipurpose Internet
+metamail: Mail Extensions, a proposed standard for multimedia mail on the
+metamail: Internet. Metamail implements MIME, and also implements extensibility
+metamail: and configuration via the mailcap mechanism described in an
+metamail: informational RFC that is a companion to the MIME document.
+metamail: 
+metamail: 
+metamail: 
+metamail: 
+mod_php: php-4.0.5
+mod_php: 
+mod_php: PHP is an HTML-embedded scripting language. It shares syntax
+mod_php: characteristics with C, Java, and Perl. The primary objective
+mod_php: behind this language is to make a fast and easy-to-use scripting
+mod_php: language for dynamic web sites.
+mod_php: 
+mod_php: More information can be found online at http://www.php.net/
+mod_php: 
+mod_php: 
+mod_php: 
+mod_ssl: mod_ssl-2.8.4-1.3.20
+mod_ssl: 
+mod_ssl: mod_ssl provides provides strong cryptography for the Apache web
+mod_ssl: server via the Secure Sockets Layer (SSL v2/v3) and Transport Layer
+mod_ssl: Security (TLS v1). It is based on OpenSSL and provides support for
+mod_ssl: all major security needs through HTTP.
+mod_ssl: 
+mod_ssl: mod_ssl is written by Ralf S. Engelschall
+mod_ssl: 
+mod_ssl: 
+mod_ssl: 
+mutt: mutt-1.2.5i
+mutt: 
+mutt: Mutt is a small but very powerful text-based MIME mail client. Mutt
+mutt: is highly configurable, and is well suited to the mail power user with
+mutt: advanced features like key bindings, keyboard macros, mail threading,
+mutt: regular expression searches and a powerful pattern matching language
+mutt: for selecting groups of messages.
+mutt: 
+mutt: 
+mutt: 
+mutt: 
+ncftp: ncftp-2.4.3, ncftp-3.0.2
+ncftp: 
+ncftp: NcFTP is a user interface to the Internet standard File Transfer
+ncftp: Protocol. This program allows a user to transfer files to and from a
+ncftp: remote network site, and offers additional features that are not found
+ncftp: in the standard interface for ftp.
+ncftp: 
+ncftp: 
+ncftp: 
+ncftp: 
+ncftp: 
+netatalk: netatalk-1.4b2+asun2.1.3
+netatalk: 
+netatalk: Netatalk is an Appletalk file and print server for Linux. Using
+netatalk: Netatalk, Macintosh computers on your local network can mount Linux
+netatalk: volumes as if they were standard Appletalk network drives, and can
+netatalk: print to the Linux box's printer as if it were a network printer
+netatalk: supporting PostScript.
+netatalk: 
+netatalk: Netatalk is brought to you by our friends at The Research Systems
+netatalk: Unix Group, The University of Michigan. <netatalk@umich.edu>
+netatalk: 
+netpipes: netpipes 4.2
+netpipes: 
+netpipes: Robert Forsman's netpipes package makes TCP/IP streams usable in shell
+netpipes: scripts. It can also simplify client/server code by allowing the
+netpipes: programmer to skip all the tedious programming bits related to sockets
+netpipes: and concentrate on writing a filter/service. Here's an example of
+netpipes: what you can do with 'faucet' and 'hose', two netpipes commands:
+netpipes: 
+netpipes: server$ faucet 3000 -out tar cf - .
+netpipes: client$ hose server 3000 -in tar xvf -
+netpipes: 
+netwatch: netwatch-0.9g
+netwatch: 
+netwatch: Netwatch allows a user (superuser) to monitor activity on the network.
+netwatch: The monitor includes statistics on transmitted and received packets,
+netwatch: bytes, protocol, and more.
+netwatch: 
+netwatch: 
+netwatch: 
+netwatch: 
+netwatch: 
+netwatch: 
+nn_nntp: nn-6.5.1 compiled to use NNTP.
+nn_nntp: 
+nn_nntp: nn is an easy to use menu driven newsreader by Kim F. Storm.
+nn_nntp: 
+nn_nntp: nn stands for "No News is good news", and the nn newsreader is
+nn_nntp: designed to let you minimize the amount of time you spend reading news
+nn_nntp: (or, more realistically, to let you to read even more newsgroups :-).
+nn_nntp: This version of nn reads news from a news server via NNTP, and can
+nn_nntp: make use of your NNTP server's NOV database.
+nn_nntp: 
+nn_nntp: 
+ntp: ntp-4.0.99k23
+ntp: 
+ntp: The Network Time Protocol (NTP) is used to synchronize the time of a
+ntp: computer client or server to another server or reference time source,
+ntp: such as a radio or satellite receiver or modem. It provides client
+ntp: accuracies typically within a millisecond on LANs and up to a few tens
+ntp: of milliseconds on WANs relative to a primary server synchronized to
+ntp: Coordinated Universal Time (UTC) via a Global Positioning Service
+ntp: (GPS) receiver, for example.
+ntp: 
+ntp: 
+openssh: openssh-2.9p1
+openssh: 
+openssh: ssh (Secure Shell) is a program for logging into a remote machine and
+openssh: for executing commands on a remote machine. It is intended to replace
+openssh: rlogin and rsh, and provide secure encrypted communications between
+openssh: two untrusted hosts over an insecure network.
+openssh: 
+openssh: OpenSSH is based on the last free version of Tatu Ylonen's SSH,
+openssh: further enhanced and cleaned up by Aaron Campbell, Bob Beck, Markus
+openssh: Friedl, Niels Provos, Theo de Raadt, and Dug Song.
+openssh: It has a homepage at http://www.openssh.com/
+openssl: openssl-0.9.6a
+openssl: 
+openssl: The openssl certificate management tool and the shared libraries that
+openssl: provide various encryption and decription algorithms and protocols.
+openssl: 
+openssl: This product includes software developed by the OpenSSL Project for
+openssl: use in the OpenSSL Toolkit (http://www.openssl.org). This product
+openssl: includes cryptographic software written by Eric Young
+openssl: (eay@cryptsoft.com). This product includes software written by Tim
+openssl: Hudson (tjh@cryptsoft.com).
+openssl: 
+pine: Pine version 4.33
+pine: 
+pine: A menu driven user mail program. Originally based on Elm (Pine Is
+pine: No-longer Elm), but with many additional features that make it
+pine: easier to use. Also contains pilot (a simple file manager) and
+pine: pico (an easy to use text editor).
+pine: 
+pine: 
+pine: 
+pine: 
+pine: 
+ppp: PPP for Linux, version 2.4.1
+ppp: 
+ppp: PPP for Linux -- Michael Callahan's ppp.c kernel driver and the pppd
+ppp: daemon (ported by Al Longyear). Linux PPP support is included as a
+ppp: loadable module in the vmlinux package. This package also contains
+ppp: pppsetup, an easy-to-use, user-friendly utility for setting up your
+ppp: PPP daemon.
+ppp: 
+ppp: 
+ppp: 
+ppp: 
+procmail: The procmail mail processing program. (v3.15.1 2001/01/08)
+procmail: 
+procmail: Can be used to create mail-servers, mailing lists, sort your incoming
+procmail: mail into separate folders/files (real convenient when subscribing to
+procmail: one or more mailing lists or for prioritising your mail), preprocess
+procmail: your mail, start any programs upon mail arrival (e.g. to generate
+procmail: different chimes on your workstation for different types of mail) or
+procmail: selectively forward certain incoming mail automatically to someone.
+procmail: 
+procmail: The author of procmail is Stephen R. van den Berg.
+procmail: 
+proftpd: proftpd-1.2.2rc3
+proftpd: 
+proftpd: ProFTPD is the Professional File Transfer Protocol (FTP) server
+proftpd: daemon. ProFTPD grew out of the desire to have a secure and
+proftpd: configurable FTP server, and out of a significant admiration of the
+proftpd: Apache web server. ProFTPD powers major sites like ftp.kernel.org.
+proftpd: 
+proftpd: 
+proftpd: 
+proftpd: 
+proftpd: 
+rdist: rdist-6.1.5.
+rdist: 
+rdist: Rdist is a remote file distribution program. It is used to maintain
+rdist: identical copies of files over multiple network hosts. It preserves
+rdist: the owner, group, mode, and mtime of files if possible and can update
+rdist: programs that are executing.
+rdist: 
+rdist: 
+rdist: 
+rdist: 
+rdist: 
+rsync: rsync-2.4.6
+rsync: 
+rsync: rsync is a replacement for rcp that has many more features. It
+rsync: uses the "rsync algorithm" which provides a very fast method for
+rsync: bringing remote files into sync. It does this by sending just the
+rsync: differences in the files across the link, without requiring that both
+rsync: sets of files are present at one of the ends of the link beforehand.
+rsync: 
+rsync: rsync was written by Andrew Tridgell and Paul Mackerras.
+rsync: 
+rsync: 
+samba: Samba 2.2.0
+samba: 
+samba: Samba is a Unix based SMB file and print server. This allows a Unix
+samba: host to act as a file and print server for SMB clients. This includes
+samba: Lan-Manager compatible clients such as LanManager for DOS, Windows
+samba: 95/98/NT/2000, OS/2, Pathworks and many more. If you have any PCs
+samba: running SMB clients, such as a PC running Windows98, then you can
+samba: mount file space or printers from a Linux host, so that directories,
+samba: files and printers on the Linux host are available on the Windows PC.
+samba: 
+samba: 
+sendmail: sendmail 8.11.3.
+sendmail: 
+sendmail: Eric Allman's mail transport agent. The _Unix System Administration
+sendmail: Handbook_ calls sendmail 'The most complex and complete mail delivery
+sendmail: system in common use...'
+sendmail: 
+sendmail: Ready-made configuration files are included for systems connected by
+sendmail: TCP/IP (with or without a nameserver) and for systems using UUCP.
+sendmail: 
+sendmail: procmail is included as a local mail agent.
+sendmail: 
+smailcfg: Configuration files for sendmail.
+smailcfg: 
+smailcfg: These files are used to create sendmail.cf configuration files. The
+smailcfg: m4 macro processor (on the D series of disks) is also required in
+smailcfg: order to make use of these files.
+smailcfg: 
+smailcfg: These files and the documentation in /usr/src/sendmail should make it
+smailcfg: possible to support virtually any mail configuration. NOTE: you
+smailcfg: probably won't need this package if you're planning to use one of the
+smailcfg: sendmail.cf samples included in the sendmail package.
+smailcfg: 
+tcpdump: tcpdump-3.6.1
+tcpdump: 
+tcpdump: Tcpdump is a tool for network monitoring and data acquisition. You
+tcpdump: can use it to dump information on all the packets on a network that
+tcpdump: match a boolean expression. Tcpdump uses libpcap, a system-
+tcpdump: independent interface for user-level packet capture. libpcap-0.5.2
+tcpdump: is included with this package.
+tcpdump: 
+tcpdump: 
+tcpdump: 
+tcpdump: 
+tcpip1: TCP/IP networking programs and support files.
+tcpip1: 
+tcpip1: This a basic set of TCP/IP utilities for Linux. Some of these were
+tcpip1: written from scratch and some were ported from various sources
+tcpip1: including BSD. The code was written and ported by Florian La Roche,
+tcpip1: Alan Cox, Fred N. van Kempen, Donald J. Becker, Rick Sladkey,
+tcpip1: Mark Shand, Orest Zborowski, Johannes Stille, Linus Torvalds,
+tcpip1: David A. Holland, Olaf Kirch, and others.
+tcpip1: 
+tcpip1: 
+tcpip1: 
+tin: tin-1.5.8
+tin: 
+tin: Tin is a full-screen, easy-to-use Netnews reader. It can read news
+tin: locally (i.e. /var/spool/news) or remotely (rtin or tin -r option)
+tin: via a NNTP (Network News Transport Protocol) server. It will
+tin: automatically utilize NOV (news overview) style index files if
+tin: available locally or via the nntp xover command.
+tin: 
+tin: Tin was written by Iain Lea <iain@ecrc.de> and is currently
+tin: maintained by Urs Janssen <urs@tin.org>.
+tin: 
+trn: A threaded news reader for reading a remote NNTP server. (v. 3.5)
+trn: 
+trn: Compiled to use Overviews or mthreads, and to read news through your
+trn: NNTP server. Be sure to set NNTPSERVER in your /etc/profile or
+trn: /etc/csh.login.
+trn: 
+trn: 
+trn: 
+trn: 
+trn: 
+trn: 
+uucp: Taylor UUCP version 1.06.2
+uucp: 
+uucp: Ian Taylor's Unix to Unix copy: mail and news over modem lines.
+uucp: This is the standard UUCP package of the Free Software Foundation.
+uucp: 
+uucp: Configured to use HoneyDanBer and/or Taylor configuration files.
+uucp: 
+uucp: 
+uucp: 
+uucp: 
+uucp: 
+wget: wget-1.6
+wget: 
+wget: GNU Wget is a free network utility to retrieve files from the
+wget: World Wide Web using HTTP and FTP, the two most widely used Internet
+wget: protocols. It works non-interactively, thus enabling work in the
+wget: background after having logged off.
+wget: 
+wget: The author of Wget is Hrvoje Niksic <hniksic@srce.hr>.
+wget: 
+wget: 
+wget: 
+yptools: NIS servers and clients
+yptools: 
+yptools: NIS stands for Network Information Service. NIS is usually used to
+yptools: provide /etc/passwd and /etc/group information throughout the network.
+yptools: Most Sun-based networks run NIS, and Linux machines can take full
+yptools: advantage of existing NIS service or provide NIS service themselves.
+yptools: 
+yptools: 
+yptools: 
+yptools: 
+yptools: 
+ytalk: ytalk-3.1.1
+ytalk: 
+ytalk: YTalk is a compatible replacement for the Unix talk(1) program. Unlike
+ytalk: the original, ytalk can talk to more than one person at a time.
+ytalk: 
+ytalk: 
+ytalk: 
+ytalk: 
+ytalk: 
+ytalk: 
+ytalk: 
