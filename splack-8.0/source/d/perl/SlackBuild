@@ -1,0 +1,159 @@
+#!/bin/sh
+# Build and install Perl on Slackware
+# by:  David Cantrell <david@slackware.com>
+#
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-perl
+
+ARCH=sparc
+
+PERL_VER=5.6.1
+DBI_VER=1.15
+DATASHOWTABLE_VER=3.3
+GETOPT_MIXED_VER=1.008
+MD5_VER=1.7
+TERMREADKEY_VER=2.14
+LIBNET_VER=1.0703
+VERSION=$PERL_VER
+
+
+# Extract the sources
+cd $TMP
+tar xvzf $CWD/perl-$VERSION.tar.gz
+tar xvzf $CWD/DBI-$DBI_VER.tar.gz
+tar xvzf $CWD/Data-ShowTable-$DATASHOWTABLE_VER.tar.gz
+tar xvzf $CWD/Getopt-Mixed-$GETOPT_MIXED_VER.tar.gz
+tar xvzf $CWD/MD5-$MD5_VER.tar.gz
+tar xvzf $CWD/TermReadKey-$TERMREADKEY_VER.tar.gz
+tar xvzf $CWD/libnet-$LIBNET_VER.tar.gz
+
+# It is often suggested that we add this to the ./Configure:
+#            -Dusethreads \
+# However, this option is considered experimental, and is not
+# recommended for production systems.  As such, we can't add
+# to our default perl build.  If you want the option anyway,
+# just add it below and rebuild perl.
+
+# Configure the source tree
+cd $TMP/perl-$VERSION
+./Configure -de \
+            -Dprefix=/usr \
+            -Darchname=sparc-linux \
+            -Dprivlib=/usr/lib/perl5 \
+            -Darchlib=/usr/lib/perl5/sparc-linux \
+            -Dsitelib=/usr/lib/perl5/site_perl \
+            -Dinstallprefix=$PKG/usr \
+            -Dsitearch=/usr/lib/perl5/site_perl/sparc-linux
+cd $TMP
+cp -a perl-$VERSION perl-$VERSION-suid
+
+# Build perl
+cd $TMP/perl-$VERSION
+make
+make test 
+
+# Build suidperl
+cd $TMP/perl-$VERSION-suid
+make suidperl
+
+# Install perl
+cd $TMP/perl-$VERSION
+make install
+# Ryan: According to perl-5.6.1/INSTALL we need to do this...
+(cd $PKG/usr/lib/perl5/sparc-linux
+ cat Config.pm | sed "s*$PKG**" > Config.temp
+ mv Config.temp Config.pm
+ cat .packlist | sed "s*$PKG**" > .packlist.temp
+ mv .packlist.temp .packlist
+)
+
+
+# Install suidperl
+cd $TMP/perl-$VERSION-suid
+cp suidperl $PKG/usr/bin/suidperl$VERSION
+chmod 4711 $PKG/usr/bin/suidperl$VERSION
+
+# Symlinks
+( cd $PKG/usr/bin
+  ln -sf perl$VERSION perl
+  ln -sf suidperl$VERSION suidperl
+  ln -sf c2ph pstruct )
+
+# Install documentation
+cd $TMP/perl-$VERSION
+mkdir -p $PKG/usr/doc/perl-$VERSION
+cp -a AUTHORS Artistic Copying INSTALL MAINTAIN MANIFEST README \
+   README.Y2K README.threads Todo Todo-5.6 $PKG/usr/doc/perl-$VERSION
+
+
+# Ryan: Perl is needed to install these modules
+PATH=$PKG/usr/bin:$PATH
+
+# Make and install the DBI module and docs
+cd $TMP/DBI-$DBI_VER
+perl ./Makefile.PL
+make
+make test 
+make PREFIX=$PKG/usr pure_install
+mkdir -p $PKG/usr/doc/perl-$VERSION/DBI-$DBI_VER
+cp -a MANIFEST README ToDo $PKG/usr/doc/perl-$VERSION/DBI-$DBI_VER
+
+# Make and install Data-Showtable module and docs
+cd $TMP/Data-ShowTable-$DATASHOWTABLE_VER
+zcat $CWD/Data-ShowTable-$DATASHOWTABLE_VER.diff.gz | patch -p1 --verbose
+perl ./Makefile.PL
+make
+make test 
+make PREFIX=$PKG/usr pure_install
+mkdir -p $PKG/usr/doc/perl-$VERSION/Data-ShowTable-$DATASHOWTABLE_VER
+cp -a Copyright GNU-LICENSE MANIFEST README *.html \
+   $PKG/usr/doc/perl-$VERSION/Data-ShowTable-$DATASHOWTABLE_VER
+
+# Make and install Getopt-Mixed module and docs
+cd $TMP/Getopt-Mixed-$GETOPT_MIXED_VER
+perl ./Makefile.PL
+make
+make test 
+make PREFIX=$PKG/usr pure_install
+mkdir -p $PKG/usr/doc/perl-$VERSION/Getopt-Mixed-$GETOPT_MIXED_VER
+cp -a MANIFEST README tstopt1 tstopt2 \
+   $PKG/usr/doc/perl-$VERSION/Getopt-Mixed-$GETOPT_MIXED_VER
+
+# Make and install libnet module and docs
+cd $TMP/libnet-$LIBNET_VER
+perl ./Makefile.PL
+make
+make test
+make PREFIX=$PKG/usr pure_install
+mkdir -p $PKG/usr/doc/perl-$VERSION/libnet-$LIBNET_VER
+cp -a ChangeLog MANIFEST README* $PKG/usr/doc/perl-$VERSION/libnet-$LIBNET_VER
+
+# Make and install TermReadKey module and docs
+cd $TMP/TermReadKey-$TERMREADKEY_VER
+perl ./Makefile.PL
+make
+make test
+make PREFIX=$PKG/usr pure_install
+mkdir -p $PKG/usr/doc/perl-$VERSION/TermReadKey-$TERMREADKEY_VER
+cp -a MANIFEST README $PKG/usr/doc/perl-$VERSION/TermReadKey-$TERMREADKEY_VER
+
+# Make and install MD5 module and docs
+cd $TMP/MD5-$MD5_VER
+perl ./Makefile.PL
+make
+make test
+make PREFIX=$PKG/usr pure_install
+mkdir -p $PKG/usr/doc/perl-$VERSION/MD5-$MD5_VER
+cp -a Changes MANIFEST README $PKG/usr/doc/perl-$VERSION/MD5-$MD5_VER
+
+# move ndbm stuff back
+#echo "HARMLESS ERROR POSSIBLE HERE:"
+#mv $TMP/junk/*ndbm* /usr/lib
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/perl.tgz

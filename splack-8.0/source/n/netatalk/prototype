@@ -1,0 +1,135 @@
+VERSION=1.4b2+asun2.1.3
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=netatalk-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=netatalk
+DESC="\
+netatalk-$VERSION\n\
+\n\
+Netatalk is an Appletalk file and print server for Linux.  Using\n\
+Netatalk, Macintosh computers on your local network can mount Linux\n\
+volumes as if they were standard Appletalk network drives, and can\n\
+print to the Linux box's printer as if it were a network printer\n\
+supporting PostScript.\n\
+\n\
+Netatalk is brought to you by our friends at The Research Systems\n\
+Unix Group, The University of Michigan.  <netatalk@umich.edu>"
+
+compile() {
+   if [ -r $CWD/netatalk-$VERSION.tar.gz ]
+   then
+      tar xvzf $CWD/netatalk-$VERSION.tar.gz
+      cd netatalk-$VERSION
+   elif [ -r $CWD/netatalk-1.4b2.tar.gz ]
+   then
+      tar xvzf $CWD/netatalk-1.4b2.tar.gz
+      cd netatalk-1.4b2
+
+      if [ -r $CWD/netatalk-$VERSION.diff.gz ]
+      then
+         zcat $CWD/netatalk-$VERSION.diff.gz | patch -p1 -E --verbose
+      fi
+   fi
+
+   zcat $CWD/netatalk-Makefile.diff.gz | patch
+   ( cd sys/linux
+     zcat $CWD/netatalk-sys_linux_Makefile.diff.gz | patch )
+   make
+}
+
+install() {
+   # install binaries
+   ( cd bin
+     cp aecho/aecho getzones/getzones megatron/megatron nbp/nbplkup \
+        nbp/nbprgstr nbp/nbpunrgstr pap/pap pap/papstatus psorder/psorder \
+        adv1tov2/adv1tov2 /usr/bin
+     cd ../etc
+     cp afpd/afpd atalkd/atalkd papd/papd psf/psa psf/psf /usr/sbin )
+
+   # install headers and libraries
+   mkdir -p /usr/include/atalk
+   mkdir -p /usr/include/netatalk
+   cp include/atalk/*.h /usr/include/atalk
+   cp include/netatalk/*.h /usr/include/netatalk
+   mkdir -p /usr/lib/atalk/filters
+   cp libatalk/libatalk.a libatalk/libatalk_p.a /usr/lib
+
+   # install documentation
+   ( cd man
+     for page in */*.?
+     do
+        sed -e s@:DESTDIR:@/usr@ -e s@:SBINDIR:@/usr/sbin@ \
+            -e s@:BINDIR:@/usr/bin@ -e s@:RESDIR:@/usr/lib/atalk@ \
+            -e s@:ETCDIR:@/etc@ -e s@:LIBDIR:@/usr/lib@ \
+            -e s@:INCDIR:@/usr/include@ \
+            < $page | gzip -9c > /usr/man/`dirname $page`/`basename $page`.gz
+     done )
+   mkdir -p /usr/doc/netatalk-$VERSION
+   cp BUGS CHANGES COPYRIGHT ChangeLog README* TODO VERSION \
+      INSTALL/README.LINUX /usr/doc/netatalk-$VERSION
+
+   # make a billion symbolic links
+   cd /usr/bin
+   for file in hqx2bin macbinary single2bin unbin unhex unsingle
+   do
+      rm -rf $file
+      ln -sf megatron $file
+   done
+   cd /usr/lib/atalk/filters
+   for file in ofpap ifpap tfpap ifpaprev tfpaprev ofwpap ifwpap \
+               tfwpap ifwpaprev tfwpaprev ofmpap ifmpap tfmpap \
+               ifmpaprev tfmpaprev ofwmpap ifwmpap tfwmpap \
+               ifwmpaprev tfwmpaprev
+   do
+      rm -rf $file
+      ln -sf /usr/sbin/psf $file
+   done
+}
+
+attributes() {
+   chmod 444 $PKG/usr/include/atalk/*.h
+   chmod 444 $PKG/usr/include/netatalk/*.h
+}
+
+special() {
+   # add special package components
+   ( cd $PKG ; tar xvpszf $CWD/_netatalk.tar.gz )
+
+   # add /etc files
+   mkdir -p $PKG/etc
+   cd $TMP/netatalk-$VERSION
+   cp config/AppleVolumes.default $PKG/etc/AppleVolumes.default
+   cp config/AppleVolumes.system $PKG/etc/AppleVolumes.system
+   cat << EOF >> $PKG/etc/AppleVolumes.system
+
+# If uncommented, this line would export the /tmp directory as "Temporary".
+#/tmp Temporary
+EOF
+
+   cp config/atalkd.conf $PKG/etc/atalkd.conf
+   cp config/papd.conf $PKG/etc/papd.conf
+   cp config/afpd.conf $PKG/etc/afpd.conf
+
+   # add the rc script
+   mkdir -p $PKG/etc/rc.d
+   sed -e s@:DESTDIR:@/usr@ -e s@:SBINDIR:@/usr/sbin@ \
+       -e s@:BINDIR:@/usr/bin@ -e s@:RESDIR:@/usr/lib/atalk@ \
+       -e s@:ETCDIR:@/etc@ -e s@:LIBDIR:@/usr/lib@ \
+       -e s@:INCDIR:@/usr/include@ \
+       < rc.atalk.bsd > $PKG/etc/rc.d/rc.atalk
+   (
+      cd $PKG/etc/rc.d
+      zcat $CWD/netatalk-rc.atalk.cosmetic.diff.gz | patch
+      rm -f rc.atalk.orig
+   )
+   chown root.root $PKG/etc/rc.d/rc.atalk
+   chmod 755 $PKG/etc/rc.d/rc.atalk
+}

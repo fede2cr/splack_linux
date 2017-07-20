@@ -1,0 +1,86 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-modutils
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_modutils.tgz
+
+echo "+================+"
+echo "| modutils-2.4.6 |"
+echo "+================+"
+cd $TMP
+tar xyvf $CWD/modutils-2.4.6.tar.bz2
+cd modutils-2.4.6
+
+# insmod should use stderr for usage hints, not stdout:
+zcat $CWD/insmod-hint-use-stderr.diff.gz | patch -p1 --verbose --backup -E
+
+# Do not link with a dynamic libz, as this may not be on the root partition:
+zcat $CWD/modutils.staticlibz.diff.gz | patch -p1 --verbose --backup -E
+autoconf
+
+mkdir -p $PKG/usr/doc/modutils-2.4.6
+
+cp -a COPYING CREDITS ChangeLog NEWS README TODO $PKG/usr/doc/modutils-2.4.6
+cp -a depmod/create_syms $PKG/usr/doc/modutils-2.4.6
+cp -a insmod/insmod_ksymoops_clean $PKG/usr/doc/modutils-2.4.6
+# cp -a kerneld/README.* $PKG/usr/doc/modutils-2.4.6
+chown -R root.root $PKG/usr/doc/modutils-2.4.6
+
+./configure sparc-slackware-linux --enable-zlib # --enable-compat-2-0 --enable-kerneld
+make
+
+strip depmod/depmod genksyms/genksyms insmod/insmod insmod/modinfo
+# strip kerneld/kerneld
+
+cd man
+cat kernelversion.1 | gzip -9c > $PKG/usr/man/man1/kernelversion.1.gz
+cat modules.conf.5 | gzip -9c > $PKG/usr/man/man5/modules.conf.5.gz
+for manpage in *.2 ; do
+  cat $manpage | gzip -9c > $PKG/usr/man/man2/$manpage.gz
+done
+for manpage in `ls *.8 | grep -v kerneld` ; do
+  cat $manpage | gzip -9c > $PKG/usr/man/man8/$manpage.gz
+done
+cd ..
+
+cat depmod/depmod > $PKG/sbin/depmod
+cat genksyms/genksyms > $PKG/sbin/genksyms
+cat insmod/insmod > $PKG/sbin/insmod
+cat insmod/modinfo > $PKG/sbin/modinfo
+cat insmod/kernelversion > $PKG/sbin/kernelversion
+cat insmod/insmod_ksymoops_clean > $PKG/sbin/insmod_ksymoops_clean
+# cat kerneld/kerneld > $PKG/sbin/kerneld
+# cat kerneld/request-route.sh > $PKG/sbin/request-route
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/modutils.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/modutils-2.4.6
+  rm -rf $PKG
+fi

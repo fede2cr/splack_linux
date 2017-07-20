@@ -1,0 +1,31 @@
+===========================================================================
+  The files:
+===========================================================================
+  sources of the programs (required):
+    ==> teTeX-src-1.0.tar.gz
+
+  support tree with fonts / macros (required):
+    ==> teTeX-texmf-1.0.tar.gz
+
+  sources for parts of the texmf tarball (optional):
+    ==> teTeX-texmfsrc-1.0.tar.gz
+
+  The installation instructions are included in the teTeX-src-1.0.tar.gz
+  archive as files INSTALL (complete instructions) and QuickInstall
+  (short version). teTeX can be redistributed under the terms defined
+  in the file LICENSE.
+
+
+===========================================================================
+  Documentation:
+===========================================================================
+  The teTeX-texmf-1.0.tar.gz archive contains a large directory tree
+  which contains a lot of documentation about teTeX and the packages
+  it includes.  For a start, please look at
+    doc/tetex/TETEXDOC.{ps,pdf,dvi}
+  and
+    doc/index.html
+
+Have fun!
+
+June, 1999. Thomas Esser

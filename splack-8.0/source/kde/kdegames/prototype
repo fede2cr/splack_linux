@@ -1,0 +1,36 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kdegames-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Games"
+DESC="\
+kdegames-$VERSION\n\
+\n\
+Games for the K Desktop Environment.\n\
+\n\
+Included with this package are: kabalone, kasteroids, katomic,\n\
+kbackgammon, kblackbox, kfouleggs, kjezz, kjumpingcube, kmahjongg,\n\
+kmines, konquest, kpat, kpoker, kproc4, kreversi, ksame, kshisen,\n\
+ksirtet, ksmiletris, ksnake, ksokoban, kspaceduel, ktron, ktuberling,\n\
+kwin4, lskat, and lskatproc."
+
+compile() {
+   tar xvyf $CWD/kdegames-$VERSION.tar.bz2
+   cd kdegames-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdegames-$VERSION
+   cp AUTHORS COPYING ChangeLog README kdegames.lsm /usr/doc/kdegames-$VERSION
+}

@@ -1,0 +1,36 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-zsh
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+cd $TMP
+tar xyvf $CWD/zsh-4.0.1.tar.bz2
+tar xyvf $CWD/zsh-4.0.1-doc.tar.bz2
+cd zsh-4.0.1
+./configure --prefix=/usr sparc-slackware-linux
+make
+make install prefix=$PKG/usr
+gzip -9 $PKG/usr/man/man1/*
+mkdir -p $PKG/install $PKG/bin
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+rm $PKG/usr/bin/zsh-4.0.1 # extra...
+rm -f $PKG/usr/bin/zsh.old # in case you built this twice
+mv $PKG/usr/bin/zsh $PKG/bin/zsh
+mkdir -p $PKG/usr/doc/zsh-4.0.1/html-docs
+cp -a INSTALL LICENCE META-FAQ README $PKG/usr/doc/zsh-4.0.1
+chown -R root.root Doc
+cp -a Doc/*.html $PKG/usr/doc/zsh-4.0.1/html-docs
+mkdir -p $PKG/usr/info
+cp -a Doc/*info* $PKG/usr/info
+chown -R root.root $PKG/usr/doc/zsh-4.0.1
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/zsh.tgz

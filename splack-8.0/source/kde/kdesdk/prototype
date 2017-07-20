@@ -1,0 +1,32 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kdesdk-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Software Development Kit"
+DESC="\
+kdesdk-$VERSION\n\
+\n\
+KDE Software Development Kit.  This is a collection of applications\n\
+and tools used by KDE developers.  It also has example code for use in\n\
+learning KDE programming or starting a new KDE application."
+
+compile() {
+   tar xvyf $CWD/kdesdk-$VERSION.tar.bz2
+   cd kdesdk-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdesdk-$VERSION
+   cp COPYING README /usr/doc/kdesdk-$VERSION
+}

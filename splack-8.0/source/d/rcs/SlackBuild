@@ -1,0 +1,65 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-rcs
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_rcs.tar.gz
+
+echo "+=========+"
+echo "| rcs-5.7 |"
+echo "+=========+"
+cd $TMP
+tar xzvf $CWD/rcs-5.7.tar.gz
+cd rcs-5.7
+zcat $CWD/rcs-5.7.diff.gz | patch -p0
+./configure --prefix=/usr
+make CFLAGS=-O2 LDFLAGS=-s 
+cd src
+cat ci > $PKG/usr/bin/ci
+cat co > $PKG/usr/bin/co
+cat ident > $PKG/usr/bin/ident
+cat merge > $PKG/usr/bin/merge
+cat rcs > $PKG/usr/bin/rcs
+cat rcsclean > $PKG/usr/bin/rcsclean
+cat rcsdiff > $PKG/usr/bin/rcsdiff
+cat rcsmerge > $PKG/usr/bin/rcsmerge
+cat rcstest > $PKG/usr/bin/rcstest
+cat rlog > $PKG/usr/bin/rlog
+cd ../man
+for page in ci.1 co.1 ident.1 merge.1 rcs.1 rcsclean.1 rcsdiff.1 rcsfreeze.1 \
+rcsintro.1 rcsmerge.1 rlog.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cat rcsfile.5 | gzip -9c > $PKG/usr/man/man5/rcsfile.5.gz
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/rcs.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/rcs5.6.0.1
+  rm -rf $PKG
+fi

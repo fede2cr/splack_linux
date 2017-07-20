@@ -1,0 +1,51 @@
+#!/bin/sh
+# Copyright 2001 BSDi, Inc. Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+VERSION=2.40
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-workbone
+
+rm -rf $PKG
+mkdir $PKG
+cd $TMP
+
+tar -xvzf $CWD/workbone_$VERSION.orig.tar.gz
+cd workbone-2.4/
+zcat $CWD/workbone_$VERSION-2.diff.gz | patch -p1
+make
+
+mkdir -p $PKG/usr/bin $PKG/usr/man/man1
+cp workbone $PKG/usr/bin
+cat workbone.1 | gzip -9c > $PKG/usr/man/man1/workbone.1.gz
+
+mkdir -p $PKG/usr/doc/workbone-$VERSION
+cp -a README $PKG/usr/doc/workbone-$VERSION
+chown -R root.root $PKG/usr/doc/workbone-${VERSION}
+chmod 644 $PKG/usr/doc/workbone-${VERSION}/*
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/workbone.tgz

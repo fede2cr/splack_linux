@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $TMP/traceroute-4.4BSD
+insfile traceroute /usr/bin
+cp traceroute.8 /usr/man/man8

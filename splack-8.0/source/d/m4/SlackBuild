@@ -1,0 +1,66 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-m4
+SRC=/devel/manpagesrc
+INFO=$PKG/usr/info
+TEX=/devel/texinfo-docs
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_m4.tar.gz
+
+echo "+========+"
+echo "| m4-1.4 |"
+echo "+========+"
+cd $TMP
+tar xzvf $CWD/m4-1.4.tar.gz
+cd m4-1.4
+./configure --prefix=/usr
+make CFLAGS=-O2 LDFLAGS=-s
+cd src
+make ansi2knr CFLAGS=-O2 LDFLAGS=-s
+cat ansi2knr > $PKG/usr/bin/ansi2knr
+cat m4 > $PKG/usr/bin/m4
+cat ansi2knr.1 | gzip -9c > $PKG/usr/man/man1/ansi2knr.1.gz
+cd ../examples
+for file in * ; do
+  cat $file > $PKG/usr/lib/m4-examples/$file
+done
+cd ../doc
+mkdir -p $INFO
+cat m4.info | gzip -9c > $INFO/m4.info.gz
+cat m4.info-1 | gzip -9c > $INFO/m4.info-1.gz
+cat m4.info-2 | gzip -9c > $INFO/m4.info-2.gz
+cat m4.info-3 | gzip -9c > $INFO/m4.info-3.gz
+#cp m4.texinfo $TEX/m4.texi
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/m4.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/m4-1.4
+  rm -rf $PKG
+fi

@@ -1,0 +1,53 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-ash
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_ash.tar.gz
+
+echo "+===============+"
+echo "| ash-linux-0.2 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/ash-linux-0.2.tar.gz
+cd ash-linux-0.2
+zcat $CWD/ash-linux-0.2.diff.gz | patch -p1 -E --verbose --backup
+make
+mkdir -p $PKG/bin/ $PKG/usr/man/man1/
+cat sh > $PKG/bin/ash
+cat sh.1 | gzip -9c > $PKG/usr/man/man1/ash.1.gz
+mkdir -p $PKG/usr/doc/ash-linux-0.2
+cp -a TOUR README.Linux $PKG/usr/doc/ash-linux-0.2
+chown root.root $PKG/usr/doc/ash-linux-0.2/*
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/ash.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/ash-linux-0.2
+  rm -rf $PKG
+fi

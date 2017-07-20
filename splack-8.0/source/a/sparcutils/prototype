@@ -1,0 +1,124 @@
+VERSION=$SLACKWARE_VERSION
+BUILD=1
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=sparcutils-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="SPARC Utilities"
+DESC="\
+SPARC Utilities\n\
+\n\
+Contains various tools specific to the SPARC platform.\n\
+\n\
+Programs included:\n\
+   elftoaout-2.3, piggyback, piggyback64, ethtool, prtconf, flashprom,\n\
+   sparc32-1.1, and tilo-0.2"
+
+compile() {
+   # make sure we have sparc32 headers in place
+   rm -rf /usr/include/asm.BUILD_SPARCBIN
+   mv /usr/include/asm /usr/include/asm.BUILD_SPARCBIN
+   ln -sf /usr/src/linux/include/asm-sparc /usr/include/asm
+
+   # build elftoaout
+   cd $TMP
+   tar xvzf $CWD/elftoaout-2.3.tar.gz
+   cd elftoaout-2.3
+   make
+
+   # build piggyback/piggyback64
+   cd $TMP
+   tar xvzf $CWD/piggyback.tar.gz
+   cd piggyback
+   zcat $CWD/piggyback.diff.gz | patch -p1
+   gcc -O2 -o piggyback piggyback.c
+   gcc -O2 -o piggyback64 piggyback64.c
+
+   # build ethtool
+   cd $TMP
+   tar xvzf $CWD/ethtool.tar.gz
+   cd ethtool
+   make
+
+   # build prtconf
+   cd $TMP
+   tar xvzf $CWD/prtconf.tar.gz
+   cd prtconf
+   make
+
+   # build sparc32
+   cd $TMP
+   tar xvzf $CWD/sparc32-1.1.tar.gz
+   cd sparc32-1.1
+   zcat $CWD/sparc32-1.1.diff.gz | patch -p1
+   make
+
+   # build tilo
+   cd $TMP
+   tar xvzf $CWD/tilo-0.2.tar.gz
+   cd tilo-0.2
+   zcat $CWD/tilo-0.2.diff.gz | patch -p1
+   ( cd src ; make )
+
+   # build audioctl
+   cd $TMP
+   tar xvzf $CWD/audioctl-1.3.tar.gz
+   cd audioctl
+   make
+
+   # build openprom
+   cd $TMP
+   cc -O2 -o openprom $CWD/openprom.c
+
+   # build uname-sunos
+   cd $TMP
+   cc -O2 -o uname-sunos $CWD/uname-sunos.c
+}
+
+install() {
+   # install elftoaout
+   cd $TMP/elftoaout-2.3
+   make install
+
+   # install piggyback
+   cd $TMP/piggyback
+   cp piggyback piggyback64 /usr/bin
+   cp $CWD/piggyback.1 /usr/man/man1/piggyback.1
+   echo ".so man1/piggyback.1" > /usr/man/man1/piggyback64.1
+
+   # install ethtool
+   cd $TMP/ethtool
+   make install
+
+   # install prtconf
+   cd $TMP/prtconf
+   make install
+
+   # install sparc32
+   cd $TMP/sparc32-1.1
+   make install
+
+   # install tilo
+   cd $TMP/tilo-0.2
+   cp maketilo tilo /usr/bin
+   mkdir -p /usr/doc/tilo-0.2
+   cp COPYING README /usr/doc/tilo-0.2
+   cp $CWD/tilo.1 /usr/man/man1/tilo.1
+
+   # install audioctl
+   cd $TMP/audioctl
+   cp audioctl /usr/bin
+   cat audioctl.1 | gzip -9c > /usr/man/man1/audioctl.1.gz
+
+   # install openprom
+   cp $TMP/openprom /usr/sbin
+
+   # install uname-sunos
+   cp $TMP/uname-sunos /usr/bin
+}

@@ -1,0 +1,72 @@
+#!/bin/sh
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-openssh
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+
+cd $TMP
+tar xzvf $CWD/openssh-2.9p1.tar.gz
+cd openssh-2.9p1
+CFLAGS="-O2 -Wall" ./configure --prefix=/usr \
+            --sysconfdir=/etc/ssh \
+            --without-pam \
+            --with-md5-passwords \
+            --with-tcp-wrappers \
+            --with-default-path=/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin \
+            sparc-slackware-linux
+make
+DESTDIR=$PKG make -e install
+
+# Add compression to the manpage
+find $PKG/usr/man -type f -exec gzip -9v {} \;
+# Install docs:
+mkdir -p $PKG/usr/doc/openssh-2.9p1
+cp -a \
+  CREDITS ChangeLog INSTALL LICENCE OVERVIEW README  \
+  RFC.nroff TODO WARNING.RNG $PKG/usr/doc/openssh-2.9p1
+chown -R root.root $PKG/usr/doc/openssh-2.9p1
+chmod 644 $PKG/usr/doc/openssh-2.9p1/*
+
+( cd contrib
+  cp -a ssh-copy-id $PKG/usr/bin/ssh-copy-id
+  chown root.bin $PKG/usr/bin/ssh-copy-id
+  chmod 755 $PKG/usr/bin/ssh-copy-id
+  cat ssh-copy-id.1 | gzip -9c > /usr/man/man1/ssh-copy-id.1.gz
+)
+
+( cd $PKG/usr/bin
+  chown root.bin scp ssh ssh-add ssh-agent ssh-keygen sftp ssh-keyscan
+  chmod 4711 ssh
+)
+
+( cd $PKG/usr/sbin
+  chown root.bin sshd
+)
+
+# Add the init script:
+mkdir -p $PKG/etc/rc.d/
+cat $CWD/rc.sshd > $PKG/etc/rc.d/rc.sshd
+chmod 755 $PKG/etc/rc.d/rc.sshd
+
+# Set up the config script installation:
+mv $PKG/etc/ssh/ssh_config $PKG/etc/ssh/ssh_config.new
+mv $PKG/etc/ssh/sshd_config $PKG/etc/ssh/sshd_config.new
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/openssh.tgz
+
+if [ "$1" == "--cleanup" ]; then
+   cd $TMP
+   rm -rf openssh-2.9p1
+fi

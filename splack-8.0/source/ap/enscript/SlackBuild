@@ -1,0 +1,43 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-enscript
+
+cd $TMP
+tar xzvf $CWD/enscript-1.6.1.tar.gz
+cd enscript-1.6.1
+CFLAGS=-O2 LDFLAGS=-s ./configure --prefix=/usr \
+                                  --with-media=Letter \
+                                  --sysconfdir=/etc
+make 
+make install DESTDIR=$PKG
+mkdir -p $PKG/etc
+# Apparently, enscript's build script is a little bit broken and forgets
+# to install the following two crucial files:
+cp -a /etc/enscript.cfg $PKG/etc/enscript.cfg
+cp -a /usr/share/enscript/enscript.st $PKG/usr/share/enscript/enscript.st
+chown root.bin $PKG/usr/bin $PKG/usr/bin/*
+gzip -9 $PKG/usr/man/man1/*
+mkdir -p $PKG/usr/doc/enscript-1.6.1
+cp -a *.txt ABOUT-NLS AUTHORS COPYING ChangeLog FAQ.html INSTALL NEWS \
+  README* THANKS TODO $PKG/usr/doc/enscript-1.6.1
+chown root.root $PKG/usr/doc/enscript-1.6.1/*
+chmod 644 $PKG/usr/doc/enscript-1.6.1/*
+( cd tests ; make check )
+cd $PKG
+
+
+echo "y
+n" | makepkg ../enscript.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done

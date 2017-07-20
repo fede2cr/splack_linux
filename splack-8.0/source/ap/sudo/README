@@ -1,0 +1,8 @@
+The latest verion of sudo is 1.6.3p7
+The "authoratative" sudo ftp site is ftp://ftp.courtesan.com/pub/sudo/
+and there is a web page at http://www.courtesan.com/sudo/
+
+Note that these archives are now compressed with gzip, if you
+don't have a copy of gzip, download gzip-1.2.4a.shar from the
+"misc" subdirectory.  To unpack an archive, do:
+    gunzip -c sudo-1.6.3p7.tar.gz | tar vxf -

@@ -1,0 +1,44 @@
+VERSION=3.6
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=trn-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=trn
+DESC="\
+A threaded news reader for reading a remote NNTP server. (v. 3.5)\n\
+\n\
+Compiled to use Overviews or mthreads, and to read news through your\n\
+NNTP server.  Be sure to set NNTPSERVER in your /etc/profile or\n\
+/etc/csh.login."
+
+compile() {
+   tar xvzf $CWD/trn-$VERSION.tar.gz
+   cd trn-$VERSION
+   zcat $CWD/trn-$VERSION.nntp.diff.gz | patch -p1
+   make clean
+   make
+}
+
+install() {
+   # install binaries
+   cp Pnews Rnmail newsetup newsgroups nntplist trn trn-artchk trn \
+      /usr/bin
+   ( cd /usr/bin ; rm -rf rn ; ln -sf trn rn )
+
+   # install documentation
+   for page in Pnews Rnmail newsetup newsgroups trn
+   do
+      cat $page.1 | gzip -9c > /usr/man/man1/$page.1.gz
+   done
+}
+
+special() {
+   ( cd $PKG ; tar xvzf $CWD/_trn.tar.gz )
+}

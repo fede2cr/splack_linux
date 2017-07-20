@@ -1,0 +1,25 @@
+TAG=REC
+
+SUBPKGNAME=gs_x11-$VERSION-$ARCH-$BUILD
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="GNU GhostScript (X11 support)"
+DESC="\
+Replacement /usr/bin/gs with X11 options compiled in.\n\
+\n\
+This should be installed on top of the 'ghostscr' package from the\n\
+A series to provide X11 support for ghostview.  If you plan to preview\n\
+Postscript documents under X, you need to install this.  Also, if\n\
+you've installed ghostscript already it is highly recommended that you\n\
+install this package just in case.  Since it replaces another binary\n\
+it only uses an additional 50K (or so)."
+
+subinstall() {
+   cd $TMP/gs5.50
+   make -f unix-gcc.mak clean
+   make -f unix-gcc.mak device=both
+   cp obj/gs /usr/bin/gs
+}

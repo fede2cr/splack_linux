@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd` 
+cd /tmp
+tar xzvf $CWD/gnomeicu-0.96.1.tar.gz
+cd gnomeicu-0.96.1
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+	    --with-gnome=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+	    --with-xss=/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir -p /usr/doc/gnomeicu-0.96.1
+cp -a AUTHORS COPYING ChangeLog NEWS README TODO /usr/doc/gnomeicu-0.96.1
+chown -R root.root /usr/doc/gnomeicu-0.96.1

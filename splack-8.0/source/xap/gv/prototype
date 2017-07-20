@@ -1,0 +1,42 @@
+VERSION=3.5.8
+BUILD=5
+ARCH=sparc
+TAG=REC
+
+PKGNAME=gv-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=gv
+DESC="\
+gv $VERSION\n\
+\n\
+gv is a PostScript and PDF previewer.  It allows users to view and\n\
+navigate through PostScript and PDF documents on an X display by\n\
+providing a user interface for the ghostscript interpreter.\n\
+\n\
+gv was written by Johannes Plass, using the source code for Tim\n\
+Theisen's ghostview 1.5 as a starting point."
+
+compile() {
+   tar xvzf $CWD/gv-$VERSION.tar.gz
+   cd gv-$VERSION
+   zcat $CWD/gv-$VERSION.diff.gz | patch -p0 -E --verbose --backup
+   xmkmf
+   make Makefiles
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/gv-$VERSION
+   cp CHANGES COPYING INSTALL.Unix README doc/*.html /usr/doc/gv-$VERSION
+   cd doc
+   zcat key-bindings.txt-gz > /usr/doc/gv-$VERSION/key-bindings.txt
+   zcat comments.doc-gz > /usr/doc/gv-$VERSION/comments.doc
+   zcat gs.interface-gz > /usr/doc/gv-$VERSION/gs.interface
+   cp gv.man /usr/X11R6/man/man1/gv.1
+}

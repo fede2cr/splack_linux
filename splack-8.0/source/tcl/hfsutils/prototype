@@ -1,0 +1,54 @@
+VERSION=3.2.6
+BUILD=4
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=hfsutils-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=hfsutils
+DESC="\
+hfsutils-$VERSION.\n\
+\n\
+hfsutils is a collection of tools for reading and writing Macintosh\n\
+HFS volumes.  These utilities can manipulate HFS volumes on nearly any\n\
+medium.  Since hfs and xhfs are linked with Tcl/Tk shared libraries,\n\
+the hfsutils package is included here in the TCL software series.\n\
+\n\
+hfsutils was written by Robert Leslie <rob@mars.org>"
+
+compile() {
+   tar xvzf $CWD/hfsutils-$VERSION.tar.gz
+   cd hfsutils-$VERSION
+   CFLAGS=-O2 ./configure --prefix=/usr \
+                          --with-tcl \
+                          --with-tk \
+                          --enable-devlibs
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/hfsutils-$VERSION
+   cp CHANGES COPYING COPYRIGHT CREDITS INSTALL README TODO \
+      /usr/doc/hfsutils-$VERSION
+
+   ( cd /usr/bin
+     rm -rf hattrib ; ln -sf hmount hattrib
+     rm -rf hcd     ; ln -sf hmount hcd
+     rm -rf hcopy   ; ln -sf hmount hcopy
+     rm -rf hdel    ; ln -sf hmount hdel
+     rm -rf hdir    ; ln -sf hmount hdir
+     rm -rf hformat ; ln -sf hmount hformat
+     rm -rf hls     ; ln -sf hmount hls
+     rm -rf hmkdir  ; ln -sf hmount hmkdir
+     rm -rf hpwd    ; ln -sf hmount hpwd
+     rm -rf hrename ; ln -sf hmount hrename
+     rm -rf hrmdir  ; ln -sf hmount hrmdir
+     rm -rf humount ; ln -sf hmount humount
+     rm -rf hvol    ; ln -sf hmount hvol )
+}

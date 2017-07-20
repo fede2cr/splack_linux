@@ -1,0 +1,50 @@
+.\" -*- nroff -*-
+.\" 
+.TH PIGGYBACK 1 "March 1998" "piggyback"
+.SH NAME
+piggyback \- add initial ramdisk to a tftpboot kernel image
+.SH SYNOPSIS
+.B piggyback
+.I vmlinux
+.I System.map
+.I ramdisk
+.P
+.B piggyback64
+.I vmlinux
+.I System.map
+.I ramdisk
+.SH DESCRIPTION
+.BI piggyback
+is a simple utility to make a single-image install kernel with initial
+ramdisk for Sparc tftpbooting without need to set up nfs.
+.P
+.BI piggyback64
+is the same for Ultra-Sparc workstations (those using a 64 bit kernel).
+.PP
+.SH OPTIONS
+.TP
+.I vmlinux
+the kernel on which the ramdisk will be appended.  It must be an
+.B a.out
+kernel (use elftoaout for it), as PROM looks for
+.B a.out
+image only.
+.TP
+.I System.map
+the kernel map.
+.TP
+.I ramdisk
+the initial ramdisk image to append to the kernel image.  It could be
+compressed as well.
+.SH AUTHOR
+.B piggyback
+has been written by Jakub Jelinek <jj@ultra.linux.cz>.
+.SH AVAILABILITY
+.B piggyback
+and
+.B piggyback64
+are available in kernel-source-2.2.x package, under arch/sparc/boot and
+arch/sparc64/boot.
+.SH SEE ALSO
+.BR elftoaout (1),
+.BR tilo (1)

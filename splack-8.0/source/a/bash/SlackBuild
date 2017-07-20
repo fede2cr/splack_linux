@@ -1,0 +1,64 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-bash
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_bash.tar.gz
+
+echo "+===========+"
+echo "| bash-2.05 |"
+echo "+===========+"
+cd $TMP
+tar xzvf $CWD/bash-2.05.tar.gz
+cd bash-2.05
+CFLAGS=-O2 ./configure --prefix=/usr sparc-slackware-linux
+make
+strip bash
+cat bash > $PKG/bin/bash2.new
+mkdir -p $PKG/usr/doc/bash-2.05
+cp -a AUTHORS CHANGES COMPAT COPYING INSTALL MANIFEST NEWS NOTES \
+  README Y2K doc/FAQ doc/INTRO $PKG/usr/doc/bash-2.05
+( cd $PKG/usr/doc/bash-2.05
+  chown root.root *
+  chmod 644 * )
+cd doc
+groff -ms -Tascii article.ms > $PKG/usr/doc/bash-2.05/article.txt
+for page in bash.1 builtins.1 bashbug.1 rbash.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cat bashref.info | gzip -9c > $PKG/usr/info/bashref.info.gz
+mkdir $PKG/install
+cp -a $CWD/doinst.sh $PKG/install
+
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/bash.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/bash-2.05
+  rm -rf $PKG
+fi

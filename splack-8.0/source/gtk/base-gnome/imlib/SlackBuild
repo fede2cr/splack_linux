@@ -1,0 +1,46 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-imlib
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/imlib-1.9.10.tar.gz
+cd imlib-1.9.10
+./configure --prefix=/usr \
+            sparc-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/imlib-1.9.10
+cp -a README AUTHORS ChangeLog NEWS doc/*.gif \
+   doc/*.html $PKG/usr/doc/imlib-1.9.10
+chown -R root.root $PKG/usr/doc/imlib-1.9.10
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/imlib.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/imlib-1.9.10
+  rm -rf $PKG
+fi

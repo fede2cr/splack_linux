@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xvyf $CWD/net-tools/net-tools-1.60.tar.bz2
+cd net-tools-1.60
+zcat $CWD/net-tools/net-tools.diff.gz | patch -p1 --backup
+HAVE_IP_TOOLS=1 HAVE_MII=1 make

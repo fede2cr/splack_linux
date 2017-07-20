@@ -1,0 +1,39 @@
+VERSION=1.12
+BUILD=4
+ARCH=sparc
+TAG=REC
+
+PKGNAME=xxgdb-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xxgdb
+DESC="\
+xxgdb-$VERSION.\n\
+\n\
+Xxgdb is a graphical user interface to the gdb debugger under the X\n\
+Window System.  It provides visual feedback and mouse input for the\n\
+user to control program execution through breakpoints, to examine and\n\
+traverse the function call stack, and to display values of variables\n\
+and data structures."
+
+compile() {
+   tar xvzf $CWD/xxgdb-$VERSION.tar.gz
+   cd xxgdb-$VERSION
+   xmkmf
+   make
+}
+
+install() {
+   make install
+   make install.man
+   mv /usr/X11R6/man/man1/xxgdb.1x /usr/X11R6/man/man1/xxgdb.1
+}
+
+attributes() {
+   chmod 644 $PKG/usr/X11R6/man/man1/xxgdb.1*
+   chmod 644 $PKG/etc/X11/app-defaults/XDbx
+}

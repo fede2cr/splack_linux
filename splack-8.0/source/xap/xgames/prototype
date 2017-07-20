@@ -1,0 +1,140 @@
+VERSION=$SLACKWARE_VERSION
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=xgames-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="xgames collection"
+DESC="\
+xgames collection\n\
+\n\
+A few small games and toys for X.\n\
+\n\
+Includes maze, spider, xlander, xroach, xsnow."
+
+compile() {
+   # build maze
+   cd $TMP
+   tar xvzf $CWD/maze.tar.gz
+   cd maze
+   zcat $CWD/maze.diff.gz | patch -p1
+   xmkmf
+   make
+
+   # build spider
+   cd $TMP
+   tar xvzf $CWD/spider.tar.gz
+   cd spider
+   xmkmf
+   make
+
+   # build xcolormap
+   cd $TMP
+   tar xvzf $CWD/xcolormap.tar.gz
+   cd xcolormap
+   zcat $CWD/xcolormap.diff.gz | patch -p1
+   make
+
+   # build xcuckoo
+   cd $TMP
+   tar xvzf $CWD/xcuckoo-1.1.tar.gz
+   cd xcuckoo
+   xmkmf
+   make
+
+   # build xlander
+   cd $TMP
+   tar xvzf $CWD/xlander.tar.gz
+   cd xlander
+   xmkmf
+   make
+
+   # build xminesweep
+   cd $TMP
+   tar xvzf $CWD/xminesweep2.1.tar.gz
+   cd xminesweep2.1
+   xmkmf
+   make
+  
+   # build xneko
+   cd $TMP
+   tar xvzf $CWD/xneko.tar.gz
+   cd xneko
+   xmkmf
+   make
+
+   # build xroach
+   cd $TMP
+   tar xvzf $CWD/xroach.tar.gz
+   cd xroach
+   xmkmf
+   make
+
+   # build xsnow
+   cd $TMP
+   tar xvzf $CWD/xsnow-1.40.tar.gz
+   cd xsnow-1.40
+   xmkmf
+   make
+}
+
+install() {
+   # install maze
+   cd $TMP/maze
+   cp maze /usr/X11R6/bin
+   cp maze.man /usr/X11R6/man/man6/maze.6
+
+   # install spider
+   cd $TMP/spider
+   cp spider /usr/X11R6/bin
+   cp spider.man /usr/X11R6/man/man6/spider.6
+
+#   # install xcolormap
+#   cd $TMP/xcolormap
+#   cp xcolormap /usr/X11R6/bin
+
+#   # install xcuckoo
+#   cd $TMP/xcuckoo
+#   cp xcuckoo /usr/X11R6/bin
+#   cp xcuckoo.man /usr/X11R6/man/man6/xcuckoo.6
+
+   # install xlander
+   cd $TMP/xlander
+   cp xlander /usr/X11R6/bin
+   cp xlander.man /usr/X11R6/man/man6/xlander.6
+
+#   # install xminesweep
+#   cd $TMP/xminesweep2.1
+#   cp xminesweep /usr/X11R6/bin
+#   cp xminesweep.man /usr/X11R6/man/man6/xminesweep.6
+
+#   # install xneko
+#   cd $TMP/xneko
+#   cp xneko /usr/X11R6/bin
+#   cp xneko.man /usr/X11R6/man/man6/xneko.6
+
+   # install xroach
+   cd $TMP/xroach
+   cp xroach /usr/X11R6/bin
+   cp xroach.man /usr/X11R6/man/man6/xroach.6
+
+   # install xsnow
+   cd $TMP/xsnow-1.40
+   cp xsnow /usr/X11R6/bin
+   cp xsnow.man /usr/X11R6/man/man6/xsnow.6
+}
+
+attributes() {
+   chmod 644 $PKG/usr/X11R6/man/man6/*
+}
+
+special() {
+   # make sure we get this directory in the package
+   mkdir -p $PKG/var/games
+}

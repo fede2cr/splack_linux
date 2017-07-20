@@ -1,0 +1,21 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+
+tar xyvf $CWD/xchat-1.6.4.tar.bz2
+cd xchat-1.6.4
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            --with-catgets \
+            --enable-openssl \
+            --enable-panel \
+            --disable-textfe \
+            i386-slackware-linux
+make
+make -i install
+
+mkdir -p /usr/doc/xchat-1.6.4
+cp -a README ChangeLog AUTHORS doc/* /usr/doc/xchat-1.6.4
+chmod 644 /usr/doc/xchat-1.6.4/*
+chown -R root.root /usr/doc/xchat-1.6.4

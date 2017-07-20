@@ -1,0 +1,70 @@
+VERSION=3.3.7p
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=dip-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="DIP - dialup IP connection handler"
+DESC="\
+DIP - dialup IP connection handler $VERSION\n\
+\n\
+Uri Blumenthal's version of Fred N. van Kempen's DIP utility. DIP\n\
+handles the connections needed for dialup IP links, like SLIP or\n\
+CSLIP.  It can handle both incoming and outgoing connections, using\n\
+password security for incoming connections."
+
+compile() {
+   tar xvzf $CWD/dip-$VERSION.tar.gz
+   cd dip-$VERSION
+   zcat $CWD/dip-$VERSION.diff.gz | patch -p1 --verbose
+   zcat $CWD/dip-$VERSION-sparc.patch.gz | patch -p1 --verbose
+   make clean
+   make depend
+   rm -f dip
+   make
+}
+
+install() {
+   cp dip /sbin/dip-$VERSION
+   ( cd /sbin
+     rm -rf dip      ; ln -sf dip-$VERSION dip
+     rm -rf diplogin ; ln -sf dip-$VERSION diplogin )
+   cp dip.8 /usr/man/man8
+   mkdir -p /usr/doc/dip-$VERSION
+   cp -r *README* TAGS samples /usr/doc/dip-$VERSION
+   rm -rf /usr/doc/dip-$VERSION/samples/advantis.dip
+}
+
+special() {
+   # add the /etc/diphosts file
+   mkdir -p $PKG/etc
+   cat << "EOF" > $PKG/etc/diphosts
+#
+# diphosts	This file describes a number of name-to-address
+#		mappings for the DIP program.  It is used to determine
+#		which host IP address to use for an incoming call of
+#		some user.
+#
+# Version:	@(#)diphosts		1.20	05/31/94
+#
+# Author:	Fred N. van Kempen, <waltje@uwalt.nl.mugnet.org>
+# Modified:     Uri Blumenthal      <uri@watson.ibm.com>
+#
+# name : pwd : hostname : local server: netmask: comments : protocol,mtu
+#==================================================
+#sbonjovi::bonjovi:server1:netmask:MicroWalt "bonjovi" SLIP:SLIP,296
+#sroxette::roxette:server2:netmask:MicroWalt "roxette" SLIP:CSLIP,296
+#stephen:s/key:tuin:server3:netmask:S/Key Authenticated login:CSLIP,296
+
+# End of diphosts.
+EOF
+
+   chmod 644 $PKG/etc/diphosts
+   chown root.users $PKG/etc/diphosts
+}

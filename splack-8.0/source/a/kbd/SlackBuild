@@ -1,0 +1,57 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-kbd
+
+cd $TMP
+tar xyvf $CWD/kbd-1.06.tar.bz2
+cd kbd-1.06
+
+./configure --datadir=/usr/share/kbd --mandir=/usr/man
+make
+
+mkdir -p $PKG/var/log/setup $PKG/usr/bin $PKG/bin $PKG/usr/man $PKG/etc/rc.d
+
+make install DESTDIR=$PKG
+
+cat $CWD/setup.fontconfig > $PKG/var/log/setup/setup.fontconfig
+chmod 755 $PKG/var/log/setup/setup.fontconfig
+cat $CWD/fontconfig > $PKG/usr/bin/fontconfig
+chmod 755 $PKG/usr/bin/fontconfig
+chown root.bin $PKG/usr/bin/fontconfig
+
+mkdir -p $PKG/usr/doc/kbd-1.06
+cp -a CHANGES COPYING CREDITS README doc $PKG/usr/doc/kbd-1.06
+mkdir -p $PKG/usr/doc/kbd-1.06/openvt
+cp -a openvt/README* $PKG/usr/doc/kbd-1.06/openvt
+chown -R root.root $PKG/usr/doc/kbd-1.06
+find $PKG/usr/doc/kbd-1.06 -type d -exec chmod 755 {} \;
+find $PKG/usr/doc/kbd-1.06 -type f -exec chmod 644 {} \;
+
+# Add some extra fonts:
+( cd $PKG ; explodepkg $CWD/extraf.tgz )
+
+cat << EOF > $PKG/etc/rc.d/rc.font.sample
+#!/bin/sh
+#
+# This selects your default screen font from among the ones in
+# /usr/share/kbd/consolefonts.
+#
+setfont -v
+EOF
+chmod 755 $PKG/etc/rc.d/rc.font.sample
+
+mkdir -p /install
+cat << EOF > /install/doinst.sh
+if [ -r etc/rc.d/rc.font ]; then
+  rm -f etc/rc.d/rc.font.sample
+else
+  mv etc/rc.d/rc.font.sample etc/rc.d/rc.font
+fi
+EOF
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/kbd.tgz

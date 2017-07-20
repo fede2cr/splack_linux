@@ -1,0 +1,84 @@
+#!/bin/sh
+# Build the egcs64 package
+# by Alvaro Figueroa (fede2@fuerzag.ulatina.ac.cr) for Splack Linux
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-egcs64
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# extract and patch the source
+cd $TMP
+tar xvzf $CWD/egcs-19980906.tar.gz
+cd egcs-19980906
+zcat $CWD/egcs-1.1.2-gcse.patch.gz | patch -p1 --verbose
+zcat $CWD/egcs-19980906-19980914.diff.gz | patch -p1 --verbose
+zcat $CWD/egcs-19980906-texi.patch.gz | patch -p1 --verbose
+zcat $CWD/egcs-19980914-19980921.diff.gz | patch -p1 --verbose
+zcat $CWD/egcs64-glibc21.patch.gz | patch -p0 --verbose
+zcat $CWD/egcs-19980921-sparc.patch.gz | patch -p1 --verbose
+zcat $CWD/egcs-19980921-sparc2.patch.gz | patch -p1 --verbose
+
+# configure the source tree
+CFLAGS=-O2 ./configure --prefix=/usr \
+                  --enable-shared \
+                  --enable-threads \
+                  --build=sparc64-slackware-linux \
+                  --host=sparc64-slackware-linux \
+                  --target=sparc64-slackware-linux \
+                  --with-cpu=ultrasparc
+
+# build
+( cd libiberty
+  make MAKEINFO="makeinfo --no-split" \
+  CFLAGS="-DHOST_WIDE_INT=long\ long -DHOST_BITS_PER_WIDE_INT=64" LANGUAGES=c )
+( cd gcc
+  make MAKEINFO="makeinfo --no-split" \
+  CFLAGS="-DHOST_WIDE_INT=long\ long -DHOST_BITS_PER_WIDE_INT=64" LANGUAGES=c )
+
+# install egcs64
+( cd libiberty
+  make MAKEINFO="makeinfo --no-split" \
+  CFLAGS="-DHOST_WIDE_INT=long\ long -DHOST_BITS_PER_WIDE_INT=64" LANGUAGES=c \
+  prefix=$PKG/usr install )
+( cd gcc
+  make MAKEINFO="makeinfo --no-split" \
+  CFLAGS="-DHOST_WIDE_INT=long\ long -DHOST_BITS_PER_WIDE_INT=64" LANGUAGES=c \
+  prefix=$PKG/usr install )
+
+ #  # make symlinks
+ #  cd /usr/bin
+ #  rm -rf /usr/bin/gcj
+ #  rm -rf sparc64-slackware-linux-gcc
+ #  mv gcc egcs-2.92.11
+ #  ( rm -f sparc64-slackware-linux-gcc ; ln -s egcs-2.92.11 sparc64-slackware-linux-gcc )
+ #  ( rm -f sparc64-linux-gcc ; ln -s egcs-2.92.11 sparc64-linux-gcc )
+ #  ( rm -f gcc64 ; ln -s egcs-2.92.11 gcc64 )
+ #  ( rm -f egcs64 ; ln -s egcs-2.92.11 egcs64 )
+ #  ( rm -f cc64 ; ln -s gcc64 cc64 )
+#
+# install documentation
+mkdir -p $PKG/usr/doc/egcs64-19980921/gcc
+cd $TMP/egcs-19980906
+cp -a COPYING COPYING.LIB ChangeLog README MAINTAINERS $PKG/usr/doc/egcs64-19980921
+( cd gcc
+  cp -a BUGS INSTALL LANGUAGES LITERATURE NEWS PROBLEMS PROJECTS README* SERVICE TESTS.FLUNK \
+  $PKG/usr/doc/egcs64-19980921/gcc )
+
+# remove the stuff we don't need
+rm -rf $PKG/usr/info
+rm -rf $PKG/usr/man
+
+#make the package
+cd $PKG
+echo "y
+n" | makepkg $TMP/egcs64.tgz
+

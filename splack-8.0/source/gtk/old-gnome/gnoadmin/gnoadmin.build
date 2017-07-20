@@ -1,0 +1,15 @@
+CWD=`pwd` 
+cd /tmp
+tar xzvf $CWD/gnome-admin-1.0.3.tar.gz
+cd gnome-admin-1.0.3
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+	    --with-catgets \
+	    --with-gnome=/opt/gnome \
+	    --with-messages=/var/log/messages \
+            i386-slackware-linux
+make
+make install
+mkdir -p /usr/doc/gnome-admin-1.0.3
+cp -a AUTHORS COPYING ChangeLog NEWS README /usr/doc/gnome-admin-1.0.3
+chown -R root.root /usr/doc/gnome-admin-1.0.3

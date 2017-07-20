@@ -1,0 +1,4 @@
+( cd libole2 ; ./libole2.build )
+( cd lunicode ; ./lunicode.build )
+( cd gal ; ./gal.build )
+( cd gnumeric ; ./gnumeric.build )

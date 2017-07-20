@@ -1,0 +1,42 @@
+VERSION=4.2
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=netpipes-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=netpipes
+DESC="\
+netpipes $VERSION\n\
+\n\
+Robert Forsman's netpipes package makes TCP/IP streams usable in shell\n\
+scripts.  It can also simplify client/server code by allowing the\n\
+programmer to skip all the tedious programming bits related to sockets\n\
+and concentrate on writing a filter/service.  Here's an example of\n\
+what you can do with 'faucet' and 'hose', two netpipes commands:\n\
+\n\
+server$ faucet 3000 -out tar cf - .\n\
+client$ hose server 3000 -in tar xvf -"
+
+compile() {
+   tar xvzf $CWD/netpipes-$VERSION-export.tar.gz
+   cd netpipes-$VERSION-export
+   make
+}
+
+install() {
+   cp encapsulate faucet getpeername hose sockdown timelimit /usr/bin
+   for file in encapsulate faucet getpeername hose sockdown timelimit
+   do
+      cp $file /usr/bin
+      cat $file.1 | gzip -9c > /usr/man/man1/$file.1.gz
+   done
+   ( cd /usr/bin ; rm -rf getsockname ; ln -sf getpeername getsockname )
+   mkdir -p /usr/doc/netpipes-$VERSION-export
+   cp COPYING README *.html /usr/doc/netpipes-$VERSION-export
+}

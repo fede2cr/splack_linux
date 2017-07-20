@@ -1,0 +1,141 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-nautilus
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/ammonite-1.0.2.tar.gz
+cd ammonite-1.0.2
+
+( cd /opt/gnome/lib
+  mv python2.0 python2.0_couple_of_seconds
+  ln -sf /usr/lib/python2.0 . )
+
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            sparc-slackware-linux
+make
+make install
+mkdir /usr/doc/ammonite-1.0.2
+cp -a ABOUT-NLS AUTHORS COPYING ChangeLog HACKING INSTALL NEWS README TODO \
+  /usr/doc/ammonite-1.0.2
+chmod 644 /usr/doc/ammonite-1.0.2/*
+chown root.root /usr/doc/ammonite-1.0.2/*
+
+( cd /opt/gnome/lib
+  rm python2.0
+  mv python2.0_couple_of_seconds python2.0 )
+
+################# ldconfig
+
+cd $TMP
+tar xzvf $CWD/librsvg-1.0.0.tar.gz
+cd librsvg-1.0.0
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/librsvg-1.0.0
+cp -a ABOUT-NLS AUTHORS COPYING COPYING.LIB ChangeLog INSTALL NEWS README \
+  /usr/doc/librsvg-1.0.0
+chmod 644 /usr/doc/librsvg-1.0.0/*
+chown root.root /usr/doc/librsvg-1.0.0/*
+
+##################### ldconfig
+
+cd $TMP
+tar xyvf $CWD/eel-1.0.tar.bz2
+cd eel-1.0
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/eel-1.0
+cp -a ABOUT-NLS AUTHORS COPYING COPYING.LIB ChangeLog HACKING INSTALL \
+MAINTAINERS NEWS README THANKS TODO /usr/doc/eel-1.0
+chmod 644 /usr/doc/eel-1.0/*
+chown root.root /usr/doc/eel-1.0/*
+
+#####################ldconfig
+
+cd $TMP
+tar xyvf $CWD/medusa-0.5.1.tar.bz2
+cd medusa-0.5.1
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/medusa-0.5.1
+cp -a ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO \
+  /usr/doc/medusa-0.5.1
+chmod 644 /usr/doc/medusa-0.5.1/*
+chown root.root /usr/doc/medusa-0.5.1/*
+
+####################### ldocnfig
+
+cd $TMP
+tar xyvf $CWD/nautilus-1.0.3.tar.bz2
+cd nautilus-1.0.3
+
+# This removes the "Eazel Services" link from the desktop, since there's
+# unfortunately nothing to answer on the other end.
+zcat $CWD/nautilus-1.0.3.noservices.diff.gz | patch -p1
+# We need to be in the menu, too:
+zcat $CWD/nautilus-1.0.3.slack.diff.gz | patch -p1
+# Don't try to connect to dead services on first run.
+zcat $CWD/nautilus-1.0.3.noservicesurl.diff.gz | patch -p1
+
+CFLAGS=-O2 CXXFLAGS=-O2 ./configure --sysconfdir=/etc/opt/gnome \
+            --prefix=/opt/gnome \
+            --mandir=/opt/gnome/man \
+            --infodir=/opt/gnome/info \
+            --localstatedir=/var/lib \
+            --disable-more-warnings \
+            --with-freetype2-prefix=/usr/X11R6 \
+            --with-mozilla-lib-place=/opt/gnome/lib \
+            --with-mozilla-include-place=/opt/gnome/include/mozilla \
+            i386-slackware-linux
+
+make
+make install
+mkdir -p /usr/doc/nautilus-1.0.3
+cp -a ABOUT-NLS AUTHORS COPYING COPYING-DOCS COPYING.LIB ChangeLog HACKING \
+      INSTALL MAINTAINERS NEWS README RPMs-README THANKS TODO \
+      TRADEMARK_NOTICE /usr/doc/nautilus-1.0.3
+chmod 644 /usr/doc/nautilus-1.0.3/*
+chown root.root /usr/doc/nautilus-1.0.3/*
+
+#####################ldocnfig
+
+cd $TMP
+tar xyvf $CWD/trilobite-1.0.3.tar.bz2
+cd trilobite-1.0.3
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/trilobite-1.0.3
+cp -a ABOUT-NLS AUTHORS COPYING COPYING.LIB ChangeLog HACKING INSTALL
+MAINTAINERS NEWS README THANKS TODO TRADEMARK_NOTICE \
+  /usr/doc/trilobite-1.0.3
+chmod 644 /usr/doc/trilobite-1.0.3/*
+chown root.root /usr/doc/trilobite-1.0.3/*
+
+#ldconfig

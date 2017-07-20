@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/gedit-0.9.6.tar.gz
+cd gedit-0.9.6
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/gedit-0.9.6
+cp -a ABOUT-NLS AUTHORS BUGS COPYING ChangeLog FAQ INSTALL NEWS README README.plugins THANKS TODO \
+  /usr/doc/gedit-0.9.6
+chmod 644 /usr/doc/gedit-0.9.6/*
+chown root.root /usr/doc/gedit-0.9.6/*

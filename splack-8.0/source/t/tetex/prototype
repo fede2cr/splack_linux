@@ -1,0 +1,139 @@
+VERSION=1.0.7
+BUILD=3
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=tetex-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/var/lock:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=teTeX
+DESC="\
+teTeX-$VERSION base support files.\n\
+\n\
+This package contains the support files required for the teTeX TeX\n\
+distribution, such as input files for TeX, runtime configuration\n\
+files, hyphenation tables, manpages, and the computer modern fonts."
+
+compile() {
+   # get this out of the way
+   rm -rf /usr/share/texmf
+
+   # build teTeX
+   tar xvzf $CWD/teTeX-src-$VERSION.tar.gz
+   cd teTeX-1.0
+   # Slackware's dialog is in /bin, not /usr/bin:
+   zcat $CWD/teTeX-texconfig.diff.gz | patch -E -p1 --backup
+   ./configure --prefix=/usr/share/texmf \
+               --datadir=/usr/share \
+               --disable-multiplatform \
+               --without-dialog \
+               --with-system-ncurses \
+               --with-system-zlib \
+               --with-ps=gs \
+               --enable-ipc \
+               --with-etex \
+               sparc-slackware-linux
+   make all vartexfonts=/var/cache/fonts CFLAGS=-O2
+}
+
+install() {
+   # create font directories
+   for d in pk source tfm
+   do
+      mkdir -p /var/cache/fonts/$d
+      chmod 1777 /var/cache/fonts/$d
+   done
+
+   # create special teTeX directories
+   mkdir -p /usr/share/texmf
+   ( cd /usr/share/texmf ; umask 000 ; tar xvzf $CWD/teTeX-texmf-1.0.2.tar.gz )
+   ( cd /usr/share/texmf ; chown -R root.root * )
+
+   # install teTeX
+   make install strip
+   if [ "`echo $PATH | grep /usr/share/texmf/bin`" = "" ]
+   then
+      PATH=$PATH:/usr/share/texmf/bin
+   fi
+
+   # make symbolic links
+   ( cd /
+     sh $CWD/tetex-ln.sh
+     sh $CWD/tex_bin-ln.sh
+     sh $CWD/tex_doc-ln.sh )
+
+   # do some ...texconfig? stuff?
+   texconfig confall
+   texconfig dvips paper letter
+   texconfig xdvi us
+   texconfig mode ljfour
+   texconfig dvips mode ljfour
+   texconfig dvips printcmd -
+   texconfig dvips add bjc600
+   texconfig dvips add stcolor
+   texconfig dvips add deskjet
+   texconfig dvips add ljet4
+   texconfig dvips -P bjc600  mode canonbjc
+   texconfig dvips -P stcolor mode epstylus
+   texconfig dvips -P deskjet mode deskjet
+   texconfig dvips -P ljet4   mode ljfour
+   texconfig font options appendonlydir varfonts
+   texconfig font ro
+   texconfig rehash
+
+   # documentation stuff
+   ( cd /usr/doc ; rm -rf teTeX-$VERSION )
+   ( cd /usr/doc ; ln -sf /usr/share/texmf/doc teTeX-$VERSION )
+}
+
+attributes() {
+   chown root.root $PKG/usr/share/texmf/bin
+   chmod 1777 $PKG/var/cache/fonts
+   chmod 666 $PKG/var/cache/fonts/ls-R
+}
+
+special() {
+   # create font directories
+   for d in pk source tfm
+   do
+      mkdir -p $PKG/var/cache/fonts/$d
+      chmod 1777 $PKG/var/cache/fonts/$d
+   done
+
+   # ok, some of the directories in the tetex package are empty, so
+   # SPS will skip over them.  the block below will grab all directories
+   # from /usr/share/texmf and make sure we have them in the package
+   # tree...here goes...
+   ( cd $PKG/usr/share/texmf
+     for d in `( cd /usr/share/texmf ; find . -type d -print )`
+     do
+        mkdir -p $d
+     done )
+
+   # make a copy of the package tree for use in the tex_bin and tex_doc
+   # package making procedure
+   cp -a $PKG $TMP/tex-package
+
+   # there are some things that we don't want in the tetex
+   # package, binaries and documentation
+   rm -rf $PKG/usr/share/texmf/bin/*
+   rm -rf $PKG/usr/share/texmf/doc/*
+   rm -rf $PKG/usr/doc
+
+   # add the profile.d files
+   mkdir -p $PKG/etc
+   cp -a $CWD/profile.d $PKG/etc
+
+   # replace our current doinst.sh with a simpler one
+   rm -rf $CTL/doinst.sh
+   cp $CWD/tetex-ln.sh $CTL/doinst.sh
+}
+
+subpacks() {
+   repack tex_bin
+   repack tex_doc
+}

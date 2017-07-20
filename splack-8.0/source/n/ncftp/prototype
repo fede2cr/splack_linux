@@ -1,0 +1,52 @@
+VERSION=3.0.2
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=ncftp-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=ncftp
+DESC="\
+ncftp-2.4.3, ncftp-$VERSION\n\
+\n\
+NcFTP is a user interface to the Internet standard File Transfer\n\
+Protocol.  This program allows a user to transfer files to and from a\n\
+remote network site, and offers additional features that are not found\n\
+in the standard interface for ftp."
+
+compile() {
+   cd $TMP
+   tar xvzf $CWD/ncftp-2.4.3.tar.gz
+   cd ncftp-2.4.3
+   zcat $CWD/ncftp-2.4.3.diff.gz | patch -p0 --backup
+   ./configure --prefix=/usr --enable-readline $ARCH-slackware-linux
+   make CFLAGS=-O2 LDFLAGS=-s
+
+   cd $TMP
+   tar xvzf $CWD/ncftp-$VERSION-src.tar.gz
+   cd ncftp-$VERSION
+   CFLAGS=-O2 ./configure --prefix=/usr $ARCH-slackware-linux
+   make
+}
+
+install() {
+   cd $TMP/ncftp-2.4.3
+   cp ncftp /usr/bin/ncftp2
+   cp ncftp.1 /usr/man/man1/ncftp2.1
+   mkdir -p /usr/doc/ncftp-2.4.3
+   cp CHANGELOG COPYING README /usr/doc/ncftp-2.4.3
+
+   cd $TMP/ncftp-$VERSION
+   ( cd bin
+     cp ncftp ncftpbatch ncftpbookmarks ncftpget ncftpls ncftpput /usr/bin )
+   ( cd doc/man
+     cp ncftp.1 ncftpbatch.1 ncftpget.1 ncftpls.1 ncftpput.1 /usr/man/man1 )
+   mkdir -p /usr/doc/ncftp-$VERSION
+   cp CHANGELOG FIREWALL-PROXY-README LICENSE.txt READLINE-README README \
+      WHATSNEW-3.0 /usr/doc/ncftp-$VERSION
+}

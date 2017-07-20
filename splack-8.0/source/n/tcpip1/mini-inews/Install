@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $TMP/inews
+mv inews inews-nntp
+insfile inews-nntp /usr/bin

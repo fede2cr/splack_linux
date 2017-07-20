@@ -1,0 +1,67 @@
+VERSION=4.0.99k23
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=ntp-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+SETATTR=n
+
+PROGNAME=ntp
+DESC="\
+ntp-$VERSION\n\
+\n\
+The Network Time Protocol (NTP) is used to synchronize the time of a\n\
+computer client or server to another server or reference time source,\n\
+such as a radio or satellite receiver or modem. It provides client\n\
+accuracies typically within a millisecond on LANs and up to a few tens\n\
+of milliseconds on WANs relative to a primary server synchronized to\n\
+Coordinated Universal Time (UTC) via a Global Positioning Service\n\
+(GPS) receiver, for example."
+
+compile() {
+   tar xvzf $CWD/ntp-$VERSION.tar.gz
+   cd ntp-$VERSION
+
+   ./configure --prefix=/usr \
+               --localstatedir=/var \
+               --sysconfdir=/etc \
+               --bindir=/usr/sbin \
+               --program-prefix= \
+               --program-suffix= \
+               $ARCH-slackware-linux
+
+   make CFLAGS=-O2 LDFLAGS=-s
+}
+
+install() {
+   make CFLAGS=-O2 LDFLAGS=-s install
+
+   mkdir -p /usr/doc/ntp-$VERSION
+   cp -r COPYRIGHT ChangeLog INSTALL NEWS README* TODO WHERE-TO-START \
+      *.y2kfixes clockstuff conf html scripts /usr/doc/ntp-$VERSION
+   mkdir -p /usr/doc/ntp-$VERSION/util
+   cp -r util/README /usr/doc/ntp-$VERSION/util
+   mkdir -p /usr/doc/ntp-$VERSION/ntpdate
+   cp -r ntpdate/README /usr/doc/ntp-$VERSION/ntpdate
+   mkdir -p /usr/doc/ntp-$VERSION/ntptrace
+   cp -r ntptrace/README /usr/doc/ntp-$VERSION/ntptrace
+}
+
+attributes() {
+   chown -R root.bin $PKG/usr/sbin
+}
+
+special() {
+   mkdir -p $PKG/etc/ntp
+   cat $CWD/ntp.conf > $PKG/etc/ntp.conf
+   cat $CWD/ntp.keys > $PKG/etc/ntp/ntp.keys
+   touch $PKG/etc/ntp/step-tickers
+   chown -R root.root $PKG/etc
+   chmod 644 $PKG/etc/ntp/*
+   chmod 600 $PKG/etc/ntp/ntp.keys
+}

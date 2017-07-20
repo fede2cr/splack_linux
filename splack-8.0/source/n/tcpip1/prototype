@@ -1,0 +1,133 @@
+VERSION=$SLACKWARE_VERSION
+BUILD=2
+ARCH=sparc
+TAG=REC
+
+PKGNAME=tcpip1-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="TCP/IP networking programs and support files"
+DESC="\
+TCP/IP networking programs and support files.\n\
+\n\
+This a basic set of TCP/IP utilities for Linux.  Some of these were\n\
+written from scratch and some were ported from various sources\n\
+including BSD.  The code was written and ported by Florian  La Roche,\n\
+Alan Cox, Fred N. van Kempen, Donald J. Becker, Rick Sladkey,\n\
+Mark Shand, Orest Zborowski, Johannes Stille, Linus Torvalds,\n\
+David A. Holland, Olaf Kirch, and others."
+
+insfile() {
+   #
+   # this function is called by install() to move programs
+   # in place.  it works even if you have the program
+   # running (cp will fail on that)
+   #
+
+   tmpname=`basename $1`
+   cp $1 $2/$tmpname.new
+   mv $2/$tmpname.new $2/$tmpname
+}
+
+compile() {
+   . $CWD/nfs-utils/Build
+   . $CWD/tcp_wrappers/Build
+   . $CWD/icmpinfo/Build
+   . $CWD/gnu-pop3d/Build
+   . $CWD/pidentd/Build
+   . $CWD/traceroute/Build
+   . $CWD/net-tools/Build
+   . $CWD/ruptime/Build
+   . $CWD/netdate/Build
+   . $CWD/inetd/Build
+   . $CWD/netkit/Build
+   . $CWD/portmap/Build
+   . $CWD/whois/Build
+   . $CWD/pcnfsd/Build
+   . $CWD/bwnfsd/Build
+   . $CWD/mini-inews/Build
+   . $CWD/pop3d/Build
+}
+
+install() {
+   . $CWD/nfs-utils/Install
+   . $CWD/tcp_wrappers/Install
+   . $CWD/icmpinfo/Install
+   . $CWD/gnu-pop3d/Install
+   . $CWD/pidentd/Install
+   . $CWD/traceroute/Install
+   . $CWD/net-tools/Install
+   . $CWD/ruptime/Install
+   . $CWD/netdate/Install
+   . $CWD/inetd/Install
+   . $CWD/netkit/Install
+   . $CWD/portmap/Install
+   . $CWD/whois/Install
+   . $CWD/pcnfsd/Install
+   . $CWD/bwnfsd/Install
+   . $CWD/mini-inews/Install
+   . $CWD/pop3d/Install
+
+   ( cd /sbin
+     rm -rf netconfig        ; ln -sf netconfig.color netconfig )
+   ( cd /usr/sbin
+     rm -rf in.ntalkd        ; ln -sf in.talkd in.ntalkd )
+   ( cd /usr/bin
+     rm -rf talk             ; ln -sf talk ntalk
+     rm -rf inews            ; ln -sf inews-nntp inews )
+   ( cd /bin
+     rm -rf dnsdomainname    ; ln -sf hostname dnsdomainname
+     rm -rf nisdomainname    ; ln -sf hostname nisdomainname
+     rm -rf ypdomainname     ; ln -sf hostname ypdomainname )
+   ( cd /usr/man/man8
+     rm -rf rpc.lockd.8.gz   ; ln -sf lockd.8.gz rpc.lockd.8.gz
+     rm -rf rpc.mountd.8.gz  ; ln -sf mountd.8.gz rpc.mountd.8.gz
+     rm -rf rpc.nfsd.8.gz    ; ln -sf nfsd.8.gz rpc.nfsd.8.gz
+     rm -rf rpc.rquotad.8.gz ; ln -sf rquotad.8.gz rpc.rquotad.8.gz
+     rm -rf rpc.statd.8.gz   ; ln -sf statd.8.gz rpc.statd.8.gz )
+}
+
+attributes() {
+   find $PKG/usr/man -type f -exec chmod 644 {} \;
+   chmod 444 $PKG/usr/doc/pcnfsd.93.02.16/*
+   chmod 644 $PKG/usr/include/tcpd.h
+   chmod 555 $PKG/bin/ftp
+   chmod 4555 $PKG/bin/ping
+   chmod 4755 $PKG/usr/bin/rcp
+   chmod 4755 $PKG/usr/bin/rlogin
+   chmod 4555 $PKG/usr/bin/rsh
+   chmod 555 $PKG/usr/bin/rup
+   chmod 555 $PKG/usr/bin/ruptime
+   chmod 555 $PKG/usr/bin/rwho
+   chmod 4555 $PKG/usr/bin/traceroute
+}
+
+special() {
+   ( cd $PKG ; explodepkg $CWD/_tcpip1.tar.gz )
+
+   # put newer config file in place
+   cat $TMP/pidentd-3.0.12/identd.conf > $PKG/etc/identd.conf
+
+   cat << EOF >> $CTL/doinst.sh
+if [ ! -r var/lib/nfs/rmtab ]; then
+   touch var/lib/nfs/rmtab
+   chmod 644 var/lib/nfs/rmtab
+fi
+if [ ! -r var/lib/nfs/xtab ]; then
+   touch var/lib/nfs/xtab
+   chmod 644 var/lib/nfs/xtab
+fi
+if [ ! -r var/lib/nfs/etab ]; then
+   touch var/lib/nfs/etab
+   chmod 644 var/lib/nfs/etab
+fi
+EOF
+
+   # correct man page symlinks
+   cat $CTL/doinst.sh | sed -e "s|.gz.gz|.gz|g" > $CTL/doinst.sh.new
+   mv $CTL/doinst.sh.new $CTL/doinst.sh
+}

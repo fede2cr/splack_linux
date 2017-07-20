@@ -1,0 +1,33 @@
+VERSION=2.1
+BUILD=2
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=kdesupport-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Support"
+DESC="\
+ksupport-$VERSION\n\
+\n\
+Support libraries for the K Desktop Environment.\n\
+\n\
+Libraries included are: audiofile and mimelib."
+
+compile() {
+   tar xvyf $CWD/kdesupport-$VERSION.tar.bz2
+   cd kdesupport-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdesupport-$VERSION
+   cp AUTHORS COPYING ChangeLog INSTALL README kdesupport.lsm \
+      /usr/doc/kdesupport-$VERSION
+}

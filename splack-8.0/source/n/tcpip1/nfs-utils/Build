@@ -1,0 +1,11 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/nfs-utils/nfs-utils-0.3.1.tar.gz
+cd nfs-utils-0.3.1
+CFLAGS=-O2 ./configure --prefix=/usr \
+                       --with-statedir=/var/lib/nfs \
+                       --enable-nfsv3 \
+                       --enable-secure-statd \
+                       $ARCH-slackware-linux
+make
+

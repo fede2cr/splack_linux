@@ -1,0 +1,91 @@
+VERSION=0.9.6a
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=openssl-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=OpenSSL
+DESC="\
+openssl-$VERSION\n\
+\n\
+The openssl certificate management tool and the shared libraries that\n\
+provide various encryption and decription algorithms and protocols.\n\
+\n\
+This product includes software developed by the OpenSSL Project for\n\
+use in the OpenSSL Toolkit (http://www.openssl.org).  This product\n\
+includes cryptographic software written by Eric Young\n\
+(eay@cryptsoft.com).  This product includes software written by Tim\n\
+Hudson (tjh@cryptsoft.com)."
+
+compile() {
+   tar xvzf $CWD/openssl-$VERSION.tar.gz
+   cd openssl-$VERSION
+
+   # correct the sonames:
+   zcat $CWD/openssl-$VERSION.broken.soname.diff.gz | \
+      patch -p1 --backup --verbose --suffix=.orig
+
+   # These are the known patent issues with OpenSSL:
+   # name   #         expires
+   # MDC-2: 4,908,861 13/03/2007, not included.
+   # IDEA:  5,214,703 25/05/2010, not included.
+   # RC5:   5,724,428 03/03/2015, not included.
+   # In addition, MD2 is licensed only for a specific mail program,
+   # and is not included.
+   sparc32 ./Configure --prefix=/usr \
+                       --openssldir=/etc/ssl \
+                       linux-sparcv7 \
+                       no-mdc2 no-idea no-rc5 no-md2
+
+   # The OpenSSL configure system is a bit broken on the SPARC Linux platform.
+   # But this is ok, because the OpenSSL guys do a good job and we can get
+   # around the broken parts for now.  Besides, their FAQ says they might
+   # change to GNU autoconf, which would make life easier for us.  :)   --dc
+   cat Makefile | sed -e "s|SHLIB_TARGET=|SHLIB_TARGET=linux-shared|g" > Mf.new
+   mv Mf.new Makefile
+
+   # Build OpenSSL:
+   make
+   make build-shared
+   #( cd apps ; make clean ; make )
+}
+
+install() {
+   make install
+   cp -r lib*.so.* /usr/lib
+
+   ( cd /usr/lib
+     rm -rf libcrypto.so.0 ; ln -sf libcrypto.so.0.9.6 libcrypto.so.0
+     rm -rf libssl.so.0    ; ln -sf libssl.so.0.9.6 libssl.so.0
+     rm -rf libcrypto.so   ; ln -sf libcrypto.so.0 libcrypto.so
+     rm -rf libssl.so      ; ln -sf libssl.so.0 libssl.so )
+
+   mv /etc/ssl/man/man1/* /usr/man/man1
+   mv /etc/ssl/man/man3/* /usr/man/man3
+   mv /etc/ssl/man/man5/* /usr/man/man5
+   mv /etc/ssl/man/man7/* /usr/man/man7
+   rm -rf /etc/ssl/man
+   ( cd /usr/man/man1 ; mv passwd.1 ssl_passwd.1 )
+   ( cd /usr/man/man3 ; mv rand.3 ssl_rand.3 )
+
+   mkdir -p /usr/doc/openssl-$VERSION
+   cp -r CHANGES CHANGES.SSLeay FAQ INSTALL INSTALL.MacOS INSTALL.VMS \
+      INSTALL.W32 LICENSE NEWS README README.ENGINE doc \
+      /usr/doc/openssl-$VERSION
+}
+
+special() {
+   mkdir -p $PKG/etc/ssl/certs
+   mkdir -p $PKG/etc/ssl/lib
+   mkdir -p $PKG/etc/ssl/private
+}
+
+subpacks() {
+   repack ossllibs
+}

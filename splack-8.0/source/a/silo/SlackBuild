@@ -1,0 +1,71 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-silo
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_silo.tar.gz
+
+echo "+===========+"
+echo "| silo-1.2.5 |"
+echo "+===========+"
+cd $TMP
+tar xyvf $CWD/silo-1.2.5.tar.bz2
+cd silo-1.2.5
+make
+
+mkdir -p $PKG/sbin $PKG/usr/sbin $PKG/etc $PKG/usr/man/man8 \
+         $PKG/usr/man/man5 $PKG/usr/man/man1 $PKG/usr/bin
+cat silo/silo > $PKG/sbin/silo
+cat silo/silocheck > $PKG/usr/sbin/silocheck
+cat tilo/maketilo  > $PKG/usr/bin/maketilo
+cat tilo/tilo.sh   > $PKG/usr/bin/tilo
+chown root.root $PKG/sbin/silo $PKG/usr/sbin/silocheck $PKG/usr/bin/*
+chmod 755       $PKG/sbin/silo $PKG/usr/sbin/silocheck $PKG/usr/bin/*
+
+cp etc/silo.conf $PKG/etc/silo.conf-sample
+chmod 644 $PKG/etc/silo.conf-sample
+
+( cd man
+  cat silo.8 | gzip -9c > $PKG/usr/man/man8/silo.8.gz
+  cat silo.conf.5 | gzip -9c > $PKG/usr/man/man5/silo.conf.5.gz 
+  cat tilo.1 | gzip -9c > $PKG/usr/man/man1/tilo.1.gz
+  cat maketilo.1 | gzip -9c > $PKG/usr/man/man1/maketilo.1.gz)
+
+mkdir -p $PKG/usr/doc/silo-1.2.5
+cp COPYING ChangeLog docs/* $PKG/usr/doc/silo-1.2.5
+
+mkdir $PKG/boot
+cp -a `find | egrep '\.b$'` $PKG/boot
+chmod 644 $PKG/boot/*
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/silo.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/silo-1.2.5
+  rm -rf $PKG
+fi

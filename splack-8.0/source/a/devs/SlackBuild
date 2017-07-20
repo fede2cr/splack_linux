@@ -1,0 +1,54 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-devs
+SRC=/devel/manpagesrc
+INFO=/devel/info-pages/usr/info
+TEX=/devel/texinfo-docs
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_devs.tar.gz
+explodepkg $CWD/_sparcdevs.tar.gz
+
+
+echo "+===============+"
+echo "| MAKEDEV-2.3.1 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/makedev_2.3.1.orig.tar.gz
+cd MAKEDEV-2.3.1
+zcat $CWD/makedev_2.3.1-26.diff.gz | patch -p1 -E
+cat MAKEDEV > $PKG/dev/MAKEDEV
+cat README > $PKG/dev/README.MAKEDEV
+gzip -9c MAKEDEV.man > $PKG/usr/man/man8/MAKEDEV.8.gz
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/devs.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/MAKEDEV-2.3.1
+  rm -rf $PKG
+fi

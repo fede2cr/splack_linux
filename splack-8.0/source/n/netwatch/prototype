@@ -1,0 +1,36 @@
+VERSION=0.9g
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=netwatch-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=netwatch
+DESC="\
+netwatch-$VERSION\n\
+\n\
+Netwatch allows a user (superuser) to monitor activity on the network.\n\
+The monitor includes statistics on transmitted and received packets,\n\
+bytes, protocol, and more."
+
+compile() {
+   tar xvzf $CWD/netwatch.$VERSION.src.tgz
+   cd netwatch.$VERSION
+   zcat $CWD/netwatch.phonemyself.diff.gz | patch -p1 --verbose -b -z .orig
+   zcat $CWD/netwatch.$VERSION.diff.gz | patch -p1
+   ./configure --prefix=/usr $ARCH-slackware-linux
+   make
+}
+
+install() {
+   cp netwatch netresolv /usr/sbin
+   cp netwatch.1 /usr/man/man1
+   mkdir -p /usr/doc/netwatch-$VERSION
+   cp BUGS CHANGES README README.performance TODO netwatch.$VERSION.lsm \
+      /usr/doc/netwatch-$VERSION
+}

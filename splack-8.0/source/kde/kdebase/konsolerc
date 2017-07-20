@@ -1,0 +1,23 @@
+[konsole-mainwindow#1 Toolbar style]
+Hidden=false
+IconSize=0
+IconText=IconTextRight
+Index=0
+NewLine=false
+Offset=-1
+Position=Bottom
+[options]
+Fullscreen=false
+Height 768=386
+MenuBar=Enabled
+WarnQuit=true
+Width 1024=580
+class=konsole-mainwindow#1
+defaultfont=fixed,12,5,0,50,0
+font=6
+has frame=true
+history=true
+keytab=1
+konsolearguments=/bin/bash
+schema=/opt/kde/share/apps/konsole/Linux.schema
+scrollbar=2

@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/librsvg-1.0.0.tar.gz
+cd librsvg-1.0.0
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/librsvg-1.0.0
+cp -a ABOUT-NLS AUTHORS COPYING COPYING.LIB ChangeLog INSTALL NEWS README \
+  /usr/doc/librsvg-1.0.0
+chmod 644 /usr/doc/librsvg-1.0.0/*
+chown root.root /usr/doc/librsvg-1.0.0/*

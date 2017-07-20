@@ -1,0 +1,8 @@
+#!/bin/sh
+cd $TMP/gnu-pop3d-0.9.8
+insfile gnu-pop3d /usr/sbin
+cp gnu-pop3d.8 /usr/man/man8
+mkdir -p /usr/doc/gnu-pop3d-0.9.8
+cp AUTHORS INSTALL IRONY README README.rfc RFC*.txt TODO \
+   /usr/doc/gnu-pop3d-0.9.8
+cp gnu-pop3d.init /usr/doc/gnu-pop3d-0.9.8/gnu-pop3d.init

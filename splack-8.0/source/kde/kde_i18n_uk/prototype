@@ -1,0 +1,26 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kde_i18n_uk-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+
+PROGNAME="KDE Ukrainian Language Support"
+DESC="\
+kde-i18n-uk-$VERSION\n\
+\n\
+Ukrainian language support."
+
+compile() {
+   tar xvyf $CWD/kde-i18n-uk-$VERSION.tar.bz2
+   cd kde-i18n-uk
+   ./configure --prefix=/opt/kde
+   make
+}
+
+install() {
+   make install
+}

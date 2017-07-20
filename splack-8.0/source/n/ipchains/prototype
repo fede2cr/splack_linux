@@ -1,0 +1,63 @@
+IPMASQADM_VER=0.4.2
+IPCHAINS_SCRIPTS_VER=1.1.2
+VERSION=1.3.10
+BUILD=1
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=ipchains-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=ipchains
+DESC="\
+ipchains-$VERSION, ipmasqadm-$IPMASQADM_VER\n\
+\n\
+These are tools for setting up a firewall or masquerading with a\n\
+2.2.x Linux kernel."
+
+compile() {
+   cd $TMP
+   tar xvzf $CWD/ipchains-$VERSION.tar.gz
+   cd ipchains-$VERSION
+   make clean
+   make
+
+   cd $TMP
+   tar xvzf $CWD/ipchains-scripts-$IPCHAINS_SCRIPTS_VER.tar.gz
+   cd ipchains-scripts-$IPCHAINS_SCRIPTS_VER
+   zcat $CWD/ipchains-scripts-$IPCHAINS_SCRIPTS_VER.diff.gz | patch -p1 -b
+
+   cd $TMP
+   tar xvzf $CWD/ipmasqadm-$IPMASQADM_VER.tar.gz
+   cd ipmasqadm-$IPMASQADM_VER
+   make KSRC=/usr/src/linux/
+}
+
+install() {
+   cd $TMP/ipchains-$VERSION
+   cp ipchains /sbin
+   cp ipchains.8 /usr/man/man8
+   cp ipfw.4 /usr/man/man4
+   mkdir -p /usr/doc/ipchains-$VERSION
+   cp COPYING HOWTO.txt README /usr/doc/ipchains-$VERSION
+
+   cd $TMP/ipchains-scripts-$IPCHAINS_SCRIPTS_VER
+   cp ipchains-restore ipchains-save ipfwadm-wrapper /sbin
+   cp ipchains-restore.8 ipchains-save.8 ipfwadm-wrapper.8 /usr/man/man8
+
+   cd $TMP/ipmasqadm-$IPMASQADM_VER
+   mkdir -p /usr/lib/ipmasqadm
+   cp modules/*.so /usr/lib/ipmasqadm
+   cp ipmasqadm/ipmasqadm /usr/sbin
+   cp man/ipmasqadm.8 /usr/man/man8
+   mkdir -p /usr/doc/ipmasqadm-$IPMASQADM_VER
+   cp -r doc/* /usr/doc/ipmasqadm-$IPMASQADM_VER
+}
+
+attributes() {
+   chmod 750 $PKG/usr/lib/ipmasqadm
+}

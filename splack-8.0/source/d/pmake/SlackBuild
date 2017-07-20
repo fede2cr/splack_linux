@@ -1,0 +1,75 @@
+#!/bin/sh
+# Build BSD pmake-2.1.34 for Slackware by volkerdi@slackware.com.
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-pmake
+
+# Source site for BSD parallel make is:
+# ftp://ftp.icsi.berkeley.edu/pub/ai/stolcke/software/
+
+echo "+==============+"
+echo "| pmake-2.1.34 |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/pmake-2.1.34.tar.gz
+cd pmake
+zcat $CWD/pmake-2.1.34.diff.gz | patch -p1 --verbose -E
+# Add system makefiles for ix86/alpha/sparc Linux:
+tar xzvvf $CWD/sys-linux.mk.tar.gz
+chown -R root.root .
+echo "+=============================================================+"
+echo "| Stage one -- Bootstrap build.  Installs a basic pmake built |"
+echo "| with GNU make on the machine                                |"
+echo "+=============================================================+"
+sparc32 make -f makefile
+cp pmake /usr/bin/pmake
+( cd /usr/bin
+  rm -f vmake
+  ln -sf pmake vmake )
+( cd /usr/share
+  rm -rf mk
+  mkdir mk )
+cp -a lib/mk/system.mk lib/mk/*.mk /usr/share/mk
+echo "+========================================+"
+echo "| Stage two -- Rebuild pmake with itself |"
+echo "+========================================+"
+sparc32 pmake -f makefile clean
+sparc32 pmake -f makefile
+cp pmake /usr/bin/pmake
+echo "+================================================+"
+echo "| Stage three -- Rebuild pmake with itself again |"
+echo "+================================================+"
+sparc32 pmake -f makefile clean
+sparc32 pmake -f makefile
+cp pmake /usr/bin/pmake
+# Now, we should be good to build the package:
+rm -rf $PKG
+mkdir -p $PKG/usr/bin
+cp pmake $PKG/usr/bin/pmake
+( cd $PKG/usr/bin ; ln -sf pmake vmake ; chown -R root.bin . ; strip pmake )
+mkdir -p $PKG/usr/share/mk
+cp -a lib/mk/system.mk lib/mk/*.mk $PKG/usr/share/mk
+mkdir -p $PKG/usr/man/man1
+cat $CWD/pmake.1.gz > $PKG/usr/man/man1/pmake.1.gz
+mkdir -p $PKG/usr/doc/pmake-2.1.34
+cp -a CHANGES INSTALL README $PKG/usr/doc/pmake-2.1.34
+groff -ms -Tascii doc/tutorial.ms > $PKG/usr/doc/pmake-2.1.34/tutorial.txt
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/pmake.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+

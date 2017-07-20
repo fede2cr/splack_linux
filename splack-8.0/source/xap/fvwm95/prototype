@@ -1,0 +1,82 @@
+VERSION=2.0.43ba
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=fvwm95-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=fvwm95
+DESC="\
+fvwm95-$VERSION\n\
+\n\
+This is fvwm-$VERSION hacked for a look and feel similar to Windows95."
+
+compile() {
+   tar xvyf $CWD/fvwm95_$VERSION.orig.tar.bz2
+   cd fvwm95-$VERSION.orig
+   bzip2 -dc $CWD/fvwm95_$VERSION-15.diff.bz2 | patch -p1 -E --verbose --backup
+   bzip2 -dc $CWD/fvwm95.colormap.slack.diff.bz2 | patch -p1 -E --verbose --backup
+   CFLAGS=-O2 ./configure --prefix=/usr/X11R6
+   make
+}
+
+install() {
+   # install fvwm95
+   make install
+
+   # install man pages
+   mkdir -p /usr/X11R6/man/man1
+   for file in `find . -type f -name "*.man"`
+   do
+      cp $file /usr/X11R6/man/man1/`basename $file .man`.1
+   done
+
+   # install/fix icons
+   mkdir -p /usr/X11R6/include/X11/pixmaps
+   cp $CWD/fvwm95-menu.xpm /usr/X11R6/include/X11/pixmaps/fvwm95-menu.xpm
+   mv /usr/X11R6/lib/X11/mini-icons/* /usr/X11R6/include/X11/pixmaps
+   mv /usr/X11R6/lib/X11/icons/* /usr/X11R6/include/X11/pixmaps
+   rmdir /usr/X11R6/lib/X11/icons
+   rmdir /usr/X11R6/lib/X11/mini-icons
+
+   # install control files
+   mkdir -p /etc/X11/fvwm95
+   mkdir -p /etc/X11/xinit
+   mv /usr/X11R6/lib/X11/fvwm95/system.fvwm95rc \
+      /etc/X11/fvwm95/system.fvwm95rc.orig
+   cat $CWD/system.fvwm95rc > /etc/X11/fvwm95/system.fvwm95rc
+   cat $CWD/system.fvwm95rc-apm-battery \
+      > /etc/X11/fvwm95/system.fvwm95rc-apm-battery
+   ( cd /usr/X11R6/lib/X11/fvwm95
+     rm -rf system.fvwm95rc
+     ln -sf ../../../../../etc/X11/fvwm95/system.fvwm95rc . )
+   cp $CWD/xinitrc.fvwm95 /etc/X11/xinit
+
+   # install documentation
+   mkdir -p /usr/doc/fvwm95-$VERSION/FvwmButtons
+   cp -r Changelog FvwmTaskBar-plugins.patch.README GPL INSTALL README \
+      fvwm95-2.xx.lsm docs/col* docs/err* docs/example* docs/fvwm* docs/m4* \
+      docs/modul* /usr/doc/fvwm95-$VERSION
+   ( cd modules/FvwmButtons
+     cp -r BUGS CHANGES INSTALL README TODO samplebuttonrc \
+        /usr/doc/fvwm95-$VERSION/FvwmButtons )
+}
+
+attributes() {
+   chmod 755 $PKG/etc/X11/xinit/xinitrc.fvwm95
+   chmod 444 $PKG/usr/doc/fvwm95-2.0.43ba/GPL
+}
+
+special() {
+   # don't want this
+   rmdir $PKG/usr/X11R6/icons
+
+   # add to the doinst.sh script
+   cat $CWD/doinst.sh $CTL/doinst > $CTL/doinst.incoming
+   mv $CTL/doinst.incoming $CTL/doinst.sh
+}

@@ -1,0 +1,32 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gettext
+cd $TMP
+
+# Build and install:
+tar xzvf $CWD/gettext-0.10.38.tar.gz
+cd gettext-0.10.38
+./configure --prefix=/usr \
+   --with-included-gettext \
+   --disable-shared \
+   sparc-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install prefix=$PKG/usr
+
+mkdir -p $PKG/usr/doc/gettext-0.10.38
+cp -a ABOUT-NLS AUTHORS BUGS COPYING ChangeLog DISCLAIM INSTALL \
+  NEWS README README-alpha README.gemtext THANKS TODO $PKG/usr/doc/gettext-0.10.38
+chown root.root $PKG/usr/doc/gettext-0.10.38/*
+chmod 644 $PKG/usr/doc/gettext-0.10.38/*
+
+# Remove library that glibc2 makes obsolete:
+rm $PKG/usr/lib/libintl.la
+rm $PKG/usr/lib/libintl.a
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/gettext.tgz
+

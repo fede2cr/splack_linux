@@ -1,0 +1,59 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sysklogd
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_sysklogd.tar.gz
+
+echo "+================+"
+echo "| sysklogd-1.4.1 |"
+echo "+================+"
+cd $TMP
+tar xzvf $CWD/sysklogd-1.4.1.tar.gz
+cd sysklogd-1.4.1
+make
+make syslog_tst
+cat klogd > $PKG/usr/sbin/klogd
+cat syslog_tst > $PKG/usr/sbin/syslog_tst
+cat syslogd > $PKG/usr/sbin/syslogd
+for page in klogd.8 sysklogd.8 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man8/$page.gz
+done
+cat syslog.conf.5 | gzip -9c > $PKG/usr/man/man5/syslog.conf.5.gz
+mkdir -p $PKG/usr/doc/sysklogd-1.4.1
+cp -a ANNOUNCE CHANGES COPYING INSTALL MANIFEST NEWS README.1st \
+  README.linux $PKG/usr/doc/sysklogd-1.4.1
+chown -R root.root $PKG/usr/doc/sysklogd-1.4.1
+chmod 644 $PKG/usr/doc/sysklogd-1.4.1/*
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/sysklogd.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/sysklogd-1.4.1
+  rm -rf $PKG
+fi

@@ -1,0 +1,28 @@
+TAG=OPT
+
+SUBPKGNAME=imapd-$VERSION-$ARCH-$BUILD
+
+PROGNAME="Pine IMAP and POP3 servers"
+DESC="\
+imapd (IMAP4rev1 2000.287 from pine$VERSION)\n\
+\n\
+/sbin/ipop3d and /sbin/imapd are servers supporting the POP3 and\n\
+IMAP remote mail access protocols.  They allow users to download\n\
+mail from your Linux system for remote viewing."
+
+subinstall() {
+   # install documentation
+   cd $TMP/pine$VERSION
+   for file in imap/src/imapd/imapd.8c imap/src/ipopd/ipopd.8c
+   do
+      cat $file | gzip -9c > $imPKG/usr/man/man8/`basename $file`.gz
+   done
+   mkdir -p /usr/doc/pine$VERSION
+   cp README CPYRIGHT /usr/doc/pine$VERSION
+
+   # install the servers
+   cp imap/imapd/imapd /usr/sbin/imapd.incoming
+   mv /usr/sbin/imapd.incoming /usr/sbin/imapd
+   cp imap/ipopd/ipop3d /usr/sbin/ipop3d.incoming
+   mv /usr/sbin/ipop3d.incoming /usr/sbin/ipop3d
+}

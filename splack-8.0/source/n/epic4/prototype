@@ -1,0 +1,42 @@
+VERSION=1.0
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=epic4-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=epic4
+DESC="\
+epic4-$VERSION\n\
+\n\
+EPIC is the (E)nhanced (P)rogrammable (I)RC-II (C)lient.\n\
+\n\
+The EPIC home page is:        http://www.epicsol.org/\n\
+The EPIC main ftp site is:    ftp://ftp.epicsol.org/\n\
+The EPIC IRC channel is:      #epic on EFNet"
+
+compile() {
+   rm -rf /usr/share/epic
+
+   tar xvyf $CWD/epic4-$VERSION.tar.bz2
+   cd epic4-$VERSION
+   ./configure --prefix=/usr
+   make CFLAGS=-O2
+}
+
+install() {
+   make CFLAGS=-O2 install
+
+   ( cd /usr/share/epic
+     tar xvvzf $CWD/epic4pre2-help.tar.gz )
+
+   mkdir -p /usr/doc/epic4-$VERSION
+   cp -r BUG_FORM COPYRIGHT INSTALL KNOWNBUGS README UPDATES VOTES doc \
+      /usr/doc/epic4-$VERSION
+   rm -rf /usr/doc/epic4-$VERSION/doc/CVS
+}

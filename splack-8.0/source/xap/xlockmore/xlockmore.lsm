@@ -1,0 +1,32 @@
+Begin3
+Title:		xlockmore
+Version:	5.00
+Entered-date:	15Dec00
+Description:	Patrick Naughton's xlock & 100+ more modes.
+		New options -inwindow, -inroot, -geometry, -icongeometry,
+		-install, -lockdelay; which allows you to run it in a window,
+		in the root window, in a different size/location, change the
+		size of the iconified window, to install a new colormap, and
+		delay locking for use with xautolock.  Options can now be
+		passed to modes.  Also improvements in portability.  It also
+		has compile time switches for use in a public lab and personal
+		use.  Supports Mesa/OpenGL and XPM modes, (highly desirable)
+		but not required.
+Keywords:	xlock, screen saver, screen lock 
+Author:		Patrick Naughton (the original author),
+		bagleyd@tux.org (David Bagley), and many others.
+Maintained-by:	bagleyd@tux.org (David Bagley)
+Primary-site:	ftp.tux.org /pub/tux/bagleyd/xlockmore
+		1533k xlockmore-5.00.tar.gz
+		20k xlockmore.README
+Alternate-site:	ftp.x.org /contrib/applications
+		1533k xlockmore-5.00.tar.gz
+		20k xlockmore.README
+		metalab.unc.edu /pub/Linux/X11/xutils/screensavers
+		1533k xlockmore-5.00.tar.gz
+Original-site:	ftp.x.org /R5contrib
+Platforms:	SunOS 4.1, Solaris 2.x, Linux, FreeBSD, NetBSD, HP-UX,
+		AIXV3, ESIX, IRIX, ULTRIX, VMS.	Requires X & ANSI C although it
+		should compile "right out of the box", read the README.
+Copying-policy:	BSD
+End

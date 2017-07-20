@@ -1,0 +1,14 @@
+# Hehehe, well this _is_ pretty cheap, but it's
+# taking the path of least resistance.  The
+# mozilla tarballs always have problems that prevent
+# a straightforward build, and all the sub-projects
+# in GNOME build off the semi-official RPMs, so it
+# makes more sense to build with most of their
+# patches from a spec file than to waste time trying
+# to independantly create a set of mozilla patches
+# that do the same thing...
+#
+# I'm going unnamed here. :)
+
+rpm -bb --nodeps mozilla-0.9.1.spec
+

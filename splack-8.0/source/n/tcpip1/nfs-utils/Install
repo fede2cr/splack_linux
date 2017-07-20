@@ -1,0 +1,44 @@
+#!/bin/sh
+cd $TMP/nfs-utils-0.3.1
+insfile utils/exportfs/exportfs /usr/sbin
+insfile utils/nfsstat/nfsstat /usr/sbin
+insfile utils/nhfsstone/nhfsgraph /usr/sbin
+insfile utils/nhfsstone/nhfsnums /usr/sbin
+insfile utils/nhfsstone/nhfsrun /usr/sbin
+insfile utils/nhfsstone/nhfsstone /usr/sbin
+insfile utils/showmount/showmount /usr/sbin
+mv utils/lockd/lockd utils/lockd/rpc.lockd
+mv utils/mountd/mountd utils/mountd/rpc.mountd
+mv utils/nfsd/nfsd utils/nfsd/rpc.nfsd
+mv utils/rquotad/rquotad utils/rquotad/rpc.rquotad
+mv utils/statd/statd utils/statd/rpc.statd
+insfile utils/lockd/rpc.lockd /usr/sbin
+insfile utils/mountd/rpc.mountd /usr/sbin
+insfile utils/nfsd/rpc.nfsd /usr/sbin
+insfile utils/rquotad/rpc.rquotad /usr/sbin
+insfile utils/statd/rpc.statd /usr/sbin
+
+cp utils/exportfs/exportfs.man /usr/man/man8/exportfs.8
+cp utils/exportfs/exports.man /usr/man/man8/exports.8
+cp utils/lockd/lockd.man /usr/man/man8/lockd.8
+cp utils/mountd/mountd.man /usr/man/man8/mountd.8
+cp utils/nfsd/nfsd.man /usr/man/man8/nfsd.8
+cp utils/nfsstat/nfsstat.man /usr/man/man8/nfsstat.8
+cp utils/nhfsstone/nhfsgraph.man /usr/man/man8/nhfsgraph.8
+cp utils/nhfsstone/nhfsnums.man /usr/man/man8/nhfsnums.8
+cp utils/nhfsstone/nhfsrun.man /usr/man/man8/nhfsrun.8
+cp utils/nhfsstone/nhfsstone.man /usr/man/man8/nhfsstone.8
+cp utils/rquotad/rquotad.man /usr/man/man8/rquotad.8
+cp utils/showmount/showmount.man /usr/man/man8/showmount.8
+cp utils/statd/statd.man /usr/man/man8/statd.8
+
+mkdir -p /usr/doc/nfs-utils-0.3.1/nhfsstone
+cp utils/nhfsstone/DISCLAIMER utils/nhfsstone/README \
+   utils/nhfsstone/README.linux /usr/doc/nfs-utils-0.3.1/nhfsstone
+mkdir -p /usr/doc/nfs-utils-0.3.1/rquotad
+cp utils/rquotad/NEW utils/rquotad/README.okir \
+   /usr/doc/nfs-utils-0.3.1/rquotad
+mkdir -p /usr/doc/nfs-utils-0.3.1/statd
+cp utils/statd/COPYING utils/statd/COPYRIGHT utils/statd/TODO \
+   /usr/doc/nfs-utils-0.3.1/statd
+cp -r COPYING ChangeLog README linux-nfs /usr/doc/nfs-utils-0.3.1

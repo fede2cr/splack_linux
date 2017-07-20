@@ -1,0 +1,4 @@
+#!/bin/sh
+COLOR="on"
+export COLOR
+sh /var/log/setup/setup.fontconfig

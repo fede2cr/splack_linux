@@ -1,0 +1,16 @@
+Begin4
+Title:          mt-st
+Version:        0.6
+Entered-date:   2000-11-30
+Description:    Includes a mt-like program supporting additional
+commands using ioctls specific to the Linux SCSI tape driver (up
+to kernel 2.4.0), and the program stinit to define the SCSI tape
+devices in system startup scripts.
+Keywords:       tape SCSI
+Author:         Kai.Makisara@metla.fi (Kai Makisara)
+Maintained-by:  Kai.Makisara@metla.fi (Kai Makisara)
+Primary-site:   ibiblio.org /pub/Linux/system/backup
+		34  kB mt-st-0.6.tar.gz
+		0.7 kB mt-st-0.6.lsm
+Copying-policy: GPL
+End

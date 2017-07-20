@@ -1,0 +1,25 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-raidtool
+
+cd $TMP
+tar xzvf $CWD/raidtools-19990824-0.90.tar.gz
+cd raidtools-0.90
+./configure --prefix=/usr
+make
+make install ROOTDIR=$PKG
+mkdir -p $PKG/usr/doc/raidtools-0.90
+cp -a COPYING README Software-RAID.HOWTO *.sample $PKG/usr/doc/raidtools-0.90
+chown -R root.root $PKG/usr/doc/raidtools-0.90
+
+( cd $PKG/usr/man
+  gzip --force *[1-9]/*.[1-9] )
+
+rm -r $PKG/dev
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/raidtool.tgz

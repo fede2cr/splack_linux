@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xyvf $CWD/eel-1.0.tar.bz2
+cd eel-1.0
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/eel-1.0
+cp -a ABOUT-NLS AUTHORS COPYING COPYING.LIB ChangeLog HACKING INSTALL MAINTAINERS NEWS README THANKS TODO \
+  /usr/doc/eel-1.0
+chmod 644 /usr/doc/eel-1.0/*
+chown root.root /usr/doc/eel-1.0/*

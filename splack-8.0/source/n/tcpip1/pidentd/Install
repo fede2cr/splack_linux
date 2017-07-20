@@ -1,0 +1,11 @@
+#!/bin/sh
+cd $TMP/pidentd-3.0.12
+mv src/identd src/in.identd
+insfile src/in.identd /usr/sbin
+insfile src/ibench /usr/sbin
+insfile src/idecrypt /usr/sbin
+insfile src/ikeygen /usr/sbin
+cp doc/identd.8 /usr/man/man8/identd.8
+echo ".so man8/identd.8" > /usr/man/man8/in.identd.8
+mkdir -p /usr/doc/pidentd-3.0.12
+cp BUGS ChangeLog FAQ INSTALL README Y2K doc/rfc* /usr/doc/pidentd-3.0.12

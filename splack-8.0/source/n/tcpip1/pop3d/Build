@@ -1,0 +1,8 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/pop3d/pop3d-1.006d.tar.gz
+cd pop3d-1.006d
+zcat $CWD/pop3d/pop3d-1.006d.diff.gz | patch -p1 --backup
+sed -e 's#-m.86##g' Makefile > Makefile.not_brain_damaged
+mv Makefile.not_brain_damaged Makefile
+make

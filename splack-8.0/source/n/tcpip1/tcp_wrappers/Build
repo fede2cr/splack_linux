@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/tcp_wrappers/tcp_wrappers_7.6.tar.gz
+cd tcp_wrappers_7.6
+zcat $CWD/tcp_wrappers/tcp_wrappers_7.6.diff.gz | patch -p1 --backup
+make REAL_DAEMON_DIR=/usr/sbin linux

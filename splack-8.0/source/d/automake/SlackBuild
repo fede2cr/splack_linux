@@ -1,0 +1,24 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-automake
+mkdir -p $PKG
+
+cd $TMP
+tar xzvf $CWD/automake-1.4-p4.tar.gz
+cd automake-1.4-p4
+./configure --prefix=/usr
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/automake-1.4-p4
+cp -a AUTHORS COPYING INSTALL NEWS README THANKS \
+    TODO $PKG/usr/doc/automake-1.4-p4
+chown root.root $PKG/usr/doc/automake-1.4-p4/*
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/automake.tgz

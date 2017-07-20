@@ -1,0 +1,29 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-slang
+cd $TMP
+mkdir $PKG
+
+tar xyvf $CWD/slang-1.4.3.tar.bz2
+cd slang-1.4.3
+tar xyvf $CWD/slang1.4.3-doc.tar.bz2
+./configure --prefix=/usr --includedir=/usr/include/slang
+make CFLAGS=-O2
+make CFLAGS=-O2 install prefix=$PKG/usr
+make elf
+make install-elf prefix=$PKG/usr
+
+rm -r $PKG/usr/doc/slang
+mkdir -p $PKG/usr/doc/slang-1.4.3
+cp -a COPY* README UPGRADE.txt changes.txt $PKG/usr/doc/slang-1.4.3
+cp -a doc/html $PKG/usr/doc/slang-1.4.3
+chown -R root.root $PKG/usr/doc/slang-1.4.3
+chmod 755 $PKG/usr/lib/libslang.so.1.4.3
+( cd $PKG/usr/lib ; ldconfig . )
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/slang.tgz

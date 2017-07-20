@@ -1,0 +1,99 @@
+#!/bin/sh
+# Copyright 2001 BSDi, Inc. Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+VERSION=20010101
+ARCH=sparc
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-ksh93
+
+rm -rf $TMP/ksh93
+mkdir $TMP/ksh93
+cd $TMP/ksh93
+
+mkdir -p ast-base/lib/package/tgz
+cp $CWD/*.tgz ast-base/lib/package/tgz
+cd ast-base/
+
+tar xvzf lib/package/tgz/INIT.2001-01-01.0000.tgz
+bin/package read
+sparc32 bin/package make SHELL=/bin/bash1
+
+
+mkdir -p $PKG/usr/bin $PKG/usr/lib $PKG/usr/doc $PKG/usr/man/man1 \
+         $PKG/usr/man/man3 $PKG/usr/include $PKG/bin
+cp arch/linux.$ARCH/bin/ksh             $PKG/bin/ksh.new
+cp arch/linux.$ARCH/lib/libshell.so.1.1 $PKG/usr/lib
+cp arch/linux.$ARCH/lib/libshell.a      $PKG/usr/lib
+cp arch/linux.$ARCH/lib/libast.so.5.4   $PKG/usr/lib
+cp arch/linux.$ARCH/lib/libast.a        $PKG/usr/lib
+
+sed -e "s#\.nr Z 0#\.nr Z 1#g" src/cmd/ksh93/sh.1 | gzip -9c > \
+                                        $PKG/usr/man/man1/ksh.1.gz
+gzip -9c src/cmd/ksh93/shell.3 >        $PKG/usr/man/man3/shell.3.gz
+gzip -9c src/cmd/ksh93/nval.3  >        $PKG/usr/man/man3/nval.3.gz
+cp src/cmd/ksh93/include/shell.h        $PKG/usr/include
+
+( cd $PKG/bin ; ln -sf ksh rksh )
+( cd $PKG/usr/lib ; ln -sf libshell.so.1.1 libshell.so )
+( cd $PKG/usr/lib rm -rf libast.so ; ln -sf libast.so.5.4 libast.so )
+( cd $PKG/usr/man/man1 ; ln -sf ksh.1.gz rksh.1.gz )
+
+mkdir -p $PKG/usr/doc/ksh93
+( cd src/cmd/ksh93
+  cp -a COMPATIBILITY DESIGN OBSOLETE OPTIONS README RELEASE* \
+     $PKG/usr/doc/ksh93
+)
+
+chown -R root.root $PKG/usr/doc/ksh93
+chmod 644 $PKG/usr/doc/ksh93/*
+
+chmod 755 $PKG/usr/lib/libshell.so.1.1
+chmod 755 $PKG/usr/lib/libast.so.5.4
+
+mkdir $PKG/install
+
+cat <<EOF > $PKG/install/doinst.sh
+# Backup the old copy if we find one, move the new one in place
+if [ -f bin/ksh ]; then
+   mv bin/ksh bin/ksh.old
+fi
+mv bin/ksh.new bin/ksh
+# Add entries to /etc/shells if we need them
+if [ ! -r etc/shells ] ; then
+   touch etc/shells
+   chmod 644 etc/shells
+fi
+ 
+if fgrep "/bin/ksh" etc/shells 1> /dev/null 2> /dev/null ; then
+   GOOD=y
+   else
+   echo "/bin/ksh" >> etc/shells
+fi
+EOF
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/ksh93.tgz

@@ -1,0 +1,66 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-jove
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_jove.tar.gz
+
+echo "+==========+"
+echo "| jove4.16 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/jove-4.16.tar.gz
+cd jove
+zcat $CWD/jove-4.16.diff.gz | patch -p1 --verbose --backup
+zcat $CWD/jove-8bit.diff.gz | patch -p1 --verbose --backup
+make
+make /usr/man/man1/jove.1
+make /usr/man/man1/teachjove.1
+mkdir -p $PKG/usr/doc/jove-4.16
+cp -a README $CWD/jove.README $PKG/usr/doc/jove-4.16
+chown root.root $PKG/usr/doc/jove-4.16/*
+chmod 644 $PKG/usr/doc/jove-4.16/*
+gzip -9c /usr/man/man1/jove.1 > $PKG/usr/man/man1/jove.1.gz
+gzip -9c /usr/man/man1/teachjove.1 > $PKG/usr/man/man1/teachjove.1.gz
+strip jjove recover teachjove
+cat jjove > $PKG/usr/bin/jove
+cat recover > $PKG/usr/bin/jove-recover
+cat teachjove > $PKG/usr/bin/teachjove
+# This is only used on systems without pttys.
+# cat portsrv > $PKG/usr/lib/jove/portsrv
+# chmod 755 $PKG/usr/lib/jove/portsrv
+for file in doc/teach-jove doc/cmds.doc doc/jove.rc.sun doc/keychart.sun doc/jove.rc.sun-cmd doc/keychart.sun-cmd doc/jove.rc.vt100 doc/keychart.vt100 doc/jove.rc.wyse doc/keychart.wyse doc/jove.rc.xterm doc/keychart.xterm doc/jove.rc.z29 doc/keychart.z29 doc/jove.rc.3022 doc/keychart.3022 doc/keychart. doc/XTermresource doc/jove.rc ; do
+  cat $file > $PKG/usr/lib/jove/`basename $file`
+done
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/jove.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/jove
+  rm -rf $PKG
+fi

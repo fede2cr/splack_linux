@@ -1,0 +1,15 @@
+--- ./xv.h.orig	Mon May  1 14:25:21 2000
++++ ./xv.h	Mon May  1 14:26:15 2000
+@@ -62,10 +62,11 @@
+ #endif
+ 
+ 
+-#ifdef LINUX
++#ifdef linux
+ #  ifndef _LINUX_LIMITS_H
+ #    include <linux/limits.h>
+ #  endif
++#  define USE_GETCWD
+ #endif
+ 
+ 

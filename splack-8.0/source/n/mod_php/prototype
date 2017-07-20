@@ -1,0 +1,113 @@
+GD_VER=1.8.2
+VERSION=4.0.5
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=mod_php-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/etc:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=PHP
+DESC="\
+php-$VERSION\n\
+\n\
+PHP is an HTML-embedded scripting language.  It shares syntax\n\
+characteristics with C, Java, and Perl.  The primary objective\n\
+behind this language is to make a fast and easy-to-use scripting\n\
+language for dynamic web sites.\n\
+\n\
+More information can be found online at http://www.php.net/"
+
+compile() {
+   # this needs to be removed
+   rm -rf /usr/include/php
+
+   # compile a static gd that we can link into php
+   cd $TMP
+   tar xvzf $CWD/gd-$GD_VER.tar.gz
+   cd gd-$GD_VER
+   make
+   mkdir lib
+   mkdir bin
+   mkdir include
+   cp libgd.a lib
+   cp gd.h gdcache.h gd_io.h gdfontg.h gdfontmb.h gdfonts.h gdfontt.h include
+   cp pngtogd pngtogd2 gdtopng gd2topng gd2copypal gdparttopng webpng \
+      bdftogd bin
+
+   # compile php
+   cd $TMP
+   tar xvzf $CWD/php-$VERSION.tar.gz
+   cd php-$VERSION
+   ./configure --prefix=/usr \
+               --with-apxs=/usr/sbin/apxs \
+               --with-mod_charset \
+               --enable-force-cgi-redirect \
+               --enable-discard-path \
+               --with-config-file-path=/etc/apache \
+               --enable-safe-mode \
+               --with-openssl \
+               --enable-bcmath \
+               --with-bz2 \
+               --enable-calendar \
+               --enable-ctype \
+               --with-gdbm \
+               --with-db2 \
+               --with-db3 \
+               --enable-dbase \
+               --enable-ftp \
+               --enable-gd-imgstrttf \
+               --with-gd=$TMP/gd-$GD_VER \
+               --with-jpeg-dir=$TMP/gd-$GD_VER \
+               --with-gmp \
+               --with-mysql=/usr \
+               --with-xml=shared \
+               --with-readline=/usr \
+               --with-mm=/usr \
+               --enable-trans-sid \
+               --enable-shmop \
+               --enable-sockets \
+               --with-regex=php \
+               --enable-sysvsem \
+               --enable-sysvshm \
+               --enable-yp \
+               --enable-memory-limit \
+               --with-tsrm-pthreads \
+               --enable-shared \
+               --disable-debug \
+               --with-zlib=/usr
+               # --with-ttf    # this links with the shlib, need X for that
+               # --with-java
+               # --with-dom    # requires libxml >= 2.2.7
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/php-$VERSION
+   cp CODING_STANDARDS CREDITS EXTENSIONS FUNCTION_LIST.txt INSTALL LICENSE \
+      NEWS README* TODO *.txt /usr/doc/php-$VERSION
+}
+
+special() {
+   ( cd $PKG ; explodepkg $CWD/_mod_php.tar.gz )
+   ( cd $TMP/php-$VERSION
+     cp php.ini-dist php.ini-optimized $PKG/etc/apache
+     chown root.root $PKG/etc/apache/php.ini*
+     chmod 644 $PKG/etc/apache/php.ini* )
+
+   cat << "EOF" >> $CTL/doinst.sh
+if [ ! -f etc/apache/mod_php.conf ]; then
+   cp -a etc/apache/mod_php.conf.example etc/apache/mod_php.conf
+elif [ "`cat etc/apache/mod_php.conf 2> /dev/null`" = "" ]; then
+   cp -a etc/apache/mod_php.conf.example etc/apache/mod_php.conf
+fi
+if [ ! -f etc/apache/php.ini ]; then
+   cp -a etc/apache/php.ini-dist etc/apache/php.ini
+fi
+EOF
+}

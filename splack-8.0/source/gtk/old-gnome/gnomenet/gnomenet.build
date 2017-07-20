@@ -1,0 +1,17 @@
+#!/bin/sh
+CWD=`pwd` 
+cd /tmp
+tar xzvf $CWD/gnome-network-1.0.2.tar.gz
+cd gnome-network-1.0.2
+zcat $CWD/gnome-network-1.0.2.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+	    --with-catgets \
+	    --with-gnome=/opt/gnome \
+            --localstatedir=/var/state \
+            i386-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install
+mkdir -p /usr/doc/gnome-network-1.0.2
+cp -a AUTHORS COPYING ChangeLog NEWS README /usr/doc/gnome-network-1.0.2
+chown -R root.root /usr/doc/gnome-network-1.0.2

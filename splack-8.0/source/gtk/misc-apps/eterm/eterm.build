@@ -1,0 +1,10 @@
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/Eterm-0.8.10.tar.gz
+cd Eterm-0.8.10
+CFLAGS=-O2 ./configure --prefix=/usr/X11R6 i386-slackware-linux
+make
+make install
+mkdir -p /usr/doc/Eterm-0.8.10
+cp -a  COPYING ChangeLog README /usr/doc/Eterm-0.8.10
+chown -R root.root /usr/doc/Eterm-0.8.10

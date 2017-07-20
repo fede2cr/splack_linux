@@ -1,0 +1,53 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+cd $TMP
+PKG=$TMP/package-libtiff
+mkdir $PKG
+
+tar xzvf $CWD/tiff-v3.5.5.tar.gz
+cd tiff-v3.5.5
+zcat $CWD/tiff-v3.5.5.solib.diff.gz | patch -p1 -E --backup --suffix=.orig --verbose
+./configure --target=sparc-slackware-linux \
+            --with-ZIP=yes \
+            --with-DIR_GZLIB=/usr/lib \
+            --with-DIRS_LIBINC=/usr/include << EOF
+no
+/usr/bin
+/usr/lib
+/usr/include
+/usr/man
+/usr/doc/tiff-v3.5.5/html
+bsd-source-cat
+yes
+EOF
+# Normally COPTS=-g :^P
+make COPTS= 
+
+mkdir -p $PKG/usr/bin $PKG/usr/include $PKG/usr/lib $PKG/usr/man/man1 \
+ $PKG/usr/man/man3 mkdir -p $PKG/usr/doc/libtiff-3.5.5 
+
+( cd tools ; cp -a fax2ps fax2tiff gif2tiff pal2rgb ppm2tiff ras2tiff \
+  rgb2ycbcr thumbnail tiff2bw tiff2ps tiff2rgba tiffcmp tiffcp \
+  tiffdither tiffdump tiffinfo tiffmedian tiffsplit $PKG/usr/bin
+  find $PKG/usr/bin  -type f -exec chown root:bin {} \; )
+
+( cd libtiff ; cp -a tiff.h tiffconf.h tiffio.h $PKG/usr/include 
+  find $PKG/usr/include -type f -exec chown root:root {} \;
+  find $PKG/usr/include -type f -exec chmod 444 {} \; )
+
+( cd libtiff ; cp -a libtiff.a libtiff.so.3.5.5 $PKG/usr/lib
+  chmod -w $PKG/usr/lib/libtiff.a )
+
+cp -a COPYRIGHT README TODO VERSION html $PKG/usr/doc/libtiff-3.5.5
+chown -R root.root /usr/doc/libtiff-3.5.5
+
+cp -a man/apps/*.1 $PKG/usr/man/man1
+cp -a man/lib/*.3t $PKG/usr/man/man3
+find $PKG/usr/man -type f -exec gzip -9 {} \;  
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/libtiff.tgz

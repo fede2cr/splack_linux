@@ -1,0 +1,52 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-oaf
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/oaf-0.6.5.tar.gz
+cd oaf-0.6.5
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            sparc-slackware-linux
+
+# As weird as it sounds, you will need rpm.tgz to be installed to configure
+# this package
+
+make
+make DESTDIR=$PKG install
+mkdir $PKG/usr/doc/oaf-0.6.5
+cp -a ABOUT-NLS AUTHORS COPYING COPYING.LIB ChangeLog INSTALL NEWS README TODO \
+  $PKG/usr/doc/oaf-0.6.5
+chmod 644 $PKG/usr/doc/oaf-0.6.5/*
+chown root.root $PKG/usr/doc/oaf-0.6.5/*
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/oaf.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/oaf-0.6.5
+  rm -rf $PKG
+fi

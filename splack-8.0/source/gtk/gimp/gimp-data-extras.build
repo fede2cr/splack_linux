@@ -1,0 +1,11 @@
+CWD=`pwd`
+cd /tmp
+tar xyvf $CWD/gimp-data-extras-1.2.0.tar.bz2
+cd gimp-data-extras-1.2.0
+./configure --prefix=/opt/gnome
+make install
+mkdir -p /usr/doc/gimp-data-extras-1.2.0
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README \
+  /usr/doc/gimp-data-extras-1.2.0
+chown root.root /usr/doc/gimp-data-extras-1.2.0/*
+chmod 644 /usr/doc/gimp-data-extras-1.2.0/*

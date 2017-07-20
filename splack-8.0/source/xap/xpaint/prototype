@@ -1,0 +1,49 @@
+VERSION=2.4.9
+BUILD=4
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=xpaint-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var/log
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=XPaint
+DESC="\
+XPaint $VERSION.\n\
+\n\
+XPaint is a bitmap/pixmap editing tool.  These are some of the\n\
+features of xpaint:\n\
+\n\
+Usual paint operations:\n\
+  Brushes, Spray paint, Pencil, Lines, Arcs, Pattern Fill, Text,\n\
+  Boxes, Circles, Polygons.\n\
+Works on multiple images simultaneously. Cut/Copy/Paste between all\n\
+active images. Fatbits/Zoom on the image windows."
+
+compile() {
+   tar xvzf $CWD/xpaint-$VERSION.tar.gz
+   cd xpaint
+   zcat $CWD/xpaint-$VERSION.diff.gz | patch -p0
+   xmkmf
+   make Makefiles
+   make
+}
+
+install() {
+   make install
+   make install.man
+   mv /usr/X11R6/man/man1/xpaint.1x /usr/X11R6/man/man1/xpaint.1
+   mkdir -p /usr/X11R6/include/X11/bitmaps
+   cp $TMP/xpaint/bitmaps/*.x?m /usr/X11R6/include/X11/bitmaps
+   mkdir -p /usr/doc/xpaint-$VERSION
+   cp ChangeLog Help.txt INSTALL Doc/CHANGES Doc/Operator* Doc/sample* \
+      /usr/doc/xpaint-$VERSION
+}
+
+attributes() {
+   chmod 644 $PKG/etc/X11/app-defaults/XPaint
+   chmod 644 $PKG/usr/X11R6/man/man1/xpaint.1*
+}

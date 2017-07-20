@@ -1,0 +1,555 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-bin
+INFO=$PKG/usr/info
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_bin.tar.gz
+
+echo "+==========+"
+echo "| at-3.1.8 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/at_3.1.8.orig.tar.gz
+cd at-3.1.8.orig
+zcat $CWD/at_3.1.8-10.diff.gz | patch -p1 --backup --verbose -E
+mkdir -p $PKG/usr/doc/at-3.1.8
+cp -a COPYING ChangeLog Copyright Problems README timespec \
+  $PKG/usr/doc/at-3.1.8
+chown root.root $PKG/usr/doc/at-3.1.8/*
+chmod 644 $PKG/usr/doc/at-3.1.8/*
+./configure sparc-slackware-linux
+make  
+strip at atd
+cat at > $PKG/usr/bin/at
+cat atrun > $PKG/usr/sbin/atrun
+cat atd > $PKG/usr/sbin/atd
+cat batch > $PKG/usr/bin/batch
+cat at.1 | gzip -9c > $PKG/usr/man/man1/at.1.gz
+cat atrun.8 | gzip -9c > $PKG/usr/man/man8/atrun.8.gz
+cat atd.8 | gzip -9c > $PKG/usr/man/man8/atd.8.gz
+
+echo "+==========+"
+echo "| apmd-3.0 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/apmd-3.0.tar.gz
+cd apmd
+make apm apmd xapm 
+strip apm apmd xapm
+cat apm > $PKG/usr/bin/apm
+chown root.bin $PKG/usr/bin/apm
+chmod 755 $PKG/usr/bin/apm
+cat apm.1 | gzip -9c > $PKG/usr/man/man1/apm.1.gz
+cat apmd > $PKG/usr/sbin/apmd
+chown root.bin $PKG/usr/sbin/apmd
+chmod 755 $PKG/usr/sbin/apmd
+cat apmd.8 | gzip -9c > $PKG/usr/man/man8/apmd.8.gz
+mkdir -p $PKG/usr/X11R6/bin
+chgrp bin $PKG/usr/X11R6/bin
+cat xapm > $PKG/usr/X11R6/bin/xapm
+chown root.bin $PKG/usr/X11R6/bin/xapm
+chmod 755 $PKG/usr/X11R6/bin/xapm
+mkdir -p $PKG/usr/X11R6/man/man1
+cat xapm.1 | gzip -9c > $PKG/usr/X11R6/man/man1/xapm.1.gz
+cat libapm.a > $PKG/usr/lib/libapm.a
+cat apm.h > $PKG/usr/include/apm.h
+mkdir -p $PKG/usr/doc/apmd-3.0
+cp -a ANNOUNCE LSM README README.transfer $PKG/usr/doc/apmd-3.0
+chown root.root $PKG/usr/doc/apmd-3.0/*
+chmod 644 $PKG/usr/doc/apmd-3.0/*
+
+echo "+============+"
+echo "| asapm-2.10 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/asapm-2.10.tar.gz
+cd asapm-2.10
+./configure --prefix=/usr sparc-slackware-linux
+make 
+strip asapm
+cat asapm > $PKG/usr/X11R6/bin/asapm
+chown root.bin $PKG/usr/X11R6/bin/asapm
+chmod 755 $PKG/usr/X11R6/bin/asapm
+cat asapm.man | gzip -9c > $PKG/usr/X11R6/man/man1/asapm.1.gz
+mkdir -p $PKG/usr/doc/asapm-2.10
+cp -a LICENSE NOTES README TODO $PKG/usr/doc/asapm-2.10
+chown root.root $PKG/usr/doc/asapm-2.10/*
+chmod 644 $PKG/usr/doc/asapm-2.10/*
+
+echo "+====================+"
+echo "| debianutils-1.13.3 |"
+echo "+====================+"
+cd $TMP
+tar xzvf $CWD/debianutils_1.13.3.tar.gz
+cd debianutils-1.13.3
+make 
+strip mktemp readlink run-parts tempfile
+cat mktemp > $PKG/usr/bin/mktemp
+cat mktemp.1 | gzip -9c > $PKG/usr/man/man1/mktemp.1.gz
+cat savelog > $PKG/usr/bin/savelog
+cat savelog.8 | gzip -9c > $PKG/usr/man/man8/savelog.8.gz
+cat tempfile > $PKG/usr/bin/tempfile
+cat tempfile.1 | gzip -9c > $PKG/usr/man/man1/tempfile.1.gz
+
+echo "+=============+"
+echo "| eject-2.0.6 |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/eject-2.0.6.tar.gz
+cd eject-2.0.6
+CFLAGS= ./configure --prefix=/usr
+make 
+strip eject volname
+cat eject > $PKG/usr/bin/eject
+cat eject.1 | gzip -9c > $PKG/usr/man/man1/eject.1.gz
+cat volname > $PKG/usr/bin/volname
+cat volname.1 | gzip -9c > $PKG/usr/man/man1/volname.1.gz
+mkdir -p $PKG/usr/doc/eject-2.0.6
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS PORTING PROBLEMS README TODO eject-2.0.6.lsm \
+  $PKG/usr/doc/eject-2.0.6
+chmod 644 $PKG/usr/doc/eject-2.0.6/*
+chown root.root $PKG/usr/doc/eject-2.0.6/*
+
+echo "+============+"
+echo "| hdparm-4.1 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/hdparm-4.1.tar.gz
+cd hdparm-4.1
+make 
+strip hdparm
+cat hdparm > $PKG/usr/sbin/hdparm
+cat hdparm.8 | gzip -9c > $PKG/usr/man/man8/hdparm.8.gz
+
+echo "+==========+"
+echo "| lha-1.00 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/lha-1.00.tar.gz
+cd lha-1.00
+make 
+strip src/lha
+cat src/lha > $PKG/usr/bin/lha
+
+echo "+============+"
+echo "| makewhatis |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/makewhatis.tar.gz
+cd makewhatis
+cat makewhatis > $PKG/usr/sbin/makewhatis
+cat makewhatis.1 | gzip -9c > $PKG/usr/man/man1/makewhatis.1.gz
+
+echo "+=====+"
+echo "| bpe |"
+echo "+=====+"
+cd $TMP
+tar xzvf $CWD/bpe.tar.gz
+cd bpe
+./mklinux
+make  
+strip bpe
+cat bpe > $PKG/usr/bin/bpe
+cat bpe.1 | gzip -9c > $PKG/usr/man/man1/bpe.1.gz 
+
+echo "+========+"
+echo "| ed-0.2 |"
+echo "+========+"
+cd $TMP
+tar xzvf $CWD/ed-0.2.tar.gz
+cd ed-0.2
+CFLAGS=-O2 LDFLAGS=-s ./configure --prefix=/usr sparc-slackware-linux
+make 
+cat ed > $PKG/bin/ed
+cat ed.1 | gzip -9c > $PKG/usr/man/man1/ed.1.gz
+cat ed.info | gzip -9c > $INFO/ed.info.gz
+
+echo "+==========+"
+echo "| compress |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/compress.tar.gz
+cd compress
+zcat $CWD/compress.diff.gz | patch -p0 -E --backup --verbose
+make 
+cat compress > $PKG/usr/bin/compress
+cat compress.1 | gzip -9c > $PKG/usr/man/man1/compress.1.gz
+echo '.so man1/compress.1' | gzip -9c > $PKG/usr/man/man1/uncompress.1.gz
+
+echo "+=========+"
+echo "| banners |"
+echo "+=========+"
+cd $TMP
+tar xzvf $CWD/banners.tar.gz
+cd banners
+make 
+cat bban > $PKG/usr/bin/bban
+cat sysvbanner > $PKG/usr/bin/sysvbanner
+
+echo "+=============+"
+echo "| dcron-2.3.3 |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/dcron-2.3.3.tar.gz
+cd dcron-2.3.3
+mkdir -p $PKG/usr/doc/dcron-2.3.3
+cp -a CHANGES README dcron-2.3.3.lsm $PKG/usr/doc/dcron-2.3.3
+chown root.root $PKG/usr/doc/dcron-2.3.3/*
+chmod 644 $PKG/usr/doc/dcron-2.3.3/*
+zcat $CWD/dcron-2.3.3.diff.gz | patch -p1 -E --verbose --backup
+# Added signal handling/logging patch from TEMHOTA <temnota@kmv.ru>:
+zcat $CWD/dcron-2.3.3.diff2.gz | patch -p1 -E --verbose --backup
+# Use /usr/sbin/sendmail, not /usr/lib/sendmail.  Fixes cron working
+# with Postfix.  Suggested by Big Brother.
+zcat $CWD/dcron-2.3.3.diff3.gz | patch -p1 -E --verbose --backup
+make 
+cat crond > $PKG/usr/sbin/crond
+cat crontab > $PKG/usr/bin/crontab
+cat crontab.1 | gzip -9c > $PKG/usr/man/man1/crontab.1.gz
+cat crond.8 | gzip -9c > $PKG/usr/man/man8/crond.8.gz
+
+echo "+===========+"
+echo "| file-3.28 |"
+echo "+===========+"
+cd $TMP
+tar xzvf $CWD/file_3.28.orig.tar.gz
+cd file-3.28
+zcat $CWD/file_3.28-1.diff.gz | patch -p1 -E --verbose --backup
+./configure --prefix=/usr --sysconfdir=/etc --datadir=/etc sparc-slackware-linux
+mkdir -p $PKG/usr/doc/file-3.28
+cp -a LEGAL.NOTICE README $PKG/usr/doc/file-3.28
+chown root.root $PKG/usr/doc/file-3.28/*
+chmod 644 $PKG/usr/doc/file-3.28/*
+make 
+strip file
+cat file > $PKG/usr/bin/file
+cat magic > $PKG/etc/magic
+cat file.1 | gzip -9c > $PKG/usr/man/man1/file.1.gz
+mkdir -p $PKG/usr/man/man4
+cat magic.5 | gzip -9c > $PKG/usr/man/man5/magic.5.gz
+
+# This doesn't work as well as the old file.  Trust us.
+#echo "+===========+"
+#echo "| file-3.34 |"
+#echo "+===========+"
+#cd $TMP
+#tar xzvf $CWD/file-3.34.tar.gz
+#cd file-3.34
+#./configure --prefix=/usr --sysconfdir=/etc --datadir=/etc sparc-slackware-linux
+#mkdir -p $PKG/usr/doc/file-3.34
+#cp -a LEGAL.NOTICE README $PKG/usr/doc/file-3.34
+#chown root.root $PKG/usr/doc/file-3.34/*
+#chmod 644 $PKG/usr/doc/file-3.34/*
+#make 
+#strip file
+#cat file > $PKG/usr/bin/file
+#cat magic > $PKG/etc/magic
+#cat file.1 | gzip -9c > $PKG/usr/man/man1/file.1.gz
+#mkdir -p $PKG/usr/man/man5
+#sed -e s@__CSECTION__@1@g \
+#    -e s@__FSECTION__@5@g \
+#    -e s@__VERSION__@3.34@g \
+#    -e s@__MAGIC__@/etc/magic@g ./magic.man | gzip -9c > $PKG/usr/man/man5/magic.5.gz
+
+echo "+==============+"
+echo "| indent-2.2.6 |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/indent-2.2.6.tar.gz
+cd indent-2.2.6
+mkdir -p $PKG/usr/doc/indent-2.2.6
+cp -a AUTHORS COPYING INSTALL NEWS README $PKG/usr/doc/indent-2.2.6
+chown root.root $PKG/usr/doc/indent-2.2.6/*
+chmod 644 $PKG/usr/doc/indent-2.2.6/*
+./configure --prefix=/usr sparc-slackware-linux
+make CFLAGS=-O2 LDFLAGS=-s 
+cat indent > $PKG/usr/bin/indent
+cat indent.1 | gzip -9c > $PKG/usr/man/man1/indent.1.gz
+cat indent.info | gzip -9c > $INFO/indent.info.gz
+
+echo "+============+"
+echo "| gawk-3.0.6 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/gawk-3.0.6.tar.gz
+cd gawk-3.0.6
+./configure --prefix=/usr sparc-slackware-linux
+make CC=gcc CFLAGS=-O2 LDFLAGS=-s 
+strip gawk
+cat gawk > $PKG/usr/bin/gawk
+cat awklib/igawk > $PKG/usr/bin/igawk
+cat awklib/grcat > $PKG/usr/libexec/awk/grcat
+cat awklib/pwcat > $PKG/usr/libexec/awk/pwcat
+cat doc/gawk.1 | gzip -9c > $PKG/usr/man/man1/gawk.1.gz
+cat doc/igawk.1 | gzip -9c > $PKG/usr/man/man1/igawk.1.gz
+cat doc/gawk.info | gzip -9c > $PKG/usr/info/gawk.info.gz
+mkdir $PKG/usr/doc/gawk-3.0.6
+cp -a ACKNOWLEDGMENT COPYING FUTURES INSTALL LIMITATIONS NEWS \
+PORTS PROBLEMS README $PKG/usr/doc/gawk-3.0.6
+chown -R root.root $PKG/usr/doc/gawk-3.0.6
+cd awklib
+cp -a *.awk $PKG/usr/share/awk
+cd eg/lib
+cp -a *.awk $PKG/usr/share/awk
+chown root.root $PKG/usr/share/awk/*
+
+echo "+================+"
+echo "| dosfstools-2.8 |"
+echo "+================+"
+cd $TMP
+tar xzvf $CWD/dosfstools-2.8.src.tar.gz
+cd dosfstools-2.8
+mkdir -p $PKG/usr/doc/dosfstools-2.8
+cp -a CHANGES README.Atari TODO $PKG/usr/doc/dosfstools-2.8
+mkdir -p $PKG/usr/doc/dosfstools-2.8/mkdosfs
+( cd mkdosfs ; cp -a ANNOUNCE COPYING ChangeLog README mkdosfs-ygg-0.3b.lsm $PKG/usr/doc/dosfstools-2.8/mkdosfs )
+mkdir -p $PKG/usr/doc/dosfstools-2.8/dosfsck
+( cd dosfsck ; cp -a CHANGES COPYING README $PKG/usr/doc/dosfstools-2.8/dosfsck )
+chown -R root.root $PKG/usr/doc/dosfstools-2.8
+make 
+cd mkdosfs
+strip mkdosfs
+cat mkdosfs > $PKG/sbin/mkdosfs
+cat mkdosfs.8 | gzip -9c > $PKG/usr/man/man8/mkdosfs.8.gz
+cd ../dosfsck
+strip dosfsck
+cat dosfsck > $PKG/sbin/dosfsck
+cat dosfsck.8 | gzip -9c > $PKG/usr/man/man8/dosfsck.8.gz
+
+echo "+=============+"
+echo "| patch-2.5.4 |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/patch-2.5.4.tar.gz
+cd patch-2.5.4
+mkdir -p $PKG/usr/doc/patch-2.5.4
+cp -a AUTHORS COPYING INSTALL NEWS README $PKG/usr/doc/patch-2.5.4
+chmod 644 $PKG/usr/doc/patch-2.5.4/*
+chown root.root $PKG/usr/doc/patch-2.5.4/*
+./configure --prefix=/usr sparc-slackware-linux
+make CFLAGS=-O2 LDFLAGS=-s 
+cat patch > $PKG/usr/bin/patch
+cat patch.man  | gzip -9c > $PKG/usr/man/man1/patch.1.gz
+
+echo "+===========+"
+echo "| rpm2targz |"
+echo "+===========+"
+cd $TMP
+cc -o rpmoffset $CWD/rpmoffset.c
+strip rpmoffset
+cat rpmoffset > $PKG/usr/bin/rpmoffset
+rm rpmoffset
+cat $CWD/rpm2targz > $PKG/usr/bin/rpm2targz
+
+echo "+==========+"
+echo "| sed-3.02 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/sed-3.02.tar.gz
+cd sed-3.02
+mkdir -p $PKG/usr/doc/sed-3.02
+cp -a ANNOUNCE AUTHORS BUGS COPYING INSTALL NEWS README README.boot \
+  THANKS TODO $PKG/usr/doc/sed-3.02
+chown root.root $PKG/usr/doc/sed-3.02/*
+chmod 644 $PKG/usr/doc/sed-3.02/*
+./configure --prefix=/usr sparc-slackware-linux
+make CFLAGS=-O2 LDFLAGS=-s 
+cat sed/sed > $PKG/usr/bin/sed
+cat doc/sed.1 | gzip -9c > $PKG/usr/man/man1/sed.1.gz
+cat doc/sed.info | gzip -9c > $PKG/usr/info/sed.info.gz
+
+echo "+=================+"
+echo "| sharutils-4.2.1 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/sharutils-4.2.1.tar.gz
+cd sharutils-4.2.1
+mkdir -p $PKG/usr/doc/sharutils-4.2.1
+cp -a ABOUT-NLS AUTHORS BACKLOG COPYING INSTALL NEWS README \
+  README.OLD THANKS TODO $PKG/usr/doc/sharutils-4.2.1
+chown root.root $PKG/usr/doc/sharutils-4.2.1/*
+chmod 644 $PKG/usr/doc/sharutils-4.2.1/*
+# For now, NLS seems to cause build errors on this one...
+CFLAGS=-O2 LDFLAGS=-s ./configure --disable-nls --prefix=/usr sparc-slackware-linux
+make 
+cd src
+cat shar > $PKG/usr/bin/shar
+cat unshar > $PKG/usr/bin/unshar
+cat uuencode > $PKG/usr/bin/uuencode
+cat uudecode > $PKG/usr/bin/uudecode
+cd ../doc
+cat sharutils.info | gzip -9c > $INFO/sharutils.info.gz
+# Include old manpages, since the source package doesn't have them anymore:
+for page in shar.1.gz unshar.1.gz uuencode.1.gz ; do
+  cat $CWD/$page > $PKG/usr/man/man1/$page
+done
+echo '.so man1/uuencode.1' | gzip -9c > $PKG/usr/man/man1/uudecode.1.gz
+cat $CWD/uuencode.5.gz > $PKG/usr/man/man5/uuencode.5.gz
+
+echo "+===============+"
+echo "| splitvt-1.6.5 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/splitvt-1.6.5.tar.gz
+cd splitvt-1.6.5
+./configure
+make 
+cat splitvt > $PKG/usr/bin/splitvt
+cat splitvt.1 | gzip -9c > $PKG/usr/man/man1/splitvt.1.gz
+mkdir -p $PKG/usr/doc/splitvt-1.6.5
+cp -a examples ANNOUNCE CHANGES NOTES README TODO \
+  $PKG/usr/doc/splitvt-1.6.5
+chown -R root.root $PKG/usr/doc/splitvt-1.6.5
+
+echo "+==========+"
+echo "| time-1.7 |"
+echo "+==========+"
+cd $TMP
+tar xvzf $CWD/time-1.7.tar.gz
+cd time-1.7
+./configure --prefix=/usr sparc-slackware-linux
+make CFLAGS=-O2 LDFLAGS=-s 
+cat time > $PKG/usr/bin/time
+cat time.info | gzip -9c > $INFO/time.info.gz
+
+echo "+===============+"
+echo "| todos/fromdos |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/todos.tar.gz
+cd todos
+make 
+strip todos fromdos
+cat todos > $PKG/usr/bin/todos
+cat fromdos > $PKG/usr/bin/fromdos
+cat todos.1.gz > $PKG/usr/man/man1/todos.1.gz
+cat fromdos.1.gz > $PKG/usr/man/man1/fromdos.1.gz
+
+echo "+==========+"
+echo "| unarj230 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/unarj230.tar.gz
+cd unarj230
+zcat $CWD/unarj230.diff.gz | patch -p0 -E --verbose --backup
+make 
+strip unarj
+cat unarj > $PKG/usr/bin/unarj
+
+echo "+============+"
+echo "| which-2.12 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/which-2.12.tar.gz
+cd which-2.12
+./configure --prefix=/usr
+make CFLAGS=-O2 LDFLAGS=-s 
+cat which > $PKG/usr/bin/which
+cat which.1 | gzip -9c > $PKG/usr/man/man1/which.1.gz
+cat which.info | gzip -9c > $PKG/usr/info/which.info.gz
+mkdir -p $PKG/usr/doc/which-2.12
+cp -a AUTHORS COPYING EXAMPLES INSTALL NEWS README README.alias $PKG/usr/doc/which-2.12
+chown -R root.root $PKG/usr/doc/which-2.12
+
+echo "+==========+"
+echo "| zoo-2.10 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/zoo-2.10.tar.gz
+cd zoo-2.10
+zcat $CWD/zoo-2.10.diff.gz | patch -p0 -E --verbose --backup
+make generic 
+strip fiz
+strip zoo
+cat fiz > $PKG/usr/bin/fiz
+cat zoo > $PKG/usr/bin/zoo
+for page in fiz.1 zoo.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+
+# Grab 'tput' from the running system.  Hopefully it's new enough,
+# and we already have source for it in d/ncurses/.
+cp -a /usr/bin/tput $PKG/usr/bin/tput
+
+# Strip everything for good measure:
+
+strip $PKG/bin/* $PKG/usr/bin/* $PKG/usr/sbin/*
+
+# We're collecting a lot of COPYING files.  Let's keep just one:
+( cd $PKG/usr/doc/gawk-3.0.6 ; ln -sf ../at-3.1.8/COPYING . )
+( cd $PKG/usr/doc/indent-2.2.6 ; ln -sf ../at-3.1.8/COPYING . )
+( cd $PKG/usr/doc/patch-2.5.4 ; ln -sf ../at-3.1.8/COPYING . )
+( cd $PKG/usr/doc/sed-3.02 ; ln -sf ../at-3.1.8/COPYING . )
+( cd $PKG/usr/doc/dosfstools-2.8/mkdosfs ; ln -sf ../../at-3.1.8/COPYING . )
+( cd $PKG/usr/doc/dosfstools-2.8/dosfsck ; ln -sf ../../at-3.1.8/COPYING . )
+( cd $PKG/usr/doc/which-2.12 ; ln -sf ../at-3.1.8/COPYING . )
+
+# Build the package:
+cd $PKG
+#tar czvf $TMP/bin.tgz .
+echo "y
+n" | makepkg $TMP/bin.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# a warning for me, because I forget these things
+cat << EOF
+
+...you might want to check that we grabbed the correct version of
+/usr/bin/tput, and not some old obsolete thing, ok? :)
+EOF
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/pwd
+  rm -rf $TMP/ed-0.2
+  rm -rf $TMP/at-3.1.8
+  rm -rf $TMP/asapm-2.10
+  rm -rf $TMP/apmd
+  rm -rf $TMP/banners
+  rm -rf $TMP/bpe
+  rm -rf $TMP/dcron-2.3.3
+  rm -rf $TMP/debianutils-1.13.3
+  rm -rf $TMP/eject-2.0.6
+  rm -rf $TMP/file-3.28
+#  rm -rf $TMP/file-3.34
+  rm -rf $TMP/hdparm-4.1
+  rm -rf $TMP/indent-2.2.6
+  rm -rf $TMP/gawk-3.0.6
+  rm -rf $TMP/gencat
+  rm -rf $TMP/lha-1.00
+  rm -rf $TMP/makewhatis
+  rm -rf $TMP/dosfstools-2.8
+  rm -rf $TMP/patch-2.5.4
+  rm -rf $TMP/sed-3.02
+  rm -rf $TMP/sharutils-4.2.1
+  rm -rf $TMP/time-1.7
+  rm -rf $TMP/todos
+  rm -rf $TMP/unarj230
+  rm -rf $TMP/which-2.12
+  rm -rf $TMP/zoo-2.10
+  rm -rf $TMP/compress
+  rm -rf $TMP/splitvt-1.6.5
+  rm -rf $PKG
+fi

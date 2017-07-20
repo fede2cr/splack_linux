@@ -1,0 +1,52 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-oggutils
+
+cd $TMP
+tar xzvf $CWD/libao-0.7.0.tar.gz
+cd libao-0.7.0
+./configure --prefix=/usr sparc-slackware-linux
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/libao-0.7.0
+cp -a AUTHORS CHANGES COPYING README TODO doc/API doc/DRIVERS doc/USAGE doc/WANTED \
+  $PKG/usr/doc/libao-0.7.0
+chown -R root.root $PKG/usr/doc/libao-0.7.0
+
+cd $TMP
+tar xzvf $CWD/libogg-1.0rc1.tar.gz
+cd libogg-1.0rc1
+./configure --prefix=/usr sparc-slackware-linux
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/libogg-1.0rc1
+cp -a AUTHORS CHANGES COPYING README doc $PKG/usr/doc/libogg-1.0rc1
+chown -R root.root $PKG/usr/doc/libogg-1.0rc1
+
+cd $TMP
+tar xzvf $CWD/libvorbis-1.0rc1.tar.gz
+cd libvorbis-1.0rc1
+./configure --prefix=/usr sparc-slackware-linux
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/libvorbis-1.0rc1
+cp -a AUTHORS COPYING README doc $PKG/usr/doc/libvorbis-1.0rc1	
+chown -R root.root $PKG/usr/doc/libvorbis-1.0rc1
+
+cd $TMP
+tar xzvf $CWD/vorbis-tools-1.0rc1.tar.gz
+cd vorbis-tools-1.0rc1
+./configure --prefix=/usr sparc-slackware-linux
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/vorbis-tools-1.0rc1
+cp -a AUTHORS COPYING README $PKG/usr/doc/vorbis-tools-1.0rc1
+chown -R root.root $PKG/usr/doc/vorbis-tools-1.0rc1
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/oggutils.tgz

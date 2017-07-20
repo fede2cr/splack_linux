@@ -1,0 +1,24 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-autoconf
+
+cd $TMP
+tar xzvf $CWD/autoconf-2.50.tar.gz
+cd autoconf-2.50
+./configure --prefix=/usr
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/autoconf-2.50
+cp -a AUTHORS BUGS COPYING INSTALL INSTALL.txt NEWS README THANKS TODO \
+      $PKG/usr/doc/autoconf-2.50
+chown root.root $PKG/usr/doc/autoconf-2.50/*
+chmod 644 $PKG/usr/doc/autoconf-2.50/*
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/autoconf.tgz

@@ -1,0 +1,19 @@
+
+Steps for building the version of UUCP in Slackware:
+
+1. Run configure:
+
+   configure --prefix=/usr
+
+2. Apply the Makefile patch:
+  
+   zcat Makefile.diff.gz | patch
+
+3. Apply the policy.h patch:
+
+   zcat policy.h.diff.gz | patch
+
+4. Build the package:
+
+   make CFLAGS=-O2 LDFLAGS=-s
+

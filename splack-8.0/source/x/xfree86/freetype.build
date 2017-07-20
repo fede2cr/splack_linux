@@ -1,0 +1,28 @@
+# Since this file is not in any way associated with gnome or Enlightenment
+# (both just use it) We'll put it in a more acceptable place like 
+# /usr/X11R6 since it seems to belong there and doesn't have any files
+# for autoconf
+#
+# Um, revise that.  If it's not under /usr, enlightenment won't find it
+# properly without a patch.  I can only assume there's other stuff like
+# that out there, and if things expect it under /usr, that's where it
+# should go (at least for now).
+#
+# 4/2001: re-revise that.  It's going in /usr/X11R6, and I'm going to figure
+# out how to make that work.  Part of the grand reorganization, I guess.
+# Finally putting things where they were supposed to be all along.
+
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/freetype-1.3.1.tar.gz
+cd freetype-1.3.1
+./configure --prefix=/usr/X11R6 \
+            --with-locale-dir=/usr/share/locale \
+            sparc-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install
+mkdir -p /usr/X11R6/lib/X11/doc/freetype-1.3.1
+cp -a  README announce license.txt readme.1st docs/* \
+   howto/* /usr/X11R6/lib/X11/doc/freetype-1.3.1
+chown -R root.root /usr/X11R6/lib/X11/doc/freetype-1.3.1
+

@@ -1,0 +1,8 @@
+
+This package contains 'rpm2targz', a simple utility to convert Red Hat-style
+RPM packages into standard tar.gz archives.  Converted binary packages can then
+be installed/removed using the 'installpkg/removepkg' commands, or 'pkgtool'. 
+
+It's advisable to at least examine the converted package with 'less' to make
+sure it won't do anything too crazy to your system.
+

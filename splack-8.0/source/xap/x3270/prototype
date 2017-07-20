@@ -1,0 +1,49 @@
+VERSION=3.1.1.9
+BUILD=2
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=x3270-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=x3270
+DESC="\
+x3270-$VERSION - IBM host access tool.\n\
+\n\
+x3270 opens a telnet connection to an IBM host in an X window.  Since\n\
+the window created by x3270 can use its own font for displaying\n\
+characters, is a fairly accurate representation of an IBM 3278.  It is\n\
+similar to tn3270(1) except that it is X-based, not curses-based."
+
+compile() {
+   tar xvzf $CWD/x3270-$VERSION.tar.gz
+   cd x3270-3.1.1
+   xmkmf -a
+   make
+}
+
+install() {
+   make install
+
+   for f in x3270-script.man x3270.man x3270if.man
+   do
+      cp $f /usr/X11R6/man/man1/`basename $f .man`.1
+   done
+   cp ibm_hosts.man /usr/X11R6/man/man5/ibm_hosts.5
+
+   cp X3270.xad /etc/X11/app-defaults/X3270
+
+   mkdir -p /usr/doc/x3270-$VERSION
+   cp -r Docs/* Examples html /usr/doc/x3270-$VERSION
+}
+
+attributes() {
+   chmod 644 $PKG/etc/X11/app-defaults/X3270
+
+   cd $PKG/usr/doc/x3270-$VERSION/Examples
+   chmod 755 *.bash *.expect *.sh *.ksh
+}

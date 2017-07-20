@@ -1,0 +1,59 @@
+#!/bin/sh
+# Build GNU screen for Slackware 
+# <volkerdi@slackware.com>
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-screen
+cd $TMP
+
+tar xzvf $CWD/screen-3.9.9.tar.gz
+cd screen-3.9.9
+./configure --prefix=/usr \
+            --with-sys-screenrc=/etc/screenrc \
+            --disable-socket-dir \
+            sparc-slackware-linux
+
+# Substitutions:
+perl -pi -e 's|.*#.*PTYMODE.*|#define PTYMODE 0620|' config.h
+perl -pi -e 's|.*#.*PTYGROUP.*|#define PTYGROUP 5|' config.h
+perl -pi -e 's|.*#undef HAVE_BRAILLE.*|#define HAVE_BRAILLE 1|' config.h
+perl -pi -e 's|.*#undef BUILTIN_TELNET.*|#define BUILTIN_TELNET 1|' config.h
+perl -pi -e 's|%{_prefix}/etc/screenrc|/etc/screenrc|' config.h
+perl -pi -e 's|/usr/local/etc/screenrc|/etc/screenrc|' etc/etcscreenrc doc/*
+perl -pi -e 's|/local/etc/screenrc|/etc/screenrc|' doc/*
+
+# Build screen:
+make
+strip screen
+
+# Prepare package:
+rm -rf $PKG
+mkdir -p $PKG/usr/bin
+cat screen > $PKG/usr/bin/screen-3.9.9
+chmod 755 $PKG/usr/bin/screen-3.9.9
+( cd $PKG/usr/bin ; ln -sf screen-3.9.9 screen )
+chown -R root.bin $PKG/usr/bin
+mkdir -p $PKG/etc/skel
+cat $CWD/etc/screenrc > $PKG/etc/screenrc
+cat $CWD/etc/skel/screenrc > $PKG/etc/skel/.screenrc
+mkdir -p $PKG/usr/info
+( cd doc
+  for file in screen.info* ; do
+    cat $file | gzip -9c > $PKG/usr/info/$file.gz
+  done
+  mkdir -p $PKG/usr/man/man1
+  cat screen.1 | gzip -9c > $PKG/usr/man/man1/screen.1.gz )
+mkdir -p $PKG/usr/doc/screen-3.9.9
+cp -a COPYING ChangeLog INSTALL NEWS NEWS.3.5 NEWS.3.6 NEWS.3.7 README TODO \
+  doc/FAQ doc/README.DOTSCREEN \
+  $PKG/usr/doc/screen-3.9.9
+chown -R root.root $PKG/usr/doc/screen-3.9.9
+
+# Build package:
+cd $PKG
+echo "y
+n" | makepkg ../screen.tgz
+

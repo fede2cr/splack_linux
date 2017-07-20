@@ -1,0 +1,42 @@
+TAG=OPT
+
+SUBPKGNAME=procmail-$PROCMAIL_VER-$ARCH-$BUILD
+
+PROGNAME=procmail
+DESC="\
+The procmail mail processing program. (v$PROCMAIL_VER 2001/01/08)\n\
+\n\
+Can be used to create mail-servers, mailing lists, sort your incoming\n\
+mail into separate folders/files (real convenient when subscribing to\n\
+one or more mailing lists or for prioritising your mail), preprocess\n\
+your mail, start any programs upon mail arrival (e.g. to generate\n\
+different chimes on your workstation for different types of mail) or\n\
+selectively forward certain incoming mail automatically to someone.\n\
+\n\
+The author of procmail is Stephen R. van den Berg."
+
+subinstall() {
+   cd $TMP/procmail-$PROCMAIL_VER
+   ( cd src
+     cp formail lockfile mailstat procmail /usr/bin )
+   ( cd man
+     cp formail.1 lockfile.1 procmail.1 /usr/man/man1 )
+   ( cd man
+     cp procmailex.5 procmailrc.5 procmailsc.5 /usr/man/man5 )
+   mkdir -p /usr/doc/procmail-$PROCMAIL_VER
+   cp -r Artistic COPYING FAQ FEATURES HISTORY INSTALL KNOWN_BUGS \
+      README examples /usr/doc/procmail-$PROCMAIL_VER
+}
+
+subattributes() {
+   chown root.mail $SUBPKG/usr/bin/procmail
+   chown root.mail $SUBPKG/usr/bin/lockfile
+   chmod 6755 $SUBPKG/usr/bin/procmail
+   chmod 2755 $SUBPKG/usr/bin/lockfile
+   chmod 755 $SUBPKG/usr/doc/procmail-$PROCMAIL_VER/examples/dirname
+   chmod 755 $SUBPKG/usr/doc/procmail-$PROCMAIL_VER/examples/mailstat
+}
+
+subspecial() {
+   rm -rf $SUBPKG/usr/src
+}

@@ -1,0 +1,95 @@
+TCL_VERSION=8.3.3
+TK_VERSION=8.3.3
+VERSION=8.3
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=tclx-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="Extended Tcl"
+DESC="\
+Extended Tcl (TclX) $VERSION.\n\
+\n\
+Extended Tcl (TclX), is a set of extensions to Tcl 8.x.x, the Tool\n\
+Command Language invented by Dr. John Ousterhout. Extended Tcl is\n\
+oriented towards Unix system programming tasks and large application\n\
+development. Many additional interfaces to the Unix operating system\n\
+are provided. Extended Tcl was designed and implemented by Karl\n\
+Lehenbauer (karl@NeoSoft.com) and Mark Diekhans (markd@Grizzly.com),\n\
+with help in the early stages from Peter da Silva (peter@NeoSoft.com)."
+
+compile() {
+   tar xvzf $CWD/tcl$TCL_VERSION.tar.gz
+   tar xvzf $CWD/tk$TK_VERSION.tar.gz
+   tar xvzf $CWD/tclx$VERSION.tar.gz
+   ( cd tcl$TCL_VERSION/unix ; ./configure --prefix=/usr )
+   ( cd tk$TCL_VERSION/unix ; ./configure --prefix=/usr )
+   cd tclx$VERSION
+}
+
+install() {
+   mkdir -p /usr/doc/tclx$VERSION
+   cp CHANGES MANIFEST README TO-DO doc/ONVERSION-NOTES /usr/doc/tclx$VERSION
+
+   cd unix
+   #./configure --prefix=/usr --enable-tk=YES --disable-shared
+   ./configure --prefix=/usr --enable-tk=YES
+   make -i install
+   make clean
+   ./configure --prefix=/usr --enable-tk=YES --enable-shared
+   make -i install
+
+   ( cd /usr/lib
+     rm -rf libtclx.a  ; ln -sf libtclx8.3.a libtclx.a
+     rm -rf libtkx.a   ; ln -sf libtkx8.3.a libtkx.a
+     rm -rf libtclx.so ; ln -sf libtclx8.3.so libtclx.so
+     rm -rf libtkx.so  ; ln -sf libtkx8.3.so libtkx.so )
+
+   ( cd /usr/man/man3
+     rm -rf TclX_KeyedListGet.3.gz 
+     ln -sf TclX_KeyedListDelete.3.gz TclX_KeyedListGet.3.gz 
+     rm -rf TclX_KeyedListGetKeys.3.gz 
+     ln -sf TclX_KeyedListDelete.3.gz TclX_KeyedListGetKeys.3.gz 
+     rm -rf TclX_KeyedListSet.3.gz 
+     ln -sf TclX_KeyedListDelete.3.gz TclX_KeyedListSet.3.gz 
+     rm -rf TclX_NewKeyedListObj.3.gz 
+     ln -sf TclX_KeyedListDelete.3.gz TclX_NewKeyedListObj.3.gz 
+     rm -rf Tcl_HandleFree.3.gz 
+     ln -sf Tcl_HandleAlloc.3.gz Tcl_HandleFree.3.gz 
+     rm -rf Tcl_HandleTblInit.3.gz 
+     ln -sf Tcl_HandleAlloc.3.gz Tcl_HandleTblInit.3.gz 
+     rm -rf Tcl_HandleTblUseCount.3.gz 
+     ln -sf Tcl_HandleAlloc.3.gz Tcl_HandleTblUseCount.3.gz 
+     rm -rf Tcl_HandleWalk.3.gz 
+     ln -sf Tcl_HandleAlloc.3.gz Tcl_HandleWalk.3.gz 
+     rm -rf Tcl_HandleXlate.3.gz 
+     ln -sf Tcl_HandleAlloc.3.gz Tcl_HandleXlate.3.gz 
+     rm -rf Tclx_Init.3.gz 
+     ln -sf TclX_Main.3.gz Tclx_Init.3.gz 
+     rm -rf Tclxcmd_Init.3.gz 
+     ln -sf TclX_Main.3.gz Tclxcmd_Init.3.gz 
+     rm -rf TkX_Main.3.gz 
+     ln -sf TclX_Main.3.gz TkX_Main.3.gz 
+     rm -rf Tkx_Init.3.gz 
+     ln -sf TclX_Main.3.gz Tkx_Init.3.gz 
+     rm -rf Tcl_HandleTblRelease.3.gz 
+     ln -sf Tcl_HandleAlloc.3.gz Tcl_HandleTblRelease.3.gz )
+
+   ( cd usr/man/mann
+     rm -rf Tcl_InitMemory.n.gz 
+     ln -sf Tcl_DisplayMemory.n.gz Tcl_InitMemory.n.gz 
+     rm -rf Tcl_ValidateAllMemory.n.gz 
+     ln -sf Tcl_DisplayMemory.n.gz Tcl_ValidateAllMemory.n.gz 
+     rm -rf ckalloc.n.gz 
+     ln -sf Tcl_DisplayMemory.n.gz ckalloc.n.gz 
+     rm -rf ckfree.n.gz 
+     ln -sf Tcl_DisplayMemory.n.gz ckfree.n.gz 
+     rm -rf memory.n.gz 
+     ln -sf Tcl_DisplayMemory.n.gz memory.n.gz )
+}

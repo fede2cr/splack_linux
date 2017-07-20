@@ -1,0 +1,54 @@
+# Save these, since we don't use these versions:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-binutils
+mkdir -p $PKG
+
+cd $TMP
+tar xyvf $CWD/binutils-2.11.90.0.19.tar.bz2
+cd binutils-2.11.90.0.19
+
+# Build for a standard glibc2-based Linux system:
+CFLAGS=-O2 LDFLAGS=-s ./configure --prefix=/usr \
+  --enable-shared \
+  --enable-targets=sparc64-slackware-linux \
+  --enable-64-bit-bfd \
+  sparc-slackware-linux
+make 
+make info
+make install prefix=$PKG/usr
+
+mkdir -p $PKG/usr/doc/binutils-2.11.90.0.19
+cp -a COPYING* Chang* MAI* README* $PKG/usr/doc/binutils-2.11.90.0.19
+chown -R root.root $PKG/usr/doc/binutils-2.11.90.0.19
+mkdir -p $PKG/usr/info
+find . -name "as.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "bfd.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "ld.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "gasp.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "gprof.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "binutils.info*" -exec cp -a {} $PKG/usr/info \;
+( cd $PKG/usr/info ; gzip -9 * )
+( cd $PKG/usr/bin ; mv strings strings-GNU )
+( cd $PKG/usr/man/man1 ; mv strings.1 strings-GNU.1 ; gzip -9 *)
+rm $PKG/usr/man/man1/c++filt.1
+
+rm -rf $PKG/usr/lib/ldscripts
+cd $PKG/usr/sparc-slackware-linux/lib
+mv ldscripts $PKG/usr/lib/ldscripts
+ln -s ../../lib/ldscripts ldscripts
+
+# the duplicate programs just waste space
+cd $PKG/usr/sparc-slackware-linux/bin
+for f in ar as ld nm ranlib strip
+do
+   rm -f $f
+   ln -sf ../../bin/$f .
+done
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/binutils.tgz
+

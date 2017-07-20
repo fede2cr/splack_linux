@@ -1,0 +1,124 @@
+#!/bin/sh
+#
+# Build and package an EAPI-enabled Apache on Slackware.
+# (libmm is also installed with this package)
+# by:  David Cantrell <david@slackware.com>
+# Mantained for Splack by Alvaro Figueroa <fede2@fuerzag.ulatina.ac.cr>
+
+APACHE_VER=1.3.20
+MM_VER=1.1.3
+MODSSL_VER=2.8.4
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-apache
+
+rm -rf $PKG
+mkdir -p $PKG
+( cd $PKG ; explodepkg $CWD/_apache.tar.gz )
+
+cd $TMP
+tar xvzf $CWD/mm-$MM_VER.tar.gz
+tar xvzf $CWD/apache_$APACHE_VER.tar.gz
+tar xvzf $CWD/mod_ssl-$MODSSL_VER-$APACHE_VER.tar.gz
+
+# build libmm
+cd $TMP/mm-$MM_VER
+./configure --prefix=/usr --enable-static --enable-shared
+make
+
+# EAPI is not part of Apache by default, it comes from mod_ssl.  It
+# allows us to build and package mod_ssl seperately.  We pull out the
+# EAPI patch and apply it to Apache so that our build will have that
+# support enabled.  We also apply a few other patches from mod_ssl.
+( cd $TMP/apache_$APACHE_VER
+  cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.eapi/eapi.patch | patch -p0
+  cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.addon/addon.patch | patch -p0 )
+( cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.eapi
+  cp -a *.h $TMP/apache_$APACHE_VER/src/include
+  cp -a *.c $TMP/apache_$APACHE_VER/src/ap )
+( cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.addon
+  cp -a *.c $TMP/apache_$APACHE_VER/src/modules/extra
+  cp -a *.html $TMP/apache_$APACHE_VER/htdocs/manual/mod )
+
+# build apache
+cd $TMP/apache_$APACHE_VER
+cat $CWD/config.layout.slack >> config.layout
+EAPI=SYSTEM \
+./configure --with-layout=Slackware \
+            --enable-module=most \
+            --enable-shared=max \
+            --enable-rule=eapi
+make
+
+# install libmm
+cd $TMP/mm-$MM_VER
+make install prefix=$PKG/usr
+chmod 755 $PKG/usr/lib/libmm.so.11.0.23
+mkdir -p $PKG/usr/doc/mm-$MM_VER
+cp -a ChangeLog INSTALL LICENSE PORTING README THANKS \
+   $PKG/usr/doc/mm-$MM_VER
+
+# install apache
+cd $TMP/apache_$APACHE_VER
+make install root=$PKG
+mkdir -p $PKG/usr/doc/apache-$APACHE_VER
+cp -a ABOUT_APACHE Announcement INSTALL KEYS LICENSE README \
+   README.configure $PKG/usr/doc/apache-$APACHE_VER
+cp $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.eapi/README.EAPI \
+   $PKG/usr/doc/apache-$APACHE_VER
+
+# we do not want these in the package, if they don't exist on the system
+# then we copy the default one in place as the real file
+( cd $PKG/etc/apache
+  rm -rf access.conf httpd.conf magic mime.types srm.conf )
+
+# we add a block to the end of httpd.conf and touch zero length files
+# for the SSL and PHP module packages
+cat << EOF >> $PKG/etc/apache/httpd.conf.default
+
+# By default, all external Apache modules are disabled.  To enable a particular
+# module for Apache, make sure the necessary packages are installed.  Then
+# uncomment the appropriate Include line below, save the file, and restart
+# Apache.  Note that some modules may need additional configuration steps (for
+# example, mod_ssl requires a site certificate, you may need to generate that).
+#
+# Lastly, if you remove a module package, be sure to edit this file and comment
+# out the appropriate Include line.
+
+# ==> mod_php configuration settings <==
+#
+# PACKAGES REQUIRED:  ossllibs.tgz (A series), mysql.tgz (AP series),
+#                     gmp.tgz (GTK series), and apache.tgz (N series)
+#
+#Include /etc/apache/mod_php.conf
+
+# ==> mod_ssl configuration settings <==
+#
+# PACKAGES REQUIRED:  apache.tgz (N series) and openssl.tgz (N series)
+#
+#Include /etc/apache/mod_ssl.conf
+
+EOF
+
+# some housekeeping
+strip $PKG/usr/bin/*
+strip $PKG/usr/sbin/*
+chown -R root.root $PKG/usr/doc/*
+chown -R root.root $PKG/var/www/*
+gzip -9 $PKG/usr/man/*/*
+chown root.bin $PKG/usr/bin/*
+chown root.bin $PKG/usr/sbin/*
+
+# make the package
+cd $PKG
+echo "y
+n" | makepkg $TMP/apache.tgz
+
+# clean up
+if [ "$1" = "--cleanup" ]; then
+   cd $CWD
+   rm -rf $TMP/apache_$APACHE_VER
+   rm -rf $TMP/mm-$MM_VER
+   rm -rf $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+   rm -rf $PKG
+fi

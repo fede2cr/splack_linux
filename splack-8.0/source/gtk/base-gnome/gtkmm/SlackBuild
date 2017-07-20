@@ -1,0 +1,50 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gtkmm
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/gtkmm-1.2.5.tar.gz
+cd gtkmm-1.2.5
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --enable-shared \
+            --enable-docs \
+            --with-sigc-prefix=/opt/gnome \
+            sparc-slackware-linux
+make
+make DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/gtkmm-1.2.5
+cp -a AUTHORS COPYING README ChangeLog INSTALL NEWS README TODO \
+  $PKG/usr/doc/gtkmm-1.2.5
+chown -R root.root $PKG/usr/doc/gtkmm-1.2.5
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/gtkmm.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gtkmm-1.2.5
+  rm -rf $PKG
+fi

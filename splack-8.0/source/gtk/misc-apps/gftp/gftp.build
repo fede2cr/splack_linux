@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/gftp-2.0.8.tar.gz
+cd gftp-2.0.8
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/gftp-2.0.8
+cp -a ABOUT-NLS COPYING ChangeLog README THANKS TODO \
+  /usr/doc/gftp-2.0.8
+chmod 644 /usr/doc/gftp-2.0.8/*
+chown root.root /usr/doc/gftp-2.0.8/*

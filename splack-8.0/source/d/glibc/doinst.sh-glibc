@@ -1,0 +1,176 @@
+#!/bin/sh
+
+# libmove sourcelib targetlib
+#
+# This allows you to move a new shared library into place,
+# even on a running system.
+libmove() {
+  LIBSOURCE=$1
+  LIBTARGET=$2
+  LIBFOO="`dirname $LIBTARGET`/libfoo.so.0.0.0"
+  # link duplicate of target lib so we can safely copy over it:
+  if [ -r $LIBTARGET ]; then
+    cp -a $LIBTARGET $LIBFOO
+    if [ -x /sbin/ldconfig ]; then
+      ldconfig -l $LIBFOO
+    fi
+  fi
+  mv $LIBSOURCE $LIBTARGET
+  if [ -x /sbin/ldconfig ]; then
+    ldconfig -l $LIBTARGET
+  fi
+  rm -f $LIBFOO
+}
+
+# Before using libmove, try to install everything we can:
+( cd lib/incoming
+  for file in * ; do
+    if [ ! -r ../$file ]; then
+      cp -a $file ..
+    fi
+  done )
+if [ -x /sbin/ldconfig ]; then
+  /sbin/ldconfig
+fi
+
+( cd lib/incoming
+  for file in * ; do
+    libmove $file ../$file
+  done )
+#### Now, get rid of the temporary directory:
+rm -rf lib/incoming
+
+# In case there's no ldconfig, make the links manually:
+if [ ! -x /sbin/ldconfig ]; then
+  ( cd lib ; rm -rf ld-linux.so.2 )
+  ( cd lib ; ln -sf ld-2.2.3.so ld-linux.so.2 )
+  ( cd lib ; rm -rf libBrokenLocale.so.1 )
+  ( cd lib ; ln -sf libBrokenLocale-2.2.3.so libBrokenLocale.so.1 )
+  ( cd lib ; rm -rf libc.so.6 )
+  ( cd lib ; ln -sf libc-2.2.3.so libc.so.6 )
+  ( cd lib ; rm -rf libcrypt.so.1 )
+  ( cd lib ; ln -sf libcrypt-2.2.3.so libcrypt.so.1 )
+  ( cd lib ; rm -rf libdb.so )
+  ( cd lib ; ln -sf libdb-3.1.so libdb.so )
+  ( cd lib ; rm -rf libdb.so.2 )
+  ( cd lib ; ln -sf libdb1.so.2.1.3 libdb.so.2 )
+  ( cd lib ; rm -rf libdb.so.3 )
+  ( cd lib ; ln -sf libdb2.so.3 libdb.so.3 )
+  ( cd lib ; rm -rf libdb1.so.2 )
+  ( cd lib ; ln -sf libdb1.so.2.1.3 libdb1.so.2 )
+  ( cd lib ; rm -rf libdl.so.2 )
+  ( cd lib ; ln -sf libdl-2.2.3.so libdl.so.2 )
+  ( cd lib ; rm -rf libm.so.6 )
+  ( cd lib ; ln -sf libm-2.2.3.so libm.so.6 )
+  ( cd lib ; rm -rf libnsl.so.1 )
+  ( cd lib ; ln -sf libnsl-2.2.3.so libnsl.so.1 )
+  ( cd lib ; rm -rf libnss_compat.so.2 )
+  ( cd lib ; ln -sf libnss_compat-2.2.3.so libnss_compat.so.2 )
+  ( cd lib ; rm -rf libnss_db.so.2 )
+  ( cd lib ; ln -sf libnss_db-2.2.so libnss_db.so.2 )
+  ( cd lib ; rm -rf libnss_dns.so.2 )
+  ( cd lib ; ln -sf libnss_dns-2.2.3.so libnss_dns.so.2 )
+  ( cd lib ; rm -rf libnss_files.so.2 )
+  ( cd lib ; ln -sf libnss_files-2.2.3.so libnss_files.so.2 )
+  ( cd lib ; rm -rf libnss_hesiod.so.2 )
+  ( cd lib ; ln -sf libnss_hesiod-2.2.3.so libnss_hesiod.so.2 )
+  ( cd lib ; rm -rf libnss_nis.so.2 )
+  ( cd lib ; ln -sf libnss_nis-2.2.3.so libnss_nis.so.2 )
+  ( cd lib ; rm -rf libnss_nisplus.so.2 )
+  ( cd lib ; ln -sf libnss_nisplus-2.2.3.so libnss_nisplus.so.2 )
+  ( cd lib ; rm -rf libpthread.so.0 )
+  ( cd lib ; ln -sf libpthread-0.9.so libpthread.so.0 )
+  ( cd lib ; rm -rf libresolv.so.2 )
+  ( cd lib ; ln -sf libresolv-2.2.3.so libresolv.so.2 )
+  ( cd lib ; rm -rf librt.so.1 )
+  ( cd lib ; ln -sf librt-2.2.3.so librt.so.1 )
+  ( cd lib ; rm -rf libthread_db.so.1 )
+  ( cd lib ; ln -sf libthread_db-1.0.so libthread_db.so.1 )
+  ( cd lib ; rm -rf libutil.so.1 )
+  ( cd lib ; ln -sf libutil-2.2.3.so libutil.so.1 )
+fi
+# Now make the rest of the required links:
+( cd usr/include ; rm -rf db.h )
+( cd usr/include ; ln -sf db3/db.h db.h )
+( cd usr/lib ; rm -rf libBrokenLocale.so )
+( cd usr/lib ; ln -sf ../../lib/libBrokenLocale.so.1 libBrokenLocale.so )
+( cd usr/lib ; rm -rf libcrypt.so )
+( cd usr/lib ; ln -sf ../../lib/libcrypt.so.1 libcrypt.so )
+( cd usr/lib ; rm -rf libdb.a )
+( cd usr/lib ; ln -sf libdb-3.1.a libdb.a )
+( cd usr/lib ; rm -rf libdb1.so )
+( cd usr/lib ; ln -sf ../../lib/libdb1.so.2 libdb1.so )
+( cd usr/lib ; rm -rf libdb2.so )
+( cd usr/lib ; ln -sf ../../lib/libdb2.so.3 libdb2.so )
+( cd usr/lib ; rm -rf libdl.so )
+( cd usr/lib ; ln -sf ../../lib/libdl.so.2 libdl.so )
+( cd usr/lib ; rm -rf libm.so )
+( cd usr/lib ; ln -sf ../../lib/libm.so.6 libm.so )
+( cd usr/lib ; rm -rf libndbm.a )
+( cd usr/lib ; ln -sf libdb2.a libndbm.a )
+( cd usr/lib ; rm -rf libndbm.so )
+( cd usr/lib ; ln -sf ../../lib/libdb2.so.3 libndbm.so )
+( cd usr/lib ; rm -rf libnsl.so )
+( cd usr/lib ; ln -sf ../../lib/libnsl.so.1 libnsl.so )
+( cd usr/lib ; rm -rf libnss_compat.so )
+( cd usr/lib ; ln -sf ../../lib/libnss_compat.so.2 libnss_compat.so )
+( cd usr/lib ; rm -rf libnss_db.so )
+( cd usr/lib ; ln -sf ../../lib/libnss_db.so.2 libnss_db.so )
+( cd usr/lib ; rm -rf libnss_dns.so )
+( cd usr/lib ; ln -sf ../../lib/libnss_dns.so.2 libnss_dns.so )
+( cd usr/lib ; rm -rf libnss_files.so )
+( cd usr/lib ; ln -sf ../../lib/libnss_files.so.2 libnss_files.so )
+( cd usr/lib ; rm -rf libnss_hesiod.so )
+( cd usr/lib ; ln -sf ../../lib/libnss_hesiod.so.2 libnss_hesiod.so )
+( cd usr/lib ; rm -rf libnss_nis.so )
+( cd usr/lib ; ln -sf ../../lib/libnss_nis.so.2 libnss_nis.so )
+( cd usr/lib ; rm -rf libnss_nisplus.so )
+( cd usr/lib ; ln -sf ../../lib/libnss_nisplus.so.2 libnss_nisplus.so )
+( cd usr/lib ; rm -rf libpthread.so )
+( cd usr/lib ; ln -sf ../../lib/libpthread.so.0 libpthread.so )
+( cd usr/lib ; rm -rf libresolv.so )
+( cd usr/lib ; ln -sf ../../lib/libresolv.so.2 libresolv.so )
+( cd usr/lib ; rm -rf librt.so )
+( cd usr/lib ; ln -sf ../../lib/librt.so.1 librt.so )
+( cd usr/lib ; rm -rf libthread_db.so )
+( cd usr/lib ; ln -sf ../../lib/libthread_db.so.1 libthread_db.so )
+( cd usr/lib ; rm -rf libutil.so )
+( cd usr/lib ; ln -sf ../../lib/libutil.so.1 libutil.so )
+################################
+# BSD DB symlink install block #
+################################
+if [ -x /sbin/ldconfig ]; then
+  ( cd lib ; /sbin/ldconfig . )
+fi
+# These aren't made by ldconfig:
+( cd lib ; rm -rf libdb.so.2 )
+( cd lib ; ln -sf libdb1.so.2.1.3 libdb.so.2 )
+( cd lib ; rm -rf libdb.so.3 )
+( cd lib ; ln -sf libdb2.so.3 libdb.so.3 )
+( cd lib ; rm -rf libdb1.so.2 )
+( cd lib ; ln -sf libdb1.so.2.1.3 libdb1.so.2 )
+# This part of the script is shared with the glibc.tgz
+# package, as we've re-added the BSD DB libs to that:
+( cd lib ; rm -rf libdb.so )
+( cd lib ; ln -sf libdb-3.1.so libdb.so )
+( cd usr/lib ; rm -rf libdb1.so )
+( cd usr/lib ; ln -sf ../../lib/libdb1.so.2 libdb1.so )
+( cd usr/lib ; rm -rf libdb2.so )
+( cd usr/lib ; ln -sf ../../lib/libdb2.so.3 libdb2.so )
+( cd usr/lib ; rm -rf libndbm.so )
+( cd usr/lib ; ln -sf ../../lib/libdb2.so.3 libndbm.so )
+if [ -r usr/lib/libdb2.a ]; then
+  ( cd usr/lib ; rm -rf libndbm.a )
+  ( cd usr/lib ; ln -sf libdb2.a libndbm.a )
+fi
+if [ -r usr/include/db3/db.h ]; then
+  ( cd usr/include ; rm -rf db.h )
+  ( cd usr/include ; ln -sf db3/db.h db.h )
+fi
+if [ -r usr/lib/libdb-3.1.a ]; then
+  ( cd usr/lib ; rm -rf libdb.a )
+  ( cd usr/lib ; ln -sf libdb-3.1.a libdb.a )
+fi
+####################################
+# END BSD DB symlink install block #
+####################################

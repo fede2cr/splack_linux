@@ -1,0 +1,21 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-cdparanoia
+
+cd $TMP
+tar xzvf $CWD/cdparanoia-III-alpha9.8.src.tgz
+cd cdparanoia-III-alpha9.8
+./configure --prefix=/usr sparc-slackware-linux
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/cdparanoia-III-alpha9.8
+cp -a FAQ.txt GPL README cdparanoia.1.jp $PKG/usr/doc/cdparanoia-III-alpha9.8
+chown -R root.root $PKG/usr/doc/cdparanoia-III-alpha9.8
+chmod 755 $PKG/usr/lib/libcdda*.so
+
+cd $PKG
+echo "y
+n" | makepkg ../cdparano.tgz

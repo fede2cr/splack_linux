@@ -1,0 +1,37 @@
+VERSION=1.1.1.1
+BUILD=1
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=afbinit-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="afbinit"
+DESC="\
+afbinit-$VERSION\n\
+\n\
+Loads the afb.ucode file from Solaris.  This is necessary for Elite3D\n\
+framebuffers.  See /usr/doc/afbinit/README for more details."
+
+compile() {
+   tar xvzf $CWD/afb.tar.gz
+   cd afb
+   make
+}
+
+install() {
+   cp afbinit /usr/sbin
+   mkdir -p /usr/doc/afbinit
+   cp $CWD/README /usr/doc/afbinit
+}
+
+special() {
+   mkdir -p $PKG/etc/rc.d
+   cp $CWD/rc.afb $PKG/etc/rc.d/rc.afb
+   chown root.root $PKG/etc/rc.d/rc.afb
+   chmod 755 $PKG/etc/rc.d/rc.afb
+}

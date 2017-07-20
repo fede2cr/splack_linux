@@ -1,0 +1,28 @@
+# Enabling fsstd seeemed like a good thing to do here. I enabled 
+# sound too.  
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/enlightenment-0.16.5.tar.gz
+cd enlightenment-0.16.5
+CFLAGS=-O2 ./configure --prefix=/usr/X11R6 \
+            --enable-fsstd \
+	    --enable-sound \
+            i386-slackware-linux
+make
+make install
+chown -R root.root /usr/X11R6/share/enlightenment
+mkdir -p /usr/doc/enlightenment-0.16.5
+cp -a AUTHORS COPYING INSTALL NEWS README /usr/doc/enlightenment-0.16.5
+chown -R root.root /usr/doc/enlightenment-0.16.5
+mkdir -p /etc/X11/xinit
+cat $CWD/xinitrc.e > /etc/X11/xinit/xinitrc.e
+chown root.root /etc/X11/xinit/xinitrc.e
+chmod 755 /etc/X11/xinit/xinitrc.e
+#
+cat << EOF
+
+After extracting the package, move the locale files into
+/usr/share/locale, as the system doesn't search /usr/X11R6/share/locale
+by default.  Make sure no directories are unneccessarily setuid/gid.
+
+EOF

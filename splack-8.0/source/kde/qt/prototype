@@ -1,0 +1,77 @@
+VERSION=2.3.0
+BUILD=2
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=qt-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Qt
+DESC="\
+Qt-$VERSION\n\
+\n\
+Qt is a complete and well-developed object-oriented framework for\n\
+developing graphical user interface (GUI) applications using C++.\n\
+This release, Qt $VERSION, is free only for development of free software\n\
+for the X Window System.  If you use Qt for developing commercial\n\
+or other non-free software, you must have a professional license.\n\
+Please see http://www.trolltech.com/purchase.html for information on\n\
+how to obtain a professional license."
+
+compile() {
+   echo "Cleaning out old Qt stuff first..."
+   rm -rf /usr/lib/*qt*
+}
+
+install() {
+   # extract the source where it should go
+   cd /usr/lib
+   tar xvzf $CWD/qt-x11-$VERSION.tar.gz
+   ln -sf qt-$VERSION qt
+   export QTDIR=/usr/lib/qt
+
+   # build qt
+   cd $QTDIR
+   zcat $CWD/qt-x11.diff.gz | patch -p1 --verbose -E
+   ./configure -thread -gif -system-libpng -system-jpeg \
+               -no-g++-exceptions -no-xft
+   /usr/bin/time make
+   ( cd extensions/xt/src ; make )
+
+   # move manpages into place
+   ( cd doc/man/man3 ; gzip -9 * )
+   ( cd /usr/doc ; rm -f qt-$VERSION ; ln -sf /usr/lib/qt-$VERSION qt-$VERSION )
+   mkdir -p doc/man/man1
+   cat src/moc/moc.1 | gzip -9c > doc/man/man1/moc.1.gz
+
+   # move libraries and headers into place
+   ( cd lib ; strip *.so.?.?.? ; mv * /usr/lib )
+   ( cd include ; mkdir tmp ; cp *.h tmp ; rm *.h ; mv tmp/* . ; rmdir tmp )
+
+   # cleanup
+   ( cd bin ; strip * )
+   make clean
+   rm -rf /usr/lib/qt-$VERSION/lib
+
+   # symlinks
+   ( cd /usr/bin
+     rm -rf moc ; ln -sf /usr/lib/qt/bin/moc .
+     rm -rf uic ; ln -sf /usr/lib/qt/bin/uic .
+     rm -rf designer ; ln -sf /usr/lib/qt/bin/designer . )
+
+   # Now, the source can go bye-bye:
+   rm -rf configure Makefile configs extensions/xt/src src src-mt.mk tools
+}
+
+special() {
+   # write out the profile.d scripts
+   mkdir -p $PKG/etc/profile.d
+   ( cd $PKG/etc/profile.d
+     cp -a $CWD/profile.d/* .
+     chown root.root qt.*
+     chmod 755 qt.* )
+}

@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $TMP/ruptime
+insfile ruptime /usr/bin
+cp ruptime.1 /usr/man/man1

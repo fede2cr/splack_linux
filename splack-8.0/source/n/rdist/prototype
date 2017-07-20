@@ -1,0 +1,37 @@
+VERSION=6.1.5
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=rdist-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=rdist
+DESC="\
+rdist-$VERSION.\n\
+\n\
+Rdist is a remote file distribution program.  It is used to maintain\n\
+identical copies of files over multiple network hosts.  It preserves\n\
+the owner, group, mode, and mtime of files if possible and can update\n\
+programs that are executing."
+
+SOURCE=http://www.magnicomp.com/cgi-bin/mcdownload.cgi
+
+compile() {
+   tar xvzf $CWD/rdist-$VERSION.tar.gz
+   cd rdist-$VERSION
+   zcat $CWD/rdist-$VERSION.diff.gz | patch -p1 --backup
+   make
+}
+
+install() {
+   cp src/rdist src/rdistd /usr/bin
+   cp doc/rdist.man /usr/man/man1/rdist.1
+   cp doc/rdistd.man /usr/man/man1/rdistd.1
+   mkdir -p /usr/doc/rdist-$VERSION
+   cp README /usr/doc/rdist-$VERSION
+}

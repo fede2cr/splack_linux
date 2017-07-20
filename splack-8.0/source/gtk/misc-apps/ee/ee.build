@@ -1,0 +1,15 @@
+#!/bin/sh
+CWD=`pwd` 
+cd /tmp
+tar xzvf $CWD/ee-0.3.12.tar.gz
+cd ee-0.3.12
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --with-catgets \
+            i386-slackware-linux
+make
+make install
+mkdir -p /usr/doc/ee-0.3.12
+cp -a ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README \
+   /usr/doc/ee-0.3.12
+chown -R root.root /usr/doc/ee-0.3.12

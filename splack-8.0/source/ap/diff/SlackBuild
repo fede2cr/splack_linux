@@ -1,0 +1,60 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-diff
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_diff.tar.gz
+
+echo "+===============+"
+echo "| diffutils-2.7 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/diffutils-2.7.tar.gz
+cd diffutils-2.7
+./configure --prefix=/usr
+make CFLAGS=-O2 LDFLAGS=-s PR_PROGRAM=/usr/bin/pr
+cat cmp > $PKG/usr/bin/cmp
+cat diff > $PKG/usr/bin/diff
+cat diff3 > $PKG/usr/bin/diff3
+cat sdiff > $PKG/usr/bin/sdiff
+for page in $CWD/cmp.1 $CWD/diff.1 $CWD/diff3.1 $CWD/sdiff.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/`basename $page`.gz
+done
+for file in diff.info diff.info-1 diff.info-2 diff.info-3 diff.info-4 ; do
+ cat $file | gzip -9c > $PKG/usr/info/$file.gz
+done
+mkdir -vp $PKG/usr/doc/diffutils-2.7
+cp -av README NEWS COPYING $PKG/usr/doc/diffutils-2.7
+chown -v root.root $PKG/usr/doc/diffutils-2.7/*
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/diff.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/diffutils-2.7
+  rm -rf $PKG
+fi

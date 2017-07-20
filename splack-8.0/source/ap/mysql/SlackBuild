@@ -1,0 +1,75 @@
+#!/bin/sh
+# Build and install MySQL on Slackware
+# by:  David Cantrell <david@slackware.com>
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-mysql
+
+ARCH=sparc
+VERSION=3.23.39
+
+cd $TMP
+tar xvzf $CWD/mysql-$VERSION.tar.gz
+cd mysql-$VERSION
+./configure --prefix=/usr \
+            --with-mysqld-user=mysql \
+            --with-unix-socket-path=/var/run/mysql/mysql.sock \
+            --localstatedir=/var/lib/mysql \
+            --with-pthread \
+            --enable-thread-safe-client \
+            --enable-assembler \
+            --with-raid \
+            --with-libwrap \
+            --without-bench \
+            $ARCH-slackware-linux
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/etc
+( cd support-files
+  cp my-huge.cnf my-large.cnf my-medium.cnf my-small.cnf $PKG/etc )
+
+# install docs
+mkdir -p $PKG/usr/doc/mysql-$VERSION/Docs
+cp -a COPYING* INSTALL-SOURCE MIRRORS README $PKG/usr/doc/mysql-$VERSION
+( cd Docs
+  cp -a INSTALL-BINARY *.html *.txt Flags Support \
+     $PKG/usr/doc/mysql-$VERSION/Docs )
+chown -R root.root $PKG/usr/doc/mysql-$VERSION
+
+# this is the directory where databases are stored
+mkdir -p $PKG/var/lib/mysql
+chown mysql.mysql $PKG/var/lib/mysql
+chmod 750 $PKG/var/lib/mysql
+
+# this is where the socket is stored
+mkdir -p $PKG/var/run/mysql
+chown mysql.mysql $PKG/var/run/mysql
+chmod 755 $PKG/var/run/mysql
+
+# Do not include the test suite:
+rm -r $PKG/usr/mysql-test
+
+# Install script:
+mkdir -p $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+# Add some handy library symlinks:
+( cd $PKG/usr/lib
+  rm -f libmysqlclient.so libmysqlclient.so.10 libmysqlclient_r.so libmysqlclient_r.so.10
+  ln -sf mysql/libmysqlclient.so .
+  ln -sf mysql/libmysqlclient.so.10 .
+  ln -sf mysql/libmysqlclient_r.so .
+  ln -sf mysql/libmysqlclient_r.so.10 . )
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/mysql.tgz
+
+if [ "$1" == "--cleanup" ]; then
+   cd $TMP
+   rm -rf mysql-$VERSION
+fi

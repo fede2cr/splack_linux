@@ -1,0 +1,80 @@
+VERSION=1.06.2
+BUILD=4
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=uucp-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="Taylor UUCP"
+DESC="\
+Taylor UUCP version $VERSION\n\
+\n\
+Ian Taylor's Unix to Unix copy: mail and news over modem lines.\n\
+This is the standard UUCP package of the Free Software Foundation.\n\
+\n\
+Configured to use HoneyDanBer and/or Taylor configuration files."
+
+compile() {
+   tar xvzf $CWD/uucp-$VERSION.tar.gz
+   cd uucp-1.06.1
+   zcat $CWD/policy.h.diff.gz | patch -p0 --backup --verbose
+   ./configure --prefix=/usr
+   zcat $CWD/Makefile.diff.gz | patch -p0 --backup --verbose
+   make CFLAGS=-O2 LDFLAGS=-s
+}
+
+install() {
+   # install binaries
+   cp cu uucp uuname uustat uux /usr/bin
+   mkdir -p /usr/lib/uucp
+   cp uuchk uucico uuconv uuxqt /usr/lib/uucp
+
+   # install documentation
+   cat cu.1 | gzip -9c > /usr/man/man1/cu.1.gz
+   cat uucp.1 | gzip -9c > /usr/man/man1/uucp.1.gz
+   cat uustat.1 | gzip -9c > /usr/man/man1/uustat.1.gz
+   cat uux.1 | gzip -9c > /usr/man/man1/uux.1.gz
+   cat uucico.8 | gzip -9c > /usr/man/man8/uucico.8.gz
+   cat uuxqt.8 | gzip -9c > /usr/man/man8/uuxqt.8.gz
+   for file in uucp.info uucp.info-?
+   do
+      cat $file | gzip -9c > /usr/info/$file.gz
+   done
+
+   # symlinks
+   ( cd /usr/lib/uucp
+     rm -rf hdb_config ; ln -sf /var/lib/uucp/hdb_config hdb_config
+     rm -rf taylor_config ; ln -sf /var/lib/uucp/taylor_config taylor_config )
+}
+
+attributes() {
+   cd $PKG
+   chown uucp.uucp usr/bin/cu
+   chown uucp.uucp usr/bin/uucp
+   chown uucp.uucp usr/bin/uuname
+   chown uucp.uucp usr/bin/uustat
+   chown uucp.uucp usr/bin/uux
+   chown uucp.uucp usr/lib/uucp/uuchk
+   chown uucp.uucp usr/lib/uucp/uucico
+   chown uucp.uucp usr/lib/uucp/uuconv
+   chown uucp.uucp usr/lib/uucp/uuxqt
+   chmod 6554 usr/bin/cu
+   chmod 6554 usr/bin/uucp
+   chmod 6554 usr/bin/uuname
+   chmod 6554 usr/bin/uustat
+   chmod 6554 usr/bin/uux
+   chmod 6554 usr/lib/uucp/uuchk
+   chmod 6554 usr/lib/uucp/uucico
+   chmod 6554 usr/lib/uucp/uuconv
+   chmod 6554 usr/lib/uucp/uuxqt
+}
+
+special() {
+   # add the special uucp package components
+   ( cd $PKG ; tar xpsvzf $CWD/_uucp.tar.gz )
+}

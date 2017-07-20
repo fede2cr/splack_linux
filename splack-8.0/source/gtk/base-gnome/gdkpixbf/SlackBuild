@@ -1,0 +1,48 @@
+#!/bin/sh
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gdkpixbf
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/gdk-pixbuf-0.10.1.tar.gz
+cd gdk-pixbuf-0.10.1
+CFLAGS=-O2 ./configure \
+           --prefix=/opt/gnome \
+           --sysconfdir=/etc/opt/gnome \
+           sparc-slackware-linux 
+make
+make DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/gdk-pixbuf-0.10.1
+cp -a AUTHORS COPYING COPYING.LIB ChangeLog INSTALL NEWS README TODO \
+   $PKG/usr/doc/gdk-pixbuf-0.10.1
+chown -R root.root $PKG/usr/doc/gdk-pixbuf-0.10.1
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/gdkpixbf.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/oaf-0.6.5
+  rm -rf $PKG
+fi

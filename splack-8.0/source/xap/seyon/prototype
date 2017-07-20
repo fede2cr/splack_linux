@@ -1,0 +1,39 @@
+VERSION=2.20c
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=seyon-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Seyon
+DESC="\
+Seyon $VERSION.\n\
+\n\
+A full-featured telecommunications package for X."
+
+compile() {
+   tar xvzf $CWD/seyon-$VERSION.tar.gz
+   cd seyon-$VERSION
+   zcat $CWD/seyon-$VERSION.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+   chmod 755 makever.sh
+   xmkmf
+   make
+}
+
+install() {
+   make install
+   cp seyon.man /usr/X11R6/man/man1/seyon.1
+
+   mkdir -p /usr/doc/seyon-$VERSION/.seyon
+   cp 1-* COPYING /usr/doc/seyon-$VERSION
+   cp phonelist protocols script.CIS script.PCBoard script.QWK script.unix \
+      startup /usr/doc/seyon-$VERSION/.seyon
+   ( cd /usr/doc/seyon-$VERSION
+     rm -rf HOME.seyon.directory.example
+     ln -sf .seyon HOME.seyon.directory.example )
+}

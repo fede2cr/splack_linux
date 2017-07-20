@@ -1,0 +1,31 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=kdenetwork-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Network"
+DESC="\
+kdenetwork-$VERSION\n\
+\n\
+Network related utilities for the K Desktop Environment."
+
+compile() {
+   tar xvyf $CWD/kdenetwork-$VERSION.tar.bz2
+   cd kdenetwork-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdenetwork-$VERSION
+   cp AUTHORS COPYING ChangeLog INSTALL README kdenetwork.lsm \
+      /usr/doc/kdenetwork-$VERSION
+}

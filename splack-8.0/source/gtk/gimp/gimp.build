@@ -1,0 +1,5 @@
+#!/bin/sh
+# Build and install the GIMP:
+sh gimp-1.2.1.build
+ldconfig
+sh gimp-data-extras.build

@@ -1,0 +1,187 @@
+SENDMAIL_VER=8.11.3
+PROCMAIL_VER=3.15.1
+VERSION=$SENDMAIL_VER
+BUILD=2
+ARCH=sparc
+TAG=REC
+
+PKGNAME=sendmail-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=sendmail
+DESC="\
+sendmail $VERSION.\n\
+\n\
+Eric Allman's mail transport agent. The _Unix System Administration\n\
+Handbook_ calls sendmail 'The most complex and complete mail delivery\n\
+system in common use...'\n\
+\n\
+Ready-made configuration files are included for systems connected by\n\
+TCP/IP (with or without a nameserver) and for systems using UUCP.\n\
+\n\
+procmail is included as a local mail agent."
+
+compile() {
+   # build procmail
+   cd $TMP
+   tar xvzf $CWD/procmail-$PROCMAIL_VER.tar.gz
+   cd procmail-$PROCMAIL_VER
+   make
+
+   # build sendmail
+   OSCPU="`uname -srm | tr ' ' '.'`"
+   cd $TMP
+   tar xvzf $CWD/sendmail.$VERSION.tar.gz
+   cd sendmail-$VERSION
+
+   # Jan Rafaj's patches to allow non-suid sendmail.  If you're
+   # interested in this, uncomment and recompile.
+   ## Allow sendmail to open file in "mqueue" dir, even if its sgid != 0
+   #zcat $CWD/sendmail-mqueue_notworldwritable.diff.gz | patch -p0
+   #zcat $CWD/sendmail-no_stupid_ugid_check.diff.gz | patch -p0
+
+   # Build .cf files for Linux:
+   zcat $CWD/sendmail.mc.diff.gz | patch -p1 --backup
+   cd $TMP/sendmail-$VERSION/cf/cf
+   for MODE in linux.uucp linux.smtp linux.smtp-rbl linux.smtp-rbl+
+   do
+      cp $MODE.mc config.mc
+      rm config.cf
+      sh Build config.cf
+      cp config.cf $MODE.cf
+   done
+   cd $TMP/sendmail-$VERSION
+   # make
+   sh Build
+   wget -N -k -r http://www.sendmail.org/faq/faq.txt
+}
+
+install() {
+   # install procmail
+   cd $TMP/procmail-$PROCMAIL_VER
+   ( cd src
+     cp formail lockfile mailstat procmail /usr/bin )
+   ( cd man
+     cp formail.1 lockfile.1 procmail.1 /usr/man/man1
+     cp procmailex.5 procmailrc.5 procmailsc.5 /usr/man/man5 )
+   mkdir -p /usr/doc/procmail-$PROCMAIL_VER
+   cp -r Artistic COPYING FAQ FEATURES HISTORY INSTALL KNOWN_BUGS \
+      README examples /usr/doc/procmail-$PROCMAIL_VER
+
+   # install sendmail
+   cd $TMP/sendmail-$VERSION
+
+   # install configuration file examples
+   mkdir -p /usr/src/sendmail
+   ( cd $TMP/sendmail-$VERSION/cf/cf
+     cp linux.smtp.cf linux.uucp.cf linux.smtp-rbl.cf linux.smtp-rbl+.cf \
+        /usr/src/sendmail )
+
+   # install documentation
+   cp sendmail/mailq.1 /usr/man/man1/mailq.1
+   cp sendmail/newaliases.1 /usr/man/man1/newaliases.1
+   mkdir -p /usr/doc/sendmail
+   cp www.sendmail.org/faq/faq.txt /usr/doc/sendmail
+   cp FAQ INSTALL KNOWNBUGS LICENSE PGPKEYS README RELEASE_NOTES \
+      /usr/doc/sendmail
+   ( cd doc ; cp -r op /usr/doc/sendmail )
+
+   # install components
+   cd obj.$OSCPU
+   ( cd sendmail
+     cp aliases.5 /usr/man/man5/aliases.5
+     cp sendmail.8 /usr/man/man8/sendmail.8 )
+   ( cd makemap
+     cp makemap /usr/sbin/makemap
+     cp makemap.8 /usr/man/man8/makemap.8 )
+   ( cd mailstats
+     cp mailstats /usr/sbin/mailstats
+     cp mailstats.8 /usr/man/man8/mailstats.8 )
+   ( cd praliases
+     cp praliases /usr/bin/praliases
+     cp praliases.8 /usr/man/man8/praliases.8 )
+   ( cd rmail
+     cp rmail /usr/bin/rmail
+     cp rmail.8 /usr/man/man8/rmail.8 )
+   ( cd smrsh
+     cp smrsh /usr/sbin/smrsh
+     cp smrsh.8 /usr/man/man8/smrsh.8 )
+   ( cd mail.local
+     cp mail.local /usr/sbin/mail.local
+     cp mail.local.8 /usr/man/man8/mail.local.8 )
+   ( cd vacation
+     cp vacation /usr/bin/vacation
+     cp vacation.1 /usr/man/man1/vacation.1 )
+
+   # make symlinks
+   ( cd /usr/bin
+     rm -rf newaliases ; ln -sf /usr/sbin/sendmail newaliases
+     rm -rf mailq      ; ln -sf /usr/sbin/sendmail mailq
+     rm -rf hoststat   ; ln -sf /usr/sbin/sendmail hoststat
+     rm -rf purgestat  ; ln -sf /usr/sbin/sendmail purgestat
+     rm -rf sendmail   ; ln -sf /usr/sbin/sendmail sendmail )
+   ( cd /usr/lib
+     rm -rf sendmail   ; ln -sf /usr/sbin/sendmail sendmail )
+}
+
+attributes() {
+   chown root.mail $PKG/usr/bin/procmail
+   chown root.mail $PKG/usr/bin/lockfile
+   chmod 6755 $PKG/usr/bin/procmail
+   chmod 2755 $PKG/usr/bin/lockfile
+   chmod 755 $PKG/usr/doc/procmail-$PROCMAIL_VER/examples/dirname
+   chmod 755 $PKG/usr/doc/procmail-$PROCMAIL_VER/examples/mailstat
+}
+
+special() {
+   # add the sendmail package components
+   ( cd $PKG ; explodepkg $CWD/_sendmail.tar.gz )
+
+   # add sendmail as an incoming daemon
+   mkdir -p $PKG/usr/sbin
+   cp $TMP/sendmail-$VERSION/obj.$OSCPU/sendmail/sendmail \
+      $PKG/usr/sbin/sendmail.new
+   chown root.bin $PKG/usr/sbin/sendmail.new
+   chmod 6555 $PKG/usr/sbin/sendmail.new
+   strip $PKG/usr/sbin/sendmail.new
+
+   # add two more config files
+   ( cd $TMP/sendmail-$VERSION/obj.$OSCPU/sendmail
+     cp statistics ../../sendmail/helpfile $PKG/etc/mail )
+
+   # we need the lib directory
+   mkdir -p $PKG/usr/lib
+   chown root.root $PKG/usr/lib
+   chmod 755 $PKG/usr/lib
+
+   # add to the doinst.sh script
+   cat << EOF >> $CTL/doinst.sh
+# If a custom aliases file exists, we don't want to overwrite it, but
+# we'll leave the new standard aliases file in /etc/mail so maybe the
+# sysadmin will notice it. :^)
+if [ -r etc/mail/aliases ]; then
+  if [ "`cat etc/mail/aliases`" = "# Put any sendmail aliases in here" ]; then
+    mv etc/mail/aliases.new etc/mail/aliases
+  fi
+else
+  mv etc/mail/aliases.new etc/mail/aliases
+fi
+if [ ! -r etc/mail/aliases.db ]; then
+  mv etc/mail/aliases.db.new etc/mail/aliases.db
+else
+  rm etc/mail/aliases.db.new
+fi
+rm -f usr/sbin/sendmail
+mv usr/sbin/sendmail.new usr/sbin/sendmail
+chroot . /usr/bin/newaliases 1> /dev/null
+EOF
+}
+
+subpacks() {
+   repack smailcfg
+   repack procmail
+}

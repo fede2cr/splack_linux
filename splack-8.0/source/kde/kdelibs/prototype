@@ -1,0 +1,38 @@
+VERSION=2.1.2
+BUILD=1
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=kdelibs-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Libraries"
+DESC="\
+kdelibs-$VERSION\n\
+\n\
+System libraries and other resources required by KDE:  kdecore (KDE\n\
+core library), kdeui (user interface), kimgio (image formats), kfile\n\
+(file dialog), kspell (spelling checker), khtml (HTML widget), kab\n\
+(addressbook), arts (sound, mixing and animation), kstyles, kparts,\n\
+kjs (JavaScript), kio (URL fetcher), kdesu, dcop (desktop\n\
+communication program), kssl (OpenSSL integration), kinit, libkmid,\n\
+interfaces, libtldl, mimetypes, pics, and ksgmltools."
+
+compile() {
+   tar xvyf $CWD/kdelibs-$VERSION.tar.bz2
+   cd kdelibs-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdelibs-$VERSION
+   cp -r AUTHORS COMPILING COMPILING.html COPYING COPYING.BSD COPYING.LIB \
+      ChangeLog DEBUG INSTALL KDE2PORTING.html NAMING README kdelibs.lsm \
+      /usr/doc/kdelibs-$VERSION
+}

@@ -1,0 +1,48 @@
+VERSION=3.10
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=xfractint-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xfractint
+DESC="\
+xfractint-$VERSION\n\
+\n\
+Xfractint draws a wide variety of fractals. Xfractint is a port of\n\
+the DOS program Fractint.  The primary original authors of Fractint\n\
+are Bert Tyler, Timothy Wegner, Mark Peterson, and Pieter\n\
+Branderhorst.  The Xfractint port is by Ken Shirriff."
+
+compile() {
+   tar xvzf $CWD/xfractint-$VERSION.tar.gz
+   cd xfractint-$VERSION
+   make
+}
+
+install() {
+   cp xfractint /usr/X11R6/bin
+   cp xfractint.man /usr/X11R6/man/man1/xfractint.1
+
+   mkdir -p /usr/X11R6/lib/xfractint
+   cp *.par *.frm *.ifs *.l *.map *.hlp /usr/X11R6/lib/xfractint
+}
+
+attributes() {
+   for f in altern.map blues.map cellular.par chroma.map default.map demo.par \
+            firestrm.map fract18.par fract19.par fractint.frm fractint.ifs \
+            fractint.l fractint.par froth3.map froth316.map froth6.map \
+            froth616.map gamma1.map gamma2.map glasses1.map glasses2.map \
+            goodega.map green.map grey.map grid.map headache.map icons.par \
+            landscap.map lyapunov.map lyapunov.par music.par neon.map \
+            paintjet.map penrose.l phctutor.frm phoenix.par royal.map tiling.l \
+            topo.map volcano.map
+   do
+      chmod 755 $PKG/usr/X11R6/lib/xfractint/$f
+   done
+}

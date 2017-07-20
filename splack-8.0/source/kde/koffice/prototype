@@ -1,0 +1,33 @@
+VERSION=2.0.1
+BUILD=2
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=koffice-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KOffice"
+DESC="\
+koffice-$VERSION\n\
+\n\
+Office applications for the K Desktop Environment $VERSION.\n\
+\n\
+KOffice contains KWord (word processor), KSpread (spreadsheet),\n\
+KPresenter (presentation software) and KChart (diagram generator)."
+
+compile() {
+   tar xvyf $CWD/koffice-$VERSION.tar.bz2
+   cd koffice-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/koffice-$VERSION
+   cp AUTHORS COPYING ChangeLog INSTALL README /usr/doc/koffice-$VERSION
+}

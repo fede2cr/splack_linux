@@ -1,0 +1,36 @@
+TAG=OPT
+
+SUBPKGNAME=emac_nox-$VERSION-$ARCH-$BUILD
+
+PROGNAME="GNU Emacs binary (without X11 support)"
+DESC="\
+Emacs binary without X support.\n\
+\n\
+A replacement /usr/bin/emacs binary that is not compiled with X11 menu\n\
+support.  This version of emacs is about 400K smaller than the full\n\
+version of emacs, and is the same in every respect except for X11\n\
+extensions.  It can still run in an xterm or rxvt if you wish to run\n\
+it under X, but it is mainly included for those folks who don't have X\n\
+(or the X11, Xaw, and Xt shared libs) installed on their machines.\n\
+You might want to remove the version that requires X if you install\n\
+and use this one."
+
+subinstall() {
+   echo "Nothing to install."
+}
+
+subspecial() {
+   # populate the package
+   mkdir -p $SUBPKG/usr/bin
+   mkdir -p $SUBPKG/usr/share/emacs/$VERSION/etc
+   cp -a $TMP/em/usr/bin/emacs-$VERSION-no-x11 $SUBPKG/usr/bin
+   cp -a $TMP/em/usr/share/emacs/$VERSION/etc/DOC-$VERSION.1 $SUBPKG/usr/share/emacs/$VERSION/etc
+   chown -R root.bin $SUBPKG/usr/bin
+   chmod 1755 $SUBPKG/usr/bin/emacs-$VERSION-no-x11
+
+   # add to the doinst.sh
+   cat << EOF >> $SUBCTL/doinst.sh
+( cd usr/bin ; rm -rf emacs )
+( cd usr/bin ; ln -sf emacs-$VERSION-no-x11 emacs )
+EOF
+}

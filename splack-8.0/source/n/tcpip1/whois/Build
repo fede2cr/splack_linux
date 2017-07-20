@@ -1,0 +1,5 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/whois/whois_4.5.4.tar.gz
+cd whois-4.5.4
+make

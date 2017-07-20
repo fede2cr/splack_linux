@@ -1,0 +1,53 @@
+VERSION=2.5.3
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=elm-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/man:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Elm
+DESC="\
+Menu-driven user mail program. (v. $VERSION)\n\
+\n\
+Elm is an interactive screen-oriented mailer program originally\n\
+written by Dave Taylor, and continued by the Elm Development Group."
+
+compile() {
+   tar xvzf $CWD/elm$VERSION.tar.gz
+   cd elm$VERSION
+   zcat $CWD/elm$VERSION.diff.gz | patch -p1
+   zcat $CWD/elm$VERSION.config.diff.gz | patch -p1
+   rm -rf /var/lib/elm
+   mkdir -p /var/lib/elm
+   make
+}
+
+install() {
+   # install binaries
+   make install
+   ( cd /usr/bin
+     rm -rf frm     ; ln -sf nfrm frm
+     rm -rf newmail ; ln -sf wnewmail newmail )
+
+   # install documentation
+   ( cd doc
+     for file in *.1
+     do
+        cat $file | gzip -9c > /usr/man/man1/$file.gz
+     done )
+   mkdir -p /usr/doc/elm-$VERSION
+   cp BUGS NOTICE Overview README doc/*.guid* doc/Elm.cover /usr/doc/elm-$VERSION
+
+   # we don't want elm's mmencode
+   rm -rf /usr/bin/mmencode*
+   rm -rf /usr/man/man1/mmencode*
+}
+
+attributes() {
+   find $PKG/usr/man -type f -exec chmod 644 {} \;
+}

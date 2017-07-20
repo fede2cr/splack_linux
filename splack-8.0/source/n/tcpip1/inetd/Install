@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $TMP/inetd
+insfile inetd /usr/sbin
+cp inetd.8 /usr/man/man8

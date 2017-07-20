@@ -1,0 +1,39 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-zoneinfo
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+else
+  rm -rf $PKG
+  mkdir -p $PKG
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/timezone-scripts.tar.gz
+
+echo "+================+"
+echo "| timezone utils |"
+echo "+================+"
+mkdir $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+cd $PKG/usr/share
+# We better be on a system with a correct zoneinfo database. :)
+cp -a --verbose /usr/share/zoneinfo .
+
+# Build the package:
+cd $PKG
+makepkg $TMP/zoneinfo.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $PKG
+fi

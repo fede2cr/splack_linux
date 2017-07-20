@@ -1,0 +1,112 @@
+#!/bin/sh
+cd $TMP/netkit-base-0.17
+insfile ping/ping /bin
+cp ping/ping.8 /usr/man/man8
+
+cd $TMP/biff+comsat-0.17
+insfile biff/biff /usr/bin
+cp biff/biff.1 /usr/man/man1
+mv comsat/comsat comsat/in.comsat
+insfile comsat/in.comsat /usr/sbin
+cp comsat/comsat.8 /usr/man/man8/in.comsat.8
+
+cd $TMP/bsd-finger-0.17
+insfile finger/finger /usr/bin
+cp finger/finger.1 /usr/man/man1
+mv fingerd/fingerd fingerd/in.fingerd
+insfile fingerd/in.fingerd /usr/sbin
+cp fingerd/fingerd.8 /usr/man/man8/in.fingerd.8
+
+cd $TMP/netkit-bootparamd-0.17
+mv rpc.bootparamd/bootparamd rpc.bootparamd/rpc.bootparamd
+insfile rpc.bootparamd/rpc.bootparamd /usr/sbin
+insfile rpc.bootparamd/callbootd /usr/bin
+cp rpc.bootparamd/bootparamd.8 /usr/man/man8/rpc.bootparamd.8
+
+cd $TMP/netkit-ftp-0.17
+insfile ftp/ftp /bin
+cp ftp/ftp.1 /usr/man/man1
+cp ftp/netrc.5 /usr/man/man5
+
+cd $TMP/netkit-ntalk-0.17
+insfile talk/talk /usr/bin
+cp talk/talk.1 /usr/man/man1
+mv talkd/talkd talkd/in.talkd
+insfile talkd/in.talkd /usr/sbin
+cp talkd/talkd.8 /usr/man/man8/in.talkd.8
+
+cd $TMP/netkit-routed-0.17
+insfile routed/routed /usr/sbin
+cp routed/routed.8 /usr/man/man8
+insfile ripquery/ripquery /usr/sbin
+cp ripquery/ripquery.8 /usr/man/man8
+
+cd $TMP/netkit-rsh-0.17
+insfile rsh/rsh /usr/bin
+cp rsh/rsh.1 /usr/man/man1
+mv rshd/rshd rshd/in.rshd
+insfile rshd/in.rshd /usr/sbin
+cp rshd/rshd.8 /usr/man/man8/in.rshd.8
+insfile rcp/rcp /usr/bin
+cp rcp/rcp.1 /usr/man/man1
+mv rexecd/rexecd rexecd/in.rexecd
+insfile rexecd/in.rexecd /usr/sbin
+cp rexecd/rexecd.8 /usr/man/man8
+insfile rlogin/rlogin /usr/bin
+cp rlogin/rlogin.1 /usr/man/man1
+mv rlogind/rlogind rlogind/in.rlogind
+insfile rlogind/in.rlogind /usr/sbin
+cp rlogind/rlogind.8 /usr/man/man8/in.rlogind.8
+
+cd $TMP/netkit-rusers-0.17
+mv rpc.rusersd/rusersd rpc.rusersd/rpc.rusersd
+insfile rpc.rusersd/rpc.rusersd /usr/sbin
+cp rpc.rusersd/rpc.rusersd.8 /usr/man/man8
+insfile rusers/rusers /usr/bin
+cp rusers/rusers.1 /usr/man/man1
+insfile rup/rup /usr/bin
+cp rup/rup.1 /usr/man/man1
+
+cd $TMP/netkit-rwall-0.17
+mv rpc.rwalld/rwalld rpc.rwalld/rpc.rwalld
+insfile rpc.rwalld/rpc.rwalld /usr/sbin
+cp rpc.rwalld/rpc.rwalld.8 /usr/man/man8
+insfile rwall/rwall /usr/bin
+cp rwall/rwall.1 /usr/man/man1
+
+cd $TMP/netkit-rwho-0.17
+insfile rwho/rwho /usr/bin
+cp rwho/rwho.1 /usr/man/man1
+insfile rwhod/rwhod /usr/sbin
+cp rwhod/rwhod.8 /usr/man/man8
+
+cd $TMP/netkit-telnet-0.17
+insfile telnet/telnet /bin
+cp telnet/telnet.1 /usr/man/man1
+mv telnetd/telnetd telnetd/in.telnetd
+insfile telnetd/in.telnetd /usr/sbin
+cp telnetd/telnetd.8 /usr/man/man8/in.telnetd.8
+
+cd $TMP/netkit-tftp-0.17
+insfile tftp/tftp /usr/bin
+cp tftp/tftp.1 /usr/man/man1
+mv tftpd/tftpd tftpd/in.tftpd
+insfile tftpd/in.tftpd /usr/sbin
+cp tftpd/tftpd.8 /usr/man/man8/in.tftpd.8
+
+cd $TMP/netkit-timed-0.17
+mv timed/timed/timed timed/timed/in.timed
+insfile timed/timed/in.timed /usr/sbin
+cp timed/timed/timed.8 /usr/man/man8
+insfile timed/timedc/timedc /usr/sbin
+cp timed/timedc/timedc.8 /usr/man/man8
+
+cd $TMP/netwrite-0.17
+mv writed/writed writed/in.writed
+insfile writed/in.writed /usr/sbin
+cp writed/writed.8 /usr/man/man8/in.writed.8
+
+# Include old version of 'talk', which works better with
+# 8-bit character sets:
+cd $TMP/netkit-ntalk-0.11
+cp talk/talk /usr/bin/talk-0.11

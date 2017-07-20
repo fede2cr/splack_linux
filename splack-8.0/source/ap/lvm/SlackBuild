@@ -1,0 +1,28 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-lvm
+
+cd $TMP
+tar xzvf $CWD/lvm_0.9.1_beta6.tar.gz
+cd LVM/0.9.1_beta6
+./configure --prefix=/ --mandir=$PKG/usr/man
+make
+make install prefix=$PKG
+
+mkdir -p $PKG/usr/doc/lvm_0.9.1_beta6
+cp -a ABSTRACT CHANGELOG CONTRIBUTORS COPYING COPYING.LIB FAQ \
+  INSTALL KNOWN_BUGS LVM-HOWTO PATCHES README TODO WHATSNEW \
+  scripts \
+  $PKG/usr/doc/lvm_0.9.1_beta6
+chown -R root.root $PKG/usr/doc/lvm_0.9.1_beta6
+rm -f $PKG/lib/liblvm.a
+rm -f $PKG/lib/liblvm-10.so
+rm -f $PKG/usr/lib/liblvm-10.so
+( cd $PKG/usr/lib ; ln -sf ../../lib/liblvm-10.so.0 liblvm-10.so )
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/lvm.tgz

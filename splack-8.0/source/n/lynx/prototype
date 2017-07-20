@@ -1,0 +1,67 @@
+VERSION=2.8.3.rel1
+BUILD=4
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=lynx-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Lynx
+DESC="\
+Lynx 2.8.3rel.1\n\
+\n\
+Lynx is a distributed hypertext browser with full World Wide Web\n\
+capabilities.  Lynx can be used to access information on the World\n\
+Wide Web, or to build information systems intended primarily for local\n\
+access.  For example, Lynx has been used to build several Campus Wide\n\
+Information Systems (CWIS).\n\
+\n\
+Lynx's authors include Lou Montulli, Garrett Blythe, Craig Lavender,\n\
+Michael Grobe, and Charles Rezac."
+
+compile() {
+   tar xvyf $CWD/lynx-$VERSION.tar.bz2
+   cd lynx-$VERSION
+   zcat $CWD/lynx-$VERSION.diff.gz | patch -p1 --verbose # --backup
+   # Apply official patches:
+   cat $CWD/lynx2.8.3rel.1a.patch | patch -p1 --verbose # --backup
+   cat $CWD/lynx2.8.3rel.1b.patch | patch -p1 --verbose # --backup
+   cat $CWD/lynx2.8.3rel.1c.patch | patch -p1 --verbose # --backup
+   # Apply lynx.cfg patch...
+   zcat $CWD/lynx.cfg.diff.gz | patch -p1 --verbose --backup
+   ./configure --enable-default-colors \
+               --with-screen=ncurses \
+               --prefix=/usr \
+               --libdir=/usr/lib/lynx \
+               --enable-gzip-help \
+               --with-zlib \
+               --enable-read-eta \
+               --enable-scrollbar
+   #            --enable-nls # (not currently compiling so well)
+   #            --enable-persistent-cookies
+   make
+   rm -rf /usr/lib/lynx/lynx_doc
+}
+
+install() {
+   # install lynx
+   make install
+   make install-help
+   make install-doc
+
+   # Make /usr/doc link:
+   ( cd /usr/doc
+     rm -rf lynx-2.8.3rel.1 ; ln -sf /usr/lib/lynx/lynx_doc lynx-2.8.3rel.1 )
+
+   # remove old stuff
+   rm -rf /usr/bin/lynx.old
+   rm -rf /usr/lib/lynx/lynx.oldcfg
+}
+
+attributes() {
+   chown -R root.root /usr/lib/lynx/lynx_doc/*
+}

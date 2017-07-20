@@ -1,0 +1,113 @@
+VERSION=2.2.0
+BUILD=4
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=samba-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Samba
+DESC="\
+Samba $VERSION\n\
+\n\
+Samba is a Unix based SMB file and print server.  This allows a Unix\n\
+host to act as a file and print server for SMB clients.  This includes\n\
+Lan-Manager compatible clients such as LanManager for DOS, Windows\n\
+95/98/NT/2000, OS/2, Pathworks and many more.  If you have any PCs\n\
+running SMB clients, such as a PC running Windows98, then you can\n\
+mount file space or printers from a Linux host, so that directories,\n\
+files and printers on the Linux host are available on the Windows PC."
+
+compile() {
+   rm -rf /usr/share/samba
+
+   tar xvzf $CWD/samba-$VERSION.tar.gz
+   cd samba-$VERSION
+
+   # We must define LIBS with -lcrypt first, or we will end up using
+   # the crypt() from libcrypto, which doesn't support MD5.
+   # Also, we need -I/usr/include/openssl, not -I/usr/include/openssl/include.
+   zcat $CWD/samba.ssl.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+
+   cd source
+   ./configure \
+      --with-fhs \
+      --prefix=/usr \
+      --localstatedir=/var \
+      --bindir=/usr/bin \
+      --sbindir=/usr/sbin \
+      --sysconfdir=/etc \
+      --with-configdir=/etc/samba \
+      --with-privatedir=/etc/samba/private \
+      --with-codepagedir=/etc/codepages \
+      --with-smbmount \
+      --with-quotas \
+      --with-syslog \
+      --with-utmp \
+      --with-netatalk \
+      --with-sambabook=/usr/share/swat/using_samba \
+      --with-ssl \
+      --with-sslinc=/usr/include/openssl \
+      --with-msdfs \
+      --with-vfs
+
+   make
+}
+
+install() {
+   mkdir -p /usr/lib/samba/codepages \
+            /usr/doc/samba-$VERSION/swat
+
+   mkdir -p /usr/share/samba/swat
+   make install
+   rmdir /usr/private /usr/share/samba/codepages
+
+   cd ..
+   cp -r COPYING Manifest README Read-Manifest-Now Roadmap WHATSNEW.txt \
+      docs examples /usr/doc/samba-$VERSION
+   cp -r swat/README /usr/doc/samba-$VERSION/swat
+   ( cd /usr/doc/samba-$VERSION/docs/htmldocs
+     rm -rf using_samba
+     ln -sf /usr/share/samba/swat/using_samba . )
+   cp $CWD/rc.samba /usr/doc/samba-$VERSION/examples
+}
+
+attributes() {
+   chmod 755 $PKG/usr/doc/samba-$VERSION/docs/docbook/configure
+   chmod 755 $PKG/usr/doc/samba-$VERSION/docs/docbook/dbsgml/dbcent.mod
+   chmod 755 $PKG/usr/doc/samba-$VERSION/docs/docbook/dbsgml/dbhier.mod
+   chmod 755 $PKG/usr/doc/samba-$VERSION/docs/docbook/dbsgml/dbnotn.mod
+   chmod 755 $PKG/usr/doc/samba-$VERSION/docs/docbook/dbsgml/dbpool.mod
+   chmod 755 $PKG/usr/doc/samba-$VERSION/docs/docbook/dbsgml/docbook.dtd
+   chmod 755 $PKG/usr/doc/samba-$VERSION/docs/textdocs/MIRRORS.txt
+   chmod 755 $PKG/usr/doc/samba-$VERSION/examples/appliance/build.sh
+   chmod 755 $PKG/usr/doc/samba-$VERSION/examples/printing/smbprint
+   chmod 755 $PKG/usr/doc/samba-$VERSION/examples/printing/smbprint.newer
+   chmod 755 $PKG/usr/doc/samba-$VERSION/examples/svr4-startup/samba.server
+   chmod 755 $PKG/usr/doc/samba-$VERSION/examples/rc.samba
+}
+
+special() {
+   # Samba's install process likes to make backup copies of the binaries
+   for d in bin sbin ; do
+      ( cd $PKG/usr/$d
+        for f in `/bin/ls -1 *.old` ; do
+           rm -f $f
+           rm -f /usr/$d/$f
+        done )
+   done
+
+   mkdir -p $PKG/var/lock/samba
+   mkdir -p $PKG/var/spool/samba
+   mkdir -p $PKG/etc/samba/private
+   chown root.root $PKG/etc/samba/private
+   chmod 700 $PKG/etc/samba/private
+   chmod 1777 $PKG/var/lock
+
+   mkdir -p $PKG/etc/samba
+   cat $CWD/smb.conf-sample > $PKG/etc/samba/smb.conf-sample
+}

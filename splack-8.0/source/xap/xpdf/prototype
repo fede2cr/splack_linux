@@ -1,0 +1,34 @@
+VERSION=0.92
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=xpdf-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xpdf
+DESC="\
+xpdf-$VERSION\n\
+\n\
+Xpdf is a viewer for Portable Document Format (PDF) files.\n\
+\n\
+Also includes two PDF conversion utilities:  pdftops and pdftotext."
+
+compile() {
+   tar xvzf $CWD/xpdf-$VERSION.tgz
+   cd xpdf-$VERSION
+   CXXFLAGS=-O2 ./configure --prefix=/usr/X11R6 --with-gzip
+   make
+}
+
+install() {
+   ( cd xpdf
+     cp pdfimages pdfinfo pdftopbm pdftops pdftotext xpdf /usr/X11R6/bin )
+   cp doc/*.1 /usr/X11R6/man/man1
+   mkdir -p /usr/doc/xpdf
+   cp ANNOUNCE CHANGES README /usr/doc/xpdf
+}

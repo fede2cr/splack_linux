@@ -1,0 +1,51 @@
+#!/bin/sh
+# extract sources:
+for archive in netkit-base biff+comsat bsd-finger netkit-bootparamd \
+               netkit-ftp netkit-ntalk netkit-routed netkit-rsh \
+               netkit-rusers netkit-rwall netkit-rwho netkit-telnet \
+               netkit-tftp netkit-timed netwrite
+do
+   cd $TMP
+   tar xvzf $CWD/netkit/$archive-0.17.tar.gz
+done
+
+# patches:
+( cd $TMP/biff+comsat-0.17
+  zcat $CWD/netkit/biff+comsat-0.17.diff.gz | patch -p1 )
+( cd $TMP/bsd-finger-0.17
+  zcat $CWD/netkit/bsd-finger-0.17.diff.gz | patch -p1 )
+( cd $TMP/netkit-ntalk-0.17
+  zcat $CWD/netkit/netkit-ntalk-0.17.diff.gz | patch -p1 )
+( cd $TMP/netkit-routed-0.17
+  zcat $CWD/netkit/routed.18.candidate.final.patch.gz | patch -p1 -b -z .orig -E
+  zcat $CWD/netkit/netkit-routed-0.17.diff.gz | patch -p1 -b -z .orig -E )
+( cd $TMP/netkit-rusers-0.17
+  zcat $CWD/netkit/netkit-rusers-0.17.diff.gz | patch -p1 )
+( cd $TMP/netkit-rwho-0.17
+  zcat $CWD/netkit/netkit-rwho-0.17.diff.gz | patch -p1 )
+( cd $TMP/netkit-telnet-0.17
+  zcat $CWD/netkit/netkit-telnet-0.17.diff.gz | patch -p1 )
+( cd $TMP/netkit-timed-0.17
+  zcat $CWD/netkit/netkit-timed-0.17.diff.gz | patch -p1 -b -z .orig -E )
+( cd $TMP/netwrite-0.17
+  zcat $CWD/netkit/netwrite-0.17.diff.gz | patch -p1 )
+
+# compile:
+for src in netkit-base biff+comsat bsd-finger netkit-bootparamd \
+           netkit-ftp netkit-ntalk netkit-routed netkit-rsh \
+           netkit-rusers netkit-rwall netkit-rwho netkit-telnet \
+           netkit-tftp netkit-timed netwrite
+do
+   cd $TMP/$src-0.17
+   ./configure --prefix=/usr
+   make
+done
+
+# Include old version of 'talk', which works better with
+# 8-bit character sets:
+cd $TMP
+tar xvzf $CWD/netkit/netkit-ntalk-0.11.tar.gz
+cd netkit-ntalk-0.11
+zcat $CWD/netkit/netkit-ntalk-0.11.diff.gz | patch -p0 --backup
+./configure --prefix=/usr
+make

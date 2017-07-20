@@ -1,0 +1,12 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/fnlib-0.5.tar.gz
+cd fnlib-0.5
+./configure --prefix=/usr/X11R6 i386-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install
+mkdir -p /usr/doc/fnlib-0.5
+cp -a  README HACKING doc/index.html doc/fontinfo.README \
+   /usr/doc/fnlib-0.5
+chown -R root.root /usr/doc/fnlib-0.5

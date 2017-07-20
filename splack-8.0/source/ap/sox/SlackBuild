@@ -1,0 +1,25 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sox
+
+cd $TMP
+tar xzvf $CWD/sox-12.17.1.tar.gz
+cd sox-12.17.1
+./configure --prefix=/usr \
+            sparc-slackware-linux
+gzip -dc $CWD/Makefile_softlinks.diff.gz | patch -p0 Makefile 
+make
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/sox-12.17.1
+cp -a Changelog Copyright INSTALL README TODO \
+  $PKG/usr/doc/sox-12.17.1
+gzip -9 $PKG/usr/man/man1/*
+chown root.root $PKG/usr/doc/sox-12.17.1/*
+chmod 644 $PKG/usr/doc/sox-12.17.1/*
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/sox.tgz

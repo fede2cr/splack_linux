@@ -1,0 +1,56 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-pciutils
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_pciutils.tar.gz
+
+echo "+================+"
+echo "| pciutils-2.1.8 |"
+echo "+================+"
+cd $TMP
+tar xzvf $CWD/pciutils-2.1.8.tar.gz
+cd pciutils-2.1.8
+make
+strip lspci setpci
+cat lspci > $PKG/sbin/lspci
+cat setpci > $PKG/sbin/setpci
+cat pci.ids > $PKG/usr/share/pci.ids
+gzip -9c lspci.8 > $PKG/usr/man/man8/lspci.8.gz
+gzip -9c setpci.8 > $PKG/usr/man/man8/setpci.8.gz
+mkdir -p $PKG/usr/doc/pciutils-2.1.8
+cp -a README ChangeLog TODO $PKG/usr/doc/pciutils-2.1.8
+chown root.root $PKG/usr/doc/pciutils-2.1.8/*
+chmod 644 $PKG/usr/doc/pciutils-2.1.8/*
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/pciutils.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/pciutils-2.1.8
+  rm -rf $PKG
+fi

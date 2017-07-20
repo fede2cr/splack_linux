@@ -1,0 +1,22 @@
+conf:
+   ONE /etc/HOSTNAME
+   ONE /etc/NETWORKING
+   ONE /etc/exports
+   ONE /etc/gateways
+   ONE /etc/host.conf
+   ONE /etc/hosts
+   ONE /etc/hosts.allow
+   ONE /etc/hosts.deny
+   ONE /etc/hosts.equiv
+   ONE /etc/identd.conf
+   ONE /etc/inetd.conf
+   ONE /etc/networks
+   ONE /etc/nntpserver
+   ONE /etc/protocols
+   ONE /etc/resolv.conf
+   ONE /etc/rpc
+   ONE /etc/services
+   ONE /etc/rc.d/rc.inet1
+   ONE /etc/rc.d/rc.inet2
+   ONE /etc/rc.d/rc.nfsd
+:conf

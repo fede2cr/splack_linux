@@ -1,0 +1,75 @@
+#!/bin/sh
+# Compile teTeX for Slackware.
+# Build script by Patrick Volkerding <volkerdi@slackware.com>
+CWD=`pwd`
+export fontcache=/var/cache/fonts
+export vartexfonts=$fontcache
+mkdir -p /var/cache/fonts/pk /var/cache/fonts/source /var/cache/fonts/tfm
+chmod 1777 /var/cache/fonts /var/cache/fonts/pk \
+  /var/cache/fonts/source /var/cache/fonts/tfm
+mkdir -p /usr/share/texmf
+( cd /usr/share/texmf ; umask 000 ; tar xzvf $CWD/teTeX-texmf-1.0.2.tar.gz )
+( cd /usr/share/texmf ; chown -R root.root * )
+cd /tmp
+tar xzvf $CWD/teTeX-src-1.0.7.tar.gz
+# Make docs link in /usr/doc/:
+( cd /usr/doc ; rm -rf teTeX-1.0.7 )
+( cd /usr/doc ; ln -sf /usr/share/texmf/doc teTeX-1.0.7 )
+cd teTeX-1.0
+# Slackware's dialog is in /bin, not /usr/bin:
+zcat $CWD/teTeX-texconfig.diff.gz | patch -E -p1 --backup
+./configure --prefix=/usr/share/texmf \
+   --datadir=/usr/share \
+   --disable-multiplatform \
+   --without-dialog \
+   --with-system-ncurses \
+   --with-system-zlib \
+   --with-ps=gs \
+   --enable-ipc \
+   --with-etex
+#   --without-texinfo  # Really, it doesn't hurt to include these twice...
+make all vartexfonts=/var/cache/fonts CFLAGS=-O2
+make install strip
+if echo $PATH | fgrep /usr/share/texmf/bin ; then
+  echo good > /dev/null
+else
+  PATH=$PATH:/usr/share/texmf/bin
+fi
+# ... make links to all binaries in /usr/bin for the final package.
+
+# Let's start with these defaults:
+texconfig confall
+texconfig dvips paper letter
+texconfig xdvi us
+
+# These *might* be useful...
+texconfig mode ljfour
+#texconfig xdvi a4
+texconfig dvips mode ljfour
+#texconfig dvips paper A4
+texconfig dvips printcmd -
+texconfig dvips add bjc600
+texconfig dvips add stcolor
+texconfig dvips add deskjet
+texconfig dvips add ljet4
+texconfig dvips -P bjc600  mode canonbjc
+texconfig dvips -P stcolor mode epstylus
+texconfig dvips -P deskjet mode deskjet
+texconfig dvips -P ljet4   mode ljfour
+texconfig font options appendonlydir varfonts
+texconfig font ro
+texconfig rehash
+
+# The tetex.tgz file will need an installation script to add
+# /usr/share/texmf/bin to the $PATH and /usr/share/texmf/man to the $MANPATH:
+mkdir -p /etc/profile.d
+cp -a $CWD/profile.d/tetex.* /etc/profile.d
+chown root.root /etc/profile.d/tetex.*
+chmod 755 /etc/profile.d/tetex.*
+
+# Now, package the /usr/share/texmf/ tree.  Package tex_doc.tgz and
+# tex_bin.tgz seperately.
+
+# Exactly *how* to package it is left as an exercise for the reader. :)
+# Hint:  'man makepkg'
+

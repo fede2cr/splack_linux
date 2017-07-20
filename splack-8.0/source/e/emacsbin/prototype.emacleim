@@ -1,0 +1,22 @@
+TAG=OPT
+
+SUBPKGNAME=emacleim-$VERSION-$ARCH-$BUILD
+
+PROGNAME="Library of Emacs Input Method (leim)"
+DESC="\
+leim-$VERSION (Library of Emacs Input Method)\n\
+\n\
+The leim package for Emacs provides input methods for many languages\n\
+including Chinese, Tibetan, Vietnamese, Thai, Korean, and more.  It\n\
+also provides improved handling of many non-US keyboard layouts."
+
+
+subinstall() {
+   echo "Nothing to install."
+}
+
+subspecial() {
+   mkdir -p $SUBPKG/usr/share/emacs/$VERSION/leim
+   cp -a $TMP/em/usr/share/emacs/$VERSION/leim/* $SUBPKG/usr/share/emacs/$VERSION/leim
+   chown -R root.root $SUBPKG/usr/share/emacs/$VERSION/leim/*
+}

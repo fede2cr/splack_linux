@@ -1,0 +1,19 @@
+
+afbinit
+
+This program can take the afb.ucode file that comes with Solaris and load it
+while you're running Linux.  This is a microcode file that has to be loaded
+onto the framebuffer before any graphics acceleration will occur.  If you have
+an UltraSPARC system with an Elite3D or Creator3D framebuffer, you will need
+this.
+
+To use it, simply make sure the package is installed and then copy the
+/usr/lib/afb.ucode file from your Solaris filesystem to /usr/lib/afb.ucode on
+your Linux filesystem.  Reboot for the microcode to be loaded.  You will notice
+an extreme improvement under XFree86 after you do this.
+
+Enjoy!
+
+--
+David Cantrell
+david@slackware.com

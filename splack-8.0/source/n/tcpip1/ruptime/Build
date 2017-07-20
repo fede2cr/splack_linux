@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xzvf $CWD/ruptime/ruptime-570.tar.gz
+cd ruptime
+zcat $CWD/ruptime/ruptime-570.diff.gz | patch -p1 -E --backup --verbose
+make

@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/traceroute/traceroute-4.4BSD.tar.gz
+cd traceroute-4.4BSD
+zcat $CWD/traceroute/traceroute-4.4BSD.diff.gz | patch -p0 --backup
+make

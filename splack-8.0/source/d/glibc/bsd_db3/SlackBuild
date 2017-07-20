@@ -1,0 +1,92 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-bsd_db3
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_bsd_db3.tar.gz
+
+echo "+===========+"
+echo "| db-3.1.17 |"
+echo "+===========+"
+cd $TMP
+tar xzvf $CWD/db-3.1.17.tar.gz
+cd db-3.1.17
+zcat $CWD/db-3.1.17.mutex.diff.gz | patch -p1 -E --suffix=.orig --backup
+cd dist
+./configure --prefix= \
+            --enable-debug \
+            --enable-compat185 \
+            --disable-shared \
+            --enable-rpc \
+            i386-slackware-linux
+make
+cat libdb.a > $PKG/usr/lib/libdb-3.1.a
+make clean
+./configure --prefix= \
+            --enable-compat185 \
+            --enable-shared \
+            --enable-rpc \
+            i386-slackware-linux
+#            --enable-dump185 # this doesn't build so hot
+make
+# Patch db-3.1.la to show installed lib:
+zcat $CWD/db-3.1.17.la.diff.gz | patch -p0
+cat libdb-3.1.la > $PKG/usr/lib/libdb-3.1.la
+cd .libs
+strip berkeley_db_svc db_archive db_checkpoint db_deadlock db_dump \
+  db_load db_printlog db_recover db_stat db_upgrade db_verify libdb-3.1.so
+cat berkeley_db_svc > $PKG/usr/bin/berkeley_db_svc
+cat db_archive > $PKG/usr/bin/db_archive
+cat db_checkpoint > $PKG/usr/bin/db_checkpoint
+cat db_deadlock > $PKG/usr/bin/db_deadlock
+cat db_dump > $PKG/usr/bin/db_dump
+cat db_load > $PKG/usr/bin/db_load
+cat db_printlog > $PKG/usr/bin/db_printlog
+cat db_recover > $PKG/usr/bin/db_recover
+cat db_stat > $PKG/usr/bin/db_stat
+cat db_upgrade > $PKG/usr/bin/db_upgrade
+cat db_verify > $PKG/usr/bin/db_verify
+cat libdb-3.1.so > $PKG/lib/incoming/libdb-3.1.so
+cd ..
+cat db.h > $PKG/usr/include/db3/db.h
+cd ../include
+cat db_185.h > $PKG/usr/include/db3/db_185.h
+cat db_cxx.h > $PKG/usr/include/db3/db_cxx.h
+cd ../docs
+mkdir -p $PKG/usr/doc/db-3.1.17
+cp -a * $PKG/usr/doc/db-3.1.17
+cd ..
+cp -a LICENSE README $PKG/usr/doc/db-3.1.17
+chown -R root.root $PKG/usr/doc/db-3.1.17
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/bsd_db3.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/db-3.1.17
+  rm -rf $PKG
+fi

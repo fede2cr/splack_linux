@@ -1,0 +1,82 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-strace
+SRC=/devel/manpagesrc
+INFO=/devel/info-pages/usr/info
+TEX=/devel/texinfo-docs
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_strace.tar.gz
+
+echo "+============+"
+echo "| strace-4.2 |"
+echo "+============+"
+cd $TMP
+
+# Ryan: from David:
+   # make sure the 32-bit headers are in place
+   rm -rf /usr/include/asm.BUILD_STRACE
+   mv /usr/include/asm /usr/include/asm.BUILD_STRACE
+   ln -sf /usr/src/linux/include/asm-sparc /usr/include/asm
+
+   # Strace on the SPARC is kindy tricky to build.  I've only been
+   # able to make it build by removing 4 structs from the kernel
+   # headers (in time.h).  So during the compile, I patch those
+   # out, then in special, the original header is restored.  Yeah,
+   # a nasty hack, but it works.
+   ( cd /usr/src/linux/include/linux
+     zcat $CWD/time.h-sparc.patch.gz | patch -p0 --verbose --backup )
+
+
+tar xzvf $CWD/strace-4.2.tar.gz
+cd strace-4.2
+mkdir -p $PKG/usr/doc/strace-4.2
+cp -a COPYRIGHT CREDITS ChangeLog INSTALL NEWS PORTING README README-CVS \
+  README-linux README-sunos4 README-svr4 TODO $PKG/usr/doc/strace-4.2
+chown root.root $PKG/usr/doc/strace-4.2/*
+chmod 644 $PKG/usr/doc/strace-4.2/*
+./configure --prefix=/usr sparc-slackware-linux
+sparc32 make CC=egcs CFLAGS='-O2 -I/usr/src/linux/include' LDFLAGS=-s
+
+   rm -rf /usr/include/asm
+   mv /usr/include/asm.BUILD_STRACE /usr/include/asm
+   # restore the original time.h
+   ( cd /usr/src/linux/include/linux
+     mv time.h.orig time.h )
+
+strip strace
+cat strace > $PKG/usr/bin/strace
+cat strace-graph > $PKG/usr/bin/strace-graph
+cat strace.1 | gzip -9c > $PKG/usr/man/man1/strace.1.gz
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/strace.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/strace-4.2
+  rm -rf $PKG
+fi

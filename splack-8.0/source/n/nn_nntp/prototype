@@ -1,0 +1,50 @@
+VERSION=6.5.1
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=nn_nntp-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="nn compiled to use NNTP"
+DESC="\
+nn-$VERSION compiled to use NNTP.\n\
+\n\
+nn is an easy to use menu driven newsreader by Kim F. Storm.\n\
+\n\
+nn stands for \"No News is good news\", and the nn newsreader is\n\
+designed to let you minimize the amount of time you spend reading news\n\
+(or, more realistically, to let you to read even more newsgroups :-).\n\
+This version of nn reads news from a news server via NNTP, and can\n\
+make use of your NNTP server's NOV database."
+
+compile() {
+   tar xvzf $CWD/nn-$VERSION.tar.gz
+   cd nn-$VERSION
+   zcat $CWD/nn-$VERSION.diff.gz | patch -p1
+   zcat $CWD/nn-$VERSION-badnntphost.diff.gz | patch -p1
+   cp config.h-dist config.h
+   make
+}
+
+install() {
+   #
+   # this does a (s)erver installation, presses enter, then
+   # (q)uits the inst program
+   #
+   echo "s
+
+q" | ./inst
+   rm -rf /usr/bin/nn.old
+
+   # install documentation
+   mkdir -p /usr/doc/nn-$VERSION/contrib
+   cp -r 0README olddocs inews /usr/doc/nn-$VERSION
+   cd contrib
+   cp -r aspell cn howto-metamail mail-alias nn-use-elm nn-use-mh \
+      nnsum recmail.c recmail.sh /usr/doc/nn-$VERSION/contrib
+}   

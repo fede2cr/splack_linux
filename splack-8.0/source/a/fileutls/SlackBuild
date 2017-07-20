@@ -1,0 +1,109 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-fileutls
+SRC=/devel/manpagesrc
+INFO=$PKG/usr/info
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_fileutls.tar.gz
+
+echo "+===============+"
+echo "| fileutils-4.1 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/fileutils-4.1.tar.gz
+cd fileutils-4.1
+mkdir -p $PKG/usr/doc/fileutils-4.1
+cp -a ABOUT-NLS AUTHORS COPYING INSTALL NEWS README THANKS TODO \
+  $PKG/usr/doc/fileutils-4.1
+chown -R root.root $PKG/usr/doc/fileutils-4.1
+# We're adding back the Slackware-color-ls version of dircolors, since the
+# GNU version is missing some nice options.
+> src/dircolors.c
+> src/dircolors.c.orig
+zcat $CWD/fileutils.dircolors.diff.gz | patch -p0
+zcat $CWD/fileutils.man.diff.gz | patch -p1
+CFLAGS=-O2 ./configure \
+           --prefix=/usr \
+           --sysconfdir=/etc \
+           sparc-slackware-linux
+make
+cd src
+rm ln
+make ln LDFLAGS="-static -s"
+strip chgrp chmod chown cp dd df dircolors du ginstall ln ls \
+  mkdir mkfifo mknod mv rm rmdir shred sync touch
+cat chgrp > $PKG/bin/chgrp
+cat chmod > $PKG/bin/chmod
+cat chown > $PKG/bin/chown
+cat cp > $PKG/bin/cp
+cat dd > $PKG/bin/dd
+cat df > $PKG/bin/df
+cat dircolors > $PKG/bin/dircolors
+cat du > $PKG/bin/du
+cat ginstall > $PKG/usr/bin/ginstall
+cat ln > $PKG/bin/ln
+cat ls > $PKG/bin/ls
+cat mkdir > $PKG/bin/mkdir
+cat mkfifo > $PKG/bin/mkfifo
+cat mknod > $PKG/bin/mknod
+cat mv > $PKG/bin/mv
+cat rm > $PKG/bin/rm
+cat rmdir > $PKG/bin/rmdir
+cat shred > $PKG/bin/shred
+cat sync > $PKG/bin/sync
+cat touch > $PKG/bin/touch
+## The included manpages are purposely lame to "promote" info, the one true
+## documentation system.  Well, info is ok, but there's no good reason to
+## cripple good manpages, so let's put them back:
+#( cd .. ; tar xzvf $CWD/fileutils.man.tar.gz )
+# Use only Slackware dircolors.1 page.
+( cd .. ; tar xzvf $CWD/fileutils.man.tar.gz man/dircolors.1 )
+cd ../man
+for page in chgrp.1 chmod.1 chown.1 cp.1 dd.1 df.1 dircolors.1 du.1 \
+ginstall.1 ln.1 ls.1 mkdir.1 mkfifo.1 mknod.1 mv.1 rm.1 rmdir.1 touch.1 \
+shred.1 sync.1 ; do
+  ls -l $page
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cd ../doc
+mkdir -p $PKG/usr/info
+cat fileutils.info | gzip -9c > $PKG/usr/info/fileutils.info.gz
+cd ../po
+for locale in *.gmo ; do
+  mkdir -p $PKG/usr/share/locale/`basename $locale .gmo`/LC_MESSAGES
+  cat $locale > $PKG/usr/share/locale/`basename $locale .gmo`/LC_MESSAGES/fileutils.mo
+done
+zcat $CWD/DIR_COLORS.gz > $PKG/etc/DIR_COLORS
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/fileutls.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/fileutils-4.1
+  rm -rf $PKG
+fi

@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $TMP/bwnfsd
+mv bwnfsd rpc.bwnfsd
+insfile rpc.bwnfsd /usr/sbin

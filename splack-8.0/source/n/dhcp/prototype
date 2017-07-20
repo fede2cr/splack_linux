@@ -1,0 +1,86 @@
+DHCPCD_VER=1.3.20-pl0
+VERSION=2.0pl5
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=dhcp-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=dhcp
+DESC="\
+dhcp-$VERSION, dhcpcd-$DHCPCD_VER\n\
+\n\
+This package provides DHCP utilities for Linux, including both\n\
+servers and clients.  The DHCP protocol allows a host to contact a\n\
+central server which maintains a list of IP addresses which may be\n\
+assigned on one or more subnets.   A DHCP client may request an\n\
+address from this pool, and then use it temporarily for communication\n\
+on the network.   The DHCP protocol also provides a mechanism whereby\n\
+a client can learn important details about the network to which it is\n\
+attached, such as the location of a default router or name server."
+
+compile() {
+   cd $TMP
+   tar xvzf $CWD/dhcp-$VERSION.tar.gz
+   cd dhcp-$VERSION
+   ./configure linux-2.2
+   make
+
+   cd $TMP
+   tar xvzf $CWD/dhcpcd-$DHCPCD_VER.tar.gz
+   cd dhcpcd-$DHCPCD_VER
+   ./configure --prefix=/usr
+   make clean
+   make
+}
+
+install() {
+   cd $TMP/dhcp-$VERSION
+   cp server/dhcpd relay/dhcrelay /usr/sbin
+   cp client/dhclient /sbin
+   cat client/scripts/linux > /etc/dhclient-script
+   for dir in client server
+   do
+      cd $dir
+      for file in *.5
+      do
+         cat $file | sed -e "s#ETCDIR#/etc#g" -e "s#DBDIR#/var/db#g" \
+            -e "s#RUNDIR#/var/run#g" > /usr/man/man5/$file
+      done
+      for file in *.8
+      do
+         cat $file | sed -e "s#ETCDIR#/etc#g" -e "s#DBDIR#/var/db#g" \
+            -e "s#RUNDIR#/var/run#g" > /usr/man/man8/$file
+      done
+      cd ..
+   done
+   cat relay/dhcrelay.8 | sed -e "s#ETCDIR#/etc#g" -e "s#DBDIR#/var/db#g" \
+      -e "s#RUNDIR#/var/run#g" > /usr/man/man8/dhcrelay.8
+   mkdir -p /usr/doc/dhcp-$VERSION/examples
+   cp CHANGES README RELNOTES TODO /usr/doc/dhcp-$VERSION
+   cp client/dhclient.conf server/dhcpd.conf /usr/doc/dhcp-$VERSION/examples
+
+   cd $TMP/dhcpcd-$DHCPCD_VER
+   cp dhcpcd /sbin/dhcpcd.new
+   mv /sbin/dhcpcd.new /sbin/dhcpcd
+   cp dhcpcd.8 /usr/man/man8
+   mkdir -p /usr/doc/dhcpcd-$DHCPCD_VER
+   cp -r Changes README dhcpcd*.lsm pcmcia /usr/doc/dhcpcd-$DHCPCD_VER
+}
+
+attributes() {
+   chmod 700 $PKG/etc/dhclient-script
+   chmod 550 $PKG/sbin/dhcpcd
+   chmod 444 $PKG/usr/doc/dhcpcd-$DHCPCD_VER/pcmcia/2.8.23/network.opts
+   chmod 444 $PKG/usr/doc/dhcpcd-$DHCPCD_VER/pcmcia/2.9.7/network.opts
+   chmod 555 $PKG/usr/doc/dhcpcd-$DHCPCD_VER/pcmcia/2.9.7/network
+}
+
+special() {
+   ( cd $PKG ; explodepkg $CWD/_dhcp.tar.gz )
+}

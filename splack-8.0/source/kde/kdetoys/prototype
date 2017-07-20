@@ -1,0 +1,33 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kdetoys-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Toys"
+DESC="\
+kdetoys-$VERSION\n\
+\n\
+Some toys for use with KDE:  kmoon (displays various phases of the\n\
+moon), kworldwatch (displays where in the world it is light and dark\n\
+depending on time), kodo (a mouse odometer which shows how far your\n\
+mouse has traveled), and kteatime (alerts you when your tea is ready)."
+
+compile() {
+   tar xvyf $CWD/kdetoys-$VERSION.tar.bz2
+   cd kdetoys-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdetoys-$VERSION
+   cp AUTHORS COPYING ChangeLog INSTALL README /usr/doc/kdetoys-$VERSION
+}

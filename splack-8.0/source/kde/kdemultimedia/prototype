@@ -1,0 +1,44 @@
+VERSION=2.1.1
+BUILD=2
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kdemultimedia-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Multimedia"
+DESC="\
+kdemultimedia-$VERSION\n\
+\n\
+Multimedia applications for KDE, including:\n\
+  aktion (video player)\n\
+  kmid (a midi/karaoke player)\n\
+  kmidi (a midi-to-wav player/converter)\n\
+  kmix (a mixer)\n\
+  kscd (an audio CD player)\n\
+  timidity (synth application)"
+
+compile() {
+   tar xvyf $CWD/kdemultimedia-$VERSION.tar.bz2
+   cd kdemultimedia-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdemultimedia-$VERSION
+   cp AUTHORS COPYING INSTALL README /usr/doc/kdemultimedia-$VERSION
+}
+
+attributes() {
+   for d in blues classical country data folk jazz misc newage \
+            reggae rock soundtrack
+   do
+      chmod 777 $PKG/opt/kde/share/apps/kscd/cddb/$d
+   done
+}

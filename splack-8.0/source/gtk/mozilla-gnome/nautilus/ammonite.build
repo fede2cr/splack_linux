@@ -1,0 +1,20 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/ammonite-1.0.2.tar.gz
+cd ammonite-1.0.2
+
+( cd /opt/gnome/lib
+  rm -rf python2.0 
+  ln -sf /usr/lib/python2.0 . )
+
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/ammonite-1.0.2
+cp -a ABOUT-NLS AUTHORS COPYING ChangeLog HACKING INSTALL NEWS README TODO \
+  /usr/doc/ammonite-1.0.2
+chmod 644 /usr/doc/ammonite-1.0.2/*
+chown root.root /usr/doc/ammonite-1.0.2/*

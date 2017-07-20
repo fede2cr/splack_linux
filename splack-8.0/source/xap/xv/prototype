@@ -1,0 +1,52 @@
+VERSION=3.10a
+BUILD=3
+ARCH=sparc
+TAG=REC
+
+PKGNAME=xv-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=XV
+DESC="\
+John Bradley's XV $VERSION GIF/TIFF/JPEG/PostScript image viewer.\n\
+\n\
+NOTICE:  This program is unregistered shareware.  Please read the\n\
+license information included."
+
+compile() {
+   tar xvzf $CWD/xv-3.10.tar.gz
+   cd xv-3.10
+   cat $CWD/xv-$VERSION.patch | patch -p0
+   cat $CWD/xv-$VERSION.diff | patch -p0
+   zcat $CWD/xv-3.10-errlist.diff.gz | patch -p1
+   cat $CWD/xv-$VERSION.USE_GETCWD.patch | patch -p1
+   mkdir pngdiffs
+   ( cd pngdiffs ; tar xzvf $CWD/xv-$VERSION-png-1.2d.tar.gz )
+   cp -a pngdiffs/xvpng.c .
+   cp -a pngdiffs/bits/br_png bits/br_png
+   cat pngdiffs/xcmap.diff | patch -p1
+   cat pngdiffs/xvpng.diff | patch -p1
+   cat pngdiffs/xvjpeg.diff | patch -p1
+   cat pngdiffs/xvtiff.diff | patch -p1
+   zcat $CWD/xvpng-1.2d-fix3.txt.gz | patch -p0
+   zcat $CWD/xv-$VERSION-finalcleanup.diff.gz | patch -p0
+   make -f Makefile.std
+}
+
+install() {
+   cp bggen vdcomp xcmap xv xvpictoppm /usr/X11R6/bin
+   for p in docs/xv.man docs/bggen.man docs/xcmap.man docs/xvp2p.man
+   do
+      cat $p | gzip -9c > /usr/X11R6/man/man1/`basename $p .man`.1.gz
+   done
+   mkdir -p /usr/doc/xv
+   cp README docs/penn.policy docs/xv.blurb docs/xvdocs.ps /usr/doc/xv
+}
+
+special() {
+   gzip -9 $PKG/usr/doc/xv/xvdocs.ps
+}

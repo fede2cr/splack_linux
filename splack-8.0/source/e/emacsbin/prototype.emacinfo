@@ -1,0 +1,22 @@
+TAG=REC
+
+SUBPKGNAME=emacinfo-$VERSION-$ARCH-$BUILD
+
+PROGNAME="Info files for GNU Emacs"
+DESC="\
+Info files for emacs-$VERSION\n\
+\n\
+These gzipped info files go in /usr/info, providing online\n\
+documentation for Emacs."
+
+subinstall() {
+   echo "Nothing to install."
+}
+
+subspecial() {
+   # populate the package
+   mkdir -p $SUBPKG/usr/info
+   cp -a $TMP/em/usr/info/* $SUBPKG/usr/info
+   cat $TMP/emacs-$VERSION/info/dired-x | gzip -9c > $SUBPKG/usr/info/dired-x.gz
+   chown -R root.root $SUBPKG/*
+}

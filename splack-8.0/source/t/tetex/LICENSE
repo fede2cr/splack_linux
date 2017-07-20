@@ -1,0 +1,41 @@
+A) Terms for redistributing the contents of teTeX-src-*.tar.gz or a work
+   derived from it (e.g. binaries).
+-------------------------------------------------------------------------
+
+The software contained in the teTeX-src-*.tar.gz package is covered by
+several licenses (e.g. GPL, LGPL, X license). All of them are compatible
+with the requirements defined for "Open Source Software".  You have to
+distribute the content of teTeX-src-*.tar.gz if you distribute binaries
+from the binaries subdirectory here or from binaries that you have build
+from teTeX-src-*.tar.gz.
+
+B) Terms for redistributing the contents of teTeX-texmf-*.tar.gz.
+-------------------------------------------------------------------------
+
+Redistributing the files from teTeX-texmf-*.tar.gz is more complicated.
+Lots of individual copyrights apply, since many people have contributed
+to this collection of files.
+
+- Some files are derived from sources in docstrip format and may only
+  be redistributed together with their docstrip sources. Unless you
+  want to check each individual copyright, you should distribute the
+  contents of teTeX-texmfsrc-*.tar.gz if you distribute files from
+  teTeX-texmf-*.tar.gz.
+
+- Some pakages require that all files in certain subdirectories must
+  be contained in a distibution of any files from that package.
+
+- Some files don't allow to distribute changed versions or they require
+  to rename changed files.
+
+- Some files don't allow commercial use and some don't allow commercial
+  distribution. So, if you plan a commercial distribution that includes
+  teTeX, you should check the files in the teTeX-texmf-*.tar.gz for their
+  distribution terms and leave out all files that don't allow a commercial
+  distribution. Or, get in touch with the authors of packages that don't
+  allow a commercial distribution and get an arrangement with them.
+
+I admit that this makes it hard to redistribute teTeX and I'll try to
+clean this up for future versions.
+
+1999, Thomas Esser

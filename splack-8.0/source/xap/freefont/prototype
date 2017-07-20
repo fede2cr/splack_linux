@@ -1,0 +1,33 @@
+VERSION=0.10
+BUILD=6
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=freefont-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var/log
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=freefont
+DESC="\
+freefonts-$VERSION\n\
+\n\
+This is a collection of fonts that work with the GIMP, X11,\n\
+ghostscript, and groff.  If you plan on installing the GIMP (the GNU\n\
+Image Manipulation Program), then these fonts are highly recommended.\n\
+The fonts are installed in /usr/X11R6/lib/fonts/Type1/.  To use the\n\
+fonts with ghostscript, see the instructions in /usr/doc/freefont/."
+
+compile() {
+   echo "Nothing to compile."
+}
+
+install() {
+   echo "Nothing to install."
+}
+
+special() {
+   ( cd $PKG ; explodepkg $CWD/freefont.tgz )
+}

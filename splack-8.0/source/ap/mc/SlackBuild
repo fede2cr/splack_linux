@@ -1,0 +1,53 @@
+#!/bin/sh
+# Since GTK+/GLIB are (at this time) found in the GTK series, we don't want
+# to require a shared glib for the lite version of MC in ap1/mc.tgz.
+
+echo "We need GTK+/GLIB (which will be statically linked) "
+echo "but DO NOT have GNOME around... need a clean box. ;)"
+sleep 7
+
+if [ -L /opt/gnome/lib/libglib.so ]; then
+  mv /opt/gnome/lib/libglib.so /tmp
+fi
+
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-mc
+cd $TMP
+
+tar xzvf $CWD/mc-4.5.51.tar.gz
+cd mc-4.5.51
+zcat $CWD/mc.shadow.diff.gz | patch -p1 --verbose --backup --suffix=.orig -E
+zcat $CWD/fish.time.diff.gz | patch -p1 --verbose --backup --suffix=.orig -E
+( cd vfs/samba ; zcat $CWD/samba.codepages.diff.gz | patch -p0 )
+zcat $CWD/mc.security.diff.gz | patch -p1 --verbose --backup --suffix=.orig -E
+CFLAGS=-O2 ./configure --prefix=/usr \
+	    --with-catgets \
+            --with-gpm-mouse=/usr \
+            --with-ncurses=/usr \
+	    --with-slang \
+            --with-ext2undel \
+            --localstatedir=/var \
+            --with-x=no \
+            --with-glib-prefix=/opt/gnome \
+            sparc-slackware-linux 
+
+# Removed due to bug reports.  Does anyone use this feature?
+# Will it be missed?  complain to: volkerdi@slackware.com
+#	    --with-samba
+make
+mkdir -p $PKG/usr
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/mc-4.5.51
+cp -a FAQ COPYING NEWS README $PKG/usr/doc/mc-4.5.51
+chown -R root.root $PKG/usr/doc/mc-4.5.51
+
+if [ -L /tmp/libglib.so ]; then
+  mv /tmp/libglib.so /opt/gnome/lib
+fi
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/mc.tgz

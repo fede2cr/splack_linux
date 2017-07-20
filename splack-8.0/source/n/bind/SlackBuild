@@ -1,0 +1,140 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-bind
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_bind.tar.gz
+
+echo "+============+"
+echo "| bind-9.1.2 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/bind-9.1.2.tar.gz
+cd bind-9.1.2
+# We want to use /var/run/named/, not just /var/run/.
+# This allows changing the ownership of that directory if we want to run
+# named as a non-root user.
+zcat $CWD/bind.var.run.named.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+# Threads break '-u' on Linux (for now)
+CFLAGS=-O2 LDFLAGS=-s ./configure \
+       --prefix=/usr \
+       --sysconfdir=/etc \
+       --localstatedir=/var \
+       --with-libtool \
+       --enable-shared \
+       --disable-threads \
+       --with-openssl=/usr \
+       sparc-slackware-linux
+make
+cat contrib/named-bootconf/named-bootconf.sh > $PKG/usr/sbin/named-bootconf.sh
+cd bin/check/.libs
+strip named-checkconf named-checkzone
+cat named-checkconf > $PKG/usr/sbin/named-checkconf
+cat named-checkzone > $PKG/usr/sbin/named-checkzone
+cd ../../dig/.libs
+strip dig host nslookup
+cat dig > $PKG/usr/bin/dig
+cat host > $PKG/usr/bin/host
+cat nslookup > $PKG/usr/bin/nslookup
+cd ../../dnssec/.libs
+strip dnssec-keygen dnssec-makekeyset dnssec-signkey dnssec-signzone
+cat dnssec-keygen > $PKG/usr/sbin/dnssec-keygen
+cat dnssec-makekeyset > $PKG/usr/sbin/dnssec-makekeyset
+cat dnssec-signkey > $PKG/usr/sbin/dnssec-signkey
+cat dnssec-signzone > $PKG/usr/sbin/dnssec-signzone
+cd ../../named/.libs
+rm lwresd
+strip named
+cat named > $PKG/usr/sbin/named
+( cd $PKG/usr/sbin ; ln -sf named lwresd )
+cd ../../nsupdate/.libs
+strip nsupdate
+cat nsupdate > $PKG/usr/bin/nsupdate
+cd ../../rndc/.libs
+strip rndc
+cat rndc > $PKG/usr/sbin/rndc
+cd ..
+cat rndc.conf > $PKG/etc/rndc.conf-sample
+chmod 600 $PKG/etc/rndc.conf-sample
+cd ../../lib/dns/.libs
+strip libdns.so.4.0.0
+cat libdns.so.4.0.0 > $PKG/usr/lib/libdns.so.4.0.0
+chmod 755 $PKG/usr/lib/libdns.so.4.0.0
+( cd $PKG/usr/lib ; rm -rf libdns.so.4 ; ln -sf libdns.so.4.0.0 libdns.so.4 )
+cd ../../isc/.libs
+strip libisc.so.3.0.0
+cat libisc.so.3.0.0 > $PKG/usr/lib/libisc.so.3.0.0
+chmod 755 $PKG/usr/lib/libisc.so.3.0.0
+( cd $PKG/usr/lib ; rm -rf libisc.so.3 ; ln -sf libisc.so.3.0.0 libisc.so.3 )
+cd ../../lwres/.libs
+strip liblwres.so.1.1.0
+cat liblwres.so.1.1.0 > $PKG/usr/lib/liblwres.so.1.1.0
+chmod 755 $PKG/usr/lib/liblwres.so.1.1.0
+( cd $PKG/usr/lib ; rm -rf liblwres.so.1 ; ln -sf liblwres.so.1.1.0 liblwres.so.1 )
+cd ../../omapi/.libs
+strip libomapi.so.3.0.0
+cat libomapi.so.3.0.0 > $PKG/usr/lib/libomapi.so.3.0.0
+chmod 755 $PKG/usr/lib/libomapi.so.3.0.0
+( cd $PKG/usr/lib ; rm -rf libomapi.so.3 ; ln -sf libomapi.so.3.0.0 libomapi.so.3 )
+cd ../../../doc/man/bin
+mkdir -p $PKG/usr/man/man{1,5,8}
+cat dig.1 | gzip -9c > $PKG/usr/man/man1/dig.1.gz
+cat host.1 | gzip -9c > $PKG/usr/man/man1/host.1.gz
+cat lwresd.8 | gzip -9c > $PKG/usr/man/man8/lwresd.8.gz
+cat named-checkconf.1 | gzip -9c > $PKG/usr/man/man1/named-checkconf.1.gz
+cat named-checkzone.1 | gzip -9c > $PKG/usr/man/man1/named-checkzone.1.gz
+cat named.8 | gzip -9c > $PKG/usr/man/man8/named.8.gz
+cat nsupdate.8 | gzip -9c > $PKG/usr/man/man8/nsupdate.8.gz
+cat rndc.8 | gzip -9c > $PKG/usr/man/man8/rndc.8.gz
+cat rndc.conf.5 | gzip -9c > $PKG/usr/man/man5/rndc.conf.5.gz
+cd ../dnssec
+cat dnssec-keygen.8 | gzip -9c > $PKG/usr/man/man8/dnssec-keygen.8.gz
+cat dnssec-makekeyset.8 | gzip -9c > $PKG/usr/man/man8/dnssec-makekeyset.8.gz
+cat dnssec-signkey.8 | gzip -9c > $PKG/usr/man/man8/dnssec-signkey.8.gz
+cat dnssec-signzone.8 | gzip -9c > $PKG/usr/man/man8/dnssec-signzone.8.gz
+cd ../..
+mkdir -p $PKG/usr/doc/bind-9.1.2
+cp -a arm draft misc rfc $PKG/usr/doc/bind-9.1.2
+cd ..
+cp -a CHANGES COPYRIGHT FAQ README $PKG/usr/doc/bind-9.1.2
+chown -R root.root $PKG/usr/doc/bind-9.1.2
+
+# Add sample config files for a simple caching nameserver:
+
+cat $CWD/caching-example/named.conf > $PKG/etc/named.conf-sample
+cat $CWD/caching-example/localhost.zone > $PKG/var/named/caching-example/localhost.zone
+cat $CWD/caching-example/named.ca > $PKG/var/named/caching-example/named.ca
+cat $CWD/caching-example/named.local > $PKG/var/named/caching-example/named.local
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/bind.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/bind-9.1.2
+  rm -rf $PKG
+fi

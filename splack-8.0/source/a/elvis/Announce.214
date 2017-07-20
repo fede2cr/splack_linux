@@ -1,0 +1,164 @@
+An updated version of Elvis 2.1 is now available.  The new version is named
+"elvis 2.1_4".  It is available for downloads from:
+
+	ftp://ftp.cs.pdx.edu/pub/elvis/README.html  (main site)
+	ftp://ftp.false.com/pub/elvis/README.html   (mirror)
+
+The new elvis 2.1_4 differs from the original release of elvis 2.1 in the
+following ways:
+
+    Buffer bugs
+        Several people reported that elvis complained about the '#'
+        being used in initialization scripts (even though '#' doesn't
+        appear anywhere in those scripts), or that sometimes a buffer
+        would get scrambled. These problems have now been fixed, thanks
+        mostly to William Plant. He tracked the problem down to the use
+        of FEATURE_LITRE in scan.c.
+
+        This was a significant bug! The '#' thing was only one
+        manifestation of a dangerous bug. Other manifestations could
+        mangle buffers, cause core dumps, etc. This bug fix alone is
+        probably enough to justify downloading 2.1_4.
+
+    Cygwin support
+        The Win32 version of elvis 2.1_3 (or earlier) didn't work very
+        well under Cygwin's bash shell. elvis 2.1_4 should fix that.
+        Specifically...
+          * Cygwin sets the TERM environment variable to "cygwin", which
+            elvis will now recognize as a synonym for "console".
+          * Elvis now supports the mount table produced by the Cygwin
+            mount utility.
+
+    Windows98 chokes on vi.exe, etc.
+        An apparent bug in recent versions of Windows causes the vi.exe,
+        view.exe, and ex.exe programs to run in the background. (Those
+        programs worked in Windows95, but choked in Windows98 and NT.)
+        To work around this, I replaced the execvp() call with a
+        spawnvp() call followed by an exit() call. It'll waste a little
+        RAM now, but at least it works.
+
+        This bug also hit Cygwin's bash shell, when run under Windows98
+        or NT. I've tested 2.1_4 under bash, and it works now.
+
+    Running external programs under Win32
+	The new osprg module introduced in 2.1_3 seemed to cause more
+	problems than it solved, so I switched back to the previous
+	version.  You may still have some problems running 16-bit filter
+	programs... but at least :make works, and the screen looks right
+	after the program exits.
+
+    Screen glitch in MS-DOS with NANSI.SYS
+        The screen wasn't always drawn correctly when using one of the
+        better ANSI drivers, and setting TERM=nansi (or whatever). This
+        was due to a bug in the nansi termcap entry in tinytcap.c; it
+        should be fixed now.
+
+    Scrolling after :split
+        Previously there was a bug which showed up when you have two
+        windows open on the same buffer. Inserting text in one window
+        could cause the other window to scroll after each keystroke.
+        This has been fixed.
+
+    Name completion with spaces
+        There were some problems when attempting filename completion on
+        files whose names contain spaces. The bug responsible for this
+        has been fixed.
+
+    Ctags/elvtags
+        Some bugs in the ctags/elvtags program have been fixed. Mostly
+        these only occured when you're using long lines.
+
+    Display modes
+        The "tex" and "syntax" display modes should work a little better
+        now. I added some TeX markups, and enhanced the "syntax" display
+        mode to handle PERL slightly better. Also, some users have
+        contributed syntax descriptions for new languages.
+
+    :make
+        The :make, :cc, and :errlist commands were treating any
+        alphanumeric word as a filename, without checking to see if it
+        even exists. It was supposed to verify that the name was an
+        existing, readable/writable (or just readable if noanyerror),
+        non-binary file... and now it will.
+
+    POSIX compatibility tweaks
+        The := command, when invoked without line number, should display
+        the total number of lines in the buffer. Previous versions of
+        elvis didn't do that correctly, but 2.1_3 did. Unfortunately,
+        that fix broke the :.= command, which is supposed to display the
+        current line number. Version 2.1_4 should both of those right,
+        finally.
+
+        The ^F and ^B paging commands are supposed to leave two lines of
+        overlap, but previous versions of elvis have only kept one line
+        of overlap. (NOTE: I considered adding an option to control the
+        overlap, because if you have a 24-line screen and 66-line pages,
+        then then it would be nice to leave 1 line of overlap because
+        three ^Fs or ^Bs would equal one page. If you believe an option
+        would be useful, please let me know.)
+
+        The $ command accepts a count argument, and moves forward (count-1)
+        lines before moving to the end.
+
+    --------------------------------------------------------------------
+
+    The only new features (since 2.1_3) are...
+
+    :switch/:case/:default commands
+        Elvis now has a :switch command for doing a multi-way branch in
+        a readable way. I believe this is justified, since the current
+        :if/:then/:else commands would require you to use deeper and
+        deeper nested braces to achieve the same effect. The old way:
+        
+                if os=="unix"
+                then echo Unix
+                else {
+                 if os=="win32"
+                 then echo Windows95/98/NT/2000
+                 else {
+                  if os=="msdos"
+                  then echo MS-DOS
+                  else {
+                   if os=="os2"
+                   then echo OS/2
+                   else echo Who?
+                  }
+                 }
+                }
+
+        The new way:
+        
+                switch os
+                case unix echo Unix
+                case win32 echo Windows95/98/NT/2000
+                case msdos echo MS-DOS
+                case os2 echo OS/2
+                default echo Who?
+
+
+    "html" printer type
+        Setting the lptype option to "html" causes the :lpr command to
+        write HTML output, instead of normal printer control sequences.
+        This give a good way to generate WYSIWYG HTML code from any of
+        elvis' display modes. It required minimal changes to the code,
+        too -- basically, I just created a new printer type that uses
+        "<b>" to start bold font, "<i>" to start italics, and so on,
+        instead of some printer-dependent escape sequence.
+
+    "makehtml" alias
+        There is a new :makehtml alias which attempts to convert plain
+        text to HTML. It works pretty well, though you'll still need to
+        hand-edit the results in many cases. You might want to compare
+        the output of :makehtml to that of the "html" lptype, to see
+        which one fits your needs better.
+
+    "smarttab" option
+        I added VIM's "smarttab" alias. When set, this causes the <Tab>
+        key to act like ^T when pressed in the indentation area of a
+        line. Elsewhere in the line, <Tab> is treated normally. Now you
+        can do things like ":set smarttab shiftwidth=4" to change your
+        indentation levels while leaving the tabstop option unchanged.
+
+        The current implementation is a little half-assed though -- you
+        can't backspace over the indentation. Instead, you must hit ^D
+        to reduce the indentation level.

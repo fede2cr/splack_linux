@@ -1,0 +1,43 @@
+Sat Feb 12 15:13:12 CET 2000
+	* texmf release 1.0.2 (TETEXDOC.ps regenerated with dvips -G0 ...)
+
+Tue Feb  1 15:08:34 CET 2000 te
+	* src release 1.0.7, texmf release 1.0.1
+
+Wed Jul  7 08:05:09 CEST 1999 te
+	* 1.0.6 release
+	* mfw is build with support for the X Windows System by default
+	* bugfix to improve kpathsea debugging (spaces go to log file
+	  instead of terminal)
+	* don't permit disk searches in TEXMFMAIN by default (texmf.cnf
+	  change)
+	* fix order of -I flags for the C compiler to prevent problems
+	  with conflicting files installed in system directories
+	* changes to texconfig to make it more robust
+	* xdvik now uses on_exit if atexit is not available (e.g. SunOS)
+	* cleanup for cyrillic in fmtutil.in (just comments)
+
+Wed Jun 16 07:53:55 CEST 1999 te
+	* correct broken fix from last xdvik patch
+	* strip binaries for install-exec target
+	* install kpathsea header files for install-exec target
+	* avoid installing mktex.opt etc. for install-exec target
+	* rename strcasestr -> ht_strcasestr in libwww to avoid problems
+	with existing strcasestr function
+	* change strdup -> xstrdup in xdvi.c, because not all systems
+	have strdup
+
+Sat Jun 12 13:15:34 CEST 1999 te
+	* fix serious bug about tmpfile handling in xdvik.
+
+Fri Jun 11 15:03:16 CEST 1999 te
+	* portability fix in libs/ncurses/ncurses/lib_napms.c
+
+Tue Jun  8 18:36:51 CEST 1999 te
+	* fix harmless message from mktextfm about hbf2gf not being found
+	teTeX-src-1.0.2 release
+
+Mon Jun  7 19:27:26 CEST 1999 te
+	* fix bug about realclean / distclean target (broken Makefile
+	in texk/contrib)
+	teTeX-src-1.0.1 release

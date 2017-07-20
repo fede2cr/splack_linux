@@ -1,0 +1,8 @@
+conf:
+   ONE /etc/netgroup
+   ONE /etc/nsswitch.conf
+   ONE /etc/nsswitch.conf-nis
+   ONE /var/yp/Makefile
+   ONE /var/yp/securenets
+   ONE /var/yp/nicknames
+:conf

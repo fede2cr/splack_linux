@@ -1,0 +1,51 @@
+VERSION=2.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=sspkg-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/etc:/tmp:/proc:/dev:/root:/var/log:/var/lock:/var/spool:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="SlingShot extensions"
+DESC="\
+SlingShot extensions $VERSION\n\
+\n\
+These are extensions for programming under XView.  Includes shared\n\
+(ELF) libraries, include files, and many programming samples."
+
+compile() {
+   rm -rf /usr/openwin/share/doc/sspkg
+   tar xvzf $CWD/SlingShot$VERSION.tar.gz
+   cd sspkg$VERSION
+   zcat $CWD/SlingShot$VERSION.diff.gz | patch -p1 -E
+   zcat $CWD/SlingShot$VERSION.lex.diff.gz | patch -p1 -E
+   mkdir -p /usr/doc/packages
+   make -f Makefile.Linux
+}
+
+install() {
+   # install sspkg
+   make -f Makefile.Linux install
+   rm -rf /usr/doc/packages
+   ( cd /usr/openwin/lib
+     rm -rf libsspkg.so   ; ln -sf libsspkg.so.1.0 libsspkg.so
+     rm -rf libsspkg.so.1 ; ln -sf libsspkg.so.1.0 libsspkg.so.1 )
+
+   # examples
+   mkdir -p /usr/openwin/share/src/sspkg/examples
+   cp -r $TMP/sspkg$VERSION/examples/* /usr/openwin/share/src/sspkg/examples
+   ( cd /usr/openwin/share/src/sspkg/examples
+     find . -type f -name .make.state -exec rm -rf {} \; )
+
+   # docs
+   mkdir -p /usr/doc/sspkg$VERSION
+   cp README LEGAL_NOTICE /usr/doc/sspkg$VERSION
+}
+
+attributes() {
+   chmod 444 $PKG/usr/doc/sspkg2.1/*
+}

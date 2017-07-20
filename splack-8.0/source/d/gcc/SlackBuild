@@ -1,0 +1,155 @@
+#!/bin/sh
+# build gcc for Slackware
+
+CWD=`pwd`
+GCC_VER=2.95.3
+ARCH=gcc-$GCC_VER
+TARGET=sparc-slackware-linux
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+cd $TMP
+tar xyvf $CWD/gcc-2.95.3.tar.bz2
+( cd gcc-2.95.3 ; zcat $CWD/gcc-2.95.3-glibc-2.2.3.diff.gz | patch -p1 --verbose )
+# install docs
+( cd gcc-2.95.3
+  mkdir -p $TMP/package-gcc/usr/doc/gcc-2.95.3
+  cp -a COPYING COPYING.LIB FAQ MAINTAINERS README faq.html install \
+    $TMP/package-gcc/usr/doc/gcc-2.95.3
+  mkdir -p $TMP/package-gcc/usr/doc/gcc-2.95.3/gcc/f
+  ( cd gcc
+    cp -a ABOUT* BUGS COPYING* INSTALL LANG* NEWS PROBLEMS \
+       README* SERVICE TESTS.FLUNK $TMP/package-gcc/usr/doc/gcc-2.95.3/gcc
+    cd f
+    cp -a BUGS INSTALL NEWS README RELEASE-PREP \
+       $TMP/package-gcc/usr/doc/gcc-2.95.3/gcc/f
+    cd ../objc
+    mkdir -p $TMP/package-gcc/usr/doc/gcc-2.95.3/gcc/objc
+    cp -a README $TMP/package-gcc/usr/doc/gcc-2.95.3/gcc/objc
+    cd ../ch
+    mkdir -p $TMP/package-gcc/usr/doc/gcc-2.95.3/gcc/ch
+    cp -a README chill.brochure chill.texi \
+       $TMP/package-gcc/usr/doc/gcc-2.95.3/gcc/ch
+  )
+)
+# build gcc
+( mkdir gcc.build.lnx;
+  cd gcc.build.lnx;
+  # CFLAGS="-Wall -g1 -O2"
+  CFLAGS="-Wall -O2" LDFLAGS=-s \
+    ../$ARCH/configure --prefix=/usr \
+                       --enable-shared \
+                       --with-gnu-ld \
+                       --enable-threads \
+                       --verbose \
+                       --target=${TARGET} \
+                       --host=${TARGET}
+  make bootstrap 
+  make info      
+  make check     
+  make install prefix=$TMP/package-gcc/usr      
+  make install-info prefix=$TMP/package-gcc/usr
+
+  # Fix stuff up:
+  chown -R root.root $TMP/package-gcc
+  ( cd $TMP/package-gcc/usr/info ; gzip -9v * )
+  cd $TMP/package-gcc
+  mkdir -p lib
+  ( cd lib ; ln -sf /usr/bin/cpp . )
+  ( cd usr/bin
+    mv g++ g++-gcc-2.95.3
+    mv gcc gcc-2.95.3
+    mv g77 g77-gcc-2.95.3
+    mv chill chill-gcc-2.95.3
+    ln -sf g++-gcc-2.95.3 g++
+    ln -sf gcc-2.95.3 gcc
+    ln -sf g77-gcc-2.95.3 g77 
+    ln -sf chill-gcc-2.95.3 chill
+    ln -sf g++ c++
+    ln -sf gcc cc
+    ln -sf gcc-2.95.3 sparc-slackware-linux-gcc 
+    ln -sf g77 f77
+    strip *
+    chown root.bin * .
+  )
+  ( cd usr/lib/gcc-lib/sparc-slackware-linux/2.95.3
+    strip cc1* collect2 cpp f771 jc1 jvgenmain 
+  )
+  ( cd usr/man/man1
+    gzip -9v *
+    ln -sf cccp.1.gz cpp.1.gz
+    ln -sf g++.1.gz c++.1.gz
+    ln -sf g77.1.gz f77.1.gz
+    ln -sf gcc.1.gz cc.1.gz
+  )  
+
+  rmdir usr/sparc-slackware-linux/include
+  rmdir usr/sparc-slackware-linux
+
+  mkdir $TMP/package-gcc_g77
+  mkdir $TMP/package-gcc_objc
+  mkdir $TMP/package-gccchill
+  mkdir $TMP/package-gcc_java
+
+
+  #Lets get the other packages out of here.
+  (  cd $TMP/package-gcc
+
+     # Getting objc out of the way
+     cp -a --parents `find . | grep objc | xargs` $TMP/package-gcc_objc
+     rm -rf `find . | grep objc | xargs`
+
+     # Getting g77 out of the way
+     mkdir -p $TMP/package-gcc_g77/usr/doc/gcc-$VERSION/gcc/f
+     mv usr/doc/gcc-$VERSION/gcc/f/* $TMP/package-gcc_g77/usr/doc/gcc-$VERSION/gcc/f
+     rmdir usr/doc/gcc-$VERSION/gcc/f
+     cp -a --parents `find . | egrep '(g77|f77|g2c)' | xargs` $TMP/package-gcc_g77
+     rm -rf `find . | egrep '(g77|f77|g2c)' | xargs`
+  
+     # Getting chill out of the way
+     mkdir -p $TMP/package-gcc_g77/usr/doc/gcc-$VERSION/gcc/ch
+     mv usr/doc/gcc-$VERSION/gcc/ch/* $TMP/package-gcc_g77/usr/doc/gcc-$VERSION/gcc/ch
+     rmdir usr/doc/gcc-$VERSION/gcc/ch
+     cp -a --parents `find . | grep chill | xargs` $TMP/package-gccchill
+     rm -rf `find . | grep chill | xargs`
+  
+     # Getting java out of the way
+     cp -a --parents `find . | egrep '(gcj|jc|jv)' | xargs`  $TMP/package-gcc_java
+     rm -rf `find . | egrep '(gcj|jc|jv)' | xargs`
+  )
+
+  # build the tgz packages
+  (
+    cd $TMP/package-gcc;
+    echo "y
+n" | makepkg $TMP/gcc.tgz
+  )
+  
+  (
+    cd $TMP/package-gcc_objc
+    echo "y
+n" | makepkg $TMP/gcc_objc.tgz
+  )
+
+  (
+    cd $TMP/package-gcc_g77
+    echo "y
+n" | makepkg $TMP/gcc_g77.tgz
+  )
+
+  (
+    cd $TMP/package-gccchill
+    echo "y
+n" | makepkg $TMP/gccchill.tgz
+  )
+
+  (
+    cd $TMP/package-gcc_java
+    echo "y
+n" | makepkg $TMP/gcc_java.tgz
+  )
+
+# keep a log
+) 2>&1 | tee $TMP/gcc.build.log
+

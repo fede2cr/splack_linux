@@ -1,0 +1,136 @@
+#!/bin/sh
+# $XConsortium: Xsession /main/10 1995/12/18 18:21:28 gildea $
+#
+#
+# $XFree86: xc/programs/xdm/config/Xsession,v 1.2 1998/01/11 03:48:32 dawes Exp $
+# Modified for Slackware-3.5, 28-Mar-98 volkerdi
+# Extensively rewritten for Slackware 7.0, 03-Oct-1999 volkerdi
+# Patched to give priority to $HOME/.xsession, 10-Oct-1999 volkerdi
+# Merged changes into upstream (XFree86-4.0.2) version, 17-Feb-2001 volkerdi
+
+
+# redirect errors to a file in user's home directory if we can
+for errfile in "$HOME/.xsession-errors" "${TMPDIR-/tmp}/xses-$USER" "/tmp/xses-$USER"
+do
+	if ( cp /dev/null "$errfile" 2> /dev/null )
+	then
+		chmod 600 "$errfile"
+		exec > "$errfile" 2>&1
+		break
+	fi
+done
+
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/usr/X11R6/lib/X11/xinit/.Xresources
+sysmodmap=/usr/X11R6/lib/X11/xinit/.Xmodmap
+
+# merge in defaults and keymaps
+
+if [ -f $sysresources ]; then
+	xrdb -merge $sysresources
+fi
+
+if [ -f $sysmodmap ]; then
+	xmodmap $sysmodmap
+fi
+
+if [ -f $userresources ]; then
+	xrdb -merge $userresources
+fi
+
+if [ -f $usermodmap ]; then
+	xmodmap $usermodmap
+fi
+
+# Since xdm doesn't run a bash -login shell (or any other login shell)
+# then read the files that it would, to set up the user's environment
+profile=/etc/profile
+userprofile=~/.profile
+
+if [ -e $profile ]; then
+        source $profile
+fi
+if [ -e $userprofile ]; then
+        source $userprofile
+fi
+
+# The path built into XFree86's xdm binary assumes it's running some kind
+# of BSD (/usr/ucb, /etc) so this section makes sure all the standard
+# Linux binary directories are included:
+if [ "`whoami`" = "root" ]; then
+	PATH=/usr/local/sbin:/sbin:/usr/sbin:/usr/local/bin:/bin:/usr/bin:$PATH
+else
+	PATH=/usr/local/bin:/bin:/usr/bin:$PATH
+fi
+
+# If the user has a .xsession, we should give priority to this for
+# security reasons.  Of course, this means that if you have a $HOME/.xsession
+# that the session selecting feature of KDM won't work for you until you
+# delete it.  It's slightly annoying, but the safe way to handle it.
+
+if [ -f $HOME/.xsession ]; then
+	exec $HOME/.xsession
+fi
+
+# If a particular session type was requested in $1, start that session:
+case $# in
+1)
+	case $1 in
+	failsafe)
+		exec xterm -geometry 80x24-0-0
+		;;
+	kde)
+		exec startkde
+		;;
+	gnome)
+		exec gnome-session
+		;;
+	openwin)
+		exec olvwm
+		;;
+	fvwm2)
+		xsetroot -solid SteelBlue
+		exec fvwm2
+		;;
+	fvwm95)
+		exec fvwm95
+		;;
+	blackbox)
+		exec blackbox
+		;;
+	windowmaker)
+		if [ ! -f $HOME/GNUstep/Defaults/WindowMaker ]; then
+			wmaker.inst
+		fi
+		exec wmaker
+		;;
+	afterstep)
+		exec afterstep
+		;;
+	enlightenment)
+		exec enlightenment
+		;;
+	twm)
+		xclock -geometry 50x50-1+1 &
+		xterm -geometry 80x50+494+51 &
+		xterm -geometry 80x20+494-0 &
+		xterm -geometry 80x66+0+0 -name login &
+		xsetroot -solid SteelBlue
+		exec twm
+		;;
+	esac
+esac
+
+# If the user doesn't have their own xsession and none was specified in
+# $1, then run the system default session type:
+exec /etc/X11/xinit/xinitrc
+
+if [ -s "$startup" -a -x "$startup" ]; then
+	exec "$startup"
+else
+	if [ -r "$resources" ]; then
+		xrdb -load "$resources"
+	fi
+	exec xsm
+fi

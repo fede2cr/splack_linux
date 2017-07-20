@@ -1,0 +1,182 @@
+VERSION=$SLACKWARE_VERSION
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=yptools-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="NIS servers and clients"
+DESC="\
+NIS servers and clients\n\
+\n\
+NIS stands for Network Information Service.  NIS is usually used to\n\
+provide /etc/passwd and /etc/group information throughout the network.\n\
+Most Sun-based networks run NIS, and Linux machines can take full\n\
+advantage of existing NIS service or provide NIS service themselves."
+
+insfile() {
+   cp $1 $2/$1.new
+   mv $2/$1.new $2/$1
+}
+
+compile() {
+   # build yp-tools
+   cd $TMP
+   tar xyvf $CWD/yp-tools-2.5.tar.bz2
+   cd yp-tools-2.5
+   ./configure --prefix=/usr --disable-domainname $ARCH-slackware-linux
+   make CFLAGS=-O2
+
+   # build ypbind
+   cd $TMP
+   tar xvzf $CWD/ypbind-3.3.tar.gz
+   cd ypbind-3.3
+   zcat $CWD/ypbind-3.3-glibc5.diff.gz | patch -p1 --backup --verbose --suffix=.orig
+   zcat $CWD/ypbind-3.3-glibc-2.2.2.diff.gz | patch -p1 --backup --verbose --suffix=.orig
+   ./configure --prefix=/usr $ARCH-slackware-linux
+   # Ugly...
+   make -i
+
+   # build ypbind-mt
+   cd $TMP
+   tar xvyf $CWD/ypbind-mt-1.8.tar.bz2
+   cd ypbind-mt-1.8
+   ./configure --prefix=/usr $ARCH-slackware-linux
+   make
+
+   # build ypmake (NOTE:  needs yppush installed)
+   cd $TMP
+   tar xvyf $CWD/ypmake-0.11.tar.bz2
+   cd ypmake-0.11
+   ./configure
+   make
+
+   # build ypserv
+   cd $TMP
+   tar xvyf $CWD/ypserv-1.3.12.tar.bz2
+   cd ypserv-1.3.12
+   zcat $CWD/ypserv-1.3.12.diff.gz | patch -p1 --verbose --backup --suffix=.orig -E
+   # --with-ndbm=yes
+   ./configure --enable-tcp-wrapper \
+               --enable-fqdn \
+               --enable-yppasswd \
+               $ARCH-slackware-linux
+   make
+
+   # we install yppush and makedbm for ypmake
+   cp yppush makedbm /usr/sbin
+
+   # build ypmake (NOTE:  needs yppush installed)
+   cd $TMP
+   tar xvyf $CWD/ypmake-0.11.tar.bz2
+   cd ypmake-0.11
+   ./configure
+   make
+}
+
+install() {
+   # install yp-tools
+   cd $TMP/yp-tools-2.5
+   mkdir -p /usr/share/locale/de/LC_MESSAGES
+   cp po/de.gmo /usr/share/locale/de/LC_MESSAGES/yp-tools.mo
+   ( cd src
+     insfile ypcat /usr/bin
+     insfile ypmatch /usr/bin
+     insfile yppasswd /usr/bin
+     insfile ypwhich /usr/bin
+     insfile yppoll /usr/sbin
+     insfile ypset /usr/sbin )
+   ( cd man
+     cp *.1 /usr/man/man1
+     cp nicknames.5 /usr/man/man5
+     cp *.8 /usr/man/man8 )
+   mkdir -p /usr/doc/yp-tools-2.5
+   cp ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO \
+      /usr/doc/yp-tools-2.5
+
+   # install ypbind
+   cd $TMP/ypbind-3.3
+   mv ypbind ypbind-3.3
+   insfile ypbind-3.3 /usr/sbin
+   cp ypbind.8 /usr/man/man8/ypbind-3.3.8
+   mkdir -p /usr/doc/ypbind-3.3
+   cp COPYING INSTALL README TODO yp.conf.example /usr/doc/ypbind-3.3
+
+   # install ypbind-mt
+   cd $TMP/ypbind-mt-1.8
+   mkdir -p /usr/share/locale/de/LC_MESSAGES
+   cp po/de.gmo /usr/share/locale/de/LC_MESSAGES/ypbind-mt.mo
+   ( cd src
+     insfile ypbind /usr/sbin )
+   ( cd man
+     cp yp.conf.5 /usr/man/man5
+     cp ypbind.8 /usr/man/man8 )
+   mkdir -p /usr/doc/ypbind-mt-1.8
+   cp ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO \
+      /usr/doc/ypbind-mt-1.8
+
+   # install ypserv
+   cd $TMP/ypserv-1.3.12
+   mkdir -p /usr/lib/yp
+   for file in create_printcap makedbm match_printcap mknetid pwupdate \
+               revnetgroup yphelper ypinit ypxfr ypxfr_1perday ypxfr_1perhour \
+               ypxfr_2perday
+   do
+      insfile $file /usr/lib/yp
+   done
+   insfile ypserv /usr/sbin
+   insfile rpc.yppasswdd /usr/sbin
+   insfile rpc.ypxfrd /usr/sbin
+   insfile yppush /usr/sbin
+   cp *.5 /usr/man/man5
+   cp *.8 /usr/man/man8
+   mkdir -p /usr/doc/ypserv-1.3.12
+   cp BUGS COPYING ChangeLog INSTALL NEWS README README.secure TODO \
+      /usr/doc/ypserv-1.3.12
+
+   # install ypmake
+   cd $TMP/ypmake-0.11
+   insfile ypmake /usr/sbin
+   mkdir -p /usr/lib/yp/ypmake
+   for file in aliases arrays automount config ethers group gshadow hosts \
+               netgroup netid networks passwd protocols publickey rpc \
+               services shadow ypservers
+   do
+      insfile $file /usr/lib/yp/ypmake
+   done
+   cp ypmake.conf.man /usr/man/man5/ypmake.conf.5
+   cp ypmake.man /usr/man/man8/ypmake.8
+   mkdir -p /usr/doc/ypmake-0.11
+   cp CHANGES README TODO /usr/doc/ypmake-0.11
+
+   # symlinks
+   ( cd /usr/bin
+     rm -rf ypchfn ; ln -sf yppasswd ypchfn
+     rm -rf ypchsh ; ln -sf yppasswd ypchsh )
+}
+
+special() {
+   # add the incoming /etc files
+   mkdir -p $PKG/etc
+   echo "# This file is part of the YP server package -- see 'man netgroup'" \
+      > $PKG/etc/netgroup
+   cat $TMP/ypserv-1.3.12/etc/netgroup >> $PKG/etc/netgroup
+   cat $TMP/ypbind-mt-1.8/etc/yp.conf > $PKG/etc/yp.conf-example
+
+   # Make sure we have a working etc/nsswitch.conf:
+   zcat $CWD/nsswitch.conf.gz > $PKG/etc/nsswitch.conf
+   # Add etc/nsswitch.conf-nis as a full NIS+ example config file:
+   zcat $CWD/nsswitch.conf-nis.gz > $PKG/etc/nsswitch.conf-nis
+
+   # add the incoming /var/yp stuff
+   mkdir -p $PKG/var/yp
+   cat $TMP/yp-tools-2.5/etc/nicknames > $PKG/var/yp/nicknames
+   cat $TMP/ypmake-0.11/ypmake.conf.sample > $PKG/var/yp/ypmake.conf.sample
+   cat $TMP/ypserv-1.3.12/ypMakefile > $PKG/var/yp/Makefile
+   cat $TMP/ypserv-1.3.12/etc/securenets > $PKG/var/yp/securenets
+}

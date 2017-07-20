@@ -1,0 +1,13 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/pidentd/pidentd-3.0.12.tar.gz
+cd pidentd-3.0.12
+zcat $CWD/pidentd/pidentd-3.0.12.diff.gz | patch -p1 --backup --verbose
+# Disable useless attempt at writing a PID file... doesn't work since
+# a) it runs as "nobody" b) there may be multiple copies active
+zcat $CWD/pidentd/pidentd-3.0.12.nopidfile.diff.gz | patch -p1 -b --verbose
+./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --with-des-includes=/usr/include/openssl \
+            $ARCH-slackware-linux
+make

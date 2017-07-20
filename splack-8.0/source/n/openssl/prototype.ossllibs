@@ -1,0 +1,46 @@
+TAG=ADD
+
+SUBPKGNAME=ossllibs-$VERSION-$ARCH-$BUILD
+
+DESC="\
+openssl-$VERSION shared libraries\n\
+\n\
+These shared libraries provide encryption routines required by programs\n\
+such as openssh.  They are also used by KDE's Konqueror web browser to\n\
+provide secure web connections.\n\
+\n\
+This product includes software developed by the OpenSSL Project for\n\
+use in the OpenSSL Toolkit (http://www.openssl.org).  This product\n\
+includes cryptographic software written by Eric Young\n\
+(eay@cryptsoft.com).  This product includes software written by Tim\n\
+Hudson (tjh@cryptsoft.com)."
+
+subinstall() {
+   echo "Nothing to install."
+}
+
+subspecial() {
+   # Make runtime package:
+   mkdir -p $SUBPKG/usr/lib
+   ( cd $PKG/usr/lib ; cp -a lib*.so.*.*.* $SUBPKG/usr/lib )
+   mkdir -p $SUBPKG/etc
+   ( cd $SUBPKG/etc ; cp -a $PKG/etc/ssl . )
+   mkdir -p $SUBPKG/usr/doc/openssl-$VERSION
+   ( cd $TMP/openssl-$VERSION
+     cp -r CHANGES CHANGES.SSLeay FAQ INSTALL INSTALL.MacOS INSTALL.VMS \
+        INSTALL.W32 LICENSE NEWS README README.ENGINE \
+        $SUBPKG/usr/doc/openssl-$VERSION )
+
+   # add to the doinst
+   mkdir -p $SUBCTL
+   cat << EOF >> $SUBCTL/doinst.sh
+( cd usr/lib ; rm -rf libcrypto.so.0 )
+( cd usr/lib ; ln -sf libcrypto.so.0.9.6 libcrypto.so.0 )
+( cd usr/lib ; rm -rf libcrypto.so )
+( cd usr/lib ; ln -sf libcrypto.so.0 libcrypto.so )
+( cd usr/lib ; rm -rf libssl.so.0 )
+( cd usr/lib ; ln -sf libssl.so.0.9.6 libssl.so.0 )
+( cd usr/lib ; rm -rf libssl.so )
+( cd usr/lib ; ln -sf libssl.so.0 libssl.so )
+EOF
+}

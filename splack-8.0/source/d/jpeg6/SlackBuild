@@ -1,0 +1,71 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-jpeg6
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_jpeg6.tar.gz
+
+echo "+=============+"
+echo "| jpegsrc.v6b |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/jpegsrc.v6b.tar.gz
+cd jpeg-6b
+zcat $CWD/jpeg-6b.diff.gz | patch -p0 -E
+cp -a README $PKG/usr/doc/jpeg/README
+chown root.root $PKG/usr/doc/jpeg/README
+chmod 644 $PKG/usr/doc/jpeg/README
+./configure
+make
+strip cjpeg djpeg rdjpgcom wrjpgcom 
+cat cjpeg > $PKG/usr/bin/cjpeg
+cat djpeg > $PKG/usr/bin/djpeg
+cat jpegtran > $PKG/usr/bin/jpegtran
+cat rdjpgcom > $PKG/usr/bin/rdjpgcom
+cat wrjpgcom > $PKG/usr/bin/wrjpgcom
+for page in cjpeg.1 djpeg.1 jpegtran.1 rdjpgcom.1 wrjpgcom.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cat libjpeg.so.62.0.0 > $PKG/usr/lib/libjpeg.so.62.0.0
+cat libjpeg.a > $PKG/usr/lib/libjpeg.a
+cp -a jconfig.h jpeglib.h jmorecfg.h jerror.h $PKG/usr/include
+# KDE includes this complete header list, but the libjpeg source doesn't
+# suggest it, and we trust them. :)
+#for file in jchuff.h jdhuff.h jdct.h jerror.h jinclude.h jmemsys.h \
+#  jmorecfg.h jpegint.h jpeglib.h jversion.h cdjpeg.h cderror.h jconfig.h ; do
+#  cp -a $file $PKG/usr/include
+#done
+
+chown root.root $PKG/usr/include/*
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/jpeg6.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/jpeg-6b
+  rm -rf $PKG
+fi

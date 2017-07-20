@@ -1,0 +1,43 @@
+VERSION=1.3
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=workman-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/etc:/tmp:/proc:/dev:/root:/var/log:/var/lock:/var/spool:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="WorkMan"
+DESC="\
+WorkMan-$VERSION\n\
+\n\
+A graphical tool for playing audio compact discs in a CD-ROM drive.\n\
+It has most of the features available on standalone CD players, such\n\
+as a shuffle mode, programmable  playlists, and elapsed/remaining\n\
+timers.  Extra features include the ability to store information about\n\
+CDs in a database and then automatically extract that information when\n\
+the CD is inserted later."
+
+compile() {
+   tar xvzf $CWD/WorkMan-$VERSION.tar.gz
+   cd workman
+   zcat $CWD/WorkMan-$VERSION.diff.gz | patch -p1 -E
+   cat Makefile.linux | sed -e "s/\-m486//g" > Makefile
+   make
+}
+
+install() {
+   cp workman /usr/openwin/bin
+   cp workman.man /usr/openwin/man/man1/workman.1
+   cp workmandb.man /usr/openwin/man/man1/workmandb.1
+   mkdir -p /usr/openwin/lib/help
+   cp $CWD/workman.info /usr/openwin/lib/help
+}
+
+attributes() {
+   chmod 644 $PKG/usr/openwin/man/man1/*
+   chown root.bin $PKG/usr/openwin/bin/workman
+}

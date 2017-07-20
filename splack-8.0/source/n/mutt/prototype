@@ -1,0 +1,44 @@
+VERSION=1.2.5i
+BUILD=2
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=mutt-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Mutt
+DESC="\
+mutt-$VERSION\n\
+\n\
+Mutt is a small but very powerful text-based MIME mail client.  Mutt\n\
+is highly configurable, and is well suited to the mail power user with\n\
+advanced features like key bindings, keyboard macros, mail threading,\n\
+regular expression searches and a powerful pattern matching language\n\
+for selecting groups of messages."
+
+compile() {
+   rm -rf /etc/mutt
+   tar xzvf $CWD/mutt-$VERSION.tar.gz
+   cd mutt-1.2.5
+   #tar xzvf $CWD/charmaps-0.0.tar.gz
+   CFLAGS=-O2 ./configure \
+                 --prefix=/usr \
+                 --sysconfdir=/etc/mutt \
+                 --with-mailpath=/var/spool/mail \
+                 --with-charmaps=/usr/share/i18n/charmaps \
+                 --enable-pop \
+                 --enable-imap \
+                 sparc-slackware-linux
+   make
+}
+
+install() {
+   make install
+   # Don't mv the mutt docs directory, because mutt uses 'em.
+   # Make a link instead.
+   ( cd /usr/doc ; rm -rf mutt-$VERSION ; ln -sf mutt mutt-$VERSION )
+}

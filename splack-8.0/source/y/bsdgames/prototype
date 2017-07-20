@@ -1,0 +1,107 @@
+VERSION=2.11
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=bsdgames-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/var/lock:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="BSD games collection"
+DESC="\
+BSD games collection, version $VERSION.\n\
+\n\
+Games that go in /usr/games:  adventure arithmetic atc backgammon\n\
+  banner battlestar bcd caesar canfield cfscores countmail cribbage\n\
+  factor fish fortune gomoku hangman hunt mille monop morse number\n\
+  phantasia pig pom ppt primes quiz rain random robots rot13 sail\n\
+  snake snscore teachgammon trek wargames worm worms wump\n\
+\n\
+Adds a call to 'fortune' to /etc/profile and /etc/csh.login, so that\n\
+users will get a fortune message when they log in."
+
+compile() {
+   # build bsdgames
+   tar xvzf $CWD/bsd-games-$VERSION.tar.gz
+   cd bsd-games-$VERSION
+   zcat $CWD/bsd-games-$VERSION.diff.gz | patch -p1 --backup
+   ./configure
+   zcat $CWD/bsdgames.fortunepath.diff.gz | patch -p0 --backup
+   zcat $CWD/bsdgames.ospeed.diff.gz | patch -p1 --backup
+
+   # sail doesn't like glibc2.2's stdlib.h.  but we know how to fix *that*,
+   # don't we? ;)
+   for file in $(grep -l '#include <stdlib\.h>' sail/*)
+   do
+      cat $file | sed 's/\(#include <stdlib\.h>\)/\/\* \1 \*\//' \
+          > $file.NEW && \
+      mv $file.NEW $file
+   done
+
+   cp fortune/datfiles/unamerican-o.real fortune/datfiles/unamerican-o.fake
+   cp fortune/datfiles/unamerican-o.real unamerican-o
+   ( cd fortune/datfiles ; strfile unamerican-o unamerican-o.dat )
+   make
+
+   # we have to remove the docs here so that install will pick them
+   # up...we must use -a on cp, which will cause install to skip
+   # over them if they already exist
+   rm -rf /usr/doc/bsd-games-$VERSION
+}
+
+install() {
+   # install bsdgames
+   make install
+
+   # install docs
+   mkdir -p /usr/doc/bsd-games-$VERSION
+   cp AUTHORS BUGS INSTALL NEWS PACKAGING README SECURITY THANKS \
+      TODO YEAR2000 /usr/doc/bsd-games-$VERSION
+   cp -a fortune/README /usr/doc/bsd-games-$VERSION/README.fortune
+   cp -a hunt/README /usr/doc/bsd-games-$VERSION/README.hunt
+   cp -a hunt/README.linux /usr/doc/bsd-games-$VERSION/README.linux.hunt
+   cp -a phantasia/README /usr/doc/bsd-games-$VERSION/README.phantasia
+   cp -a trek/README.linux /usr/doc/bsd-games-$VERSION/README.linux.trek
+
+   # words file for hangman
+   mkdir -p /usr/share/dict
+   zcat $CWD/hangman-words.gz > /usr/share/dict/words
+}
+
+special() {
+   # Add profile scripts
+   mkdir -p $PKG/etc/profile.d
+   cp $CWD/bsdgames.sh $CWD/bsdgames.csh $PKG/etc/profile.d
+   chown root.root $PKG/etc/profile.d/*
+   chmod 755 $PKG/etc/profile.d/*
+
+   # Add some cool Linux related quotes:
+   ( cd $PKG ; tar xvzf $CWD/fortunes-linuxcookie.tar.gz )
+
+   # I'm not in favor of censorship of any kind.  If you are, you'll
+   # have to be the one to delete these:
+   rm $PKG/usr/games/lib/fortunes/limerick
+   rm $PKG/usr/games/lib/fortunes/limerick.dat
+   ( cd $PKG ; tar xzvf $CWD/fortunes-o.tar.gz )
+
+   # zero length stuff that has to be in the package
+   mkdir -p $PKG/var/games/bsdgames/phantasia
+   touch $PKG/var/games/bsdgames/phantasia/characs
+   chmod 640 $PKG/var/games/bsdgames/phantasia/characs
+   touch $PKG/var/games/bsdgames/phantasia/scoreboard
+
+   touch $PKG/var/games/bsdgames/atc_score
+   touch $PKG/var/games/bsdgames/battlestar.log
+   touch $PKG/var/games/bsdgames/cfscores
+   touch $PKG/var/games/bsdgames/criblog
+   touch $PKG/var/games/bsdgames/robots_roll
+   touch $PKG/var/games/bsdgames/saillog
+   touch $PKG/var/games/bsdgames/snake.log
+   touch $PKG/var/games/bsdgames/snakerawscores
+
+   mkdir -p $PKG/var/games/bsdgames/sail
+   chmod 750 $PKG/var/games/bsdgames/sail
+}

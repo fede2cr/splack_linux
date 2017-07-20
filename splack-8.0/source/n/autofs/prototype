@@ -1,0 +1,48 @@
+VERSION=3.1.7
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=autofs-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=autofs
+DESC="\
+autofs-$VERSION\n\
+\n\
+autofs is a kernel-based automounter for Linux.  It performs a job\n\
+similar to amd(8) but relies on a small stub of kernel code instead of\n\
+pretending to be an NFS server.  The result is simpler code, better\n\
+reliability, and much faster operation in the common case (everything\n\
+already mounted.)"
+
+compile() {
+   tar xvyf $CWD/autofs-$VERSION.tar.bz2
+   cd autofs-$VERSION
+   zcat $CWD/autofs-$VERSION.diff.gz | patch -p1 --verbose -b -z .orig -E
+   ./configure --prefix=/usr $ARCH-slackware-linux
+   make
+}
+
+install() {
+   ( cd daemon ; cp automount /usr/sbin )
+   ( cd modules
+     mkdir -p /usr/lib/autofs
+     cp *.so /usr/lib/autofs )
+
+   ( cd man
+     cp *.5 /usr/man/man5
+     cp *.8 /usr/man/man8 )
+
+   mkdir -p /usr/doc/autofs-$VERSION
+   cp -r COPYING COPYRIGHT NEWS README README.options TODO \
+      multiserver_mount.patch samples /usr/doc/autofs-$VERSION
+}
+
+attributes() {
+   chmod 755 $PKG/usr/doc/autofs-$VERSION/samples/rc.autofs
+}

@@ -1,0 +1,11 @@
+# This generates the GNOME docs if they aren't already there:
+if [ -d var/lib/scrollkeeper -a ! -d var/lib/scrollkeeper/TOC ]; then
+  if [ "$COLOR" = "on" -o -r $TMP/SeTcolor ]; then
+    dialog --title "SCROLLKEEPER-UPDATE" --infobox \
+    "Generating GNOME documentation..." 3 39
+  else
+    echo "Generating GNOME documentation.  One moment please."
+  fi
+  PATH=/opt/gnome/bin:$PATH
+  chroot . /opt/gnome/bin/scrollkeeper-update
+fi

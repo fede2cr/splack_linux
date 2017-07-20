@@ -1,0 +1,23 @@
+#!/bin/sh
+cd $TMP/net-tools-1.60
+insfile arp /sbin
+insfile ifconfig /sbin
+insfile rarp /sbin
+insfile route /sbin
+insfile hostname /bin
+insfile mii-tool /sbin
+insfile netstat /bin
+insfile plipconfig /sbin
+insfile slattach /usr/sbin
+insfile ipmaddr /sbin
+insfile iptunnel /sbin
+
+( cd man/en_US
+  cp dnsdomainname.1 domainname.1 hostname.1 nisdomainname.1 \
+     ypdomainname.1 /usr/man/man1
+  cp ethers.5 /usr/man/man5
+  cp arp.8 ifconfig.8 mii-tool.8 netstat.8 rarp.8 route.8 slattach.8 \
+     plipconfig.8 /usr/man/man8 )
+
+mkdir -p /usr/doc/net-tools-1.60
+cp README /usr/doc/net-tools-1.60

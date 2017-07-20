@@ -1,0 +1,126 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+PKG=$TMP/package-ghostscript
+
+echo "+==================+"
+echo "| ghostscript-5.50 |"
+echo "+==================+"
+cd $TMP
+# Remove the old one first...it seems overwriting makes the build fail
+rm -rf gs5.50
+tar xzvf $CWD/gnu-gs-5.50a.tar.gz
+cd gs5.50
+zcat $CWD/gnu-gs-5.50.time.diff.gz | patch -p1 --backup --suffix=.orig
+tar xzvf $CWD/jpegsrc.v6b.tar.gz
+ln -sf jpeg-6b jpeg
+tar xzvf $CWD/libpng-1.0.3.tar.gz
+ln -sf libpng-1.0.3 libpng
+tar xzvf $CWD/zlib-1.1.3.tar.gz
+ln -sf zlib-1.1.3 zlib
+tar xzvf $CWD/epson740.tar.gz --to-stdout epson740/stc740ih.upp > stc740ih.upp
+tar xzvf $CWD/epson740.tar.gz --to-stdout epson740/stc740p.upp  > stc740p.upp
+tar xzvf $CWD/epson740.tar.gz --to-stdout epson740/stc740pl.upp > stc740pl.upp
+cat $CWD/bjc6000a1.upp > bjc6000a1.upp
+cat $CWD/bjc6000b1.upp > bjc6000b1.upp
+
+# Add gimp-print interface:
+
+tar xzf $CWD/print-4.0.5.tar.gz
+ln -sf print-4.0.5/Ghost/*.[ch1] .
+ln -sf print-4.0.5/Ghost/stp-interfaces/CUPS/*.ppd .
+ln -sf print-4.0.5/Ghost/gs-stp.1 .
+
+# Add extra printer drivers:
+
+# driver hpdj
+mkdir hpdj
+{
+    cd hpdj
+    tar xOzf $CWD/hpdj-2.6.tar.gz hpdj-2.6/hpdj.tar | tar xvf -
+    mv NEWS NEWS.hpdj
+    cd ..
+}
+ln -s hpdj/*.[ch1] .
+
+# driver 820c
+mkdir hp820
+{
+    cd hp820
+    tar xzvf $CWD/gdev820c-0.2.0.tar.gz
+    mv COPYLEFT COPYLEFT.820c
+    head -56 gdev820c.c > 820c.txt
+    cd ..
+}
+ln -s hp820/*.[ch1] .
+
+# driver 850c/855c
+mkdir hp8xx
+{
+    cd hp8xx
+    unzip -a $CWD/hp8xxs13.zip
+    cd ..
+}
+ln -s hp8xx/*.[ch1] .
+
+# driver dj9xx:
+zcat $CWD/gdevdj9.c.gz > gdevdj9.c
+
+# Lexmark patches:
+
+echo "PATCH: gs5.50-lexmark5700.diff.gz"
+zcat $CWD/gs5.50-lexmark5700.diff.gz | patch -p0 --verbose --suffix=.orig
+echo "PATCH: gs5.50-lexmark7000.diff.gz"
+zcat $CWD/gs5.50-lexmark7000.diff.gz | patch -p0 --verbose --suffix=.orig
+
+# HP patches:
+
+echo "PATCH: hp8xxs14.diff.gz"
+zcat $CWD/hp8xxs14.diff.gz | patch -p0 --verbose --suffix=.orig
+echo "PATCH: hp880c.diff.gz"
+zcat $CWD/hp880c.diff.gz | patch -p0 --verbose --suffix=.orig
+
+# Various patches:
+
+echo "PATCH: gnu-gs-5.50a.diff.gz"
+zcat $CWD/gnu-gs-5.50a.diff.gz | patch -p0 --verbose --suffix=.orig
+
+# Build SVGAlib (non-X11) version:
+# David:
+# On SPARC (and Alpha), you have to build the non-X11 version of Ghostscript
+# without VGA support.  VGA is a PeeCee thing, so you can't have that on a
+# non-PeeCee platform.
+zcat $CWD/gnu-gs-5.50a-no_vga.delta.gz | patch -p0 --verbose
+
+make -f unix-gcc.mak config-clean
+make -f unix-gcc.mak device=vga
+make -f unix-gcc.mak install prefix=$PKG/usr
+
+mkdir -p $PKG/usr/doc/gnu-gs-5.50
+( cd $PKG/usr/doc/gnu-gs-5.50 ; rm -rf doc )
+( cd $PKG/usr/doc/gnu-gs-5.50 ; ln -sf /usr/share/ghostscript/5.50/doc doc )
+( cd $PKG/usr/doc/gnu-gs-5.50 ; rm -rf examples )
+( cd $PKG/usr/doc/gnu-gs-5.50 ; ln -sf /usr/share/ghostscript/5.50/examples examples )
+
+(cd $PKG
+ echo "y
+n" | makepkg ../gs.tgz
+)
+
+# Build X11 version
+XPKG=$TMP/package-gs_x11
+make -f unix-gcc.mak device=both 
+mkdir -p $XPKG/usr/bin
+cp -a obj/gs $XPKG/usr/bin
+(cd $XPKG
+ echo "y
+n" | makepkg ../gs_x11.tgz)
+

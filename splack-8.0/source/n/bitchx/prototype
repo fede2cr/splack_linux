@@ -1,0 +1,44 @@
+VERSION=1.0c18
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=bitchx-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="BitchX"
+DESC="\
+BitchX-$VERSION\n\
+\n\
+BitchX is an advanced Internet Relay Chat (IRC) client."
+
+compile() {
+   tar xvzf $CWD/BitchX-$VERSION.tar.gz
+   cd BitchX
+   zcat $CWD/BitchX-$VERSION.diff.gz | patch -p1
+   #./configure --prefix=/usr --enable-sound --enable-cdrom --with-ssl --with-plugins --with-gtk
+   CFLAGS=-O2 ./configure --prefix=/usr \
+                          --enable-cdrom \
+                          --with-ssl \
+                          --with-plugins
+   make
+}
+
+install() {
+   make install
+
+   bzip2 -d /usr/man/man1/BitchX.1.bz2
+
+   mkdir -p /usr/doc/BitchX-$VERSION
+   cp -r README* COMPILE-PROBLEMS INST* doc/* BitchX.help \
+      BitchX.ircnames BitchX.quit BitchX.reasons /usr/doc/BitchX-$VERSION
+}
+
+special() {
+   rmdir $PKG/usr/lib/bx/help/4_Misc/fset
+   rmdir $PKG/usr/lib/bx/help/4_Misc/wset
+}

@@ -1,0 +1,45 @@
+VERSION=2.6.3
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=rxvt-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=rxvt
+DESC="\
+rxvt-$VERSION\n\
+\n\
+rxvt is a color vt102 terminal emulator intended as an xterm\n\
+replacement for users who do not require features such as Tektronix\n\
+4014 emulation and toolkit-style configurability.  As a result, rxvt\n\
+uses much less memory -- a significant advantage on a machine serving\n\
+many X sessions.  Also included is rclock, an analog clock for X."
+
+compile() {
+   tar xvzf $CWD/rxvt-$VERSION.tar.gz
+   cd rxvt-$VERSION
+   ./configure --prefix=/usr/X11R6 \
+               --enable-utmp \
+               --enable-wtmp \
+               --enable-xpm-background
+   make 
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/rxvt-$VERSION
+   cp -r rxvt-2.6.3.lsm doc rclock/rclock.html /usr/doc/rxvt-$VERSION
+}
+
+attributes() {
+   chmod 4711 $PKG/usr/X11R6/bin/rxvt
+   chmod 755 $PKG/usr/doc/rxvt-2.6.3/doc/menu/example.menu
+   chmod 755 $PKG/usr/doc/rxvt-2.6.3/doc/menu/menu
+   chmod 755 $PKG/usr/doc/rxvt-2.6.3/doc/menu/rxvt.menu
+   chmod 755 $PKG/usr/doc/rxvt-2.6.3/doc/menu/terminal.menu
+}

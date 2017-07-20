@@ -1,0 +1,52 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gnomlibs
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/gnome-libs-1.2.13.tar.gz
+cd gnome-libs-1.2.13
+zcat $CWD/gnome-libs-1.2.13.diff.gz | patch -p1 --backup --suffix=.orig
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            --enable-prefer-db1 \
+            sparc-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/gnome-libs-1.2.13
+cp -a AUTHORS ABOUT-NLS COPYING.LIB COPYING ChangeLog NEWS README \
+   HACKING $PKG/usr/doc/gnome-libs-1.2.13
+chown -R root.root $PKG/usr/doc/gnome-libs-1.2.13
+mkdir -p $PKG/var/lib/games
+chown root.games $PKG/var/lib/games
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/gnomlibs.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gnome-libs-1.2.13
+  rm -rf $PKG
+fi

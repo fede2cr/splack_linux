@@ -1,0 +1,54 @@
+#!/bin/sh
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gnomcore
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xyvf $CWD/gnome-core-1.4.0.4.tar.bz2
+cd gnome-core-1.4.0.4
+zcat $CWD/gnome-core.netscape.diff.gz | patch -p1 --verbose
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+	    --with-window-manager=sawfish \
+            sparc-slackware-linux
+make
+make DESTDIR=$PKG install
+mkdir -p $PKG/etc/X11/xinit
+cat $CWD/xinitrc.gnome > $PKG/etc/X11/xinit/xinitrc.gnome
+chown root.root $PKG/etc/X11/xinit/xinitrc.gnome
+chmod 755 $PKG/etc/X11/xinit/xinitrc.gnome
+
+mkdir -p $PKG/usr/doc/gnome-core-1.4.0.4
+cp -a AUTHORS COPYING ChangeLog NEWS README $PKG/usr/doc/gnome-core-1.4.0.4
+chown -R root.root $PKG/usr/doc/gnome-core-1.4.0.4
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/gnomcore.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gnome-core-1.4.0.4
+  rm -rf $PKG
+fi

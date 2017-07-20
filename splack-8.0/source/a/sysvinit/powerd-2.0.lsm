@@ -1,0 +1,19 @@
+Begin3
+Title:          powerd
+Version:        2.0
+Entered-date:   Sep 26 1995
+Description:    A daemon to shut down and up computers connected to ups's.
+                Network-aware: server-mode and client-mode allowed.
+Keywords:       ups, powerd, init
+Author:         Alessandro Rubini (based on Miquel van Smoorenburg's work).
+Maintained-by:  rubini@ipvvis.unipv.it (Alessandro Rubini)
+Primary-site:   sunsite.unc.edu /pub/Linux/system/UPS/powerd-2.0.tar.gz
+		25kB  powerd-2.0.tar.gz
+		1kB   powerd-2.0.lsm
+Alternate-site: 
+Original-site:  iride.unipv.it /pub/linux
+		25kB  powerd-2.0.tar.gz
+		1kB   powerd-2.0.lsm
+Platform:       Linux. Porting is foreseeable.      
+Copying-policy: GPL
+End

@@ -1,0 +1,134 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-e2fsprog
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_e2fsprog.tgz
+
+echo "+================+"
+echo "| e2fsprogs-1.22 |"
+echo "+================+"
+cd $TMP
+tar xzvf $CWD/e2fsprogs-1.22.tar.gz
+cd e2fsprogs-1.22
+CFLAGS=-O2 ./configure --prefix=/usr \
+            --enable-elf-shlibs \
+            --enable-dynamic-e2fsck \
+            sparc-slackware-linux
+make
+
+mkdir -p $PKG/usr/doc/e2fsprogs-1.22
+cp README RELEASE-NOTES $PKG/usr/doc/e2fsprogs-1.22
+chown -R root.root $PKG/usr/doc/e2fsprogs-1.22
+
+cd debugfs
+strip debugfs
+cat debugfs > $PKG/sbin/debugfs
+cat debugfs.8 | gzip -9c > $PKG/usr/man/man8/debugfs.8.gz
+
+cd ../doc
+cat libext2fs.info | gzip -9c > $PKG/usr/info/libext2fs.info.gz
+ 
+cd ../e2fsck
+strip e2fsck
+cat e2fsck > $PKG/sbin/e2fsck
+cat e2fsck.8 | gzip -9c > $PKG/usr/man/man8/e2fsck.8.gz
+
+cd ../lib
+cat libcom_err.a > $PKG/usr/lib/libcom_err.a
+cat libe2p.a > $PKG/usr/lib/libe2p.a
+cat libext2fs.a > $PKG/usr/lib/libext2fs.a
+cat libss.a > $PKG/usr/lib/libss.a
+cat libuuid.a > $PKG/usr/lib/libuuid.a
+ranlib $PKG/usr/lib/libcom_err.a
+ranlib $PKG/usr/lib/libe2p.a
+ranlib $PKG/usr/lib/libext2fs.a
+ranlib $PKG/usr/lib/libss.a
+ranlib $PKG/usr/lib/libuuid.a
+strip libcom_err.so.2.0 libe2p.so.2.3 libext2fs.so.2.4 libss.so.2.0 \
+libuuid.so.1.2
+cat libcom_err.so.2.0 > $PKG/lib/libcom_err.so.2.0
+cat libe2p.so.2.3 > $PKG/lib/libe2p.so.2.3
+cat libext2fs.so.2.4 > $PKG/lib/libext2fs.so.2.4
+cat libss.so.2.0 > $PKG/lib/libss.so.2.0
+cat libuuid.so.1.2 > $PKG/lib/libuuid.so.1.2
+
+cd e2p
+cat e2p.h > $PKG/usr/include/e2p/e2p.h
+
+cd ../et
+cat com_err.3 | gzip -9c > $PKG/usr/man/man3/com_err.3.gz
+cat com_err.h > $PKG/usr/include/et/com_err.h
+
+cd ../ext2fs
+for include in bitops.h ext2_err.h ext2_io.h ext2fs.h ext2_types.h ; do
+  cat $include > $PKG/usr/include/ext2fs/$include
+done
+
+cd ../ss
+for include in ss.h ss_err.h ; do
+  cat $include > $PKG/usr/include/ss/$include
+done
+
+cd ../uuid
+cat uuid.h > $PKG/usr/include/uuid/uuid.h
+for page in *.3 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man3/$page.gz
+done
+
+cd ../../misc
+strip badblocks chattr dumpe2fs lsattr mke2fs mklost+found tune2fs fsck \
+e2image
+cat chattr > $PKG/usr/bin/chattr
+cat lsattr > $PKG/usr/bin/lsattr
+cat uuidgen > $PKG/usr/bin/uuidgen
+cat fsck > $PKG/sbin/fsck
+cat badblocks > $PKG/sbin/badblocks
+cat dumpe2fs > $PKG/sbin/dumpe2fs
+cat mke2fs > $PKG/sbin/mke2fs
+cat mklost+found > $PKG/sbin/mklost+found
+cat tune2fs > $PKG/sbin/tune2fs
+cat e2image > $PKG/sbin/e2image
+for page in *.8 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man8/$page.gz
+done
+for page in *.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+
+cd ../resize
+strip resize2fs
+cat resize2fs > $PKG/sbin/resize2fs
+cat resize2fs.8 | gzip -9c > $PKG/usr/man/man8/resize2fs.8.gz
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/e2fsprog.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/e2fsprogs-1.22
+  rm -rf $PKG
+fi

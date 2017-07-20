@@ -1,0 +1,36 @@
+VERSION=1.12b5
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=mkisofs-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=mkisofs-silo
+DESC="\
+mkisofs-$VERSION\n\
+\n\
+This package contains mkisofs patched to provide special\n\
+SPARC Linux bootable functionality.  The binary is installed\n\
+as /usr/bin/mkisofs-silo."
+
+compile() {
+   tar xvzf $CWD/mkisofs-$VERSION.tar.gz
+   cd mkisofs-$VERSION
+   zcat $CWD/mkisofs-1.12b4-free.patch.gz | patch -p1
+   zcat $CWD/mkisofs-$VERSION-silo.patch.gz | patch -p1
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   cp mkisofs /usr/bin/mkisofs-silo
+   cp mkisofs.8 /usr/man/man8/mkisofs-silo.8
+   mkdir -p /usr/doc/mkisofs-$VERSION
+   cp COPYING ChangeLog README README.eltorito README.session TODO \
+      /usr/doc/mkisofs-$VERSION
+}

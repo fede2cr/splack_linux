@@ -1,0 +1,26 @@
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+tar xzvf $CWD/libpng-1.0.11.tar.gz
+cd libpng-1.0.11
+zcat $CWD/libpng-1.0.11.diff.gz | patch -p1 --verbose --backup --suffix=.orig -E
+ln -s scripts/makefile.linux ./Makefile
+make
+rm -rf $TMP/package-libpng
+mkdir $TMP/package-libpng
+make install prefix=$TMP/package-libpng/usr
+mkdir -p $TMP/package-libpng/usr/man/man{3,5}
+install -m 644 libpng.3 $TMP/package-libpng/usr/man/man3
+install -m 644 libpngpf.3 $TMP/package-libpng/usr/man/man3
+install -m 644 png.5 $TMP/package-libpng/usr/man/man5
+gzip -9 $TMP/package-libpng/usr/man/man3/* $TMP/package-libpng/usr/man/man5/*
+mkdir -p $TMP/package-libpng/usr/doc/libpng-1.0.11
+cp -a ANNOUNCE CHANGES INSTALL KNOWNBUG LICENSE README TODO Y2KINFO libpng.txt \
+  example.c $TMP/package-libpng/usr/doc/libpng-1.0.11
+chmod 644 $TMP/package-libpng/usr/doc/libpng-1.0.11/*
+chown root.root $TMP/package-libpng/usr/doc/libpng-1.0.11/*
+cd $TMP/package-libpng
+echo "y
+n" | makepkg ../libpng.tgz

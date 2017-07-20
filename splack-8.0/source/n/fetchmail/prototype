@@ -1,0 +1,47 @@
+VERSION=5.8.1
+BUILD=2
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=fetchmail-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=fetchmail
+DESC="\
+fetchmail-$VERSION\n\
+\n\
+fetchmail is a mail-retrieval and forwarding utility.  It fetches\n\
+mail from a POP, IMAP, or ETRN-capable remote mailserver and forwards\n\
+it to your local (client) machine's delivery system.  You can then\n\
+handle the retrieved mail using normal mail user agents such as elm,\n\
+pine, or Mail.  The fetchmail utility can be run in a daemon mode to\n\
+repeatedly poll one or more systems at a specified interval."
+
+compile() {
+   tar xvzf $CWD/fetchmail-$VERSION.tar.gz
+   cd fetchmail-$VERSION
+   ./configure --prefix=/usr --enable-nls --with-ssl $ARCH-slackware-linux
+   make CFLAGS=-O2 LDFLAGS=-s
+}
+
+install() {
+   make install
+
+   mkdir -p /usr/doc/fetchmail-$VERSION
+   cp -r ABOUT-NLS COPYING FAQ FEATURES INSTALL MANIFEST NEWS NOTES README \
+      *.html contrib fetchmail.lsm fetchmailconf sample.rcfile \
+      /usr/doc/fetchmail-$VERSION
+
+   ( cd /usr/man/man1
+     rm fetchmailconf.1
+     ln -sf fetchmail.1.gz fetchmailconf.1.gz )
+}
+
+special() {
+   cat $CTL/doinst.sh | sed -e "s|.gz.gz|.gz|g" > $CTL/doinst.sh.new
+   mv $CTL/doinst.sh.new $CTL/doinst.sh
+}

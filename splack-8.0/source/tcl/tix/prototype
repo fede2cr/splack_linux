@@ -1,0 +1,95 @@
+VERSION=4.1.0.006
+BUILD=4
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=tix-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var/log
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Tix
+DESC="\
+Tix$VERSION.\n\
+\n\
+The Tix library is an extension to the Tk toolkit that contains over\n\
+40 new widgets for Tk.  Highlights include:  Hierarchical Listbox,\n\
+Directory List/Tree View, SpreadSheet, Tabular Listbox, ComboBox,\n\
+Motif style FileSelectBox, MS Windows style FileSelectBox,\n\
+PanedWindow, NoteBook, Spin Control widget, and many more. With these\n\
+new widgets, your applications will look great and interact with your\n\
+users in intuitive ways."
+
+compile() {
+   # we need tcl and tk source trees around for tclx
+   cd $TMP
+   tar xvzf $CWD/tcl8.3.3.tar.gz
+   tar xvzf $CWD/tk8.3.3.tar.gz
+   ( cd tcl8.3.3/unix ; ./configure --prefix=/usr )
+   ( cd tk8.3.3/unix ; ./configure --prefix=/usr )
+
+   # extract the sources
+   cd $TMP
+   tar xvzf $CWD/Tix$VERSION.tar.gz
+   ( cd Tix4.1.0/unix
+     ./configure --prefix=/usr --enable-shared )
+   cp -a Tix4.1.0 Tix.shared
+
+   # build the static version
+   cd $TMP/Tix4.1.0/unix/tk8.0
+   ./configure --prefix=/usr \
+               --with-tcl=$TMP/tcl8.3.3 \
+               --with-tk=$TMP/tk8.3.3
+   make
+
+   # build the shared version
+   cd $TMP/Tix.shared/unix/tk8.0
+   ./configure --prefix=/usr \
+               --enable-shared \
+               --with-tcl=$TMP/tcl8.3.3 \
+               --with-tk=$TMP/tk8.3.3
+   make
+}
+
+install() {
+   # install shared version
+   cd $TMP/Tix.shared/unix/tk8.0
+   make install
+   cd ..
+   make install
+
+   # install static version
+   cd $TMP/Tix4.1.0/unix/tk8.0
+   make install
+   cd ..
+   make install
+
+   # install docs
+   cd ..
+   mkdir -p /usr/doc/Tix4.1.0
+   cp -r README Version docs /usr/doc/Tix4.1.0
+
+   # move man pages to correct location
+   mv /usr/man/mann/tixwish.1 /usr/man/man1/tixwish.1
+
+   ( cd /usr/bin
+     rm -rf tixwish      ; ln -sf tixwish4.1.8.0 tixwish )
+   ( cd /usr/lib
+     rm -rf libtix.a     ; ln -sf libtix4.1.8.0.a libtix.a
+     rm -rf libtixsam.a  ; ln -sf libtixsam4.1.8.0.a libtixsam.a
+     rm -rf libtix.so    ; ln -sf libtix4.1.8.0.so libtix.so
+     rm -rf libtixsam.so ; ln -sf libtixsam4.1.8.0.so libtixsam.so )
+}
+
+attributes() {
+   find $PKG/usr/man -type f -exec chmod 444 {} \;
+}
+
+special() {
+   # fix up symlinks to man pages
+   cat $CTL/doinst.sh | sed -e "/mann/ s#\.n #\.n\.gz #g" \
+      > $CTL/doinst.sh.incoming
+   mv $CTL/doinst.sh.incoming $CTL/doinst.sh
+}

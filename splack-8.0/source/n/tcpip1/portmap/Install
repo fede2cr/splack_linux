@@ -1,0 +1,9 @@
+#!/bin/sh
+cd $TMP/portmap_4
+mv portmap rpc.portmap
+insfile rpc.portmap /sbin
+insfile pmap_dump /usr/sbin
+insfile pmap_set /usr/sbin
+cat $CWD/portmap/portmap.8.gz > $PKG/usr/man/man8/portmap.8.gz
+mkdir -p /usr/doc/portmap_4
+cp BLURB CHANGES README /usr/doc/portmap_4

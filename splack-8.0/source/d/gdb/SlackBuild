@@ -1,0 +1,71 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gdb
+INFO=$PKG/usr/info
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_gdb.tar.gz
+
+echo "+=========+"
+echo "| gdb-5.0 |"
+echo "+=========+"
+cd $TMP
+tar xzvf $CWD/gdb-5.0.tar.gz
+cd gdb-5.0
+
+zcat $CWD/gdb-5.0.sparc.diff.gz | patch -p1
+
+rm -rf /usr/include/asm.BUILD_GDB
+mv /usr/include/asm /usr/include/asm.BUILD_GDB  
+ln -sf /usr/src/linux/include/asm-sparc /usr/include/asm
+
+sparc32 ./configure --prefix=/usr sparc-slackware-linux
+sparc32 make CFLAGS=-O2 
+
+rm -rf /usr/include/asm
+mv /usr/include/asm.BUILD_GDB /usr/include/asm
+
+mkdir -p $PKG/usr/doc/gdb-5.0/gdb
+cp -a COPYING COPYING.LIB README $PKG/usr/doc/gdb-5.0
+cd gdb
+cp -a ChangeLog NEWS README TODO $PKG/usr/doc/gdb-5.0/gdb
+chown -R root.root $PKG/usr/doc/gdb-5.0
+strip gdb
+cat gdb > $PKG/usr/bin/gdb
+cat gdb.1 | gzip -9c > $PKG/usr/man/man1/gdb.1.gz
+cd doc
+for file in gdb.info* gdbint.info* ; do
+  cat $file | gzip -9c > $PKG/usr/info/$file.gz
+done
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/gdb.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gdb-5.0
+  rm -rf $PKG
+fi

@@ -1,0 +1,11 @@
+--- Makefile.orig	Sat Oct  5 20:52:42 1996
++++ Makefile	Sat Oct  5 20:54:01 1996
+@@ -188,7 +188,7 @@
+ 	$(NODIRENT) $(VPRINTF) $(TIMERS) $(UNIX) $(BSDTYPES) $(RAND) \
+ 	$(DXWM) $(MCHN)
+ 
+-LIBS = -lX11 $(JPEGLIB) $(TIFFLIB) -lm
++LIBS = -L /usr/X11R6/lib -lX11 -L . $(JPEGLIB) $(TIFFLIB) -L /usr/lib -lm
+ 
+ OBJS = 	xv.o xvevent.o xvroot.o xvmisc.o xvimage.o xvcolor.o xvsmooth.o \
+ 	xv24to8.o xvgif.o xvpm.o xvinfo.o xvctrl.o xvscrl.o xvalg.o \

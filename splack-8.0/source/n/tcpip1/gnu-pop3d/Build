@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/gnu-pop3d/gnu-pop3d-0.9.8.tar.gz
+cd gnu-pop3d-0.9.8
+./configure --prefix=/usr $ARCH-slackware-linux
+make

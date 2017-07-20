@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $TMP/netdate
+insfile netdate /usr/sbin
+cp netdate.8 /usr/man/man8

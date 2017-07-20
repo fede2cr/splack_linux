@@ -1,0 +1,35 @@
+Slackware aaagnome.tgz (GNOME prep package)
+-------------------------------------------
+
+This package creates a few symbolic links recommended
+in the GNOME FAQ for putting GNOME in /opt:
+
+/opt/gnome/share/aclocal -> /usr/share/aclocal
+/opt/gnome/share/locale -> /usr/share/locale
+
+We create these links before building anything in the
+Slackware GTK series to ensure that things will be placed
+in locations where the system will find them.
+
+We also add this link:
+
+/opt/gnome/etc -> /etc/opt/gnome
+
+We've noticed that SuSE and Caldera (who also place GNOME in
+/opt/gnome) have used /etc/opt/gnome as the configuration
+directory.  It seems like a good idea to follow this
+standard, as it should allow the use of GNOME packages
+designed for these systems as well as allowing packages built
+for GNOME on Slackware to work with Caldera or SuSE systems.
+
+Two /etc/profile.d/ scripts are added to ensure users will have
+/opt/gnome/bin in their $PATH and /opt/gnome/man in $MANPATH.
+We also add /opt/gnome/lib to /etc/ld.so.conf.
+
+
+Packages for Slackware will use these configure options:
+  --prefix=/opt/gnome --sysconfdir=/etc/opt/gnome
+
+Have fun,
+
+   -P.

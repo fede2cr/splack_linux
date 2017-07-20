@@ -1,0 +1,33 @@
+VERSION=2.3
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=xspread-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xspread
+DESC="\
+xspread-$VERSION\n\
+\n\
+A basic spreadsheet for X."
+
+compile() {
+   tar xvzf $CWD/xspread-$VERSION.tar.gz
+   cd xspread-$VERSION
+   zcat $CWD/xspread-$VERSION.diff.gz | patch -p1 -E --verbose --backup
+   xmkmf
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/xspread-$VERSION
+   cp COPYING README README.LUCS TODO doc/Sample_Run doc/demo_* \
+      doc/sc.* doc/tutorial doc/xspread.dvi /usr/doc/xspread-$VERSION
+   cp xspread.man /usr/X11R6/man/man1/xspread.1
+}

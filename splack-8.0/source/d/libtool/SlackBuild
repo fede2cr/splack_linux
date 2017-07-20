@@ -1,0 +1,30 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+PKG=$TMP/package-libtool
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+echo "+=============+"
+echo "| libtool-1.4 |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/libtool-1.4.tar.gz
+cd libtool-1.4
+CFLAGS=-O2 ./configure --prefix=/usr sparc-slackware-linux 
+
+mkdir $PKG
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/libtool-1.4
+cp -a AUTHORS COPYING INSTALL NEWS README THANKS TODO $PKG/usr/doc/libtool-1.4
+chown root.root $PKG/usr/doc/libtool-1.4/*
+mkdir $PKG/install
+cp $CWD/doinst.sh $PKG/install
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/libtool.tgz

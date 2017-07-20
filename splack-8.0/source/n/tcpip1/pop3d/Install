@@ -1,0 +1,5 @@
+#!/bin/sh
+cd $TMP/pop3d-1.006d
+insfile in.pop3d /usr/sbin
+cp pop3d.1 /usr/man/man8/in.pop3d.8
+cp $CWD/pop3d/flushpop.sh /usr/sbin/flushpop.sh

@@ -1,0 +1,59 @@
+VERSION=3.7.1
+GD_VER=1.3
+BUILD=3
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=gnuplot-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=gnuplot
+DESC="\
+gnuplot $VERSION\n\
+\n\
+Gnuplot is a command-line driven interactive function plotting utility\n\
+for UNIX, MSDOS, and VMS platforms.  The software is copyrighted but\n\
+freely distributed (i.e., you don't have to pay for it).  It was\n\
+originally intended as graphical program which would allow scientists\n\
+and students to visualize mathematical functions and data.  Gnuplot\n\
+supports many different types of terminals, plotters, and printers\n\
+(including many color devices, and pseudo-devices like LaTeX) and is\n\
+easily extensible to include new devices."
+
+compile() {
+   # build gd, which we link against
+   cd $TMP
+   tar xvzf $CWD/gd$GD_VER.tar.gz
+   cd gd$GD_VER
+   make
+   mkdir lib
+   cp libgd.a lib
+   mkdir include
+   cp *.h include
+
+   # build gnuplot
+   cd $TMP
+   tar xvzf $CWD/gnuplot-$VERSION.tar.gz
+   cd gnuplot-$VERSION
+   ./configure --prefix=/usr \
+               --with-png \
+               --with-gd=$TMP/gd$GD_VER
+   make CFLAGS=-O2 \
+        TERMLIBS="/usr/lib/libpng.a /usr/lib/libz.a $TMP/gd$GD_VER/libgd.a"
+   ( cd docs ; make gnuplot.html )
+}
+
+install() {
+   # install gnuplot
+   cp gnuplot gnuplot_x11 /usr/bin
+   cp docs/gnuplot.1 /usr/man/man1
+   cp docs/gnuplot.gih /usr/share
+   mkdir -p /usr/doc/gnuplot-$VERSION
+   cp -r 0* ChangeLog CodeStyle Copyright INSTALL.gnu NEWS PGPKEYS TODO \
+      demo /usr/doc/gnuplot-$VERSION
+   cp docs/gnuplot.html /usr/doc/gnuplot-$VERSION
+}

@@ -1,0 +1,50 @@
+#!/bin/sh
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gnoutils
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xyvf $CWD/gnome-utils-1.4.0.1.tar.bz2
+cd gnome-utils-1.4.0.1
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+	    --with-ncurses=/usr \
+	    --enable-guname-capplet \
+            --localstatedir=/var/lib \
+            sparc-slackware-linux
+make
+make DESTDIR=$PKG install-strip
+mkdir -p $PKG/usr/doc/gnome-utils-1.4.0.1
+cp -a ABOUT-NLS AUTHORS COPYING ChangeLog NEWS README THANKS \
+      $PKG/usr/doc/gnome-utils-1.4.0.1
+chown -R root.root $PKG/usr/doc/gnome-utils-1.4.0.1
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/gnoutils.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gnome-utils-1.4.0.1
+  rm -rf $PKG
+fi

@@ -1,0 +1,104 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sysvinit
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_sysvinit.tar.gz
+
+echo "+===============+"
+echo "| SysVinit-2.78 |"
+echo "+===============+"
+cd $TMP
+tar xzvf $CWD/sysvinit-2.78.tar.gz
+cd sysvinit-2.78
+zcat $CWD/sysvinit.diff.gz | patch -p1 -E --verbose --backup
+mkdir -p $PKG/usr/doc/sysvinit-2.78
+cd doc
+cp -a Install Propaganda ../Todo \
+ sysvinit-2.78.lsm $PKG/usr/doc/sysvinit-2.78
+chmod -R 644 $PKG/usr/doc/sysvinit-2.78/*
+chown -R root.root $PKG/usr/doc/sysvinit-2.78/*
+chmod 755 $PKG/usr/doc/sysvinit-2.78 $PKG/usr/doc/sysvinit-2.78/Todo
+cd ../src
+make clobber
+make
+mkdir -p $PKG/sbin
+for program in halt init killall5 shutdown runlevel ; do
+  strip $program
+  cat $program > $PKG/sbin/$program
+done
+mv $PKG/sbin/init $PKG/sbin/init.new
+chown root.root $PKG/sbin/*
+chmod 755 $PKG/sbin/*
+
+#cat wall > $PKG/usr/bin/wall
+#strip powerd
+#cat powerd > $PKG/sbin/powerd
+cp initscript.sample $PKG/sbin/initscript.sample
+cd ../man
+mkdir -p $PKG/usr/man/man5 $PKG/usr/man/man8
+for page in inittab.5 initscript.5 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man5/$page.gz
+done
+for page in halt.8 init.8 killall5.8 pidof.8 poweroff.8 reboot.8 runlevel.8 \
+  shutdown.8 telinit.8 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man8/$page.gz
+done
+
+echo "+============+"
+echo "| powerd-2.0 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/powerd-2.0.tar.gz
+cd powerd-2.0
+make
+strip powerd setserialbits
+cat powerd > $PKG/sbin/powerd
+cat setserialbits > $PKG/sbin/setserialbits
+cat powerd.8 | gzip -9c > $PKG/usr/man/man8/powerd.8.gz
+mkdir -p $PKG/usr/doc/powerd-2.0
+cp -a COPYING README TODO $PKG/usr/doc/powerd-2.0
+chown root.root $PKG/usr/doc/powerd-2.0/*
+chmod 644 $PKG/usr/doc/powerd-2.0/*
+
+# Build checkconsole
+cc -s -O2 -o $TMP/checkconsole $CWD/checkconsole.c
+cp $TMP/checkconsole $PKG/sbin
+chown root.root $PKG/sbin/checkconsole
+chmod 755 $PKG/sbin/checkconsole
+
+mkdir $PKG/install
+cp -a $CWD/doinst.sh $PKG/install
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/sysvinit.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/sysvinit-2.78
+  rm -rf $TMP/powerd-2.0
+  rm -rf $PKG
+fi

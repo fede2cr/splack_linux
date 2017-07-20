@@ -1,0 +1,47 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-libsigc
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/libsigc++-1.0.3.tar.gz
+cd libsigc++-1.0.3
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            sparc-slackware-linux
+make
+make DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/libsigc++-1.0.3
+cp -a AUTHORS COPYING COPYING.LIB ChangeLog FEATURES IDEAS INSTALL NEWS README TODO doc \
+  $PKG/usr/doc/libsigc++-1.0.3
+chown -R root.root $PKG/usr/doc/libsigc++-1.0.3
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/libsigc.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/libsigc++-1.0.3
+  rm -rf $PKG
+fi

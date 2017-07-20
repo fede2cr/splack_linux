@@ -1,0 +1,8 @@
+conf:
+   ONE /etc/AppleVolumes.default
+   ONE /etc/AppleVolumes.system
+   ONE /etc/atalkd.conf
+   ONE /etc/papd.conf
+   ONE /etc/afpd.conf
+   ONE /etc/rc.d/rc.atalk
+:conf

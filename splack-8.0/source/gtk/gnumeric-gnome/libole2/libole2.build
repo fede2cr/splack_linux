@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/libole2-0.2.3.tar.gz
+cd libole2-0.2.3
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/libole2-0.2.3
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README TODO \
+  /usr/doc/libole2-0.2.3
+chmod 644 /usr/doc/libole2-0.2.3/*
+chown root.root /usr/doc/libole2-0.2.3/*

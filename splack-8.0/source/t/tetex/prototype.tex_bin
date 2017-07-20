@@ -1,0 +1,29 @@
+TAG=ADD
+
+SUBPKGNAME=tex_bin-$VERSION-$ARCH-$BUILD
+
+INOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/var/lock:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="teTeX binaries"
+DESC="\
+teTeX-$VERSION binaries.\n\
+\n\
+This package installs the teTeX binaries for Linux in\n\
+/usr/share/texmf/bin/ and edits /etc/profile and /etc/csh.login to\n\
+add this directory to the default PATH."
+
+subinstall() {
+   echo "Nothing to install for tex_bin."
+}
+
+subspecial() {
+   # populate the tree
+   mkdir -p $SUBPKG/usr/share/texmf/bin
+   cp -a $TMP/tex-package/usr/share/texmf/bin/* $SUBPKG/usr/share/texmf/bin
+   chown -R root.root $SUBPKG/usr/share/texmf/bin
+
+   # add the doinst.sh script
+   cp -a $CWD/tex_bin-ln.sh $SUBCTL/doinst.sh
+}

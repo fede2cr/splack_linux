@@ -1,0 +1,61 @@
+The official ftp location for Jove (Jonathan's Own Version of
+Emacs) is ftp.cs.toronto.edu:/pub/moraes/jove/
+
+Jove is an Emacs-like editor without Lisp.  It is comfortable to use,
+small, fast and portable.
+
+4.16 (1996 Mar 19) is the latest released version.  The previous release was
+4.16beta (1994 Nov 23) and before that, 4.14.10.
+
+4.16 has been widely ported, it features LOTS of changes, fixes,
+improvements.  Among other things, it should compile and work out of
+the box on most widely used Un*x and Posix variants, including AIX,
+BSDI, DGUX, HP-UX, Irix, Linux, OSF/1, QNX, SCO, Solaris, SunOS, SVR4,
+Ultrix.  Considerable work has gone into making it easier to port
+(functional ifdefs rather than system specific ones).  It now has
+simple mouse support under xterms, the documentation has been
+re-worked.
+
+This version of Jove also works under DOS, Win32 and the Mac with
+almost the same functionality as the Un*x version.
+
+jove-4.16.tar.gz is a gzipped tar file of the complete source for the
+latest released version.  jove416.tgz is the same file, with a shorter
+name for more restrictive file systems.
+
+jove-4.16.tar.Z is the same tar file, but compressed.  jove416.tz is
+the corresponding short name.
+
+jove-4.16.sit.hqx contains the Macintosh source and executables.
+
+jove416w.zip contains Win32 executables and documents for Windows NT
+and Windows 95.
+
+jove416x.zip contains 4.16 executables and documents for DOS.
+It contains all that is needed to run JOVE.
+
+jove416s.zip contains 4.16 source code for DOS and Win32 -- not much
+different from jove4.16.tar.gz.  It's a file format more convenient for
+DOS/Win32 users, lines end with Carriage-Return Line-Feed and there is
+pre-formatted documentation.  Some files (irrelevant to the DOS/Win32
+versions of Jove) are missing.
+
+KNOWN-PROBLEMS contains a list of at least the show-stopping problems
+with this release, some with workarounds.  Always grab a copy of
+this file when you ftp a new release.  It might also be worth checking
+this file for changes periodically.
+
+jove.netherlands contains a different evolutionary branch of the Jove
+tree from Tom Hageman.  His version is derived from 4.6.
+Tom's official ftp site is ftp.icce.rug.nl. (Our copy may be out of date)
+
+jove.atari and jove-vms.tar.Z are relatively old branches that were
+ported to those platforms.  If you'd like to update these ports or
+port to other platforms, please send email to jovehacks@cs.toronto.edu.
+
+Jove is supported by a group of users.  We can be reached by email at
+jovehacks@cs.toronto.edu.  We welcome bug reports.  We also welcome
+reports on porting Jove.  We are even interested in suggestions for
+new features, but we are conservative in adopting them.
+
+	Mark Moraes.

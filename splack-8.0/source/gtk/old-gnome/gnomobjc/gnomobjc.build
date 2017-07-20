@@ -1,0 +1,14 @@
+#!/bin/sh
+CWD=`pwd` 
+cd /tmp
+tar xzvf $CWD/gnome-objc-1.0.40.tar.gz
+cd gnome-objc-1.0.40
+./configure --prefix=/opt/gnome \
+            --with-gnome=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            i386-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install
+mkdir -p /usr/doc/gnome-objc-1.0.40
+cp -a AUTHORS COPYING ChangeLog NEWS README /usr/doc/gnome-objc-1.0.40
+chown -R root.root /usr/doc/gnome-objc-1.0.40

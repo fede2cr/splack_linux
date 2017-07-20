@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xzvf $CWD/inetd/inetd-OpenBSD-1.79.tar.gz
+cd inetd
+zcat $CWD/inetd/inetd-OpenBSD-1.79.diff.gz | patch -p1 -b -z .orig --verbose -E
+make

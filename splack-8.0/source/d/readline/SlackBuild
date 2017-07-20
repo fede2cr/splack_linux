@@ -1,0 +1,68 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-readline
+INFO=$PKG/usr/info
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_readline.tar.gz
+
+echo "+==============+"
+echo "| readline-4.1 |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/readline-4.1.tar.gz
+cd readline-4.1
+# Gosh, maybe if we get some Linux standards, then sonames like the one we're fixing here will be mandatory
+zcat $CWD/readline-4.1.dontbestupid.soname.diff.gz | patch -p1 -E --verbose --backup --suffix=.orig
+./configure --prefix=/usr --with-curses
+make CFLAGS=-O2 LDFLAGS=-s static shared
+make install install-shared prefix=$PKG/usr
+rm $PKG/usr/info/dir
+gzip -9 $PKG/usr/man/man3/*
+gzip -9 $PKG/usr/info/*
+chmod 755 $PKG/usr/lib/lib*.so.*
+( cd $PKG/usr/lib ; rm *.so.4 )
+( cd $PKG/usr/lib ; ldconfig . )
+( cd $PKG/usr/lib ; rm -f libhistory.so libreadline.so )
+( cd $PKG/usr/lib ; ln -sf libhistory.so.4 libhistory.so )
+( cd $PKG/usr/lib ; ln -sf libreadline.so.4 libreadline.so )
+mkdir -p $PKG/usr/doc/readline-4.1
+cp -a CHANGELOG CHANGES COPYING INSTALL MANIFEST README USAGE examples \
+  $PKG/usr/doc/readline-4.1
+chown -R root.root $PKG/usr/doc/readline-4.1
+chmod -R 644 $PKG/usr/doc/readline-4.1/*
+chmod 755 $PKG/usr/doc/readline-4.1/examples
+
+# Build the package:
+cd $PKG
+# Since we make symlinks, we better process this like so:
+echo "y
+n" | makepkg $TMP/readline.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/readline-4.1
+  rm -rf $PKG
+fi

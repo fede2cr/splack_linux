@@ -1,0 +1,92 @@
+VERSION=1.3.2
+BUILD=4
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=xfm-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xfm
+DESC="\
+xfm $VERSION, a file manager for X.\n\
+\n\
+This is a powerful file and applications manager program written using\n\
+the X toolkit.  It contains virtually all of the features that you\n\
+would expect in a file manager -- move around your directory tree in\n\
+multiple windows, and move, copy or delete files with simple mouse\n\
+operations.  The integrated application manager allows you to load\n\
+files into your favorite applications from the file manager by\n\
+dragging icons.  xfm was originally written by Simon Marlow, and was\n\
+improved by Albert Graef."
+
+compile() {
+   tar xvzf $CWD/xfm-$VERSION.tar.gz
+   cd xfm-$VERSION
+   zcat $CWD/xfm-$VERSION.diff.gz | patch -p1 -E --verbose 
+   # This may take further tweaking to put the pixmaps/bitmaps in the "right"
+   # places... see the Imake.options file.  We really should figure out how to
+   # keep dot.xfm in the /var/X11R6/lib/xfm directory while moving the pixmaps
+   # to the normal location.
+   #
+   # Also, use the updated mail.xpm so we don't overwrite the icons in fvwm95
+   # with an older version.
+   xmkmf
+   make Makefiles
+   make
+
+   #g get rid of these so that install will pick them up
+   ( cd contrib/fileicons/pixmaps
+     for f in `/bin/ls -1 *.xpm`
+     do
+        rm -rf /usr/X11R6/include/X11/pixmaps/$f
+     done )
+   ( cd contrib/fileicons/bitmaps
+     for f in `/bin/ls -1 *.xbm`
+     do
+        rm -rf /usr/X11R6/include/X11/bitmaps/$f
+     done )
+   rm -rf /etc/X11/xfm
+}
+
+install() {
+   rm -rf /usr/X11R6/lib/X11/xfm
+   mkdir -p /usr/X11R6/lib/X11/xfm
+   make install
+   make install.man
+   mv /usr/X11R6/man/man1/xfm.1x /usr/X11R6/man/man1/xfm.1
+   mv /usr/X11R6/man/man1/xfmtype.1x /usr/X11R6/man/man1/xfmtype.1
+   mkdir -p /usr/doc/xfm-1.3
+   cp README ChangeLog TODO README-1.2 /usr/doc/xfm-1.3
+   mkdir -p /usr/X11R6/include/X11/bitmaps
+   mkdir -p /usr/X11R6/include/X11/pixmaps
+   mv /var/X11R6/lib/xfm/bitmaps/* /usr/X11R6/include/X11/bitmaps
+   mv /var/X11R6/lib/xfm/pixmaps/* /usr/X11R6/include/X11/pixmaps
+   rmdir /var/X11R6/lib/xfm/bitmaps
+   rmdir /var/X11R6/lib/xfm/pixmaps
+   mv /usr/X11R6/lib/X11/xfm /etc/X11/xfm
+
+   # symlinks
+   ( cd /usr/X11R6/lib/X11
+     rm -rf xfm ; ln -sf ../../../../etc/X11/xfm xfm )
+   ( cd /etc/X11/xfm
+     rm -rf bitmaps ; ln -sf /usr/X11R6/include/X11/bitmaps bitmaps
+     rm -rf pixmaps ; ln -sf /usr/X11R6/include/X11/pixmaps pixmaps )
+}
+
+attributes() {
+   find $PKG/usr/X11R6/include/X11/pixmaps -type f -exec chmod 644 {} \;
+   find $PKG/usr/X11R6/include/X11/bitmaps -type f -exec chmod 644 {} \;
+   find $PKG/usr/X11R6/include/X11/pixmaps -type f -exec chown root.root {} \;
+   find $PKG/usr/X11R6/include/X11/bitmaps -type f -exec chown root.root {} \;
+   chmod 664 $PKG/usr/doc/xfm-1.3/*
+   chmod 644 $PKG/etc/X11/app-defaults/Xfm
+   chmod 644 $PKG/usr/X11R6/man/man1/*
+}
+
+special() {
+   ( cd $PKG ; tar xpsvzf $CWD/extra-icons.tar.gz )
+}

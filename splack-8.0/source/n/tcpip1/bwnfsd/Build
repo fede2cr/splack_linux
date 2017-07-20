@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/bwnfsd/bwnfsd.tar.gz
+cd bwnfsd
+zcat $CWD/bwnfsd/bwnfsd.diff.gz | patch -p1 --backup
+make linux

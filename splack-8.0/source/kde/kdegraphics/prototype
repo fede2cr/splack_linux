@@ -1,0 +1,35 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kdegraphics-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Graphics"
+DESC="\
+kdegraphics-$VERSION\n\
+\n\
+Graphics programs for KDE, including:  kdvi (displays TeX's device\n\
+independent .dvi files), kfax (displays fax files), kfract (a fractal\n\
+generator), kghostview (displays postscript .ps files), kpaint (a\n\
+simple drawing program), kruler (an onscreen ruler), ksnapshot (a\n\
+screenshot utility), kview (displays numerous graphic file formats),\n\
+and pixie (image viewer and editor)."
+
+compile() {
+   tar xvyf $CWD/kdegraphics-$VERSION.tar.bz2
+   cd kdegraphics-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdegraphics-$VERSION
+   cp AUTHORS COPYING INSTALL README /usr/doc/kdegraphics-$VERSION
+}

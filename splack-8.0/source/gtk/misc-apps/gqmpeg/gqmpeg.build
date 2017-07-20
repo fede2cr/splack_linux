@@ -1,0 +1,20 @@
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/gqmpeg-0.6.3.tar.gz
+cd gqmpeg-0.6.3
+zcat $CWD/gqmpeg-0.6.3.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+make
+make install
+mkdir -p /usr/doc/gqmpeg-0.6.3
+cp -a COPYING ChangeLog FAQ README SKIN-SPECS TODO /usr/doc/gqmpeg-0.6.3
+chown -R root.root /usr/doc/gqmpeg-0.6.3
+mkdir -p /opt/gnome/share/gqmpeg/skins
+( cd /opt/gnome/share/gqmpeg/skins
+  for file in $CWD/skins/*.tar.gz ; do
+    tar xzvf $file
+  done
+  chown -R root.root . )
+( cd / ; tar xzvf $CWD/gqmpeg-gnome-menu.tar.gz )
+rm -f /opt/gnome/share/gqmpeg/skins/*.gif
+find /opt/gnome/share/gqmpeg/skins -type f -exec chmod 644 {} \;
+find /opt/gnome/share/gqmpeg/skins -type d -exec chmod 755 {} \;

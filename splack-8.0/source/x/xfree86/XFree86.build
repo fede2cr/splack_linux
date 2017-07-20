@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# Build and install XFree86-4.1.0 on Splack Linux.
+#
+CWD=`pwd`
+cd /tmp
+tar xyvf $CWD/X410src-1.tar.bz2
+tar xyvf $CWD/X410src-2.tar.bz2
+tar xyvf $CWD/X410src-3.tar.bz2
+cd xc
+zcat $CWD/xf86site.def.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E
+zcat $CWD/site.def.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E
+zcat $CWD/Xlib.h.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E
+zcat $CWD/xclock.glibc.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E
+zcat $CWD/sparc_pci_domains.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E
+
+( cd extras/freetype2
+  CFLAGS=-O2 make setup CFG="--prefix=/usr/X11R6 sparc-slackware-linux"
+  make
+  make install
+  echo "#define Freetype2Dir     /usr/X11R6" > /tmp/xc/config/cf/host.def
+ )
+
+make World -i CDEBUGFLAGS=-O2
+make install
+make install.man
+
+#mkdir -p /usr/X11R6/lib/fonts/CID
+#if [ ! -r /usr/X11R6/lib/fonts/CID/fonts.dir ]; then
+#  echo 0 > /usr/X11R6/lib/fonts/CID/fonts.dir
+#fi
+#if [ ! -r /usr/X11R6/lib/fonts/CID/fonts.scale ]; then
+#  echo 0 > /usr/X11R6/lib/fonts/CID/fonts.scale
+#fi
+
+cat $CWD/linux8x16.pcf.gz > /usr/X11R6/lib/X11/fonts/misc/linux8x16.pcf.gz
+cat $CWD/linux8x8.pcf.gz > /usr/X11R6/lib/X11/fonts/misc/linux8x8.pcf.gz
+
+rm -f /usr/X11R6/lib/X11/config/host.def
+rm -rf /install
+mkdir /install
+cat $CWD/xf86prog/doinst.sh > /install/doinst.sh
+
+cat $CWD/xinit/README.Xmodmap > /etc/X11/xinit/README.Xmodmap
+cat $CWD/xinit/.Xmodmap > /etc/X11/xinit/.Xmodmap
+
+cp -a /etc/X11/xdm/Xsession /etc/X11/xdm/Xsession.orig
+cp -a /etc/X11/xdm/Xsetup_0 /etc/X11/xdm/Xsetup_0.orig
+cat $CWD/xdm/Xsession > /etc/X11/xdm/Xsession
+cat $CWD/xdm/Xsetup_0 > /etc/X11/xdm/Xsetup_0
+
+rm -f /usr/X11R6/lib/libz.a
+
+cat $CWD/XftConfig/XftConfig > /usr/X11R6/lib/X11/XftConfig
+cat $CWD/XftConfig/XftConfig.orig > /usr/X11R6/lib/X11/XftConfig.orig
+
+# Add freetype-1.3.1 library (the included sources didn't compile):
+cd $CWD
+./freetype.build
+
+#Now, pack the hole thing.

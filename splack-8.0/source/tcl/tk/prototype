@@ -1,0 +1,72 @@
+VERSION=8.3.3
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=tk-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="Tk"
+DESC="\
+The Tk toolkit for Tcl, version $VERSION.\n\
+\n\
+Tk is an extension to Tcl that allows you to quickly and easily build\n\
+X11 applications that have the look and feel of Motif apps."
+
+compile() {
+   tar xvzf $CWD/tcl$VERSION.tar.gz
+   tar xvzf $CWD/tk$VERSION.tar.gz
+   ( cd tcl$VERSION/unix ; ./configure --prefix=/usr )
+   cd tk$VERSION
+}
+
+install() {
+   mkdir -p /usr/doc/tk$VERSION
+   cp README changes license.terms /usr/doc/tk$VERSION
+
+   cd unix
+   ./configure --prefix=/usr --disable-shared
+   make install
+   make clean
+   ./configure --prefix=/usr --enable-shared
+   make install
+
+   ( cd /usr/bin
+     rm -f wish
+     ln -sf wish8.3 wish )
+   ( cd /usr/lib
+     rm -f libtk.a libtk.so libtkstub.a
+     ln -sf libtk8.3.a libtk.a
+     ln -sf libtk8.3.so libtk.so
+     ln -sf libtkstub8.3.a libtkstub.a )
+
+   # Make a script to produce symlinks to gzipped man pages (used when
+   # packing later):
+   cat mkLinks | \
+      perl -pi -e 's|\.3|foo3foo3|' | \
+      perl -pi -e 's|\.3|foo3foo3|' | \
+      perl -pi -e 's|foo3foo3|.3.gz|' | \
+      perl -pi -e 's|foo3foo3|.3.gz|' | \
+      perl -pi -e 's|\.n|foonfoon|' | \
+      perl -pi -e 's|\.n|foonfoon|' | \
+      perl -pi -e 's|foonfoon|.n.gz|' | \
+      perl -pi -e 's|foonfoon|.n.gz|' | \
+      perl -pi -e 's|ln |ln -sf |' > $CWD/mkgzLinks.sh
+
+   # Briefly, to use the above generated script, you go into say /usr/man/man3/
+   # of the extracted package and do this:
+   # mkdir tmp
+   # cp *.* tmp
+   # mv tmp/* .
+   # rm -r tmp
+   # gzip -9 *
+   # sh /path/to/mkgzLinks.sh .
+}
+
+attributes() {
+   find $PKG/usr/man -type f -exec chmod 444 {} \;
+}

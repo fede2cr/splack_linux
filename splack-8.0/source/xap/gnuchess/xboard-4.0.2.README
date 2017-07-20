@@ -1,0 +1,78 @@
+** Announcing the release of XBoard and WinBoard, version 4.0.2 **
+
+A new release of both XBoard and WinBoard is now available.  Version
+4.0.2 is an update to version 4.0.0 that fixes about twenty small
+bugs and adds several minor features.  It has not been extensively
+tested, so please report any apparent new bugs.
+
+You can get both programs from my Chess page on the World Wide Web or
+from the Internet Chess Library FTP site.  In addition, XBoard should
+soon be available from GNU FTP sites.
+
+- http://www.research.digital.com/SRC/personal/Tim_Mann/chess.html
+- ftp://ftp.freechess.org/pub/chess/X/xboard-4.0.2.tar.gz 
+- ftp://ftp.freechess.org/pub/chess/Win3/winboard-4_0_2.exe (zip format)
+- ftp://prep.ai.mit.edu/pub/gnu/xboard-4.0.2.tar.gz
+
+XBoard is a graphical chessboard for the X Window System that can
+serve as a user interface for GNU Chess, Crafty, and other chess
+engines, for the Internet Chess Servers, and for electronic mail
+correspondence chess.  XBoard can also be used by itself.  It can read
+and write game files in PGN (portable game notation).
+
+WinBoard is a similar program for Microsoft Windows 95/98 and Windows
+NT.  It includes all the major features of XBoard except email
+correspondence chess.  Warning: WinBoard does not work on Windows 3.1
+or 3.11, not even with Win32s.
+
+Report bugs in XBoard and WinBoard to <bug-gnu-chess@prep.ai.mit.edu>.
+
+	--Tim Mann <mann@pa.dec.com>
+
+=== Selected change highlights in 4.0.2 ===
+
+* Added five new larger piece sizes (129x129 through 87x87 pixels).
+
+* Set ICS Interaction title bar to "user@server", where "user" is the
+ICS handle you logged in as.
+
+* Restored the feature of soaking up the moves from a user-typed "moves",
+"oldmoves", or "smoves" ICS command when xboard/WinBoard is idle, but
+changed it so that the move list is also echoed to the screen.
+
+* Modified the xboard font searcher to be able to use scalable fonts.
+The new -fontSizeTolerance flag controls how closely a nonscalable
+font must match to be used in preference to a scalable font.
+	
+* Zippy environment variables ZIPPYABORT and ZIPPYADJOURN now control
+whether Zippy will accept abort and adjourn requests.  ZIPPYGAMESTART
+now allows Zippy to send a command at the start of each game.
+
+* We now determine the variant type being played on ICS, send it as a
+command "variant VARTYPE" to the chess engine (if in Zippy mode), and
+put it in the PGN tags.  ZIPPYVARIANTS controls what variants Zippy
+will accept.
+
+* Added a small code patch from Bob Hyatt to detect when Zippy's ICS
+opponent is a computer and send the command "computer" to the engine.
+Added this command to engine-intf.txt.  Thanks, Bob.
+
+=== Selected change highlights in 4.0.1 ===
+
+* You can now type in moves from the keyboard in WinBoard.  Either
+select TypeInMove from Step menu, or (if you are not in ICS mode),
+just start typing.  In ICS mode you can type moves into the ICS
+interaction window anyway, so I've retained the feature that typing
+switches you there.  Not implemented in xboard.
+
+* The command sent to ICS by Zippy at the end of each game can now be
+customized with the ZIPPYGAMEEND environment variable.
+
+* Miscellaneous minor updates and clarifications to engine-intf.txt.
+In particular, documented the st and sd commands (support for command
+line options -searchTime and -searchDepth), warts and all.
+
+* Changed -searchDepth to be orthogonal to the various timing options.
+Previously it would search for an unlimited time to the given depth;
+now the engine is allowed to choose its search time in the normal way,
+but is told to cut off the search early if it reaches the given depth.

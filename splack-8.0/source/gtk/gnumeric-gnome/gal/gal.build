@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xyvf $CWD/gal-0.8.tar.bz2
+cd gal-0.8
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/gal-0.8
+cp -a ABOUT-NLS AUTHORS COPYING COPYING.LIB ChangeLog INSTALL MAINTAINERS NEWS README \
+  /usr/doc/gal-0.8
+chmod 644 /usr/doc/gal-0.8/*
+chown root.root /usr/doc/gal-0.8/*

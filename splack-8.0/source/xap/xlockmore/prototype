@@ -1,0 +1,65 @@
+VERSION=5.00
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=xlockmore-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xlockmore
+DESC="\
+xlockmore-$VERSION\n\
+\n\
+Patrick J. Naughton's xlock screensaver/locker for X, with many\n\
+more modes added by David A. Bagley.\n\
+\n\
+The 'Bob' bitmap has been included especially for Slackware, as well\n\
+as a Linux penguin logo.  (NOTE: the image of J. R. \"Bob\" Dobbs is a\n\
+registered trademark of The Subgenius Foundation, used by permission)"
+
+compile() {
+   tar xvzf $CWD/xlockmore-$VERSION.tar.gz
+   cd xlockmore-$VERSION
+   ## Normal compile:
+   #./configure --prefix=/usr/X11R6 --without-opengl --without-mesagl \
+   #  --without-dtsaver --without-rplay --without-nas --disable-bomb
+   # Use MesaGL/OpenGL:
+   ./configure --prefix=/usr/X11R6 \
+               --without-dtsaver \
+               --without-ttf \
+               --without-gtk \
+               --without-rplay \
+               --without-nas \
+               --disable-bomb \
+               --without-motif \
+               --without-esound \
+               --without-gtk \
+               sparc-slackware-linux
+   make CFLAGS=-O2 CXXFLAGS=-O2 LDFLAGS=-s
+}
+
+install() {
+   mkdir -p /usr/X11R6/include/X11/bitmaps
+   cp $CWD/*.xbm /usr/X11R6/include/X11/bitmaps
+
+   mkdir -p /usr/doc/xlockmore-$VERSION
+   cp -r README docs/* $CWD/l-bob.README /usr/doc/xlockmore-$VERSION
+
+   mkdir -p /var/X11R6/lib/app-defaults
+   ( cd xlock
+     cp XLock.ad /etc/X11/app-defaults/XLock
+     cp xlock /usr/X11R6/bin/xlock
+     cp xlock.man /usr/X11R6/man/man1/xlock.1 )
+}
+
+attributes() {
+   chmod 4711 $PKG/usr/X11R6/bin/xlock
+}
+
+special() {
+   ( cd $PKG ; tar xpsvzf $CWD/_xlockmore.tar.gz )
+}

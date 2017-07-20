@@ -1,0 +1,14 @@
+#!/bin/sh
+cd $TMP/tcp_wrappers_7.6
+cp libwrap.a /usr/lib
+cp tcpd.h /usr/include
+
+insfile safe_finger /usr/sbin
+insfile tcpd /usr/sbin
+insfile tcpdchk /usr/sbin
+insfile tcpdmatch /usr/sbin
+insfile try-from /usr/sbin
+
+cp hosts_access.3 /usr/man/man3
+cp hosts_access.5 hosts_options.5 /usr/man/man5
+cp tcpd.8 tcpdchk.8 tcpdmatch.8 /usr/man/man8

@@ -1,0 +1,65 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-bsd_db2
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_bsd_db2.tar.gz
+
+echo "+=================+"
+echo "| db2-glibc-2.1.3 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/db2-glibc-2.1.3.tar.gz
+cd db2
+zcat $CWD/db2-glibc-2.1.3.patch.gz | patch -p1 -E --suffix=.orig --backup
+zcat $CWD/db2-2.4.14-db2.patch.gz | patch -p1 -E --suffix=.orig --backup
+make
+strip libdb2.so.3 db_archive db_checkpoint db_deadlock db_dump db_load db_printlog db_recover db_stat
+cat libdb2.so.3 > $PKG/lib/incoming/libdb2.so.3
+cat libdb2.a > $PKG/usr/lib/libdb2.a
+cat db_archive > $PKG/usr/bin/db2_archive 
+cat db_checkpoint > $PKG/usr/bin/db2_checkpoint 
+cat db_deadlock > $PKG/usr/bin/db2_deadlock 
+cat db_dump > $PKG/usr/bin/db2_dump 
+cat db_load > $PKG/usr/bin/db2_load 
+cat db_printlog > $PKG/usr/bin/db2_printlog 
+cat db_recover > $PKG/usr/bin/db2_recover 
+cat db_stat > $PKG/usr/bin/db2_stat
+cat db.h > $PKG/usr/include/db2/db.h
+cat db_185.h > $PKG/usr/include/db2/db_185.h
+mkdir -p $PKG/usr/doc/db2-2.4.14
+cp -a LICENSE README $PKG/usr/doc/db2-2.4.14
+chown root.root $PKG/usr/doc/db2-2.4.14/*
+chmod 644 $PKG/usr/doc/db2-2.4.14/*
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/bsd_db2.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/db2
+  rm -rf $PKG
+fi

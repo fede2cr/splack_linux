@@ -1,0 +1,26 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kde_i18n_ru-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+
+PROGNAME="KDE Russian Language Support"
+DESC="\
+kde-i18n-ru-$VERSION\n\
+\n\
+Russian language support."
+
+compile() {
+   tar xvyf $CWD/kde-i18n-ru-$VERSION.tar.bz2
+   cd kde-i18n-ru
+   ./configure --prefix=/opt/kde
+   make
+}
+
+install() {
+   make install
+}

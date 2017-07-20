@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $TMP/icmpinfo-1.11
+insfile icmpinfo /usr/sbin
+cp icmpinfo.man /usr/man/man1/icmpinfo.1

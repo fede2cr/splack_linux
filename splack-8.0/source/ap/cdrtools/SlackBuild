@@ -1,0 +1,103 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-cdrtools
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+mkdir -p $PKG/usr
+
+echo "+==============+"
+echo "| cdrtools-1.10 |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/cdrtools-1.10.tar.gz
+cd cdrtools-1.10
+zcat $CWD/cdrtools-1.10.ryan.diff.gz | patch -p1 -E --backup --verbose
+make
+mkdir -p $PKG/usr/bin
+cp -a cdda2wav/OBJ/sparc-linux-cc/cdda2wav \
+      cdrecord/OBJ/sparc-linux-cc/cdrecord \
+      mkisofs/diag/OBJ/sparc-linux-cc/devdump \
+      mkisofs/diag/OBJ/sparc-linux-cc/isodump \
+      mkisofs/diag/OBJ/sparc-linux-cc/isoinfo \
+      mkisofs/diag/OBJ/sparc-linux-cc/isovfy \
+      mkisofs/OBJ/sparc-linux-cc/mkisofs \
+      misc/OBJ/sparc-linux-cc/readcd \
+      scgcheck/OBJ/sparc-linux-cc/scgcheck \
+      $PKG/usr/bin
+mkdir -p $PKG/usr/doc/cdrtools-1.10
+cp -a AN-* BUILD COMPILE COPYING INSTALL README* $PKG/usr/doc/cdrtools-1.10
+chown -R root.root $PKG/usr/doc/cdrtools-1.10/*
+find $PKG/usr/doc/cdrtools-1.10 -type f -exec chmod 644 {} \;
+
+(
+   cd mkisofs
+   mkdir -p $PKG/usr/doc/cdrtools-1.10/mkisofs
+   cp -a COPYING ChangeLog README* TODO $PKG/usr/doc/cdrtools-1.10/mkisofs
+   chown root.root $PKG/usr/doc/cdrtools-1.10/mkisofs/*
+   chmod 644 $PKG/usr/doc/cdrtools-1.10/mkisofs/*
+)
+(
+   cd cdda2wav
+   mkdir -p $PKG/usr/doc/cdrtools-1.10/cdda2wav
+   cp -a FAQ Frontends GPL HOWTOUSE NEEDED OtherProgs README THANKS TODO \
+      Changelog $PKG/usr/doc/cdrtools-1.10/cdda2wav
+   chown root.root $PKG/usr/doc/cdrtools-1.10/cdda2wav/*
+   chmod 644 $PKG/usr/doc/cdrtools-1.10/cdda2wav/*
+)
+
+pwd
+mkdir -p $PKG/usr/man/man1 $PKG/usr/man/man8
+find . -name \*.1 -exec cp -av {} $PKG/usr/man/man1 \;
+find . -name \*.8 -not -name apple_driver.8 -exec cp -av {} $PKG/usr/man/man8 \;
+
+# These don't need to be in the package, IMHO.
+
+# Strip binaries:
+strip $PKG/usr/bin/*
+
+# Fix permissions:
+cd $PKG
+find . -type d -exec chmod 755 {} \;
+chown root.bin -R $PKG/usr/bin
+chown root.bin -R $PKG/usr/sbin
+chown root.root -R $PKG/usr/doc
+find $PKG/usr/man -type f -exec chmod 644 {} \;
+find $PKG/usr/man -type f -exec chown root.root {} \;
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+
+( cd $PKG/usr/bin ; ln -sf mkisofs mkhybrid )
+
+# Next big hole? ;)
+rm -r $PKG/usr/sbin
+rm -f $PKG/usr/doc/cdrtools-1.10/README.rscsi
+
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/cdrtools.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/cdrtools-1.10
+  rm -rf $PKG
+fi

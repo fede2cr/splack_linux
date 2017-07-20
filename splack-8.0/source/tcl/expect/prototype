@@ -1,0 +1,91 @@
+VERSION=5.32.1
+TCL_VER=8.3.3
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=expect-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Expect
+DESC="\
+expect-$VERSION.\n\
+\n\
+Expect is a program that talks to other interactive programs according\n\
+to a script.  Following the script, Expect knows what can be expected\n\
+from a program and what the correct response should be.  An\n\
+interpreted language provides branching and high-level control\n\
+structures to direct the dialogue.\n\
+\n\
+Expect was written by Don Libes of the National Institute of Standards\n\
+and Technology."
+
+compile() {
+   # we need tcl sources around
+   cd $TMP
+   tar xvzf $CWD/tcl$TCL_VER.tar.gz
+   cd tcl$TCL_VER/unix
+   ./configure --prefix=/usr
+
+   # extract the sources
+   cd $TMP
+   tar xvzf $CWD/expect-$VERSION.tar.gz
+   cp -a expect-$VERSION expect.shared
+
+   # build static version
+   cd $TMP/expect-$VERSION
+   ./configure --prefix=/usr \
+               --with-tclconfig=/usr/lib \
+               --with-tclinclude=$TMP/tcl$TCL_VER/generic \
+               $ARCH-slackware-linux
+   make
+
+   # build shared version
+   cd $TMP/expect.shared
+   ./configure --prefix=/usr \
+               --with-tclconfig=/usr/lib \
+               --with-tclinclude=$TMP/tcl$TCL_VER/generic \
+               --enable-shared \
+               $ARCH-slackware-linux
+   make
+}
+
+install() {
+   # install the docs
+   cd $TMP/expect-$VERSION
+   mkdir -p /usr/doc/expect-$VERSION
+   cp -r FAQ HISTORY INSTALL NEWS README example /usr/doc/expect-$VERSION
+
+   # install static version
+   cd $TMP/expect-$VERSION
+   make install
+
+   # install shared version
+   cd $TMP/expect.shared
+   make install
+
+   # symlinks
+   ( cd /usr/lib
+     rm -rf libexpect.a     ; ln -sf libexpect5.32.a libexpect.a
+     rm -rf libexpect.so    ; ln -sf libexpect5.32.so libexpect.so )
+}
+
+attributes() {
+   for f in autoexpect beer.exp chess.exp cryptdir decryptdir dislocate \
+            dvorak ftp-inband ftp-rfc gethostbyaddr kibitz lpunlock \
+            mkpasswd passmass rftp robohunt rogue.exp term_expect tknewsbiff \
+            tkpasswd tkterm virterm weather xkibitz xpstat
+   do
+      chmod 754 $PKG/usr/doc/expect-$VERSION/example/$f
+   done
+
+   for f in archie autopasswd irsh rlogin-cwd telnet-cwd timed-read \
+            timed-run unbuffer vrfy
+   do
+      chmod 755 $PKG/usr/doc/expect-$VERSION/example/$f
+   done
+}

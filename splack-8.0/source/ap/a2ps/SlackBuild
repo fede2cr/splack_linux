@@ -1,0 +1,80 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-a2ps
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_a2ps.tar.gz
+
+echo "+===============+"
+echo "| a2ps          |"
+echo "+===============+"
+cd $TMP
+
+
+# First, build psutils:
+cd $TMP
+tar xzvf $CWD/psutils-1.17.tar.gz
+cd psutils
+zcat $CWD/psutils-1.17.diff.gz | patch -p1 --verbose -E --backup --suffix=.orig
+make -f Makefile.unix
+make -f Makefile.unix install
+mkdir -p $PKG/usr/doc/psutils-1.17
+cp -a LICENSE README $PKG/usr/doc/psutils-1.17
+chown -R root.root $PKG/usr/doc/psutils-1.17
+chmod 644 $PKG/usr/doc/psutils-1.17/*
+mkdir -p $PKG/usr/bin
+cp -a epsffit extractres fixdlsrps fixfmps fixmacps fixpsditps fixpspps \
+      fixscribeps fixtpps fixwfwps fixwpps fixwwps getafm includeres \
+      psbook psmerge psnup psresize psselect pstops showchar \
+      $PKG/usr/bin
+
+# Then, build a2ps:
+cd $TMP
+tar xzvf $CWD/a2ps-4.13b.tar.gz
+cd a2ps-4.13
+zcat $CWD/a2ps-4.13b.diff.gz | patch -p1 --verbose --backup --suffix=.orig -E
+./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --with-medium=letter \
+            sparc-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/a2ps-4.13b
+cp -a ABOUT-NLS ANNOUNCE AUTHORS COPYING ChangeLog FAQ INSTALL NEWS README THANKS TODO \
+  $PKG/usr/doc/a2ps-4.13b
+chown -R root.root $PKG/usr/doc/a2ps-4.13b
+chmod 644 $PKG/usr/doc/a2ps-4.13b/*
+
+mkdir -p $PKG/install/conf/etc
+cp -a etc/a2ps-site.cfg $PKG/install/conf/etc
+cp -a etc/a2ps.cfg      $PKG/install/conf/etc
+chown root.root $PKG/install/conf/etc/*
+chmod 644       $PKG/install/conf/etc/*
+cp -a $CWD/doinst.sh $PKG/install
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/a2ps.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+

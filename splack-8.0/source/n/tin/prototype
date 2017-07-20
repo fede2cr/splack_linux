@@ -1,0 +1,56 @@
+VERSION=1.5.8
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=tin-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=tin
+DESC="\
+tin-$VERSION\n\
+\n\
+Tin is a full-screen, easy-to-use Netnews reader.  It can read news\n\
+locally (i.e. /var/spool/news) or remotely (rtin or tin -r option)\n\
+via a NNTP (Network News Transport Protocol) server.  It will\n\
+automatically utilize NOV (news overview) style index files if\n\
+available locally or via the nntp xover command.\n\
+\n\
+Tin was written by Iain Lea <iain@ecrc.de> and is currently\n\
+maintained by Urs Janssen <urs@tin.org>."
+
+compile() {
+   tar xvyf $CWD/tin-$VERSION.tar.bz2
+   cd tin-$VERSION
+   ./configure --prefix=/usr \
+               --with-metamail=/usr/bin/metamail \
+               --with-ispell=/usr/bin/ispell \
+               --with-ncurses \
+               --with-defaults-dir=/etc/tin \
+               --with-libdir=/var/lib/news
+               #--enable-color (shouldn't be needed)
+   make clean
+   make build
+}
+
+install() {
+   cp src/tin /usr/bin
+   ( cd /usr/bin ; rm -rf rtin ; ln -sf tin rtin )
+
+   mkdir -p /etc/tin
+   cp doc/tin.defaults /etc/tin
+
+   cp doc/tin.1 /usr/man/man1/tin.1
+   mkdir -p /usr/doc/tin-$VERSION
+   cp MANIFEST README* doc/* /usr/doc/tin-$VERSION
+   rm /usr/doc/tin-$VERSION/tin.1
+   rm /usr/doc/tin-$VERSION/CHANGES
+}
+
+special() {
+   ( cd $PKG ; tar xvzf $CWD/_tin.tar.gz )
+}

@@ -1,0 +1,56 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=kdebase-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Base"
+DESC="\
+kdebase-$VERSION (KDE base package)\n\
+\n\
+Core applications for the K Desktop Environment.  Included are: kdm\n\
+(replacement for xdm), kwin (window manager), konqueror (filemanager,\n\
+web browser, ftp client), konsole (xterm replacement), kicker\n\
+(application starter and desktop pager), kaudio (audio server),\n\
+kdehelp (viewer for kde help files, info and man pages), kthememgr\n\
+(system for managing alternate theme packages) plus other KDE\n\
+components like kcheckpass, kikbd, kscreensaver, kcontrol, kfind,\n\
+kfontmanager, kmenuedit, and kappfinder."
+
+compile() {
+   # get this stuff out of the way
+   rm -rf /etc/X11/xinit/xinitrc.kde /etc/profile.d/kde.sh
+   rm -rf /etc/profile.d/kde.csh
+
+   tar xvyf $CWD/kdebase-$VERSION.tar.bz2
+   cd kdebase-$VERSION
+   ./configure --prefix=/opt/kde --with-shadow $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdebase-$VERSION
+   cp AUTHORS COPYING ChangeLog INSTALL README kdebase.lsm \
+      /usr/doc/kdebase-$VERSION
+   cat $CWD/konsole.desktop > /opt/kde/share/applnk/System/konsole.desktop
+   cat $CWD/konsolerc > /opt/kde/share/config/konsolerc
+   cat $CWD/kickerrc > /opt/kde/share/config/kickerrc
+   cp $CWD/xinit/xinitrc.kde /etc/X11/xinit/xinitrc.kde
+   cp $CWD/profile.d/kde.* /etc/profile.d
+}
+
+attributes() {
+   chown root.nogroup $PKG/opt/kde/bin/kdesud
+   chmod 2755 $PKG/opt/kde/bin/kdesud
+
+   chmod 755 $PKG/etc/X11/xinit/xinitrc.kde
+   chmod 755 $PKG/etc/profile.d/kde.sh
+   chmod 755 $PKG/etc/profile.d/kde.csh
+}

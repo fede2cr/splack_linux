@@ -1,0 +1,17 @@
+Begin3
+Title:          dosfstools
+Version:        2.4
+Entered-date:   26 Oct 1999
+Description:    Utilities to create and check MS-DOS filesystems under Linux
+		(mkdosfs and dosfsck)
+                Now includes support for FAT32, VFAT long filenames and the
+		Atari variant of the filesystem
+Author:         dave@humbug.demon.co.uk (Dave Hudson),
+		werner.almesberger@lrc.di.epfl.ch (Werner Almesberger),
+		Roman.Hodek@informatik.uni-erlangen.de (Roman Hodek)
+Maintained-by:  Roman.Hodek@informatik.uni-erlangen.de (Roman Hodek)
+Primary-site:   ftp.uni-erlangen.de /pub/Linux/LOCAL/dosfstools
+		39k dosfstools-2.3.i386.tar.gz
+		65k dosfstools-2.3.src.tar.gz
+Copying-policy: GPL
+End

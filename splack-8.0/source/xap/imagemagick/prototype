@@ -1,0 +1,54 @@
+VERSION=5.2.9
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=imagemagick-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=ImageMagick
+DESC="\
+ImageMagick-$VERSION\n\
+\n\
+ImageMagick is a collection of tools for manipulating and displaying\n\
+digital images.  It can merge images, transform image dimensions,\n\
+do screen captures, create animation sequences, and convert between\n\
+many different image formats.\n\
+\n\
+See the man pages for these tools:  animate combine convert display\n\
+identify import mogrify montage xtp"
+
+compile() {
+   tar xvzf $CWD/ImageMagick-$VERSION.tar.gz
+   cd ImageMagick-$VERSION
+   autoconf
+   ./configure --prefix=/usr/X11R6 \
+               --includedir=/usr/X11R6/include/X11 \
+               --enable-16bit-pixel \
+               --with-x \
+               --with-frozenpaths=no \
+               --enable-shared \
+               --enable-lzw \
+               --with-perl \
+               $ARCH-slackware-linux
+   make CFLAGS="-O2 -I/usr/X11R6/include/freetype2" # yeah, idunno.
+
+   # make sure these get installed
+   rm -rf /usr/lib/perl5/site_perl/sparc-linux/Image
+   rm -rf /usr/lib/perl5/site_perl/sparc-linux/auto/Image
+}
+
+install() {
+   make CFLAGS=-O2 install
+   mkdir -p /usr/doc/ImageMagick-$VERSION
+   mv /usr/X11R6/bin/Magick-config /usr/doc/ImageMagick-$VERSION
+   cp -r www/* *.txt /usr/doc/ImageMagick-$VERSION
+}
+
+attributes() {
+   chmod 755 $PKG/usr/doc/ImageMagick-$VERSION/Magick-config
+}

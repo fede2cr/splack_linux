@@ -1,0 +1,34 @@
+VERSION=3.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=ytalk-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=ytalk
+DESC="\
+ytalk-$VERSION\n\
+\n\
+YTalk is a compatible replacement for the Unix talk(1) program.  Unlike\n\
+the original, ytalk can talk to more than one person at a time."
+
+compile() {
+   tar xvzf $CWD/ytalk-$VERSION.tar.gz
+   cd ytalk-$VERSION
+   ./configure --prefix=/usr --with-x=no $ARCH-slackware-linux
+   make
+}
+
+install() {
+   cp ytalk /usr/bin
+   cp ytalk.1 /usr/man/man1
+   cp ytalkrc /usr/etc
+   mkdir -p /usr/doc/ytalk-3.1.1
+   cp BUGS ChangeLog INSTALL README README.old ytalk-3.1.1.lsm \
+      /usr/doc/ytalk-3.1.1
+}

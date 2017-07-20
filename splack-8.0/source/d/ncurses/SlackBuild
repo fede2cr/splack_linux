@@ -1,0 +1,63 @@
+#!/bin/sh
+# Build ncurses for Slackware
+# by Patrick Volkerding <volkerdi@slackware.com>, 11/2000.
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-ncurses
+DOCS=$PKG/usr/doc/ncurses-5.2
+cd $TMP
+
+tar xzvf $CWD/ncurses-5.2.tar.gz
+cd ncurses-5.2
+./configure --prefix=/usr \
+            --disable-termcap \
+            --with-normal \
+            --with-shared \
+            --with-debug \
+            --with-profile \
+            --without-cxx \
+            --without-ada \
+            --enable-symlinks \
+            --with-install-prefix=$PKG \
+            sparc-slackware-linux
+make
+make install
+
+# Use symlinks in $PKG/usr/share/terminfo:
+( cd $PKG ; sh $CWD/terminfo.link.sh )
+
+# Move the include files from $PKG/usr/include into
+# $PKG/usr/include/ncurses, then make symlinks back
+# into $PKG/usr/include.
+( cd $PKG/usr/include
+  rm -rf ncurses
+  mkdir ncurses
+  for file in curses eti form menu ncurses panel term termcap unctrl ; do
+    mv $file.h ncurses
+  done
+  for file in curses eti form menu ncurses panel term unctrl ; do
+    ln -sf ncurses/$file.h .
+  done
+ )
+
+# Move the libraries into $PKG/lib, since they're important:
+mkdir -p $PKG/lib
+( cd $PKG/usr/lib ; mv libncurses.so.5* $PKG/lib )
+( cd $PKG/usr/lib ; rm libncurses.so ; ln -sf /lib/libncurses.so.5 libncurses.so )
+( cd $PKG/usr/lib ; rm libcurses.so ; ln -s libncurses.so libcurses.so )
+
+# Then, add $PKG/usr/doc/ncurses-xxxxx with appropriate files.
+mkdir -p $DOCS
+cp -a ANNOUNCE INSTALL MANIFEST NEWS README* TO-DO announce.html $DOCS
+mkdir -p $DOCS/misc
+cp -a misc/*.html $DOCS/misc
+cat tack/tack.1 | gzip -9c > $PKG/usr/man/man1/tack.1.gz
+rm -f $PKG/usr/man/man1/tack.1
+chown -R root.root $DOCS
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/ncurses.tgz

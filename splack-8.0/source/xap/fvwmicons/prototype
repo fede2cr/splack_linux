@@ -1,0 +1,33 @@
+VERSION=$SLACKWARE_VERSION
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=fvwmicons-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xpm3icons
+DESC="\
+xpm3icons.\n\
+\n\
+Color icons from xpm3icons.tar.Z, found in the /pub/X11/contrib\n\
+directory of metalab.unc.edu.  These icons work great with fvwm.\n\
+\n\
+These icons go in the /usr/X11R6/include/X11/pixmaps directory.  For\n\
+more information on how to use these icons, see fvwm's manpage."
+
+compile() {
+   echo "Nothing to compile."
+}
+
+install() {
+   echo "Nothing to install."
+}
+
+special() {
+   ( cd $PKG ; tar xvzf $CWD/fvwmicns.tgz )
+}

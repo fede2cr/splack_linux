@@ -1,0 +1,37 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=kdeutils-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Utils"
+DESC="\
+kdeutils-$VERSION\n\
+\n\
+Utilities for the K Desktop Environment.  Includes: ark (tar/gzip\n\
+archive manager), kab (address book), karm (personal time tracker),\n\
+kcalc (scientific calculator), kcharselect (character selection),\n\
+kdepasswd (password changer), kdessh (secure shell), kdf (disk free),\n\
+kedit (simple text editor), kfind (file find), kfloppy (floppy\n\
+formatting), khexedit (hex editor), kjots (note taker), klaptopdaemon,\n\
+kljettool (HP printer configuration), klpq (print queue manager),\n\
+knotes (sticky notes), kpm (process manager), kwikdisk (another df)."
+
+compile() {
+   tar xyvf $CWD/kdeutils-$VERSION.tar.bz2
+   cd kdeutils-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdeutils-$VERSION
+   cp AUTHORS COPYING INSTALL README kdeutils.lsm /usr/doc/kdeutils-$VERSION
+}

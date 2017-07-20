@@ -1,0 +1,38 @@
+Changes in 1.48:
+        * PXELINUX: Workaround for PXE ROMs based on the Intel PXE PDK
+          3.0 build 071 and earlier: missing !PXE structure pointer.
+        * PXELINUX: Handle larger BOOTP/DHCP packages.
+        * PXELINUX: The command line passing was broken; fix.
+        * PXELINUX: Make COMBOOT images work.
+        * PXELINUX: Documentation on how to make booting work using
+          the PDK 3.0-derived clients, which aren't so generous as to
+          allow booting with only "PXEClient" specified.
+
+Begin3
+Title:		syslinux
+Version:	1.48
+Entered-date:	26SEP99
+Description:	SYSLINUX is a boot loader for the Linux operating system
+		which operates off MS-DOS floppies.  It is intended to
+		simplify first-time installation of Linux, rescue
+		disks, and other uses for boot floppies.  A SYSLINUX floppy
+		can be manipulated using standard MS-DOS (or any other
+		OS that can access an MS-DOS filesystem) tools once
+		it has been created; and requires only a ~ 7K DOS program
+		or ~ 13K Linux program to create in the first place.
+		Starting with version 1.46 it also includes PXELINUX, a
+		program to boot off a network server using a boot PROM
+		compatible with the Intel PXE (Pre-Execution
+		Environment) specification.
+Keywords:	syslinux pxelinux msdos boot loader floppy install
+		network pxe
+Author:		hpa@zytor.com (H. Peter Anvin)
+Maintained-by:	hpa@zytor.com (H. Peter Anvin)
+Primary-site:	ftp.kernel.org /pub/linux/utils/boot/syslinux
+		176190 syslinux-1.48.tar.gz
+		198469 syslinux-1.48.zip
+Alternate-site:	metalab.unc.edu /pub/Linux/system/boot/loaders
+Platforms:	DOS or Linux to install.  Linux, perl and nasm 0.97 or
+		later required to build from source.
+Copying-policy: GPL
+End

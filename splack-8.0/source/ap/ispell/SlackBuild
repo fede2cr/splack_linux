@@ -1,0 +1,41 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-ispell
+
+cd $TMP
+tar xzvf $CWD/ispell-3.2.03.tar.gz
+cd ispell-3.2.03
+zcat $CWD/ispell.diff.gz | patch -p1 --verbose
+make
+
+# Build directory structure
+rm -rf $PKG/usr
+mkdir -p $PKG/usr/lib/ispell $PKG/usr/bin $PKG/usr/doc/ispell \
+         $PKG/usr/man/man1 $PKG/usr/man/man4 $PKG/usr/man/man3
+cp -a ispell buildhash icombine ijoin munchlist findaffix tryaffix \
+      $PKG/usr/bin
+chown root.root $PKG/usr/bin/*
+chmod 755       $PKG/usr/bin/*
+
+gzip -9c ispell.1 > $PKG/usr/man/man1/ispell.1.gz
+gzip -9c fields.3 > $PKG/usr/man/man3/fields.3.gz
+gzip -9c ispell.4 > $PKG/usr/man/man4/ispell.4.gz
+
+cp -a languages/english/english.aff $PKG/usr/lib/ispell
+cp -a languages/american/americanmed.hash $PKG/usr/lib/ispell 
+
+( cd $PKG/usr/lib/ispell
+  ln -sf americanmed.hash american.hash
+  ln -sf americanmed.hash english.hash )
+
+mkdir -p $PKG/usr/doc/ispell-3.2.03
+cp -a Contributors Magiclines README WISHES addons \
+  $PKG/usr/doc/ispell-3.2.03
+chown -R root.root $PKG/usr/doc/ispell-3.2.03
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/ispell.tgz

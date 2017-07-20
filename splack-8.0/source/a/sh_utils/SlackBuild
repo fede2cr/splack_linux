@@ -1,0 +1,111 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sh_utils
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_sh_utils.tar.gz
+
+echo "+==============+"
+echo "| sh-utils-2.0 |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/sh-utils-2.0.tar.gz
+cd sh-utils-2.0
+zcat $CWD/sh-utils-date-utc.diff.gz | patch -p1 --verbose -E
+mkdir -p $PKG/usr/doc/sh-utils-2.0
+cp -a ABOUT-NLS COPYING INSTALL NEWS README THANKS TODO \
+  $PKG/usr/doc/sh-utils-2.0
+chmod 644 $PKG/usr/doc/sh-utils-2.0/*
+chown root.root $PKG/usr/doc/sh-utils-2.0/*
+sleep 1
+./configure --prefix=/usr sparc-slackware-linux
+make
+cd src
+strip date echo false pwd stty true uname basename chroot \
+  dirname env expr factor groups hostid id logname nice \
+  nohup pathchk pinky printenv printf seq sleep tee test \
+  tty users who whoami yes
+cat date > $PKG/bin/date
+cat echo > $PKG/bin/echo
+cat false > $PKG/bin/false
+cat pwd > $PKG/bin/pwd
+# We use the hostname from net-tools...
+# cat hostname > $PKG/bin/hostname
+cat stty > $PKG/bin/stty
+# This is in shadow.tgz...
+#cat su > $PKG/bin/su
+cat true > $PKG/bin/true
+cat uname > $PKG/bin/uname
+cat basename > $PKG/usr/bin/basename
+cat chroot > $PKG/usr/sbin/chroot
+cat dirname > $PKG/usr/bin/dirname
+cat env > $PKG/usr/bin/env
+cat expr > $PKG/usr/bin/expr
+cat factor > $PKG/usr/bin/factor
+cat groups > $PKG/usr/bin/groups
+cat hostid > $PKG/usr/bin/hostid
+cat id > $PKG/usr/bin/id
+cat logname > $PKG/usr/bin/logname
+cat nice > $PKG/usr/bin/nice
+cat nohup > $PKG/usr/bin/nohup
+cat pathchk > $PKG/usr/bin/pathchk
+cat pinky > $PKG/usr/bin/pinky
+cat printenv > $PKG/usr/bin/printenv
+cat printf > $PKG/usr/bin/printf
+cat seq > $PKG/usr/bin/seq
+cat sleep > $PKG/bin/sleep
+cat tee > $PKG/usr/bin/tee
+cat test > $PKG/usr/bin/test
+cat tty > $PKG/usr/bin/tty
+cat users > $PKG/usr/bin/users
+cat who > $PKG/usr/bin/who
+cat whoami > $PKG/usr/bin/whoami
+cat yes > $PKG/usr/bin/yes
+cd ../man
+for page in basename.1 chroot.1 date.1 dirname.1 echo.1 \
+  hostid.1 pinky.1 \
+  env.1 expr.1 false.1 groups.1 id.1 logname.1 nice.1 nohup.1 \
+  pathchk.1 printenv.1 printf.1 pwd.1 sleep.1 stty.1 tee.1 test.1 \
+  true.1 tty.1 uname.1 users.1 who.1 whoami.1 yes.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cd ../doc
+mkdir -p $PKG/usr/info
+cat sh-utils.info | gzip -9c > $PKG/usr/info/sh-utils.info.gz
+cd ../po
+for file in *.gmo ; do
+  mkdir -p $PKG/usr/share/locale/`basename $file .gmo`/LC_MESSAGES
+  cat $file > $PKG/usr/share/locale/`basename $file .gmo`/LC_MESSAGES/sh-utils.mo
+done
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/sh_utils.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/sh-utils-2.0
+  rm -rf $PKG
+fi

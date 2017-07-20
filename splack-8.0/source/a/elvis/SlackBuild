@@ -1,0 +1,56 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-elvis
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_elvis.tar.gz
+
+cd $TMP
+tar xzvf $CWD/elvis-2.1_4.tar.gz
+cd elvis-2.1_4
+./configure --with-x=no \
+            --bindir=/usr/bin \
+            --datadir=/usr/share/elvis-2.1_4 \
+            --verbose \
+            sparc-slackware-linux
+
+make #install
+
+cp -a guix11/elvis.x[bp]m  $PKG/usr/X11R6/include/X11/bitmaps
+cp -a guix11/mini.xpm $PKG/usr/X11R6/lib/TkDesk/images/ficons16/elvis.xpm
+strip elvis elvtags ref && cp elvis elvtags ref $PKG/usr/bin
+for i in elvis elvtags ref
+do
+   cat lib/$i.man |gzip -9c >> $PKG/usr/man/man1/`basename $i .man`.1.gz
+done
+# Add ex and vi symlinks.
+( cd $PKG/usr/bin ; ln -sf elvis ex ; ln -sf elvis vi )
+
+# Docs.
+cp -a BUGS COPYING INSTALL README.html $PKG/usr/share/elvis-2.1_4
+cd lib
+# Yeah, yeah... I know. This leaves the package with the uncompressed
+# man pages in diferent places. But this is the way slackware does it, so...
+cp -a * $PKG/usr/share/elvis-2.1_4
+chown root.root $PKG/usr/share/elvis-2.1_4/*
+chmod 644 $PKG/usr/share/elvis-2.1_4/*
+# Make symlink from usr/share/elvis-2.1_4 to usr/doc/elvis-2.1_4.
+( cd $PKG/usr/doc ; ln -sf $PKG/usr/share/elvis-2.1_4 . )
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/elvis.tgz
+

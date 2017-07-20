@@ -1,0 +1,7 @@
+#!/bin/sh
+cd $TMP
+tar xzvf $CWD/netdate/netdate.tar.gz
+cd netdate
+zcat $CWD/netdate/netdate.diff.gz | patch -p1 --backup
+zcat $CWD/netdate/netdate.diff2.gz | patch -p1 --backup
+make

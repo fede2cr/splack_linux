@@ -1,0 +1,23 @@
+TAG=REC
+
+SUBPKGNAME=emacmisc-$VERSION-$ARCH-$BUILD
+
+PROGNAME="Miscellaneous files for GNU Emacs"
+DESC="\
+Miscellaneous files for emacs-$VERSION.\n\
+\n\
+This package contains the architecture-independent files used by or\n\
+with Emacs.  This includes various text files containing documentation\n\
+for GNU Emacs, or of interest to Emacs users.  These files are\n\
+installed in /usr/share/emacs/$VERSION/etc/."
+
+subinstall() {
+   echo "Nothing to install."
+}
+
+subspecial() {
+   # populate the package
+   mkdir -p $SUBPKG/usr/share/emacs/$VERSION/etc
+   cp -a $TMP/em/usr/share/emacs/$VERSION/etc/* $SUBPKG/usr/share/emacs/$VERSION/etc
+   chown -R root.root $SUBPKG/*
+}

@@ -1,0 +1,60 @@
+VERSION=4.0.pl80
+XBOARD_VER=4.0.2
+BUILD=3
+ARCH=sparc
+TAG=REC
+
+PKGNAME=gnuchess-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="GNU Chess"
+DESC="\
+gnuchess-$VERSION and xboard-$XBOARD_VER\n\
+\n\
+A worthy chess opponent from GNU.  Adds 'gnuchess', an ASCII based\n\
+chess engine, and 'xboard', an X based interface to 'gnuchessx'."
+
+compile() {
+   # build gnuchess
+   cd $TMP
+   tar xvzf $CWD/gnuchess-$VERSION.tar.gz
+   cd gnuchess-$VERSION/src
+   ./configure --prefix=/usr \
+               --libdir=/usr/lib/gnuchess \
+               sparc-slackware-linux
+   make LIBDIR=/usr/lib/gnuchess
+
+   # build xboard
+   cd $TMP
+   tar xvzf $CWD/xboard-$XBOARD_VER.tar.gz
+   cd xboard-$XBOARD_VER
+   zcat $CWD/xboard-$XBOARD_VER.diff.gz | patch -p1 -E --backup --verbose
+   ./configure --prefix=/usr/X11R6 \
+               --enable-zippy \
+               sparc-slackware-linux
+   make
+}
+
+install() {
+   # install gnuchess
+   cd $TMP/gnuchess-$VERSION
+   mkdir -p /usr/lib/gnuchess
+   ( cd src ; make LIBDIR=/usr/lib/gnuchess install )
+   mkdir -p /usr/doc/gnuchess-$VERSION
+   ( cd doc
+     cp ARTICLE ARTICLE.2 CHANGES CHESSTOOL COPYING ChangeLog FAQ GENERAL \
+        HEURISTICS INSTALL.to.delete MOVE-GEN PORTING README.font \
+        README.output TODO /usr/doc/gnuchess-$VERSION
+     cp game.6 gnuan.6 gnuchess.6 postprint.6 /usr/man/man6 )
+
+   # install xboard
+   cd $TMP/xboard-$XBOARD_VER
+   make install
+   mkdir -p /usr/doc/xboard-$XBOARD_VER
+   cp COPYING COPYRIGHT FAQ FAQ.html INSTALL READ_ME ToDo ics-addresses \
+      zippy.README /usr/doc/xboard-$XBOARD_VER
+}

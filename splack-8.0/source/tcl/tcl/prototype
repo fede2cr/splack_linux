@@ -1,0 +1,79 @@
+VERSION=8.3.3
+BUILD=1
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=tcl-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var/log
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Tcl
+DESC="\
+The Tcl script language, version $VERSION.\n\
+\n\
+Tcl, developed by Dr. John Ousterhout, is a simple to use text-based\n\
+script language with many built-in features which make it especially\n\
+nice for writing interactive scripts."
+
+compile() {
+   tar xvzf $CWD/tcl$VERSION.tar.gz
+   cd tcl$VERSION
+}
+
+install() {
+   mkdir -p /usr/doc/tcl$VERSION
+   cp README changes license.terms /usr/doc/tcl$VERSION
+
+   cd unix
+   ./configure --prefix=/usr --disable-shared
+   make install
+   make clean
+   ./configure --prefix=/usr --enable-shared
+   make
+
+   # Fix unexpanded ${TCL_DBGX} variables strewn throughout tclConfig.sh:
+   cat tclConfig.sh | \
+      sed -e s/\@LDFLAGS_DEBUG\@//g | \
+      sed -e s/\@LDFLAGS_OPTIMIZE\@//g | \
+      sed -e s/\$\{TCL_DBGX\}//g > tmpfile
+   mv tmpfile tclConfig.sh
+
+   # Make a script to produce symlinks to gzipped man pages (used when
+   # packing later):
+   cat mkLinks | \
+      perl -pi -e 's|\.3|foo3foo3|' | \
+      perl -pi -e 's|\.3|foo3foo3|' | \
+      perl -pi -e 's|foo3foo3|.3.gz|' | \
+      perl -pi -e 's|foo3foo3|.3.gz|' | \
+      perl -pi -e 's|\.n|foonfoon|' | \
+      perl -pi -e 's|\.n|foonfoon|' | \
+      perl -pi -e 's|foonfoon|.n.gz|' | \
+      perl -pi -e 's|foonfoon|.n.gz|' | \
+      perl -pi -e 's|ln |ln -sf |' > $CWD/mkgzLinks.sh
+
+   # Briefly, to use the above generated script, you go into say /usr/man/man3/
+   # of the extracted package and do this:
+   # mkdir tmp
+   # cp *.* tmp
+   # mv tmp/* .
+   # rm -r tmp
+   # gzip -9 *
+   # sh /path/to/mkgzLinks.sh .
+
+   make install
+
+   ( cd /usr/bin
+     rm -rf tclsh ; ln -sf tclsh8.3 tclsh )
+   ( cd /usr/lib
+     rm -f libtcl.a libtcl.so libtclstub.a
+     ln -sf libtcl8.3.a libtcl.a
+     ln -sf libtcl8.3.so libtcl.so
+     ln -sf libtclstub8.3.a libtclstub.a )
+}
+
+attributes() {
+   find $PKG/usr/man -type f | xargs chmod 444
+}

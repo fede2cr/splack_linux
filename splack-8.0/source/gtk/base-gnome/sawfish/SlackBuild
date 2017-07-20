@@ -1,0 +1,60 @@
+#!/bin/sh
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sawfish
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/sawfish-0.38.tar.gz
+cd sawfish-0.38
+zcat $CWD/sawfish-0.38.locale.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+                       --sysconfdir=/etc/opt/gnome \
+                       --localstatedir=/var/lib \
+                       --with-x \
+                       --with-readline \
+                       --with-audiofile \
+                       --with-esd \
+                       --enable-capplet \
+                       --enable-themer \
+                       sparc-slackware-linux
+make
+make DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/sawfish-0.38
+cp -a AUTHORS BUGS COPYING FAQ HACKING INSTALL NEWS README THANKS TODO \
+   TREE $PKG/usr/doc/sawfish-0.38
+chown -R root.root $PKG/usr/doc/sawfish-0.38
+mkdir -p $PKG/etc/X11/xinit
+cat $CWD/xinitrc.sawfish > $PKG/etc/X11/xinit/xinitrc.sawfish
+chmod 755 $PKG/etc/X11/xinit/xinitrc.sawfish
+rm $PKG/opt/gnome/info/dir
+gzip -9 $PKG/opt/gnome/info/*
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/sawfish.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gtop-1.0.13
+  rm -rf $PKG
+fi

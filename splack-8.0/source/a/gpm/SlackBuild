@@ -1,0 +1,71 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gpm
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_gpm.tar.gz
+
+echo "+============+"
+echo "| gpm-1.19.3 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/gpm-1.19.3.tar.gz
+cd gpm-1.19.3
+zcat $CWD/gpm-1.19.3.diff.gz | patch -p1 --backup --suffix=.orig -E
+zcat $CWD/gpm-1.19.2-devfs.patch.gz | patch -p1 --backup --suffix=.orig -E
+mkdir -p $PKG/usr/doc/gpm-1.19.3
+cp -a Announce COPYING ChangeLog FAQ README README.microtouch \
+  README.synaptics README.twiddler $PKG/usr/doc/gpm-1.19.3
+chown root.root $PKG/usr/doc/gpm-1.19.3/*
+./configure --prefix=/usr --sysconfdir=/etc sparc-slackware-linux
+make
+cat gpm-root.conf > $PKG/etc/gpm-root.conf
+cat gpm-syn.conf > $PKG/etc/gpm-syn.conf
+cat gpm-twiddler.conf > $PKG/etc/gpm-twiddler.conf
+strip disable-paste gpm mev gpm-root
+cat disable-paste > $PKG/usr/bin/disable-paste
+cat gpm > $PKG/usr/sbin/gpm
+cat mev > $PKG/usr/bin/mev
+cat gpm-root > $PKG/usr/bin/gpm-root
+cat gpm.h > $PKG/usr/include/gpm.h
+cat libgpm.a > $PKG/usr/lib/libgpm.a
+cat libgpm.so.1.18.0 > $PKG/usr/lib/libgpm.so.1.18.0
+cat t-mouse.el > $PKG/usr/share/emacs/site-lisp/t-mouse.el
+cat t-mouse.elc > $PKG/usr/share/emacs/site-lisp/t-mouse.elc
+for page in mev.1 gpm-root.1 ; do
+  cat doc/$page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cat doc/gpm.8 | gzip -9c > $PKG/usr/man/man8/gpm.8.gz
+cat doc/gpm.info | gzip -9c > $PKG/usr/info/gpm.info.gz
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/gpm.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gpm-1.19.3
+  rm -rf $PKG
+fi

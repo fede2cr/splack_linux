@@ -1,0 +1,27 @@
+conf:
+   ONE /etc/news/newsfeeds
+   ONE /etc/news/incoming.conf
+   ONE /etc/news/nnrpd.track
+   ONE /etc/news/passwd.nntp
+   ONE /etc/news/inn.conf
+   ONE /etc/news/moderators
+   ONE /etc/news/control.ctl
+   ONE /etc/news/expire.ctl
+   ONE /etc/news/nntpsend.ctl
+   ONE /etc/news/innreport.conf
+   ONE /etc/news/innwatch.ctl
+   ONE /etc/news/distrib.pats
+   ONE /etc/news/overview.fmt
+   ONE /etc/news/actsync.cfg
+   ONE /etc/news/actsync.ign
+   ONE /etc/news/motd.news
+   ONE /etc/news/storage.conf
+   ONE /etc/news/cycbuff.conf
+   ONE /etc/news/buffindexed.conf
+   ONE /etc/news/innfeed.conf
+   ONE /etc/news/news2mail.cf
+   ONE /etc/news/readers.conf
+   ONE /etc/news/radius.conf
+   ONE /etc/news/ovdb.conf
+   ONE /etc/news/sasl.conf
+:conf

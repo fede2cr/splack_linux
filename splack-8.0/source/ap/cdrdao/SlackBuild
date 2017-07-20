@@ -1,0 +1,37 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-cdrdao
+
+echo "+==============+"
+echo "| cdrdao-1.1.5 |"
+echo "+==============+"
+
+cd $TMP
+# First, build pccts:
+unzip $CWD/pccts133mr.zip
+cd pccts
+make 
+cd ..
+tar xzvf $CWD/cdrdao-1.1.5.src.tar.gz
+cd cdrdao-1.1.5
+./configure --prefix=/usr \
+            --with-pcctsbin=$TMP/pccts/bin \
+            --with-pcctsinc=$TMP/pccts/h \
+            sparc-slackware-linux
+make CLAGS=-O2 CXXFLAGS=-O2 
+make CLAGS=-O2 CXXFLAGS=-O2 install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/cdrdao-1.1.5
+cp -a COPYING CREDITS INSTALL README README.FreeBSD README.PlexDAE README.Win32 \
+  Release-1.1.0 Release-1.1.2 Release-1.1.3 Release-1.1.4 Release-1.1.5 \
+  contrib \
+  $PKG/usr/doc/cdrdao-1.1.5
+chown -R root.root $PKG/usr/doc/cdrdao-1.1.5
+gzip -9 $PKG/usr/man/man1/cdrdao.1
+
+cd $PKG
+echo "y
+n" | makepkg ../cdrdao.tgz

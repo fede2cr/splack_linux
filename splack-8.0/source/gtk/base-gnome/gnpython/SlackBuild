@@ -1,0 +1,53 @@
+#!/bin/sh
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gnpython
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xyvf $CWD/gnome-python-1.4.1.tar.bz2
+cd gnome-python-1.4.1
+# --prefix must point to Python's prefix
+# You could use --with-gnome=/opt/gnome and a lot of other
+# flags, too, but as long as all the gnome-config and other
+# files are in the $PATH you'll do fine without
+CFLAGS=-O2 ./configure --prefix=/usr \
+            sparc-slackware-linux
+make
+make prefix=$PKG/usr install
+mkdir -p $PKG/usr/doc/gnome-python-1.4.1
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README \
+      $PKG/usr/doc/gnome-python-1.4.1
+mkdir -p $PKG/usr/doc/gnome-python-1.4.1/pygtk
+cd pygtk
+cp -a AUTHORS NEWS README MAPPING ChangeLog $PKG/usr/doc/gnome-python-1.4.1
+chown -R root.root $PKG/usr/doc/gnome-python-1.4.1
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/gnpython.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/gnome-python-1.4.1
+  rm -rf $PKG
+fi

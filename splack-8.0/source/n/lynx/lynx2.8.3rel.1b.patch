@@ -1,0 +1,234 @@
+# ------------------------------------------------------------------------------
+# CHANGES            |   12 ++++++++++++
+# aclocal.m4         |    8 ++++----
+# configure          |    6 +++---
+# src/LYGlobalDefs.h |    2 +-
+# src/LYMain.c       |   28 +---------------------------
+# src/LYUtils.c      |   44 ++++++++++++++++++++++++++++++++++++++++++--
+# 6 files changed, 63 insertions(+), 37 deletions(-)
+# ------------------------------------------------------------------------------
+# Please remove the following file before applying this patch.
+# (You can feed this patch to 'sh' to do so.)
+
+rm -f intl/libintl.h
+exit
+
+Index: CHANGES
+--- lynx2.8.3rel.1a/CHANGES	Sat May 20 11:14:32 2000
++++ lynx2.8.3rel.1b/CHANGES	Sat May 20 11:21:09 2000
+@@ -1,6 +1,18 @@
+ Changes since Lynx 2.8 release
+ ===============================================================================
+ 
++2000-05-21 (2.8.4dev.2)
++* remove intl/libintl.h since it is overwritten by a symbolic link (reported
++  by Atsuhito Kohda <kohda@pm.tokushima-u.ac.jp>) -TD
++* correct a few tests in configure script which must allow inclusion of either
++  ncurses.h or curses.h, otherwise color-style cannot be configured (reported
++  by Frederick Bruckman <fb@enteract.com>) -TD
++* move logic that makes subdirectory for more-secure temporary files into
++  LYOpenTemp() where it can perform that action on demand rather than for all
++  invocations of lynx.  Further refine this logic by ensuring that the umask is
++  set to allow execution permissions on the subdirectory (fixes problems
++  reported by Michael Abraham Shulman <mas@kurukshetra.cjb.net> and KW) -TD
++
+ 2000-05-05 (2.8.4dev.1)
+ * use built-in LYCopyFile logic for CYGWIN rather than external cp program -DK
+ * minor refinement to  LYValidateFilename() to avoid prepending a drive
+Index: aclocal.m4
+--- lynx2.8.3rel.1a/aclocal.m4	Wed Apr 19 22:12:34 2000
++++ lynx2.8.3rel.1b/aclocal.m4	Sat May 20 11:21:09 2000
+@@ -4,7 +4,7 @@
+ dnl and Philippe De Muyter <phdm@macqel.be>
+ dnl
+ dnl Created: 1997/1/28
+-dnl Updated: 2000/4/18
++dnl Updated: 2000/5/20
+ dnl
+ dnl The autoconf used in Lynx development is GNU autoconf, patched
+ dnl by Tom Dickey.  See your local GNU archives, and this URL:
+@@ -740,7 +740,7 @@
+ #include <xcurses.h>
+ char * XCursesProgramName = "test";
+ #else
+-#include <curses.h>
++#include <${cf_cv_ncurses_header-curses.h}>
+ #ifdef HAVE_TERM_H
+ #include <term.h>
+ #endif
+@@ -2393,13 +2393,13 @@
+ AC_CACHE_CHECK(if we must define _XOPEN_SOURCE_EXTENDED,cf_cv_need_xopen_extension,[
+ AC_TRY_LINK([
+ #include <stdlib.h>
+-#include <curses.h>],[
++#include <${cf_cv_ncurses_header-curses.h}>],[
+ 	long x = winnstr(stdscr, "", 0)],
+ 	[cf_cv_need_xopen_extension=no],
+ 	[AC_TRY_LINK([
+ #define _XOPEN_SOURCE_EXTENDED
+ #include <stdlib.h>
+-#include <curses.h>],[
++#include <${cf_cv_ncurses_header-curses.h}>],[
+ 	long x = winnstr(stdscr, "", 0)],
+ 	[cf_cv_need_xopen_extension=yes],
+ 	[cf_cv_need_xopen_extension=no])])])
+Index: configure
+--- lynx2.8.3rel.1a/configure	Sat Apr 22 21:35:49 2000
++++ lynx2.8.3rel.1b/configure	Sat May 20 11:21:09 2000
+@@ -10796,7 +10796,7 @@
+ #include "confdefs.h"
+ 
+ #include <stdlib.h>
+-#include <curses.h>
++#include <${cf_cv_ncurses_header-curses.h}>
+ int main() {
+ 
+ 	long x = winnstr(stdscr, "", 0)
+@@ -10815,7 +10815,7 @@
+ 
+ #define _XOPEN_SOURCE_EXTENDED
+ #include <stdlib.h>
+-#include <curses.h>
++#include <${cf_cv_ncurses_header-curses.h}>
+ int main() {
+ 
+ 	long x = winnstr(stdscr, "", 0)
+@@ -10875,7 +10875,7 @@
+ #include <xcurses.h>
+ char * XCursesProgramName = "test";
+ #else
+-#include <curses.h>
++#include <${cf_cv_ncurses_header-curses.h}>
+ #ifdef HAVE_TERM_H
+ #include <term.h>
+ #endif
+Index: src/LYGlobalDefs.h
+--- lynx2.8.3rel.1a/src/LYGlobalDefs.h	Sun Mar 26 22:37:59 2000
++++ lynx2.8.3rel.1b/src/LYGlobalDefs.h	Sat May 20 11:21:09 2000
+@@ -177,7 +177,6 @@
+ extern BOOLEAN jump_buffer;     /* TRUE if offering default shortcut */
+ extern BOOLEAN long_url_ok;
+ extern BOOLEAN lynx_mode;
+-extern BOOLEAN lynx_temp_subspace;
+ extern BOOLEAN news_ok;
+ extern BOOLEAN recent_sizechange;
+ extern BOOLEAN rlogin_ok;
+@@ -213,6 +212,7 @@
+ extern int display_lines;	/* number of lines in the display */
+ extern int dump_output_width;
+ extern int keypad_mode;		/* NUMBERS_AS_ARROWS or LINKS_ARE_NUMBERED */
++extern int lynx_temp_subspace;
+ extern int more;		/* is there more document to display? */
+ extern int user_mode;		/* novice or advanced */
+ extern int www_search_result;
+Index: src/LYMain.c
+--- lynx2.8.3rel.1a/src/LYMain.c	Sun Apr 23 22:26:51 2000
++++ lynx2.8.3rel.1b/src/LYMain.c	Sat May 20 11:21:09 2000
+@@ -352,7 +352,7 @@
+ PUBLIC BOOLEAN check_realm = FALSE;  /* Restrict to the starting realm? */
+ 	       /* Links beyond a displayed page with no links? */
+ PUBLIC BOOLEAN more_links = FALSE;
+-PUBLIC BOOLEAN lynx_temp_subspace = FALSE; /* true if we made temp-directory */
++PUBLIC int lynx_temp_subspace = 0;	/* > 0 if we made temp-directory */
+ PUBLIC int     ccount = 0; /* Starting number for lnk#.dat files in crawls */
+ PUBLIC BOOLEAN LYCancelledFetch = FALSE; /* TRUE if cancelled binary fetch */
+ 	       /* Include mime headers with source dump */
+@@ -1055,32 +1055,6 @@
+ 	    FREE(temp);
+ 	}
+     }
+-    /*
+-     * Verify if the given space looks secure enough.  Otherwise, make a
+-     * secure subdirectory of that.  
+-     */
+-#if defined(UNIX) && defined(HAVE_MKTEMP)
+-    {
+-	struct stat sb;
+-
+-	if (lstat(lynx_temp_space, &sb) == 0
+-	 && S_ISDIR(sb.st_mode)) {
+-	    if (sb.st_uid != getuid()
+-	     || (sb.st_mode & (S_IWOTH | S_IWGRP)) != 0)
+-		lynx_temp_subspace = TRUE;
+-	} else {
+-	     lynx_temp_subspace = TRUE;
+-	}
+-	if (lynx_temp_subspace) {
+-	    StrAllocCat(lynx_temp_space, "/XXXXXX");
+-	    if (mktemp(lynx_temp_space) == 0
+-	     || mkdir(lynx_temp_space, 0700) < 0) {
+-		printf("%s: %s\n", lynx_temp_space, LYStrerror(errno));
+-		exit(-1);
+-	    }
+-	}
+-    }
+-#endif
+ #ifdef VMS
+     LYLowerCase(lynx_temp_space);
+     if (strchr(lynx_temp_space, '/') != NULL) {
+Index: src/LYUtils.c
+--- lynx2.8.3rel.1a/src/LYUtils.c	Sat May 20 11:14:32 2000
++++ lynx2.8.3rel.1b/src/LYUtils.c	Sat May 20 11:21:09 2000
+@@ -6455,6 +6455,46 @@
+ 	}
+     }
+ 
++    /*
++     * Verify if the given space looks secure enough.  Otherwise, make a
++     * secure subdirectory of that.
++     */
++#if defined(UNIX) && defined(HAVE_MKTEMP)
++    if (lynx_temp_subspace == 0)
++    {
++	BOOL make_it = FALSE;
++	struct stat sb;
++
++	if (lstat(lynx_temp_space, &sb) == 0
++	 && S_ISDIR(sb.st_mode)) {
++	    if (sb.st_uid != getuid()
++	     || (sb.st_mode & (S_IWOTH | S_IWGRP)) != 0) {
++		make_it = TRUE;
++		CTRACE((tfp, "lynx_temp_space is not our directory %s owner %d mode %03o\n",
++			     lynx_temp_space, sb.st_uid, sb.st_mode & 0777));
++	    }
++	} else {
++	    make_it = TRUE;
++	    CTRACE((tfp, "lynx_temp_space is not a directory %s\n", lynx_temp_space));
++	}
++	if (make_it) {
++	    int old_mask = umask(HIDE_UMASK);
++	    StrAllocCat(lynx_temp_space, "XXXXXX");
++	    if (mktemp(lynx_temp_space) == 0
++	     || mkdir(lynx_temp_space, 0700) < 0) {
++		printf("%s: %s\n", lynx_temp_space, LYStrerror(errno));
++		exit(-1);
++	    }
++	    umask(old_mask);
++	    lynx_temp_subspace = 1;
++	    StrAllocCat(lynx_temp_space, "/");
++	    CTRACE((tfp, "made subdirectory %s\n", lynx_temp_space));
++	} else {
++	    lynx_temp_subspace = -1;
++	}
++    }
++#endif
++
+     do {
+ 	if (!fmt_tempname(result, lynx_temp_space, suffix))
+ 	    return 0;
+@@ -6782,13 +6822,13 @@
+ 	LYRemoveTemp(ly_temp->name);
+     }
+ #ifdef UNIX
+-    if (lynx_temp_subspace) {
++    if (lynx_temp_subspace > 0) {
+ 	char result[LY_MAXPATH];
+ 	LYstrncpy(result, lynx_temp_space, sizeof(result)-1);
+ 	LYTrimPathSep(result);
+ 	CTRACE((tfp, "LYCleanupTemp removing %s\n", result));
+ 	rmdir(result);
+-	lynx_temp_subspace = FALSE;
++	lynx_temp_subspace = -1;
+     }
+ #endif
+ }

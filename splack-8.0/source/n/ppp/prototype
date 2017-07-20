@@ -1,0 +1,76 @@
+VERSION=2.4.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=ppp-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="PPP for Linux"
+DESC="\
+PPP for Linux, version $VERSION\n\
+\n\
+PPP for Linux -- Michael Callahan's ppp.c kernel driver and the pppd\n\
+daemon (ported by Al Longyear).  Linux PPP support is included as a\n\
+loadable module in the vmlinux package.  This package also contains\n\
+pppsetup, an easy-to-use, user-friendly utility for setting up your\n\
+PPP daemon."
+
+compile() {
+   # build ppp
+   cd $TMP
+   tar xvzf $CWD/ppp-$VERSION.tar.gz
+   cd ppp-$VERSION
+   # Add callback support:
+   zcat $CWD/ppp-cbcp.diff.gz | patch -p0 --backup --suffix=.orig
+   zcat $CWD/ppp.time.diff.gz | patch -p1 --backup --suffix=.orig
+   ./configure
+   # make HAS_SHADOW=1
+   make
+
+   # build pppsetup
+   cd $TMP
+   tar xvzf $CWD/pppsetup-1.98.tar.gz
+   cd pppsetup-1.98
+   zcat $CWD/pppsetup-1.98.slack.diff.gz | patch -p1 --backup
+   zcat $CWD/pppsetup-1.98.pppoff.diff.gz | patch -p0 --backup
+}
+
+install() {
+   # install ppp
+   cd $TMP/ppp-$VERSION
+   cp pppd/pppd chat/chat pppstats/pppstats /usr/sbin
+   cp pppd/pppd.8 chat/chat.8 pppstats/pppstats.8 /usr/man/man8
+   mkdir -p /usr/doc/ppp-$VERSION
+   cp -r FAQ README* SETUP scripts /usr/doc/ppp-$VERSION
+
+   # install pppsetup
+   cd $TMP/pppsetup-1.98
+   cp ppp-off pppsetup /usr/sbin
+   mkdir -p /usr/doc/pppsetup
+   cp README.pppsetup ppp-compile.txt pppsetup-1.98.README \
+      pppsetup-1.98.lsm /usr/doc/pppsetup
+}
+
+attributes() {
+   chmod 700 $PKG/usr/doc/ppp-$VERSION/scripts/ppp-on-dialer
+   chmod 711 $PKG/usr/doc/ppp-$VERSION/scripts/callback
+   chmod 711 $PKG/usr/doc/ppp-$VERSION/scripts/ppp-off
+   chmod 711 $PKG/usr/doc/ppp-$VERSION/scripts/redialer
+   chmod 511 $PKG/usr/doc/ppp-$VERSION/scripts/ppp-on
+   chmod 755 $PKG/usr/doc/ppp-$VERSION/scripts/ppp-on-rsh
+   chmod 755 $PKG/usr/doc/ppp-$VERSION/scripts/ppp-on-ssh
+}
+
+special() {
+   # add special package components
+   ( cd $PKG ; explodepkg $CWD/_ppp.tar.gz )
+
+   # add incoming config files
+   mkdir -p $PKG/etc/ppp
+   zcat $CWD/options.dist.gz > $PKG/etc/ppp/options
+}

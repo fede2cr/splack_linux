@@ -1,0 +1,17 @@
+CWD=`pwd`
+cd /tmp
+tar xyvf $CWD/gimp-1.2.1.tar.bz2
+cd gimp-1.2.1
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            --with-gtk-prefix=/opt/gnome \
+            --enable-threads
+make CFLAGS=-O2 LDFLAGS=-s
+make CFLAGS=-O2 LDFLAGS=-s install
+mkdir -p /usr/doc/gimp-1.2.1
+cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README TODO docs \
+  /usr/doc/gimp-1.2.1
+chown -R root.root /usr/doc/gimp-1.2.1
+chmod -R 644 /usr/doc/gimp-1.2.1
+find /usr/doc/gimp-1.2.1 -type d -exec chmod 755 {} \;

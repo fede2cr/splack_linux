@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/libunicode-0.4.gnome.tar.gz
+cd libunicode-0.4
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            i386-slackware-linux
+make
+make install
+mkdir /usr/doc/libunicode-0.4
+cp -a AUTHORS COPYING COPYING.LIB ChangeLog INSTALL NEWS README THANKS TODO \
+  /usr/doc/libunicode-0.4
+chmod 644 /usr/doc/libunicode-0.4/*
+chown root.root /usr/doc/libunicode-0.4/*

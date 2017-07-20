@@ -1,0 +1,39 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-egcs
+mkdir -p $PKG
+
+cd $TMP
+tar xyvf $CWD/egcs-1.1.2.tar.bz2
+cd egcs-1.1.2
+zcat $CWD/egcs-1.1.2-linux.patch.gz | patch -p1
+zcat $CWD/egcs-1.1.2-davem.patch.gz | patch -p1
+./configure --prefix=/usr \
+               --enable-shared \
+               --enable-threads \
+               --enable-languages=c \
+               sparc-slackware-linux
+
+make CC=egcs CFLAGS=-O2 LDFLAGS=-s CXXFLAGS=-O2
+mkdir -p $PKG/usr/bin
+mkdir -p $PKG/usr/sparc-slackware-linux
+mkdir -p $PKG/usr/lib
+mkdir -p $PKG/usr/doc/egcs-1.1.2/gcc
+
+make CC=egcs CFLAGS=-O2 LDFLAGS=-s CXXFLAGS=-O2 prefix=$PKG/usr install
+cp COPYING* ChangeLog.linux FAQ MAINTAINERS README faq.html \
+        $PKG/usr/doc/egcs-1.1.2
+cp -a INSTALL $PKG/usr/doc/egcs-1.1.2
+(cd gcc ; cp BUGS COPYING* Change* INSTALL LANGUAGES LITERATURE NEWS PROBLEMS \
+          README* SERVICE TESTS.FLUNK PROJECTS /usr/doc/egcs-1.1.2/gcc )
+
+mkdir $PKG/install
+cp -a $CWD/doinst.sh $PKG/install
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/egcs.tgz

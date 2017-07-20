@@ -1,0 +1,43 @@
+VERSION=3.2.3c
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=transfig-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=transfig
+DESC="\
+transfig $VERSION.\n\
+\n\
+This package contains the binaries to transform .fig files (created by\n\
+xfig) to some other formats like epsf and LaTeX.  If you have\n\
+installed xfig, you should also install this package if you want to\n\
+use xfig to create other files than .fig files, which can then be\n\
+included in your LaTeX documents."
+
+compile() {
+   tar xvzf $CWD/transfig.$VERSION.tar.gz
+   cd transfig.$VERSION
+   find . -name "*.orig" | xargs rm
+   zcat $CWD/transfig.$VERSION.diff.gz | patch -p1 -E --verbose --backup --suffix=.orig
+   xmkmf
+   make Makefiles
+   make
+}
+
+install() {
+   make install
+   make install.man
+   mkdir -p /usr/doc/transfig.$VERSION
+   cp -r CHANGES LATEX.AND.XFIG NOTES README doc /usr/doc/transfig.$VERSION
+   rm /usr/doc/transfig.$VERSION/doc/*.? /usr/doc/transfig.$VERSION/doc/MAKEPS
+}
+
+attributes() {
+   find $PKG/usr/doc/transfig.$VERSION -type f -exec chmod 644 {} \;
+}

@@ -1,0 +1,83 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-infozip
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_infozip.tar.gz
+
+echo "+=========+"
+echo "| zip-2.3 |"
+echo "+=========+"
+cd $TMP
+tar xzvf $CWD/zip23.tar.gz
+cd zip-2.3
+mkdir -p $PKG/usr/doc/zip-2.3
+cp -a BUGS CHANGES INSTALL MANUAL README TODO WHATSNEW WHERE \
+      $PKG/usr/doc/zip-2.3
+chmod 644 $PKG/usr/doc/zip-2.3/*
+chown root.root $PKG/usr/doc/zip-2.3/*
+make -f unix/Makefile generic_gcc
+strip zip zipnote zipsplit zipcloak
+cat zip > $PKG/usr/bin/zip
+cat zipnote > $PKG/usr/bin/zipnote
+cat zipsplit > $PKG/usr/bin/zipsplit
+cat zipcloak > $PKG/usr/bin/zipcloak
+for page in man/zip.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/`basename $page`.gz
+done
+
+echo "+==========+"
+echo "| unzip541 |"
+echo "+==========+"
+cd $TMP
+tar xzvf $CWD/unzip541.tar.gz
+cd unzip-5.41
+mkdir -p $PKG/usr/doc/unzip-5.41
+cp -a BUGS COPYING Contents History.541 INSTALL README ToDo WHERE \
+      $PKG/usr/doc/unzip-5.41
+chmod 644 $PKG/usr/doc/unzip-5.41/*
+chown root.root $PKG/usr/doc/unzip-5.41/*
+make -f unix/Makefile linux_noasm
+strip unzip unzipsfx funzip
+cat unzip > $PKG/usr/bin/unzip
+cat unzipsfx > $PKG/usr/bin/unzipsfx
+cat funzip > $PKG/usr/bin/funzip
+cat unix/zipgrep > $PKG/usr/bin/zipgrep
+cd man
+for page in funzip.1 unzip.1 unzipsfx.1 zipgrep.1 zipinfo.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+cd ..
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/infozip.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/zip-2.3
+  rm -rf $TMP/unzip-5.41
+  rm -rf $PKG
+fi

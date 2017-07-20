@@ -1,0 +1,47 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-man
+
+cd $TMP
+tar xzvf $CWD/man-1.5h1.tar.gz
+cd man-1.5h1
+./configure +lang all +traditional
+zcat $CWD/man-msafer.diff.gz | patch -p1 -E --verbose --backup
+make LDFLAGS=-s
+
+# man's install is broken so we will build the package manually
+mkdir -p $PKG/usr/bin $PKG/usr/man $PKG/usr/lib \
+         $PKG/usr/doc/man-1.5h1 $PKG/usr/share
+
+cp -a src/man src/apropos src/whatis $PKG/usr/bin
+cp -a COPYING INSTALL LSM README TODO $PKG/usr/doc/man-1.5h1
+chown root.root $PKG/usr/doc/man-1.5h1/*
+chmod 644 $PKG/usr/doc/man-1.5h1/*
+cp -a src/man.conf $PKG/usr/lib
+
+# This is cool...
+( cd man
+  MANFILES=`find . | egrep '\.[15]$'`
+  for file in $MANFILES ; do
+    language=`echo "$file" | cut -f 2 -d /`
+    number=`echo "$file" | cut -f 3 -d .`
+    filename=`basename "$file"`
+    mkdir -p $PKG/usr/man/$language/man$number
+    gzip -9c $file > $PKG/usr/man/$language/man$number/$filename.gz
+  done
+)
+
+# Slackware 8's man locale seems broken to me...not sure what I should do here
+# I think this is correct....
+(
+   cd msgs
+   ./inst.sh "??" "$PKG/usr/share/locale/%L/%N"
+)
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/man.tgz

@@ -1,0 +1,49 @@
+#!/bin/sh
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-libxml1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/libxml-1.8.13.tar.gz
+cd libxml-1.8.13
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --enable-corba \
+            sparc-slackware-linux 
+make
+make DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/libxml-1.8.13
+cp -a AUTHORS COPYING ChangeLog NEWS README \
+   COPYING.LIB TODO $PKG/usr/doc/libxml-1.8.13
+chown -R root.root $PKG/usr/doc/libxml-1.8.13
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/libxml1.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/libxml-1.8.13
+  rm -rf $PKG
+fi
+

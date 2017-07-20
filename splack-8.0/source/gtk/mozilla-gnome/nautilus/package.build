@@ -1,0 +1,13 @@
+#!/bin/sh
+#sh ./ammonite.build
+#ldconfig
+sh ./librsvg.build
+ldconfig
+sh ./eel.build
+ldconfig
+sh ./medusa.build
+ldconfig
+sh ./nautilus.build
+ldconfig
+#sh ./trilobite.build
+#ldconfig

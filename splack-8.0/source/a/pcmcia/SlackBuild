@@ -1,0 +1,40 @@
+#!/bin/sh
+# Build pcmcia.tgz.
+cat << EOF
+
+Before building this, get a non-APM kernel running, and a non-APM kernel tree
+in /usr/src/linux, otherwise the binaries will *require* APM, and everyone
+will complain.
+
+Modules are now bundled in with the other kernel modules, not in this package
+(makes more sense, especially with two very different kernels in this release)
+
+EOF
+sleep 3
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-pcmcia
+cd $TMP
+
+tar xzvf $CWD/pcmcia-cs-3.1.26.tar.gz
+cd pcmcia-cs-3.1.26
+mkdir -p $PKG/usr/doc/pcmcia-cs-3.1.26
+cp -a BUGS CHANGES COPYING LICENSE MAINTAINERS doc/PCMCIA-HOWTO \
+  doc/PCMCIA-PROG README SUPPORTED.CARDS $PKG/usr/doc/pcmcia-cs-3.1.26
+chown -R root.root $PKG/usr/doc/pcmcia-cs-3.1.26
+chmod 644 $PKG/usr/doc/pcmcia-cs-3.1.26/*
+make clean
+./Configure --noapm --nopnp --trust --kernel=/usr/src/linux --noprompt --current --bsd
+make all 
+make install
+# This version of rc.pcmcia has been modified for use with Slackware.
+# It also polls the card slots rather than wasting an IRQ for that.
+zcat $CWD/rc.pcmcia.gz > /etc/rc.d/rc.pcmcia
+# Patch the config.opts for the correct WebGear wireless defaults:
+( cd /etc/pcmcia ; zcat $CWD/config.opts.diff.gz | patch -p0 )
+mkdir -p /usr/include/pcmcia
+cp -a include/pcmcia/* /usr/include/pcmcia
+chmod 644 /usr/include/pcmcia/*
+chown root.root /usr/include/pcmcia/*

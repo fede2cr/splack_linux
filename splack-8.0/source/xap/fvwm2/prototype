@@ -1,0 +1,71 @@
+VERSION=2.2.4
+BUILD=5
+ARCH=sparc
+TAG=REC
+
+PKGNAME=fvwm2-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Fvwm
+DESC="\
+fvwm-$VERSION\n\
+\n\
+Fvwm is a window manager for X11.  It is a derivative of twm,\n\
+redesigned to minimize memory consumption, provide a 3-D look to\n\
+window frames, and provide a simple virtual desktop."
+
+compile() {
+   tar xvzf $CWD/fvwm-$VERSION.tar.gz
+   cd fvwm-$VERSION
+   zcat $CWD/fvwm-$VERSION.slack.diff.gz | patch -p1 --backup
+   ./configure --prefix=/usr/X11R6 \
+               --sysconfdir=/etc/X11/fvwm2 \
+               --enable-extras \
+               sparc-slackware-linux
+   make CFLAGS=-O2 LDFLAGS=-s
+}
+
+install() {
+   # install fvwm and docs
+   make CFLAGS=-O2 LDFLAGS=-s install
+   mkdir -p /usr/doc/fvwm-$VERSION
+   cp -r AUTHORS COPYING ChangeLog INSTALL INSTALL.fvwm NEWS README docs \
+      sample.fvwmrc /usr/doc/fvwm-$VERSION
+   rm /usr/doc/fvwm-$VERSION/docs/Makefile*
+   rm /usr/doc/fvwm-$VERSION/sample.fvwmrc/Makefile*
+
+   # config files
+   mkdir -p /etc/X11/xinit
+   mkdir -p /etc/X11/fvwm2
+   cat $CWD/xinitrc.fvwm2 > /etc/X11/xinit/xinitrc.fvwm2
+   chmod 755 /var/X11R6/lib/xinit/xinitrc.fvwm2
+   cat $CWD/system.fvwm2rc > /etc/X11/fvwm2/system.fvwm2rc
+
+   # symlinks
+   ( cd /usr/X11R6/lib/X11
+     rm -rf fvwm2 ; ln -sf ../../../../etc/X11/fvwm2 fvwm2 )
+}
+
+attributes() {
+   chmod 754 $PKG/usr/doc/fvwm-$VERSION/docs/run_man2html.sh
+   chmod 754 $PKG/usr/doc/fvwm-$VERSION/docs/txt2html.sh
+}
+
+special() {
+   # restore timestamps on pixmaps
+   mkdir -p $PKG/usr/X11R6/include/X11/pixmaps
+   cp -a $TMP/fvwm-$VERSION/icons/*.xpm $PKG/usr/X11R6/include/X11/pixmaps
+   chown root.root $PKG/usr/X11R6/include/X11/pixmaps/*
+   chmod 644 $PKG/usr/X11R6/include/X11/pixmaps/*
+
+   # add extra icons
+   ( cd $PKG ; tar xvzf $CWD/extra_xpm.tgz )
+
+   # add to the doinst.sh
+   cat $CWD/doinst.sh $CTL/doinst.sh > $CTL/doinst.incoming
+   mv $CTL/doinst.incoming $CTL/doinst.sh
+}

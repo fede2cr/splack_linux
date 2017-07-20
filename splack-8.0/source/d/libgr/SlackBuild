@@ -1,0 +1,86 @@
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-libgr
+cd $TMP
+
+tar xzvf $CWD/libgr-scripts.tar.gz
+tar xzvf $CWD/libgr-2.0.13.tar.gz
+cd libgr-2.0.13
+zcat $CWD/libgr-2.0.13-bmp.no24.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13-bmptoppm.no24.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13-glibc.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13-glibc21.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13-incl.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13-pktopbm.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13-i686.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13-subdirs.patch.gz | patch -p1 -E
+zcat $CWD/libgr-2.0.13.Slackware.sparc.diff.gz | patch -p1 -E
+
+# We don't want these old versions around during the compile... the old
+# headers might screw things up.  With the directories cleared out, the
+# correct versions out in /usr/include will be used.
+for oldjunk in jpeg tiff zlib png ; do
+  ( cd $oldjunk ; rm -r * )
+done
+
+# Probably unneccessary.  Commented out.
+#( cd png
+#  ln -sf /usr/lib/libpng.so .
+#  ln -sf /usr/include/png.h .
+#  ln -sf /usr/include/pngconf.h . )
+
+# Build:
+SHARED=shared
+make SHARED=$SHARED everything
+make -C pnm progs
+make -C png progs
+
+# We don't need this, since we're not including libpng anyway (we use a
+# newer version in a seperate package)
+#rm png/png.h
+
+rm -rf $TMP/package-libgr
+mkdir $TMP/package-libgr
+mkdir -p $TMP/package-libgr/usr/{lib,include,bin}
+make prefix=$TMP/package-libgr/usr install_everything
+make -C pnm prefix=$TMP/package-libgr/usr install_p install_m
+#make -C png prefix=$TMP/package-libgr/usr install_p install_m
+
+for i in $TMP/package-libgr/usr/bin/* ; do
+    strip $i || :
+done
+
+( cd ../libgr-scripts ; ./install.sh $TMP/package-libgr/ )
+
+( cd $TMP/package-libgr/usr/lib
+ln -sf libfbm.so.1.0.0 $TMP/package-libgr/usr/lib/libfbm.so
+ln -sf libpbm.so.1.0.0 $TMP/package-libgr/usr/lib/libpbm.so
+ln -sf libpgm.so.1.0.0 $TMP/package-libgr/usr/lib/libpgm.so
+ln -sf libpnm.so.1.0.0 $TMP/package-libgr/usr/lib/libpnm.so
+ln -sf libppm.so.1.0.0 $TMP/package-libgr/usr/lib/libppm.so
+ln -sf librle.so.1.0.0 $TMP/package-libgr/usr/lib/librle.so
+)
+
+gzip -9 $TMP/package-libgr/usr/man/*/*
+
+chgrp -R bin $TMP/package-libgr/usr/bin
+
+mkdir -p $TMP/package-libgr/usr/doc/libgr-2.0.13
+cp -a ANNOUNCE-2.0.3 ChangeLog INSTALL NEWS README.ELF README.orig \
+  $TMP/package-libgr/usr/doc/libgr-2.0.13
+mkdir $TMP/package-libgr/usr/doc/libgr-2.0.13/fbm
+cd fbm
+cp -a FTP Features GLOSSARY README $TMP/package-libgr/usr/doc/libgr-2.0.13/fbm
+cd ..
+
+chmod 644 $TMP/package-libgr/usr/doc/libgr-2.0.13/* \
+          $TMP/package-libgr/usr/doc/libgr-2.0.13/fbm/*
+
+chown -R root.root $TMP/package-libgr/usr/doc/libgr-2.0.13
+chmod 755 $TMP/package-libgr/usr/doc/libgr-2.0.13/fbm
+
+cd $TMP/package-libgr
+echo "y
+n" | makepkg $TMP/libgr.tgz

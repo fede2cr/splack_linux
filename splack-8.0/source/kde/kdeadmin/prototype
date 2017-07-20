@@ -1,0 +1,30 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=REC
+
+PKGNAME=kdeadmin-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE Admin"
+DESC="\
+kdeadmin-$VERSION\n\
+\n\
+KDE system administration and backup tools."
+
+compile() {
+   tar xvyf $CWD/kdeadmin-$VERSION.tar.bz2
+   cd kdeadmin-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdeadmin-$VERSION
+   cp AUTHORS COPYING INSTALL README kdeadmin.lsm /usr/doc/kdeadmin-$VERSION
+}

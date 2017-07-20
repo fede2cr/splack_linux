@@ -1,0 +1,67 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-flex
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_flex.tar.gz
+
+echo "+=============+"
+echo "| flex-2.5.4a |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/flex-2.5.4a.tar.gz
+cd flex-2.5.4
+mkdir -p $PKG/usr/doc/flex-2.5.4a
+cp -a INSTALL NEWS README $PKG/usr/doc/flex-2.5.4a
+mkdir -p $PKG/usr/doc/flex-2.5.4a/MISC
+cd MISC
+cp -a EBCDIC README alloca.c debflex.awk parse.c parse.h \
+  testxxLexer.l $PKG/usr/doc/flex-2.5.4a/MISC
+cp -a fastwc $PKG/usr/doc/flex-2.5.4a/MISC
+chown -R root.root $PKG/usr/doc/flex-2.5.4a
+cd ..
+./configure --prefix=/usr
+make CFLAGS=-O2 LDFLAGS=-s
+cat flex > $PKG/usr/bin/flex
+cat FlexLexer.h > $PKG/usr/include/FlexLexer.h
+cat libfl.a > $PKG/usr/lib/libfl.a
+cat flex.1 | gzip -9c > $PKG/usr/man/man1/flex.1.gz
+cd MISC/texinfo
+makeinfo flex.texi
+mkdir -p $PKG/usr/info
+cat flex.info | gzip -9c > $PKG/usr/info/flex.info.gz
+cat flex.info-1 | gzip -9c > $PKG/usr/info/flex.info-1.gz
+cat flex.info-2 | gzip -9c > $PKG/usr/info/flex.info-2.gz
+cat flex.info-3 | gzip -9c > $PKG/usr/info/flex.info-3.gz
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/flex.tgz .
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/flex-2.5.4
+  rm -rf $PKG
+fi

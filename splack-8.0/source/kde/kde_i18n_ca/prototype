@@ -1,0 +1,26 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kde_i18n_ca-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+
+PROGNAME="KDE Catalan Language Support"
+DESC="\
+kde-i18n-ca-$VERSION\n\
+\n\
+Catalan language support."
+
+compile() {
+   tar xvyf $CWD/kde-i18n-ca-$VERSION.tar.bz2
+   cd kde-i18n-ca
+   ./configure --prefix=/opt/kde
+   make
+}
+
+install() {
+   make install
+}

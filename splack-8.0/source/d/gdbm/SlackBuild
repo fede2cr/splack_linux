@@ -1,0 +1,41 @@
+#!/bin/sh
+# Build gdbm-1.8.0 for Slackware
+# by volkerdi@slackware.com, 2/2001
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+PKG=$TMP/package-gdbm
+( cd $TMP ; rm -rf package-gdbm ; mkdir package-gdbm )
+cd $TMP
+tar xzvf $CWD/gdbm-1.8.0.tar.gz
+cd gdbm-1.8.0
+
+# Configure/build:
+./configure --prefix=/usr
+make CFLAGS=-O2
+mkdir -p $PKG/usr/{lib,include,info,man/man3}
+make CFLAGS=-O2 install prefix=$PKG/usr
+
+# I think at least ndbm.h conflicts with glibc2... not sure
+# about dbm.h.  If you think these should have been included,
+# complain to volkerdi@slackware.com :)
+#cp -a ndbm.h dbm.h $PKG/usr/include
+#chown root.root $PKG/usr/include/{ndbm.h,dbm.h}
+
+# Install docs:
+mkdir -p $PKG/usr/doc/gdbm-1.8.0
+cp -a COPYING ChangeLog INSTALL NEWS README $PKG/usr/doc/gdbm-1.8.0
+chown root.root $PKG/usr/doc/gdbm-1.8.0/*
+chmod 644 $PKG/usr/doc/gdbm-1.8.0/*
+chown root.root $PKG/usr/info/gdbm.info
+gzip -9 $PKG/usr/info/gdbm.info
+chown root.root $PKG/usr/man/man3/gdbm.3
+gzip -9 $PKG/usr/man/man3/gdbm.3
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg ../gdbm.tgz
+

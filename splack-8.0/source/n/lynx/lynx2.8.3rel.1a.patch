@@ -1,0 +1,482 @@
+# ------------------------------------------------------------------------------
+# CHANGES                               |   24 ++++++++++
+# INSTALLATION                          |    7 +--
+# WWW/Library/Implementation/HTAccess.c |    2 
+# WWW/Library/Implementation/SGML.c     |    3 -
+# lynx.hlp                              |   72 ++++++++++++++++----------------
+# lynx.man                              |   10 +++-
+# lynx_help/lynx_help_main.html         |    4 +
+# makefile.in                           |    4 -
+# src/LYClean.c                         |    2 
+# src/LYCurses.c                        |    2 
+# src/LYGetFile.c                       |   11 +++-
+# src/LYUtils.c                         |    4 -
+# src/LYexit.c                          |    2 
+# 13 files changed, 92 insertions, 55 deletions
+# ------------------------------------------------------------------------------
+Index: CHANGES
+--- lynx2.8.3rel.1+/CHANGES	Sun Apr 23 22:26:51 2000
++++ lynx2.8.3rel.1a/CHANGES	Fri May  5 07:16:03 2000
+@@ -1,6 +1,30 @@
+ Changes since Lynx 2.8 release
+ ===============================================================================
+ 
++2000-05-05 (2.8.4dev.1)
++* use built-in LYCopyFile logic for CYGWIN rather than external cp program -DK
++* minor refinement to  LYValidateFilename() to avoid prepending a drive
++  letter when saving files via the PRINT command on DOS systems -DK
++* update URLs in lynx_help_main.html (Frederic L W Meunier)
++* update description in INSTALLATION dealing with passive ftp (report by
++  Frederic L W Meunier) -TD
++* correct ifdef'ing in LYtouchline() for VMS curses versus slang (report by
++  Jerome Lauret)
++* correct an overlooked change of ifdef's from
++  CONV_JISX0201KANA_TO_JISX0208KANA to CONV_JISX0201KANA_JISX0208KANA -TH
++* move include of LYClean.h in LYexit.c to ensure that cleanup_files() is
++  prototyped on VMS (report by Jerome Lauret) 
++* move assignment of HadVMSInterrupt in cleanup_sig() to avoid interaction with
++  logic in HTConfirmDefault() on VMS (reported/tested by Jerome Lauret) -KW
++* minor fixes to lynx.man / lynx.hlp for descriptions of -get_data, -post_data,
++  -short_url -KW
++* avoid invalid memory access that can result from redirection messages
++  that include a fragment in the new URL -KW
++* change sed delimiter in makefile.in from '%' to '"', to work around SINIX
++  v5.43 (SYSV4) sed which becomes confused by nested '%' in expression for
++  htmlized cfg install (reported by Shishakov Vjacheslav"
++  <shishako@avn.skiftel.ru>) -TD
++
+ 2000-04-23 (2.8.3rel.1)
+ * replace LYNX_RELEASE variable in userdefs.h by functions LYVersionIsRelease()
+   and LYVersionStatus() in LYShowInfo.c -TD
+Index: INSTALLATION
+--- lynx2.8.3rel.1+/INSTALLATION	Sat Apr 22 21:35:49 2000
++++ lynx2.8.3rel.1a/INSTALLATION	Fri May  5 07:03:37 2000
+@@ -590,10 +590,9 @@
+     comments in FIXED512.COM, userdefs.h and lynx.cfg for more information.
+ 
+ Step 2.  Passive FTP
+-    If your system requires the PASV FTP code instead of the standard
+-    PORT FTP code (e.g., to deal with a firewall) then edit "WWW/Library/
+-    Implementation/HTFTP.c" and comment out line 43 like so:
+-	     /*  #define LISTEN   /* @@@@ Test LJM */.
++    If your system requires the PASV FTP code instead of the standard PORT FTP
++    code (e.g., to deal with a firewall) then set the FTP_PASSIVE option in
++    lynx.cfg
+ 
+ Step 3a.
+     Lynx uses the VMS port of gzip for uncompressing streams which have
+Index: WWW/Library/Implementation/HTAccess.c
+--- lynx2.8.3rel.1+/WWW/Library/Implementation/HTAccess.c	Sun Mar 26 22:37:59 2000
++++ lynx2.8.3rel.1a/WWW/Library/Implementation/HTAccess.c	Thu May  4 21:46:36 2000
+@@ -823,7 +823,7 @@
+ 	    NewDoc.bookmark = anchor->bookmark;
+ 	    NewDoc.isHEAD = anchor->isHEAD;
+ 	    NewDoc.safe = anchor->safe;
+-	    anchor = (HTParentAnchor *)HTAnchor_findAddress(&NewDoc);
++	    anchor = HTAnchor_parent(HTAnchor_findAddress(&NewDoc));
+ 	}
+     }
+     /*
+Index: WWW/Library/Implementation/SGML.c
+--- lynx2.8.3rel.1+/WWW/Library/Implementation/SGML.c	Thu Apr  6 21:30:03 2000
++++ lynx2.8.3rel.1a/WWW/Library/Implementation/SGML.c	Fri May  5 06:28:57 2000
+@@ -1740,8 +1740,9 @@
+      */
+     if ((HTCJK==JAPANESE) && (context->state==S_in_kanji) &&
+ 	!IS_JAPANESE_2BYTE(context->kanji_buf,(unsigned char)c)) {
+-#ifdef CONV_JISX0201KANA_TO_JISX0208KANA
++#ifdef CONV_JISX0201KANA_JISX0208KANA
+ 	if (IS_SJIS_X0201KANA(context->kanji_buf)) {
++	    unsigned char sjis_hi, sjis_lo;
+ 	    JISx0201TO0208_SJIS(context->kanji_buf, &sjis_hi, &sjis_lo);
+ 	    PUTC(sjis_hi);
+ 	    PUTC(sjis_lo);
+Index: lynx.hlp
+--- lynx2.8.3rel.1+/lynx.hlp	Mon Apr 17 07:15:04 2000
++++ lynx2.8.3rel.1a/lynx.hlp	Fri May  5 06:53:15 2000
+@@ -197,8 +197,9 @@
+        -ftp   disable ftp access.
+ 
+        -get_data
+-              send form data from stdin using GET method and dump
+-              results.
++              properly formatted data for a get form are read  in
++              from  stdin  and  passed  to  the  form.   Input is
++              terminated by a line that starts with '---'.
+ 
+        -head  send a HEAD request for the mime headers.
+ 
+@@ -208,18 +209,19 @@
+               control the display of hidden links.
+ 
+               merge hidden links show up as bracketed numbers and
+-              are numbered  together  with  other  links  in  the
++              are  numbered  together  with  other  links  in the
+               sequence of their occurrence in the document.
+ 
+-              listonly  hidden  links  are  shown  only  on L)ist
++              listonly hidden  links  are  shown  only  on  L)ist
+               screens and listings generated by -dump or from the
+-              P)rint  menu,  but  appear separately at the end of
++              P)rint menu, but appear separately at  the  end  of
++
+               those lists.  This is the default behavior.
+ 
+               ignore hidden links do not appear even in listings.
+ 
+        -historical
+-              toggles  use  of  '>'  or '-->' as a terminator for
++              toggles use of '>' or '-->'  as  a  terminator  for
+               comments.
+ 
+        -homepage=URL
+@@ -231,7 +233,7 @@
+        -index=URL
+               set the default index file to the specified URL.
+ 
+-       -ismap toggles inclusion of ISMAP links  when  client-side
++       -ismap toggles  inclusion  of ISMAP links when client-side
+               MAPs are present.
+ 
+        -justify
+@@ -245,12 +247,12 @@
+               disable URLs that point to remote hosts.
+ 
+        -locexec
+-              enable local program  execution  from  local  files
+-              only  (if  Lynx  was  compiled with local execution
++              enable  local  program  execution  from local files
++              only (if Lynx was  compiled  with  local  execution
+               enabled).
+ 
+        -mime_header
+-              prints the MIME header of a fetched document  along
++              prints  the MIME header of a fetched document along
+               with its source.
+ 
+        -minimal
+@@ -260,7 +262,7 @@
+               number of articles in chunked news listings.
+ 
+        -newsmaxchunk=NUMBER
+-              maximum  news articles in listings before chunking.
++              maximum news articles in listings before  chunking.
+ 
+        -nobold
+               disable bold video-attribute.
+@@ -268,20 +270,20 @@
+        -nobrowse
+               disable directory browsing.
+ 
+-       -nocc  disable Cc: prompts for self  copies  of  mailings.
+-              Note  that  this does not disable any CCs which are
++       -nocc  disable  Cc:  prompts  for self copies of mailings.
++              Note that this does not disable any CCs  which  are
+               incorporated within a mailto URL or form ACTION.
+ 
+        -nocolor
+               force   color   mode   off,   overriding   terminal
+-              capabilities   and   any  -color  flags,  COLORTERM
++              capabilities  and  any  -color   flags,   COLORTERM
+               variable, and saved .lynxrc settings.
+ 
+        -noexec
+               disable local program execution. (DEFAULT)
+ 
+        -nofilereferer
+-              disable transmissions of Referer headers  for  file
++              disable  transmissions  of Referer headers for file
+               URLs.
+ 
+        -nolist
+@@ -291,10 +293,10 @@
+               owners.
+ 
+        -nonrestarting_sigwinch
+-              This flag is not available  on  all  systems,  Lynx
+-              needs  to  be compiled with HAVE_SIGACTION defined.
+-              If available, this flag may  cause  Lynx  to  react
+-              more  immediately to window changes when run within
++              This  flag  is  not  available on all systems, Lynx
++              needs to be compiled with  HAVE_SIGACTION  defined.
++              If  available,  this  flag  may cause Lynx to react
++              more immediately to window changes when run  within
+               an xterm.
+ 
+        -nopause
+@@ -323,8 +325,7 @@
+               disable underline video-attribute.
+ 
+        -number_fields
+-              force  numbering  of  links  as  well as form input
+-
++              force numbering of links  as  well  as  form  input
+               fields
+ 
+        -number_links
+@@ -338,16 +339,17 @@
+               with partial-display logic
+ 
+        -pauth=ID:PASSWD
+-              set  authorization  ID and password for a protected
+-              proxy server at startup.  Be sure  to  protect  any
++              set authorization ID and password for  a  protected
++              proxy  server  at  startup.  Be sure to protect any
+               script files which use this switch.
+ 
+-       -popup toggles  handling  of  single-choice SELECT options
++       -popup toggles handling of  single-choice  SELECT  options
+               via popup windows or as lists of radio buttons.
+ 
+        -post_data
+-              send form data from stdin  using  POST  method  and
+-              dump results.
++              properly formatted data for a post form are read in
++              from stdin  and  passed  to  the  form.   Input  is
++              terminated by a line that starts with '---'.
+ 
+        -preparsed
+               show  HTML  source  preparsed  and reformatted when
+@@ -379,6 +381,7 @@
+               no options are specified.
+ 
+               all - restricts all options listed below.
++
+               bookmark - disallow changing the  location  of  the
+               bookmark file.
+ 
+@@ -433,7 +436,6 @@
+               inside your domain (utmp required for selectivity).
+ 
+               inside_news  -  disallow  USENET  news  posting for
+-
+               people  coming  from  inside  your   domain   (utmp
+               required for selectivity).
+ 
+@@ -484,7 +486,6 @@
+ 
+               telnet_port  - disallow specifying a port in telnet
+               G)oto's.
+-
+               useragent - disallow  modifications  of  the  User-
+               Agent header.
+ 
+@@ -501,7 +502,7 @@
+               require .www_browsable files to browse directories.
+ 
+        -short_url
+-              show  very  long URLs in the status line with "___"
++              show  very  long URLs in the status line with "..."
+               to represent the portion which cannot be displayed.
+               The  beginning  and  end  of the URL are displayed,
+               rather than suppressing the end.
+@@ -542,7 +543,6 @@
+        -term=TERM
+               tell Lynx  what  terminal  type  to  assume  it  is
+               talking   to.   (This  may  be  useful  for  remote
+-
+               execution, when, for example, Lynx  connects  to  a
+               remote  TCP/IP  port  that starts a script that, in
+               turn, starts another Lynx process.)
+@@ -647,6 +647,7 @@
+                            The   actual  value  assigned  to  the
+                            variable is ignored.  This variable is
+                            only  meaningful  if  Lynx  was  built
++
+                            using   the   slang    screen-handling
+                            library.
+ 
+@@ -701,6 +702,7 @@
+        ORGANIZATION        This  variable,  if  set, provides the
+                            string  used  in   the   Organization:
+                            header  of  USENET  news postings.  On
++
+                            UNIX, it will override the contents of
+                            an /etc/organization file, if present.
+ 
+@@ -755,10 +757,10 @@
+                            any.  It is  created  for  use  by  an
+                            external  program,  as  defined  in  a
+                            lynx.cfg      PRINTER:      definition
++
+                            statement.   If  the  field  does  not
+                            exist for the document,  the  variable
+                            is set to a null string under UNIX, or
+-
+                            "No LastMod" under VMS.
+ 
+        LYNX_PRINT_TITLE    This  variable  is  set  by  the  Lynx
+@@ -864,6 +866,7 @@
+        LANG                This variable, if set,  will  override
+                            the  default  message language.  It is
+                            an ISO 639 two-letter code identifying
++
+                            the  language.  Language codes are NOT
+                            the same as the country codes given in
+                            ISO 3166.
+@@ -917,11 +920,12 @@
+ 
+        A section shown as (GNU), is intended to denote  that  the
+        topic  may be available via an info page, instead of a man
+-       page (i.e., try "info  subject",  rather  than  "man  subject").
++       page (i.e., try "info  subject",  rather  than  "man  sub
++       ject").
+ 
+        A  section  shown as (?) denotes that documentation on the
+-       topic exists, but is not part of an established documenta
+-       tion  retrieval system (see the distribution files associated
++       topic exists, but is not part of an established documentation
++       retrieval system (see the distribution files associated
+        with the topic, or contact your System  Administrator
+        for further information).
+ 
+Index: lynx.man
+--- lynx2.8.3rel.1+/lynx.man	Mon Apr 17 07:15:04 2000
++++ lynx2.8.3rel.1a/lynx.man	Fri May  5 06:02:26 2000
+@@ -212,7 +212,9 @@
+ disable ftp access.
+ .TP
+ .B -get_data
+-send form data from stdin using GET method and dump results.
++properly formatted data for a get form are read in from
++stdin and passed to the form.
++Input is terminated by a line that starts with '---'.
+ .TP
+ .B -head
+ send a HEAD request for the mime headers.
+@@ -361,7 +363,9 @@
+ popup windows or as lists of radio buttons.
+ .TP
+ .B -post_data
+-send form data from stdin using POST method and dump results.
++properly formatted data for a post form are read in from 
++stdin and passed to the form.
++Input is terminated by a line that starts with '---'. 
+ .TP
+ .B -preparsed
+ show HTML source preparsed and reformatted when used with -source
+@@ -537,7 +541,7 @@
+ require .www_browsable files to browse directories.
+ .TP
+ .B -short_url
+-show very long URLs in the status line with "___" to represent the
++show very long URLs in the status line with "..." to represent the
+ portion which cannot be displayed.
+ The beginning and end of the URL are displayed, rather than suppressing the end.
+ .TP
+Index: lynx_help/lynx_help_main.html
+--- lynx2.8.3rel.1+/lynx_help/lynx_help_main.html	Thu Apr 13 22:50:19 2000
++++ lynx2.8.3rel.1a/lynx_help/lynx_help_main.html	Fri May  5 07:08:31 2000
+@@ -74,7 +74,9 @@
+ <ul>
+ <li><a href="ftp://gnjilux.cc.fer.hr/pub/unix/util/wget/">WGET</a>
+  -- powerful &amp; flexible non-interactive downloader
+-<li><a href="http://www.fts.frontec.se/%7Edast/curl/">cURL</a>
++<li><a href="http://www.idata.sk/~ondrej/pavuk/">Pavuk</a>
++ -- powerful &amp; an even more-featured downloader
++<li><a href="http://curl.haxx.nu/">cURL</a>
+  -- non-interactive downloader which supports HTTPS
+ <li><a href="http://www.xach.com/snarf/">SNARF</a>
+  -- small simple 1-file non-interactive downloader
+Index: makefile.in
+--- lynx2.8.3rel.1+/makefile.in	Fri Mar 31 19:54:50 2000
++++ lynx2.8.3rel.1a/makefile.in	Thu May  4 20:20:03 2000
+@@ -331,8 +331,8 @@
+ 		done'
+ 
+ # HPUX 'sed' does not seem to like '=' as pattern delimiter.
+-FIX_SED = tr '=' '%'
+-#FIX_SED = cat
++# We cannot use '%' because it may appear in a URL.
++FIX_SED = tr '=' '"'
+ 
+ help_files.sed : makefile $(srcdir)/lynx_help/help_files.txt
+ 	@echo Constructing sed-script $@
+Index: src/LYClean.c
+--- lynx2.8.3rel.1+/src/LYClean.c	Wed Dec 15 06:25:06 1999
++++ lynx2.8.3rel.1a/src/LYClean.c	Fri May  5 06:18:47 2000
+@@ -43,7 +43,6 @@
+ 	 *  Reassert the AST.
+ 	 */
+ 	(void) signal(SIGINT, cleanup_sig);
+-	HadVMSInterrupt = TRUE;
+ 	if (!LYCursesON)
+ 	    return;
+ 
+@@ -61,6 +60,7 @@
+ 	} else {
+ 	    c = HTConfirmDefault(REALLY_EXIT_N, NO);
+ 	}
++	HadVMSInterrupt = TRUE;
+ 	if (LYQuitDefaultYes == TRUE) {
+ 	    if (c == NO) {
+ 		return;
+Index: src/LYCurses.c
+--- lynx2.8.3rel.1+/src/LYCurses.c	Mon Apr 17 07:15:04 2000
++++ lynx2.8.3rel.1a/src/LYCurses.c	Fri May  5 06:49:42 2000
+@@ -1356,7 +1356,7 @@
+ #if defined(HAVE_WREDRAWLN)
+     wredrawln(stdscr, row, 1);
+ #else
+-#if defined(VMS) && !defined(_BSD44_CURSES)
++#if defined(VMS) && !defined(_BSD44_CURSES) && !defined(USE_SLANG)
+     /* touchline() is not available on VMS before version 7.0, and then
+      * only on Alpha, since prior ports of curses were broken.
+      */
+Index: src/LYGetFile.c
+--- lynx2.8.3rel.1+/src/LYGetFile.c	Sun Mar 26 22:37:59 2000
++++ lynx2.8.3rel.1a/src/LYGetFile.c	Thu May  4 21:46:36 2000
+@@ -1055,11 +1055,14 @@
+ 			    return(NULLFILE);
+ 
+ 			} else {
+-			/*
+-			 *  May set www_search_result.
+-			 */
+-			    if (pound != NULL)
++			    if (pound != NULL) {
++				if (!HTMainText) /* this should not happen... */
++				    return(NULLFILE); /* but it can. - kw */
++				/*
++				 *  May set www_search_result.
++				 */
+ 				HTFindPoundSelector(pound+1);
++			    }
+ 			    return(NORMAL);
+ 			}
+ 		    }
+Index: src/LYUtils.c
+--- lynx2.8.3rel.1+/src/LYUtils.c	Mon Apr 17 07:15:04 2000
++++ lynx2.8.3rel.1a/src/LYUtils.c	Fri May  5 07:15:33 2000
+@@ -7044,7 +7044,7 @@
+ #else
+ 
+ #ifndef __EMX__
+-    if (!LYIsPathSep(*given)) {
++    if (!LYisAbsPath(given)) {
+ #if defined(__DJGPP__) || defined(_WINDOWS)
+     if (strchr(result, ':') != NULL)
+ 	cp = NULL;
+@@ -7331,7 +7331,7 @@
+ 	char *,		src,
+ 	char *,		dst)
+ {
+-#if defined(DOSPATH)		/* thanks to Hiroyuki Senshu */
++#if defined(DOSPATH) || defined(__CYGWIN__) /* thanks to Hiroyuki Senshu */
+ 
+ #define BUF_SIZE	1024
+ 
+Index: src/LYexit.c
+--- lynx2.8.3rel.1+/src/LYexit.c	Thu Apr 13 22:50:19 2000
++++ lynx2.8.3rel.1a/src/LYexit.c	Fri May  5 06:21:57 2000
+@@ -8,9 +8,9 @@
+ #include <LYGlobalDefs.h>
+ #include <LYUtils.h>
+ #include <LYSignal.h>
+-#include <LYClean.h>
+ #include <LYMainLoop.h>
+ #endif /* !VMS */
++#include <LYClean.h>
+ 
+ /*
+  *  Flag for outofmem macro. - FM

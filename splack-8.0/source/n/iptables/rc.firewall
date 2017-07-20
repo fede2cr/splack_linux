@@ -1,0 +1,67 @@
+#!/bin/sh
+# rc.firewall:  This is an example script showing how to set up NAT (Network
+# Address Translation, also known as "IP Masquerading") for a private LAN.
+# This is useful for getting all the machines on your local network to connect
+# to the Internet through a single machine with a modem, cable modem, or DSL.
+# The packets going through the Linux machine are "masqueraded", or made to
+# look as if they're all coming from the one real IP address on the Internet.
+#
+# The example in this script allows a local network 192.168.11.0 with a
+# netmask of 255.255.255.0 to access the Internet.  If your LAN network
+# address is different, you'll need to edit this script.
+#
+# rc.firewall is not run by default.  To load it at boot time, add it to your
+# /etc/rc.d/rc.local script:
+#
+# /etc/rc.d/rc.firewall
+
+# The firewall will require forwarding IP packets, so turn that on:
+echo "Enabling ip_forwarding..."
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Set up the firewall.  There are three steps to setting this up:
+# 1. First, make a rule that rejects all packets other that those covered
+#    by the next two rules.
+# 2. Make a MASQ (masquerading, or NAT) rule to translate packets going from
+#    the local network to the outside Internet.
+# 3. Make an ACCEPT (or simple forwarding) rule to forward packets going
+#    between two machines on the LAN without applying translation.  This
+#    speeds things up, and is a good idea since all the LAN machines are
+#    going to be using the Linux firewall as a gateway.
+
+echo "Setting up NAT (Network Address Translation)..."
+echo "  ipchains -P forward REJECT"
+echo "  ipchains -A forward -s 192.168.11.0/24 -d \! 192.168.11.0/24 -j MASQ"
+echo "  ipchains -A forward -s 192.168.11.0/24 -d 192.168.11.0/24 -j ACCEPT"
+
+# by default, nothing is forwarded.
+iptables -P forward REJECT
+# anything going from inside network to outside is masqueraded
+iptables -A forward -s 192.168.11.0/24 -d \! 192.168.11.0/24 -j MASQ
+# anything going from one internal machine to another is allowed
+# to pass unmolested
+iptables -A forward -s 192.168.11.0/24 -d 192.168.11.0/24 -j ACCEPT
+
+# Now, on to the IP masquerading modules.  The example above is good enough
+# for most things that use TCP in a relatively simple fashion.  It'll work
+# for telnet and http, for instance.  But, the system breaks down when you
+# get protocols that use ports in more complicated ways.  Luckily the Linux
+# kernel gurus have thought of this and have prepared some modules that
+# support masquerading of trickier protocols.  The iptables command is mighty
+# flexible as well, and a lot of things can be made to work just by setting
+# that up correctly.
+
+echo "Loading ip_masq_* modules..."
+echo "  insmod ip_masq_portfw"
+insmod ip_masq_portfw
+echo "  insmod ip_masq_ftp"
+insmod ip_masq_ftp
+echo "  insmod ip_masq_irc"
+insmod ip_masq_irc
+echo "  insmod ip_masq_raudio"
+insmod ip_masq_raudio
+echo "  insmod ip_masq_cuseeme"
+insmod ip_masq_cuseeme
+echo "  insmod ip_masq_quake"
+insmod ip_masq_quake
+

@@ -1,0 +1,48 @@
+#!/bin/sh
+CWD=`pwd` 
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-ghex
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/ghex-1.2.tar.gz
+cd ghex-1.2
+CFLAGS=-O2 ./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            --localstatedir=/var/lib \
+            sparc-slackware-linux
+make
+make prefix=$PKG/opt/gnome sysconfdir=$PKG/etc/opt/gnome install
+mkdir -p $PKG/usr/doc/ghex-1.2
+cp -a ABOUT-NLS AUTHORS COPYING COPYING-DOCS ChangeLog INSTALL NEWS README \
+   $PKG/usr/doc/ghex-1.2
+chown -R root.root $PKG/usr/doc/ghex-1.2
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/ghex.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/ghex-1.2
+  rm -rf $PKG
+fi

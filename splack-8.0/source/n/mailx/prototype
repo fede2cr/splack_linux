@@ -1,0 +1,62 @@
+VERSION=8.1.1-10
+VER_MOD="`echo $VERSION | sed -e "s/\-/\_/g"`"
+BUILD=3
+ARCH=sparc
+TAG=REC
+
+PKGNAME=mailx-$VER_MOD-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="BSD mailx"
+DESC="\
+BSD mailx $VERSION\n\
+\n\
+Mail is a intelligent mail processing system, which has a command\n\
+syntax reminiscent of ed with lines replaced by messages.  It's small;\n\
+it's the standard; it's a good thing to install if you're going to use\n\
+mail."
+
+compile() {
+   tar xvzf $CWD/mailx_8.1.1.orig.tar.gz
+   cd mailx-8.1.1.orig
+   zcat $CWD/mailx_$VERSION.diff.gz | patch -p1
+   make
+   ( cd USD.doc
+     tbl mail0.nr mail1.nr mail2.nr mail3.nr mail4.nr mail5.nr mail6.nr \
+         mail7.nr mail8.nr mail9.nr maila.nr | groff -me -Tascii > manual.txt )
+}
+
+install() {
+   # install binaries
+   rm -rf /usr/bin/Mail
+   cp mail /usr/bin/Mail
+   ( cd /bin
+     rm -rf Mail  ; ln -sf /usr/bin/Mail Mail
+     rm -rf mail  ; ln -sf /usr/bin/Mail mail
+     rm -rf mailx ; ln -sf /usr/bin/Mail mailx )
+
+   # install support files
+   cp misc/mail.help misc/mail.tildehelp /usr/lib
+
+   # install documentation
+   cat mail.1 | gzip -9c > /usr/man/man1/mailx.1.gz
+   mkdir -p /usr/doc/mailx
+   cp USD.doc/manual.txt /usr/doc/mailx
+}
+
+attributes() {
+   chmod 444 $PKG/usr/lib/mail.help
+   chmod 444 $PKG/usr/lib/mail.tildehelp
+}
+
+special() {
+   # install incoming mail.rc file
+   mkdir -p $PKG/etc
+   cp $TMP/mailx-8.1.1.orig/misc/mail.rc $PKG/etc/mail.rc
+   chown root.root $PKG/etc/mail.rc
+   chmod 444 $PKG/etc/mail.rc
+}

@@ -1,0 +1,67 @@
+VERSION=3.1.5
+BUILD=3
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=htdig-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="ht://Dig"
+DESC="\
+htdig-$VERSION\n\
+\n\
+The ht://Dig system is a complete world wide web indexing and\n\
+searching system for a small domain or intranet. This system is not\n\
+meant to replace the need for powerful internet-wide search systems\n\
+like Lycos, Infoseek, Webcrawler and AltaVista. Instead it is meant\n\
+to cover the search needs for a single company, campus, or even a\n\
+particular sub section of a web site.\n\
+\n\
+The ht://Dig package is required by KDE's help system."
+
+compile() {
+   rm -rf /opt/www
+   tar xvzf $CWD/htdig-$VERSION.tar.gz
+   cd htdig-$VERSION
+   # Let it use default directories... it should end up under /opt...
+   ./configure $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/htdig-$VERSION
+   cp -r COPYING README contrib htdoc /usr/doc/htdig-$VERSION
+
+   # KDevelop likes this link:
+   ( cd /opt/www/htdig/bin
+     rm -rf htsearch ; ln -sf ../../cgi-bin/htsearch . )
+}
+
+attributes() {
+   ( for f in changehost/changehost.pl conv_doc.pl doclist/doclist.pl \
+              doclist/listafter.pl ewswrap/ewswrap.cgi ewswrap/htwrap.cgi \
+              examples/rundig.sh examples/updatedig htparsedoc/htparsedoc \
+              multidig/add-urls multidig/multidig multidig/new-db parse_doc.pl \
+              run-robot.sh status.pl urlindex/urlindex.pl whatsnew/whatsnew.pl \
+              wordfreq/wordfreq.pl
+     do
+        chmod 755 $PKG/usr/doc/htdig-$VERSION/contrib/$f
+     done )
+   chmod 655 $PKG/usr/doc/htdig-$VERSION/contrib/autorun/autorun
+}
+
+special() {
+   rmdir $PKG/opt/www/htdig/db
+
+   # write out the profile.d scripts
+   mkdir -p $PKG/etc/profile.d
+   ( cd $PKG/etc/profile.d
+     cp -a $CWD/profile.d/* .
+     chown root.root htdig.*
+     chmod 755 htdig.* )
+}

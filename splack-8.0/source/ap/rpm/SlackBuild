@@ -1,0 +1,56 @@
+#!/bin/sh
+# Build RPM (of all things) for Slackware.
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-rpm
+
+cd $TMP
+tar xzvf $CWD/rpm-4.0.2.tar.gz
+cd rpm-4.0.2
+zcat $CWD/rpm-4.0.2.diff.gz | patch -p1
+
+# Install the docs before mangling them with our filters:
+mkdir -p $PKG/usr/doc/rpm-4.0.2
+cp -a ABOUT-NLS CHANGES COPYING CREDITS GROUPS INSTALL README \
+  README.amiga RPM-GPG-KEY RPM-PGP-KEY TODO $PKG/usr/doc/rpm-4.0.2
+cp -a doc/manual $PKG/usr/doc/rpm-4.0.2
+chown -R root.root $PKG/usr/doc/rpm-4.0.2
+find $PKG/usr/doc/rpm-4.0.2 -type d | xargs chmod 755
+find $PKG/usr/doc/rpm-4.0.2 -type f | xargs chmod 644
+
+# Change the /usr/src/redhat path to /usr/src/rpm.  This ain't redhat.
+find . -name "*.orig" | xargs rm --verbose
+for file in `find . -type f` ; do
+  echo "Filtering /src/redhat path in $file..."
+  cp -a $file $file.orig
+  cat $file.orig | sed "/\/src\/redhat/s//\/src\/rpm/" > $file
+done
+for file in `find . -type f` ; do
+  echo "Filtering {_usrsrc}/redhat path in $file..."
+  cp -a $file $file.orig
+  cat $file.orig | sed "/{_usrsrc}\/redhat/s//{_usrsrc}\/rpm/" > $file
+done
+find . -name "*.orig" | xargs rm --verbose
+
+# Using "rpm" for the vendor name cures the /usr/src bug.
+CFLAGS=-O2 ./configure --prefix=/usr sparc-rpm-linux
+# rpm's configure is broken, must copy libtool to popt
+cp -a libtool popt
+make 
+make install DESTDIR=$PKG
+
+gzip -9 --force $PKG/usr/man/man3/popt.3 \
+  $PKG/usr/man/man8/rpm.8 \
+  $PKG/usr/man/man8/rpm2cpio.8
+strip $PKG/bin/rpm $PKG/usr/bin/rpm2cpio
+mkdir -p $PKG/var/lib/rpm/tmp
+cat $CWD/Packages > $PKG/var/lib/rpm/tmp/Packages
+mkdir -p $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/rpm.tgz

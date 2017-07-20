@@ -1,0 +1,31 @@
+VERSION=1.4.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kdevelop-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=KDevelop
+DESC="\
+kdevelop-$VERSION\n\
+\n\
+The KDevelop integrated C/C++ application development environment."
+
+compile() {
+   tar xvyf $CWD/kdevelop-$VERSION.tar.bz2
+   cd kdevelop-$VERSION
+   ./configure --prefix=/opt/kde
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdevelop-$VERSION
+   cp AUTHORS BUGS COPYING ChangeLog FAQ INSTALL README README.htdig \
+      TODO kdevelop.lsm /usr/doc/kdevelop-$VERSION
+}

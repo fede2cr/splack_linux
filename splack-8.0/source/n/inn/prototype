@@ -1,0 +1,131 @@
+VERSION=2.3.2
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=inn-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var/run:/var/log
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=INN
+DESC="\
+inn-$VERSION\n\
+\n\
+Rich Salz's InterNetNews news transport system.  The core part of the\n\
+package is a single long-running daemon that handles all incoming NNTP\n\
+connections.  It files the articles and arranges for them to be\n\
+forwarded to downstream sites."
+
+compile() {
+   # clean out old stuff
+   rm -rf /var/lib/news
+   rm -rf /usr/lib/news
+   rm -rf /etc/news
+   ( cd /usr/man/man1
+     rm getlist* grephistory* inews* innconfval* innfeed* nntpget* rnews* \
+        shlock* shrinkfile* convdate* simpleftp* startinnfeed* )
+   ( cd /usr/man/man3
+     rm dbz* inndcomm* libinn* libstorage* parsedate* qio* wildmat* clientlib* )
+   ( cd /usr/man/man5
+     rm active* control.ctl* cycbuff.conf* distrib.pats* expire* history* \
+        incoming.conf* inn.conf* innwatch.ctl* moderators* motd.news* \
+        newsfeeds* newslog* nnrp.access* nnrpd.track* nntpsend.ctl* ovdb* \
+        passwd.nntp* readers.conf* sasl.conf* storage.conf* buffindexed.conf* \
+        innfeed.conf* overview.fmt* )
+   ( cd /usr/man/man8
+     rm actsync* archive* batcher* buffchan* cnfsheadconf* cndsstat* \
+        controlchan* ctlinnd* cvtbatch* dbprocs* expirerm* fastrm* filechan* \
+        inncheck* innd* inndf* innreport* innstat* innwatch* innxbatch* \
+        innxmit* mailpost* makedbz* mod-active* news.daily* news2mail* \
+        newsrequeue* nnrpd* nntpsend* ovdb_upgrade* overchan* pgpverify* \
+        prunehistory* pullnews* scanlogs* send-uucp* sm* writelog* expire* \
+        actsyncd* expireover* inndstart* makehistory* ovdb_recover* \
+        tally.control* cnfsstat* )
+
+   # download the latest FAQ
+   wget -r -v http://www.blank.org/innfaq
+
+   # build inn
+   tar xvzf $CWD/inn-$VERSION.tar.gz
+   cd inn-$VERSION
+   rm -f config.cache
+   LDFLAGS=-s CFLAGS="-O2 -pipe" \
+   sh configure \
+      --enable-tagged-hash \
+      --with-perl \
+      --disable-shared \
+      --with-sendmail=/usr/sbin/sendmail \
+      --prefix=/usr/lib/news \
+      --mandir=/usr/man \
+      --with-news-user=news \
+      --with-news-group=news \
+      --with-news-master=news \
+      --with-db-dir=/var/lib/news \
+      --with-etc-dir=/etc/news \
+      --with-log-dir=/var/log/news \
+      --with-run-dir=/var/lib/news/run \
+      --with-spool-dir=/var/spool/news \
+      --with-tmp-path=/var/lib/news/tmp \
+      $ARCH-slackware-linux
+   make
+}
+
+install() {
+   # install binaries
+   mkdir -p /var/lib/news/run
+   make install
+
+   # symlinks
+   ( cd /usr/bin
+     rm -rf inews ; ln -sf /usr/lib/news/bin/inews inews )
+   ( cd /etc/rc.d
+     rm -rf rc.news ; ln -sf /usr/lib/news/bin/rc.news rc.news )
+
+   # install documentation
+   mkdir -p /usr/doc/inn-$VERSION
+   cp CONTRIBUTORS COPYRIGHT ChangeLog HISTORY INSTALL MANIFEST NEWS README* \
+      /usr/doc/inn-$VERSION
+   cp -r $TMP/www.blank.org/innfaq /usr/doc/inn-$VERSION
+}
+
+attributes() {
+   chown -R news.news $PKG/etc/news
+   chown -R news.news $PKG/usr/lib/news
+   chmod 644 $PKG/usr/doc/inn-$VERSION/innfaq/*.html
+   chown uucp.news $PKG/usr/lib/news/bin/rnews
+   chmod 4550 $PKG/usr/lib/news/bin/rnews
+
+   for f in `find $PKG/usr/lib/news/bin -type f -print`
+   do
+      chmod a-w $f
+      chown news.news $f
+   done
+
+   chmod 640 $PKG/usr/lib/news/bin/filter/*
+
+   chown root.news $PKG/usr/lib/news/bin/inndstart
+   chown root.news $PKG/usr/lib/news/bin/startinnfeed
+   chown uucp.news $PKG/usr/lib/news/bin/rnews
+   chmod 4550 $PKG/usr/lib/news/bin/inndstart
+   chmod 4550 $PKG/usr/lib/news/bin/startinnfeed
+   chmod 4550 $PKG/usr/lib/news/bin/rnews
+
+   find $PKG/usr/man -type f -exec chmod 444 {} \;
+
+   chown news.news $PKG/etc/news
+}
+
+special() {
+   # remove *.OLD files
+   find $PKG -type f -name "*.OLD" -exec rm {} \;
+
+   # add the special inn package components
+   ( cd $PKG ; tar xpsvzf $CWD/_inn.tar.gz )
+   chown news.news $PKG/var/lib/news/active
+   chown news.news $PKG/var/lib/news/newsgroups
+   chmod 644 $PKG/var/lib/news/active
+   chmod 644 $PKG/var/lib/news/newsgroups
+}

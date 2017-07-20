@@ -1,0 +1,133 @@
+VERSION=20.7
+BUILD=4
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=emacsbin-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="GNU Emacs (with X11 support)"
+DESC="\
+GNU Emacs $VERSION\n\
+\n\
+Base binaries and support files for the GNU Emacs editor/environment.\n\
+This version supports X.  If you do not have X installed, you will\n\
+also have to install the replacement /usr/bin/emacs-$VERSION that does not\n\
+require the X11, Xaw, and Xt libraries from XFree86.\n\
+\n\
+The emacs binary in this package was configured with these options:\n\
+  sparc-slackware-linux --prefix=/usr --with-x11 --with-x-toolkit\n\
+  --with-pop"
+
+compile() {
+   # extract the sources
+   tar xvyf $CWD/emacs-$VERSION.tar.bz2
+   tar xvyf $CWD/leim-$VERSION.tar.bz2
+   cp -a emacs-$VERSION emacs-$VERSION-x
+
+   # without x
+   cd $TMP/emacs-$VERSION
+   CFLAGS=-O2 LDFLAGS=-s ./configure --prefix=/usr \
+                                     --with-x=no \
+                                     --with-pop \
+                                     sparc-slackware-linux
+   make
+
+   # with x
+   cd $TMP/emacs-$VERSION-x
+   CFLAGS=-O2 LDFLAGS=-s ./configure --prefix=/usr \
+                                     --with-x11 \
+                                     --with-x-toolkit \
+                                     --with-pop \
+                                     sparc-slackware-linux
+   make
+
+   # remove old emacs stuff
+   rm -rf /usr/share/emacs/$VERSION
+}
+
+install() {
+   # install emacs
+   cd $TMP/emacs-$VERSION
+   make install
+   mv /usr/bin/emacs-$VERSION /usr/bin/emacs-$VERSION-no-x11
+   cd $TMP/emacs-$VERSION-x
+   make install
+   ( cd /usr/bin
+     mv emacs-$VERSION emacs-$VERSION-with-x11
+     ln -sf emacs-$VERSION-with-x11 emacs )
+
+   # install documentation
+   mkdir -p /usr/doc/emacs-$VERSION
+   cp BUGS GETTING.GNU.SOFTWARE INSTALL README /usr/doc/emacs-$VERSION
+
+   # symlinks
+   ( cd /usr/doc/emacs-$VERSION ; rm -rf etc )
+   ( cd /usr/doc/emacs-$VERSION ; ln -sf /usr/share/emacs/$VERSION/etc etc )
+   ( cd /usr/share/emacs/$VERSION ; rm -rf site-lisp )
+   ( cd /usr/share/emacs/$VERSION ; ln -sf ../site-lisp site-lisp )
+}
+
+attributes() {
+   chown root.root $PKG/usr/share/emacs/$VERSION/lisp/bindings.el
+   chmod 444 $PKG/usr/share/emacs/$VERSION/lisp/bindings.el
+
+   chown root.bin $PKG/usr/bin/emacs-$VERSION-with-x11
+   chmod 1755 $PKG/usr/bin/emacs-$VERSION-with-x11
+}
+
+special() {
+   # we'll use this master when constructing subpackages
+   cp -a $PKG $TMP/em
+
+   # remove unnecessary components
+   rm -rf $PKG/usr/info/*
+   rm -rf $PKG/usr/share/emacs/$VERSION/leim
+   rm -rf $PKG/usr/share/emacs/$VERSION/etc
+   rm -rf $PKG/usr/bin/emacs-$VERSION-no-x11
+
+   # we only want emacs lisp source files with no precompiled copy
+   for file in `find $PKG/usr/share/emacs -name "*.el"`
+   do
+      if [ -r ${file}c ]
+      then
+         rm -f $file
+      fi
+   done
+
+   # add back user recommended emacs lisp source files
+   ( mkdir -p $PKG/usr/share/emacs/$VERSION/lisp
+     cd $TMP/em/usr/share/emacs/$VERSION/lisp
+     cp -a abbrevlist.el bindings.el cdl.el foldout.el vt-control.el \
+        $PKG/usr/share/emacs/$VERSION/lisp )
+   ( mkdir -p $PKG/usr/share/emacs/$VERSION/lisp/emacs-lisp
+     cd $TMP/em/usr/share/emacs/$VERSION/lisp/emacs-lisp
+     cp -a cl-specs.el $PKG/usr/share/emacs/$VERSION/lisp/emacs-lisp )
+   ( mkdir -p $PKG/usr/share/emacs/$VERSION/lisp/international
+     cd $TMP/em/usr/share/emacs/$VERSION/lisp/international
+     cp -a iso-transl.el $PKG/usr/share/emacs/$VERSION/lisp/international )
+   ( mkdir -p $PKG/usr/share/emacs/$VERSION/lisp/term
+     cd $TMP/em/usr/share/emacs/$VERSION/lisp/term
+     cp -a apollo.el bg-mouse.el news.el pc-win.el sun-mouse.el sun.el \
+        sup-mouse.el tvi970.el vt100.el vt200.el w32-win.el wyse50.el \
+        x-win.el xterm.el $PKG/usr/share/emacs/$VERSION/lisp/term )
+
+   # add the site-lisp thing
+   mkdir -p $PKG/usr/share/emacs/site-lisp
+   cat << EOF >> $PKG/usr/share/emacs/site-lisp/subdirs.el
+(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+    (normal-top-level-add-subdirs-to-load-path))
+EOF
+}
+
+subpacks() {
+   repack emac_nox
+   repack elisp
+   repack emacinfo
+   repack emacmisc
+   repack emacleim
+}

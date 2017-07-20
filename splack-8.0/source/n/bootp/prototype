@@ -1,0 +1,41 @@
+VERSION=DD2.4.3
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=bootp-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=bootp
+DESC="\
+bootp-$VERSION\n\
+\n\
+This is an enhanced version of the CMU BOOTP server which was derived\n\
+from the original BOOTP server created by Bill Croft at Stanford.\n\
+This version merges all the enhancements and bug-fixes from the\n\
+NetBSD, Columbia, and other versions."
+
+compile() {
+   tar xvzf $CWD/bootp-$VERSION.tar.gz
+   cd bootp-$VERSION
+   zcat $CWD/bootp-$VERSION.diff.gz | patch -p1 --backup
+   make
+}
+
+install() {
+   cp bootpd bootpef bootpgw bootptest /usr/sbin
+   cp bootptab.5 /usr/man/man5
+   cp bootpd.8 bootpef.8 bootptest.8 /usr/man/man8
+   mkdir -p /usr/doc/bootp-$VERSION
+   cp Announce Changes Changes.Dynamic Installation Problems README \
+      README.Dynamic ToDo ToDo.Dynamic bootptab.Dynamic bootptab.cmu \
+      bootptab.mcs  /usr/doc/bootp-$VERSION
+}
+
+special() {
+   ( cd $PKG ; explodepkg $CWD/_bootp.tar.gz )
+}

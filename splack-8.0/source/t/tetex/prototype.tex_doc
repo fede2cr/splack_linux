@@ -1,0 +1,32 @@
+TAG=REC
+
+SUBPKGNAME=tex_doc-$VERSION-$ARCH-$BUILD
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/var/lock:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="teTeX documentation"
+DESC="\
+Documentation for teTeX-$VERSION.\n\
+\n\
+This package contains documentation for AMSTeX, BibTeX, extended plain\n\
+format, font packages, format files (babel, texdraw, pstricks, xypic),\n\
+LaTeX, MetaPost, Makeindex, pdftex, the Kpathsea library, as well as\n\
+general information about TeX such as a list of ftp servers, a draft\n\
+for the TeX Directory Standard (TDS), The TeX and LaTeX Catalogue, and\n\
+TeX FAQs."
+
+subinstall() {
+   echo "Nothing to install for tex_doc."
+}
+
+subspecial() {
+   # populate the tree
+   mkdir -p $SUBPKG/usr/share/texmf/doc
+   mkdir -p $SUBPKG/usr/doc
+   cp -a $TMP/tex-package/usr/share/texmf/doc/* $SUBPKG/usr/share/texmf/doc
+
+   # add the doinst.sh script
+   cp -a $CWD/tex_doc-ln.sh $SUBCTL/doinst.sh
+}

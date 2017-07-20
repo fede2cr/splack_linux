@@ -1,0 +1,8 @@
+#!/bin/sh
+cd $TMP
+mkdir pcnfsd
+cd pcnfsd
+tar xvzf $CWD/pcnfsd/pcnfsd.93.02.16.tar.gz
+zcat $CWD/pcnfsd/pcnfsd.93.02.16.diff.gz | patch -p1 --backup
+make clean
+make bsd

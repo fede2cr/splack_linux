@@ -1,0 +1,31 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xyvf $CWD/nautilus-1.0.3.tar.bz2
+cd nautilus-1.0.3
+
+# This removes the "Eazel Services" link from the desktop, since there's
+# unfortunately nothing to answer on the other end.
+zcat $CWD/nautilus-1.0.3.noservices.diff.gz | patch -p1
+# We need to be in the menu, too:
+zcat $CWD/nautilus-1.0.3.slack.diff.gz | patch -p1
+# Don't try to connect to dead services on first run.
+zcat $CWD/nautilus-1.0.3.noservicesurl.diff.gz | patch -p1
+
+CFLAGS=-O2 CXXFLAGS=-O2 ./configure --sysconfdir=/etc/opt/gnome \
+            --prefix=/opt/gnome \
+            --mandir=/opt/gnome/man \
+            --infodir=/opt/gnome/info \
+            --localstatedir=/var/lib \
+            --disable-more-warnings \
+            --with-freetype2-prefix=/usr/X11R6 \
+            --with-mozilla-lib-place=/opt/gnome/lib \
+            --with-mozilla-include-place=/opt/gnome/include/mozilla \
+            i386-slackware-linux
+make
+make install
+mkdir -p /usr/doc/nautilus-1.0.3
+cp -a ABOUT-NLS AUTHORS COPYING COPYING-DOCS COPYING.LIB ChangeLog HACKING INSTALL MAINTAINERS NEWS README RPMs-README THANKS TODO TRADEMARK_NOTICE \
+  /usr/doc/nautilus-1.0.3
+chmod 644 /usr/doc/nautilus-1.0.3/*
+chown root.root /usr/doc/nautilus-1.0.3/*

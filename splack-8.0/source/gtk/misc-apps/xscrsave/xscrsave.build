@@ -1,0 +1,15 @@
+CWD=`pwd` 
+cd /tmp
+tar xzvf $CWD/xscreensaver-3.32.tar.gz
+cd xscreensaver-3.32
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+	    --with-gtk \
+            --with-shadow \
+            --with-gl \
+            i386-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install
+mkdir -p /usr/doc/xscreensaver-3.32
+cp -a README README.debugging /usr/doc/xscreensaver-3.32
+chown -R root.root /usr/doc/xscreensaver-3.32

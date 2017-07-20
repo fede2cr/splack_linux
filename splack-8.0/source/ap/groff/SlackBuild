@@ -1,0 +1,79 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-groff
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_groff.tar.gz
+
+echo "+============+"
+echo "| groff-1.17 |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/groff-1.17.tar.gz
+cd groff-1.17
+./configure --prefix=/usr
+make CFLAGS=-O2 CCFLAGS=-O2
+(
+   cd src/xditview
+   xmkmf
+   make
+)
+make CFLAGS=-O2 CCFLAGS=-O2 install prefix=$PKG/usr
+(
+   cd src/xditview
+   cp -a gxditview $PKG/usr/X11R6/bin
+   cat gxditview.man | gzip -9c > $PKG/usr/X11R6/man/man1/gxditview.1.gz
+   cp -a GXditview.ad $PKG/etc/X11/app-defaults/GXditview
+)
+mkdir -p $PKG/usr/doc/groff-1.17
+cp -a BUG-REPORT COPYING ChangeLog FDL INSTALL INSTALL.gen MORE.STUFF NEWS PROBLEMS \
+   PROJECTS README TODO VERSION doc $PKG/usr/doc/groff-1.17
+mkdir -p $PKG/usr/doc/groff-1.17/xditview
+( cd src/xditview ; cp -a INSTALL README TODO $PKG/usr/doc/groff-1.17/xditview )
+chown -R root.root $PKG/usr/doc/groff-1.17
+
+# strip binaries & compress man pages
+strip $PKG/usr/bin/* $PKG/usr/X11R6/bin/*
+gzip -9 $PKG/usr/man/man?/*
+
+# fix permissions
+chown -R root.bin $PKG/usr/bin
+chown -R root.bin $PKG/usr/X11R6/bin
+chown root.root $PKG/etc/X11/app-defaults/*
+chmod 644 $PKG/etc/X11/app-defaults/*
+
+# Make links:
+( cd $PKG ; sh $CWD/groff-ln.sh )
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/groff.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/groff-1.17
+  rm -rf $PKG
+fi

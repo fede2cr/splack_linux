@@ -1,0 +1,39 @@
+TAG=OPT
+
+SUBPKGNAME=smailcfg-$VERSION-$ARCH-$BUILD
+
+PROGNAME="Configuration files for sendmail"
+DESC="\
+Configuration files for sendmail.\n\
+\n\
+These files are used to create sendmail.cf configuration files.  The\n\
+m4 macro processor (on the D series of disks) is also required in\n\
+order to make use of these files.\n\
+\n\
+These files and the documentation in /usr/src/sendmail should make it\n\
+possible to support virtually any mail configuration.  NOTE: you\n\
+probably won't need this package if you're planning to use one of the\n\
+sendmail.cf samples included in the sendmail package."
+
+subinstall() {
+   echo "Nothing to install."
+}
+
+subspecial() {
+   # clean out the source tree first
+   ( cd $TMP/sendmail-$VERSION 
+     find . -name "*~" -print -exec rm {} \; )
+
+   # add the config files to the package
+   mkdir -p $SUBPKG/usr/src/sendmail/cf
+   cd $SUBPKG/usr/src/sendmail/cf
+   cp -a $TMP/sendmail-$VERSION/cf/README .
+   cp -a $PKG/usr/src/sendmail/README.linux .
+   for d in cf domain feature hack m4 mailer ostype sh siteconfig
+   do
+      cp -a $TMP/sendmail-$VERSION/cf/$d .
+   done
+   ( cd $SUBPKG/usr/src/sendmail/cf/cf
+     rm -rf linux.*.cf config.cf )
+   chown -R root.root *
+}

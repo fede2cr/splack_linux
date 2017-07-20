@@ -1,0 +1,62 @@
+VERSION=4.33
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=pine-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Pine
+DESC="\
+Pine version $VERSION\n\
+\n\
+A menu driven user mail program. Originally based on Elm (Pine Is\n\
+No-longer Elm), but with many additional features that make it\n\
+easier to use.  Also contains pilot (a simple file manager) and\n\
+pico (an easy to use text editor)."
+
+compile() {
+   # build pine
+   tar xvzf $CWD/pine$VERSION.tar.gz
+   cd pine$VERSION
+   zcat $CWD/pine$VERSION-time.h.diff.gz | patch -p1 --backup --verbose -E
+   zcat $CWD/pine-slackware.config.diff.gz | patch -p1 --backup --verbose -E
+   zcat $CWD/pine-cflags.diff.gz | patch -p1 --backup --verbose -E
+   # Remove ~ files:
+   find . -name "*~" | xargs rm --verbose
+   ./build slx
+   ( cd imap ; make clean )
+   ( cd imap ; make slx )
+}
+
+install() {
+   # install binaries
+   ( cd bin
+     cp pine pico pilot /usr/bin )
+
+   # install documentation
+   for page in doc/pico doc/pilot doc/pine
+   do
+      cat $page.1 | gzip -9c > /usr/man/man1/`basename $page`.1.gz
+   done
+   mkdir -p /usr/doc/pine$VERSION
+   cp -r README CPYRIGHT doc/* /usr/doc/pine$VERSION
+   rm -rf /usr/doc/pine$VERSION/*.1
+   rm -rf /usr/doc/pine$VERSION/tech-notes.txt
+}
+
+special() {
+   # put the system-wide default config file in place
+   mkdir -p $PKG/usr/lib/pine
+   $PKG/usr/bin/pine -conf > $PKG/usr/lib/pine/pine.conf
+   chown root.root $PKG/usr/lib/pine/pine.conf
+   chmod 644 $PKG/usr/lib/pine/pine.conf
+}
+
+subpacks() {
+   repack imapd
+}

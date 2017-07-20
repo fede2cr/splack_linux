@@ -1,0 +1,62 @@
+#!/bin/sh
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gimplibs
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/aalib-1.2.tar.gz
+cd aalib-1.2
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            sparc-slackware-linux
+make
+make prefix=$PKG/opt/gnome sysconfdif=$PKG/etc/opt/gnome install
+mkdir -p $PKG/usr/doc/aalib-1.2
+cp -a ANNOUNCE AUTHORS COPYING NEWS README $PKG/usr/doc/aalib-1.2
+chown root.root $PKG/usr/doc/aalib-1.2/*
+chmod 644 $PKG/usr/doc/aalib-1.2/*
+
+cd $TMP
+tar xzvf $CWD/mpeg_lib-1.3.1.tar.gz
+cd mpeg_lib-1.3.1
+./configure --prefix=/opt/gnome \
+            --sysconfdir=/etc/opt/gnome \
+            sparc-slackware-linux
+make
+mkdir -p $PKG/opt/gnome/lib $PKG/opt/gnome/include $PKG/usr/doc/libmpeg-1.3.1
+cp libmpeg.a $PKG/opt/gnome/lib
+cp mpeg.h $PKG/opt/gnome/include
+cp -a CHANGES README doc $PKG/usr/doc/libmpeg-1.3.1
+chown -R root.root $PKG/usr/doc/libmpeg-1.3.1
+chmod 644 -R $PKG/usr/doc/libmpeg-1.3.1/*
+chmod 755 $PKG/usr/doc/libmpeg-1.3.1/doc
+
+# Build the package:
+cd $PKG
+echo "y
+n" | makepkg $TMP/gimplibs.tgz
+
+# Warn of zero-length files:
+for file in `find . -type f -print` ; do
+ if [ "`filesize $file`" = "0" ]; then
+  echo "WARNING: zero length file $file"
+ fi
+ if [ "`filesize $file`" = "20" ]; then
+  echo "WARNING: possible empty gzipped file $file"
+ fi
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/aalib-1.2
+  rm -rv $TMP/mpeg_lib-1.3.1
+  rm -rf $PKG
+fi

@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP/whois-4.5.4
+insfile whois /usr/bin
+cp whois.1 /usr/man/man1
+mkdir -p /usr/doc/whois-4.5.4
+cp README TODO /usr/doc/whois-4.5.4

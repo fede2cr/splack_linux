@@ -1,0 +1,30 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kdepim-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="KDE PIM"
+DESC="\
+kdepim-$VERSION\n\
+\n\
+kdepim is a collection of Personal Information Management (PIM) tools."
+
+compile() {
+   tar xyvf $CWD/kdepim-$VERSION.tar.bz2
+   cd kdepim-$VERSION
+   ./configure --prefix=/opt/kde $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/kdepim-$VERSION
+   cp AUTHORS COPYING INSTALL README /usr/doc/kdepim-$VERSION
+}

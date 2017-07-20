@@ -1,0 +1,54 @@
+July 25, 2000
+
+TransFig is a set of tools for creating TeX documents with graphics
+which are portable, in the sense that they can be printed in a wide
+variety of environments.
+
+TransFig 3.2.3c is available from ftp://www-epb.lbl.gov/xfig and usually from any CTAN
+(Comprehensive TeX Archive Network) site such as ftp://ftp.cdrom.com/pub/tex/ctan/.
+See http://math.nmu.edu/Web/TeXArchives/ctansite.html for a long list of CTAN sites.
+
+Be sure to set binary mode when transferring.
+
+There is also an incremental patch file to convert from 3.2.3b to 3.2.3c.  This
+is in the file transfig.3.2.3b.to.3.2.3c.gz.  You must use the 'patch' program to
+automatically apply the changes to your 3.2.3 release.  It is compressed so you
+must uncompress it first or do "zcat transfig.3.2.3b.to.3.2.3c.gz | patch".
+
+The transfig directory contains the source for the transfig command
+which generates a Makefile which translates Fig code to various graphics
+description languages using the fig2dev program.  In previous releases,
+this command was implemented as a shell script.
+
+The fig2dev directory contains a general program for translating from Fig code
+to other graphics desciption languages (fig2dev).  The dev subdirectory contains
+a library of output drivers used by fig2dev.
+
+Drivers currently exist for the following graphics langauges:
+AutoCad slide, BOX, (E)EPIC macros, LaTeX picture environment, PIC, PiCTeX, PNG,
+PostScript, Encapsulated Postscript, GIF, IBM-GL, JPEG, PCX, MF (METAFONT),
+TeXtyl, TIFF, TPIC, XBM (X11 Bitmap), XPM (X11 Pixmap), and TK (tcl/tk).
+
+Fig2dev can be configured with a subset of these drivers.
+
+I have taken over the maintenance of TransFig from Micah Beck so please send any
+bug notices, fixes, contributions etc to me at xfigmail@epb1.lbl.gov.
+
+- Brian V. Smith
+- Lawrence Berkeley Laboratory
+
+Changes to Transfig/fig2dev
+===============================================================================
+Version 3.2 Patchlevel 3c  (July 25, 2000)
+===============================================================================
+
+BUGS FIXED
+	o TransFig manual Makefile now calls ../../fig2dev/fig2dev preventing
+	  the Catch-22 problem of having to install TransFig before you can
+	  compile it 
+	o fig2dev/dev/genpdf.c needs "#include <signal.h>" for some systems
+	o Added -m 644 to "install" directives in Imakefile to make updates
+	  easier in future (no read-only files)
+	o LaTeX and pstex_t driver produced bogus \unitlength and \dashbox
+	  values
+	o File ko_KR.ujis.ps removed because it is not needed

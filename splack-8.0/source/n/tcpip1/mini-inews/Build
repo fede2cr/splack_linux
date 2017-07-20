@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $TMP
+tar xvzf $CWD/mini-inews/mini-inews.tar.gz
+cd inews
+zcat $CWD/mini-inews/mini-inews.diff.gz | patch -p1 -E --verbose --backup
+make

@@ -1,0 +1,52 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-rsync
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_rsync.tar.gz
+
+echo "+=============+"
+echo "| rsync-2.4.6 |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/rsync-2.4.6.tar.gz
+cd rsync-2.4.6
+./configure --prefix=/usr
+make
+strip rsync
+cat rsync > $PKG/usr/bin/rsync
+cat rsync.1 | gzip -9c > $PKG/usr/man/man1/rsync.1.gz
+cat rsyncd.conf.5 | gzip -9c > $PKG/usr/man/man5/rsyncd.conf.5.gz
+mkdir -p $PKG/usr/doc/rsync-2.4.6
+cp -a README COPYING tech_report.tex $PKG/usr/doc/rsync-2.4.6
+chown -R root.root $PKG/usr/doc/rsync-2.4.6
+
+# Build the package:
+cd $PKG
+tar czvf $TMP/rsync.tgz .
+
+# Warn of zero-length files:
+find . -type f -size 0c | while read file ; do
+  echo "WARNING: zero length file $file"
+done
+find . -type f -name '*.gz' -size 20c | while read file ; do
+  echo "WARNING: possible empty gzipped file $file"
+done
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/rsync-2.4.6
+  rm -rf $PKG
+fi

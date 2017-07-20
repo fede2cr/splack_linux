@@ -1,0 +1,32 @@
+# ------------------------------------------------------------------------------
+# CHANGES                            |    4 ++++
+# WWW/Library/Implementation/HTFTP.c |    2 +-
+# 2 files changed, 5 insertions, 1 deletion
+# ------------------------------------------------------------------------------
+Index: CHANGES
+--- lynx2.8.3rel.1b/CHANGES	Fri Jun  2 06:13:29 2000
++++ lynx2.8.3rel.1c/CHANGES	Fri Jun  2 06:15:28 2000
+@@ -1,6 +1,11 @@
+ Changes since Lynx 2.8 release
+ ===============================================================================
+ 
++2000-06-02 (2.8.4dev.3)
+++ in passive ftp mode (FTP_PASSIVE:TRUE), use the IP address from the server's
++  response for the data connection, rather than doing another lookup of the
++  hostname -KW
++
+ 2000-05-21 (2.8.4dev.2)
+ * remove intl/libintl.h since it is overwritten by a symbolic link (reported
+   by Atsuhito Kohda <kohda@pm.tokushima-u.ac.jp>) -TD
+Index: WWW/Library/Implementation/HTFTP.c
+--- lynx2.8.3rel.1b/WWW/Library/Implementation/HTFTP.c	Sun Mar 26 22:37:59 2000
++++ lynx2.8.3rel.1c/WWW/Library/Implementation/HTFTP.c	Fri Jun  2 06:16:55 2000
+@@ -2920,7 +2920,7 @@
+ 
+ 	    sprintf(command, "ftp://%d.%d.%d.%d:%d/",
+ 		    h0, h1, h2, h3, passive_port);
+-	    status = HTDoConnect(name, "FTP", passive_port, &data_soc);
++	    status = HTDoConnect(command, "FTP data", passive_port, &data_soc);
+ 
+ 	    if (status < 0) {
+ 		(void) HTInetStatus(gettext("connect for data"));

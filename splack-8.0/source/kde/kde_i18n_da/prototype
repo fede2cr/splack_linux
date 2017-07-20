@@ -1,0 +1,26 @@
+VERSION=2.1.1
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=kde_i18n_da-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+
+PROGNAME="KDE Danish Language Support"
+DESC="\
+kde-i18n-da-$VERSION\n\
+\n\
+Danish language support."
+
+compile() {
+   tar xvyf $CWD/kde-i18n-da-$VERSION.tar.bz2
+   cd kde-i18n-da
+   ./configure --prefix=/opt/kde
+   make
+}
+
+install() {
+   make install
+}

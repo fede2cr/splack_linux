@@ -1,0 +1,58 @@
+Xfig is a menu-driven tool that allows the user to draw and manipulate objects
+interactively in an X window.  The resulting pictures can be saved, printed
+on postscript printers or converted to a variety of other formats (e.g. to
+allow inclusion in LaTeX documents).
+
+xfig 3.2.3c is available from ftp://www-epb.lbl.gov/xfig and usually from any CTAN
+(Comprehensive TeX Archive Network) site such as ftp://ftp.cdrom.com/pub/tex/ctan/.
+See http://math.nmu.edu/Web/TeXArchives/ctansite.html for a long list of CTAN sites.
+
+Be sure to set binary mode when transferring.
+
+Here are the files:
+
+xfig.3.2.3c.full.tar.gz			tar file with everything
+xfig.3.2.3c.code_only.tar.gz		tar file with source only
+xfig.3.2.3c.docs_only.tar.gz		tar file with docs only (man pages, html)
+xfig.3.2.3c.libraries_only.tar.gz	tar file with only Fig Object Libraries
+
+There is also an incremental patch file to convert from 3.2.3b to 3.2.3c.  This
+is in the file xfig.3.2.3b.to.3.2.3c.gz.  You must use the 'patch' program to
+automatically apply the changes to your 3.2.3b release.  It is compressed so you
+must uncompress it first or do "gunzip -d -c transfig.3.2.3b.to.3.2.3c.gz | patch".
+
+You also need to get TransFig version 3.2.3c.  TransFig contains the post-
+processor needed by xfig to convert fig files to one of several output formats,
+such as PostScript, pic, LaTeX etc.  The TransFig package can always be found
+at the same site as xfig.
+
+Please send email about any questions/bug fixes/contributions etc. about
+TransFig or xfig to xfig-bugs@epb1.lbl.gov.
+
+Brian V. Smith
+Lawrence Berkeley National Laboratory
+I don't speak for LBNL; they don't pay me enough for that.
+
+*****************************************************************************
+Following is a description of the CHANGES for 3.2.3c.
+
+=============================================================================
+Version 3.2 Patchlevel 3c (Jul 25, 2000)
+=============================================================================
+
+NEW FEATURES:
+	o New export shortcut Shift-Alt-x or Shift-Meta-x to export using
+	  current settings without popping up the panel
+	o New print shortcut Shift-Alt-p or Shift-Meta-p to print using current
+	  settings without popping up the panel
+
+BUGS FIXED:
+	o Added -m 644 to "install" directives in Imakefile to make updates
+	  easier in future (no read-only files)
+	o I18N text handling fixed (bug introduced in 3.2.3b)
+	o If a filename with an absolute path was given when starting xfig, it
+	  prepended the current path to the path given thus generating a path
+	  that didn't exist.
+	o "Film digitizer" in Fig object library of computers had an illegal
+	  Fig object
+	o Pixmap bits for sm_check_bits should be unsigned in w_util.c

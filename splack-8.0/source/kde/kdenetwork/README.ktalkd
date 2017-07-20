@@ -1,0 +1,6 @@
+To use the KDE talk daemon, update /etc/inetd.conf :
+
+For example, on a linux system, if kde is in /opt/kde, set it to :
+talk    dgram   udp     wait    root    /usr/sbin/tcpd  /opt/kde/bin/kotalkd
+ntalk   dgram   udp     wait    root    /usr/sbin/tcpd  /opt/kde/bin/ktalkd
+

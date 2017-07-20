@@ -1,0 +1,46 @@
+TAG=OPT
+
+SUBPKGNAME=elisp-$VERSION-$ARCH-$BUILD
+
+PROGNAME="GNU Emacs lisp source files"
+DESC="\
+Emacs lisp source files.\n\
+\n\
+This package contains source code for the parts of Emacs that are\n\
+written in Emacs Lisp.  *.el files are Emacs Lisp source, and the\n\
+corresponding *.elc files are byte-compiled versions.\n\
+\n\
+The emacsbin package contains all of the *.el files that Emacs\n\
+requires to run, but these are probably good to have if you've got\n\
+the space on your hard drive."
+
+
+subinstall() {
+   echo "Nothing to install."
+}
+
+subspecial() {
+   # populate the package
+   mkdir -p $SUBPKG/usr/share/emacs/$VERSION/lisp
+   cp -a $TMP/em/usr/share/emacs/$VERSION/lisp/* $SUBPKG/usr/share/emacs/$VERSION/lisp
+   find $SUBPKG/usr/share/emacs/$VERSION/lisp -type f -exec chmod 444 {} \;
+   find $SUBPKG/usr/share/emacs/$VERSION/lisp -type d -exec chmod 755 {} \;
+   chown -R root.root $SUBPKG/*
+   chmod 644 $SUBPKG/usr/share/emacs/$VERSION/lisp/subdirs.el
+
+   # we only want the *.el files
+   find $SUBPKG/usr/share/emacs -name "*.elc" -exec rm -f {} \;
+
+   # we don't need these files either
+   ( cd $SUBPKG/usr/share/emacs/$VERSION/lisp
+     rm -rf README COPYING forms-d2.dat )
+   ( cd $SUBPKG/usr/share/emacs/$VERSION/lisp/term
+     rm -rf README )
+
+   # add the site-lisp thing
+   mkdir -p $SUBPKG/usr/share/emacs/site-lisp
+   cat << EOF >> $SUBPKG/usr/share/emacs/site-lisp/subdirs.el
+(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+    (normal-top-level-add-subdirs-to-load-path))
+EOF
+}

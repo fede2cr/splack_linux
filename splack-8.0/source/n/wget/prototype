@@ -1,0 +1,59 @@
+VERSION=1.6
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=wget-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="GNU wget"
+DESC="\
+wget-$VERSION\n\
+\n\
+GNU Wget is a free network utility to retrieve files from the\n\
+World Wide Web using HTTP and FTP, the two most widely used Internet\n\
+protocols.  It works non-interactively, thus enabling work in the\n\
+background after having logged off.\n\
+\n\
+The author of Wget is Hrvoje Niksic <hniksic@srce.hr>."
+
+compile() {
+   tar xvzf $CWD/wget-$VERSION.tar.gz
+   cd wget-$VERSION
+   ./configure --prefix=/usr --sysconfdir=/etc
+   make
+}
+
+install() {
+   # install binaries
+   cp src/wget /usr/bin
+
+   # install documentation
+   cp doc/*.info* /usr/info
+   cp $CWD/wget.1.gz /usr/man/man1
+   mkdir -p /usr/doc/wget-$VERSION
+   cp AUTHORS COPYING ChangeLog INSTALL MACHINES MAILING-LIST NEWS \
+      README TODO /usr/doc/wget-$VERSION
+   cp -r util /usr/doc/wget-$VERSION
+
+   # install i18n stuff
+   ( cd po
+     for file in *.gmo
+     do
+        name=`basename $file .gmo`
+        mkdir -p /usr/share/locale/$name/LC_MESSAGES
+        cp $file /usr/share/locale/$name/LC_MESSAGES/wget.mo
+     done )
+}
+
+special() {
+   # install incoming configuration file
+   mkdir -p $PKG/etc
+   cp $TMP/wget-$VERSION/doc/sample.wgetrc $PKG/etc/wgetrc
+   chown root.root $PKG/etc/wgetrc
+   chmod 644 $PKG/etc/wgetrc
+}

@@ -1,0 +1,174 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+echo "+=========+"
+echo "| db.1.85 |"
+echo "+=========+"
+cd $TMP
+tar xzvf $CWD/bsd_db1/db.1.85.tar.gz
+cd db.1.85
+# Add patches from the last version of glibc to include
+# BSD DB libraries (2.1.3), and use that number as the
+# library version number:
+zcat $CWD/bsd_db1/db.1.85.glibc.diff.gz | patch -p1 -E
+mkdir -p $PKG/usr/doc/db.1.85
+cp -a README man/*.3 $PKG/usr/doc/db.1.85
+gzip -9 --force $PKG/usr/doc/db.1.85/*.3
+chmod 644 $PKG/usr/doc/db.1.85/*
+chown root.root $PKG/usr/doc/db.1.85/*
+cd PORT/linux
+make
+strip libdb1.so.2.1.3 db_dump185
+cat libdb1.so.2.1.3 > $PKG/lib/libdb1.so.2.1.3
+chmod 755 $PKG/lib/libdb1.so.2.1.3
+cat db_dump185 > $PKG/usr/bin/db1_dump185
+cat libdb.a > $PKG/usr/lib/libdb1.a
+mkdir -p $PKG/usr/include/db1
+cat include/db.h > $PKG/usr/include/db1/db.h
+cat include/mpool.h > $PKG/usr/include/db1/mpool.h
+cat include/ndbm.h > $PKG/usr/include/db1/ndbm.h
+
+echo "+=================+"
+echo "| db2-glibc-2.1.3 |"
+echo "+=================+"
+cd $TMP
+tar xzvf $CWD/bsd_db2/db2-glibc-2.1.3.tar.gz
+cd db2
+zcat $CWD/bsd_db2/db2-glibc-2.1.3.patch.gz | patch -p1 -E --suffix=.orig --backup
+zcat $CWD/bsd_db2/db2-2.4.14-db2.patch.gz | patch -p1 -E --suffix=.orig --backup
+make
+strip libdb2.so.3 db_archive db_checkpoint db_deadlock db_dump db_load db_printlog db_recover db_stat
+cat libdb2.so.3 > $PKG/lib/libdb2.so.3
+chmod 755 $PKG/lib/libdb2.so.3
+cat libdb2.a > $PKG/usr/lib/libdb2.a
+cat db_archive > $PKG/usr/bin/db2_archive 
+cat db_checkpoint > $PKG/usr/bin/db2_checkpoint 
+cat db_deadlock > $PKG/usr/bin/db2_deadlock 
+cat db_dump > $PKG/usr/bin/db2_dump 
+cat db_load > $PKG/usr/bin/db2_load 
+cat db_printlog > $PKG/usr/bin/db2_printlog 
+cat db_recover > $PKG/usr/bin/db2_recover 
+cat db_stat > $PKG/usr/bin/db2_stat
+mkdir -p $PKG/usr/include/db2
+cat db.h > $PKG/usr/include/db2/db.h
+cat db_185.h > $PKG/usr/include/db2/db_185.h
+mkdir -p $PKG/usr/doc/db2-2.4.14
+cp -a LICENSE README $PKG/usr/doc/db2-2.4.14
+chown root.root $PKG/usr/doc/db2-2.4.14/*
+chmod 644 $PKG/usr/doc/db2-2.4.14/*
+
+echo "+===========+"
+echo "| db-3.1.17 |"
+echo "+===========+"
+cd $TMP
+tar xzvf $CWD/bsd_db3/db-3.1.17.tar.gz
+cd db-3.1.17
+zcat $CWD/bsd_db3/db-3.1.17.mutex.diff.gz | patch -p1 -E --suffix=.orig --backup
+cd dist
+./configure --prefix= \
+            --enable-debug \
+            --enable-compat185 \
+            --disable-shared \
+            --enable-rpc \
+            sparc-slackware-linux
+make
+cat libdb.a > $PKG/usr/lib/libdb-3.1.a
+make clean
+./configure --prefix= \
+            --enable-compat185 \
+            --enable-shared \
+            --enable-rpc \
+            sparc-slackware-linux
+#            --enable-dump185 # this doesn't build so hot
+make
+# Patch db-3.1.la to show installed lib:
+zcat $CWD/bsd_db3/db-3.1.17.la.diff.gz | patch -p0
+cat libdb-3.1.la > $PKG/usr/lib/libdb-3.1.la
+cd .libs
+strip berkeley_db_svc db_archive db_checkpoint db_deadlock db_dump \
+  db_load db_printlog db_recover db_stat db_upgrade db_verify libdb-3.1.so
+cat berkeley_db_svc > $PKG/usr/bin/berkeley_db_svc
+cat db_archive > $PKG/usr/bin/db_archive
+cat db_checkpoint > $PKG/usr/bin/db_checkpoint
+cat db_deadlock > $PKG/usr/bin/db_deadlock
+cat db_dump > $PKG/usr/bin/db_dump
+cat db_load > $PKG/usr/bin/db_load
+cat db_printlog > $PKG/usr/bin/db_printlog
+cat db_recover > $PKG/usr/bin/db_recover
+cat db_stat > $PKG/usr/bin/db_stat
+cat db_upgrade > $PKG/usr/bin/db_upgrade
+cat db_verify > $PKG/usr/bin/db_verify
+cat libdb-3.1.so > $PKG/lib/libdb-3.1.so
+chmod 755 $PKG/lib/libdb-3.1.so
+cd ..
+mkdir -p $PKG/usr/include/db3
+cat db.h > $PKG/usr/include/db3/db.h
+cd ../include
+cat db_185.h > $PKG/usr/include/db3/db_185.h
+cat db_cxx.h > $PKG/usr/include/db3/db_cxx.h
+cd ../docs
+mkdir -p $PKG/usr/doc/db-3.1.17
+cp -a * $PKG/usr/doc/db-3.1.17
+cd ..
+cp -a LICENSE README $PKG/usr/doc/db-3.1.17
+chown -R root.root $PKG/usr/doc/db-3.1.17
+
+#( cd /
+( cd $PKG
+
+#if [ -x /sbin/ldconfig ]; then
+#  ( cd lib ; /sbin/ldconfig . )
+#  # OK, hopefully we didn't fall over immediately.
+#  # This should fix us up.
+#  /sbin/ldconfig
+#fi
+
+( cd lib ; rm -rf libdb.so.2 )
+( cd lib ; ln -sf libdb1.so.2.1.3 libdb.so.2 )
+( cd lib ; rm -rf libdb.so.3 )
+( cd lib ; ln -sf libdb2.so.3 libdb.so.3 )
+  
+# These aren't made by ldconfig:
+( cd lib ; rm -rf libdb1.so.2 )
+( cd lib ; ln -sf libdb1.so.2.1.3 libdb1.so.2 )
+  
+# This part of the script is shared with the glibc.tgz
+# package, as we've re-added the BSD DB libs to that:
+( cd lib ; rm -rf libdb.so )
+( cd lib ; ln -sf libdb-3.1.so libdb.so )
+( cd usr/lib ; rm -rf libdb1.so )
+( cd usr/lib ; ln -sf ../../lib/libdb1.so.2 libdb1.so )
+( cd usr/lib ; rm -rf libdb2.so )
+( cd usr/lib ; ln -sf ../../lib/libdb2.so.3 libdb2.so )
+( cd usr/lib ; rm -rf libndbm.so )
+( cd usr/lib ; ln -sf ../../lib/libdb2.so.3 libndbm.so )
+( cd lib ; rm -rf libdb.so )
+( cd lib ; ln -sf libdb-3.1.so libdb.so )
+if [ -e usr/lib/libdb2.a ]; then
+  ( cd usr/lib ; rm -rf libndbm.a )
+  ( cd usr/lib ; ln -sf libdb2.a libndbm.a )
+fi
+if [ -e usr/include/db3/db.h ]; then
+  ( cd usr/include ; rm -rf db.h )
+  ( cd usr/include ; ln -sf db3/db.h db.h )
+fi
+if [ -e usr/lib/libdb-3.1.a ]; then
+  ( cd usr/lib ; rm -rf libdb.a )
+  ( cd usr/lib ; ln -sf libdb-3.1.a libdb.a )
+fi
+
+)
+
+chmod 755 $PKG/usr/bin/*
+

@@ -1,0 +1,48 @@
+VERSION=3.2.3c
+BUILD=1
+ARCH=sparc
+TAG=OPT
+
+PKGNAME=xfig-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/a:/var
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xfig
+DESC="\
+xfig $VERSION.\n\
+\n\
+This package contains the binary for xfig, an interactive drawing tool\n\
+under X.  Xfig can create fig, epsf, and LaTeX files with various\n\
+options.  You also have to install the transfig package so that xfig\n\
+can export fig files as epsf and LaTeX files.  This package also\n\
+contains a set of basic examples of fig files in the directory\n\
+/usr/doc/xfig.$VERSION/Examples."
+
+compile() {
+   tar xvzf $CWD/xfig.$VERSION.full.tar.gz
+   cd xfig.$VERSION
+   zcat $CWD/xfig.$VERSION.diff.gz | patch -E
+   xmkmf
+   make
+}
+
+install() {
+   make install
+   make install.man
+   mkdir -p /usr/doc/xfig.$VERSION
+   cp -r CHANGES Examples FIGAPPS LATEX.AND.XFIG README /usr/doc/xfig.$VERSION
+   ( cd /usr/doc/xfig.$VERSION/Examples
+     rm -rf Libraries ; ln -sf /usr/X11R6/lib/X11/xfig/Libraries . )
+   ( cd /usr/doc/xfig.$VERSION
+     rm -rf html ; ln -sf /usr/X11R6/lib/X11/xfig/html . )
+}
+
+attributes() {
+   chmod 444 $PKG/usr/doc/xfig.$VERSION/Examples/*
+   chmod 444 $PKG/usr/X11R6/man/man1/xfig.1x
+   chmod 444 $PKG/usr/doc/xfig.3.2.3c/CHANGES
+   chmod 444 $PKG/usr/doc/xfig.3.2.3c/LATEX.AND.XFIG
+}

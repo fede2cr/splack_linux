@@ -1,0 +1,64 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-vim
+
+# ctags was once a part of vim,
+# but now we have to bundle it in
+cd $TMP
+tar xzvf $CWD/ctags-5.0.1.tar.gz
+cd ctags-5.0.1
+CFLAGS=-O2 ./configure --prefix=/usr sparc-slackware-linux
+make
+
+make install prefix=$PKG/usr
+mkdir -p $PKG/usr/doc/ctags-5.0.1
+cp -a COPYING EXTENDING.html FAQ INSTALL INSTALL.oth NEWS QUOTES README \
+  $PKG/usr/doc/ctags-5.0.1
+chown -R root.root $PKG/usr/doc/ctags-5.0.1
+chmod 644 $PKG/usr/doc/ctags-5.0.1/*
+
+echo "+================+"
+echo "| vim-5.8 (no X) |"
+echo "+================+"
+cd $TMP
+tar xzvf $CWD/vim-5.8-rt.tar.gz
+tar xzvf $CWD/vim-5.8-src.tar.gz
+
+# build the non-X version of vim
+cd $TMP/vim-5.8
+for file in $CWD/patches/* ; do
+  zcat $file | patch -p0
+done
+./configure --prefix=/usr --without-x --disable-gui sparc-slackware-linux
+make LDFLAGS=-s
+make LDFLAGS=-s install prefix=$PKG/usr
+chown -R root.bin $PKG/usr/bin
+strip $PKG/usr/bin/vim
+rm -rf $PKG/usr/man/man1/{etags,ex,rview,rvim,view}.1
+#( cd/usr/man/man1 ; ln -sf ctags.1.gz etags.1.gz )
+( cd $PKG/usr/man/man1 ; ln -sf vim.1.gz ex.1.gz )
+( cd $PKG/usr/man/man1 ; ln -sf vim.1.gz rview.1.gz )
+( cd $PKG/usr/man/man1 ; ln -sf vim.1.gz rvim.1.gz )
+( cd $PKG/usr/man/man1 ; ln -sf vim.1.gz view.1.gz )
+( cd $PKG/usr/bin ; rm -rf ex )
+( cd $PKG/usr/bin ; ln -sf vim ex )
+( cd $PKG/usr/bin ; rm -rf rview )
+( cd $PKG/usr/bin ; ln -sf vim rview )
+( cd $PKG/usr/bin ; rm -rf rvim )
+( cd $PKG/usr/bin ; ln -sf vim rvim )
+( cd $PKG/usr/bin ; rm -rf view )
+( cd $PKG/usr/bin ; ln -sf vim view )
+mkdir -p $PKG/usr/doc/vim-5.8
+cp -a README.txt $PKG/usr/doc/vim-5.8
+chmod 644 $PKG/usr/doc/vim-5.8/*
+chown root.root $PKG/usr/doc/vim-5.8/*
+( cd $PKG/usr/doc/vim-5.8 ; rm -rf doc )
+( cd $PKG/usr/doc/vim-5.8 ; ln -sf /usr/share/vim/vim58 doc )
+
+cd $PKG
+echo "y
+n" | makepkg $TMP/vim.tgz
