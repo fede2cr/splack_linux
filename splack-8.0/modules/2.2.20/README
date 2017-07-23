@@ -1,0 +1,11 @@
+
+Each kernel available in the /kernels directory has its own module set.  Please
+go there to find the module you wish to load.
+
+For example, if you are using a SPARCstation 5 (part of the sun4m family), you
+would find modules for that platform in:
+
+   /kernels/sun4dm.s/<version>
+
+Where <version> indicates the kernel version number.
+

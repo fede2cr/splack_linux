@@ -1,0 +1,35 @@
+Using kernel modules during the installation process
+----------------------------------------------------
+
+These modules can be used to add additional hardware support before running
+"setup" to install Linux.  The Configure.help file (this comes from the Linux
+kernel source) explains what drivers are available for Linux.  The modules
+themselves are in the directories below ./2.2.19/, and have names that are
+similar to the devices they support.
+
+To use these modules, put "insmod" (the module loading utility) on a floppy
+disk along with the module(s) you need to load. After booting with a bootdisk,
+loading a rootdisk (install disk), and logging in as root, make a directory
+and mount the floppy disk on it:
+
+mkdir /floppy
+mount /dev/fd0 /floppy -t vfat
+
+Then, you need to load the module.  Let's say you're loading a module to
+support a 3com 3c509 ethernet card:
+
+cd /floppy
+./insmod 3c509.o
+
+You should see a message on the screen indicating the module was loaded
+successfully.  You can then unmount the floppy:
+
+cd
+umount /floppy
+
+And, at this point you can run "setup" and install Linux.  Upon rebooting,
+you'll probably want to edit /etc/rc.d/rc.modules to load the module at
+boot time.
+
+Good luck!
+

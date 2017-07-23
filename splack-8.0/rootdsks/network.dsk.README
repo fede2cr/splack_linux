@@ -1,0 +1,24 @@
+Supplemental Support Disk for installing from an NFS server
+-----------------------------------------------------------
+
+WARNING!  This is not a stand-alone installation disk.  You will also need the
+color.gz rootdisk to install from an NFS source.  Do not write protect the
+supplemental network support disk.
+
+1.  Boot the bootdisk appropriate to your system.
+
+2.  When prompted, load the color1.gz rootdisk.  This is the main installation
+    floppy.  Once it loads, it will ask for color2.dsk.
+
+3.  After you're logged into the system with the username "root", you start
+    the network support system with the command "network".  Then you'll be
+    prompted to take these actions:
+
+    o   Insert the network.dsk support floppy
+    o   Probe for the network card automatically (recommended), or load the
+        modules manually.
+    o   Remove the network.dsk support floppy
+
+4.  Now you're ready to proceed with the installation as usual.  If you
+    need to partition your drive with "fdisk", otherwise go ahead and run
+    "setup".

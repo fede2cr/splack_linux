@@ -1,0 +1,501 @@
+/lib/modules/2.4.4/kernel/arch/sparc64/solaris/solaris.o:
+
+/lib/modules/2.4.4/kernel/drivers/block/loop.o:
+
+/lib/modules/2.4.4/kernel/drivers/block/nbd.o:
+
+/lib/modules/2.4.4/kernel/drivers/char/drm/ffb.o:
+
+/lib/modules/2.4.4/kernel/drivers/char/lp.o:	/lib/modules/2.4.4/kernel/drivers/parport/parport.o
+
+/lib/modules/2.4.4/kernel/drivers/char/softdog.o:
+
+/lib/modules/2.4.4/kernel/drivers/fc4/fc4.o:
+
+/lib/modules/2.4.4/kernel/drivers/fc4/soc.o:	/lib/modules/2.4.4/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.4/kernel/drivers/fc4/socal.o:	/lib/modules/2.4.4/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.4/kernel/drivers/ide/ide-floppy.o:
+
+/lib/modules/2.4.4/kernel/drivers/ide/ide-tape.o:
+
+/lib/modules/2.4.4/kernel/drivers/ieee1394/ieee1394.o:
+
+/lib/modules/2.4.4/kernel/drivers/ieee1394/ohci1394.o:	/lib/modules/2.4.4/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.4/kernel/drivers/ieee1394/pcilynx.o:	/lib/modules/2.4.4/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.4/kernel/drivers/ieee1394/raw1394.o:	/lib/modules/2.4.4/kernel/drivers/ieee1394/ieee1394.o
+
+/lib/modules/2.4.4/kernel/drivers/input/evdev.o:	/lib/modules/2.4.4/kernel/drivers/input/input.o
+
+/lib/modules/2.4.4/kernel/drivers/input/input.o:
+
+/lib/modules/2.4.4/kernel/drivers/input/joydev.o:	/lib/modules/2.4.4/kernel/drivers/input/input.o
+
+/lib/modules/2.4.4/kernel/drivers/input/mousedev.o:	/lib/modules/2.4.4/kernel/drivers/input/input.o
+
+/lib/modules/2.4.4/kernel/drivers/md/linear.o:	/lib/modules/2.4.4/kernel/drivers/md/md.o
+
+/lib/modules/2.4.4/kernel/drivers/md/lvm-mod.o:
+
+/lib/modules/2.4.4/kernel/drivers/md/md.o:
+
+/lib/modules/2.4.4/kernel/drivers/md/raid0.o:	/lib/modules/2.4.4/kernel/drivers/md/md.o
+
+/lib/modules/2.4.4/kernel/drivers/md/raid1.o:	/lib/modules/2.4.4/kernel/drivers/md/md.o
+
+/lib/modules/2.4.4/kernel/drivers/md/raid5.o:	/lib/modules/2.4.4/kernel/drivers/md/md.o \
+	/lib/modules/2.4.4/kernel/drivers/md/xor.o
+
+/lib/modules/2.4.4/kernel/drivers/md/xor.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/cfi_cmdset_0001.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/cfi_probe.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/doc1000.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/doc2000.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o \
+	/lib/modules/2.4.4/kernel/drivers/mtd/docecc.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/doc2001.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o \
+	/lib/modules/2.4.4/kernel/drivers/mtd/docecc.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/docecc.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/docprobe.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/ftl.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/map_ram.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/map_rom.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/mtdblock.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/mtdchar.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/mtdpart.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/mtdram.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/nftl.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o \
+	/lib/modules/2.4.4/kernel/drivers/mtd/nftlmount.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/nftlmount.o:
+
+/lib/modules/2.4.4/kernel/drivers/mtd/nora.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/physmap.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/pmc551.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/pnc2000.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdpart.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/rpxlite.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/mtd/slram.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/drivers/net/3c59x.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/8139too.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/8390.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/acenic.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/bonding.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/bsd_comp.o:	/lib/modules/2.4.4/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.4/kernel/drivers/net/de4x5.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/dummy.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/eepro100.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/ethertap.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/myri_sbus.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/ne2k-pci.o:	/lib/modules/2.4.4/kernel/drivers/net/8390.o
+
+/lib/modules/2.4.4/kernel/drivers/net/ppp_async.o:	/lib/modules/2.4.4/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.4/kernel/drivers/net/ppp_deflate.o:	/lib/modules/2.4.4/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.4/kernel/drivers/net/ppp_generic.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/ppp_synctty.o:	/lib/modules/2.4.4/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.4/kernel/drivers/net/pppoe.o:	/lib/modules/2.4.4/kernel/drivers/net/pppox.o \
+	/lib/modules/2.4.4/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.4/kernel/drivers/net/pppox.o:	/lib/modules/2.4.4/kernel/drivers/net/ppp_generic.o
+
+/lib/modules/2.4.4/kernel/drivers/net/sk98lin/sk98lin.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/skfp/skfp.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/slip.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/starfire.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/sunbmac.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/sungem.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/sunhme.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/sunlance.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/sunqe.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/tulip/tulip.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/tun.o:
+
+/lib/modules/2.4.4/kernel/drivers/net/via-rhine.o:
+
+/lib/modules/2.4.4/kernel/drivers/parport/parport.o:
+
+/lib/modules/2.4.4/kernel/drivers/parport/parport_pc.o:	/lib/modules/2.4.4/kernel/drivers/parport/parport.o
+
+/lib/modules/2.4.4/kernel/drivers/parport/parport_sunbpp.o:	/lib/modules/2.4.4/kernel/drivers/parport/parport.o
+
+/lib/modules/2.4.4/kernel/drivers/sbus/audio/audio.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/audio/cs4231.o:	/lib/modules/2.4.4/kernel/drivers/sbus/audio/audio.o
+
+/lib/modules/2.4.4/kernel/drivers/sbus/audio/dmy.o:	/lib/modules/2.4.4/kernel/drivers/sbus/audio/audio.o
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/aurora.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/bbc.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/bpp.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/cpwatchdog.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/display7seg.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/envctrl.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/flash.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/openprom.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/riowatchdog.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/rtc.o:
+
+/lib/modules/2.4.4/kernel/drivers/sbus/char/sab82532.o:
+
+/lib/modules/2.4.4/kernel/drivers/scsi/fcal.o:	/lib/modules/2.4.4/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.4/kernel/drivers/scsi/ide-scsi.o:
+
+/lib/modules/2.4.4/kernel/drivers/scsi/pluto.o:	/lib/modules/2.4.4/kernel/drivers/fc4/fc4.o
+
+/lib/modules/2.4.4/kernel/drivers/scsi/st.o:
+
+/lib/modules/2.4.4/kernel/drivers/usb/acm.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/bluetooth.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/dabusb.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/dc2xx.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/hid.o:	/lib/modules/2.4.4/kernel/drivers/input/input.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/mdc800.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/microtek.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/net1080.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/pegasus.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/plusb.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/printer.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/rio500.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/scanner.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/belkin_sa.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/digi_acceleport.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/empeg.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/ftdi_sio.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/io_edgeport.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/keyspan.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/keyspan_pda.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/mct_u232.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/omninet.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/visor.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/serial/whiteheat.o:	/lib/modules/2.4.4/kernel/drivers/usb/serial/usbserial.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/storage/usb-storage.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/usb-ohci.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o:
+
+/lib/modules/2.4.4/kernel/drivers/usb/uss720.o:	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o \
+	/lib/modules/2.4.4/kernel/drivers/parport/parport.o
+
+/lib/modules/2.4.4/kernel/drivers/usb/wacom.o:	/lib/modules/2.4.4/kernel/drivers/input/input.o \
+	/lib/modules/2.4.4/kernel/drivers/usb/usbcore.o
+
+/lib/modules/2.4.4/kernel/fs/adfs/adfs.o:
+
+/lib/modules/2.4.4/kernel/fs/affs/affs.o:
+
+/lib/modules/2.4.4/kernel/fs/autofs/autofs.o:
+
+/lib/modules/2.4.4/kernel/fs/autofs4/autofs4.o:
+
+/lib/modules/2.4.4/kernel/fs/bfs/bfs.o:
+
+/lib/modules/2.4.4/kernel/fs/binfmt_misc.o:
+
+/lib/modules/2.4.4/kernel/fs/coda/coda.o:
+
+/lib/modules/2.4.4/kernel/fs/cramfs/cramfs.o:
+
+/lib/modules/2.4.4/kernel/fs/efs/efs.o:
+
+/lib/modules/2.4.4/kernel/fs/hfs/hfs.o:
+
+/lib/modules/2.4.4/kernel/fs/hpfs/hpfs.o:
+
+/lib/modules/2.4.4/kernel/fs/jffs/jffs.o:	/lib/modules/2.4.4/kernel/drivers/mtd/mtdcore.o
+
+/lib/modules/2.4.4/kernel/fs/minix/minix.o:
+
+/lib/modules/2.4.4/kernel/fs/ncpfs/ncpfs.o:
+
+/lib/modules/2.4.4/kernel/fs/nfsd/nfsd.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_big5.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp1251.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp1255.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp737.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp775.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp850.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp852.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp855.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp857.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp860.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp861.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp862.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp863.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp864.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp865.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp866.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp869.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp874.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp932.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp936.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp949.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_cp950.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_euc-jp.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_euc-kr.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_gb2312.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-13.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-14.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-15.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-2.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-3.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-4.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-5.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-6.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-7.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-8.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_iso8859-9.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_koi8-r.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_koi8-u.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_sjis.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_tis-620.o:
+
+/lib/modules/2.4.4/kernel/fs/nls/nls_utf8.o:
+
+/lib/modules/2.4.4/kernel/fs/ntfs/ntfs.o:
+
+/lib/modules/2.4.4/kernel/fs/openpromfs/openpromfs.o:
+
+/lib/modules/2.4.4/kernel/fs/qnx4/qnx4.o:
+
+/lib/modules/2.4.4/kernel/fs/ramfs/ramfs.o:
+
+/lib/modules/2.4.4/kernel/fs/romfs/romfs.o:
+
+/lib/modules/2.4.4/kernel/fs/smbfs/smbfs.o:
+
+/lib/modules/2.4.4/kernel/fs/sysv/sysv.o:
+
+/lib/modules/2.4.4/kernel/fs/udf/udf.o:
+
+/lib/modules/2.4.4/kernel/net/appletalk/appletalk.o:
+
+/lib/modules/2.4.4/kernel/net/econet/econet.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/ip_gre.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/ipip.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack_ftp.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_nat_ftp.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/iptable_nat.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack_ftp.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_queue.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipchains.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipfwadm.o:
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_LOG.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_MARK.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_MASQUERADE.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/iptable_nat.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_MIRROR.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_REDIRECT.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/iptable_nat.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_REJECT.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_TCPMSS.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_TOS.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_limit.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_mac.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_mark.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_multiport.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_owner.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_state.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_tcpmss.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_tos.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ipt_unclean.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/iptable_filter.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/iptable_mangle.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv4/netfilter/iptable_nat.o:	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_conntrack.o \
+	/lib/modules/2.4.4/kernel/net/ipv4/netfilter/ip_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv6/ipv6.o:
+
+/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6_tables.o:
+
+/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6t_MARK.o:	/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6t_limit.o:	/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6t_mark.o:	/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6table_filter.o:	/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6table_mangle.o:	/lib/modules/2.4.4/kernel/net/ipv6/netfilter/ip6_tables.o
+
+/lib/modules/2.4.4/kernel/net/ipx/ipx.o:
+
+/lib/modules/2.4.4/kernel/net/khttpd/khttpd.o:
+
+/lib/modules/2.4.4/kernel/net/lapb/lapb.o:
+
+/lib/modules/2.4.4/kernel/net/netlink/netlink_dev.o:
+
+/lib/modules/2.4.4/kernel/net/x25/x25.o:
+

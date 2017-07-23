@@ -1,0 +1,132 @@
+
+
+
+RMMOD(8)               Linux Module Support              RMMOD(8)
+
+
+NNAAMMEE
+       rmmod - unload loadable modules
+
+SSYYNNOOPPSSIISS
+       rrmmmmoodd [ -aehrsvV ] module ...
+
+DDEESSCCRRIIPPTTIIOONN
+       rrmmmmoodd unloads loadable modules from the running kernel.
+
+       rrmmmmoodd  tries  to  unload a set of modules from the kernel,
+       with the restriction that they are not  in  use  and  that
+       they are not referred to by other modules.
+
+       If  more than one module is named on the command line, the
+       modules will be removed in the given order. This  supports
+       unloading of stacked modules.
+
+       With  the  option '-r' a recursive removal of modules will
+       be attempted.  This means that if a top module in a  stack
+       is named on the command line, all modules that are used by
+       this module will be removed as well, if possible.
+
+
+   OOPPTTIIOONNSS
+       _-_a _-_-_a_l_l
+              Remove all unused autocleanable modules.
+
+       _-_e _-_-_p_e_r_s_i_s_t
+              Save persistent data for the named modules, without
+              unloading  any  modules.   If  no  module names are
+              specified then data is saved for all  modules  that
+              have  persistent  data.  Data is only saved if both
+              the kernel and modutils support persistent data and
+              /proc/ksyms contains an entry
+              __insmod__m_o_d_u_l_e_n_a_m_e_P_p_e_r_s_i_s_t_e_n_t___f_i_l_e_n_a_m_e
+
+       _-_h _-_-_h_e_l_p
+              Print the help text.
+
+       _-_r _-_-_s_t_a_c_k_s
+              Remove a module stack.
+
+       _-_s _-_-_s_y_s_l_o_g
+              Output  everything  to  ssyysslloogg(3)  instead  of  the
+              terminal.
+
+       _-_v _-_-_v_e_r_b_o_s_e
+              Be verbose.
+
+       _-_V _-_-_v_e_r_s_i_o_n
+              Print the version of modutils.
+
+PPEERRSSIISSTTEENNTT DDAATTAA
+       If a module contains persistent data  (see  _i_n_s_m_o_d(8)  and
+
+
+
+Linux                   November 12, 2000                       1
+
+
+
+
+
+RMMOD(8)               Linux Module Support              RMMOD(8)
+
+
+       _m_o_d_u_l_e_s_._c_o_n_f(5))  then  removing  the module always writes
+       the persistent data to the filename  in  the  __insmod  _P
+       symbol  entry.   You  can also save the persistent data at
+       any time by rmmod -e, this will not unload any modules.
+
+       When the  persistent  data  is  written  to  file,  it  is
+       preceded by a generated comment line,
+       #% _k_e_r_n_e_l___v_e_r_s_i_o_n _t_i_m_e_s_t_a_m_p
+       Generated  comment  lines  start  with '#%', all generated
+       comments  are  stripped  from  the  existing  file,  other
+       comments are preserved.  The saved data values are written
+       to the file, preserving the existing order of comments and
+       assignments.  New values are added at the end of the file.
+       If the file contains values  that  do  not  exist  in  the
+       module then these values are preserved but are preceded by
+       a generated comment warning that they are not being  used.
+       The  latter  operation  allows  a  user  to switch between
+       kernels without losing persistent data and without getting
+       any error messages.
+
+       NNoottee:: Comments are only supported when the first non-space
+       character on a line is '#'.  Any non-blank lines  that  do
+       not  start with '#' are module options, one per line.  The
+       option lines have leading spaces removed, the remainder of
+       the  line  is passed to insmod as an option, including any
+       trailing characters.
+
+SSEEEE AALLSSOO
+       insmod(8), lsmod(8), ksyms(8), modprobe(8), modules(2)
+
+HHIISSTTOORRYY
+       Module support was first conceived by Anonymous
+       Initial Linux version by Bas Laarhoven <bas@vimec.nl>
+       Version 0.99.14 by Jon Tombs <jon@gtex02.us.es>
+       Extended by Bjorn Ekwall <bj0rn@blox.se>
+       Updated for 2.1.17 by Richard Henderson <rth@tamu.edu>
+       Updated for 2.2.2 by by Bjorn Ekwall <bj0rn@blox.se>
+       Updated  for   modutils   2.3.20   by   by   Keith   Owens
+       <kaos@ocs.com.au>
+       Persistent  data  for  modutils  2.3.22  by by Keith Owens
+       <kaos@ocs.com.au>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Linux                   November 12, 2000                       2
+
+

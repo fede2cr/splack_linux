@@ -1,0 +1,198 @@
+
+
+
+DEPMOD(8)              Linux Module Support             DEPMOD(8)
+
+
+NNAAMMEE
+       depmod  - handle dependency descriptions for loadable ker-
+       nel modules
+
+SSYYNNOOPPSSIISS
+       ddeeppmmoodd -[aA]  [-enqsvVr]  [-C configfile]  [-F kernelsyms]
+       [-b basedirectory] [forced_version]
+       ddeeppmmoodd [-enqsv] [-F kernelsyms] module1.o module2.o ...
+
+OOPPTTIIOONNSS
+       _-_a     Search  for modules in all directories specified in
+              the   (optional)   configuration   file   _/_e_t_c_/_m_o_d_-
+              _u_l_e_s_._c_o_n_f.
+
+       _-_A     Compare file timestamps and, if necessary, act like
+              ddeeppmmoodd -a.  This option only updates the dependency
+              file if anything has changed.
+
+       _-_e     Show all the unresolved symbol for each module.
+
+       _-_n     Write  the  dependency file on stdout instead of in
+              the //lliibb//mmoodduulleess tree.
+
+       _-_s     Write all error  messages  via  the  syslog  daemon
+              instead of stderr.
+
+       _-_v     Show  the  name  of each module as it is being pro-
+              cessed.
+
+       _-_q     Tell depmod to keep quiet and not to complain about
+              missing symbols.
+
+       _-_V     Show the release version name of ddeeppmmoodd
+
+       _-_r     Some  users compile modules under a non-root userid
+              then install the modules as root.  This process can
+              leave  the  modules  owned  by the non-root userid,
+              even though the modules directory is owned by root.
+              If  the non-root userid is compromised, an intruder
+              can overwrite existing modules owned by that userid
+              and  use  this  exposure  to  bootstrap  up to root
+              access.
+
+              By default, modutils will reject attempts to use  a
+              module  that  is  not owned by root.  Specifying -r
+              will suppress the error and allow root to load mod-
+              ules that are not owned by root.
+
+              UUssee  ooff  _-_r iiss aa mmaajjoorr sseeccuurriittyy eexxppoossuurree aanndd iiss nnoott
+              rreeccoommmmeennddeedd..
+
+       The following options are useful for people managing  dis-
+       tributions;
+
+
+
+
+Linux                    October 12, 1999                       1
+
+
+
+
+
+DEPMOD(8)              Linux Module Support             DEPMOD(8)
+
+
+       _-_b _b_a_s_e_d_i_r_e_c_t_o_r_y
+              If  the  directory tree //lliibb//mmoodduulleess containing the
+              sub-trees of modules is  moved  somewhere  else  in
+              order  to  handle  modules for a different environ-
+              ment, the _b_a_s_e_d_i_r_e_c_t_o_r_y option tells  depmod  where
+              to  find  the moved image of the //lliibb//mmoodduulleess tree.
+              The file references in the depmod output file  that
+              is built, _m_o_d_u_l_e_s_._d_e_p_, will not contain the _b_a_s_e_d_i_-
+              _r_e_c_t_o_r_y path.  This means that when the  file  tree
+              is  moved  back from bbaasseeddiirreeccttoorryy//lliibb//mmoodduulleess into
+              //lliibb//mmoodduulleess in the final distribution, all  refer-
+              ences will be correct.
+
+       _-_C _c_o_n_f_i_g_f_i_l_e
+              Use   the  file  _c_o_n_f_i_g_f_i_l_e  instead  of  /etc/mod-
+              ules.conf.
+              The environment variable  MMOODDUULLEECCOONNFF  can  also  be
+              used  to select a different configuration file from
+              the default /etc/modules.conf (or /etc/conf.modules
+              (deprecated)).
+
+       _-_F _k_e_r_n_e_l_s_y_m_s
+              When building dependency files for a different ker-
+              nel than the currently running kernel, it is impor-
+              tant  that  ddeeppmmoodd  uses  the correct set of kernel
+              symbols to resolve the kernel  references  in  each
+              module.  These symbols can either be a copy of _S_y_s_-
+              _t_e_m_._m_a_p from the other kernel, or  a  copy  of  the
+              output  from _/_p_r_o_c_/_k_s_y_m_s_.  If your kernel uses ver-
+              sioned  symbols,  you  mmuusstt  use  a  copy  of   the
+              _/_p_r_o_c_/_k_s_y_m_s  output,  since  that file contains the
+              symbol versions of the kernel symbols.
+
+DDEESSCCRRIIPPTTIIOONN
+       The ddeeppmmoodd and mmooddpprroobbee utilities are intended to  make  a
+       Linux modular kernel manageable for all users, administra-
+       tors and distribution maintainers.
+
+       DDeeppmmoodd creates a "Makefile"-like dependency file, based on
+       the  symbols  it  finds in the set of modules mentioned on
+       the command line or from the directories specified in  the
+       configuration file.  This dependency file is later used by
+       mmooddpprroobbee to automatically load the correct module or stack
+       of modules.
+
+       The normal use of ddeeppmmoodd is to include the line _/_s_b_i_n_/_d_e_p_-
+       _m_o_d _-_a somewhere in the rc-files in /etc/rc.d, so that the
+       correct  module dependencies will be available immediately
+       after booting the system.
+       Note that the option _-_a now is optional.  For boot-up pur-
+       poses,  the option _-_q might be more appropriate since that
+       make depmod silent about unresolved symbols.
+
+       It  is  also  possible  to  create  the  dependency   file
+
+
+
+Linux                    October 12, 1999                       2
+
+
+
+
+
+DEPMOD(8)              Linux Module Support             DEPMOD(8)
+
+
+       immediately after compiling a new kernel.  If you do "dep-
+       mod -a 2.2.99" when you have compiled  kernel  2.2.99  and
+       its  modules  the  first  time,  while  still running e.g.
+       2.2.98, the file will be created in the correct place.
+       In this case however, the dependencies on the kernel  will
+       not  be  guaranteed to be correct.  See the options _-_F_, _-_C
+       _a_n_d _-_b above for more information on handling this.
+
+CCOONNFFIIGGUURRAATTIIOONN
+       The behavior of ddeeppmmoodd and mmooddpprroobbee can be adjusted by the
+       (optional) configuration file //eettcc//mmoodduulleess..ccoonnff
+       See   _m_o_d_p_r_o_b_e_(_8_)   and  _m_o_d_u_l_e_s_._c_o_n_f_(_5_)  for  a  complete
+       description.
+
+
+SSTTRRAATTEEGGYY
+       Each time you compile a new kernel, the command mmaakkee  mmoodd--
+       uulleess__iinnssttaallll will create a new directory, but won't change
+       the default.
+
+       When you get a module unrelated to the kernel distribution
+       you  should  place  it  in  one of the version-independent
+       directories under /lib/modules.
+
+       This is the default strategy, which can be  overridden  in
+       /etc/modules.conf.
+
+FFIILLEESS
+       /etc/modules.conf (alternatively but deprecated /etc/modules.conf)
+       /lib/modules/*/modules.dep,
+       /lib/modules/*
+
+SSEEEE AALLSSOO
+       modules.conf(5),    modprobe(8),   modinfo(8),   lsmod(8),
+       ksyms(8), modules(2),
+
+AAUUTTHHOORR
+       Jacques Gelinas (jack@solucorp.qc.ca)
+       Bjorn Ekwall (bj0rn@blox.se)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Linux                    October 12, 1999                       3
+
+

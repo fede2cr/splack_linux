@@ -1,0 +1,66 @@
+
+
+
+LSMOD(8)               Linux Module Support              LSMOD(8)
+
+
+NNAAMMEE
+       lsmod - list loaded modules.
+
+SSYYNNOOPPSSIISS
+       llssmmoodd
+
+DDEESSCCRRIIPPTTIIOONN
+       LLssmmoodd shows information about all loaded modules.
+
+       The  format  is  name,  size, use count, list of referring
+       modules.  The information displayed is identical  to  that
+       available from /proc/modules.
+
+       If  the module controls its own unloading via a _c_a_n___u_n_l_o_a_d
+       routine then the user count displayed by lsmod  is  always
+       -1, irrespective of the real use count.
+
+SSEEEE AALLSSOO
+       insmod(8),  modprobe(8),  depmod(8),  rmmod(8),  ksyms(8),
+       modules(2)
+
+HHIISSTTOORRYY
+       Module support was first conceived by Anonymous
+       Initial Linux version by Bas Laarhoven <bas@vimec.nl>
+       Version 0.99.14 by Jon Tombs <jon@gtex02.us.es>
+       Extended by Bjorn Ekwall <bj0rn@blox.se>
+       Updated for 2.1.17 by Richard Henderson <rth@tamu.edu>
+       Updated by Bjorn Ekwall <bj0rn@blox.se> in March 1999
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Linux                      26 Dec 1996                          1
+
+

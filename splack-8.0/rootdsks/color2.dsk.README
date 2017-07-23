@@ -1,0 +1,18 @@
+
+WARNING!  This is not a stand-alone installation disk!  You will also need 
+the color1.gz root disk to install.
+
+1. Boot the bootdisk.
+
+2. When prompted, load the color1.gz rootdisk.  This contains the first
+   half of the root filesystem.
+
+3. After you've logged into the system with the username "root", you will
+   be prompted to insert the color2.dsk disk.  This disk contains the 
+   second half of the root filesystem.  The system will copy everything off
+   the second disk, and into the ramdisk.  Please be patient while this
+   goes on.
+
+4. Now you're ready to proceed with installation as usual.  If you need
+   to partition your drive with "fdisk" or "cfdisk", do that first, 
+   otherwise go ahead and run "setup".

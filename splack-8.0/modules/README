@@ -1,0 +1,37 @@
+
+These are modules that can be loaded into the Linux kernel, providing extra
+support for mice, CD-ROM drives, ethernet cards, and other devices.
+
+See these files in the "docs" directory for more information on loading these
+kernel modules: CDROM-HOWTO, ELF-HOWTO, Ethernet-HOWTO, Ftape-HOWTO, HAM-HOWTO,
+Hardware-HOWTO, Kernel-HOWTO, NET-2-HOWTO, PCI-HOWTO, PCMCIA-HOWTO, SCSI-HOWTO,
+SCSI-Programming-HOWTO, Serial-HOWTO, Sound-HOWTO, UMSDOS-HOWTO.
+
+Also see the documentation in /usr/doc/modules, and the Documentation directory
+in newer Linux kernel source.  (/usr/src/linux/Documentation)
+
+As a simple example, this line in your /etc/rc.d/rc.modules will load the
+driver for a 3com 3c509b ethernet card (PnP mode on the card disabled):
+
+/sbin/modprobe 3c509
+
+Note that this must happen *before* using ifconfig on eth0 or setting up
+eth0 related routes!
+
+Here's how this will look when you boot your machine:
+
+INIT: Entering runlevel: 3
+Going multiuser...
+loading device 'eth0'...
+eth0: 3c509 at 0x360 tag 1, 10baseT port, address  00 a0 24 28 ec a0, IRQ 10.
+3c509.c:1.12 6/4/97 becker@cesdis.gsfc.nasa.gov
+eth0: Setting Rx mode to 1 addresses.
+Mounting remote file systems...
+Starting daemons: syslogd klogd portmap inetd lpd mountd nfsd
+
+If you've installed the modules.tgz package, you'll have all of these modules
+installed on your machine under /lib/modules/ already.  So, to start
+using kernel modules you'll want to edit the /etc/rc.d/rc.modules file to
+select which modules you want loaded at boot time.  You can also use kerneld,
+a daemon which load and unloads kernel modules automatically on demand.
+

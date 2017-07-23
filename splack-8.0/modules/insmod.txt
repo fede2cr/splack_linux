@@ -1,0 +1,396 @@
+
+
+
+INSMOD(8)              Linux Module Support             INSMOD(8)
+
+
+NNAAMMEE
+       insmod - install loadable kernel module
+
+SSYYNNOOPPSSIISS
+       iinnssmmoodd        [-fhkLmnpqrsSvVxXyY]       [-e persist_name]
+       [-o module_name]   [-O blob_name]    [-P prefix]    module
+       [ symbol=value ... ]
+
+DDEESSCCRRIIPPTTIIOONN
+       iinnssmmoodd installs a loadable module in the running kernel.
+
+       iinnssmmoodd  tries  to link a module into the running kernel by
+       resolving all symbols from the  kernel's  exported  symbol
+       table.
+
+       If  the  module  file name is given without directories or
+       extension, iinnssmmoodd will  search  for  the  module  in  some
+       common  default  directories.   The  environment  variable
+       MODPATH can be used to override this default.  If a module
+       configuration  file  such  as /etc/modules.conf exists, it
+       will override the paths defined in MODPATH.
+       The environment variable MODULECONF can also  be  used  to
+       select  a  different  configuration  file from the default
+       /etc/modules.conf  (or  /etc/conf.modules   (deprecated)).
+       This   environment   variable   will   override   all  the
+       definitions above.
+
+   OOPPTTIIOONNSS
+       _-_f _-_-_f_o_r_c_e
+              Attempt load the module even if the version of  the
+              running  kernel  and  the version of the kernel for
+              which the module was compiled do not  match.   This
+              only  overrides the kernel version check, it has no
+              effect on symbol name checks.  If the symbol  names
+              in the module do not match the kernel then there is
+              no way to force _i_n_s_m_o_d to load the module.
+
+       _-_h _-_-_h_e_l_p
+              Print the help text.
+
+       _-_k _-_-_a_u_t_o_c_l_e_a_n
+              Set the auto-clean flag on the module.   This  flag
+              will  be  used by kkeerrnneelldd(8) to remove modules that
+              have not been  used  in  some  period  of  time  --
+              usually one minute.
+
+       _-_L _-_-_l_o_c_k
+              Use  fflloocckk(2)  to prevent simultaneous loads of the
+              same module.
+
+       _-_m _-_-_m_a_p
+              Output a load map on stdout, making  it  easier  to
+              debug the module in the event of a kernel panic.
+
+
+
+
+Linux                    November 10 2000                       1
+
+
+
+
+
+INSMOD(8)              Linux Module Support             INSMOD(8)
+
+
+       _-_n _-_-_n_o_l_o_a_d
+              Dummy  run,  do  everything  except load the module
+              into the kernel.  If requested by _-_m or _-_O, the run
+              will  produce a map or blob file.  Since the module
+              is not loaded, the  real  kernel  load  address  is
+              unknown  so  the  map and blob file are based on an
+              arbitrary load address of 0x12340000.
+
+       _-_p _-_-_p_r_o_b_e
+              Probe the module to see if it could be successfully
+              loaded.   This includes locating the object file in
+              the module  path,  checking  version  numbers,  and
+              resolving   symbols.    It   does   not  check  the
+              relocations nor does it produce a map or blob file.
+
+       _-_q _-_-_q_u_i_e_t
+              Do  not print a list of any unresolved symbols.  Do
+              not complain about version mismatch.   The  problem
+              will  only  be  reflected  in  the  exit  status of
+              _i_n_s_m_o_d.
+
+       _-_r _-_-_r_o_o_t
+              Some users compile modules under a non-root  userid
+              then install the modules as root.  This process can
+              leave the modules owned  by  the  non-root  userid,
+              even though the modules directory is owned by root.
+              If the non-root userid is compromised, an  intruder
+              can overwrite existing modules owned by that userid
+              and use this  exposure  to  bootstrap  up  to  root
+              access.
+
+              By  default, modutils will reject attempts to use a
+              module that is not owned by  root.   Specifying  -r
+              will  toggle  the  check  and  allow  root  to load
+              modules that are not  owned  by  root.   NNoottee::  the
+              default  value  for  root check can be changed when
+              modutils is configured.
+
+              UUssee ooff _-_r ttoo ddiissaabbllee rroooott cchheecckkiinngg oorr  sseettttiinngg  tthhee
+              ddeeffaauulltt ttoo ""nnoo rroooott cchheecckk"" aatt ccoonnffiigguurraattiioonn ttiimmee iiss
+              aa mmaajjoorr sseeccuurriittyy eexxppoossuurree aanndd iiss nnoott rreeccoommmmeennddeedd..
+
+       _-_s _-_-_s_y_s_l_o_g
+              Output  everything  to  ssyysslloogg(3)  instead  of  the
+              terminal.
+
+       _-_S _-_-_k_a_l_l_s_y_m_s
+              Force the loaded module to have kallsyms data, even
+              if the kernel does not support it.  This option  is
+              for  small  systems  where  the  kernel  is  loaded
+              without kallsyms data  but  selected  modules  need
+              kallsyms for debugging.
+
+
+
+
+
+Linux                    November 10 2000                       2
+
+
+
+
+
+INSMOD(8)              Linux Module Support             INSMOD(8)
+
+
+       _-_v _-_-_v_e_r_b_o_s_e
+              Be verbose.
+
+       _-_X _-_-_e_x_p_o_r_t_, _-_x _-_-_n_o_e_x_p_o_r_t
+              Do  and  do not export all of the module's external
+              symbols, respectively.   The  default  is  for  the
+              symbols  to  be  exported.   This  option  is  only
+              effective if the module does not explicitly  export
+              its  own  controlled  symbol  table,  and  thus  is
+              deprecated.
+
+       _-_Y _-_-_k_s_y_m_o_o_p_s_, _-_y _-_-_n_o_k_s_y_m_o_o_p_s
+              Do and do not add ksymoops symbols to ksyms.  These
+              symbols  are  used  by  ksymoops  to provide better
+              debugging if there is an Oops in this module.   The
+              default  is for the ksymoops symbols to be defined.
+              This option is independent of the -X/-x options.
+
+              ksymoops symbols add approximately  260  bytes  per
+              loaded  module.   Unless  you  are  really short on
+              kernel space and are trying to reduce ksyms to  its
+              minimum   size,  take  the  default  and  get  more
+              accurate  Oops  debugging.   ksymoops  symbols  are
+              required to save persistent module data.
+
+       _-_o module_name _-_-_n_a_m_e=module_name
+              Explicitly  name  the  module, rather than deriving
+              the name from the base name of  the  source  object
+              file.
+
+       _-_O blob_name _-_-_b_l_o_b=blob_name
+              Save the binary object in _b_l_o_b___n_a_m_e.  The result is
+              a binary blob (no ELF headers) showing exactly what
+              is   loaded   into   the   kernel,   after  section
+              manipulation  and   relocation.    Option   _-_m   is
+              recommended to get a map of the object.
+
+       _-_P prefix _-_-_p_r_e_f_i_x=prefix
+              This  option can be used with versioned modules for
+              an SMP or bigmem kernel, since such modules have an
+              extra  prefix  added in their symbol names.  If the
+              kernel was built with symbol versions  then  _i_n_s_m_o_d
+              will  automatically  extract  the  prefix  from the
+              definition      of      "get_module_symbol"      or
+              "inter_module_get",  one of which must exist in any
+              kernel that supports modules.  If the kernel has no
+              symbol  versions  but  the  module  was  built with
+              symbol versions then the user must supply -P.
+
+       _-_e persist_name _-_-_p_e_r_s_i_s_t=persist_name
+              Specifies where any persistent data for the  module
+              is  read  from  on  load  and  written to when this
+              instantiantion of the  module  is  unloaded.   This
+              option  is  silently  ignored  if the module has no
+
+
+
+Linux                    November 10 2000                       3
+
+
+
+
+
+INSMOD(8)              Linux Module Support             INSMOD(8)
+
+
+              persistent data.  Persistent data is only  read  by
+              _i_n_s_m_o_d if this option is present, by default _i_n_s_m_o_d
+              does not process persistent data.  As  a  shorthand
+              form,  _-_e  ""  (an  empty string) is interpreted by
+              _i_n_s_m_o_d   as   the   value   of   _p_e_r_s_i_s_t_d_i_r    (see
+              mmoodduulleess..ccoonnff(5))  followed  by  the filename of the
+              module, relative to the module search path  it  was
+              found  in,  minus  any  trailing  '.gz',  '.o'  and
+              '.mod'.    If   you   specify   _p_e_r_s_i_s_t_d_i_r=   (i.e.
+              persistdir  is  an empty field) then this shorthand
+              form is silently ignored.
+
+   MMOODDUULLEE PPAARRAAMMEETTEERRSS
+       Some modules  accept  load-time  parameters  to  customize
+       their  operation.  These parameters are often I/O port and
+       IRQ numbers that vary from machine to machine  and  cannot
+       be determined from the hardware.
+
+       In  modules  built  for 2.0 series kernels, any integer or
+       character pointer symbol may be treated as a parameter and
+       modified.   Beginning  in  the 2.1 series kernels, symbols
+       are explicitly marked as parameters so that only  specific
+       values  may  be  changed.  Furthermore type information is
+       provided for checking the values provided at load time.
+
+       In the case of integers, all values  may  be  in  decimal,
+       octal  or  hexadecimal  a  la  C:  17, 021 or 0x11.  Array
+       elements  are  specified  sequence  separated  by  commas;
+       elements can be skipped by omitting the value.
+
+       In  2.0  series  modules,  values that do not begin with a
+       number are considered  strings.   Beginning  in  2.1,  the
+       parameter's   type   information   indicates   whether  to
+       interpret the value as a string.  If the value begins with
+       double-quotes  (_"),  the  string  is  interpreted as in C,
+       escape sequences and all.  Do note  that  from  the  shell
+       prompt,  the  quotes  themselves  may need to be protected
+       from shell interpretation.
+
+   KKSSYYMMOOOOPPSS AASSSSIISSTTAANNCCEE
+       To  assist  with  debugging  of  kernel  Oops  when  using
+       modules,  insmod defaults to adding some symbols to ksyms,
+       see   the   --YY   option.    These   symbols   start   with
+       ____iinnssmmoodd___m_o_d_u_l_e_n_a_m_e__.   The _m_o_d_u_l_e_n_a_m_e is required to make
+       the symbols unique, it is legal to load  the  same  object
+       more  than  once  under different module names.  Currently
+       defined symbols are
+
+       __insmod__m_o_d_u_l_e_n_a_m_e_O_o_b_j_e_c_t_f_i_l_e_M_m_t_i_m_e_V_v_e_r_s_i_o_n
+
+       _o_b_j_e_c_t_f_i_l_e is the name of the file  that  the  object  was
+       loaded  from.   This  ensures  that ksymoops can match the
+       code to the correct object.  _m_t_i_m_e is  the  last  modified
+       timestamp  on  that  file  in  hex,  zero  if stat failed.
+
+
+
+Linux                    November 10 2000                       4
+
+
+
+
+
+INSMOD(8)              Linux Module Support             INSMOD(8)
+
+
+       _v_e_r_s_i_o_n is the kernel version that the module was compiled
+       for, -1 if no version is available.  The _O symbol has the
+       same start address as the module header.
+
+       __insmod__m_o_d_u_l_e_n_a_m_e_S_s_e_c_t_i_o_n_n_a_m_e_L_l_e_n_g_t_h
+
+       This symbol appears at the start of selected ELF sections,
+       currently .text, .rodata, .data and .bss.  It only appears
+       if the section has a non-zero size.   _s_e_c_t_i_o_n_n_a_m_e  is  the
+       name  of  the  ELF  section,  _l_e_n_g_t_h  is the length of the
+       section in  decimal.   These  symbols  help  ksymoops  map
+       addresses to sections when no symbols are available.
+
+       __insmod__m_o_d_u_l_e_n_a_m_e_P_p_e_r_s_i_s_t_e_n_t___f_i_l_e_n_a_m_e
+
+       Only  created  by  insmod  if  the  module has one or more
+       parameters that  are  marked  as  persistent  data  and  a
+       filename  to  save  persistent  data  (see  _-_e  above)  is
+       available.
+
+       The other problem with debugging kernel Oops in modules is
+       that  the  contents  of  /proc/ksyms and /proc/modules can
+       change between the Oops and when you process the log file.
+       To    help    overcome    this   problem,   if   directory
+       /var/log/ksymoops  exists  then  insmod  and  rmmod   will
+       automatically   copy   /proc/ksyms  and  /proc/modules  to
+       /var/log/ksymoops with a prefix  of  `date +%Y%m%d%H%M%S`.
+       The  system administrator can tell ksymoops which snapshot
+       files to use when debugging an Oops.  There is  no  switch
+       to  disable  this automatic copy, if you do not want it to
+       occur, do not create /var/log/ksymoops.  If that directory
+       exists,  it should be owned by root and be mode 644 or 600
+       and you should run this  script  every  day  or  so.   The
+       script below is installed as insmod_ksymoops_clean.
+
+         #!/bin/sh
+         # Delete saved ksyms and modules not accessed in 2 days
+         if [ -d /var/log/ksymoops ]
+         then
+              set -e
+              # Make sure there is always at least one version
+              d=`date +%Y%m%d%H%M%S`
+              cp -a /proc/ksyms /var/log/ksymoops/${d}.ksyms
+              cp -a /proc/modules /var/log/ksymoops/${d}.modules
+              find /var/log/ksymoops -type f -atime +2 -exec rm {} \;
+         fi
+
+SSEEEE AALLSSOO
+       rrmmmmoodd(8),   mmooddpprroobbee(8),  ddeeppmmoodd(8),  llssmmoodd(8),  kkssyymmss(8),
+       mmoodduulleess(2), ggeennkkssyymmss(8), kkeerrnneelldd(8), kkssyymmooooppss(kernel).
+
+HHIISSTTOORRYY
+       Module support was first conceived by Anonymous
+       Initial Linux version by Bas Laarhoven <bas@vimec.nl>
+
+
+
+Linux                    November 10 2000                       5
+
+
+
+
+
+INSMOD(8)              Linux Module Support             INSMOD(8)
+
+
+       Version 0.99.14 by Jon Tombs <jon@gtex02.us.es>
+       Extended by Bjorn Ekwall <bj0rn@blox.se>
+       Original ELF help from Eric Youngdale <eric@aib.com>
+       Rewritten for 2.1.17 by Richard Henderson <rth@tamu.edu>
+       Extended   by    Bjorn    Ekwall    <bj0rn@blox.se>    for
+       modutils-2.2.*, March 1999
+       Assistance  for ksymoops by Keith Owens <kaos@ocs.com.au>,
+       May 1999
+       Maintainer: Keith Owens <kaos@ocs.com.au>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Linux                    November 10 2000                       6
+
+

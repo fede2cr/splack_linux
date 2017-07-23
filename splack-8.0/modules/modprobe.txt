@@ -1,0 +1,330 @@
+
+
+
+MODPROBE(8)            Linux Module Support           MODPROBE(8)
+
+
+NNAAMMEE
+       modprobe - high level handling of loadable modules
+
+SSYYNNOOPPSSIISS
+       mmooddpprroobbee  [  -adnqv  ] [ -C config ] module [ symbol=value
+       ... ]
+       mmooddpprroobbee [ -adnqv ] [ -C config ] [ -t type ] pattern
+       mmooddpprroobbee -l [ -C config ] [ -t type ] pattern
+       mmooddpprroobbee -c [ -C config ]
+       mmooddpprroobbee -r [ -dnv ] [ -C config ] [ module ...]
+       mmooddpprroobbee -V
+
+OOPPTTIIOONNSS
+       _-_a_, _-_-_a_l_l
+              Load aallll matching modules instead of stopping after
+              the first successful loading.
+
+       _-_c_, _-_-_s_h_o_w_c_o_n_f_i_g
+              Show the currently used configuration.
+
+       _-_d_, _-_-_d_e_b_u_g
+              Show  information about the internal representation
+              of the stack of modules.
+
+       _-_k_, _-_-_a_u_t_o_c_l_e_a_n
+              Set 'autoclean' on loaded  modules.   Used  by  the
+              kernel  when  it  calls  on  mmooddpprroobbee  to satisfy a
+              missing feature (supplied as  a  module).   The  _-_q
+              option  is  implied  by  _-_k_.   These  options  will
+              automatically be sent to insmod.
+
+       _-_l_, _-_-_l_i_s_t
+              List matching modules.
+
+       _-_n_, _-_-_s_h_o_w
+              Don't actually perform the action, just  show  what
+              would be done.
+
+       _-_q_, _-_-_q_u_i_e_t
+              Do  not  complain about insmod failing to install a
+              module.  Continue as  normal,  but  silently,  with
+              other  possibilities  for  modprobe  to test.  This
+              option will automatically be sent to insmod.
+
+       _-_r_, _-_-_r_e_m_o_v_e
+              Remove module (stacks) or do  autoclean,  depending
+              on  whether  there are any modules mentioned on the
+              command line.
+
+       _-_s_, _-_-_s_y_s_l_o_g
+              Report via syslog instead of stderr.  This  options
+              will automatically be sent to insmod.
+
+
+
+
+
+Linux                     March 15, 1999                        1
+
+
+
+
+
+MODPROBE(8)            Linux Module Support           MODPROBE(8)
+
+
+       _-_t_, _-_-_t_y_p_e _m_o_d_u_l_e_t_y_p_e
+              Only  consider modules of this type.  modprobe will
+              only look at modules whose directory path  includes
+              exactly  "/_m_o_d_u_l_e_t_y_p_e/".   _m_o_d_u_l_e_t_y_p_e  can  include
+              more than one directory name, e.g.   _-_t _d_r_i_v_e_r_s_/_n_e_t
+              would  list  modules  in  xxx/drivers/net/  and its
+              subdirectories.
+
+       _-_v_, _-_-_v_e_r_b_o_s_e
+              Print all commands as they are executed.
+
+       _-_V_, _-_-_v_e_r_s_i_o_n
+              Show the release version of modprobe.
+
+       _-_C_, _-_-_c_o_n_f_i_g _c_o_n_f_i_g_f_i_l_e
+              Use the file _c_o_n_f_i_g_f_i_l_e instead of  (the  optional)
+              //eettcc//mmoodduulleess..ccoonnff  to  specify  the  configuration.
+              The environment variable  MMOODDUULLEECCOONNFF  can  also  be
+              used   to   select   (and   override)  a  different
+              configuration     file     from     the     default
+              /etc/modules.conf       (or       /etc/conf.modules
+              (deprecated)).
+
+DDEESSCCRRIIPPTTIIOONN
+       The mmooddpprroobbee and ddeeppmmoodd utilities are intended to  make  a
+       Linux  modular  kernel  more  manageable  for  all  users,
+       administrators and distribution maintainers.
+
+       MMooddpprroobbee uses a "Makefile"-like dependency  file,  created
+       by  ddeeppmmoodd,,  to  automatically load the relevant module(s)
+       from the set of modules available in predefined  directory
+       trees.
+
+       MMooddpprroobbee is used to load a set of modules, either a single
+       module, a stack of dependent modules, or all modules  that
+       are marked with a specified tag.
+
+       MMooddpprroobbee  will  automatically load all base modules needed
+       in a module stack, as described  by  the  dependency  file
+       modules.dep.   If  the  loading  of  one  of these modules
+       fails, the whole current stack of modules  loaded  in  the
+       current session will be unloaded automatically.
+
+       MMooddpprroobbee  has  two  ways  of loading modules. One way (the
+       probe mode) will try to  load  a  module  out  of  a  list
+       (defined  by _p_a_t_t_e_r_n ).  MMooddpprroobbee stops loading as soon as
+       one module loads successfully.   This  could  be  used  to
+       autoload one Ethernet driver out of a list.
+       The  other way mmooddpprroobbee can be used is to load aallll modules
+       from a list.  See EEXXAAMMPPLLEESS below.
+
+       With the option --rr,, modprobe will automatically  unload  a
+       stack  of  modules, similar to the way rrmmmmoodd --rr does. Note
+       that  using  just  mmooddpprroobbee  --rr  will  clean   up   unused
+
+
+
+Linux                     March 15, 1999                        2
+
+
+
+
+
+MODPROBE(8)            Linux Module Support           MODPROBE(8)
+
+
+       autoloaded  modules  and  also  perform the pre- and post-
+       remove    commands    in    the     configuration     file
+       /etc/modules.conf.
+
+       With  the option _-_l combined with the option _-_t a list all
+       available modules of a certain type will be shown.
+
+       Option _-_c will  print  the  currently  used  configuration
+       (default + configuration file).
+
+CCOONNFFIIGGUURRAATTIIOONN
+       The  behavior of mmooddpprroobbee (and ddeeppmmoodd ) can be modified by
+       the (optional) configuration file //eettcc//mmoodduulleess..ccoonnff
+       For a more detailed description  of  what  this  file  can
+       contain,  as  well  as  the  default configuration used by
+       ddeeppmmoodd and mmooddpprroobbee,, see _m_o_d_u_l_e_s_._c_o_n_f_(_5_)_.
+
+       Note that the pre- and post-remove commands  will  nnoott  be
+       executed  if  a  module is "autocleaned" by kerneld!  Look
+       for the up-coming support for  persistent  module  storage
+       instead.
+       If you want to use the pre- and post-install features, you
+       will have to turn off autoclean for  kerneld  and  instead
+       put  something  like  the  following  line in your crontab
+       (this is used for kmod systems as well)  to  do  autoclean
+       every 2 minutes:
+        */2 * * * * test -f /proc/modules && /sbin/modprobe -r
+
+SSTTRRAATTEEGGYY
+       The idea is that mmooddpprroobbee will look first in the directory
+       containing modules compiled for the current release of the
+       kernel.   If  the module is not found there, mmooddpprroobbee will
+       look in the directory common to the kernel  version  (e.g.
+       2.0,  2.2).   If  the module is still found, mmooddpprroobbee will
+       look in the directory containing  modules  for  a  default
+       release, and so on.
+
+       When  you install a new linux, the modules should be moved
+       to a directory related to the release (and version) of the
+       kernel  you  are installing.  Then you should do a symlink
+       from this directory to the "default" directory.
+
+       Each time you compile  a  new  kernel,  the  command  mmaakkee
+       mmoodduulleess__iinnssttaallll  will  create  a  new directory, but won't
+       change the
+
+       When you get a module unrelated to the kernel distribution
+       you  should  place  it  in  one of the version-independent
+       directories under /lib/modules.
+
+       This is the default strategy, which can be  overridden  in
+       /etc/modules.conf.
+
+
+
+
+
+Linux                     March 15, 1999                        3
+
+
+
+
+
+MODPROBE(8)            Linux Module Support           MODPROBE(8)
+
+
+EEXXAAMMPPLLEESS
+       modprobe -t net
+              Load  one  of  the  modules  that are stored in the
+              directory tagged  "net".   Each  module  are  tried
+              until one succeeds.
+
+       modprobe -a -t boot
+              All  modules  that are stored in directories tagged
+              bboooott will be loaded.
+
+       modprobe slip
+              This will attempt to load the module slhc.o  if  it
+              was  not  previously  loaded, since the slip module
+              needs the functionality in the slhc  module.   This
+              dependency   will   be   described   in   the  file
+              "modules.dep" that  was  created  automatically  by
+              ddeeppmmoodd
+
+       modprobe -r slip
+              will  unload  the slip module.  It will also unload
+              the slhc module automatically, unless it is used by
+              some other module as well (like e.g. ppp).
+
+FFIILLEESS
+       /etc/modules.conf, (alternatively but deprecated: /etc/conf.modules)
+       /lib/modules/*/modules.dep,
+       /lib/modules/*
+
+SSEEEE AALLSSOO
+       depmod(8),   lsmod(8),   kerneld(8),  ksyms(8),  rmmod(8),
+       modules(2)
+
+SSAAFFEE MMOODDEE
+       If the effective uid is not equal to  the  real  uid  then
+       modprobe  treats  its  input  with extreme suspicion.  The
+       last parameter is always treated as a module name, even if
+       it starts with '-'.  There can only be one module name and
+       options of the form "variable=value" are  forbidden.   The
+       module  name  is  always  treated  as  a  string,  no meta
+       expansion  is  performed  in  safe  mode.   However   meta
+       expansion  is  still  applied to data read from the config
+       file.
+
+       euid may not be equal to uid when modprobe is invoked from
+       the  kernel, this is true for kernels >= 2.4.0-test11.  In
+       an ideal world modprobe could trust  the  kernel  to  only
+       pass  valid  parameters to modprobe.  However at least one
+       local root exploit has occurred because high level  kernel
+       code  passed unverified parameters direct from the user to
+       modprobe.  So modprobe no longer trusts kernel input.
+
+
+
+
+
+
+
+Linux                     March 15, 1999                        4
+
+
+
+
+
+MODPROBE(8)            Linux Module Support           MODPROBE(8)
+
+
+       mmooddpprroobbee automatically sets safe mode when the environment
+       consists only of these strings
+        HOME=/
+        TERM=linux
+        PATH=/sbin:/usr/sbin:/bin:/usr/bin
+       This detects modprobe execution from the kernel on kernels
+       2.2 though 2.4.0-test11, even if uid  ==  euid,  which  it
+       does on the earlier kernels.
+
+RREEQQUUIIRREEDD UUTTIILLIITTIIEESS
+       depmod(8), insmod(8)
+
+NNOOTTEESS
+       Patterns  supplied  to  modprobe  will  often  need  to be
+       escaped to ensure that  it  is  evaluated  in  the  proper
+       context.
+
+AAUUTTHHOORR
+       Jacques Gelinas (jack@solucorp.qc.ca)
+       Bjorn Ekwall (bj0rn@blox.se)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Linux                     March 15, 1999                        5
+
+

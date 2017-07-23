@@ -1,0 +1,32 @@
+cat << EOF > ./FILE_LIST
+
+Here is the file list for this directory.  If you are using a 
+mirror site and find missing or extra files in the disk 
+subdirectories (other than the 00index.txt files, which are not
+required and should not be put on your install floppies), please
+have the archive administrator refresh the mirror.
+
+EOF
+find . -not -name CHECKSUMS\* -not -name FILE_LIST -not -name MANIFEST.gz -type f -exec ls -l {} \; >> ./FILE_LIST
+
+cat << EOF > ./CHECKSUMS
+These are the CRCs and filesizes for the files in this directory.
+If you want to test your files, use 'cksum' and compare the values to
+the ones listed here. 'cksum' can be found in the GNU textutils
+package on prep.ai.mit.edu in /pub/gnu, or at any GNU mirror site.
+
+CRC        Size     Filename
+EOF
+
+find . -not -name CHECKSUMS\* -type f -exec cksum {} \; >> ./CHECKSUMS
+
+cat << EOF > ./CHECKSUMS.md5
+These are the MD5 message digests for the files in this directory.
+If you want to test your files, use 'md5sum' and compare the values to
+the ones listed here. 'md5sum' can be found in the GNU textutils
+package on prep.ai.mit.edu in /pub/gnu, or at any GNU mirror site.
+
+MD5 message digest                Filename
+EOF
+find . -not -name CHECKSUMS\* -type f -exec md5sum {} \; >> ./CHECKSUMS.md5
+
