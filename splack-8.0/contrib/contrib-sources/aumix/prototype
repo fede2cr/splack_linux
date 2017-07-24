@@ -1,0 +1,31 @@
+VERSION=2.7
+BUILD=1
+ARCH=sparc
+
+PKGNAME=aumix-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="aumix"
+DESC="\
+aumix-$VERSION\n\
+\n\
+aumix is an audio mixer.  It has an X (GTK+) and console (ncurses)\n\
+interface.  A non-interactive command line mode is also supported."
+
+compile() {
+   tar xvzf $CWD/aumix-$VERSION.tar.gz
+   cd aumix-$VERSION
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/aumix-$VERSION
+   cp ABOUT-NLS AUTHORS BUGS COPYING ChangeLog INSTALL NEWS README TODO \
+      /usr/doc/aumix-$VERSION
+}

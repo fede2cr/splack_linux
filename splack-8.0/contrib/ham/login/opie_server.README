@@ -1,0 +1,27 @@
+You will also need to install the opie package.
+
+REMEMBER to run opiepasswd on your users immediately.
+
+This Slackware opie-server package differs from the standard opie installation.
+It does not rename the already installed ftpd (proftpd).
+It does however rename (and change permisions) of `login' and `su'.
+
+If you want to enable opieftpd then make the following changes to 
+/etc/inetd.conf
+comment-out the line with proftpd and add a line enabling opieftpd.
+eg.
+ #ftp     stream  tcp     nowait  root    /usr/sbin/tcpd  /usr/sbin/proftpd
+ # One-time Passwords In Everything FTP Daemon:
+ ftp     stream  tcp     nowait  root    /usr/sbin/tcpd  /usr/sbin/opieftpd
+
+IMPORTANT:
+If you ever uninstall the opie_server package, you will need to restore the 
+original `login' and `su'. You will need to do this *BEFORE* you reboot.
+Otherwise you will have dificulties loging into your system.
+
+You can restore as folows;
+
+ rm -f /bin/login ; mv /bin/login.orig.b4opie /bin/login ; chmod 755 /bin/login
+ rm -f /bin/su ; mv /bin/su.orig.b4opie /bin/su ; chmod 4711 /bin/su
+
+Or you can restore by re-installing the shadow.tgz package.

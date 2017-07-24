@@ -1,0 +1,40 @@
+
+This package (openmotif-2.1.30-sparc-2.tgz), is OpenMotif 2.1.30 compiled for
+Slackware.
+
+INSTALLATION:
+
+Slackware's OpenMotif and LessTif packages should not be installed at the same time (though it may be possible to make
+them work together if you compile them both from source and put them in different locations).  So before you begin,
+remove lesstif from your system:
+
+removepkg `/bin/ls -1 /var/log/packages/lesstif*`
+
+Then, install the OpenMotif package:
+
+installpkg openmotif-2.1.30-sparc-2.tgz
+
+OpenMotif will now be installed.  Before using the libraries, you'll need to
+run 'ldconfig' (or reboot, as the system runs ldconfig at boot time)
+
+IMPORTANT UNINSTALLATION NOTES:
+
+The OpenMotif package will overwrite several X Window System files with its
+own versions.  Therefore, to remove it you must follow these steps:
+
+Remove the OpenMotif package:
+
+removepkg openmotif-2.1.30-sparc-2
+
+Then, you'll need to reinstall these packages from Slackware's slakware/x1
+directory:
+
+installpkg xbin*
+installpkg xprog*
+
+And, if desired:
+
+installpkg lesstif*
+
+Have fun!
+

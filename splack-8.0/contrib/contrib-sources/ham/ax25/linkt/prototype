@@ -1,0 +1,47 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/home 
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.6.99-20010205
+PROGNAME="LinKT"
+DESC="\
+LinKT version $VERSION\n\
+\n\
+The Linux KDE packet radio Terminal\n\
+Includes MonKT and ax25spyd-0.23\n\
+Requires KDE2. Author: Jochen Sarrazin, DG6VJ, et al."
+
+# maintainer
+ARCH=sparc
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="http://sourceforge.net/projects/linkt"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=linkt-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar yxvf $CWD/linkt-$VERSION.tar.bz2
+   cd linkt-$VERSION
+   ./configure
+   make
+   cd $TMP
+   tar yxvf $CWD/ax25spyd-0.23.tar.bz2
+   patch -p0 < $CWD/etcax25dir.patch
+   cd ax25spyd-0.23			 
+   ./configure --sysconfdir=/etc
+   make
+}
+
+install() {
+   cd $TMP/linkt-$VERSION
+   make install
+   mkdir -p /usr/doc/linkt-$VERSION
+   cp BUGS* CHANGES COPYING.linkt FAQ* INSTALL* README TODO VERSION /usr/doc/linkt-$VERSION
+   cd $TMP/ax25spyd-0.23
+   make install
+   mkdir -p /usr/doc/ax25spyd-0.23
+   cp AUTHORS BUGS ChangeLog INSTALL NEWS README /usr/doc/ax25spyd-0.23
+}

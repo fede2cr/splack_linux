@@ -1,0 +1,15 @@
+
+xfstt-1.1: A TrueType font server.
+
+        Xfstt means "X11 Font Server for TT fonts".
+        TT fonts are generally regarded to be the best scalable
+        fonts for low resolution devices like displays.
+
+        Examples where good scalable fonts improve the visual quality
+        considerably are netscape(tm), gimp and java(tm).
+        A fonts.properties file for use with java is provided.
+
+        Xfstt is freely available under the LGPL. This basically means:
+        Use it for free; if you fix bugs you have to contribute the
+        fixes to the public.
+

@@ -1,0 +1,21 @@
+diff -u --new-file --recursive ax25spyd-0.23.orig/examples/Makefile.am ax25spyd-0.23/examples/Makefile.am
+--- ax25spyd-0.23.orig/examples/Makefile.am	Sat Jul 24 23:57:42 1999
++++ ax25spyd-0.23/examples/Makefile.am	Sat Jan  1 18:41:07 2000
+@@ -1,4 +1,4 @@
+-exampledir=$(prefix)/etc/ax25/
++exampledir=/etc/ax25/
+ example_DATA= ax25spyd.conf.example services
+ noinst_DATA= ax25spy.shtml
+ EXTRA_DIST= $(example_DATA) $(noinst_DATA)
+diff -u --new-file --recursive ax25spyd-0.23.orig/examples/Makefile.in ax25spyd-0.23/examples/Makefile.in
+--- ax25spyd-0.23.orig/examples/Makefile.in	Wed Sep  1 23:48:20 1999
++++ ax25spyd-0.23/examples/Makefile.in	Sat Jan  1 18:40:58 2000
+@@ -62,7 +62,7 @@
+ PACKAGE = @PACKAGE@
+ VERSION = @VERSION@
+ 
+-exampledir = $(prefix)/etc/ax25/
++exampledir = /etc/ax25/
+ example_DATA = ax25spyd.conf.example services
+ noinst_DATA = ax25spy.shtml
+ EXTRA_DIST = $(example_DATA) $(noinst_DATA)

@@ -1,0 +1,48 @@
+This directory contains compressed (by gzip) archive files of fonts
+in the distribution intlfonts-1.2.
+
+Each archive file contains the same README, Makefile and some other
+staffs used by Makefile.  Please read README for more detail.
+
+The top directory of each archive file is `intlfonts'.
+
+When you extract multiple archives at the same directory, tar command
+may complain that it can't extract some files because of file
+permission as below:
+----------------------------------------------------------------------
+tar: intlfonts-1.2/Makefile.in: Could not create file: Permission denied
+tar: Error exit delayed from previous errors
+----------------------------------------------------------------------
+You can just ignore this kind of warning message.
+
+The archive files are:
+
+European.tar.gz		European normal size fonts
+European.BIG.tar.gz	European big fonts
+Asian.tar.gz		Asian (non-CJK) fonts of all sizes
+Chinese.tar.gz		Chinese normal size fonts except what come with X
+Chinese.BIG.tar.gz	Chinese big fonts
+Chinese.X.tar.gz	Chinese fonts that come with X
+Japanese.tar.gz		Japanese normal size fonts except what come with X
+Japanese.BIG.tar.gz	Japanese big fonts
+Japanese.X.tar.gz	Japanese fonts that come with X
+Korean-X.tar.gz		Korean fonts that come with X
+Ethiopic.tar.gz		Ethiopic fonts
+Misc.tar.gz		fonts for the other regions/script
+
+In addition to these, this directory contains the following archive
+files classified by dot-size of fonts.
+
+14dots.tar.gz		collection of 7x14 and 14x14 dots fonts
+16dots.tar.gz		collection of 8x16 and 16x16 dots fonts
+18dots.tar.gz		collection of 9x18 and 18x18 dots fonts
+24dots.tar.gz		collection of 12x24 and 24x24 dots fonts
+32dots.tar.gz		collection of 16x32 and 32x32 dots fonts
+40dots.tar.gz		collection of 20x40 and 40x40 dots fonts
+48dots.tar.gz		collection of 24x48 and 48x48 dots fonts
+
+In addition, this directory contains the following vector fonts
+archives.
+
+Type1.tar.gz		collection of Type1 fonts for Latin1, Thai, Vietnamese
+TrueType.tar.gz		collection of TrueType fonts for Latin1, Vietnamese

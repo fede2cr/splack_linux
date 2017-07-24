@@ -1,0 +1,40 @@
+VERSION=1.1
+BUILD=1
+ARCH=sparc
+
+PKGNAME=xfstt-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=xfstt
+DESC="\
+xfstt $VERSION\n\
+\n\
+xfstt is a TrueType font server for the X Window System. It allows\n\
+applications such as Netscape and the GIMP to take advantage of the\n\
+wide selection of TrueType fonts available.\n\
+\n\
+NOTE: No TrueType fonts are provided. You will need to obtain those\n\
+on your own."
+
+compile() {
+   tar xvzf $CWD/xfstt-$VERSION.tar.gz
+   cd xfstt-$VERSION
+   make
+}
+
+install() {
+   cp xfstt /usr/X11R6/bin
+   cat xfstt.1x | gzip -9c > /usr/X11R6/man/man1/xfstt.1.gz
+   mkdir -p /usr/doc/xfstt-$VERSION
+   cp CHANGES COPYING FAQ INSTALL README.txt THANKS.txt ttfont.html xfstt.lsm \
+      font.properties /usr/doc/xfstt-$VERSION
+}
+
+special() {
+   mkdir -p $PKG/usr/share/fonts/truetype
+   mkdir -p $PKG/var/cache/xfstt
+}

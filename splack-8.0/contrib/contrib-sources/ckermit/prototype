@@ -1,0 +1,39 @@
+VERSION=7.0.197
+BUILD=1
+ARCH=sparc
+
+PKGNAME=ckermit-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="ckermit"
+DESC="\
+ckermit $VERSION\n\
+\n\
+C-Kermit is a combined serial and network communication software\n\
+package offering a consistent, medium-independent, cross-platform\n\
+approach to connection establishment, terminal sessions, file\n\
+transfer, character-set translation, numeric and alphanumeric\n\
+paging, and automation of communication tasks."
+
+compile() {
+   mkdir ckermit
+   ckermit
+   tar xvzf $CWD/cku197.tar.gz
+   zcat $CWD/cku197.diff.gz | patch -p0 --verbose -E
+   make linux
+}
+
+install() {
+   cp wermit /usr/bin/kermit
+   cp ckuker.nr /usr/man/man1/kermit.1
+
+   mkdir -p /usr/doc/ckermit-$VERSION
+   cp COPYING.TXT ckuaaa.txt ckermit2.txt ckcbwr.txt ckubwr.txt ckuins.txt \
+      ckermit.ini ckermod.ini ckurzsz.ini ckermit.k*d telnet.txt security.txt \
+      iksd.txt cke*.ksc ckcplm.txt ckccfg.txt /usr/doc/ckermit-$VERSION
+   cp -a ckaaaa.txt /usr/doc/ckermit-$VERSION/READ.ME
+}

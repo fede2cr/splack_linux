@@ -1,0 +1,39 @@
+VERSION=1.1b
+BUILD=1
+ARCH=sparc
+
+PKGNAME=cmatrix-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/run:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=cmatrix
+DESC="\
+CMatrix $VERSION\n\
+\n\
+An ncurses program that displays a vertical scrolling \"matrix\"\n\
+of text and numbers. This was made popular by the movie Matrix\n\
+from 1999. It comes with fonts for console mode as well as\n\
+running in an xterm (or other X terminal program).\n\
+\n\
+Enjoy! It makes for a nice screen saver.  :)"
+
+compile() {
+   tar xvzf $CWD/cmatrix-$VERSION.tar.gz
+   cd cmatrix-$VERSION
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   cp cmatrix /usr/bin
+   cat cmatrix.1 | gzip -9c > /usr/man/man1/cmatrix.1.gz
+   cat matrix.fnt > /usr/lib/kbd/consolefonts/matrix.fnt
+   cat matrix.psf.gz > /usr/lib/kbd/consolefonts/matrix.psf.gz
+   cat mtx.pcf > /usr/X11R6/lib/fonts/misc/mtx.pcf
+   mkdir -p /usr/doc/cmatrix-$VERSION
+   cp AUTHORS COPYING Changelog INSTALL NEWS README README.fonts TODO \
+      /usr/doc/cmatrix-$VERSION
+}

@@ -1,0 +1,22 @@
+*** motif/clients/mwm/WmIconBox.c.orig  Tue May  2 11:53:42 2000
+--- motif/clients/mwm/WmIconBox.c	Thu May 18 11:31:17 2000
+***************
+*** 2937,2942 ****
+--- 2937,2943 ----
+  	if (majorDimension != pIBD->IPD.placementCols)
+  	{
+  	    pIBD->IPD.placementCols = majorDimension;
++             if (pIBD->IPD.placementCols == 0) pIBD->IPD.placementCols++;
+  	}
+      }
+      else
+***************
+*** 2954,2959 ****
+--- 2955,2961 ----
+  	if (majorDimension != pIBD->IPD.placementRows)
+  	{
+  	    pIBD->IPD.placementRows = majorDimension;
++             if (pIBD->IPD.placementRows == 0) pIBD->IPD.placementRows++;
+  	}
+      }
+  

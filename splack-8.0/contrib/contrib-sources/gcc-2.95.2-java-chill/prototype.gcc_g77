@@ -1,0 +1,55 @@
+TAG=OPT
+
+SUBPKGNAME=gcc_g77-$VERSION-$ARCH-$BUILD
+
+PROGNAME="GCC Fortran 77 Compiler"
+DESC="\
+GNU Fortran-77 compiler from the gcc-$VERSION release.\n\
+\n\
+This package contains the GNU Fortran-77 compiler from gcc.  To use\n\
+this compiler, you'll also need to install the gcc C/C++ compiler\n\
+package, binutils, gmake, glibc, and lxinclude."
+
+subinstall() {
+   echo "Nothing to install for gcc_g77."
+}
+
+subspecial() {
+   # make the package tree
+   cd $SUBPKG
+   mkdir -p usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/include
+   mkdir -p usr/bin
+   mkdir -p usr/doc/gcc-$VERSION/gcc/f
+   mkdir -p usr/info
+   mkdir -p usr/man/man1
+
+   # populate the tree
+   ( cd $TMP/gcc-master
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/f771 \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/libg2c.a \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/include/g2c.h \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/include
+
+     cp -a usr/bin/g77-gcc-2.95.3 $SUBPKG/usr/bin
+
+     cp -a usr/doc/gcc-$VERSION/gcc/f/* $SUBPKG/usr/doc/gcc-$VERSION/gcc/f
+
+     cp -a usr/info/g77* $SUBPKG/usr/info
+
+     cp -a usr/man/man1/g77* $SUBPKG/usr/man/man1 )
+
+   # permissions
+   chown -R root.bin $SUBPKG/usr/bin
+
+   # the doinst.sh script
+   cat << EOF > $SUBCTL/doinst.sh
+( cd usr/bin ; rm -rf g77 )
+( cd usr/bin ; ln -sf g77-gcc-2.95.3 g77 )
+( cd usr/bin ; rm -rf f77 )
+( cd usr/bin ; ln -sf g77 f77 )
+( cd usr/man/man1 ; rm -rf f77.1.gz )
+( cd usr/man/man1 ; ln -sf g77.1.gz f77.1.gz )
+EOF
+}

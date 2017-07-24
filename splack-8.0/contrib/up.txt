@@ -1,0 +1,52 @@
+up 0.3
+by: David Cantrell (david@burdell.org)
+
+----------------------------------------------------------------------------
+This program is protected by the GNU General Public License.  Please see
+http://www.gnu.org or the included COPYING file for information regarding
+the GNU General Public License.
+
+Portions of this program are taken from procps version 1.2.7
+----------------------------------------------------------------------------
+
+====================
+What the hell is it?
+====================
+up displays the uptime of the system accounting for decades, years, weeks,
+days, hours, and minutes.  It can output the uptime in its standard hardcore
+format or the standard 'uptime' (that program that comes with procps) format
+for quick comparisons with other systems.
+
+================
+How do I run it?
+================
+Type:
+
+	up --help
+
+for a list of command line arguments.
+
+==============================
+Why the hell did you write it?
+==============================
+A friend wanted a program to output uptime through years.
+
+==============================================
+Does it do anything else that's mildly usable?
+==============================================
+Not really....it's really pretty limited.
+
+======================================================
+Why can't I compile it on Solaris/HP-UX/AIX/BSD/_____?
+======================================================
+I don't know.  Never tried it on those systems.  up relies on the file
+/proc/uptime to be available.  That's how it gets the current uptime.
+
+==========================================
+Can I modify the source and re-release it?
+==========================================
+Go for it.  I don't care.  It does what I want and that's fine with me.
+Just follow the terms of the GPL.
+
+-David Cantrell
+ david@burdell.org

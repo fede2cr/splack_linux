@@ -1,0 +1,36 @@
+VERSION=1.1
+BUILD=1
+ARCH=sparc
+
+PKGNAME=socket-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=socket
+DESC="\
+socket $VERSION\n\
+\n\
+The program Socket implements access to TCP sockets from shell\n\
+level.  First written for the need to open a server socket and\n\
+read and write to the socket interactively for testing purposes,\n\
+it quickly evolved into a generic tool providing the socket\n\
+interface for shell script and interactive use."
+
+compile() {
+   tar xvzf $CWD/socket-$VERSION.tar.gz
+   cd socket-$VERSION
+   make clean
+   zcat $CWD/globals.h.diff.gz | patch
+   make
+}
+
+install() {
+   cp socket /usr/bin
+   cat socket.1 | gzip -9c > /usr/man/man1/socket.1.gz
+   mkdir -p /usr/doc/socket-$VERSION
+   cp BLURB README CHANGES README.HPLJ COPYRIGHT README.LINUX \
+      Dependencies INSTALL /usr/doc/socket-$VERSION
+}

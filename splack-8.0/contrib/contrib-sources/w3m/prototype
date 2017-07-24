@@ -1,0 +1,35 @@
+VERSION=0.2.1
+BUILD=1
+ARCH=sparc
+
+PKGNAME=w3m-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=w3m
+DESC="\
+w3m-0.2.1\n\
+\n\
+3m is a pager with WWW capability. It IS a pager, but it can be\n\
+used as a text-mode WWW browser."
+
+compile() {
+   tar xvzf $CWD/w3m-$VERSION.tar.gz
+   cd w3m-$VERSION
+   zcat $CWD/w3m-$VERSION.silly.sparc.diff.gz | patch -p1
+   ./configure < $CWD/config.list
+   make
+}
+
+install() {
+   make install
+
+   mkdir -p /usr/doc/w3m-$VERSION
+   cp -r README doc doc-jp /usr/doc/w3m-$VERSION
+   find /usr/doc/w3m-$VERSION -type d -name CVS | xargs rm -rf
+
+   cp doc/w3m.1 /usr/man/man1/w3m.1
+}

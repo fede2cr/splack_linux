@@ -1,0 +1,23 @@
+gcc_java: GNU Java compiler from the gcc-2.95.3 release.
+gcc_java:
+gcc_java: This package contains the GNU Java compiler from the gcc release.
+gcc_java: To use this compiler, you'll also need to install the gcc.tgz C/C++
+gcc_java: compiler package, binutils.tgz, gmake.tgz, glibc.tgz, and
+gcc_java: linuxinc.tgz.
+gcc_java:
+gcc_java: Additional components such as libgcj are also required.
+gcc_java:
+gcc_java:
+gcc_java:
+
+gccchill: GNU Chill compiler from the gcc-2.95.3 release.
+gccchill:
+gccchill: This package contains the GNU Chill compiler from the gcc release.
+gccchill: Chill is the "CCITT High-Level Language", a language in the Modula2
+gccchill: family, targeting many of the same applications as Ada (especially
+gccchill: large embedded systems).  To use this compiler, you'll also need to
+gccchill: install the gcc.tgz C/C++ compiler package, binutils.tgz,
+gccchill: gmake.tgz, glibc.tgz, and linuxinc.tgz.
+gccchill:
+gccchill:
+gccchill:

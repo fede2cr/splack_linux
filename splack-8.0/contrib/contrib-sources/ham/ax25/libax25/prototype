@@ -1,0 +1,45 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.0.7
+PROGNAME="AX.25 libraries"
+DESC="\
+AX.25 libraries version 0.0.7\n\
+\n\
+This library set is still really under test but is now release\n\
+for general use. You are supposed to use glibc2 for this package.\n\ 
+Authors: Jonathan Naylor, Tomi Manninen, Jean-Paul ROUBELAT, Alan Cox."
+
+# maintainer
+ARCH=sparc
+BUILD=3
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="http://download.sourceforge.net/hams/"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=libax25-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar xvzf $CWD/libax25-0.0.7.tar.gz
+   cd libax25-0.0.7
+   ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+   make
+}
+
+install() {
+   make install
+   make installconf
+   mkdir -p /usr/doc/libax25-0.0.7
+   cp AUTHORS ChangeLog NEWS README /usr/doc/libax25-0.0.7
+}
+
+special() {
+   echo "nothing special..."
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}

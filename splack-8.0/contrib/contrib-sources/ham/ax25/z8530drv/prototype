@@ -1,0 +1,48 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/opt:/home
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=3.0
+PROGNAME="Utilities for Z8530 based SCC boards"
+DESC="\
+Utilities for Z8530 based SCC boards by Joerg Reuter DL1BKE.\n\
+Needs scc support enabled in the kernel, or have the scc.o\n\
+module loaded.\n\
+\n\
+Edit /etc/ax25/z8530drv.conf to fit your configuration."
+
+# maintainer
+ARCH=sparc
+BUILD=2
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="original site for the 3.0-2 version does not seem to exist anymore..."
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=z8530drv_utils-$VERSION-$ARCH-$BUILD
+
+compile() {
+   mv /etc/ax25/z8530drv.conf /etc/ax25/z8530drv.conf.backup 
+   tar xvzf $CWD/z8530drv-utils_3.0-2.tar.gz
+   cd z8530drv-utils-3.0
+   zcat $CWD/z8530drv-utils-3.0.no486.diff.gz | patch -p0 --verbose
+   make dep
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/z8530drv-utils-3.0
+   cp doc/* README z8530drv-utils-3.0.lsm /usr/doc/z8530drv-utils-3.0
+}
+
+attributes() {
+   chmod 700 $PKG/sbin/sccinit
+   chmod 700 $PKG/sbin/sccparam
+   chmod 700 $PKG/usr/sbin/kissbridge
+}
+
+special() {
+   mv /etc/ax25/z8530drv.conf.backup /etc/ax25/z8530drv.conf  # restore original
+}

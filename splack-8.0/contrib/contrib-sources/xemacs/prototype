@@ -1,0 +1,78 @@
+VERSION=21.1.14
+BUILD=1
+ARCH=sparc
+
+PKGNAME=xemacs-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=XEmacs
+DESC="\
+xemacs-$VERSION\n\
+\n\
+XEmacs is a version of Emacs for the X Window System.  This version of\n\
+XEmacs was compiled with MULE (MULtilingual Enhancement) support.  It\n\
+can handle not only ASCII characters (7 bits) and ISO Latin-1 (8 bits)\n\
+but also Japanese, Chinese, Korean (16 bits) coded in the ISO2022\n\
+standard and its variants (e.g. EUC, Compound Text).  For Chinese\n\
+there is support for both GB and Big5.  In addition, Thai (based on\n\
+TIS620), Vietnamese (based on VISCII and VSCII), Arabic, and Ethiopic\n\
+are also supported.  Some languages require fonts from intlfonts-1.2."
+
+compile() {
+   tar xvyf $CWD/xemacs-$VERSION.tar.bz2
+   tar xvzf $CWD/xemacs-$VERSION-info.tar.gz
+
+   # This package isn't needed, since the compile process will rebuild
+   # all the .elc files from the .el files.  So, we save space (and
+   # make sure to have .elc files that match our .el files) by not
+   # including the -elc tarball.  The result is the same.
+   # tar xzvf $CWD/xemacs-21.1.14-elc.tar.gz
+
+   rm -rf /usr/X11R6/lib/xemacs
+}
+
+install() {
+   mkdir -p /usr/X11R6/lib/xemacs
+   ( cd /usr/X11R6/lib/xemacs
+     tar xvyf $CWD/xemacs-sumo-2001-02-04.tar.bz2
+     tar xvyf $CWD/xemacs-mule-sumo-2001-02-04.tar.bz2
+     chown -R root.root . )
+
+   cd $TMP/xemacs-$VERSION
+   ./configure --prefix=/usr/X11R6 \
+               --cflags="-O3 -Wall -Wno-switch" \
+               --with-mule \
+               --with-xim=xlib \
+               --with-wnn \
+               --with-pop \
+               --dynamic=yes \
+               $ARCH-slackware-linux
+
+   # Using --with-canna requires canna lib, not updated since '96.
+   # Do many people use this still?  If there's a real need for this,
+   # email volkerdi@slackware.com and it will be considered the next
+   # time I update this.  Thanks!
+   #          --with-canna
+
+   make LDFLAGS=-s
+   make LDFLAGS=-s install-only
+   make LDFLAGS=-s gzip-el
+
+   # Add extra docs:
+   mkdir -p /usr/doc/xemacs-$VERSION
+   cp BUGS CHANGES-beta COPYING ChangeLog GETTING.GNU.SOFTWARE \
+      INSTALL Installation Installation.el PROBLEMS README README.packages \
+      /usr/doc/xemacs-$VERSION
+   ( cd /usr/doc/xemacs-$VERSION
+     rm -rf etc ; ln -sf /usr/X11R6/lib/xemacs-$VERSION/etc etc )
+}
+
+special() {
+   mkdir -p $PKG/usr/X11R6/lib/xemacs/lock
+   chown root.root $PKG/usr/X11R6/lib/xemacs/lock
+   chmod 777 $PKG/usr/X11R6/lib/xemacs/lock
+}

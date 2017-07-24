@@ -1,0 +1,33 @@
+VERSION=0.3
+BUILD=1
+ARCH=sparc
+
+PKGNAME=up-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=up
+DESC="\
+up $VERSION\n\
+\n\
+up is intended as a replacement for the uptime command that comes\n\
+with Slackware Linux. It calculates the uptime all the way out to\n\
+decades (or whatever is most applicable to your current uptime),\n\
+instead of just stopping at days. It does not display the number of\n\
+users logged in or load average information."
+
+compile() {
+   tar xvzf $CWD/up-$VERSION.tar.gz
+   cd up-$VERSION
+   make
+}
+
+install() {
+   cp up /usr/bin
+   cat up.1 | gzip -9c > /usr/man/man1/up.1.gz
+   mkdir -p /usr/doc/up-$VERSION
+   cp README INSTALL ChangeLog COPYING /usr/doc/up-$VERSION
+}

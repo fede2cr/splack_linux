@@ -1,0 +1,41 @@
+VERSION=2.0
+BUILD=1
+
+PKGNAME="protopkg-$VERSION-sparc-$BUILD"
+
+PROGNAME=protopkg
+
+DESC="\
+protopkg is a packaging tool for Slackware Linux which automates to a large \n\
+degree the making of Slackware packages.  protopkg compiles and installs    \n\
+software according to instructions written in a prototype file, tracks the  \n\
+installation, and then automagically creates Slackware packages.            \n\
+                                                                            \n\
+protopkg is not a magic bullet.  You will still need to be very careful in  \n\
+constructing packages.  This just takes some of the work off your hands."
+
+IGNOREPATH=/dev:/proc:/tmp:/export:/var:/home:/mnt:/cdrom:/root
+
+STRIPBIN=n
+STRIPLIB=n
+SETATTR=y
+
+MAINTAINER="David Cantrell <david@slackware.com>"
+SOURCE="ftp://ftp.slackware.com/pub/slackware/unsupported/protopkg/"
+LOCATION="ftp://ftp.slackware.com/pub/slackware/unsupported/packages/utils/"
+
+compile() {
+
+   gzip -dc $CWD/protopkg-$VERSION.tar.gz | tar xvf -
+
+   cd protopkg-$VERSION
+
+   ./Build
+
+}
+
+install() {
+
+   ./Install
+
+}

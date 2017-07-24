@@ -1,0 +1,67 @@
+BLACKBOX_VER=0.61.1
+BBKEYS_VER=0.3.5
+VERSION=$BLACKBOX_VER
+BUILD=1
+ARCH=sparc
+
+PKGNAME=blackbox-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=Blackbox
+DESC="\
+blackbox-$VERSION\n\
+\n\
+BlackBox is a lean and clean X11 window manager.  Also included in\n\
+this package is the bbkeys utility for controlling keyboard\n\
+shortcut commands from within Blackbox.\n\
+\n\
+The Blackbox home page is http://blackbox.alug.org/"
+
+compile() {
+   # build blackbox
+   cd $TMP
+   tar xvyf $CWD/blackbox-$BLACKBOX_VER.tar.bz2
+   cd blackbox-$BLACKBOX_VER
+   ./configure --prefix=/usr/X11R6 \
+               --enable-shape \
+               --enable-slit \
+               --enable-interlace \
+               --enable-nls \
+               --enable-timed-cache
+   make
+
+   # build bbkeys
+   cd $TMP
+   tar xvzf $CWD/bbkeys-$BBKEYS_VER.tar.gz
+   cd bbkeys-$BBKEYS_VER
+   ./configure --prefix=/usr/X11R6 \
+               --enable-interlace
+   make
+}
+
+install() {
+   # install blackbox
+   cd $TMP/blackbox-$BLACKBOX_VER
+   make install
+   mkdir -p /usr/doc/blackbox-$BLACKBOX_VER
+   cp AUTHORS ChangeLog* INSTALL LICENSE README* TODO \
+      /usr/doc/blackbox-$BLACKBOX_VER
+
+   # install bbkeys
+   cd $TMP/bbkeys-$BBKEYS_VER
+   make install
+   mkdir -p /usr/doc/bbkeys-$BBKEYS_VER
+   cp AUTHORS BUGS COPYING ChangeLog INSTALL NEWS README* TODO \
+      /usr/doc/bbkeys-$BBKEYS_VER
+
+   mkdir -p /etc/X11/xinit
+   cp $CWD/xinitrc.blackbox /etc/X11/xinit
+}
+
+attributes() {
+   chmod 755 /etc/X11/xinit/xinitrc.blackbox
+}

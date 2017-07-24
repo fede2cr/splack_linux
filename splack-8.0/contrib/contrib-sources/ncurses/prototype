@@ -1,0 +1,85 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a:/etc
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=4.2
+PROGNAME=ncurses
+DESC="\
+ncurses-4.2\n\
+\n\
+The ncurses (new curses) library is a free software emulation of\n\
+curses in System V Release 4.0, and more.  It uses terminfo format,\n\
+supports pads, color, multiple highlights, forms, characters,\n\
+and function-key mapping, and has all the other SYSV-curses\n\
+enhancements over BSD curses."
+
+# maintainer
+BUILD=1
+MAINTAINER="David Cantrell <david@slackware.com>"
+SOURCE=ftp://ftp.gnu.org/pub/gnu/ncurses/
+
+# package name
+PKGNAME=ncurses-$VERSION-sparc-$BUILD
+
+compile() {
+   tar xvzf $CWD/ncurses-4.2.tar.gz
+   cd ncurses-4.2
+   ./configure --prefix=/usr \
+               --disable-termcap \
+               --with-normal \
+               --with-shared \
+               --with-debug \
+               --with-profile \
+               --without-cxx \
+               --without-ada \
+               --enable-symlinks \
+               sparc-slackware-linux
+   make
+}
+
+install() {
+   make install
+
+   ## Use symlinks in /usr/share/terminfo:
+   #( cd / ; sh $CWD/terminfo.link.sh )
+
+   # Move the include files from /usr/include into
+   # /usr/include/ncurses, then make symlinks back
+   # into /usr/include.
+   ( cd /usr/include
+     rm -rf ncurses
+     mkdir ncurses
+     for file in curses eti form menu ncurses panel term termcap unctrl
+     do
+        mv $file.h ncurses
+     done
+     for file in curses eti form menu ncurses panel term unctrl
+     do
+        ln -sf ncurses/$file.h .
+     done )
+
+   # Move the libraries into /lib, since they're important:
+   ( cd /usr/lib ; mv libncurses.so.4* /lib )
+   ( cd /usr/lib ; rm libncurses.so ; ln -sf /lib/libncurses.so.4 libncurses.so )
+
+   # Then, add /usr/doc/ncurses-xxxxx with appropriate files.
+   mkdir -p /usr/doc/ncurses-4.2/misc
+   cp ANNOUNCE INSTALL MANIFEST NEWS README* TO-DO announce.html /usr/doc/ncurses-4.2
+   cp -r misc/*.html /usr/doc/ncurses-4.2/misc
+}
+
+attributes() {
+   chmod 755 $PKG/lib/libncurses.so.4.2
+   chmod 755 $PKG/usr/lib/libform.so.4.2
+   chmod 755 $PKG/usr/lib/libmenu.so.4.2
+   chmod 755 $PKG/usr/lib/libpanel.so.4.2
+}
+
+special() {
+   find $PKG -type d -exec rmdir {} \;
+   for d in 1 2 3 4 5 6 7 8 9 P X
+   do
+      mkdir -p $PKG/usr/share/terminfo/$d
+   done
+}

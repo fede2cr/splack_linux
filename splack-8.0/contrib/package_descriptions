@@ -1,0 +1,254 @@
+
+These are descriptions of the packages in the Slackware contrib directory:
+
+libsafe-1.3-sparc-3: libsafe-1.3
+libsafe-1.3-sparc-3: 
+libsafe-1.3-sparc-3: The libsafe library protects a process against the exploitation of
+libsafe-1.3-sparc-3: buffer overflow vulnerabilities in process stacks.  Libsafe works
+libsafe-1.3-sparc-3: with any existing pre-compiled executable and can be used
+libsafe-1.3-sparc-3: transparently, even on a system-wide basis.  The method intercepts
+libsafe-1.3-sparc-3: all calls to library functions that are known to be vulnerable.  A
+libsafe-1.3-sparc-3: substitute version of the corresponding function implements the
+libsafe-1.3-sparc-3: original functionality, but in a manner that ensures that any buffer
+libsafe-1.3-sparc-3: overflows are contained within the current stack frame.  Libsafe can
+libsafe-1.3-sparc-3: stop many known attacks and possibly yet unknown ones as well.
+
+parted-1.4.9-sparc-1: GNU Parted 1.4.9
+parted-1.4.9-sparc-1: 
+parted-1.4.9-sparc-1: GNU Parted is a program for creating, destroying, resizing, checking
+parted-1.4.9-sparc-1: and copying partitions, and the filesystems on them.  This is useful
+parted-1.4.9-sparc-1: for creating space for new operating systems, reorganising disk
+parted-1.4.9-sparc-1: usage, copying data between hard disks, and disk imaging.
+parted-1.4.9-sparc-1: 
+parted-1.4.9-sparc-1: 
+parted-1.4.9-sparc-1: 
+parted-1.4.9-sparc-1: 
+parted-1.4.9-sparc-1: 
+
+cvs-1.10-sparc-2: cvs-1.10.
+cvs-1.10-sparc-2:
+cvs-1.10-sparc-2: CVS is a freely available collection of programs that provide for
+cvs-1.10-sparc-2: software release and revision control functions in a UNIX
+cvs-1.10-sparc-2: environment.
+cvs-1.10-sparc-2:
+cvs-1.10-sparc-2:
+cvs-1.10-sparc-2:
+cvs-1.10-sparc-2:
+cvs-1.10-sparc-2:
+cvs-1.10-sparc-2:
+
+ncurses-4.2-sparc-1: ncurses-4.2
+ncurses-4.2-sparc-1:
+ncurses-4.2-sparc-1: The ncurses (new curses) library is a free software emulation of
+ncurses-4.2-sparc-1: curses in System V Release 4.0, and more.  It uses terminfo format,
+ncurses-4.2-sparc-1: supports pads, color, multiple highlights, forms, characters,
+ncurses-4.2-sparc-1: and function-key mapping, and has all the other SYSV-curses
+ncurses-4.2-sparc-1: enhancements over BSD curses.
+ncurses-4.2-sparc-1:
+ncurses-4.2-sparc-1:
+ncurses-4.2-sparc-1:
+ncurses-4.2-sparc-1:
+
+icewm-1.0.6-sparc-1: icewm-1.0.6
+icewm-1.0.6-sparc-1: 
+icewm-1.0.6-sparc-1: The goal of IceWM is to provide a small, fast and familiar window
+icewm-1.0.6-sparc-1: manager for the X11 window system. Compatibility with the mwm window
+icewm-1.0.6-sparc-1: manager is desired and will be implemented where appropriate.
+icewm-1.0.6-sparc-1: 
+icewm-1.0.6-sparc-1: The IceWM is designed to emulate the look of Motif, OS/2 Warp 4, OS/2
+icewm-1.0.6-sparc-1: Warp 3 and Windows 95. Others might added in the future.
+icewm-1.0.6-sparc-1: 
+icewm-1.0.6-sparc-1: It also tries to combine the feel of the above systems whenever it is
+icewm-1.0.6-sparc-1: compatible.
+
+blackbox-0.61.1-sparc-1: blackbox-0.61.1
+blackbox-0.61.1-sparc-1: 
+blackbox-0.61.1-sparc-1: BlackBox is a lean and clean X11 window manager.  Also included in
+blackbox-0.61.1-sparc-1: this package is the bbkeys utility for controlling keyboard
+blackbox-0.61.1-sparc-1: shortcut commands from within Blackbox.
+blackbox-0.61.1-sparc-1: 
+blackbox-0.61.1-sparc-1: The Blackbox home page is http://blackbox.alug.org/
+blackbox-0.61.1-sparc-1: 
+blackbox-0.61.1-sparc-1: 
+blackbox-0.61.1-sparc-1: 
+blackbox-0.61.1-sparc-1: 
+
+pdksh-5.2.14-sparc-1: pdksh-5.2.14
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1: A freely distributable Korn shell clone.
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1:
+pdksh-5.2.14-sparc-1:
+
+afterstep-1.8.8-sparc-1: AfterStep-1.8.8
+afterstep-1.8.8-sparc-1: 
+afterstep-1.8.8-sparc-1: AfterStep is a window manager with quite an interesting history. It
+afterstep-1.8.8-sparc-1: was originally a continuation of the Bowman window manager (based
+afterstep-1.8.8-sparc-1: on fvwm), but is now its own project. This is a classic version of
+afterstep-1.8.8-sparc-1: AfterStep, which offers a single configuration file (.steprc) and
+afterstep-1.8.8-sparc-1: NEXTSTEP-like widgets. It's a lean, mean, window managing machine.
+afterstep-1.8.8-sparc-1: 
+afterstep-1.8.8-sparc-1: The AfterStep homepage is http://www.afterstep.org/
+afterstep-1.8.8-sparc-1: 
+afterstep-1.8.8-sparc-1: 
+
+cmatrix-1.1b-sparc-1: CMatrix 1.1b
+cmatrix-1.1b-sparc-1: 
+cmatrix-1.1b-sparc-1: An ncurses program that displays a vertical scrolling "matrix"
+cmatrix-1.1b-sparc-1: of text and numbers. This was made popular by the movie Matrix
+cmatrix-1.1b-sparc-1: from 1999. It comes with fonts for console mode as well as
+cmatrix-1.1b-sparc-1: running in an xterm (or other X terminal program).
+cmatrix-1.1b-sparc-1: 
+cmatrix-1.1b-sparc-1: Enjoy! It makes for a nice screen saver.  :)
+cmatrix-1.1b-sparc-1: 
+cmatrix-1.1b-sparc-1: 
+cmatrix-1.1b-sparc-1: 
+
+aumix-2.7-sparc-1: aumix-2.7
+aumix-2.7-sparc-1: 
+aumix-2.7-sparc-1: aumix is an audio mixer.  It has an X (GTK+) and console (ncurses)
+aumix-2.7-sparc-1: interface.  A non-interactive command line mode is also supported.
+aumix-2.7-sparc-1:
+aumix-2.7-sparc-1: 
+aumix-2.7-sparc-1:
+aumix-2.7-sparc-1:
+aumix-2.7-sparc-1: 
+aumix-2.7-sparc-1: 
+aumix-2.7-sparc-1:
+
+sgmltools-2.0.2-sparc-1: sgmltools-2.0.2
+sgmltools-2.0.2-sparc-1:
+sgmltools-2.0.2-sparc-1: This is SGML tools 2.0.2 with the following changes:
+sgmltools-2.0.2-sparc-1: - Upgraded from DocBook 3.0 to DocBook 4.0.
+sgmltools-2.0.2-sparc-1: - Added in the DTD and stylesheets for the GNOME Documentation Project.
+sgmltools-2.0.2-sparc-1:   These are needed to build much of the documentation in the GTK series.
+sgmltools-2.0.2-sparc-1: - Added collateindex.pl and db2html, which have both proven quite useful.
+sgmltools-2.0.2-sparc-1: - Took the liberty of modifying /usr/share/texmf/web2c/texmf.cnf with a few
+sgmltools-2.0.2-sparc-1:   magic numbers.  This is needed to allow TeX to compile rather large source
+sgmltools-2.0.2-sparc-1:   files.  Otherwise, it just dies.
+sgmltools-2.0.2-sparc-1:
+
+socket-1.1-sparc-1: socket 1.1
+socket-1.1-sparc-1: 
+socket-1.1-sparc-1: The program Socket implements access to TCP sockets from shell
+socket-1.1-sparc-1: level.  First written for the need to open a server socket and
+socket-1.1-sparc-1: read and write to the socket interactively for testing purposes,
+socket-1.1-sparc-1: it quickly evolved into a generic tool providing the socket
+socket-1.1-sparc-1: interface for shell script and interactive use.
+socket-1.1-sparc-1: 
+socket-1.1-sparc-1: 
+socket-1.1-sparc-1: 
+socket-1.1-sparc-1: 
+
+up-0.3-sparc-1: up 0.3
+up-0.3-sparc-1: 
+up-0.3-sparc-1: up is intended as a replacement for the uptime command that comes
+up-0.3-sparc-1: with Slackware Linux. It calculates the uptime all the way out to
+up-0.3-sparc-1: decades (or whatever is most applicable to your current uptime),
+up-0.3-sparc-1: instead of just stopping at days. It does not display the number of
+up-0.3-sparc-1: users logged in or load average information.
+up-0.3-sparc-1: 
+up-0.3-sparc-1: 
+up-0.3-sparc-1: 
+up-0.3-sparc-1: 
+
+xfstt-1.1-sparc-1: xfstt 1.1
+xfstt-1.1-sparc-1: 
+xfstt-1.1-sparc-1: xfstt is a TrueType font server for the X Window System. It allows
+xfstt-1.1-sparc-1: applications such as Netscape and the GIMP to take advantage of the
+xfstt-1.1-sparc-1: wide selection of TrueType fonts available.
+xfstt-1.1-sparc-1: 
+xfstt-1.1-sparc-1: NOTE: No TrueType fonts are provided. You will need to obtain those
+xfstt-1.1-sparc-1: on your own.
+xfstt-1.1-sparc-1: 
+xfstt-1.1-sparc-1: 
+xfstt-1.1-sparc-1: 
+
+pinfo-0.6.0-sparc-1: pinfo-0.6.0
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: pinfo is a GNU info file viewer that works similar to Lynx.
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: 
+pinfo-0.6.0-sparc-1: 
+
+gcc-2.7.2.3-sparc-1: gcc-2.7.2.3
+gcc-2.7.2.3-sparc-1:
+gcc-2.7.2.3-sparc-1: This is gcc 2.7.2.3, with support for C only.  This is useful for
+gcc-2.7.2.3-sparc-1: building 2.0.x kernels and some system software.
+gcc-2.7.2.3-sparc-1:
+gcc-2.7.2.3-sparc-1:
+gcc-2.7.2.3-sparc-1:
+gcc-2.7.2.3-sparc-1:
+gcc-2.7.2.3-sparc-1:
+gcc-2.7.2.3-sparc-1:
+gcc-2.7.2.3-sparc-1:
+
+figlet-2.2-sparc-1: figlet-2.2
+figlet-2.2-sparc-1: 
+figlet-2.2-sparc-1: Figlet is a program that makes large ASCII letters out of ordinary
+figlet-2.2-sparc-1: text.
+figlet-2.2-sparc-1: 
+figlet-2.2-sparc-1: 
+figlet-2.2-sparc-1: 
+figlet-2.2-sparc-1: 
+figlet-2.2-sparc-1: 
+figlet-2.2-sparc-1: 
+figlet-2.2-sparc-1: 
+
+libsdl-1.1.8-sparc-1: SDL-1.1.8
+libsdl-1.1.8-sparc-1: 
+libsdl-1.1.8-sparc-1: This is the Simple DirectMedia Layer, a generic API that provides low
+libsdl-1.1.8-sparc-1: level access to audio, keyboard, mouse, joystick, 3D hardware via
+libsdl-1.1.8-sparc-1: OpenGL, and 2D framebuffer across multiple platforms.
+libsdl-1.1.8-sparc-1: 
+libsdl-1.1.8-sparc-1: 
+libsdl-1.1.8-sparc-1: 
+libsdl-1.1.8-sparc-1: 
+libsdl-1.1.8-sparc-1: 
+libsdl-1.1.8-sparc-1: 
+
+ckermit-7.0.197-sparc-1: ckermit 7.0.197
+ckermit-7.0.197-sparc-1: 
+ckermit-7.0.197-sparc-1: C-Kermit is a combined serial and network communication software
+ckermit-7.0.197-sparc-1: package offering a consistent, medium-independent, cross-platform
+ckermit-7.0.197-sparc-1: approach to connection establishment, terminal sessions, file
+ckermit-7.0.197-sparc-1: transfer, character-set translation, numeric and alphanumeric
+ckermit-7.0.197-sparc-1: paging, and automation of communication tasks.
+ckermit-7.0.197-sparc-1: 
+ckermit-7.0.197-sparc-1: 
+ckermit-7.0.197-sparc-1: 
+ckermit-7.0.197-sparc-1: 
+
+protopkg-2.0-sparc-1: protopkg is a packaging tool for Slackware Linux which automates to a large 
+protopkg-2.0-sparc-1: degree the making of Slackware packages.  protopkg compiles and installs    
+protopkg-2.0-sparc-1: software according to instructions written in a prototype file, tracks the  
+protopkg-2.0-sparc-1: installation, and then automagically creates Slackware packages.            
+protopkg-2.0-sparc-1:                                                                             
+protopkg-2.0-sparc-1: protopkg is not a magic bullet.  You will still need to be very careful in  
+protopkg-2.0-sparc-1: constructing packages.  This just takes some of the work off your hands.
+protopkg-2.0-sparc-1: 
+protopkg-2.0-sparc-1: 
+protopkg-2.0-sparc-1: 
+protopkg-2.0-sparc-1: 
+
+w3m-0.2.1-sparc-1: w3m-0.2.1
+w3m-0.2.1-sparc-1:
+w3m-0.2.1-sparc-1: 3m is a pager with WWW capability. It IS a pager, but it can be
+w3m-0.2.1-sparc-1: used as a text-mode WWW browser.
+w3m-0.2.1-sparc-1:
+w3m-0.2.1-sparc-1:
+w3m-0.2.1-sparc-1:
+w3m-0.2.1-sparc-1:
+w3m-0.2.1-sparc-1:
+w3m-0.2.1-sparc-1:
+w3m-0.2.1-sparc-1:

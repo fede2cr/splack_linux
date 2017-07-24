@@ -1,0 +1,114 @@
+VERSION=2.95.3
+BUILD=2
+ARCH=sparc
+TAG=ADD
+
+PKGNAME=gcc-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="GNU C Compiler"
+DESC="\
+The GNU C and C++ compilers (gcc-$VERSION).\n\
+\n\
+This package contains the GNU C and C++ compilers and libstdc++ from\n\
+gcc-$VERSION.  To compile, you'll also need (at least) these packages:\n\
+binutils, gmake, glibc, and lxinclude"
+
+compile() {
+   tar xvyf $CWD/gcc-$VERSION.tar.bz2
+
+   mkdir gcc.build.lnx
+   cd gcc.build.lnx
+
+   # CFLAGS="-Wall -g1 -O2"
+   CFLAGS="-Wall -O2" LDFLAGS=-s \
+   ../gcc-$VERSION/configure --prefix=/usr \
+                             --enable-shared \
+                             --with-gnu-ld \
+                             --enable-threads \
+                             --verbose \
+                             --target=$ARCH-slackware-linux \
+                             --host=$ARCH-slackware-linux
+   make bootstrap
+   make info
+   make check
+}
+
+install() {
+   # install gcc
+   make install
+   make install-info
+
+   # symbolic links
+   ( cd /lib ; rm -rf cpp ; ln -sf /usr/bin/cpp cpp )
+   ( cd /usr/bin
+     mv g++ g++-gcc-$VERSION
+     mv gcc gcc-$VERSION
+     mv g77 g77-gcc-$VERSION
+     mv chill chill-gcc-$VERSION
+     rm -rf g++ ; ln -sf g++-gcc-$VERSION g++
+     rm -rf gcc ; ln -sf gcc-$VERSION gcc
+     rm -rf g77 ; ln -sf g77-gcc-$VERSION g77
+     rm -rf chill ; ln -sf chill-gcc-$VERSION chill
+     rm -rf c++ ; ln -sf g++ c++
+     rm -rf cc ; ln -sf gcc cc
+     rm -rf f77 ; ln -sf g77 f77
+     rm -rf $ARCH-slackware-linux-gcc
+     ln -sf gcc-$VERSION $ARCH-slackware-linux-gcc )
+   ( cd /usr/man/man1
+     rm -rf cpp.1.gz ; ln -sf cccp.1.gz cpp.1.gz
+     rm -rf c++.1.gz ; ln -sf g++.1.gz c++.1.gz
+     rm -rf f77.1.gz ; ln -sf g77.1.gz f77.1.gz
+     rm -rf cc.1.gz  ; ln -sf gcc.1.gz cc.1.gz )
+
+   # documentation
+   mkdir -p /usr/doc/gcc-$VERSION/gcc/f
+   mkdir -p /usr/doc/gcc-$VERSION/gcc/objc
+   mkdir -p /usr/doc/gcc-$VERSION/gcc/ch
+   cd $TMP/gcc-2.95.3
+   cp -r COPYING COPYING.LIB FAQ MAINTAINERS README faq.html install \
+      /usr/doc/gcc-$VERSION
+   ( cd gcc
+     cp -r ABOUT* BUGS COPYING* INSTALL LANG* NEWS PROBLEMS README* SERVICE \
+        TESTS.FLUNK /usr/doc/gcc-$VERSION/gcc )
+   ( cd gcc/f
+     cp -r BUGS INSTALL NEWS README RELEASE-PREP /usr/doc/gcc-$VERSION/gcc/f )
+   ( cd gcc/objc
+     cp -r README /usr/doc/gcc-$VERSION/gcc/objc )
+   ( cd gcc/ch
+     cp -r README chill.brochure chill.texi /usr/doc/gcc-$VERSION/gcc/ch )
+}
+
+special() {
+   # make a copy of the master tree to be used when constructing the other
+   # gcc packages
+   cp -a $PKG $TMP/gcc-master
+
+   # remove the components that are not to be in the gcc package
+   ( cd $PKG/usr/info
+     rm -rf chill* g77* )
+   ( cd $PKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     rm -rf chillrt0.o include/g2c.h include/objc libchill.a
+     rm -rf libg2c.a libobjc.a cc1chill cc1obj f771 jc1 jvgenmain )
+   ( cd $PKG/usr/man/man1
+     rm -rf g77* )
+   ( cd $PKG/usr/bin
+     rm -rf chill-gcc-$VERSION g77-gcc-$VERSION gcj gcjh jcf-dump jv-scan )
+   ( cd $PKG/usr/doc/gcc-$VERSION/gcc
+     rm -rf ch f objc )
+
+   # correct man page symlinks
+   cat $CTL/doinst.sh | sed -e "s|.gz.gz|.gz|g" > $CTL/doinst.sh.new
+   mv $CTL/doinst.sh.new $CTL/doinst.sh
+}
+
+subpacks() {
+   repack gcc_g77
+   repack gcc_objc
+   repack gcc_java
+   repack gccchill
+}

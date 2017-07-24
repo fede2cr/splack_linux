@@ -1,0 +1,11 @@
+This is SGML tools 2.0.2 with the following changes:
+
+- Upgraded from DocBook 3.0 to DocBook 4.0.
+- Added in the DTD and stylesheets for the GNOME Documentation Project.
+  These are needed to build much of the documentation in the GTK series.
+- Added collateindex.pl and db2html, which have both proven quite useful.
+- Took the liberty of modifying /usr/share/texmf/web2c/texmf.cnf with a few
+  magic numbers.  This is needed to allow TeX to compile rather large source
+  files.  Otherwise, it just dies.
+
+      - Chris

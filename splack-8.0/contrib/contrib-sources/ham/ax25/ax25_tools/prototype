@@ -1,0 +1,42 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a:/A:/C:/D:/boot:/cdrom:/opt:/home
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.0.6
+PROGNAME="AX.25 tools version 0.0.6"
+DESC="\
+AX.25 tools version 0.0.6\n\
+\n\
+Author: Craig Small VK2XLZ <csmall@small.dropbear.id.au>, et al\n\
+Needs: glibc2.1, A Modern kernel (2.2.x), libtool,\n\
+libax25 0.0.5 or better, zlib."
+
+# maintainer
+BUILD=2
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="http://download.sourceforge.net/hams/"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=ax25_tools-$VERSION-sparc-$BUILD
+
+compile() {
+   tar xvzf $CWD/ax25-tools-0.0.6.tar.gz
+   cd ax25-tools-0.0.6
+   zcat $CWD/ax25-tools-0.0.6.diff.gz | patch -p0 --verbose
+   ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+   make
+}
+
+install() {
+   make install
+   make installconf
+   mkdir -p /usr/doc/ax25-tools
+   cp AUTHORS ChangeLog NEWS README /usr/doc/ax25-tools
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}
+   

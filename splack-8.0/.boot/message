@@ -1,0 +1,33 @@
+
+Welcome to Splack Linux (v. current)
+
+Slackware based distribution for the Sparc arquitecture
+
+This CD-ROM is configured to detect your archecture and load the appropriate
+kernel for your system.  If you need to enter any special kernel parameters,
+type "linux" (without quotes) followed by a space and then any kernel
+parameters you need.
+
+   boot: linux
+
+If you are using a serial console, you'll need to boot using the "serial"
+option.  Serial port A is configured as the default console port, but that
+can be overridden with the console= setting.  If you are using serial port
+B for the console, you need to pass the "console=ttyb" kernel parameter.
+
+   boot: serial
+
+You can use this boot CD as a rescue disk as well.  You can boot the kernel
+on this disc and have it mount your root filesystem on your hard disk.  Say
+you have your root filesystem on /dev/sda1:
+
+   boot: linux root=/dev/sda1
+
+Or, if your root filesystem is damaged, you can simply boot this CD just as
+you would be installing for the first time, but mount your hard disk under
+/mnt and repair it.
+
+2.4.4 kernel option:  You can boot the 2.4.4 kernel by following the above
+instructions but specifying "linux24" or "serial24" instead of "linux" or
+"serial", respectively.
+

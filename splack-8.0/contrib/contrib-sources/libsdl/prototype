@@ -1,0 +1,33 @@
+VERSION=1.1.8
+BUILD=1
+ARCH=sparc
+
+PKGNAME=libsdl-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=SDL
+DESC="\
+SDL-$VERSION\n\
+\n\
+This is the Simple DirectMedia Layer, a generic API that provides low\n\
+level access to audio, keyboard, mouse, joystick, 3D hardware via\n\
+OpenGL, and 2D framebuffer across multiple platforms."
+
+compile() {
+   tar xvzf $CWD/SDL-$VERSION.tar.gz
+   cd SDL-$VERSION
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/SDL-$VERSION/html
+   cp docs/index.html /usr/doc/SDL-$VERSION
+   cp docs/html/*.html /usr/doc/SDL-$VERSION/html
+   cp BUGS COPYING CREDITS INSTALL README* TODO WhatsNew /usr/doc/SDL-$VERSION
+}

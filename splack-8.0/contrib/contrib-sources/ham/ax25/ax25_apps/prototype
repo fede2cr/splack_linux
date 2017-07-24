@@ -1,0 +1,49 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/opt:/home
+
+STRIPLIB=y
+STRIPBIN=y
+SETATTR=n
+
+VERSION=0.0.5p2
+PROGNAME="AX.25 applications version $VERSION"
+DESC="AX.25 applications $VERSION \n\
+ \n\
+These are the essential applications for use with AX.25 \n\
+packet radio. \n\
+Requires libax25 to be installed. \n\
+The configuration files are included, but this packages \n\
+will not overwrite any existing config files."
+
+ARCH=sparc
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="http://download.sourceforge.net/hams/"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=ax25_apps-$VERSION-$ARCH-$BUILD
+
+compile() {
+   cd $TMP
+   tar zxvf $CWD/ax25-apps-$VERSION.tar.gz
+   cd ax25-apps-$VERSION
+   ./configure --prefix=/usr --datadir=/usr --sysconfdir=/etc --localstatedir=/var
+   make
+}
+
+install() {
+   cd $TMP/ax25-apps-$VERSION
+   make install
+   make installconf
+   mkdir -p /usr/doc/ax25-apps
+   cp AUTHORS ChangeLog INSTALL NEWS README /usr/doc/ax25-apps 
+}
+
+special() {
+   echo "nothing special..."
+}
+                                                                                                  
+subpacks() {
+   echo "no sub-packages..."
+}
+      

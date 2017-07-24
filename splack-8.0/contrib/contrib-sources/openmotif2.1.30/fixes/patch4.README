@@ -1,0 +1,567 @@
+Open Motif Patch #4
+7 July 2000
+
+Patch #4 contains numerous bug fixes, portability changes, and enhancements
+to the Open Motif demo source code.  The changes were contributed by Metro Link
+Incorporated.
+
+To apply this patch, first make sure that Open Motif patches #1 and #2 are
+applied to your source tree.
+
+Then, cd to the top of the source tree (to the directory containing the
+"motif" subdirectory) and do:
+
+        patch -p0 -s < patchfile
+
+Patch will work silently unless an error occurs.  If you want to watch patch
+do its thing, leave out the "-s" argument to patch.
+
+After applying the patch, you may remove the following files from your
+source tree, as they are no longer relevant:
+
+        motif/demos/programs/animate/animate.c
+        motif/demos/programs/animate/animate.help
+        motif/demos/programs/animate/animate.man
+        motif/demos/programs/animate/animate.uil
+
+
+Descriptions of the changes made to each file changed by this patch are
+listed below.
+
+=============================================================================
+demos/Imakefile
+
+Added doc/programGuide to the list of subdirs.
+=============================================================================
+demos/doc/programGuide/Imakefile
+
+Added Imakefile to build the doc demos.
+=============================================================================
+demos/lib/Imakefile
+
+Removed Wsm from the list of subdirs, because the Wsm stuff doesn't work
+under Motif 2.1.
+=============================================================================
+demos/programs/Imakefile
+
+Open Motif patch #2 had disabled the setdate demo on FreeBSD, because it
+didn't compile.  Since we've now patched the setDate code to work on FreeBSD,
+the directory can now be re-enabled.
+
+Removed the panner and workspace demos from the directory list because they
+don't work under Motif 2.1.
+=============================================================================
+demos/unsupported/Imakefile
+
+Added aicon to the list of subdirs to build.
+=============================================================================
+demos/doc/programGuide/ch05/Scale/Imakefile
+demos/doc/programGuide/ch06/combo_box/Imakefile
+demos/doc/programGuide/ch06/spin_box/Imakefile
+demos/doc/programGuide/ch08/Container/Imakefile
+demos/doc/programGuide/ch08/Notebook/Imakefile
+demos/lib/Xmd/Imakefile
+demos/programs/airport/Imakefile
+demos/programs/draw/Imakefile
+demos/programs/filemanager/Imakefile
+demos/programs/getsubres/Imakefile
+demos/programs/hellomotifi18n/Imakefile
+demos/programs/i18ninput/Imakefile
+demos/programs/panner/Imakefile
+demos/programs/piano/Imakefile
+demos/programs/popups/Imakefile
+demos/programs/sampler2_0/Imakefile
+demos/programs/setdate/Imakefile
+demos/programs/todo/Imakefile
+demos/unsupported/aicon/Imakefile
+demos/unsupported/transfer/Imakefile
+
+Cleaned up the demo Imakefiles.  Made one or more of the following fixes
+to each file:
+
+Removed extra slash from DEMOLIBDIR definition.
+
+Changed EXTRA_LIBRARIES to SYS_LIBRARIES; EXTRA_LIBRARIES is used by imake and
+should not be used in Imakefiles.
+
+Used MathLibrary instead of -lm for portability.
+
+Removed MANDIR and MANSUFFIX definitions so that the proper standard
+definitions will be used.
+
+Removed extraneous space character in InstallManPage rule.
+
+Added rule to install help file.
+=============================================================================
+demos/doc/programGuide/ch05/Scale/README
+demos/doc/programGuide/ch06/combo_box/README
+demos/doc/programGuide/ch06/spin_box/README
+demos/doc/programGuide/ch08/Container/README
+demos/doc/programGuide/ch08/Notebook/README
+demos/doc/programGuide/ch16/README
+demos/doc/programGuide/ch17/simple_drag/README
+demos/doc/programGuide/ch17/simple_drop/README
+
+Removed incorrect build instructions from README files.
+=============================================================================
+demos/doc/programGuide/ch05/Scale/tic_mark.c
+demos/doc/programGuide/ch06/combo_box/combo_box.c
+demos/doc/programGuide/ch08/Container/container.c
+demos/doc/programGuide/ch08/Notebook/notebook.c
+demos/doc/programGuide/ch17/simple_drag/simple_drag.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/doc/programGuide/ch06/spin_box/spin_box.c
+
+Added resource to set XmN position to 1 when the XmNminimumValue is set to 1
+to prevent a runtime warning.
+=============================================================================
+demos/doc/programGuide/ch16/UTMXmText.c
+
+Fixed bug in loop in ConvertCallback that prevented the first character in the
+selection from being converted to uppercase.
+
+Changed last parameter in calls to XmTransferValue to XmLastTimestampProcessed
+as recommended in the man page.
+
+Included <Xm/MessageB.c> to get prototypes for functions used in this file.
+
+Changed return type of MakeTextWidgets to void because the int return value
+wasn't being used.
+
+Added "return 0" to the end of the main function to make pedantic compilers
+happy.
+=============================================================================
+demos/doc/programGuide/ch17/simple_drop/simple_drop.c
+
+Changed last parameter in calls to XmTransferValue to XmLastTimestampProcessed
+as recommended in the man page.
+
+Included <Xm/MessageB.h> and <Xm/TransferP.h> to get prototypes for functions
+used in this file.
+
+Added "return 0" to the end of the main function to make pedantic compilers
+happy.
+=============================================================================
+demos/lib/Exm/CommandB.c
+
+Added ClassInitialize function which installs the XmQTtakesDefault trait on
+the CommandButton only, rather than having it in ClassPartInitialize, which
+installs the trait on this class and all subclasses.  Having the trait causes
+the button to be drawn with a wide border when it is inside a dialog box.
+The problem is that the ExmTabButton is a subclass of CommandB.c, and we
+don't want it drawn with a wide border, since it is designed to be attached
+to a Notebook.
+
+Since the only Exm widget people are likely to use is the TabButton (because
+of its usefulness when combined with the Notebook), this seemed like a good
+change to make.  However, the original behavior can be restored if desired
+by compiling with USE_ORIGINAL_MOTIF_CODE defined.
+
+Initialized the margin_push_out variable to zero in ShowAsDefault to prevent
+compiler warnings on some platforms.
+=============================================================================
+demos/lib/Exm/MenuB.c
+
+Modified BorderHighlight and BorderUnhighlight to use XmeDrawShadows and
+XmeClearBorder so that the button shadows would be drawn properly.  The old
+behavior can be restored by compiling with USE_ORIGINAL_MOTIF_CODE defined.
+
+Included <Xm/CascadeB.h> to get prototypes for functions used in this file.
+=============================================================================
+demos/lib/Exm/Panner.c
+demos/lib/Exm/StringTrans.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/lib/Exm/TabB.h
+
+Added missing 'extern "C"' block that allows for proper compilation under C++.
+=============================================================================
+demos/lib/Exm/wml/Imakefile
+
+Changed DEPLIBS to use the standard symbol XmClientDepLibs.
+
+Removed $(CLIENTENVSETUP) from wmluiltok command, because it is not necessary
+(it is a static executable).
+=============================================================================
+demos/lib/Exm/wml/wmldbcreate.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/lib/Xmd/AdjView.c
+demos/lib/Xmd/onHelp.c
+demos/lib/Xmd/Print.c
+demos/lib/Xmd/RegEdit.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/programs/airport/dragsource.c
+demos/programs/airport/dropsite.c
+demos/programs/airport/main.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/programs/animate/Imakefile
+
+TOG patch 2 went partway towards renaming "animate" to "xmanimate"; finished
+the job by renaming the man page and help file.
+
+Removed extra slash from DEMOLIBDIR definition.
+
+Changed EXTRA_LIBRARIES to SYS_LIBRARIES; EXTRA_LIBRARIES is used by imake and
+should not be used in Imakefiles.
+
+Used MathLibrary instead of -lm for portability.
+
+Added rule to install help file.
+=============================================================================
+demos/programs/animate/README
+
+Renamed "animate" to "xmanimate" and made other minor edits.
+=============================================================================
+demos/programs/animate/XmdAnimate.ad
+
+Changed animate to xmanimate in the geometry line.
+
+Added help_manager.helpFile resource.
+=============================================================================
+demos/programs/animate/xmanimate.c
+
+Changed name of UID file and help file from animate to xmanimate.
+
+Included <Xm/Scale.h> and <stdlib.h> to get prototypes for functions used in
+this file.
+=============================================================================
+demos/programs/animate/xmanimate.help
+
+Renamed the help file from animate to xmanimate.
+=============================================================================
+demos/programs/animate/xmanimate.man
+
+Changed name of man page from "animate" to "xmaninate".
+
+Changed references in the man page from "animate" to "xmanimate".
+=============================================================================
+demos/programs/animate/xmanimate.uil
+
+Changed name of uil file from "animate" to "xmaninate".
+
+Changed references from "animate" to "xmanimate".
+=============================================================================
+demos/programs/drag_and_drop/DNDDemo.c
+
+Added call to RedrawRectangles in the TransferProcCallback.  This fixes the
+problem where in some cases, a newly dragged-in rectangle wouldn't be drawn.
+
+Added "return 0" to the end of the main function to make pedantic compilers
+happy.
+=============================================================================
+demos/programs/draw/draw.help
+
+Removed old version number (1.2) from help text.
+=============================================================================
+demos/programs/draw/XmdDraw.ad
+
+Added help_manager.helpFile resource.
+=============================================================================
+demos/programs/drag_and_drop/simpledrop.c
+demos/programs/draw/draw.c
+demos/programs/earth/earth.c
+demos/programs/Exm/app_in_c/exm_in_c.c
+demos/programs/Exm/simple_app/simpleDemo.c
+demos/programs/filemanager/actions.c
+demos/programs/filemanager/filemanager.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/programs/filemanager/readdir.c
+
+Fixed several bugs:
+
+ - Added status return value to GetNewEntry
+ - Removed unused variable that was causing a compile warning
+ - Fixed improper use of global currentdir variable that was causing crashes
+ - Fixed XmGetPixmapByDepth call so that icon masks work properly
+
+Included <unistd.h> to get prototypes for functions used in this file.
+=============================================================================
+demos/programs/filemanager/XmdFilemanager.ad
+
+Changed the column widths, tabs, and indent levels to use font units instead
+of centimeters so that they will resize properly if the font is changed.
+=============================================================================
+demos/programs/fileview/file.h
+
+Changed include of <locale.h> to <X11/Xlocale.h> so that the demo will build
+on platforms without locale support.
+=============================================================================
+demos/programs/fileview/main.h
+
+Removed unused prototype for Setup function.
+=============================================================================
+demos/programs/fileview/main.c
+demos/programs/getsubres/getsubres.c
+demos/programs/i18ninput/i18ninput.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/programs/i18ninput/input.c
+
+Changed include of <malloc.h> to the more portable <stdlib.h>.
+
+Changed include of <locale.h> to <X11/Xlocale.h> so that the demo will build
+on platforms without locale support.
+=============================================================================
+demos/programs/panner/panner.man
+demos/programs/panner/README
+
+Added a comment to the top of the README file indicating clearly that this
+demo does not work with Motif 2.1.  Also corrected wording where it said
+that this demo would work with Motif 2.0 "and later".
+=============================================================================
+demos/programs/periodic/periodic.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/programs/periodic/periodic_l.uil
+demos/programs/periodic/periodic.uil
+
+Changed "Open Software Foundation" to "The Open Group".
+Changed "OSF/Motif" to "Open Motif".
+Changed "2.0" to "2.1".
+=============================================================================
+demos/programs/piano/piano.c
+demos/programs/popups/autopopups.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/programs/sampler2_0/sampler2_0.c
+
+Fixed APP_CLASS to be XmdSampler2_0 instead of XmdSample2_0.
+=============================================================================
+demos/programs/sampler2_0/XmdSampler2_0.ad
+
+Changed comments to use ! instead of #.
+=============================================================================
+demos/programs/setdate/setDate.c
+
+The original code was internationalized using <langinfo.h> and the
+nl_langinfo() function.  These don't appear to be available under FreeBSD, so I
+added fallback code with hard-coded English month name strings.  Keyed the code
+on "#ifdef CSRG_BASED", as this is the symbol tested elsewhere in Motif where
+nl_langinfo() is used.
+
+Included <stdlib.h> to get prototypes for functions used in this file.
+
+Changed return type of main to int, and added "return 0" to the end of the
+function to make pedantic compilers happy.
+=============================================================================
+demos/programs/todo/actions.c
+demos/programs/todo/io.c
+demos/programs/todo/todo.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/programs/workspace/README
+
+Added a comment to the top of the README file indicating clearly that this
+demo does not work with Motif 2.1.
+=============================================================================
+demos/programs/workspace/wsm.man
+
+Corrected text which said that the demo works with "Mwm 2.0 or later" to just
+say "Mwm 2.0", because the demo does not work with Mwm 2.1.
+=============================================================================
+demos/unsupported/Exm/Imakefile
+
+Changed include of $(MINCLUDESRC) to $(INCLUDESRC) so that the directory
+will build properly outside the Motif source tree.
+=============================================================================
+demos/unsupported/aicon/aicon.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/unsupported/cstext/texteditor/README
+
+Added a comment to the top of the README file indicating clearly that this
+demo does not work with Motif 2.1.
+=============================================================================
+demos/unsupported/dainput/dainput.c
+demos/unsupported/dainput/dainput_ui.c
+demos/unsupported/dogs/Dog.c
+demos/unsupported/dogs/dogs.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+demos/unsupported/motifshell/Imakefile
+
+Created a directory under $(LIBDIR) to install motifshell's data files in,
+rather than throwing them in $(BINDIR).
+=============================================================================
+demos/unsupported/motifshell/motifshell.c
+
+Various fixes to motifshell, probably more than this old demo deserves...
+ - Create a motifshell directory under LIBDIR, install all data files in it,
+   and look there first when trying to open a data file.
+ - fclose the test file in file_exist.
+ - Changed the demo menu to run periodic, dogs, and motifanim, since these
+   demos are present on all versions of Motif.
+ - Moved "xterm" to the "X Programs" menu instead of the "Unix Commands" menu,
+   and removed "Kaleidoscope" since it's not a standard X client.
+ - Changed the various places that write to a temp file to use
+   "/tmp/motifshell.tmp" rather than "foo".
+ - Changed the command line options to "ps" under Linux.
+ - Included <Xm/RepType.h> to get prototypes for functions used in this file.
+ - Added declaration for GetFileLen function.
+ - Fixed typos in error messages.
+=============================================================================
+demos/unsupported/transfer/README
+
+Added a message to the top of the README file indicating that this demo
+will not compile under Motif 2.1, although the code may still be useful
+for reference purposes.
+=============================================================================
+demos/unsupported/uilsymdump/README
+
+Fixed a typo.
+=============================================================================
+demos/unsupported/uilsymdump/uilsymdump.c
+demos/unsupported/xmapdef/xmapdef.c
+demos/unsupported/xmfonts/xmfonts.c
+demos/unsupported/xmforc/xmforc.c
+demos/unsupported/xmform/xmform.c
+
+Cleaned up demo source files.  Made one or more of the following changes to
+each file:
+
+Changed return type of main to int to make pedantic compilers happy.
+
+Added explicit int return values to functions to make pedantic compilers happy.
+
+Included additional header files to get prototypes for functions used in the
+file.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================

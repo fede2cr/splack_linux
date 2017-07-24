@@ -1,0 +1,4166 @@
+*** motif.orig/demos/doc/programGuide/Imakefile	Fri Jul  7 14:45:07 2000
+--- motif/demos/doc/programGuide/Imakefile	Sat Jun  3 19:58:14 2000
+***************
+*** 0 ****
+--- 1,47 ----
++ XCOMM $XConsortium: Imakefile /main/4 2000/06/02 17:31:02 jimb $
++ XCOMM @OPENGROUP_COPYRIGHT@
++ XCOMM COPYRIGHT NOTICE
++ XCOMM Copyright (c) 1990, 1991, 1992, 1993 Open Software Foundation, Inc.
++ XCOMM Copyright (c) 1996, 1997, 1998, 1999, 2000 The Open Group
++ XCOMM ALL RIGHTS RESERVED (MOTIF).  See the file named COPYRIGHT.MOTIF for
++ XCOMM the full copyright text.
++ XCOMM 
++ XCOMM This software is subject to an open license. It may only be
++ XCOMM used on, with or for operating systems which are themselves open
++ XCOMM source systems. You must contact The Open Group for a license
++ XCOMM allowing distribution and sublicensing of this software on, with,
++ XCOMM or for operating systems which are not Open Source programs.
++ XCOMM 
++ XCOMM See http://www.opengroup.org/openmotif/license for full
++ XCOMM details of the license agreement. Any use, reproduction, or
++ XCOMM distribution of the program constitutes recipient's acceptance of
++ XCOMM this agreement.
++ XCOMM 
++ XCOMM EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS
++ XCOMM PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++ XCOMM KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
++ XCOMM WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY
++ XCOMM OR FITNESS FOR A PARTICULAR PURPOSE
++ XCOMM 
++ XCOMM EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT
++ XCOMM NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT,
++ XCOMM INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++ XCOMM DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED
++ XCOMM AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ XCOMM LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++ XCOMM ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE PROGRAM OR THE
++ XCOMM EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED OF THE
++ XCOMM POSSIBILITY OF SUCH DAMAGES.
++ XCOMM 
++ XCOMM 
++ XCOMM HISTORY
++ 
++ #define IHaveSubdirs
++ #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
++ 
++ SUBDIRS = ch05/Scale ch06/combo_box ch06/spin_box ch08/Container \
++ ch08/Notebook ch16 ch17/simple_drag ch17/simple_drop
++ 
++ MakeSubdirs($(SUBDIRS))
++ DependSubdirs($(SUBDIRS))
++ MakeLintLibSubdirs($(SUBDIRS))
+*** motif.orig/demos/doc/programGuide/ch05/Scale/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch05/Scale/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 36,47 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+-          MANDIR = /usr/local/man/man1
+-       MANSUFFIX = 1     
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = tic_mark.c interface.c
+--- 36,45 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = tic_mark.c interface.c
+***************
+*** 51,54 ****
+  
+  InstallProgram(tic_mark,$(BINDIR))
+  
+! InstallManPage(tic_mark, $(MANDIR))
+--- 49,52 ----
+  
+  InstallProgram(tic_mark,$(BINDIR))
+  
+! InstallManPage(tic_mark,$(MANDIR))
+*** motif.orig/demos/doc/programGuide/ch05/Scale/README	Fri Apr 28 11:04:45 2000
+--- motif/demos/doc/programGuide/ch05/Scale/README	Sat Jun  3 20:39:30 2000
+***************
+*** 2,10 ****
+                     README File for XmScale/tic_mark Example 
+  
+  The tic_mark example demonstrates a simple use of the XmScale widget. 
+- To build the program, just type 
+- 
+-  $ make
+  
+  To run the program, just type:
+  
+--- 2,7 ----
+*** motif.orig/demos/doc/programGuide/ch05/Scale/tic_mark.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch05/Scale/tic_mark.c	Sat Jun  3 20:51:19 2000
+***************
+*** 57,63 ****
+  NULL
+  };
+  
+! void
+  main(int    argc,
+       char **argv)
+  {
+--- 57,63 ----
+  NULL
+  };
+  
+! int
+  main(int    argc,
+       char **argv)
+  {
+***************
+*** 78,83 ****
+--- 78,85 ----
+  
+     XtRealizeWidget(top_level);
+     XtAppMainLoop(app_context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/doc/programGuide/ch06/combo_box/combo_box.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch06/combo_box/combo_box.c	Sat Jun  3 20:51:19 2000
+***************
+*** 57,63 ****
+  NULL
+  };
+  
+! void
+  main(int    argc,
+       char **argv)
+  {
+--- 57,63 ----
+  NULL
+  };
+  
+! int
+  main(int    argc,
+       char **argv)
+  {
+***************
+*** 78,83 ****
+--- 78,85 ----
+  
+     XtRealizeWidget(top_level);
+     XtAppMainLoop(app_context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/doc/programGuide/ch06/combo_box/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch06/combo_box/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 36,47 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+-          MANDIR = /usr/local/man/man1
+-       MANSUFFIX = 1     
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = combo_box.c interface.c
+--- 36,45 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = combo_box.c interface.c
+***************
+*** 51,54 ****
+  
+  InstallProgram(combo_box,$(BINDIR))
+  
+! InstallManPage(combo_box, $(MANDIR))
+--- 49,52 ----
+  
+  InstallProgram(combo_box,$(BINDIR))
+  
+! InstallManPage(combo_box,$(MANDIR))
+*** motif.orig/demos/doc/programGuide/ch06/combo_box/README	Fri Apr 28 11:04:45 2000
+--- motif/demos/doc/programGuide/ch06/combo_box/README	Sat Jun  3 20:39:30 2000
+***************
+*** 2,10 ****
+                     README File for combo_box Example 
+  
+  The combo_box example demonstrates a simple use of the XmComboBox widget. 
+- To build the program, just type 
+- 
+-  $ make
+  
+  To run the program, just type:
+  
+--- 2,7 ----
+*** motif.orig/demos/doc/programGuide/ch06/spin_box/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch06/spin_box/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 36,47 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+-          MANDIR = /usr/local/man/man1
+-       MANSUFFIX = 1     
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = spin_box.c interface.c
+--- 36,45 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = spin_box.c interface.c
+***************
+*** 51,54 ****
+  
+  InstallProgram(spin_box,$(BINDIR))
+  
+! InstallManPage(spin_box, $(MANDIR))
+--- 49,52 ----
+  
+  InstallProgram(spin_box,$(BINDIR))
+  
+! InstallManPage(spin_box,$(MANDIR))
+*** motif.orig/demos/doc/programGuide/ch06/spin_box/README	Fri Apr 28 11:04:46 2000
+--- motif/demos/doc/programGuide/ch06/spin_box/README	Sat Jun  3 20:39:31 2000
+***************
+*** 2,10 ****
+                     README File for spin_box Example 
+  
+  The spin_box example demonstrates some simple uses of the XmSpinBox widget. 
+- To build the program, just type 
+- 
+-  $ make
+  
+  To run the program, just type:
+  
+--- 2,7 ----
+*** motif.orig/demos/doc/programGuide/ch06/spin_box/spin_box.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch06/spin_box/spin_box.c	Sun Jun  4 12:20:28 2000
+***************
+*** 425,430 ****
+--- 425,431 ----
+  
+      n = 0;
+      XtSetArg(argList[n], XmNminimumValue, 1); n++;
++     XtSetArg(argList[n], XmNposition, 1); n++;
+      XtSetArg(argList[n], XmNspinBoxChildType, XmNUMERIC); n++;
+      XtSetArg(argList[n], XmNeditable, False); n++;
+  
+*** motif.orig/demos/doc/programGuide/ch08/Container/container.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch08/Container/container.c	Sat Jun  3 20:51:19 2000
+***************
+*** 57,63 ****
+  NULL
+  };
+  
+! void
+  main(int    argc,
+       char **argv)
+  {
+--- 57,63 ----
+  NULL
+  };
+  
+! int
+  main(int    argc,
+       char **argv)
+  {
+***************
+*** 78,83 ****
+--- 78,85 ----
+  
+     XtRealizeWidget(top_level);
+     XtAppMainLoop(app_context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/doc/programGuide/ch08/Container/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch08/Container/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 36,47 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+-          MANDIR = /usr/local/man/man1
+-       MANSUFFIX = 1     
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = container.c interface.c
+--- 36,45 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = container.c interface.c
+***************
+*** 51,54 ****
+  
+  InstallProgram(container,$(BINDIR))
+  
+! InstallManPage(container, $(MANDIR))
+--- 49,52 ----
+  
+  InstallProgram(container,$(BINDIR))
+  
+! InstallManPage(container,$(MANDIR))
+*** motif.orig/demos/doc/programGuide/ch08/Container/README	Fri Apr 28 11:04:45 2000
+--- motif/demos/doc/programGuide/ch08/Container/README	Sat Jun  3 20:39:31 2000
+***************
+*** 2,10 ****
+                     README File for container Example 
+  
+  The container example demonstrates a simple use of the XmContainer widget. 
+- To build the program, just type 
+- 
+-  $ make
+  
+  To run the program, just type:
+  
+--- 2,7 ----
+*** motif.orig/demos/doc/programGuide/ch08/Notebook/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch08/Notebook/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 36,47 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+-          MANDIR = /usr/local/man/man1
+-       MANSUFFIX = 1     
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = notebook.c interface.c
+--- 36,45 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = notebook.c interface.c
+***************
+*** 51,54 ****
+  
+  InstallProgram(notebook,$(BINDIR))
+  
+! InstallManPage(notebook, $(MANDIR))
+--- 49,52 ----
+  
+  InstallProgram(notebook,$(BINDIR))
+  
+! InstallManPage(notebook,$(MANDIR))
+*** motif.orig/demos/doc/programGuide/ch08/Notebook/notebook.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch08/Notebook/notebook.c	Sat Jun  3 20:51:19 2000
+***************
+*** 50,56 ****
+  
+  #define APP_CLASS "XmdNotebook"
+  
+! void
+  main(int    argc,
+       char **argv)
+  {
+--- 50,56 ----
+  
+  #define APP_CLASS "XmdNotebook"
+  
+! int
+  main(int    argc,
+       char **argv)
+  {
+***************
+*** 71,76 ****
+--- 71,78 ----
+  
+     XtRealizeWidget(top_level);
+     XtAppMainLoop(app_context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/doc/programGuide/ch08/Notebook/README	Fri Apr 28 11:04:45 2000
+--- motif/demos/doc/programGuide/ch08/Notebook/README	Sat Jun  3 20:39:31 2000
+***************
+*** 2,10 ****
+                     README File for notebook Example 
+  
+  The notebook example demonstrates a simple use of the XmNotebook widget. 
+- To build the program, just type 
+- 
+-  $ make
+  
+  To run the program, just type:
+  
+--- 2,7 ----
+*** motif.orig/demos/doc/programGuide/ch16/README	Fri Apr 28 11:04:45 2000
+--- motif/demos/doc/programGuide/ch16/README	Sat Jun  3 20:39:31 2000
+***************
+*** 2,11 ****
+                     README File for UTMXmText Example 
+  
+  The UTMXmText demonstrates how a Motif application can add UTM callbacks
+! on two XmText widgets to support a new target.  To build the program,
+! just type 
+! 
+!  $ make
+  
+  To run the program, just type:
+  
+--- 2,8 ----
+                     README File for UTMXmText Example 
+  
+  The UTMXmText demonstrates how a Motif application can add UTM callbacks
+! on two XmText widgets to support a new target.
+  
+  To run the program, just type:
+  
+*** motif.orig/demos/doc/programGuide/ch16/UTMXmText.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch16/UTMXmText.c	Sun Jun  4 12:25:51 2000
+***************
+*** 43,48 ****
+--- 43,49 ----
+  #include <Xm/MainW.h>
+  #include <Xm/Frame.h>
+  #include <Xm/CascadeB.h>
++ #include <Xm/MessageB.h>
+  #include <Xm/PushBG.h>
+  #include <Xm/RowColumn.h>
+  #include <Xm/Transfer.h>
+***************
+*** 53,59 ****
+  #include <string.h>
+  #include <ctype.h>
+  
+! int  MakeTextWidgets(Widget);
+  void ConvertCallback(Widget, XtPointer, XtPointer);
+  void DestinationCallback(Widget, XtPointer, XtPointer);
+  void TransferProc(Widget, XtPointer, XtPointer);
+--- 54,60 ----
+  #include <string.h>
+  #include <ctype.h>
+  
+! void MakeTextWidgets(Widget);
+  void ConvertCallback(Widget, XtPointer, XtPointer);
+  void DestinationCallback(Widget, XtPointer, XtPointer);
+  void TransferProc(Widget, XtPointer, XtPointer);
+***************
+*** 92,97 ****
+--- 93,100 ----
+  
+     XtRealizeWidget(toplevel);
+     XtAppMainLoop(app_context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  
+***************
+*** 99,105 ****
+  MakeTextWidgets: Instantiate two text widgets both managed by the 
+  same RowColumn widget. 
+  ******************************************************************/
+! int 
+  MakeTextWidgets(Widget   parent)
+  {
+   Widget        RC1;
+--- 102,108 ----
+  MakeTextWidgets: Instantiate two text widgets both managed by the 
+  same RowColumn widget. 
+  ******************************************************************/
+! void
+  MakeTextWidgets(Widget   parent)
+  {
+   Widget        RC1;
+***************
+*** 172,180 ****
+      copy_of_selected_text = selected_text;
+      
+    /* Convert any lowercase letters in the selection to uppercase. */
+!     while (*selected_text++)  {
+         if (islower(*selected_text))
+           *selected_text = toupper(*selected_text); 
+      }
+  
+    /* Place the converted text into the XmConvertCallbackStruct. */ 
+--- 175,184 ----
+      copy_of_selected_text = selected_text;
+      
+    /* Convert any lowercase letters in the selection to uppercase. */
+!     while (*selected_text)  {
+         if (islower(*selected_text))
+           *selected_text = toupper(*selected_text); 
++          selected_text++;
+      }
+  
+    /* Place the converted text into the XmConvertCallbackStruct. */ 
+***************
+*** 207,213 ****
+  
+   /* Ask the source to return a list of all the targets supported. */ 
+   XmTransferValue(dcs->transfer_id, TARGETS, (XtCallbackProc)TransferProc,
+!                   NULL, NULL);
+  }
+  
+  
+--- 211,217 ----
+  
+   /* Ask the source to return a list of all the targets supported. */ 
+   XmTransferValue(dcs->transfer_id, TARGETS, (XtCallbackProc)TransferProc,
+!                   NULL, XtLastTimestampProcessed(XtDisplay(w)));
+  }
+  
+  
+***************
+*** 243,249 ****
+       if (MYTEXT_is_supported)
+         printf("TransferProc: Requesting conversion of MYTEXT.\n");
+         XmTransferValue(scs->transfer_id, MYTEXT,
+!                    (XtCallbackProc)TransferProc, NULL, NULL);
+     }
+  
+    if ((scs->target == MYTEXT)) { 
+--- 247,254 ----
+       if (MYTEXT_is_supported)
+         printf("TransferProc: Requesting conversion of MYTEXT.\n");
+         XmTransferValue(scs->transfer_id, MYTEXT,
+!                    (XtCallbackProc)TransferProc, NULL,
+!                    XtLastTimestampProcessed(XtDisplay(w)));
+     }
+  
+    if ((scs->target == MYTEXT)) { 
+*** motif.orig/demos/doc/programGuide/ch17/simple_drag/README	Fri Apr 28 11:04:45 2000
+--- motif/demos/doc/programGuide/ch17/simple_drag/README	Sat Jun  3 20:39:31 2000
+***************
+*** 2,10 ****
+                     README File for simple_drag Example 
+  
+  The simple_drag program demonstrates how a Motif application can add an
+! XmNconvertCallback procedure.  To build the program, just type:
+! 
+!  $ make
+  
+  To run the program, just type:
+  
+--- 2,8 ----
+                     README File for simple_drag Example 
+  
+  The simple_drag program demonstrates how a Motif application can add an
+! XmNconvertCallback procedure.
+  
+  To run the program, just type:
+  
+*** motif.orig/demos/doc/programGuide/ch17/simple_drag/simple_drag.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch17/simple_drag/simple_drag.c	Sat Jun  3 20:51:19 2000
+***************
+*** 40,45 ****
+--- 40,46 ----
+   */
+  #include <Xm/MainW.h>
+  #include <Xm/CascadeB.h>
++ #include <Xm/MessageB.h>
+  #include <Xm/PushBG.h>
+  #include <Xm/RowColumn.h>
+  #include <Xm/ScrollBar.h>
+***************
+*** 114,119 ****
+--- 115,122 ----
+  
+     XtRealizeWidget(toplevel);
+     XtAppMainLoop(app_context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  
+***************
+*** 146,152 ****
+                       XtPointer call_data)
+  {
+   XmConvertCallbackStruct  *ccs = (XmConvertCallbackStruct *)call_data;
+!  int  *value;
+   Atom COMPOUND_TEXT = XInternAtom(XtDisplay(w), XmSCOMPOUND_TEXT, False);
+   Atom TARGETS = XInternAtom(XtDisplay(w), "TARGETS", False);
+   Atom MOTIF_EXPORT_TARGETS =
+--- 149,155 ----
+                       XtPointer call_data)
+  {
+   XmConvertCallbackStruct  *ccs = (XmConvertCallbackStruct *)call_data;
+!  int  value;
+   Atom COMPOUND_TEXT = XInternAtom(XtDisplay(w), XmSCOMPOUND_TEXT, False);
+   Atom TARGETS = XInternAtom(XtDisplay(w), "TARGETS", False);
+   Atom MOTIF_EXPORT_TARGETS =
+*** motif.orig/demos/doc/programGuide/ch17/simple_drop/README	Fri Apr 28 11:04:45 2000
+--- motif/demos/doc/programGuide/ch17/simple_drop/README	Sat Jun  3 20:39:31 2000
+***************
+*** 3,11 ****
+  
+  The SimpleDrop demonstrates how a Motif application can add an
+  XmNdestinationCallback procedure to an XmDrawingArea widget.
+- To build the program, just type:
+- 
+-  $ make
+  
+  To run the program, just type:
+  
+--- 3,8 ----
+*** motif.orig/demos/doc/programGuide/ch17/simple_drop/simple_drop.c	Wed May  3 05:12:35 2000
+--- motif/demos/doc/programGuide/ch17/simple_drop/simple_drop.c	Sun Jun  4 12:27:09 2000
+***************
+*** 46,56 ****
+--- 46,58 ----
+  #include <Xm/MainW.h>
+  #include <Xm/Frame.h>
+  #include <Xm/CascadeB.h>
++ #include <Xm/MessageB.h>
+  #include <Xm/PushBG.h>
+  #include <Xm/RowColumn.h>
+  #include <Xm/Label.h>
+  #include <Xm/DrawingA.h>
+  #include <Xm/Transfer.h>
++ #include <Xm/TransferP.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+***************
+*** 130,135 ****
+--- 132,139 ----
+  
+      XtRealizeWidget(toplevel);
+      XtAppMainLoop(app_context);
++ 
++     return 0;    /* make compiler happy */
+  }
+  
+  
+***************
+*** 154,160 ****
+   /* Ask the source to return a list of all the export targets that
+      it knows how to convert. */
+   XmTransferValue(dcs->transfer_id, _MOTIF_EXPORT_TARGETS, 
+!                  (XtCallbackProc)TransferProc, NULL, NULL);
+  }
+  
+  
+--- 158,165 ----
+   /* Ask the source to return a list of all the export targets that
+      it knows how to convert. */
+   XmTransferValue(dcs->transfer_id, _MOTIF_EXPORT_TARGETS, 
+!                  (XtCallbackProc)TransferProc, NULL,
+!                  XtLastTimestampProcessed(XtDisplay(w)));
+  }
+  
+  
+***************
+*** 197,203 ****
+       if (PIXMAP_is_supported)  {
+         printf("TransferProc: Asking for PIXMAP.\n");
+         XmTransferValue(scs->transfer_id, PIXMAP,
+!                    (XtCallbackProc)TransferProc, NULL, NULL);
+       }
+     }
+  
+--- 202,209 ----
+       if (PIXMAP_is_supported)  {
+         printf("TransferProc: Asking for PIXMAP.\n");
+         XmTransferValue(scs->transfer_id, PIXMAP,
+!                    (XtCallbackProc)TransferProc, NULL,
+!                    XtLastTimestampProcessed(XtDisplay(w)));
+       }
+     }
+  
+*** motif.orig/demos/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/Imakefile	Sat Jun  3 18:28:08 2000
+***************
+*** 40,46 ****
+  #define IHaveSubdirs
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
+! SUBDIRS = lib programs unsupported
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+--- 40,46 ----
+  #define IHaveSubdirs
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
+! SUBDIRS = lib programs unsupported doc/programGuide
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+*** motif.orig/demos/lib/Exm/CommandB.c	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Exm/CommandB.c	Sun Jun  4 12:47:53 2000
+***************
+*** 77,82 ****
+--- 77,83 ----
+                          Widget new_w,
+                          ArgList args,
+                          Cardinal *num_args);
++ static void ClassInitialize(void);
+  static void ClassPartInitialize(
+                          WidgetClass widgetclass);
+  static void Destroy (
+***************
+*** 218,224 ****
+      /* superclass */                 (WidgetClass)&exmStringClassRec,
+      /* class_name */                 "ExmCommandButton",
+      /* widget_size */                sizeof(ExmCommandButtonRec),
+!     /* class_initialize */           NULL,
+      /* class_part_initialize */      ClassPartInitialize,
+      /* class_inited */               FALSE,
+      /* initialize */                 Initialize,
+--- 219,225 ----
+      /* superclass */                 (WidgetClass)&exmStringClassRec,
+      /* class_name */                 "ExmCommandButton",
+      /* widget_size */                sizeof(ExmCommandButtonRec),
+!     /* class_initialize */           ClassInitialize,
+      /* class_part_initialize */      ClassPartInitialize,
+      /* class_inited */               FALSE,
+      /* initialize */                 Initialize,
+***************
+*** 326,331 ****
+--- 327,352 ----
+  
+  /************************************************************************
+   *
++  *  ClassInitialize
++  *      Called by the Intrinsics the first time a widget of this class is 
++  *      instantiated.
++  *
++  ************************************************************************/
++ static void 
++ ClassInitialize(void)
++ {
++ #ifndef USE_ORIGINAL_MOTIF_CODE
++  /* Install the XmQTtakesDefault trait on CommandButton only. */
++    XmeTraitSet((XtPointer) exmCommandButtonWidgetClass, XmQTtakesDefault, 
++                (XtPointer) &commandButtonTDT);
++ #endif
++ }
++ 
++ 
++ 
++ 
++ /************************************************************************
++  *
+   *  ClassPartInitialize
+   *      Called by the Intrinsics when this widget or a subclass of this
+   *      widget is instantiated.  
+***************
+*** 339,347 ****
+--- 360,370 ----
+     XmeTraitSet((XtPointer) widgetclass, XmQTactivatable, 
+                 (XtPointer) &commandButtonAT);
+  
++ #ifdef USE_ORIGINAL_MOTIF_CODE
+   /* Install the XmQTtakesDefault trait on CommandButton and its subclasses. */
+     XmeTraitSet((XtPointer) widgetclass, XmQTtakesDefault, 
+                 (XtPointer) &commandButtonTDT);
++ #endif
+  }
+  
+  
+***************
+*** 717,723 ****
+   ExmCommandButtonWidgetClass cbwc = (ExmCommandButtonWidgetClass)XtClass(w);
+   ExmCommandButtonWidget cbw = (ExmCommandButtonWidget)w;
+   Position   start_x_of_outer_shadow,  start_y_of_outer_shadow; 
+!  Dimension  margin_push_out;
+   Dimension  width_of_outer_shadow, height_of_outer_shadow; 
+   int   dx, dy, width, height;
+   GC    top_GC, bottom_GC;
+--- 740,746 ----
+   ExmCommandButtonWidgetClass cbwc = (ExmCommandButtonWidgetClass)XtClass(w);
+   ExmCommandButtonWidget cbw = (ExmCommandButtonWidget)w;
+   Position   start_x_of_outer_shadow,  start_y_of_outer_shadow; 
+!  Dimension  margin_push_out=0;
+   Dimension  width_of_outer_shadow, height_of_outer_shadow; 
+   int   dx, dy, width, height;
+   GC    top_GC, bottom_GC;
+*** motif.orig/demos/lib/Exm/MenuB.c	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Exm/MenuB.c	Sun Jun  4 12:52:27 2000
+***************
+*** 67,72 ****
+--- 67,73 ----
+  
+  /* Include appropriate header files. */
+  #include <Xm/Screen.h>
++ #include <Xm/CascadeB.h>
+  #include <Xm/DrawP.h>
+  #include <Xm/ManagerP.h>
+  #include <X11/ShellP.h>
+***************
+*** 497,507 ****
+    ExmMenuButtonWidget mw = (ExmMenuButtonWidget)w;
+    
+    if (mw->menu_button.armed == True) return;
+!   
+    mw->menu_button.armed = True;
+    
+    if (wc->simple_class.draw_shadow)
+      (*(wc->simple_class.draw_shadow)) ((Widget) mw);
+  }
+  
+  
+--- 498,519 ----
+    ExmMenuButtonWidget mw = (ExmMenuButtonWidget)w;
+    
+    if (mw->menu_button.armed == True) return;
+! 
+! #ifndef USE_ORIGINAL_MOTIF_CODE
+!   XmeDrawShadows (XtDisplay (mw), XtWindow (mw),
+! 		  mw->primitive.top_shadow_GC,
+! 		  mw->primitive.bottom_shadow_GC,
+! 		  mw->primitive.highlight_thickness,
+! 		  mw->primitive.highlight_thickness,
+! 		  mw->core.width - 2 * mw->primitive.highlight_thickness,
+! 		  mw->core.height - 2 * mw->primitive.highlight_thickness,
+! 		  mw->primitive.shadow_thickness, XmSHADOW_OUT);
+! #else
+    mw->menu_button.armed = True;
+    
+    if (wc->simple_class.draw_shadow)
+      (*(wc->simple_class.draw_shadow)) ((Widget) mw);
++ #endif
+  }
+  
+  
+***************
+*** 521,531 ****
+    
+    if (mw->menu_button.armed == False) 
+      return;
+!   
+    mw->menu_button.armed = False;
+    
+    if (wc->simple_class.draw_shadow)
+      (*(wc->simple_class.draw_shadow)) ((Widget) mw);
+  }
+  
+  
+--- 533,552 ----
+    
+    if (mw->menu_button.armed == False) 
+      return;
+! 
+! #ifndef USE_ORIGINAL_MOTIF_CODE  
+!   XmeClearBorder (XtDisplay (mw), XtWindow(mw),
+! 		  mw->primitive.highlight_thickness,
+! 		  mw->primitive.highlight_thickness,
+! 		  mw->core.width - 2 * mw->primitive.highlight_thickness,
+! 		  mw->core.height - 2 * mw->primitive.highlight_thickness,
+! 		  mw->primitive.shadow_thickness);
+! #else
+    mw->menu_button.armed = False;
+    
+    if (wc->simple_class.draw_shadow)
+      (*(wc->simple_class.draw_shadow)) ((Widget) mw);
++ #endif
+  }
+  
+  
+*** motif.orig/demos/lib/Exm/Panner.c	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Exm/Panner.c	Sat Jun  3 20:51:20 2000
+***************
+*** 87,92 ****
+--- 87,94 ----
+  #include <Xm/DrawP.h>
+  #include <Xm/RepType.h>
+  #include <Exm/PannerP.h>
++ #include <stdlib.h>
++ #include <ctype.h>
+  
+  
+  /* Define macros and constants. */
+*** motif.orig/demos/lib/Exm/StringTrans.c	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Exm/StringTrans.c	Sat Jun  3 20:51:20 2000
+***************
+*** 61,66 ****
+--- 61,67 ----
+  #include <Xm/TraitP.h>        /* for traits */
+  #include <Xm/TransferT.h>     /* for XmQTtransfer trait */
+  #include <Xm/SpecRenderT.h>   /* for XmLABEL_RENDER_TABLE */
++ #include <Xm/DrawP.h>         /* for XmeClearBorder */
+  
+  /* Declare all static functions. */
+  static void ClassPartInitialize(
+*** motif.orig/demos/lib/Exm/TabB.h	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Exm/TabB.h	Sun Jun  4 12:48:41 2000
+***************
+*** 51,56 ****
+--- 51,62 ----
+  #define _ExmTabB_h
+  
+  
++ /* Allow for C++ compilation. */
++ #ifdef __cplusplus
++ extern "C" {
++ #endif
++ 
++ 
+  /* Include appropriate files. */
+  #include <Exm/CommandB.h>  /* public header file for ExmCommandButton */
+  #include <Xm/JoinSideT.h> /* contains defs. needed by ExmNopenSide resource */
+*** motif.orig/demos/lib/Exm/wml/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Exm/wml/Imakefile	Sat Jun  3 20:28:52 2000
+***************
+*** 37,43 ****
+  XCOMM HISTORY
+  
+  INCLUDES = -I. -I$(INCLUDESRC) -I$(MINCLUDESRC) -I$(MLIBSRC) -I../../. -I$(MTOP)/include
+! DEPLIBS = $(DEPXMLIB)  $(DEPXTOOLLIB) $(DEPXLIB)
+  LOCAL_LIBRARIES = XmClientLibs
+  
+  WMLDIR = $(MTOP)/tools/wml
+--- 37,43 ----
+  XCOMM HISTORY
+  
+  INCLUDES = -I. -I$(INCLUDESRC) -I$(MINCLUDESRC) -I$(MLIBSRC) -I../../. -I$(MTOP)/include
+! DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+  
+  WMLDIR = $(MTOP)/tools/wml
+***************
+*** 69,75 ****
+  	$(YACC) -d $(YACCFLAGS) $(UILY)
+  	$(MV) y.tab.c UilLexPars.c
+  	$(MV) y.tab.h UilLexPars.h
+! 	$(CLIENTENVSETUP) $(WMLDIR)/wmluiltok < $(UILY) > tokens.dat
+  	$(RM) wml-uil.mm
+  	$(CPP) -I$(WMLDIR) $(TABLE) | $(WMLDIR)/wml
+  	$(RM) tokens.dat
+--- 69,75 ----
+  	$(YACC) -d $(YACCFLAGS) $(UILY)
+  	$(MV) y.tab.c UilLexPars.c
+  	$(MV) y.tab.h UilLexPars.h
+! 	$(WMLDIR)/wmluiltok < $(UILY) > tokens.dat
+  	$(RM) wml-uil.mm
+  	$(CPP) -I$(WMLDIR) $(TABLE) | $(WMLDIR)/wml
+  	$(RM) tokens.dat
+*** motif.orig/demos/lib/Exm/wml/wmldbcreate.c	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Exm/wml/wmldbcreate.c	Sat Jun  3 20:51:20 2000
+***************
+*** 117,123 ****
+  char outfilename[80];
+  char debugfilename[80];
+  
+! main(argc, argv)
+  int argc;
+  char **argv;
+  {
+--- 117,123 ----
+  char outfilename[80];
+  char debugfilename[80];
+  
+! int main(argc, argv)
+  int argc;
+  char **argv;
+  {
+*** motif.orig/demos/lib/Imakefile	Wed May  3 05:12:35 2000
+--- motif/demos/lib/Imakefile	Sat Jun  3 19:59:04 2000
+***************
+*** 44,50 ****
+  CPLUSPLUSDIRS = XmCxx ExmCxx
+  #endif
+  
+! SUBDIRS = Exm ${CPLUSPLUSDIRS} Wsm Xmd
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+--- 44,50 ----
+  CPLUSPLUSDIRS = XmCxx ExmCxx
+  #endif
+  
+! SUBDIRS = Exm ${CPLUSPLUSDIRS} Xmd
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+*** motif.orig/demos/lib/Xmd/AdjView.c	Wed May  3 05:12:36 2000
+--- motif/demos/lib/Xmd/AdjView.c	Sat Jun  3 20:51:20 2000
+***************
+*** 48,53 ****
+--- 48,54 ----
+  *******************************************************************/
+  
+  #include <Xm/XmAll.h>
++ #include "AdjView.h"
+  
+  static void ClipResize (Widget clip_window, 
+  			XtPointer client_data, XtPointer call_data) ;
+*** motif.orig/demos/lib/Xmd/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/lib/Xmd/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 67,73 ****
+--- 67,77 ----
+  OBJS2		= onHelp.o
+  	
+  MComplexProgramTarget_2(onHelp,$(LOCAL_LIBRARIES),NullParameter)
++ AllTarget(onHelp)
++ clean::
++ 	RemoveTargetProgram(onHelp)
+  
+  DependTarget()
+  
++ InstallMotifHelpFile(helpOn)
+  
+*** motif.orig/demos/lib/Xmd/onHelp.c	Wed May  3 05:12:36 2000
+--- motif/demos/lib/Xmd/onHelp.c	Sat Jun  3 20:51:20 2000
+***************
+*** 112,115 ****
+--- 112,117 ----
+    XtRealizeWidget(toplevel);
+  
+    XtAppMainLoop(app_context);
++ 
++   return 0;    /* make compiler happy */
+  }
+*** motif.orig/demos/lib/Xmd/Print.c	Wed May  3 05:12:36 2000
+--- motif/demos/lib/Xmd/Print.c	Sat Jun  3 20:51:20 2000
+***************
+*** 40,45 ****
+--- 40,46 ----
+   */
+  
+  #include <Xm/XmP.h>
++ #include <Xm/ToggleB.h>
+  #include <Xm/ToggleBG.h>
+  #include <Xm/TextF.h>
+  #include <Xm/LabelG.h>
+***************
+*** 49,54 ****
+--- 50,57 ----
+  #include <Xm/MessageB.h>
+  #include <Xm/SelectioB.h>
+  #include "PrintP.h"
++ #include <stdlib.h>
++ #include <ctype.h>
+  
+  #define MAX(x,y) ((x) > (y) ? (x) : (y))
+  
+*** motif.orig/demos/lib/Xmd/RegEdit.c	Wed May  3 05:12:36 2000
+--- motif/demos/lib/Xmd/RegEdit.c	Sat Jun  3 20:51:20 2000
+***************
+*** 41,46 ****
+--- 41,47 ----
+  #include <stdio.h>
+  #include <Xm/XmP.h>		
+  #include <X11/ShellP.h>		
++ #include "RegEdit.h"
+  #include "RegEditI.h"
+  
+  
+*** motif.orig/demos/programs/airport/dragsource.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/airport/dragsource.c	Sat Jun  3 20:51:20 2000
+***************
+*** 119,125 ****
+     flight->number = rand();
+     flight->from = this;
+     flight->gate = spot;
+!    sprintf(msg, "Flight %d leaving from gate %d",
+  	   flight->number, flight->gate);
+     Paging(this, msg);
+     n = 0;
+--- 119,125 ----
+     flight->number = rand();
+     flight->from = this;
+     flight->gate = spot;
+!    sprintf(msg, "Flight %ld leaving from gate %d",
+  	   flight->number, flight->gate);
+     Paging(this, msg);
+     n = 0;
+***************
+*** 276,286 ****
+        spot->empty = True;
+        XClearArea(this->display, XtWindow(this->airport), 
+  		 spot->x, spot->y, plane_width, plane_height, False);
+!      sprintf(msg, "Passengers from flight %d have landed safely",
+  	      flight->number);
+     }
+     else
+!      sprintf(msg, "Flight %d has returned", flight->number);
+     Paging(this, msg);
+  }
+  
+--- 276,286 ----
+        spot->empty = True;
+        XClearArea(this->display, XtWindow(this->airport), 
+  		 spot->x, spot->y, plane_width, plane_height, False);
+!      sprintf(msg, "Passengers from flight %ld have landed safely",
+  	      flight->number);
+     }
+     else
+!      sprintf(msg, "Flight %ld has returned", flight->number);
+     Paging(this, msg);
+  }
+  
+*** motif.orig/demos/programs/airport/dropsite.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/airport/dropsite.c	Sat Jun  3 20:51:20 2000
+***************
+*** 182,188 ****
+  
+        flight_number =  *((long *)value); 
+        this->park.spots[this->to.gate].empty = False;
+!       sprintf(msg, "Flight %d arrived at gate %d",
+  	   flight_number, this->to.gate);
+        Paging(this, msg);
+        DrawAirport(this, XtWindow(this->airport),
+--- 182,188 ----
+  
+        flight_number =  *((long *)value); 
+        this->park.spots[this->to.gate].empty = False;
+!       sprintf(msg, "Flight %ld arrived at gate %d",
+  	   flight_number, this->to.gate);
+        Paging(this, msg);
+        DrawAirport(this, XtWindow(this->airport),
+*** motif.orig/demos/programs/airport/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/programs/airport/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 39,45 ****
+         INCLUDES = -I.
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+! EXTRA_LIBRARIES = -lm 
+  
+  SRCS= main.c dragsource.c dropsite.c
+  
+--- 39,45 ----
+         INCLUDES = -I.
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+!   SYS_LIBRARIES = MathLibrary
+  
+  SRCS= main.c dragsource.c dropsite.c
+  
+*** motif.orig/demos/programs/airport/main.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/airport/main.c	Sat Jun  3 20:51:20 2000
+***************
+*** 77,83 ****
+   *    Main loop
+   */
+  
+! void main(int argc, char *argv[])
+  {
+  #define MAIN_CHILDREN		3
+  #define FORM_CHILDREN		3
+--- 77,83 ----
+   *    Main loop
+   */
+  
+! int main(int argc, char *argv[])
+  {
+  #define MAIN_CHILDREN		3
+  #define FORM_CHILDREN		3
+***************
+*** 339,344 ****
+--- 339,346 ----
+  			      |GCFillStyle|GCForeground|GCBackground,
+  			      &gcv);
+     XtAppMainLoop(this->context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  /* ===============================================================
+*** motif.orig/demos/programs/animate/Imakefile	Fri Jul  7 14:13:03 2000
+--- motif/demos/programs/animate/Imakefile	Sat Jun  3 20:33:06 2000
+***************
+*** 38,48 ****
+  XCOMM 
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:40:35 drk $
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) MrmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) MrmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = xmanimate.c
+--- 38,48 ----
+  XCOMM 
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:40:35 drk $
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) MrmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) MrmClientLibs 
+!   SYS_LIBRARIES = MathLibrary
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = xmanimate.c
+***************
+*** 56,61 ****
+  MSimpleUidTarget(superman)
+  
+  InstallAppDefaults(XmdAnimate)
+! InstallManPage(animate,$(MANDIR))
+  
+  DependTarget()
+--- 56,62 ----
+  MSimpleUidTarget(superman)
+  
+  InstallAppDefaults(XmdAnimate)
+! InstallManPage(xmanimate,$(MANDIR))
+! InstallMotifHelpFile(xmanimate)
+  
+  DependTarget()
+*** motif.orig/demos/programs/animate/README	Fri Apr 28 11:04:08 2000
+--- motif/demos/programs/animate/README	Sat Jun  3 20:06:43 2000
+***************
+*** 1,5 ****
+  /* $XConsortium: README /main/3 1996/07/15 14:02:03 drk $ */
+! Animate
+  ---------
+  This program demonstrates the following Motif features:
+       - declaration of icon/bitmap using UIL for portability across visuals
+--- 1,5 ----
+  /* $XConsortium: README /main/3 1996/07/15 14:02:03 drk $ */
+! Xmanimate
+  ---------
+  This program demonstrates the following Motif features:
+       - declaration of icon/bitmap using UIL for portability across visuals
+***************
+*** 8,34 ****
+       - background procedure running while the client process
+         is waiting for inputs (Xt intrinsics feature).
+       
+! Animate allows the user to animate a set of pixmaps in an X window.
+! The pixmaps are not fixed by animate but instead read at startup from
+  existing UID files. 
+  
+  The syntax of all the 'animation.uid' files follows some simple rules and
+! one can easily add a new set of pixmap to be animated using animate.
+  
+  dog.uil, plane.uil and superman.uil are tree examples of animation data 
+  files. (superman<N>.xbm are referenced in superman.uil). The default animation
+  is 'dog'. To run the demo with the other animations, use the command:
+  
+! % animate -anim plane
+! % animate -anim superman
+  
+! motiflogo.uil, animate.uil and animate.c are the core components 
+! of the program.
+  
+  Daniel Dardailler.
+  
+  PS: add XmdAnimate in your resource environment, or run directly:
+! 	  (XENVIRONMENT=XmdAnimate animate)
+  
+  
+  
+--- 8,33 ----
+       - background procedure running while the client process
+         is waiting for inputs (Xt intrinsics feature).
+       
+! Xmanimate allows the user to animate a set of pixmaps in a window.
+! The pixmaps are not fixed by xmanimate but instead read at startup from
+  existing UID files. 
+  
+  The syntax of all the 'animation.uid' files follows some simple rules and
+! one can easily add a new set of pixmaps to be animated using xmanimate.
+  
+  dog.uil, plane.uil and superman.uil are tree examples of animation data 
+  files. (superman<N>.xbm are referenced in superman.uil). The default animation
+  is 'dog'. To run the demo with the other animations, use the command:
+  
+! % xmanimate -anim plane
+! % xmanimate -anim superman
+  
+! xmanimate.uil and xmanimate.c are the core components of the program.
+  
+  Daniel Dardailler.
+  
+  PS: add XmdAnimate in your resource environment, or run directly:
+! 	  (XENVIRONMENT=XmdAnimate xmanimate)
+  
+  
+  
+*** motif.orig/demos/programs/animate/XmdAnimate.ad	Wed May  3 05:12:36 2000
+--- motif/demos/programs/animate/XmdAnimate.ad	Sat Jun  3 20:07:41 2000
+***************
+*** 36,42 ****
+  ! 
+  ! HISTORY
+  
+! animate.geometry: 470x275
+  *horizontalSpacing: 20
+  *verticalSpacing: 20
+  
+--- 36,42 ----
+  ! 
+  ! HISTORY
+  
+! xmanimate.geometry: 470x275
+  *horizontalSpacing: 20
+  *verticalSpacing: 20
+  
+***************
+*** 45,47 ****
+--- 45,48 ----
+  *XmScale.showValue : true
+  *XmScale.bottomOffset : 10
+  
++ *help_manager.helpFile: xmanimate
+*** motif.orig/demos/programs/animate/xmanimate.c	Fri Jul  7 14:45:07 2000
+--- motif/demos/programs/animate/xmanimate.c	Sat Jun  3 20:08:57 2000
+***************
+*** 0 ****
+--- 1,397 ----
++ /* $XConsortium: xmanimate.c /main/5 1995/07/15 20:44:58 drk $ */
++ /*
++  * @OPENGROUP_COPYRIGHT@
++  * COPYRIGHT NOTICE
++  * Copyright (c) 1990, 1991, 1992, 1993 Open Software Foundation, Inc.
++  * Copyright (c) 1996, 1997, 1998, 1999, 2000 The Open Group
++  * ALL RIGHTS RESERVED (MOTIF).  See the file named COPYRIGHT.MOTIF for
++  * the full copyright text.
++  * 
++  * This software is subject to an open license. It may only be
++  * used on, with or for operating systems which are themselves open
++  * source systems. You must contact The Open Group for a license
++  * allowing distribution and sublicensing of this software on, with,
++  * or for operating systems which are not Open Source programs.
++  * 
++  * See http://www.opengroup.org/openmotif/license for full
++  * details of the license agreement. Any use, reproduction, or
++  * distribution of the program constitutes recipient's acceptance of
++  * this agreement.
++  * 
++  * EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS
++  * PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++  * KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
++  * WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY
++  * OR FITNESS FOR A PARTICULAR PURPOSE
++  * 
++  * EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT
++  * NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT,
++  * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++  * DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED
++  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++  * ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE PROGRAM OR THE
++  * EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED OF THE
++  * POSSIBILITY OF SUCH DAMAGES.
++  * 
++  */
++ /*
++  * HISTORY
++  */
++ /***************************************************************************
++ * Motifanim.
++ * ---------
++ * This program displays a animation made of a succession of pixmaps drawn
++ *    side by side in a scrolled drawingarea; there are also control 
++ *    buttons for managing the animation (start, speed, stop, step ...)
++ * This program reads two uid files: 'motifanim.uid', describing the general
++ *    interface of the buttons, label etc, and a <NAME>.uid file, describing
++ *    the data for the animation itself (essentially a set of icons to
++ *    be read using MrmFetchIconLiteral. <NAME> can be set at run time
++ *    in the command line and is supposed to define the following value:
++ *         anim_width     : width of the drawing area receiving animation
++ *         anim_height    : height of the drawing area receiving animation
++ *         anim_number    : number of icons in the animation (N)
++ *         <NAME>icon<N>  : name of the icon pixmap, for instance 'dogicon1'
++ *         anim_backcolor : color of the drawing area receiving animation
++ *         anim_step      : horizontal offset added before each animation step
++ * See dog.uil, the default <NAME>, for an example of such a file.
++ * -----------------------------------
++ * Authors: Daniel Dardailler, 90 (this version - last updated 94)
++ *          Vincent Bouthors,  89 (Egerie version)
++ *          Daniel Dardailler, 88 (xdog version)
++ ****************************************************************************/
++ 
++ #include <stdio.h>
++ #include <Xm/Xm.h>          /* Motif Toolkit */
++ #include <Xm/Scale.h>
++ #include <Mrm/MrmPublic.h>   /* Mrm */
++ #include <Xmd/RegEdit.h>   
++ #include <Xmd/Help.h>   
++ #include <stdlib.h>
++ 
++ static MrmHierarchy	s_MrmHierarchy;	   /* MRM database hierarch id */
++ 
++ static char *vec[2]={"xmanimate.uid"};     /* MRM database file list   */
++ static int vecnum = sizeof(vec) / sizeof(char*);
++        /* the second uid file name (vec[1]), containing animation
++ 	  data, is taken at run time in command line option -anim */
++ 
++ static MrmCode		class, return_type ;
++ 
++        /* forward declaration of interface procedures */
++ static void p_motifanim_start();
++ static void p_motifanim_stop();
++ static void p_motifanim_step();
++ static void p_motifanim_speed();
++ static void p_motifanim_draw();
++ static void p_motifanim_exit();
++ static void p_motifanim_help();
++ static void InitAnim();
++ 
++        /* binding of uil procedure names with C functions */
++ static MRMRegisterArg	regvec[] = {
++ 	{"p_motifanim_start",(XtPointer)p_motifanim_start},
++ 	{"p_motifanim_stop",(XtPointer)p_motifanim_stop},
++ 	{"p_motifanim_step",(XtPointer)p_motifanim_step},
++ 	{"p_motifanim_speed",(XtPointer)p_motifanim_speed},
++ 	{"p_motifanim_exit",(XtPointer)p_motifanim_exit},
++ 	{"p_motifanim_draw",(XtPointer)p_motifanim_draw},
++ 	{"p_motifanim_help",(XtPointer)p_motifanim_help}
++ 	};
++ static MrmCount regnum = XtNumber(regvec);
++ 
++ 
++ static Display 	*display;
++ static XtAppContext    app_context;
++ 
++ /** 
++ --  Animation variables 
++ **/
++ static int scalespeed, max_scale ; /* init with widget values */
++ static short width ;
++ 
++ static Boolean stop = True ;
++ 
++ static int xanim = 50,
++            yanim = 25,
++            ianim = 0 ;
++ 
++ static int speed_factor = 20 ;                /* reinitialized with argv */
++ static char * anim_name = "dog";              /* reinitialized with argv */
++ 
++ #define MAXIMAGES 10
++ static unsigned int wanim[MAXIMAGES], hanim[MAXIMAGES] ;
++ 
++ static Pixmap panim[MAXIMAGES] ;   /* initalized with uil value by fetching */
++ static int nimage, step_size  ;    /* initalized with uil value by fetching */
++ 
++ static GC gc ;
++ static Widget drawingArea;
++ static int speedcount ;
++ 
++ #define APP_CLASS "XmdAnimate"
++ 
++ static String fallbacks[] = {
++ "*help_manager.helpFile: xmanimate",
++ NULL
++ };
++ 
++ /******************************************************************
++  *  Main program: motifanim [-anim anim_name] [-speed speed_factor]
++  */
++ int main(argc, argv)
++      int    argc;
++      String argv[];
++ {
++      /*
++      *  Declare the variables to contain the two widget ids
++      */
++     Widget toplevel, motifanimmain = NULL ;
++     Arg arglist[1] ;
++     char uidanimfile[100] ;
++     int n;
++ 
++ 
++     MrmInitialize ();
++     XtSetLanguageProc(NULL, NULL, NULL);
++     toplevel = XtVaAppInitialize(&app_context, APP_CLASS,
++ 				 NULL , 0, &argc, argv, fallbacks, NULL);
++ 
++     /**  Plug in Editres protocol  */
++     XmdRegisterEditres(toplevel);
++ 
++     /*
++      *  Parsing of the remaining animation options
++      */
++ 
++     while (*++argv) {
++ 	if (!strcmp(*argv,"-anim")) {
++ 	    if (*++argv)  anim_name = *argv ; 
++ 	} else
++ 	if (!strcmp(*argv,"-speed")) {
++ 	    if (*++argv)  speed_factor = atoi(*argv) ; 
++ 	}
++     }
++ 		
++ 
++     /*
++      *  Build the secong uid file and open the Mrm.hierarchy (2 files)
++      */ 
++     strcpy(uidanimfile,anim_name);
++     strcat(uidanimfile,".uid");
++     vec[1] = uidanimfile ;
++     if (MrmOpenHierarchy (vecnum,	 /* number of files	    */
++ 			vec, 		 /* files     	    */
++ 			NULL,		 /* os_ext_list (null)   */
++ 			&s_MrmHierarchy) /* ptr to returned id   */
++ 			!= MrmSUCCESS) {
++ 	printf ("can't open hierarchy defined by %s and %s\n",vec[0],vec[1]);
++ 	exit(0);
++      }
++ 
++     if (MrmRegisterNames (regvec, regnum)
++ 			!= MrmSUCCESS) {
++ 	printf("can't register names\n");
++ 	exit(0) ;
++     }
++ 
++     if (MrmFetchWidget (s_MrmHierarchy,
++ 			"motifanim_main",
++ 			toplevel,
++ 			&motifanimmain,
++ 			&class)
++ 			!= MrmSUCCESS) {
++ 	printf("can't fetch interface\n");
++ 	exit(0);
++     }
++ 
++     XtManageChild(motifanimmain);
++     
++     XtRealizeWidget(toplevel);
++ 
++     /*
++      *  Call the routine that will fetch the animation variables.
++      */
++     
++     InitAnim() ;
++ 
++ 
++     XtAppMainLoop(app_context);
++ 
++     /* UNREACHABLE */
++     return (0);
++ }
++ 
++ 
++ static void InitAnim()
++ /********/
++ {
++ 
++     XGCValues gcv;
++     int i,dum ;
++     char uiliconname[100];
++     int * pint ;
++     Window wdum ;
++ 
++     /* fetch the number of animation icons from Mrm hierarchy */
++     if (MrmFetchLiteral(s_MrmHierarchy,
++ 			"anim_number",
++ 			XtDisplay(drawingArea),
++ 			(XtPointer *)&pint,
++ 			&return_type) != MrmSUCCESS) {
++ 	printf("Can't fetch literal anim_number in %s.uid\n",anim_name);
++ 	exit(0) ;
++     }
++ 
++     nimage = (*pint > MAXIMAGES)?(MAXIMAGES-1):(*pint-1);
++ 
++     /* fetch the step value from Mrm hierarchy */
++     if (MrmFetchLiteral(s_MrmHierarchy,
++ 			"anim_step",
++ 			XtDisplay(drawingArea),
++ 			(XtPointer *)&pint,
++ 			&return_type) != MrmSUCCESS) {
++ 	printf("Can't fetch literal anim_step in %s.uid\n",anim_name);
++ 	exit(0) ;
++     }
++ 
++     step_size = *pint ;
++ 
++     /* fetch the icon pixmaps from Mrm hierarchy */
++     for (i = 0 ; i <= nimage ; i++) {
++ 	sprintf(uiliconname, "%sicon%d",anim_name, i+1);
++ 	if (MrmFetchIconLiteral(s_MrmHierarchy,
++ 			uiliconname,
++ 			XtScreen(drawingArea),
++ 			XtDisplay(drawingArea),
++ 			BlackPixel(XtDisplay(drawingArea),
++ 				   DefaultScreen(XtDisplay(drawingArea))),
++ 			WhitePixel(XtDisplay(drawingArea),
++ 				   DefaultScreen(XtDisplay(drawingArea))),
++ 			&panim[i]) != MrmSUCCESS) {
++ 	    fprintf(stderr, "Can't fetch uiliconname %s\n", uiliconname);
++ 	    exit (-1);
++ 	}
++ 	/* get the icons geometry with X standard requests */
++ 	XGetGeometry(XtDisplay(drawingArea),panim[i],&wdum,
++ 		     &dum,&dum,&wanim[i],&hanim[i],
++ 		     (unsigned int*)&dum,(unsigned int*)&dum);
++     }
++ 
++     /* to avoid event accumulation during animation */
++     gcv.graphics_exposures = False ; 
++     gc = XCreateGC(XtDisplay(drawingArea), XtWindow(drawingArea), 
++ 		   GCGraphicsExposures, &gcv);
++     speedcount = 0 ;
++ }
++ 
++ 
++ 
++ /**
++   Background Work Procedure: it return the current value of stop
++   and then is automatically removed when stop = true.
++ **/
++ static Boolean fstep(client_data)
++ /************************/
++      XtPointer client_data ;       /* scalespeed */
++ {
++     speedcount += (int)*(int*)client_data ;
++     if (speedcount >= (max_scale*speed_factor)) {
++ 	speedcount = 0 ;
++ 	XClearArea(XtDisplay(drawingArea), XtWindow(drawingArea),
++ 		   xanim, yanim, wanim[ianim], hanim[ianim] , False);
++ 	xanim = (xanim > width)?(-wanim[ianim]):(xanim+step_size) ;
++ 	ianim = (ianim == nimage)?0:(ianim+1);
++ 	XCopyArea(XtDisplay(drawingArea), panim[ianim], XtWindow(drawingArea),
++ 		  gc, 0, 0, wanim[ianim], hanim[ianim], 
++ 		  xanim, yanim);
++ 	XSync(XtDisplay(drawingArea),False);
++     }
++     return stop ;
++ }
++ 
++ /** The callbacks **/
++ /*******************/
++ 
++ static void 
++ p_motifanim_help (Widget w, XtPointer client_data, XtPointer call_data) 
++ {
++     static Widget help_widget = NULL ;
++ 
++     if (!help_widget)
++ 	help_widget = XmdCreateHelpDialog(w, "help_manager", NULL, 0);
++ 
++     XtManageChild(help_widget);   
++ }
++ 
++ 
++ static void p_motifanim_start( widget, tag, callback_data )
++ 	Widget	widget;
++ 	char    *tag;
++ 	XmAnyCallbackStruct *callback_data;
++ {
++     XtAppAddWorkProc(app_context,fstep, (XtPointer)&scalespeed);
++     stop = False ;
++ }
++ 
++ static void p_motifanim_stop( widget, tag, callback_data )
++ 	Widget	widget;
++ 	char    *tag;
++ 	XmAnyCallbackStruct *callback_data;
++ {
++     stop = True ;
++ }
++ 
++ static void p_motifanim_step( widget, tag, callback_data )
++ 	Widget	widget;
++ 	char    *tag;
++ 	XmAnyCallbackStruct *callback_data;
++ {
++     int max = (max_scale*speed_factor) ;
++ 
++     fstep(&max) ;
++ }
++ 
++ static void p_motifanim_speed( widget, tag, callback_data )
++ 	Widget	widget;
++ 	int    *tag;
++ 	XmScaleCallbackStruct *callback_data;
++ {
++     Arg arg ;
++ 
++     if (*tag == 0) {
++ 	XmScaleGetValue(widget,&scalespeed);
++ 	XtSetArg(arg,XmNmaximum,&max_scale);
++ 	XtGetValues(widget,&arg,1);
++     }
++     else scalespeed = callback_data->value ;
++ }
++ 
++ static void p_motifanim_draw( widget, tag, callback_data )
++ 	Widget	widget;
++ 	int    *tag;
++ 	XmAnyCallbackStruct *callback_data;
++ {
++     Arg arg ;
++ 
++     if (*tag == 0) {
++ 	XtSetArg(arg,XmNwidth,&width);
++ 	XtGetValues(widget,&arg,1);
++ 	drawingArea = widget ; 
++     } else {
++ 	XCopyArea(XtDisplay(drawingArea), panim[ianim], 
++ 		  XtWindow(drawingArea),
++ 		  gc, 0, 0, wanim[ianim], hanim[ianim], 
++ 		  xanim, yanim);
++     }
++ 
++ }
++ 
++ static void p_motifanim_exit( widget, tag, callback_data )
++ 	Widget	widget;
++ 	char    *tag;
++ 	XmAnyCallbackStruct *callback_data;
++ {
++     exit(0);
++ }
+*** motif.orig/demos/programs/animate/xmanimate.help	Fri Jul  7 14:45:07 2000
+--- motif/demos/programs/animate/xmanimate.help	Sat Jun  3 20:06:06 2000
+***************
+*** 0 ****
+--- 1,40 ----
++ <title>Overview</title>
++ <bold>Xmanimate : an animation program using Motif</bold>
++ 
++ Xmanimate demonstrates the following Motif features:
++      - declaration of icon/bitmap using UIL
++      - exchange of value between UIL and C using Mrm.
++      - use of the Motif form widget.
++      - background procedure running while the client process
++        is waiting for inputs (Xt intrinsics feature).
++      
++ Xmanimate allows the user to animate a set of pixmaps in a window.
++ The pixmaps are not fixed by xmanimate but instead read at startup from
++ existing UID files. 
++ 
++ The syntax of all the 'animation.uid' files follows some simple rules and
++ one can easily add a new set of pixmaps to be animated using xmanimate.
++ 
++ dog.uil, plane.uil and superman.uil are tree examples of animation data 
++ files. (superman[N].xbm are referenced in superman.uil). The default animation
++ is 'dog'. To run the demo with the other animations, use the command:
++ 
++ % xmanimate -anim plane
++ 
++ % xmanimate -anim superman
++ 
++ xmanimate.uil and xmanimate.c are the core components of the program.
++ 
++ speed_factor is a number between 0 and 100.
++ 
++ Files:
++       <bold>XmdAnimate</bold>: the app-default file, which is very important 
++       for usability. Run 'xrdb XmdAnimate' or something like
++       XENVIRONMENT=XmdAnimate xmanimate
++ 
++ X Defaults:
++       The class of this application is XmdAnimate.  
++ 
++ Editres: 
++       Xmanimate is Editres aware, so you can use 'editres' to see the
++       names of the widgets in the instance hierarchy.
+*** motif.orig/demos/programs/animate/xmanimate.man	Fri Jul  7 14:45:07 2000
+--- motif/demos/programs/animate/xmanimate.man	Sat Jun  3 20:05:31 2000
+***************
+*** 0 ****
+--- 1,88 ----
++ .\" $XConsortium: xmanimate.man /main/4 1995/07/17 10:46:33 drk $
++ ...\" @OPENGROUP_COPYRIGHT@
++ ...\" COPYRIGHT NOTICE
++ ...\" Copyright (c) 1990, 1991, 1992, 1993 Open Software Foundation, Inc.
++ ...\" Copyright (c) 1996, 1997, 1998, 1999, 2000 The Open Group
++ ...\" ALL RIGHTS RESERVED (MOTIF).  See the file named COPYRIGHT.MOTIF for
++ ...\" the full copyright text.
++ ...\" 
++ ...\" This software is subject to an open license. It may only be
++ ...\" used on, with or for operating systems which are themselves open
++ ...\" source systems. You must contact The Open Group for a license
++ ...\" allowing distribution and sublicensing of this software on, with,
++ ...\" or for operating systems which are not Open Source programs.
++ ...\" 
++ ...\" See http://www.opengroup.org/openmotif/license for full
++ ...\" details of the license agreement. Any use, reproduction, or
++ ...\" distribution of the program constitutes recipient's acceptance of
++ ...\" this agreement.
++ ...\" 
++ ...\" EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS
++ ...\" PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++ ...\" KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
++ ...\" WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY
++ ...\" OR FITNESS FOR A PARTICULAR PURPOSE
++ ...\" 
++ ...\" EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT
++ ...\" NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT,
++ ...\" INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++ ...\" DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED
++ ...\" AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ ...\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++ ...\" ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE PROGRAM OR THE
++ ...\" EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED OF THE
++ ...\" POSSIBILITY OF SUCH DAMAGES.
++ ...\" 
++ ...\" 
++ ...\" HISTORY
++ .TH xmanimate 1X MOTIF "Demonstration programs"
++ .SH NAME
++ \*Lxmanimate\*O : an animation program using Motif
++ .SH SYNOPSIS
++ .sS
++ \*Lxmanimate\*O [-anim uidfile] [-speed speed_factor]
++ .sE
++ .SH DESCRIPTION
++ \*LXmanimate\*O
++ demonstrates the following Motif features:
++      - declaration of icon/bitmap using UIL
++      - exchange of value between UIL and C using Mrm.
++      - use of the Motif form widget.
++      - background procedure running while the client process
++        is waiting for inputs (Xt intrinsics feature).
++      
++ Xmanimate allows the user to animate a set of pixmaps in a window.
++ The pixmaps are not fixed by xmanimate but instead read at startup from
++ existing UID files. 
++ 
++ The syntax of all the 'animation.uid' files follows some simple rules and
++ one can easily add a new set of pixmaps to be animated using xmanimate.
++ 
++ dog.uil, plane.uil and superman.uil are tree examples of animation data 
++ files. (superman<N>.xbm are referenced in superman.uil). The default animation
++ is 'dog'. To run the demo with the other animations, use the command:
++ 
++ % xmanimate -anim plane
++ 
++ % xmanimate -anim superman
++ 
++ xmanimate.uil and xmanimate.c are the core components of the program.
++ 
++ speed_factor is a number between 0 and 100.
++ 
++ 
++ .SH Files
++ .nf
++ .ta 1.2i
++ XmdAnimate: the app-default file, which is very important for usability.
++ Try running something like: (XENVIRONMENT=XmdAnimate xmanimate) 
++ 
++ .fi
++ .SH X Defaults
++ The class of this application is \fIXmdAnimate\fR.  
++ 
++ .SH Editres: 
++ Xmanimate is Editres aware, so you can use 'editres' to see the
++ names of the widgets in the instance hierarchy.
++ 
++ 
+*** motif.orig/demos/programs/animate/xmanimate.uil	Fri Jul  7 14:45:07 2000
+--- motif/demos/programs/animate/xmanimate.uil	Sat Jun  3 20:05:31 2000
+***************
+*** 0 ****
+--- 1,272 ----
++ ! $XConsortium: xmanimate.uil /main/4 1996/07/15 15:13:12 drk $
++ ! @OPENGROUP_COPYRIGHT@
++ ! COPYRIGHT NOTICE
++ ! Copyright (c) 1990, 1991, 1992, 1993 Open Software Foundation, Inc.
++ ! Copyright (c) 1996, 1997, 1998, 1999, 2000 The Open Group
++ ! ALL RIGHTS RESERVED (MOTIF).  See the file named COPYRIGHT.MOTIF for
++ ! the full copyright text.
++ ! 
++ ! This software is subject to an open license. It may only be
++ ! used on, with or for operating systems which are themselves open
++ ! source systems. You must contact The Open Group for a license
++ ! allowing distribution and sublicensing of this software on, with,
++ ! or for operating systems which are not Open Source programs.
++ ! 
++ ! See http://www.opengroup.org/openmotif/license for full
++ ! details of the license agreement. Any use, reproduction, or
++ ! distribution of the program constitutes recipient's acceptance of
++ ! this agreement.
++ ! 
++ ! EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS
++ ! PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++ ! KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
++ ! WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY
++ ! OR FITNESS FOR A PARTICULAR PURPOSE
++ ! 
++ ! EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT
++ ! NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT,
++ ! INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++ ! DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED
++ ! AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ ! LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++ ! ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE PROGRAM OR THE
++ ! EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED OF THE
++ ! POSSIBILITY OF SUCH DAMAGES.
++ ! 
++ ! 
++ ! HISTORY
++ 
++ !***************************************************************
++ !*                                                            **
++ !*   Motifanim general interface.                             **
++ !*   Author : Daniel Dardailler, March 90, June 90, August 91 **
++ !*                                                            **
++ !**************************************************************/
++ module motifanim
++     version = 'v1.0'
++     names = case_sensitive
++ 
++ procedure
++     p_motifanim_start();    
++     p_motifanim_stop();    
++     p_motifanim_step();
++     p_motifanim_speed(integer);
++     p_motifanim_exit();
++     p_motifanim_help();
++     p_motifanim_draw(integer);	
++ 
++ 
++ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
++ ! The main is a big Form that try to manage its children 
++ ! as well as possible...
++ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
++ 
++ object
++     motifanim_main : XmMainWindow {
++        controls {
++             XmMenuBar     motifanim_bar ;
++             XmForm        motifanim_form ;
++        };
++     };
++ 
++ object
++     motifanim_form : XmForm {
++ 	arguments { 
++ 	    XmNdefaultButton = motifanim_start ;
++ 	};
++ 	controls {
++ 	    XmScrolledWindow    motifanim_view;
++ 	    XmSeparator		motifanim_sep;
++ 	    XmPushButton	motifanim_start;
++ 	    XmPushButton	motifanim_stop;
++ 	    XmPushButton	motifanim_step;
++ 	    XmScale		motifanim_speed;
++ 	};
++     };
++ 
++ !-------------------------------------------------------
++ ! As a geometry starting point, we fix the bottom line of 
++ ! PushButtons (start, stop..) to the Form bottom and sides
++ ! and the menubar to the top
++ !-------------------------------------------------------
++ 
++ object
++     motifanim_bar : XmMenuBar {
++ 	arguments {
++ 	    XmNmenuHelpWidget = XmCascadeButton help_entry;
++          };
++          controls {                              
++             XmCascadeButton file_menu_entry;
++             XmCascadeButton help_entry;
++          };
++     };
++ 
++ object
++         file_menu_entry : XmCascadeButton {
++             arguments {
++                 XmNlabelString = compound_string('File') ;
++ 		XmNmnemonic = keysym("F");
++             };                                            
++             controls {
++                 XmPulldownMenu file_menu;
++             };
++         };
++ object
++         help_entry : XmCascadeButton {
++             arguments {
++                 XmNlabelString = compound_string('Help') ;
++ 		XmNmnemonic = keysym("H");
++             };                                            
++             controls {
++                 XmPulldownMenu help_menu;
++             };
++         };
++ 
++ object
++         file_menu : XmPulldownMenu {
++             controls {
++                 XmPushButton motifanim_quit;
++             };
++         };
++ object
++         help_menu : XmPulldownMenu {
++             controls {
++                 XmPushButton motifanim_help;
++             };
++         };
++ 
++ object
++     motifanim_quit : XmPushButton {
++ 	arguments { 
++ 	    XmNlabelString = compound_string('Quit');
++  	    XmNmnemonic = keysym("Q");
++ 	};
++ 	callbacks { 
++ 	    XmNactivateCallback = procedure p_motifanim_exit();
++ 	};
++     };
++ object
++     motifanim_help : XmPushButton {
++ 	arguments { 
++ 	    XmNlabelString = compound_string('Overview');
++  	    XmNmnemonic = keysym("O");
++ 	};
++ 	callbacks { 
++ 	    XmNactivateCallback = procedure p_motifanim_help();
++ 	};
++     };
++ 
++ object
++     motifanim_start : XmPushButton {
++ 	arguments { 
++ 	    XmNlabelString = compound_string('Start');
++ 	    XmNbottomAttachment = XmATTACH_FORM ;
++ 	    XmNleftAttachment = XmATTACH_FORM ;
++ 	};
++ 	callbacks { 
++ 	    XmNactivateCallback = procedure p_motifanim_start();
++ 	};
++     };
++ 
++ object
++     motifanim_stop : XmPushButton {
++ 	arguments { 
++ 	    XmNlabelString = compound_string('Stop');
++ 	    XmNbottomAttachment = XmATTACH_FORM ;
++ 	    XmNleftAttachment = XmATTACH_WIDGET ;
++ 	    XmNleftWidget = XmPushButton motifanim_start ;
++ 	};
++ 	callbacks { 
++ 	    XmNactivateCallback = procedure p_motifanim_stop();
++ 	};
++     };
++ 
++ object
++     motifanim_step : XmPushButton {
++ 	arguments { 
++ 	    XmNlabelString = compound_string('One step');
++ 	    XmNbottomAttachment = XmATTACH_FORM ;
++ 	    XmNleftAttachment = XmATTACH_WIDGET ;
++ 	    XmNleftWidget = XmPushButton motifanim_stop ;
++ 	};
++ 	callbacks { 
++ 	    XmNactivateCallback = procedure p_motifanim_step();
++ 	};
++     };
++ 
++ object
++     motifanim_speed : XmScale {
++ 	arguments { 
++ 	    XmNtitleString = compound_string('Speed');
++ 	    XmNorientation = XmHORIZONTAL ;
++ 	    XmNbottomAttachment = XmATTACH_FORM ;
++ 	    XmNleftAttachment = XmATTACH_WIDGET ;
++ 	    XmNleftWidget = XmPushButton motifanim_step ;
++ 	};
++ 	callbacks { 
++ 	    MrmNcreateCallback = procedure p_motifanim_speed(0);
++ 	    XmNdragCallback = procedure p_motifanim_speed(1);
++ 	    XmNvalueChangedCallback = procedure p_motifanim_speed(2);
++         };
++     };
++ 
++ 
++ 
++ !-------------------------------------------------------
++ ! Now that the bottom pushbuttons are fixed,
++ ! we attach the Separator to the first one in the line
++ !-------------------------------------------------------
++ 
++ 
++ object
++     motifanim_sep : XmSeparator {
++ 	arguments {
++ 	    XmNrightAttachment = XmATTACH_FORM ;
++ 	    XmNleftAttachment = XmATTACH_FORM ;
++ 	    XmNbottomAttachment = XmATTACH_WIDGET ;
++ 	    XmNbottomWidget = motifanim_speed ;
++ 	};
++     };
++ 
++ 
++ 
++ !-------------------------------------------------------
++ ! This one is full rubber
++ !-------------------------------------------------------
++ 
++ object
++     motifanim_view : XmScrolledWindow {
++ 	arguments {
++ 	    XmNrightAttachment = XmATTACH_FORM ;
++ 	    XmNtopAttachment = XmATTACH_FORM ;
++ 	    XmNbottomAttachment = XmATTACH_WIDGET ;
++ 	    XmNbottomWidget = XmSeparator motifanim_sep ;
++ 	    XmNleftAttachment = XmATTACH_FORM ;
++ 	    XmNscrollingPolicy = XmAUTOMATIC ;
++ 	};
++ 	controls {
++ 	    XmDrawingArea	view_anim ;
++ 	};
++     };
++ 
++ value
++ 	anim_width     : imported integer ;
++ 	anim_height    : imported integer ;
++ 	anim_backcolor : imported color ;
++ 
++ object
++     view_anim : XmDrawingArea {
++ 	arguments { 
++ 	    XmNwidth = anim_width ;
++ 	    XmNheight = anim_height ;
++ 	    XmNbackground = anim_backcolor ;
++ 	};
++ 	callbacks {
++ 	    MrmNcreateCallback = procedure p_motifanim_draw(0);
++ 	    XmNexposeCallback = procedure p_motifanim_draw(1);
++ 	};
++     };
++ 
++ end module;
++ 
++ 
+*** motif.orig/demos/programs/drag_and_drop/DNDDemo.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/drag_and_drop/DNDDemo.c	Sun Jun  4 12:54:10 2000
+***************
+*** 1015,1021 ****
+      /* Handle rect_info type (i.e. new rectangle) */
+      else if (cs -> type == RECT_INFO) {
+        rect = (RectPtr) cs -> value;
+!         RectRegister(rect, transferRec->x, transferRec->y);
+        cs -> value = NULL; /* No need to free, it is being stored in RecTable */
+      }
+  
+--- 1015,1022 ----
+      /* Handle rect_info type (i.e. new rectangle) */
+      else if (cs -> type == RECT_INFO) {
+        rect = (RectPtr) cs -> value;
+!       RectRegister(rect, transferRec->x, transferRec->y);
+!       RedrawRectangles(wid);
+        cs -> value = NULL; /* No need to free, it is being stored in RecTable */
+      }
+  
+***************
+*** 1384,1387 ****
+--- 1385,1390 ----
+      /* Begin event loop processing */
+      XtAppMainLoop(appContext);
+  
++     /* Make compiler happy */
++     return 0; 
+  }
+*** motif.orig/demos/programs/drag_and_drop/simpledrop.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/drag_and_drop/simpledrop.c	Sat Jun  3 20:51:20 2000
+***************
+*** 190,196 ****
+   *    Main loop
+   */
+  
+! void main(int argc, char *argv[])
+  {
+  #define MAIN_CHILDREN		3
+  #define FORM_CHILDREN		2
+--- 190,196 ----
+   *    Main loop
+   */
+  
+! int main(int argc, char *argv[])
+  {
+  #define MAIN_CHILDREN		3
+  #define FORM_CHILDREN		2
+***************
+*** 312,317 ****
+--- 312,319 ----
+  
+     XtRealizeWidget(theWidgetRoot);
+     XtAppMainLoop(this->context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  /* ===============================================================
+*** motif.orig/demos/programs/draw/draw.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/draw/draw.c	Sat Jun  3 20:51:20 2000
+***************
+*** 48,56 ****
+--- 48,58 ----
+  */
+  
+  #include <stdio.h>
++ #include <ctype.h>
+  #include <Xm/XmAll.h>
+  #include <Xmd/RegEdit.h>   
+  #include <Xmd/Help.h>   
++ #include <X11/IntrinsicP.h>
+  
+  /*-------------------------------------------------------------
+  **	Graphic data structure and API
+*** motif.orig/demos/programs/draw/draw.help	Fri Apr 28 11:04:09 2000
+--- motif/demos/programs/draw/draw.help	Sun Jun  4 12:54:47 2000
+***************
+*** 1,5 ****
+  <title>Overview</title>
+! <bold>Draw : a drawing demo using Motif 1.2</bold>
+  
+  
+  If the TextField is empty, BSelect in the workarea starts a new polyline,
+--- 1,5 ----
+  <title>Overview</title>
+! <bold>Draw : a drawing demo using Motif</bold>
+  
+  
+  If the TextField is empty, BSelect in the workarea starts a new polyline,
+*** motif.orig/demos/programs/draw/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/programs/draw/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 36,46 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = draw.c
+--- 36,46 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+!   SYS_LIBRARIES = MathLibrary 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = draw.c
+***************
+*** 53,57 ****
+--- 53,58 ----
+  InstallAppDefaults(XmdDraw)
+  InstallManPage(draw,$(MANDIR))
+  InstallProgram(draw,$(BINDIR))
++ InstallMotifHelpFile(draw)
+  
+  DependTarget()
+*** motif.orig/demos/programs/draw/XmdDraw.ad	Wed May  3 05:12:36 2000
+--- motif/demos/programs/draw/XmdDraw.ad	Sat Jun  3 20:36:01 2000
+***************
+*** 79,81 ****
+--- 79,83 ----
+  *fontList:-adobe-helvetica-bold-r-normal-*-14-*-*-*-*-*-*-*
+  *highlightColor:Black
+  *autoUnmanage: True
++ 
++ *help_manager.helpFile: draw
+*** motif.orig/demos/programs/earth/earth.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/earth/earth.c	Sat Jun  3 20:51:21 2000
+***************
+*** 111,117 ****
+  static void    Syntax() ;
+  static void    input_callback();
+  static void    expose_callback();
+- static Boolean fstep() ;
+  static void    speed_callback() ;
+  static void    NextBitmap ();
+  
+--- 111,116 ----
+***************
+*** 134,140 ****
+  };
+  
+  
+! main(argc, argv) int argc; char **argv ;
+  /**************************************/
+  {
+      Arg args[10] ;
+--- 133,139 ----
+  };
+  
+  
+! int main(argc, argv) int argc; char **argv ;
+  /**************************************/
+  {
+      Arg args[10] ;
+***************
+*** 218,223 ****
+--- 217,224 ----
+  					NextBitmap, NULL);
+      
+      XtAppMainLoop(app_con);
++ 
++     return 0;    /* make compiler happy */
+  }
+  
+  static void NextBitmap (client_data, id)
+*** motif.orig/demos/programs/Exm/app_in_c/exm_in_c.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/Exm/app_in_c/exm_in_c.c	Sat Jun  3 20:51:20 2000
+***************
+*** 53,58 ****
+--- 53,59 ----
+  #include <Xm/Notebook.h>
+  #include <Xm/RowColumn.h>
+  #include <Xm/ScrollFrameT.h>
++ #include <Xm/TraitP.h>
+  #include <Exm/Simple.h>
+  #include <Exm/String.h>
+  #include <Exm/StringTrans.h>
+***************
+*** 141,146 ****
+--- 142,149 ----
+  
+     XtRealizeWidget(top_level);
+     XtAppMainLoop(app_context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/programs/Exm/simple_app/simpleDemo.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/Exm/simple_app/simpleDemo.c	Sat Jun  3 20:51:20 2000
+***************
+*** 183,186 ****
+--- 183,188 ----
+    XtRealizeWidget(shell);
+  
+    XtAppMainLoop(AppContext);
++ 
++   return 0;    /* make compiler happy */
+  }
+*** motif.orig/demos/programs/filemanager/actions.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/filemanager/actions.c	Sat Jun  3 20:51:21 2000
+***************
+*** 45,50 ****
+--- 45,51 ----
+  #include <pwd.h>
+  #include <Xm/Xm.h>           /* Motif Toolkit */
+  #include <Mrm/MrmPublic.h>   /* Mrm */
++ #include <Xm/Container.h>
+  #include <Xm/SelectioB.h>
+  #include <Xm/TextF.h>
+  #include "filemanager.h"
+*** motif.orig/demos/programs/filemanager/filemanager.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/filemanager/filemanager.c	Sat Jun  3 20:51:21 2000
+***************
+*** 47,52 ****
+--- 47,53 ----
+  #include <stdlib.h>
+  #include <stdio.h>
+  #include <Xm/Xm.h>           /* Motif Toolkit */
++ #include <Xm/Container.h>
+  #include "filemanager.h"
+  
+  Display  	*display;
+***************
+*** 183,188 ****
+--- 184,191 ----
+  		  UpdateDir, (XtPointer) 0);
+  
+    XtAppMainLoop(app_context);
++ 
++   return 0;    /* make compiler happy */
+  }
+  
+  /* Adjust the size of the underlying container widget to be
+***************
+*** 215,221 ****
+    XGetErrorText(display, event -> error_code, errortext, 100);
+  
+    printf("X Protocol error: %s\n", errortext);
+!   printf("XID %d serial %d major %d minor %d\n",
+  	 event -> resourceid,
+  	 event -> serial,
+  	 event -> request_code,
+--- 218,224 ----
+    XGetErrorText(display, event -> error_code, errortext, 100);
+  
+    printf("X Protocol error: %s\n", errortext);
+!   printf("XID %ld serial %ld major %d minor %d\n",
+  	 event -> resourceid,
+  	 event -> serial,
+  	 event -> request_code,
+***************
+*** 235,241 ****
+  		  (XtTimerCallbackProc) UpdateDir, 0);
+  
+    if (stat(currentdir, &buf) != 0) {
+!     printf("Can't stat directory: %d\n", currentdir);
+      return;
+    }
+  
+--- 238,244 ----
+  		  (XtTimerCallbackProc) UpdateDir, 0);
+  
+    if (stat(currentdir, &buf) != 0) {
+!     printf("Can't stat directory: %s\n", currentdir);
+      return;
+    }
+  
+*** motif.orig/demos/programs/filemanager/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/programs/filemanager/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 37,47 ****
+  XCOMM
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:41:26 drk $
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = filemanager.c actions.c readdir.c convert.c interface.c
+--- 37,47 ----
+  XCOMM
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:41:26 drk $
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+!   SYS_LIBRARIES = MathLibrary 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = filemanager.c actions.c readdir.c convert.c interface.c
+***************
+*** 53,55 ****
+--- 53,56 ----
+  
+  InstallAppDefaults(XmdFilemanager)
+  InstallManPage(filemanager,$(MANDIR))
++ InstallMotifHelpFile(filemanager)
+*** motif.orig/demos/programs/filemanager/readdir.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/filemanager/readdir.c	Sun Jun  4 12:57:46 2000
+***************
+*** 41,46 ****
+--- 41,47 ----
+  
+  #include <stdlib.h>
+  #include <stdio.h>
++ #include <unistd.h>
+  #include <pwd.h>
+  #include <Xm/Xm.h>           /* Motif Toolkit */
+  #include <Mrm/MrmPublic.h>   /* Mrm */
+***************
+*** 108,113 ****
+--- 109,115 ----
+    Boolean parentdir = False;
+    Boolean curdir = False;
+    Boolean isroot = False;
++   char *dir;
+    int length;
+  
+    if (strcmp(dirname, "/") == 0) isroot = True;
+***************
+*** 126,152 ****
+        strcpy(buf, currentdir);
+      }
+  
+!     currentdir = buf;
+!     length = strlen(currentdir);
+!     if (length > 2 && currentdir[length] == '/') currentdir[length] = 0;
+  
+      if (parentdir) {
+!       n = strrchr(currentdir, '/');
+!       if (n != NULL) n = strrchr(currentdir, '/');
+        if (n != NULL) *n = 0; /* truncate */
+      }
+  
+      /* Look for ../ or ./ at the beginning of the string */
+      partial = strchr(dirname, '/');
+      if (partial != NULL) {
+!       strcat(currentdir, "/");
+!       strcat(currentdir, partial);
+      } 
+  
+      /* If we are empty here,  then we started with ../ */
+!     if (currentdir[0] == 0) strcpy(currentdir, "/");
+  
+!     return(XtNewString(currentdir));
+    } else {
+      return(XtNewString(dirname));
+    }
+--- 128,154 ----
+        strcpy(buf, currentdir);
+      }
+  
+!     dir = buf;
+!     length = strlen(dir);
+!     if (length > 2 && dir[length] == '/') dir[length] = 0;
+  
+      if (parentdir) {
+!       n = strrchr(dir, '/');
+!       if (n != NULL) n = strrchr(dir, '/');
+        if (n != NULL) *n = 0; /* truncate */
+      }
+  
+      /* Look for ../ or ./ at the beginning of the string */
+      partial = strchr(dirname, '/');
+      if (partial != NULL) {
+!       strcat(dir, "/");
+!       strcat(dir, partial);
+      } 
+  
+      /* If we are empty here,  then we started with ../ */
+!     if (dir[0] == 0) strcpy(dir, "/");
+  
+!     return(XtNewString(dir));
+    } else {
+      return(XtNewString(dirname));
+    }
+***************
+*** 472,478 ****
+      }
+  
+      *icon = XmGetPixmap(XtScreen(toplevel), str, fg, bg);
+!     *mask = XmGetPixmapByDepth(XtScreen(toplevel), msk, fg, bg, 1);
+    }
+  }
+  
+--- 474,482 ----
+      }
+  
+      *icon = XmGetPixmap(XtScreen(toplevel), str, fg, bg);
+!     *mask = XmGetPixmapByDepth(XtScreen(toplevel), msk,
+!                                WhitePixelOfScreen(XtScreen(toplevel)),
+!                                BlackPixelOfScreen(XtScreen(toplevel)), 1);
+    }
+  }
+  
+***************
+*** 482,488 ****
+    Boolean	isdir;
+    Boolean	isexec;
+    Boolean	canRead;
+-   ushort	fmask;
+    FileInfoRec *info = &FI[ind];
+    mode_t	mode;
+    XrmQuark	path[10];
+--- 486,491 ----
+*** motif.orig/demos/programs/filemanager/XmdFilemanager.ad	Wed May  3 05:12:36 2000
+--- motif/demos/programs/filemanager/XmdFilemanager.ad	Sat Jun  3 20:37:01 2000
+***************
+*** 86,98 ****
+  *XmContainer.selectColor:		lightblue
+  
+  ! This is the amount by which subdirectories will be indented
+! *XmContainer.outlineIndentation:	1cm
+  
+  ! This is the width of the first column in the detail view
+! *XmContainer.outlineColumnWidth:	6cm
+  
+  ! ... and these are the widths of the subsequent columns
+! *XmContainer.detailTabList:		+3cm,+3cm,+3cm
+  
+  ! This defines the font to be used for the icons.  Note that this
+  ! definition for the renderTable can be much more complex
+--- 86,98 ----
+  *XmContainer.selectColor:		lightblue
+  
+  ! This is the amount by which subdirectories will be indented
+! *XmContainer.outlineIndentation:	3fu
+  
+  ! This is the width of the first column in the detail view
+! *XmContainer.outlineColumnWidth:	35fu
+  
+  ! ... and these are the widths of the subsequent columns
+! *XmContainer.detailTabList:		+9fu,+15fu,+10fu
+  
+  ! This defines the font to be used for the icons.  Note that this
+  ! definition for the renderTable can be much more complex
+*** motif.orig/demos/programs/fileview/file.h	Wed May  3 05:12:36 2000
+--- motif/demos/programs/fileview/file.h	Sun Jun  4 12:59:01 2000
+***************
+*** 38,44 ****
+  */ 
+  /*   $XConsortium: file.h /main/5 1995/07/14 10:02:43 drk $ */
+  
+! #include <locale.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <Xm/Xm.h>
+--- 38,44 ----
+  */ 
+  /*   $XConsortium: file.h /main/5 1995/07/14 10:02:43 drk $ */
+  
+! #include <X11/Xlocale.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <Xm/Xm.h>
+*** motif.orig/demos/programs/fileview/main.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/fileview/main.c	Sat Jun  3 20:51:21 2000
+***************
+*** 59,65 ****
+     XtVaGetValues(locale_box, XmNmenuHistory, &b, NULL);
+     XtVaGetValues(b, XmNuserData, &SelectedLocale, NULL);
+     LocaleName = LocaleTable[CurrentOS][SelectedLocale];
+!    printf ("language selected\n", SelectedLocale);
+  }
+  
+  /* ===============================================================
+--- 59,65 ----
+     XtVaGetValues(locale_box, XmNmenuHistory, &b, NULL);
+     XtVaGetValues(b, XmNuserData, &SelectedLocale, NULL);
+     LocaleName = LocaleTable[CurrentOS][SelectedLocale];
+!    printf ("language selected\n");
+  }
+  
+  /* ===============================================================
+***************
+*** 206,212 ****
+   * Check that the language specified is 
+   * supported by fileview and libX and libC.
+   */
+! void main(int argc, char *argv[])
+  {
+  #define C_locale_name "C"
+     char **p1, **p2;
+--- 206,212 ----
+   * Check that the language specified is 
+   * supported by fileview and libX and libC.
+   */
+! int main(int argc, char *argv[])
+  {
+  #define C_locale_name "C"
+     char **p1, **p2;
+***************
+*** 322,327 ****
+--- 322,328 ----
+     /* XtRealizeWidget(this->text_source); */
+     XtAppMainLoop(theContext);
+     
++    return 0;    /* make compiler happy */
+  }
+  
+  /* ===============================================================
+*** motif.orig/demos/programs/fileview/main.h	Wed May  3 05:12:36 2000
+--- motif/demos/programs/fileview/main.h	Sun Jun  4 12:59:30 2000
+***************
+*** 223,230 ****
+  static int save_argc;
+  static char ** save_argv;
+  
+- static void Setup(Widget button, XtPointer client_data, XtPointer call_data);
+- 
+  static String MyLanguageProc(Display * dpy, String xnl,
+  			     XtAppContext theContext);
+  
+--- 223,228 ----
+*** motif.orig/demos/programs/getsubres/getsubres.c	Wed May  3 05:12:36 2000
+--- motif/demos/programs/getsubres/getsubres.c	Sat Jun  3 20:51:21 2000
+***************
+*** 56,63 ****
+  static void QuitCB ();			
+  static void HelpCB ();			
+  
+- static Widget CreateHelp ();		
+- 
+  typedef struct _ClassArrayRec {
+      String name ;
+      WidgetClass class ;
+--- 56,61 ----
+***************
+*** 390,396 ****
+  
+  #define APP_CLASS "XmdGetsubres"
+  
+! main(argc, argv)
+  int argc ; char **argv;
+  {
+      Widget toplevel, main_window, menu_bar, menu_pane, cascade, 
+--- 388,394 ----
+  
+  #define APP_CLASS "XmdGetsubres"
+  
+! int main(argc, argv)
+  int argc ; char **argv;
+  {
+      Widget toplevel, main_window, menu_bar, menu_pane, cascade, 
+***************
+*** 489,494 ****
+--- 487,494 ----
+  
+      XtRealizeWidget(toplevel);
+      XtAppMainLoop(app_context);
++ 
++     return 0;    /* make compiler happy */
+  }
+  
+  /*-------------------------------------------------------------
+*** motif.orig/demos/programs/getsubres/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/programs/getsubres/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 36,46 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)   
+  
+  SRCS = getsubres.c
+--- 36,46 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+!   SYS_LIBRARIES = MathLibrary 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)   
+  
+  SRCS = getsubres.c
+***************
+*** 52,56 ****
+--- 52,57 ----
+  
+  InstallProgram(getsubres,$(BINDIR))
+  InstallManPage(getsubres,$(MANDIR))
++ InstallMotifHelpFile(getsubres)
+  
+  DependTarget()
+*** motif.orig/demos/programs/hellomotifi18n/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/programs/hellomotifi18n/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 52,58 ****
+  MSimpleUidSubdirTarget(l_strings,swedish/uid)
+  
+  install::
+! 	$(RM) $(UIDDIR)/l_strings.uid
+  
+  InstallManPage(helloint,$(MANDIR))
+  
+--- 52,58 ----
+  MSimpleUidSubdirTarget(l_strings,swedish/uid)
+  
+  install::
+! 	$(RM) $(DESTDIR)$(UIDDIR)/l_strings.uid
+  
+  InstallManPage(helloint,$(MANDIR))
+  
+*** motif.orig/demos/programs/i18ninput/i18ninput.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/i18ninput/i18ninput.c	Sat Jun  3 20:51:21 2000
+***************
+*** 126,130 ****
+--- 126,132 ----
+      exit(1);
+  
+    XtAppMainLoop(app_context);
++ 
++   return 0;    /* make compiler happy */
+  }
+  
+*** motif.orig/demos/programs/i18ninput/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/programs/i18ninput/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 49,51 ****
+--- 49,52 ----
+  MComplexProgramTarget(i18ninput,$(LOCAL_LIBRARIES),NullParameter)
+  InstallManPage(i18ninput,$(MANDIR))
+  InstallAppDefaults(XmdI18nInput)
++ InstallMotifHelpFile(i18ninput)
+*** motif.orig/demos/programs/i18ninput/input.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/i18ninput/input.c	Sun Jun  4 13:10:18 2000
+***************
+*** 38,46 ****
+   * HISTORY
+  */ 
+  #include <stdio.h>
+! #include <malloc.h>
+  #include <memory.h>
+! #include <locale.h>
+  #include <Xm/Protocols.h>
+  #include <Xm/Xm.h>
+  #include <Xm/CascadeB.h>
+--- 38,46 ----
+   * HISTORY
+  */ 
+  #include <stdio.h>
+! #include <stdlib.h>
+  #include <memory.h>
+! #include <X11/Xlocale.h>
+  #include <Xm/Protocols.h>
+  #include <Xm/Xm.h>
+  #include <Xm/CascadeB.h>
+*** motif.orig/demos/programs/Imakefile	Fri Jul  7 14:13:00 2000
+--- motif/demos/programs/Imakefile	Sat Jun  3 20:01:02 2000
+***************
+*** 40,53 ****
+  #define IHaveSubdirs
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
+- #if defined(FreeBSDArchitecture)
+- SETDATE =
+- #else
+- SETDATE = setdate
+- #endif
+  SUBDIRS = Exm airport animate drag_and_drop draw earth filemanager fileview \
+! 	getsubres hellomotif hellomotifi18n i18ninput panner periodic \
+! 	piano popups sampler2_0 $(SETDATE) todo workspace
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+--- 40,48 ----
+  #define IHaveSubdirs
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
+  SUBDIRS = Exm airport animate drag_and_drop draw earth filemanager fileview \
+! 	getsubres hellomotif hellomotifi18n i18ninput periodic \
+! 	piano popups sampler2_0 setdate todo
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+*** motif.orig/demos/programs/panner/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/programs/panner/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 39,45 ****
+  
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+! EXTRA_LIBRARIES = -lm 
+  
+  SRCS=	panner.c
+  
+--- 39,45 ----
+  
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+!   SYS_LIBRARIES = MathLibrary 
+  
+  SRCS=	panner.c
+  
+*** motif.orig/demos/programs/panner/panner.man	Wed May  3 05:12:37 2000
+--- motif/demos/programs/panner/panner.man	Sat Jun  3 20:16:48 2000
+***************
+*** 49,56 ****
+  version of your desktop and interactively pan the display. Panner
+  also allows you to connect to other displays and pan them as well.
+  Please use this feature with discretion; it can be most anoying to
+! others >:-).  Also note that Panner will only work with Mwm 2.0 or
+! later.
+  .PP
+  Panner starts up displaying notebook widget with one page.  Each page
+  in the notebook represents a display screen.  As you add other
+--- 49,55 ----
+  version of your desktop and interactively pan the display. Panner
+  also allows you to connect to other displays and pan them as well.
+  Please use this feature with discretion; it can be most anoying to
+! others >:-).  Also note that Panner will only work with Mwm 2.0.
+  .PP
+  Panner starts up displaying notebook widget with one page.  Each page
+  in the notebook represents a display screen.  As you add other
+*** motif.orig/demos/programs/panner/README	Fri Apr 28 11:04:22 2000
+--- motif/demos/programs/panner/README	Sat Jun  3 20:16:48 2000
+***************
+*** 3,16 ****
+                                  Panner
+                                  ------
+  
+  Panner demonstrates how an application can interface to Mwm's virtual
+  screen support protocol.  The protocol allows other application to pan
+  the desktop Mwm is running on.  With Panner, you can see a miniature
+  version of your desktop and interactively pan the display. Panner
+  also allows you to connect to other displays and pan them as well.
+  Please use this feature with discretion; it can be most anoying to
+! others >:-) Also note that Panner will only work with Mwm 2.0 or
+! later.
+  
+  Panner starts-up displaying a notebook widget with one page.  Each page
+  in the notebook represents a display screen.  As you add other
+--- 3,19 ----
+                                  Panner
+                                  ------
+  
++ ************************************************************************
++ *  This demo only works with Mwm 2.0.  It does not work with Mwm 2.1.  *
++ ************************************************************************
++ 
+  Panner demonstrates how an application can interface to Mwm's virtual
+  screen support protocol.  The protocol allows other application to pan
+  the desktop Mwm is running on.  With Panner, you can see a miniature
+  version of your desktop and interactively pan the display. Panner
+  also allows you to connect to other displays and pan them as well.
+  Please use this feature with discretion; it can be most anoying to
+! others >:-)
+  
+  Panner starts-up displaying a notebook widget with one page.  Each page
+  in the notebook represents a display screen.  As you add other
+*** motif.orig/demos/programs/periodic/periodic.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/periodic/periodic.c	Sat Jun  3 20:51:21 2000
+***************
+*** 53,60 ****
+--- 53,62 ----
+   *****************************************************************************/
+  
+  #include <stdio.h>
++ #include <stdlib.h>
+  #include <Xm/Xm.h>
+  #include <Xm/ComboBox.h>
++ #include <Xm/RowColumn.h>
+  #include <Xm/Scale.h>
+  #include <Xm/ScrolledW.h>
+  #include <Xm/ToggleB.h>
+***************
+*** 244,249 ****
+--- 246,253 ----
+      XtManageChild(appMain);
+      XtRealizeWidget(shell);
+      XtAppMainLoop(appContext);
++ 
++     return 0;    /* make compiler happy */
+  }
+  
+  static void
+*** motif.orig/demos/programs/periodic/periodic_l.uil	Wed May  3 05:12:37 2000
+--- motif/demos/programs/periodic/periodic_l.uil	Sat Jun  3 20:41:18 2000
+***************
+*** 153,159 ****
+  ! periodic title
+  
+  titleLabelText :	"The Periodic Table of Motif Widgets";
+! subtitleLabelText :	"Open Software Foundation";
+  
+  ! widget names
+  
+--- 153,159 ----
+  ! periodic title
+  
+  titleLabelText :	"The Periodic Table of Motif Widgets";
+! subtitleLabelText :	"The Open Group";
+  
+  ! widget names
+  
+***************
+*** 211,218 ****
+  radio3Text :		"WGBH";
+  radio3Value :		897;
+  
+! pane1Text :		"Open Software Foundation";
+! pane2Text :		"OSF/Motif Release 2.0\n";
+  
+  popupWindowText :	compound_string ("Press", separate = true) &
+  			compound_string ("Button 3", separate = true) &
+--- 211,218 ----
+  radio3Text :		"WGBH";
+  radio3Value :		897;
+  
+! pane1Text :		"The Open Group";
+! pane2Text :		"Open Motif Release 2.1\n";
+  
+  popupWindowText :	compound_string ("Press", separate = true) &
+  			compound_string ("Button 3", separate = true) &
+***************
+*** 413,419 ****
+  questionMaybeText :	"Maybe";
+  questionNoText :	"No";
+  questionMessageText :
+! 		compound_string("This is Motif 2.0.", separate = true) &
+  		compound_string("", separate = true) &
+  		compound_string("Any questions ?");
+  questionPixmap : icon("                         ",
+--- 413,419 ----
+  questionMaybeText :	"Maybe";
+  questionNoText :	"No";
+  questionMessageText :
+! 		compound_string("This is Motif 2.1.", separate = true) &
+  		compound_string("", separate = true) &
+  		compound_string("Any questions ?");
+  questionPixmap : icon("                         ",
+*** motif.orig/demos/programs/periodic/periodic.uil	Wed May  3 05:12:37 2000
+--- motif/demos/programs/periodic/periodic.uil	Sat Jun  3 20:41:18 2000
+***************
+*** 2025,2034 ****
+  };
+  object showDialog : XmInformationDialog {
+      arguments {
+! 	XmNdialogTitle = "OSF/Motif Release 2.0";
+  	XmNcancelLabelString = "Enjoy!";
+  	XmNmessageString =
+! 		compound_string("OSF/Motif Release 2.0", separate = true) &
+  		compound_string("", separate = true) &
+  		compound_string("June 1994", separate = true) &
+  		compound_string("", separate = true) &
+--- 2025,2034 ----
+  };
+  object showDialog : XmInformationDialog {
+      arguments {
+! 	XmNdialogTitle = "Open Motif Release 2.1";
+  	XmNcancelLabelString = "Enjoy!";
+  	XmNmessageString =
+! 		compound_string("Open Motif Release 2.1", separate = true) &
+  		compound_string("", separate = true) &
+  		compound_string("June 1994", separate = true) &
+  		compound_string("", separate = true) &
+*** motif.orig/demos/programs/piano/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/programs/piano/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 38,44 ****
+         INCLUDES = $(XPM_INCLUDES)
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+!   SYS_LIBRARIES = -lm 
+  
+  SRCS = piano.c
+  OBJS = piano.o
+--- 38,44 ----
+         INCLUDES = $(XPM_INCLUDES)
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+!   SYS_LIBRARIES = MathLibrary
+  
+  SRCS = piano.c
+  OBJS = piano.o
+*** motif.orig/demos/programs/piano/piano.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/piano/piano.c	Sat Jun  3 20:51:21 2000
+***************
+*** 1675,1681 ****
+  /*--------------------------------------------------------------------*
+   |                              Main                                  |
+   *--------------------------------------------------------------------*/
+! void
+  main(int argc, char **argv)
+  {
+     Widget           shell, mainWin, panedWin;
+--- 1675,1681 ----
+  /*--------------------------------------------------------------------*
+   |                              Main                                  |
+   *--------------------------------------------------------------------*/
+! int
+  main(int argc, char **argv)
+  {
+     Widget           shell, mainWin, panedWin;
+***************
+*** 1722,1726 ****
+--- 1722,1728 ----
+     GetBell(XtDisplay(shell));
+     
+     XtAppMainLoop(context);
++ 
++    return 0;    /* make compiler happy */
+  }
+  
+*** motif.orig/demos/programs/popups/autopopups.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/popups/autopopups.c	Sat Jun  3 20:51:21 2000
+***************
+*** 70,76 ****
+  
+  Widget	popup1, popup2, popup3, popup4, popup5;
+  
+! main(int argc, char **argv)
+  {
+    Widget        shell;
+    Widget        frame1, frame2;
+--- 70,76 ----
+  
+  Widget	popup1, popup2, popup3, popup4, popup5;
+  
+! int main(int argc, char **argv)
+  {
+    Widget        shell;
+    Widget        frame1, frame2;
+***************
+*** 235,240 ****
+--- 235,242 ----
+    XtRealizeWidget(shell);
+  
+    XtAppMainLoop(context);
++ 
++   return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/programs/popups/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/programs/popups/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 43,48 ****
+  
+  MSimpleProgramTarget(autopopups)
+  InstallProgram(autopopups,$(BINDIR))
+! InstallManPage(autopopups, $(MANDIR))
+  
+  DependTarget()
+--- 43,48 ----
+  
+  MSimpleProgramTarget(autopopups)
+  InstallProgram(autopopups,$(BINDIR))
+! InstallManPage(autopopups,$(MANDIR))
+  
+  DependTarget()
+*** motif.orig/demos/programs/sampler2_0/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/programs/sampler2_0/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 36,46 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = sampler2_0.c
+--- 36,46 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+!   SYS_LIBRARIES = MathLibrary 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = sampler2_0.c
+***************
+*** 53,57 ****
+--- 53,58 ----
+  InstallProgram(sampler2_0,$(BINDIR))
+  InstallManPage(sampler2_0,$(MANDIR))
+  InstallAppDefaults(XmdSampler2_0)
++ InstallMotifHelpFile(sampler2_0)
+  
+  DependTarget()
+*** motif.orig/demos/programs/sampler2_0/sampler2_0.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/sampler2_0/sampler2_0.c	Sun Jun  4 13:11:55 2000
+***************
+*** 162,168 ****
+  static Widget ssb_GetTextField(Widget w);
+  
+  
+! #define APP_CLASS "XmdSample2_0"
+  
+  
+  static Widget toplevel ;  /* used in OKCB for set its size */
+--- 162,168 ----
+  static Widget ssb_GetTextField(Widget w);
+  
+  
+! #define APP_CLASS "XmdSampler2_0"
+  
+  
+  static Widget toplevel ;  /* used in OKCB for set its size */
+*** motif.orig/demos/programs/sampler2_0/XmdSampler2_0.ad	Wed May  3 05:12:37 2000
+--- motif/demos/programs/sampler2_0/XmdSampler2_0.ad	Sat Jun  3 20:35:46 2000
+***************
+*** 179,185 ****
+  *ScaleCombo.SpinBox.Month.position:6
+  *ScaleCombo.SpinBox.Month.editable: False
+  *ScaleCombo.SpinBox.Month.numValues:12
+! #*ScaleCombo.SpinBox.Month.wrap: False
+  *ScaleCombo.SpinBox.Month.values:January,February,March,April,May,June,July,August,September,October,November,December
+  
+  *ScaleCombo.SpinBox.Year.spinBoxChildType: numeric
+--- 179,185 ----
+  *ScaleCombo.SpinBox.Month.position:6
+  *ScaleCombo.SpinBox.Month.editable: False
+  *ScaleCombo.SpinBox.Month.numValues:12
+! !*ScaleCombo.SpinBox.Month.wrap: False
+  *ScaleCombo.SpinBox.Month.values:January,February,March,April,May,June,July,August,September,October,November,December
+  
+  *ScaleCombo.SpinBox.Year.spinBoxChildType: numeric
+***************
+*** 216,223 ****
+  *ScaleCombo.SimpleSpinBoxNumeric.maximumValue: 12
+  *ScaleCombo.SimpleSpinBoxNumeric.minimumValue: 1
+  *ScaleCombo.SimpleSpinBoxNumeric.position: 1
+! #*ScaleCombo.SimpleSpinBoxNumeric.wrap: False
+! #*ScaleCombo.SimpleSpinBoxNumeric.positionType: position_index
+  
+  *ScaleCombo.SelectionBoxDebug.rightAttachment: attach_position
+  *ScaleCombo.SelectionBoxDebug.rightPosition: 50
+--- 216,223 ----
+  *ScaleCombo.SimpleSpinBoxNumeric.maximumValue: 12
+  *ScaleCombo.SimpleSpinBoxNumeric.minimumValue: 1
+  *ScaleCombo.SimpleSpinBoxNumeric.position: 1
+! !*ScaleCombo.SimpleSpinBoxNumeric.wrap: False
+! !*ScaleCombo.SimpleSpinBoxNumeric.positionType: position_index
+  
+  *ScaleCombo.SelectionBoxDebug.rightAttachment: attach_position
+  *ScaleCombo.SelectionBoxDebug.rightPosition: 50
+*** motif.orig/demos/programs/setdate/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/programs/setdate/Imakefile	Sat Jun  3 20:33:07 2000
+***************
+*** 37,44 ****
+  
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
+-          MANDIR = /usr/local/man/man1
+-       MANSUFFIX = 1     
+  
+  SRCS = setDate.c
+  OBJS = setDate.o
+--- 37,42 ----
+*** motif.orig/demos/programs/setdate/setDate.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/setdate/setDate.c	Sun Jun  4 13:15:32 2000
+***************
+*** 38,45 ****
+--- 38,48 ----
+   * HISTORY
+   */
+  
++ #include <stdlib.h>
+  #include <time.h>
++ #ifndef CSRG_BASED
+  #include <langinfo.h>
++ #endif
+  #include <X11/Xlib.h>
+  #include <X11/Intrinsic.h>
+  #include <Xm/Xm.h>
+***************
+*** 77,83 ****
+  Widget day, month, year, hour, minute;
+  char *dateCommand = NULL;
+  
+! main(int argc, char **argv)
+  {
+    Widget        shell, panedw, rc, rc2, sb1, sb2;
+    Widget	label, label2;
+--- 80,86 ----
+  Widget day, month, year, hour, minute;
+  char *dateCommand = NULL;
+  
+! int main(int argc, char **argv)
+  {
+    Widget        shell, panedw, rc, rc2, sb1, sb2;
+    Widget	label, label2;
+***************
+*** 141,146 ****
+--- 144,150 ----
+    day = XmCreateTextField(sb1, "Day", args, argcount);
+    XtManageChild(day);
+     
++ #ifndef CSRG_BASED
+    months[0]  = XmStringCreate(nl_langinfo(MON_1), XmSTRING_DEFAULT_CHARSET);
+    months[1]  = XmStringCreate(nl_langinfo(MON_2), XmSTRING_DEFAULT_CHARSET);
+    months[2]  = XmStringCreate(nl_langinfo(MON_3), XmSTRING_DEFAULT_CHARSET);
+***************
+*** 153,158 ****
+--- 157,176 ----
+    months[9]  = XmStringCreate(nl_langinfo(MON_10), XmSTRING_DEFAULT_CHARSET);
+    months[10]  = XmStringCreate(nl_langinfo(MON_11), XmSTRING_DEFAULT_CHARSET);
+    months[11]  = XmStringCreate(nl_langinfo(MON_12), XmSTRING_DEFAULT_CHARSET);
++ #else
++   months[0]  = XmStringCreate("January", XmSTRING_DEFAULT_CHARSET);
++   months[1]  = XmStringCreate("February", XmSTRING_DEFAULT_CHARSET);
++   months[2]  = XmStringCreate("March", XmSTRING_DEFAULT_CHARSET);
++   months[3]  = XmStringCreate("April", XmSTRING_DEFAULT_CHARSET);
++   months[4]  = XmStringCreate("May", XmSTRING_DEFAULT_CHARSET);
++   months[5]  = XmStringCreate("June", XmSTRING_DEFAULT_CHARSET);
++   months[6]  = XmStringCreate("July", XmSTRING_DEFAULT_CHARSET);
++   months[7]  = XmStringCreate("August", XmSTRING_DEFAULT_CHARSET);
++   months[8]  = XmStringCreate("September", XmSTRING_DEFAULT_CHARSET);
++   months[9]  = XmStringCreate("October", XmSTRING_DEFAULT_CHARSET);
++   months[10]  = XmStringCreate("November", XmSTRING_DEFAULT_CHARSET);
++   months[11]  = XmStringCreate("December", XmSTRING_DEFAULT_CHARSET);
++ #endif
+  
+    argcount = 0;
+    XtSetArg(args[argcount], XmNpositionType, XmPOSITION_INDEX), argcount++;
+***************
+*** 231,236 ****
+--- 249,256 ----
+    XtRealizeWidget(shell);
+  
+    XtAppMainLoop(context);
++ 
++   return 0;    /* make compiler happy */
+  }
+  
+  void ValueChanged(Widget w, XtPointer client_data, XtPointer data)
+*** motif.orig/demos/programs/todo/actions.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/todo/actions.c	Sat Jun  3 20:51:22 2000
+***************
+*** 43,48 ****
+--- 43,50 ----
+  #endif
+  #endif
+  
++ #include <stdlib.h>
++ #include <ctype.h>
+  #include <X11/Intrinsic.h>
+  #include <X11/StringDefs.h>
+  #include <Xm/Xm.h>
+*** motif.orig/demos/programs/todo/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/programs/todo/Imakefile	Sat Jun  3 20:33:08 2000
+***************
+*** 36,47 ****
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:45:56 drk $
+           EXMSRC = ../../lib/Exm
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+           EXMLIB = $(EXMSRC)/libExm.a
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) $(EXMLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) $(EXMLIB) XmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS=   todo.c io.c actions.c
+--- 36,47 ----
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:45:56 drk $
+           EXMSRC = ../../lib/Exm
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+           EXMLIB = $(EXMSRC)/libExm.a
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) $(EXMLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) $(EXMLIB) XmClientLibs 
+!   SYS_LIBRARIES = MathLibrary 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS=   todo.c io.c actions.c
+***************
+*** 53,55 ****
+--- 53,56 ----
+  
+  InstallManPage(todo,$(MANDIR))
+  InstallAppDefaults(XmdTodo)
++ InstallMotifHelpFile(todo)
+*** motif.orig/demos/programs/todo/io.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/todo/io.c	Sat Jun  3 20:51:22 2000
+***************
+*** 43,48 ****
+--- 43,49 ----
+  #endif
+  #endif
+  
++ #include <stdlib.h>
+  #include <unistd.h>
+  #include <Xm/Xm.h>
+  #include <Xm/MessageB.h>
+*** motif.orig/demos/programs/todo/todo.c	Wed May  3 05:12:37 2000
+--- motif/demos/programs/todo/todo.c	Sat Jun  3 20:51:22 2000
+***************
+*** 252,257 ****
+--- 252,259 ----
+    XtRealizeWidget(shell);
+  
+    XtAppMainLoop(context);
++ 
++   return 0;    /* make compiler happy */
+  }
+  
+  static void 
+*** motif.orig/demos/programs/workspace/README	Fri Apr 28 11:04:23 2000
+--- motif/demos/programs/workspace/README	Sat Jun  3 20:15:52 2000
+***************
+*** 3,11 ****
+                         Motif Workspace Manager - Wsm
+                         -----------------------------
+  
+  The Motif Workspace Manager uses the new Workspace Manager protocol
+! supported in the Motif Window Manager (Mwm) 2.0.  This application
+! will only work with Mwm Version 2.0 or later.
+  
+  Wsm provides a way for users to group windows and applications into
+  workspaces or rooms.  Only one room or workspace is visible at one
+--- 3,14 ----
+                         Motif Workspace Manager - Wsm
+                         -----------------------------
+  
++ ************************************************************************
++ *  This demo only works with Mwm 2.0.  It does not work with Mwm 2.1.  *
++ ************************************************************************
++ 
+  The Motif Workspace Manager uses the new Workspace Manager protocol
+! supported in the Motif Window Manager (Mwm) 2.0.
+  
+  Wsm provides a way for users to group windows and applications into
+  workspaces or rooms.  Only one room or workspace is visible at one
+*** motif.orig/demos/programs/workspace/wsm.man	Wed May  3 05:12:37 2000
+--- motif/demos/programs/workspace/wsm.man	Sun Jun  4 13:16:29 2000
+***************
+*** 46,52 ****
+  .SH DESCRIPTION
+  The Motif Workspace Manager (Wsm) uses the new Workspace Manager protocol
+  supported in the Motif Window Manager (Mwm) 2.0.  This application
+! will only work with Mwm Version 2.0 or later.
+  .PP
+  Wsm provides a way for users to group windows and applications into
+  workspaces or rooms.  Only one room or workspace is visible at one
+--- 46,52 ----
+  .SH DESCRIPTION
+  The Motif Workspace Manager (Wsm) uses the new Workspace Manager protocol
+  supported in the Motif Window Manager (Mwm) 2.0.  This application
+! will only work with Mwm Version 2.0.
+  .PP
+  Wsm provides a way for users to group windows and applications into
+  workspaces or rooms.  Only one room or workspace is visible at one
+*** motif.orig/demos/unsupported/aicon/aicon.c	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/aicon/aicon.c	Sat Jun  3 20:51:22 2000
+***************
+*** 362,368 ****
+  
+  
+   
+! void
+  main(int argc, char **argv)
+  {
+      
+--- 362,368 ----
+  
+  
+   
+! int
+  main(int argc, char **argv)
+  {
+      
+***************
+*** 403,406 ****
+--- 403,407 ----
+      
+      XtAppMainLoop(app_context);
+      
++    return 0;    /* make compiler happy */
+  }
+*** motif.orig/demos/unsupported/aicon/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/aicon/Imakefile	Sat Jun  3 20:33:08 2000
+***************
+*** 36,48 ****
+  XCOMM 
+  XCOMM HISTORY
+   
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+!          MANDIR = /usr/local/man/man1
+!       MANSUFFIX = 1     
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = aicon.c
+--- 36,46 ----
+  XCOMM 
+  XCOMM HISTORY
+   
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+!   SYS_LIBRARIES = MathLibrary 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = aicon.c
+***************
+*** 51,53 ****
+--- 49,52 ----
+  MSimpleProgramTarget(aicon)
+  
+  InstallProgram(aicon,$(BINDIR))
++ InstallMotifHelpFile(aicon)
+*** motif.orig/demos/unsupported/cstext/texteditor/README	Fri Apr 28 11:04:44 2000
+--- motif/demos/unsupported/cstext/texteditor/README	Sat Jun  3 20:15:08 2000
+***************
+*** 1,10 ****
+  /* $XConsortium: README /main/3 1996/07/15 14:10:29 drk $ */
+- 					   XmdTextEditor v2.0
+- 					   ------------------
+  
+! XmdTextEditor is a primitive text editor, based on Motif's XmCSText widget,
+! which makes use of its XmNsource resource to allow multiple views
+! on the same underlying text.  In addition it uses the rendition features of XmString to allow the modification of the rendition of pieces of text, and the conversion functions of XmString to read and write different file formats.  This version of XmdTextEditor will work only with Motif 2.0 and later version.
+  
+  The View menu includes
+  
+--- 1,18 ----
+  /* $XConsortium: README /main/3 1996/07/15 14:10:29 drk $ */
+  
+!                            XmdTextEditor v2.0
+!                            ------------------
+! 
+! **************************************************************************
+! * This demo only works with Motif 2.0.  It does not work with Motif 2.1. *
+! **************************************************************************
+! 
+! XmdTextEditor is a primitive text editor, based on Motif 2.0's XmCSText
+! widget, which makes use of its XmNsource resource to allow multiple views
+! on the same underlying text.  In addition it uses the rendition features
+! of XmString to allow the modification of the rendition of pieces of text,
+! and the conversion functions of XmString to read and write different file
+! formats.  This version of XmdTextEditor will work only with Motif 2.0.
+  
+  The View menu includes
+  
+*** motif.orig/demos/unsupported/dainput/dainput.c	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/dainput/dainput.c	Sat Jun  3 20:51:22 2000
+***************
+*** 123,127 ****
+--- 123,129 ----
+    /* Realize and start event dispatching */
+    XtRealizeWidget(top_level);
+    XtAppMainLoop(app_context);
++ 
++   return 0;    /* make compiler happy */
+  }
+  
+*** motif.orig/demos/unsupported/dainput/dainput_ui.c	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/dainput/dainput_ui.c	Sat Jun  3 20:51:22 2000
+***************
+*** 40,46 ****
+   */
+  
+  #include <stdio.h>
+! #include <malloc.h>
+  #include <memory.h>
+  #include <Xm/Xm.h>
+  #include <Xm/CascadeB.h>
+--- 40,46 ----
+   */
+  
+  #include <stdio.h>
+! #include <stdlib.h>
+  #include <memory.h>
+  #include <Xm/Xm.h>
+  #include <Xm/CascadeB.h>
+*** motif.orig/demos/unsupported/dogs/Dog.c	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/dogs/Dog.c	Sat Jun  3 20:51:22 2000
+***************
+*** 51,56 ****
+--- 51,57 ----
+  #include <stdio.h>
+  #include <X11/StringDefs.h>
+  #include <Xm/XmP.h>
++ #include <Xm/DrawP.h>
+  #include "DogP.h"
+  
+  #ifdef USING_UIL
+*** motif.orig/demos/unsupported/dogs/dogs.c	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/dogs/dogs.c	Sat Jun  3 20:51:22 2000
+***************
+*** 50,55 ****
+--- 50,56 ----
+  
+  #include <stdio.h>
+  #include <Xm/Xm.h>
++ #include <Xm/MessageB.h>
+  #include <Mrm/MrmPublic.h>
+  #include "Square.h"
+  #include "Dog.h"
+***************
+*** 85,91 ****
+  static Widget dog3_id;
+  static Widget help_id;
+  
+! main(argc, argv)
+      int argc;
+      char **argv;
+  {
+--- 86,92 ----
+  static Widget dog3_id;
+  static Widget help_id;
+  
+! int main(argc, argv)
+      int argc;
+      char **argv;
+  {
+***************
+*** 120,125 ****
+--- 121,128 ----
+      XtManageChild(app_main);
+      XtRealizeWidget(shell);
+      XtAppMainLoop(app_context);
++ 
++     return 0;    /* make compiler happy */
+  }
+  
+  static void create_cb(w, id, reason)
+*** motif.orig/demos/unsupported/Exm/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/Exm/Imakefile	Sat Jun  3 20:02:35 2000
+***************
+*** 35,41 ****
+  XCOMM 
+  XCOMM HISTORY
+  
+!     EXMINCLUDESRC = $(MINCLUDESRC)
+  
+      INCLUDES	= -I$(EXMINCLUDESRC)
+     
+--- 35,41 ----
+  XCOMM 
+  XCOMM HISTORY
+  
+!     EXMINCLUDESRC = $(INCLUDESRC)
+  
+      INCLUDES	= -I$(EXMINCLUDESRC)
+     
+*** motif.orig/demos/unsupported/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/Imakefile	Sat Jun  3 20:01:41 2000
+***************
+*** 41,47 ****
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
+  SUBDIRS = Exm hellomotif motifshell xmapdef xmforc \
+! 	dogs uilsymdump xmfonts xmform dainput
+   
+  
+  MakeSubdirs($(SUBDIRS))
+--- 41,47 ----
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
+  SUBDIRS = Exm hellomotif motifshell xmapdef xmforc \
+! 	dogs uilsymdump xmfonts xmform dainput aicon
+   
+  
+  MakeSubdirs($(SUBDIRS))
+*** motif.orig/demos/unsupported/motifshell/Imakefile	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/motifshell/Imakefile	Sat Jun  3 20:10:31 2000
+***************
+*** 38,45 ****
+--- 38,47 ----
+  XCOMM 
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:53:07 drk $
+  
++       MSHELLDIR = $(LIBDIR)/motifshell
+          DEPLIBS = XmClientDepLibs
+  LOCAL_LIBRARIES = XmClientLibs
++         DEFINES = -DMSHELLDIR=\"$(MSHELLDIR)\"
+  
+  SRCS = motifshell.c
+  OBJS = motifshell.o
+***************
+*** 47,57 ****
+  MSimpleProgramTarget(motifshell)
+  InstallProgram(motifshell,$(BINDIR))
+  
+! InstallNonExec(motif,$(BINDIR))
+! InstallNonExec(welcome,$(BINDIR))
+! InstallNonExec(research,$(BINDIR))
+! InstallNonExec(principles,$(BINDIR))
+! InstallNonExec(membership,$(BINDIR))
+! InstallNonExec(help,$(BINDIR))
+  
+  DependTarget()
+--- 49,63 ----
+  MSimpleProgramTarget(motifshell)
+  InstallProgram(motifshell,$(BINDIR))
+  
+! install::
+! 	MakeDir($(DESTDIR)$(MSHELLDIR))
+! 
+! InstallNonExec(motif,$(MSHELLDIR))
+! InstallNonExec(welcome,$(MSHELLDIR))
+! InstallNonExec(research,$(MSHELLDIR))
+! InstallNonExec(principles,$(MSHELLDIR))
+! InstallNonExec(membership,$(MSHELLDIR))
+! InstallNonExec(help,$(MSHELLDIR))
+! InstallNonExec(motifshell.c,$(MSHELLDIR))
+  
+  DependTarget()
+*** motif.orig/demos/unsupported/motifshell/motifshell.c	Wed May  3 05:12:37 2000
+--- motif/demos/unsupported/motifshell/motifshell.c	Sat Jun  3 20:13:15 2000
+***************
+*** 87,92 ****
+--- 87,93 ----
+  #include <Xm/MainW.h>
+  #include <Xm/MenuShell.h>
+  #include <Xm/PushB.h>
++ #include <Xm/RepType.h>
+  #include <Xm/ScrolledW.h>
+  #include <Xm/SelectioB.h>
+  #include <Xm/Text.h>
+***************
+*** 113,118 ****
+--- 114,121 ----
+  XtAppContext AppContext;
+  int          perr[2], p;
+  
++ /*  Declarations  */
++ int GetFileLen (int fd);
+  
+  
+  
+***************
+*** 256,263 ****
+   *-------------------------------------------------------------*/
+  int file_exist (char *fullname)
+  {
+!   if (fopen(fullname,"r"))
+!     return(1);
+    else
+      return(0);
+  }  
+--- 259,272 ----
+   *-------------------------------------------------------------*/
+  int file_exist (char *fullname)
+  {
+!   /* Save the file pointer so it can be closed */
+!   FILE *tmpf;
+! 
+!   if (tmpf=fopen(fullname,"r"))
+!   {
+!       fclose(tmpf);
+!       return(1);
+!   }
+    else
+      return(0);
+  }  
+***************
+*** 305,310 ****
+--- 314,327 ----
+    
+    
+    if ((fd = open (fileptr, O_RDONLY)) < 0)
++   {
++     /* Try looking in MSHELLDIR. */
++     char pathname[1024];
++     strcpy(pathname, MSHELLDIR);
++     strcat(pathname, "/");
++     strcat(pathname, fileptr);
++       
++     if ((fd = open (pathname, O_RDONLY)) < 0)
+      {
+        if (defaultcap = getenv("MOTIFSHELLFILES"))
+  	{
+***************
+*** 317,323 ****
+  
+  	  if ((fd = open(datahome, O_RDONLY)) < 0)
+  	    {
+! 	      printf ("Cannot find the sourch file %s in %s\n", fileptr, datahome);
+  	      free(datahome);
+  	      return((char *) NULL);
+  	    }
+--- 334,340 ----
+  
+  	  if ((fd = open(datahome, O_RDONLY)) < 0)
+  	    {
+! 	      printf ("Cannot find the file %s in %s\n", fileptr, datahome);
+  	      free(datahome);
+  	      return((char *) NULL);
+  	    }
+***************
+*** 331,341 ****
+  	  }
+  	else
+  	  {
+! 	    printf ("Cannot find the sourch file %s\n", fileptr);
+  	    printf ("Please setup MOTIFSHELLFILES entry in environment and put data files there.\n");
+  	    return ((char *) NULL);
+  	  }
+      }
+  
+    flen = GetFileLen(fd);
+    retbuff = (char*) calloc (1, flen + 1);
+--- 348,359 ----
+  	  }
+  	else
+  	  {
+! 	    printf ("Cannot find the file %s\n", fileptr);
+  	    printf ("Please setup MOTIFSHELLFILES entry in environment and put data files there.\n");
+  	    return ((char *) NULL);
+  	  }
+      }
++   }
+  
+    flen = GetFileLen(fd);
+    retbuff = (char*) calloc (1, flen + 1);
+***************
+*** 685,693 ****
+  
+    switch (itemNo)
+      {
+!     case 0: SysCall (w, "motifgif", False);  break;
+!     case 1: SysCall (w, "periodic", True);  break;
+!     case 2: SysCall (w, "motifbur", True);  break;
+      }
+  }
+  
+--- 703,711 ----
+  
+    switch (itemNo)
+      {
+!     case 0: SysCall (w, "periodic", True);  break;
+!     case 1: SysCall (w, "dogs", True);  break;
+!     case 2: SysCall (w, "motifanim", False);  break;
+      }
+  }
+  
+***************
+*** 704,735 ****
+  
+    switch (itemNo)
+      {
+!     case 0:				   /* Terminal */
+!       {
+! 	SysCall (w, "xterm", False); 
+! 	break;
+!       }
+!     case 1:                                /* File Listing */
+        {
+  	XtVaGetValues(w, XmNlabelString, &labelStr, NULL);
+  	SetLabelStr (labelStr);
+! 	system ("ls -al > foo");
+! 	buffer = GetSource ("foo");
+  	XmTextSetString (TextWin, buffer);
+! 	system ("rm -r foo");
+  	break;
+        }
+!     case 2:                                /* Process Status */
+        {
+  	XtVaGetValues(w, XmNlabelString, &labelStr, NULL);
+  	SetLabelStr (labelStr);
+! 	system ("ps -a > foo");
+! 	buffer = GetSource ("foo");
+  	XmTextSetString (TextWin, buffer);
+! 	system ("rm -r foo");
+  	break;
+        }
+!     case 3:                                /* Show Source */
+        {
+  	XtVaGetValues(w, XmNlabelString, &labelStr, NULL);
+  	SetLabelStr (labelStr);
+--- 722,752 ----
+  
+    switch (itemNo)
+      {
+!     case 0:                                /* File Listing */
+        {
+  	XtVaGetValues(w, XmNlabelString, &labelStr, NULL);
+  	SetLabelStr (labelStr);
+! 	system ("ls -al > /tmp/motifshell.tmp");
+! 	buffer = GetSource ("/tmp/motifshell.tmp");
+  	XmTextSetString (TextWin, buffer);
+! 	system ("rm -r /tmp/motifshell.tmp");
+  	break;
+        }
+!     case 1:                                /* Process Status */
+        {
+  	XtVaGetValues(w, XmNlabelString, &labelStr, NULL);
+  	SetLabelStr (labelStr);
+! #ifdef linux
+! 	system ("ps a > /tmp/motifshell.tmp");
+! #else
+! 	system ("ps -a > /tmp/motifshell.tmp");
+! #endif
+! 	buffer = GetSource ("/tmp/motifshell.tmp");
+  	XmTextSetString (TextWin, buffer);
+! 	system ("rm -r /tmp/motifshell.tmp");
+  	break;
+        }
+!     case 2:                                /* Show Source */
+        {
+  	XtVaGetValues(w, XmNlabelString, &labelStr, NULL);
+  	SetLabelStr (labelStr);
+***************
+*** 751,759 ****
+  
+    switch (itemNo)
+      {
+!     case 0: SysCall (w, "xclock", False);  break;
+!     case 1: SysCall (w, "xload", False);   break;
+!     case 2: SysCall (w, "kaleid", False);  break;
+      }
+  }
+  
+--- 768,776 ----
+  
+    switch (itemNo)
+      {
+!     case 0: SysCall (w, "xterm", False);  break;
+!     case 1: SysCall (w, "xclock", False);  break;
+!     case 2: SysCall (w, "xload", False);   break;
+      }
+  }
+  
+***************
+*** 803,811 ****
+  static   char     *subString[][XtNumber(menuString)] = {
+      { "Quit" },
+      { "OSF Membership", "OSF's Research Institute",  "OSF's Principles", "OSF/Motif" },
+!     { "Pictures", "Periodic Table", "Motif Burger" },
+!     { "Terminal", "File Listing", "Process Status", "Show Source" },
+!     { "Xclock", "Xload", "Kaleidescope"},
+      { "Load..." },
+      { "Are you sure ?" }
+    };
+--- 820,828 ----
+  static   char     *subString[][XtNumber(menuString)] = {
+      { "Quit" },
+      { "OSF Membership", "OSF's Research Institute",  "OSF's Principles", "OSF/Motif" },
+!     { "Periodic Table", "Dogs", "Animation" },
+!     { "File Listing", "Process Status", "Show Source" },
+!     { "Xterm", "Xclock", "Xload"},
+      { "Load..." },
+      { "Are you sure ?" }
+    };
+***************
+*** 855,863 ****
+  	XmVaPUSHBUTTON, s[0] = XmStringCreateSimple(subString[3][0]), NULL, NULL, NULL,
+  	XmVaPUSHBUTTON, s[1] = XmStringCreateSimple(subString[3][1]), NULL, NULL, NULL,
+  	XmVaPUSHBUTTON, s[2] = XmStringCreateSimple(subString[3][2]), NULL, NULL, NULL,
+- 	XmVaPUSHBUTTON, s[3] = XmStringCreateSimple(subString[3][3]), NULL, NULL, NULL,
+  	NULL);
+!   for (i=0; i<=3; i++) XmStringFree(s[i]);
+  
+    XmVaCreateSimplePulldownMenu(menuBar, menuString[4], 4, Menu5CB,   /* X Programs */
+  	XmVaPUSHBUTTON, s[0] = XmStringCreateSimple(subString[4][0]), NULL, NULL, NULL,
+--- 872,879 ----
+  	XmVaPUSHBUTTON, s[0] = XmStringCreateSimple(subString[3][0]), NULL, NULL, NULL,
+  	XmVaPUSHBUTTON, s[1] = XmStringCreateSimple(subString[3][1]), NULL, NULL, NULL,
+  	XmVaPUSHBUTTON, s[2] = XmStringCreateSimple(subString[3][2]), NULL, NULL, NULL,
+  	NULL);
+!   for (i=0; i<=2; i++) XmStringFree(s[i]);
+  
+    XmVaCreateSimplePulldownMenu(menuBar, menuString[4], 4, Menu5CB,   /* X Programs */
+  	XmVaPUSHBUTTON, s[0] = XmStringCreateSimple(subString[4][0]), NULL, NULL, NULL,
+***************
+*** 898,905 ****
+    signal(SIGINT,  Quit);
+    signal(SIGQUIT, Quit);
+  
+!   system ("touch foo");
+!   system ("rm -r foo");
+  
+    XtToolkitInitialize();
+    AppContext = XtCreateApplicationContext();
+--- 914,921 ----
+    signal(SIGINT,  Quit);
+    signal(SIGQUIT, Quit);
+  
+!   system ("touch /tmp/motifshell.tmp");
+!   system ("rm -r /tmp/motifshell.tmp");
+  
+    XtToolkitInitialize();
+    AppContext = XtCreateApplicationContext();
+***************
+*** 932,935 ****
+--- 948,953 ----
+    XtRealizeWidget(shell);
+  
+    XtAppMainLoop(AppContext);
++ 
++   return 0;    /* make compiler happy */
+  }
+*** motif.orig/demos/unsupported/transfer/Imakefile	Wed May  3 05:12:38 2000
+--- motif/demos/unsupported/transfer/Imakefile	Sat Jun  3 20:33:08 2000
+***************
+*** 38,48 ****
+  XCOMM 
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:46:53 drk $
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib/
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+! EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = transfer.c actions.c list.c interface.c
+--- 38,48 ----
+  XCOMM 
+  XCOMM   $XConsortium: Imakefile /main/5 1995/07/14 09:46:53 drk $
+  
+!      DEMOLIBDIR = $(MTOP)/demos/lib
+          DEMOLIB = $(DEMOLIBDIR)/Xmd/libXmd.a
+          DEPLIBS = $(DEMOLIB) XmClientDepLibs
+  LOCAL_LIBRARIES = $(DEMOLIB) XmClientLibs 
+!   SYS_LIBRARIES = MathLibrary 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+  SRCS = transfer.c actions.c list.c interface.c
+***************
+*** 53,55 ****
+--- 53,56 ----
+  MComplexProgramTarget(transfer,$(LOCAL_LIBRARIES),NullParameter)
+  
+  InstallManPage(transfer,$(MANDIR))
++ InstallMotifHelpFile(transfer)
+*** motif.orig/demos/unsupported/transfer/README	Fri Apr 28 11:04:44 2000
+--- motif/demos/unsupported/transfer/README	Sat Jun  3 20:21:10 2000
+***************
+*** 2,7 ****
+--- 2,13 ----
+  			Transfer v1.0
+  			-------------
+  
++ ************************************************************************
++ *  This demo requires the XmCSText widget, which is not present in     *
++ *  Motif 2.1.  But even though the demo will not compile, the code is  *
++ *  still useful as a reference.                                        *
++ ************************************************************************
++ 
+  Transfer is a demonstration of data transfer between clients.  It
+  implements all forms of transfer supported by Motif and allows the
+  user to interrogate the values of the different targets.
+*** motif.orig/demos/unsupported/uilsymdump/README	Fri Apr 28 11:04:37 2000
+--- motif/demos/unsupported/uilsymdump/README	Sat Jun  3 20:34:11 2000
+***************
+*** 4,10 ****
+  program.  It also calls the UilDumpSymbolTable routine in order
+  to show the contents of the symbol table (parse tree).  You
+  may wish to compile the callable UIL library with the debug flag
+! for you rcompiler to use uilsymdump to its best advantage.
+  
+  If you notice any bugs in this demo, please see the bug list in
+  the Release Notes to see if the problem is a known Toolkit defect.
+--- 4,10 ----
+  program.  It also calls the UilDumpSymbolTable routine in order
+  to show the contents of the symbol table (parse tree).  You
+  may wish to compile the callable UIL library with the debug flag
+! for your compiler to use uilsymdump to its best advantage.
+  
+  If you notice any bugs in this demo, please see the bug list in
+  the Release Notes to see if the problem is a known Toolkit defect.
+*** motif.orig/demos/unsupported/uilsymdump/uilsymdump.c	Wed May  3 05:12:38 2000
+--- motif/demos/unsupported/uilsymdump/uilsymdump.c	Sat Jun  3 20:51:22 2000
+***************
+*** 66,72 ****
+  /*
+  **  Entry point
+  */
+! main()
+  {
+      Uil_command_type	    command_desc;
+      Uil_compile_desc_type   compile_desc;
+--- 66,73 ----
+  /*
+  **  Entry point
+  */
+! int
+! main(int argc, char *argv[])
+  {
+      Uil_command_type	    command_desc;
+      Uil_compile_desc_type   compile_desc;
+*** motif.orig/demos/unsupported/xmapdef/xmapdef.c	Wed May  3 05:12:38 2000
+--- motif/demos/unsupported/xmapdef/xmapdef.c	Sat Jun  3 20:51:22 2000
+***************
+*** 87,93 ****
+  /*-------------------------------------------------------------
+  **	    Main body
+  */
+! main(argc, argv) 
+  int argc; char **argv;
+  {
+      XtAppContext app_context;
+--- 87,93 ----
+  /*-------------------------------------------------------------
+  **	    Main body
+  */
+! int main(argc, argv) 
+  int argc; char **argv;
+  {
+      XtAppContext app_context;
+***************
+*** 103,108 ****
+--- 103,110 ----
+  
+      XtRealizeWidget(toplevel);
+      XtAppMainLoop(app_context);
++ 
++     return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/unsupported/xmfonts/xmfonts.c	Wed May  3 05:12:38 2000
+--- motif/demos/unsupported/xmfonts/xmfonts.c	Sat Jun  3 20:51:22 2000
+***************
+*** 154,159 ****
+--- 154,161 ----
+  	/*	Get and dispatch events.
+  	*/
+  	XtAppMainLoop (app_context);
++ 
++ 	return 0;    /* make compiler happy */
+  }
+  
+  
+*** motif.orig/demos/unsupported/xmforc/xmforc.c	Wed May  3 05:12:38 2000
+--- motif/demos/unsupported/xmforc/xmforc.c	Sat Jun  3 20:51:22 2000
+***************
+*** 44,49 ****
+--- 44,50 ----
+  */
+  
+  #include <Xm/XmAll.h>
++ #include <stdlib.h>
+  
+  /*-------------------------------------------------------------
+  **	forwarded functions
+*** motif.orig/demos/unsupported/xmform/xmform.c	Wed May  3 05:12:38 2000
+--- motif/demos/unsupported/xmform/xmform.c	Sat Jun  3 20:51:23 2000
+***************
+*** 72,78 ****
+  static void NearlyEvenSpread();
+  static Widget AddStem() ;
+  
+! main(argc, argv) 
+  int argc; char **argv;
+  {
+      XtAppContext app_context;
+--- 72,78 ----
+  static void NearlyEvenSpread();
+  static Widget AddStem() ;
+  
+! int main(argc, argv) 
+  int argc; char **argv;
+  {
+      XtAppContext app_context;
+***************
+*** 107,112 ****
+--- 107,114 ----
+      XtManageChildren(forms, p);
+      XtRealizeWidget(toplevel);
+      XtAppMainLoop(app_context);
++ 
++     return 0;    /* make compiler happy */
+  }
+  
+  

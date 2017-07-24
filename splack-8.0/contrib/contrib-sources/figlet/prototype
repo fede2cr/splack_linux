@@ -1,0 +1,30 @@
+VERSION=2.2
+BUILD=1
+ARCH=sparc
+
+PKGNAME=figlet-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=figlet
+DESC="\
+figlet-2.2\n\
+\n\
+Figlet is a program that makes large ASCII letters out of ordinary\n\
+text."
+
+compile() {
+   tar xvzf $CWD/figlet22.tar.gz
+   cd figlet22
+   zcat $CWD/figlet22.diff.gz | patch -p1 --verbose
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/figlet22
+   cp README *.txt /usr/doc/figlet22
+}

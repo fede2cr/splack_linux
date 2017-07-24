@@ -1,0 +1,45 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/home 
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.6
+PROGNAME=xconvers
+DESC="xconvers (xconvers.sourceforge.net) by Joop Stakenborg (PA4TU)\n\
+Xconvers is a client for convers, a IRC-like conversation system\n\
+for hamradio operators.\n\
+\n\
+requires gtkglib.tgz to be installed."
+
+# maintainer
+ARCH=sparc
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="http://ftp1.sourceforge.net/xconvers/"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar zxvf $CWD/$PROGNAME-$VERSION.tar.gz
+   cd $PROGNAME-$VERSION
+   ./configure --prefix=/usr --datadir=/usr/doc
+   make
+}
+
+install() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install
+   /usr/bin/install -g root -o root -m 0755 -d /opt/kde/share/applnk/Applications/HamRadio
+   /usr/bin/install -g root -o root -m 0644 $CWD/xconvers.kdelnk /opt/kde/share/applnk/Applications/HamRadio/xconvers.kdelnk
+}
+
+special() {
+   echo "nothing special..."
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}
+      

@@ -1,0 +1,40 @@
+There's a lot of work to do. I you feel that you can contribute in any manner
+to this distribution, please send me an e-mail.
+
+The TODO, is not ordered by priority.
+
+Fix install.iso
+  Because I deleted the iso, I need to upload docs and jigdo files and
+  templates to rebuild this iso.
+  Needs documentation on how to build a reduced iso needed. Also, intel
+  packages for mkisofs-silo.
+  Needs some serious testing. 
+  It also needs a final sync with Slackware's, but later.
+Upgrading packages
+  Pick up the source from slackware-8.0, modify the Slackbuild or
+  equivalent, and compile. If it works properly, send in the modified
+  Slackbuild.
+  I suggest starting with a, n, d, or ap series. When they are done, we
+  could continue with the rest. But if you would like to do gtk, kde, or x,
+  your work is always welcome.
+Tftp
+  Make howtos that will show developers and users, how to create and modify
+  tftpimages.
+  The tftpconfig script needs a dialog interface.
+Slackware support
+  Get official answer from Patrick and David about the objectives of the
+  project, and their support to us.
+Beta testers
+  Find beta testers for the project. Weird hardware welcome (as in you
+  test it, not donate it!) ;)
+Check license of several packages
+  The zip utils
+  XView and Java, wich are licensed to Slackware by Sun
+  Pine
+Documentation
+  Correct references from 'Slackware' to 'Splack' where applicable.
+  (This also includes references within packages on the ISO.)
+  Audit all documentation and possibly rewrite some of it.
+--
+Alvaro Figueroa C.
+fede2@fuerzag.ulatina.ac.cr

@@ -1,0 +1,43 @@
+VERSION=1.8.8
+BUILD=1
+ARCH=sparc
+
+PKGNAME=afterstep-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="AfterStep"
+DESC="\
+AfterStep-$VERSION\n\
+\n\
+AfterStep is a window manager with quite an interesting history. It\n\
+was originally a continuation of the Bowman window manager (based\n\
+on fvwm), but is now its own project. This is a classic version of\n\
+AfterStep, which offers a single configuration file (.steprc) and\n\
+NEXTSTEP-like widgets. It's a lean, mean, window managing machine.\n\
+\n\
+The AfterStep homepage is http://www.afterstep.org/"
+
+compile() {
+   tar xvyf $CWD/AfterStep-$VERSION.tar.bz2
+   cd AfterStep-$VERSION
+   ./configure --prefix=/usr/X11R6
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/AfterStep-$VERSION
+   cp COPYRIGHT ChangeLog INSTALL NEW README* TEAM UPGRADE doc/*.html \
+      /usr/doc/AfterStep-$VERSION
+
+   mkdir -p /etc/X11/xinit
+   cp $CWD/xinitrc.afterstep /etc/X11/xinit
+}
+
+attributes() {
+   chmod 755 /etc/X11/xinit/xinitrc.afterstep
+}

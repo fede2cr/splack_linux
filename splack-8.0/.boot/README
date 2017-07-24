@@ -1,0 +1,26 @@
+
+To make a bootable Splack SPARC CD, get into the top level Splack
+directory ((The one with ChangeLog.txt in it) and issue a command
+like this to build the ISO image in /tmp:
+
+mkisofs-silo -d -D -N -R -v \
+  -A "Slackware Linux" \
+  -S .boot/cd.b \
+  -B .boot/second.b \
+  -s /.boot/silo.conf \
+  -o /tmp/splack.iso \
+  -V "Splack Install" .
+
+(this command will create the proper SILO bootblocks on the image)
+
+The use 'cdrecord' to burn it.  (See 'man cdrecord')
+
+----
+notes:
+  The CD must contain at least the .boot and splack directories.
+
+  If you want to master/burn the ISO image under Windows, you're on your own.
+
+  The "mkisofs-silo" command is only available on the SPARC port.  If you want
+  to master a SPARC CD on another Linux machine, you can get the source for
+  that version of mkisofs from /source/ap/mkisofs in the SPARC source tree.

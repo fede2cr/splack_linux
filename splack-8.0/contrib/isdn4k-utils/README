@@ -1,0 +1,11 @@
+This is a *source* package for ISDN support (it really doesn't work
+well to precompile this, as you need to set it up specifically for
+your hardware), so untar it somewhere like this:
+
+tar xzvf isdn4k-utils.v3.1pre1.tar.gz
+
+Then configure it:
+
+cd isdn4k-utils
+make
+

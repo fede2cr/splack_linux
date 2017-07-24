@@ -1,0 +1,46 @@
+protopkg - Slackware .tgz Packaging Tool
+========================================
+
+This directory includes all the necessary source to put together "protopkg".
+Protopkg will read prototype files to generate packages that can be
+installed using the standard Slackware packaging tools.  The *.template
+files explain how the system works.
+
+Protopkg is pretty easy to use.  You put all the source, patches, and other
+such files needed to build the binary package into one directory.  Then
+you construct a "prototype" file that tells protopkg how to build the binary
+package.  The prototype.template file explains the layout of that file.
+
+For some help writing prototype files, or "prototype trees" (like the FreeBSD
+ports tree works), consult the "examples" directory.  It makes use of all of
+protopkg's functions.
+
+Once you have the prototype and any subprototypes written, you'll want to
+run protopkg in that directory to get your binary package.  There are several
+command line switches for protopkg that you'll want to be familiar with:
+
+   -v, --verbose      Verbose output.  You'll pretty much always want
+                      this, otherwise it'll suppress compiler output.
+
+   -c, --cleanup      Removes the build tree after making the binary
+                      package.
+
+   -b, --batch        Batch/unattended mode.  This will cause protopkg to
+                      use the list of files it found for constructing the
+                      package.  You will never be prompted with that list.
+
+   -p<pkg>,           Only build the specified subpackage.  If you do not
+   --package <pkg>    specify a subpackage to build, protopkg will only build
+                      the one specified in the main prototype file.
+
+   -h, --help         Display the help screen.
+
+Options are parsed with getopt, so you can slam as many as you want
+together.  I usually do this:
+
+   protopkg -vc
+
+That's all I have to say right now.  Enjoy.
+
+-David Cantrell
+ <david@slackware.com>

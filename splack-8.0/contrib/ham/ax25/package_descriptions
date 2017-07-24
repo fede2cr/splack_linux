@@ -1,0 +1,67 @@
+These are descriptions of the packages in the Slackware contrib/ham/ax25
+directory:
+
+ax25_apps-0.0.5p2-sparc-1: AX.25 applications 0.0.5p2
+ax25_apps-0.0.5p2-sparc-1:
+ax25_apps-0.0.5p2-sparc-1: These are the essential applications for use with AX.25
+ax25_apps-0.0.5p2-sparc-1: packet radio.
+ax25_apps-0.0.5p2-sparc-1: Requires libax25 to be installed.
+ax25_apps-0.0.5p2-sparc-1: The configuration files are included, but this packages  
+ax25_apps-0.0.5p2-sparc-1: will not overwrite any existing config files.
+
+ax25_tools-0.0.6-sparc-2: AX.25 tools version 0.0.6
+ax25_tools-0.0.6-sparc-2:
+ax25_tools-0.0.6-sparc-2: Author: Craig Small VK2XLZ <csmall@small.dropbear.id.au>, et al
+ax25_tools-0.0.6-sparc-2: Needs: glibc2.1, A Modern kernel (2.2.x), libtool,
+ax25_tools-0.0.6-sparc-2: libax25 0.0.5 or better, zlib.
+
+libax25-0.0.7-sparc-3: AX.25 libraries version 0.0.7
+libax25-0.0.7-sparc-3:
+libax25-0.0.7-sparc-3: This library set is still really under test but is now release
+libax25-0.0.7-sparc-3: for general use. You are supposed to use glibc2 for this package. 
+libax25-0.0.7-sparc-3: Authors: Jonathan Naylor, Tomi Manninen, Jean-Paul ROUBELAT, Alan Cox.
+
+linkt-0.6.99-20010205-sparc-1: LinKT version 0.6.99-20010205
+linkt-0.6.99-20010205-sparc-1: 
+linkt-0.6.99-20010205-sparc-1: The Linux KDE packet radio Terminal
+linkt-0.6.99-20010205-sparc-1: Includes MonKT and ax25spyd-0.23
+linkt-0.6.99-20010205-sparc-1: Requires KDE2. Author: Jochen Sarrazin, DG6VJ, et al.
+
+node-0.3.0-sparc-2: AX.25 node version 0.3.0
+node-0.3.0-sparc-2:
+node-0.3.0-sparc-2: This is a simple node frontend for Linux kernel AX.25, NETROM,
+node-0.3.0-sparc-2: ROSE and TCP. Author: Tomi Manninen OH2BNS, <tomi.manninen@hut.fi>
+
+soundmodem-0.4-sparc-2: soundmodem version 0.4
+soundmodem-0.4-sparc-2: 
+soundmodem-0.4-sparc-2: This package contains the driver and the diagnostic utility for
+soundmodem-0.4-sparc-2: userspace soundmodem-0.4-sparc-2. It allows you to use soundcards supported
+soundmodem-0.4-sparc-2: by OSS/Free as Amateur Packet Radio modems.  
+soundmodem-0.4-sparc-2: Author: Thomas Sailer <sailer@ife.ee.ethz.ch>
+soundmodem-0.4-sparc-2: 
+soundmodem-0.4-sparc-2: Requires audiofil.tgz, libxml.tgz to be installed.
+
+xcall-0.02-sparc-1: Packet radio program for X/GTK
+xcall-0.02-sparc-1: Xcall is a simple packet radio program, which does not do
+xcall-0.02-sparc-1: much at the moment,  except send what you type and show what
+xcall-0.02-sparc-1: you receive.
+xcall-0.02-sparc-1: Author:  Joop Stakenborg <pa3aba@debian.org>
+xcall-0.02-sparc-1:
+xcall-0.02-sparc-1: Requires gtkglib.tgz to be installed.
+
+xconvers-0.6-sparc-1: Xconvers (xconvers.sourceforge.net) by Joop Stakenborg (PA4TU)
+xconvers-0.6-sparc-1: Xconvers is a client for convers, a IRC-like conversation system
+xconvers-0.6-sparc-1: for hamradio operators. 
+xconvers-0.6-sparc-1: 
+xconvers-0.6-sparc-1: requires gtkglib.tgz to be installed.
+
+xfbb-7.03e-sparc-1: xfbb-7.03e
+xfbb-7.03e-sparc-1: 
+xfbb-7.03e-sparc-1: FBB is a bulletin board software package for amateur packet-radio.
+xfbb-7.03e-sparc-1: FBB is developed by Jean-Paul Roubelat, F6FBB.
+
+z8530drv_utils-3.0-sparc-2: Utilities for Z8530 based SCC boards by Joerg Reuter DL1BKE.
+z8530drv_utils-3.0-sparc-2: Needs scc support enabled in the kernel, or have the scc.o
+z8530drv_utils-3.0-sparc-2: module loaded.
+z8530drv_utils-3.0-sparc-2: 
+z8530drv_utils-3.0-sparc-2: Edit /etc/ax25/z8530drv.conf to fit your configuration.

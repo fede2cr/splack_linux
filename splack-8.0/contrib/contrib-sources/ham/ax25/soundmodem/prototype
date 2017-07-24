@@ -1,0 +1,55 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/home 
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.4
+PROGNAME=soundmodem
+DESC="soundmodem version $VERSION\n\
+\n\
+This package contains the driver and the diagnostic utility for\n\
+userspace SoundModem. It allows you to use soundcards supported\n\
+by OSS/Free as Amateur Packet Radio modems.\n\
+Author: Thomas Sailer <sailer@ife.ee.ethz.ch>\n\
+\n\
+Requires audiofil.tgz, libxml.tgz to be installed."
+
+# maintainer
+ARCH=sparc
+BUILD=2
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="http://www.ife.ee.ethz.ch/~sailer/ham/soundmodem/"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar zxvf $CWD/$PROGNAME-$VERSION.tar.gz
+   cd $PROGNAME-$VERSION
+   ./configure --prefix=/usr --localstatedir=/var
+   make
+}
+
+install() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install
+   /usr/bin/install -g root -o root -m 0755 $CWD/soundmodem.initscript /etc/rc.d/rc.soundmodem
+   /usr/bin/install -g root -o root -m 0755 -d /etc/ax25
+   touch /etc/ax25/soundmodem.conf
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cp AUTHORS ChangeLog INSTALL NEWS README /usr/doc/$PROGNAME-$VERSION
+}
+
+attributes() {
+   chmod 0600 /etc/ax25/soundmodem.conf
+   chown 0.0 /etc/ax25/soundmodem.conf
+}
+    
+special() {
+   echo "nothing special..."
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}

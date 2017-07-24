@@ -1,0 +1,34 @@
+TAG=OPT
+
+SUBPKGNAME=gcc_objc-$VERSION-$ARCH-$BUILD
+
+PROGNAME="GCC Objective C Compiler"
+DESC="\
+GNU Objective-C compiler from the gcc-$VERSION release.\n\
+\n\
+This package contains the GNU Objective-C compiler from the gcc\n\
+release.  To use this compiler, you'll also need to install the\n\
+gcc C/C++ compiler package, binutils, gmake, glibc, and lxinclude."
+
+subinstall() {
+   echo "Nothing to install for gcc_objc."
+}
+
+subspecial() {
+   # create the tree
+   cd $SUBPKG
+   mkdir -p usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/include/objc
+   mkdir -p usr/doc/gcc-$VERSION/gcc/objc
+
+   # populate the tree
+   ( cd $TMP/gcc-master
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/libobjc.a \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/cc1obj \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/include/objc/* \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/include/objc
+
+     cp -a usr/doc/gcc-$VERSION/gcc/objc/* \
+        $SUBPKG/usr/doc/gcc-$VERSION/gcc/objc )
+}

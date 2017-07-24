@@ -1,0 +1,717 @@
+Open Motif Patch #3
+7 July 2000
+
+Patch #3 contains numerous bug fixes, portability changes, and enhancements
+to the Open Motif code.  The changes were contributed by Metro Link
+Incorporated.
+
+To apply this patch, first make sure that Open Motif patches #1 and #2 are
+applied to your source tree.
+
+Then, cd to the top of the source tree (to the directory containing the
+"motif" subdirectory) and do:
+
+        patch -p0 -s < patchfile
+
+Patch will work silently unless an error occurs.  If you want to watch patch
+do its thing, leave out the "-s" argument to patch.
+
+
+Descriptions of the changes made to each file changed by this patch are
+listed below.
+
+=============================================================================
+bitmaps/Imakefile
+
+When installing Motif integrated with X11, it makes sense to install the Motif
+bitmaps in the same directory as the X11 bitmaps.  To accomplish this,
+$(INCDIR)/bitmaps was changed to $(XPROJECTROOT)/include/X11/bitmaps/.
+=============================================================================
+clients/mwm/Imakefile
+
+Changed SYS_LIBRARIES from "-lm" to MathLibrary for better portability.
+
+Changed DEPLIBS to DEPLIBS1 because that's what's used by the program target.
+
+Changed definition of DEPLIBS to use the standard symbol XmClientDepLibs.
+
+Added "defined(OSF1Architecture" to "defined(AlphaArchitecture)" because Linux
+Alpha uses the same symbol, but the stuff in that block is not for Linux.
+
+Set EXTRA_DEFINES to MwmDefines on Linux, so that we can get NO_MULTIBYTE
+if we need it.
+
+Changed ComplexProgramTarget_1 to MComplexProgramTarget_1, because CPT1
+expects there to be a man page in the current directory, whereas MCPT1 does
+not.
+=============================================================================
+clients/mwm/system.mwmrc
+
+Removed old version number (1.2) from comment.
+
+Uncommented the "Quit..." menu item by default.
+=============================================================================
+clients/mwm/WmEvent.c
+
+Changed test from NULL to 0 to silence compiler complaint about comparing a
+pointer to an integer.
+=============================================================================
+clients/mwm/WmFunction.c
+
+Used appropriate system header includes for getenv, atoi, wait, etc. instead
+of explicit prototypes.
+
+For portability, changed test for setsid() to test for _POSIX_JOB_CONTROL
+instead of linux.
+
+Added SIGCHLD handler to avoid leaving zombies about when clients started by
+mwm exit.
+
+Changed timestamps in XSetInputFocus calls from focusTime to CurrentTime.
+Using focusTime could result in window focus occasionally getting set
+improperly.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+clients/mwm/WmGlobal.h
+
+Added color icon support to mwm.  To do this, I modified the functions
+MakeClientPixmap and MakeNamedIconPixmap and added the support function
+GetNamedPixmap.  I removed the support function MakeCachedIconPixmap as it
+was no longer used by the new code.
+
+Also added a new macro, PIXMAP_IS_VALID, that returns True if a pixmap is
+a valid pixmap (not null, unspecified, or or None).
+=============================================================================
+clients/mwm/WmImage.c
+
+Added color icon support to mwm.  To do this, I modified the functions
+MakeClientPixmap and MakeNamedIconPixmap and added the support function
+GetNamedPixmap.  I removed the support function MakeCachedIconPixmap as it
+was no longer used by the new code.
+
+Also added a new macro, PIXMAP_IS_VALID, that returns True if a pixmap is
+a valid pixmap (not null, unspecified, or or None).
+=============================================================================
+clients/mwm/WmInitWs.c
+
+Included <Xm/AtomMgr.h> to get prototypes for functions used in this file.
+=============================================================================
+clients/mwm/WmMain.c
+
+Included <X11/Xlocale.h> instead of <locale.h> so that things will work
+properly on systems without locale support.
+=============================================================================
+clients/mwm/WmManage.c
+
+Fixed pixmap leak in mwm.  Every time a window is created in mwm, a pixmap is
+created for the window's icon.  That icon pixmap was not freed in most cases,
+so creating and destroying windows would cause the memory usage of the X server
+to grow over time, as long as the window manager stayed running.
+
+The code for freeing the pixmap actually was there, but had a test around it
+that caused it to be skipped in most cases.  Fixed the problem by changing
+the test so that it always frees the pixmap if the pixmap is valid.
+=============================================================================
+clients/mwm/WmMenu.c
+
+Fixed a memory leak in the menu code.  Custom window menus were not being freed
+when their windows were destroyed.  Fixed code uses menuSpec->clientLocal
+instead of menuSpec->name in function FreeCustomMenuSpec() to check if it is a
+custom menu or not.  Then, it always free menuSpec->name if it is non-NULL.
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+clients/mwm/WmProtocol.c
+
+Included <Xm/TransferP.h> to get prototypes for functions used in this file.
+=============================================================================
+clients/mwm/WmResource.c
+
+Enabled the default menu items with keys specified on all platforms rather
+than just on sun.
+=============================================================================
+clients/mwm/WmResParse.c
+
+Changed include of <locale.h> to <X11/Xlocale.h> so that the source will build
+on platforms without locale support.
+
+Added code to undefine min(a,b) macro before defining it because that macro
+is defined in system header files on some systems.
+
+Initialized menuSpec->commandID to 0 when creating a new menuSpec structure,
+to avoid referencing an uninitialized value later.
+
+Fixed memory leak: use FreeMenuItem function to free menu items rather than
+XtFree.
+
+Enclosed use of multibyte functions in NO_MULTIBYTE protection, so that the
+file will build on a system without multibyte support.
+
+Changed test from NULL to 0 to silence compiler complaint about comparing a
+pointer to an integer.
+=============================================================================
+clients/mwm/WmSignal.c
+clients/mwm/WmSignal.h
+
+Added SIGCHLD handler to avoid leaving zombies about when clients started by
+mwm exit.
+=============================================================================
+clients/mwm/WmWinInfo.c
+
+Changed include of <locale.h> to <X11/Xlocale.h> so that the source will build
+on platforms without locale support.
+=============================================================================
+clients/uil/Imakefile
+
+Original Imakefile built the uil executable from the PIC object files.  This
+causes subtle problems on some platforms, and instant death on others.  Fixed
+rules pull the objects from the unshared/ directory.
+
+Added a rule to remove the UIL executable during a "make clean".
+=============================================================================
+clients/uil/UilLexAna.c
+
+Included <stdlib.h> to get the prototype for atof().
+=============================================================================
+clients/uil/UilLstLst.c
+clients/uil/UilLstMac.c
+clients/uil/UilSymStor.c
+
+Added "l" to sprintf format specifiers where the arguments are long ints.
+=============================================================================
+clients/uil/UilMain.c
+
+Added "return 0" to the end of the main function to make pedantic compilers
+happy.
+=============================================================================
+clients/xmbind/xmbind.c
+
+Changed return type of main to int, and added "return 0" to the end of the
+function to make pedantic compilers happy.
+=============================================================================
+config/cf/Motif.rules
+
+Added ClientEnvSetup method to disable the use of $(CLIENTENVSETUP) when
+UseInstalledMotif is set.
+
+Added InstallMotifHelpFile and InstallMotifManPage rules.
+
+Disabled MotifProjectDefines when UseInstalledMotif is set.
+=============================================================================
+config/cf/Motif.tmpl
+
+Changed default VirtualBindingsPath to be relative to $(USRLIBDIR) (even though
+we override it in host.def).
+
+Disabled TOP_MOTIF_INCLUDES when UseInstalledMotif is set, because it is
+unnecessary.
+=============================================================================
+doc/man/Imakefile
+doc/man/man1/Imakefile
+doc/man/man3/Imakefile
+doc/man/man4/Imakefile
+doc/man/man5/Imakefile
+
+Added Imakefiles to install the man pages in the "make install.man" step.
+=============================================================================
+doc/man/man1/mwm.1
+
+Changed paths to reflect a project root of /usr/X11R6, which is used on most
+open source platforms.
+
+Corrected information about multiscreen support.
+
+Fixed a few minor formatting problems.
+=============================================================================
+doc/man/man4/mwmrc.4
+
+Fixed a bunch of stuff in this man page, mostly CDE references and formatting
+problems.
+
+Changed paths to reflect a project root of /usr/X11R6, which is used on most
+open source platforms.
+
+Corrected the default shell to be "/bin/sh" instead of "/usr/bin/sh"
+("/usr/bin/sh" is only used on some old SVR4 platforms).
+=============================================================================
+Imakefile
+
+Added "doc/man" directory to SUBDIRS list.
+=============================================================================
+lib/Mrm/Mrmos.c
+
+Added #include <MrmosI.h> to get prototypes for functions used in this file.
+=============================================================================
+lib/Mrm/Mrmwcrw.c
+
+Added "return MrmSUCCESS" to the end of the UrmCreateWidgetInstanceCleanup
+function to make pedantic compilers happy.
+=============================================================================
+lib/Mrm/Mrmwcrwr.c
+
+Disabled a block of code that was causing floating-point literals in UIL
+files to become corrupted when UID files were generated.  According to the
+comments, the code was added so that float values would be aligned on
+8-byte boundaries for architectures such as HP9000 where such alignment is
+necessary.  The offending code was disabled by surrounding it with:
+#ifdef USE_ORIGINAL_MOTIF_CODE
+=============================================================================
+lib/Xm/CascadeBG.c
+
+Included "TraversalI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/ColorObj.c
+
+Changed assignment from NULL to 0 to silence compiler complaint about assigning
+a pointer to an integer.
+
+Fixed comments in XmeGetColorObjData function header.
+=============================================================================
+lib/Xm/Container.c
+
+Fixed logic in ContainerExpandOrCollapse so that container items are expanded
+and collapsed correctly in all cases.
+
+Changed code in StartSelect that tests for currently selected items to properly
+detect when other list items need to be deselected.
+=============================================================================
+lib/Xm/CutPaste.c
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+lib/Xm/DrawingA.c
+
+Made the behavior of the DrawingAreaInput action agree with the documentation:
+do not call the input callback if the event takes place in a gadget.  Fixed
+by modifying ObjectAtPoint to make sure the object is a gadget before
+returning it.  This change is consistent with the usage in the code as
+well, because the only place that ObjectAtPoint is used is to set a
+variable named "input_on_gadget" to True if ObjectAtPoint returns non-NULL.
+=============================================================================
+lib/Xm/DrawnB.c
+
+Included "MenuUtilI.h", "MenuStateI.h", and "UniqueEvnI.h" to get prototypes
+for functions used in this file.
+=============================================================================
+lib/Xm/DropSMgr.c
+
+Fixed a problem where a DropSiteManager function could access a widget object
+that had already been destroyed.  This problem was found by Kevin B. Hendrix
+of the Java-Linux/PPC project.  Although the problem doesn't seem to cause a
+crash on Intel, it does on PPC.  Debugging showed that the bad accesses were
+in fact occurring on Intel as well, but since the memory allocator hadn't yet
+re-used the memory, things worked OK.  The gory details:
+
+When you create certain widgets, an Xt timeout proc is added with a zero delay
+to do certain things related to the XmDropSiteManagerObject.  If the
+application destroys all of the widgets in the application before the timeout
+proc gets called, then when the timeout proc gets called, the associated
+XmDropSiteManagerObject will have been destroyed (as part of the global
+XmDisplay object getting destroyed).
+
+To solve this problem, we now save the timeout ID in the object and remove
+the timeout when necessary.  This removal is done in two places:
+XmDropSiteManagerObject's Destroy() method, and the timeout function itself
+(which can get called directly at widget destruction time).
+
+I added a field to XmDropSiteManagerObject's instance data structure to hold
+this info.  While technically this breaks binary compatibility, I think it's
+safe to add a field to XmDropSiteManagerObject, because it is an object that is
+designed to be used internally by the Motif libraries.  It is not even
+documented in the Motif documentation, so there's no reason that user programs
+should be accessing this object directly.
+=============================================================================
+lib/Xm/DropSMgrP.h
+
+Fixed a problem where a DropSiteManager function could access a widget object
+that had already been destroyed.  This problem was found by Kevin B. Hendrix
+of the Java-Linux/PPC project.  Although the problem doesn't seem to cause a
+crash on Intel, it does on PPC.  Debugging showed that the bad accesses were
+in fact occurring on Intel as well, but since the memory allocator hadn't yet
+re-used the memory, things worked OK.  The gory details:
+
+When you create certain widgets, an Xt timeout proc is added with a zero delay
+to do certain things related to the XmDropSiteManagerObject.  If the
+application destroys all of the widgets in the application before the timeout
+proc gets called, then when the timeout proc gets called, the associated
+XmDropSiteManagerObject will have been destroyed (as part of the global
+XmDisplay object getting destroyed).
+
+To solve this problem, we now save the timeout ID in the object and remove
+the timeout when necessary.  This removal is done in two places:
+XmDropSiteManagerObject's Destroy() method, and the timeout function itself
+(which can get called directly at widget destruction time).
+
+I added a field to XmDropSiteManagerObject's instance data structure to hold
+this info.  While technically this breaks binary compatibility, I think it's
+safe to add a field to XmDropSiteManagerObject, because it is an object that is
+designed to be used internally by the Motif libraries.  It is not even
+documented in the Motif documentation, so there's no reason that user programs
+should be accessing this object directly.
+=============================================================================
+lib/Xm/Gadget.c
+
+Included "TraitI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/IconFile.c
+
+Changed include of <locale.h> to <X11/Xlocale.h> so that the source will build
+on platforms without locale support.
+
+Fixed definition of ABSOLUTE_IPATH that looked as if it had been corrupted by a
+source control system somewhere along the line.
+
+In MakeCachedDirEntry(), the original code was caching the entire dirent struct
+when all that is really needed is the d_name.  Changed it to just cache the
+names; this uses less memory and simplifies the code.
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+
+Changed calculation of IconPath to use _XmOSInitPath, so that icons stored in
+the default locations will be found.
+=============================================================================
+lib/Xm/ImageCache.c
+
+Original Motif code did not correctly handle caching and setting foreground and
+background colors for X bitmaps.  To fix, when an X bitmap is loaded, the
+background color is set to 0 and the foreground color is set to 1 before the
+pixmap is loaded into the pixmap cache.  Then, ComparePixmapDatas checks for
+these values when deciding if a bitmap in the cache matches a request.
+
+If an invalid pixmap was passed to Motif's pixmap converter more than once,
+a segfault could occur.  Traced it to GetImage calling XmeXpmFreeAttributes
+regardless of the success or failure of the XmeXpmReadFileToImage call.
+Problem was that if XmeXpmReadFileToImage failed, it could leave the attribute
+structure in an inconsistent state.  Fixed by not calling XmeXpmFreeAttributes
+if XmeXpmReadFileToImage returns a failure status.
+=============================================================================
+lib/Xm/Imakefile
+
+Added StrcasecmpDefines to DEFINES (needed by some platforms).
+=============================================================================
+lib/Xm/List.c
+
+Added a return value for the failure case of SetVerticalScrollbar and
+SetHorizontalScrollbar.  These functions must return Boolean, and some
+compilers complained about the lack of a return value.
+=============================================================================
+lib/Xm/Manager.c
+
+Included "TraitI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/MenuShell.c
+
+Added code to make a local copy of the defaultFontList resource in the
+Initialize function, and free it in the Destroy function.  This is how the
+other FontList resources are handled.
+
+Motif 2.1.20 had the free code but not the copy code, which could result in
+a core dump.  Motif 2.1.30 fixed this icorrectly by removing the free code; the
+correct fix is to add the copy code.
+=============================================================================
+lib/Xm/MenuT.h
+
+This file defines a function named "arm".  Unfortunately, gcc on Linux uses
+the symbol "arm" to indicate that you are on the ARM architecture.  Quick-
+fixed this by undefining "arm" in the header file.  However, this is not a
+great solution, because if user code includes this header file, the "arm"
+preprocessor symbol will no longer be available for architecture tests.
+Unfortunately, this is in a documented public API, so I can't just change it.
+=============================================================================
+lib/Xm/MessageB.c
+
+Code in SetValues disallows setting of the Cancel button.  However, if you
+create a template dialog, there is no other way of giving it a Cancel button
+except through a SetValues call.  Handle this case by allowing the SetValues
+call if the dialog is a template dialog.
+=============================================================================
+lib/Xm/Obso2_0.c
+
+Changed _XmStringByteCompare to call XmStringByteCompare instead of
+XmStringCompare.
+=============================================================================
+lib/Xm/PixConv.c
+
+A section of code in GetPixmap forces the pixmap converter to return pixmaps
+instead of bitmaps in most cases.  However, it was allowing pixmaps with
+unspecified foreground colors to be returned, which resulted in pixmaps
+being displayed with random foreground colors.  Fixed by checking to make sure
+that the foreground color is specified before returning a pixmap; otherwise,
+the function falls back to returning a bitmap.
+=============================================================================
+lib/Xm/Primitive.c
+
+Included "TraitI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/PrintS.c
+
+Included <stdlib.h> and <unistd.h> to get prototypes for functions used in this
+file.
+=============================================================================
+lib/Xm/PushB.c
+
+Included "MenuUtilI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/PushBG.c
+
+Included "MenuUtilI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/RCLayout.c
+
+Added a patch submitted by Kevin B. Hendrix of the Java-Linux project.  The
+patch prevents a problem where a pointer to memory that has already been
+freed could get freed again.
+=============================================================================
+lib/Xm/regexp.c
+
+Removed extern def of strchr, as the proper header file for this function
+<string.h> has already been included.
+=============================================================================
+lib/Xm/ResConvert.c
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+=============================================================================
+lib/Xm/Scale.c
+
+Changed use of MON_DECIMAL_POINT under Linux to DECIMAL_POINT.  While in
+practice they will almost always be the same, in theory MON_DECIMAL_POINT
+is for monetary values and DECIMAL_POINT is for numeric values.  Since
+Scales are usually used for numeric, not monetary values, DECIMAL_POINT
+is the logical symbol to use.
+=============================================================================
+lib/Xm/Screen.c
+
+Included "ImageCachI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/ScrolledW.c
+
+When a Scrollbar is first created, a call to InsertChild() is made which in
+turn calls AddNavigator().  The problem is that when the scrollbar is destroyed
+and DeleteChild() is called, it does not remove the previously added Navigator.
+
+Later, if a new Scrollbar is recreated and a pReshape is done, a call to
+_XmSFUpdateNavigatorsValue is made which plays with the now destroyed nav
+widget and causes a seg-fault.
+
+To fix, added a call to RemoveNavigator() in DeleteChild().
+
+Problem reported by and solution suggested by Kevin B. Hendricks of the
+Java-Linux project.
+=============================================================================
+lib/Xm/SpinB.c
+
+Fixed the comments describing the SpinBNext and SpinBPrior functions to match
+the code.
+=============================================================================
+lib/Xm/Text.c
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+=============================================================================
+lib/Xm/TextF.c
+
+On all platforms except FreeBSD (which has local versions of the wide character
+functions), include <wchar.h> which has the prototypes for these functions.
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+=============================================================================
+lib/Xm/TextFSel.c
+
+On certain Linux installations (TurboLinux 6.0, perhaps others) drag-and-drop
+of multi-line multi-byte strings from a label to a TextField caused a core
+dump.  Somehow the string that is passed to DropTransferProc has become
+corrupted, and causes mbstowcs to choke (the core dump occurs on the following
+XtFree).
+
+I noticed that when the same string was dragged to a Text widget, the core dump
+did not occur; instead, the characters up to the point where the string got
+corrupted were dragged into the text widget.  Comparing code between the Text
+and TextField widgets, I discovered that XmText calls a CountCharacters
+function which returns the number of recognizable multibyte characters in a
+string, then uses that value as the maximum number of characters for mbstowcs
+to convert.  TextField was not doing this; it was just passing the whole string
+to mbstowcs.  TextField has a similar CountCharacters function, so I modified
+DropTransferProc to use it in the same way, making the behavior between Text
+and TextField consistent.
+
+While this change is safe (extra error checking never hurts), it should not
+have been necessary.  First of all, passing a bad string to mbstowcs should not
+corrupt memory such that a subsequent XtFree fails.  This indicates that there
+still may be lingering problems in glibc's multibyte support.  Second is the
+issue of how the string got corrupted in the first place.  I spent some time
+following code, and tracked the problem down to the Xlib function
+XmbTextPropertyToTextList, called from _XmTextToLocaleText in Transfer.c.
+Before this function is called, the string looks normal; afterwards, the
+newline has mutated into a different character (0x8A instead of 0x0A) and the
+last byte in the string has been chopped off.  I tried to track it further, but
+the code jumps through several layers of function pointers to one of many
+conversion routines, so I was unable to determine the actual code that was
+being called.  I then tried to build a debuggable version of Xlib so that I
+could track the function calls using the debugger, but our Xlib says "locale
+not supported by Xlib, locale set to C" when I try to run under the Japanese
+locale, so apparently TurboLinux's Xlib is built with Japanese support that
+ours doesn't have.  So I can't tell if this is a problem with all versions of
+Xlib, or only TurboLinux's (or even be really sure the problem is in Xlib).
+=============================================================================
+lib/Xm/TextIn.c
+lib/Xm/TextOut.c
+lib/Xm/TextStrSo.c
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+=============================================================================
+lib/Xm/ToggleB.c
+lib/Xm/ToggleBG.c
+
+Changes made to the toggle button widget and gadget in Motif 2.1.30 revealed
+a bug in the code that calculates the vertical position of the toggle button
+indicator.  The pre-2.1.30 behavior was somewhat inconsistent, in that if
+the default indicator size was used, the indicator would be placed next to
+the first line of text in a multi-line button, but if the user set the
+indicator size, the indicator would be centered vertically in the button.
+Since either of these behaviors is reasonable, no one noticed any problem.
+
+Changes in 2.1.30 caused the code that attempted to line up the indicator next
+to the first line of text to be executed when a custom indicator size was used
+as well as the default.  Unfortunately, this code was broken such that custom-
+sized indicators in menus got placed a few pixels lower than they should have
+been.  And it was somewhat simplistic, in that it basically lined up the top
+of the indicator with the top of the text, so mismatches in text size and
+indicator size produced odd results.
+
+Fixed by actually calculating the correct position for the indicator, based
+on getting the height of the text and the number of lines, to find out where
+the first line of text is located.  This is more complex code than what was
+there before, but it works in all cases.
+
+--
+
+Included "MenuUtilI.h" to get prototypes for functions used in this file.
+=============================================================================
+lib/Xm/Transfer.c
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+lib/Xm/VendorS.c
+
+Made a change to RemoveGrab to fix a reported problem.  The symptom of the
+problem was a crash when closing a modal dialog.  From debug information, it
+was clear that the numModals field of the XmDisplay structure was being
+decremented below zero.  Further investigation showed that the "Add back all
+the grabs that were flushed by the removes" code was incrementing numRemoves
+too much.
+
+Based on the comments in this section of code, the problem appears to be an
+incorrect array reference in one of the tests around the numRemoves increment.
+All other array references in this section use "modals[i+incr]" except one,
+which uses "modals[i]".  The comment immediately prior to that line implies
+that that reference should also be "modals[i+incr]".  Code review indicates
+that this will fix the user's crashing problem.
+=============================================================================
+lib/Xm/XmIm.c
+
+Changed XIMProcs to XICProcs to match the changes made by XFree86 and prevent
+compiler warnings.
+
+Initialized an uninitialized mask variable in set_values.
+
+Added a missing XtPointer typecast in move_preedit_string which was also
+causing a compiler warning.
+=============================================================================
+lib/Xm/Xmos.c
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+
+Added XmConst to function parameters in _XmOSFileCompare().
+=============================================================================
+lib/Xm/XmRenderT.c
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+lib/Xm/XmString.c
+
+In the SubStringPosition function, _XmEntryTag(seg) can be NULL, but the
+original Motif code never checked for that.  We check, and if it is NULL, we
+treat it as if it was set to XmFONTLIST_DEFAULT_TAG.
+
+Added a null check before freeing the tag in XmeSetWMShellTitle to make sure
+that a null doesn't get freed.
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+=============================================================================
+lib/Xm/XmStringFunc.c
+
+Protected all uses of multibyte functions with #ifdef NO_MULTIBYTE.
+=============================================================================
+lib/Xm/XpmI.h
+
+Added _SVID_SOURCE to a list of symbols tested for when deciding whether to
+include <string.h>.  This makes sure that the header gets included on Linux.
+Other symbols on the list include SYSV and SVR4, so _SVID_SOURCE seemed a
+logical thing to check for.
+=============================================================================
+localized/util/mkcatdefs.c
+
+Included <unistd.h> to get prototypes for functions used in this file.
+
+Removed duplicate include of <ctype.h>
+
+Removed extraneous parameters and incorrect typecasts from printf parameter
+lists.
+
+Fixed a place where the wrong value was printed (msgno instead of msgname).
+=============================================================================
+localized/util/mkmsgcat.c
+
+Included <ctype.h> to get prototypes for functions used in this file.
+=============================================================================
+tools/wml/Imakefile
+
+Changed DEPLIBS and LOCAL_LIBRARIES to use the standard symbols XmClientDepLibs
+and XmClientLibs.
+
+Removed $(CLIENTENVSETUP) from wmluiltok and wml commands, because it is
+not necessary (they are static executables).
+=============================================================================
+tools/wml/wml.c
+
+Added explicit int return value to yywrap() function  to make pedantic
+compilers happy.
+=============================================================================
+tools/wml/wmldbcreate.c
+
+Changed return type of main to int, and added "return 0" to the end of the
+function to make pedantic compilers happy.
+=============================================================================
+tools/wml/wmllex.l
+
+Fixed testing for XmConst to test for defined(__STDC__) rather than
+(defined(__STDC__) && (__STDC__)), because some platform define __STDC__ to 0.
+=============================================================================
+tools/wml/wmlouth.c
+
+Added prototype for wmlResolveCtlIsMember to make pedantic compilers happy.
+=============================================================================
+tools/wml/wmlparse.y
+
+Fixed testing for XmConst to test for defined(__STDC__) rather than
+(defined(__STDC__) && (__STDC__)), because some platform define __STDC__ to 0.
+
+Protected "#undef NULL" with #ifndef __STDC__ because NULL is not a macro on
+some ANSI C platforms.
+=============================================================================
+tools/wml/wmlsynbld.c
+
+Added "l" to printf format specifiers where the arguments are long ints.
+=============================================================================
+tools/wml/wmluiltok.l
+
+Included <stdlib.h> to get prototypes for functions used in this file.
+
+Fixed testing for XmConst to test for defined(__STDC__) rather than
+(defined(__STDC__) && (__STDC__)), because some platform define __STDC__ to 0.
+
+Removed some unused variable declarations.
+
+Added explicit int return value to yywrap function to make pedantic
+compilers happy.
+=============================================================================

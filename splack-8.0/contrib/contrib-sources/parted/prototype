@@ -1,0 +1,35 @@
+VERSION=1.4.9
+BUILD=1
+ARCH=sparc
+
+PKGNAME=parted-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME="GNU parted"
+DESC="\
+GNU Parted $VERSION\n\
+\n\
+GNU Parted is a program for creating, destroying, resizing, checking\n\
+and copying partitions, and the filesystems on them.  This is useful\n\
+for creating space for new operating systems, reorganising disk\n\
+usage, copying data between hard disks, and disk imaging."
+
+compile() {
+   tar xvzf $CWD/parted-$VERSION.tar.gz
+   cd parted-$VERSION
+   ./configure --prefix=/usr $ARCH-slackware-linux
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/parted-$VERSION/doc
+   cp ABOUT-NLS AUTHORS BUGS COPYING ChangeLog INSTALL NEWS README THANKS \
+      TODO /usr/doc/parted-$VERSION
+   ( cd doc
+     cp COPYING.DOC FAT USER USER.jp API /usr/doc/parted-$VERSION/doc )
+}

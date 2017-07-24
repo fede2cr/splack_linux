@@ -1,0 +1,90 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=2.0.2
+PROGNAME=sgmltools
+DESC="\
+sgmltools-2.0.2\n\
+\n\
+This is SGML tools 2.0.2 with the following changes:\n\
+- Upgraded from DocBook 3.0 to DocBook 4.0.\n\
+- Added in the DTD and stylesheets for the GNOME Documentation Project.\n\
+  These are needed to build much of the documentation in the GTK series.\n\
+- Added collateindex.pl and db2html, which have both proven quite useful.\n\
+- Took the liberty of modifying /usr/share/texmf/web2c/texmf.cnf with a few\n\
+  magic numbers.  This is needed to allow TeX to compile rather large source\n\
+  files.  Otherwise, it just dies."
+
+# maintainer
+BUILD=1
+MAINTAINER="David Cantrell <david@slackware.com>"
+SOURCE=http://www.sgmltools.org/
+
+# package name
+PKGNAME=sgmltools-$VERSION-sparc-$BUILD
+
+compile() {
+   rm -rf /opt/sgml
+
+   tar xvyf $CWD/sgmltools-2.0.2.tar.bz2
+   cd sgmltools-2.0.2
+   ./configure --prefix=/opt/sgml --with-etcsgml=/opt/sgml/etc
+   make
+}
+
+install() {
+   make install
+
+   ### since we're putting DocBook DTDs in versionized directories, we should
+   ### get rid of what the make install does
+   if [ -d /opt/sgml/share/sgml/dtd/docbook ]
+   then
+      rm -rf /opt/sgml/share/sgml/dtd/docbook
+   fi
+
+   ### install documentation...
+   mkdir -p /usr/doc/sgmltools-2.0.2
+   cp BUGS CHANGES CONTRIBUTORS README TODO /usr/doc/sgmltools-2.0.2
+
+   ### handle man pages and symlinks
+   gzip -9 /opt/sgml/man/man1/*
+   ( cd /opt/sgml/bin
+     ln -sf sgmltools sgml2html
+     ln -sf sgmltools sgml2info
+     ln -sf sgmltools sgml2latex
+     ln -sf sgmltools sgml2lyx
+     ln -sf sgmltools sgml2rtf
+     ln -sf sgmltools sgml2txt
+     ln -sf sgmltools sgmlcheck )
+   ( cd /opt/sgml/man/man1
+     ln -sf sgmltools.1.gz sgml2html.1.gz
+     ln -sf sgmltools.1.gz sgml2info.1.gz
+     ln -sf sgmltools.1.gz sgml2latex.1.gz
+     ln -sf sgmltools.1.gz sgml2lyx.1.gz
+     ln -sf sgmltools.1.gz sgml2rtf.1.gz
+     ln -sf sgmltools.1.gz sgml2txt.1.gz
+     ln -sf sgmltools.1.gz sgmlcheck.1.gz )
+
+   ### add in the DocBook 3.{0,1}, 4.0 DTDs, GDP DTDs, and a new catalog file
+   ( cd / ; tar xvzf $CWD/sgmltools.files.tar.gz )
+
+   ### handle symlinks to the DTDs
+   ( cd /opt/sgml/etc/catalog.d
+     rm 50docbook-dtd.cat
+     ln -sf /opt/sgml/share/sgml/dtd/docbook-4.0/docbook.cat 50docbook40-dtd.cat
+     ln -sf /opt/sgml/share/sgml/dtd/docbook-3.1/docbook.cat 50docbook31-dtd.cat
+     ln -sf /opt/sgml/share/sgml/dtd/docbook-3.0/docbook.cat 50docbook30-dtd.cat )
+}
+
+attributes() {
+   chmod 640 $PKG/usr/doc/sgmltools-2.0.2/CONTRIBUTORS
+   chmod 640 $PKG/usr/doc/sgmltools-2.0.2/README
+}
+
+special() {
+   rm -rf /install
+   rm -rf /usr/share/texmf/web2c/texmf.cnf-incoming
+   rm $PKG/usr/share/texmf/ls-R
+}

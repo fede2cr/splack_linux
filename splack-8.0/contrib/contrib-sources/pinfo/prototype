@@ -1,0 +1,30 @@
+VERSION=0.6.0
+BUILD=1
+ARCH=sparc
+
+PKGNAME=pinfo-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=pinfo
+DESC="\
+pinfo-$VERSION\n\
+\n\
+pinfo is a GNU info file viewer that works similar to Lynx."
+
+compile() {
+   tar xvzf $CWD/pinfo-$VERSION.tar.gz
+   cd pinfo-$VERSION
+   ./configure --prefix=/usr $ARCH-slackware-linux
+   make CFLAGS=-O2 LDFLAGS=-s
+}
+
+install() {
+   make CFLAGS=-O2 LDFLAGS=-s install
+   mkdir -p /usr/doc/pinfo-$VERSION
+   cp ABOUT-NLS AUTHORS COPYING INSTALL NEWS README TECHSTUFF TODO \
+      /usr/doc/pinfo-$VERSION
+}

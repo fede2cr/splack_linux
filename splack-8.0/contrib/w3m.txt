@@ -1,0 +1,26 @@
+        w3m: WWW wo Miru Tool  version beta-990323
+                (C) Copyright by Akinori ITO    March 23, 1999
+
+1. Introduction
+
+     w3m is a pager with WWW capability. It IS a pager, but it can be
+used as a text-mode WWW browser.
+
+     The features of w3m are as follows:
+
+* When reading HTML document, you can follow links and view images
+  (using external image viewer).
+* It has 'internet message mode', which determines the type of document
+  from header. If the Content-Type: field of the document is text/html,
+  that document is displayed as HTML document.
+* You can change URL description like 'http://hogege.net' in plain text
+  into link to that URL.
+
+Current problems are:
+
+* Resize behaviour is imcomplete.
+* It can't show images inline. (It seems to be impossible as far as using
+  xterm)
+* It doesn't decode MIME-body of the document.
+* Online manuals are poor.
+

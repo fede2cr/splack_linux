@@ -1,0 +1,235 @@
+### International Fonts Ver.1.2 ###
+
+0. Introduction
+
+This directory contains free X11 fonts (BDF format) for all characters
+that Emacs 20 can handle.  They are classified into several categories
+(e.g Asian, European), with one sub-directory for each category.
+
+This directory also contains the following files:
+  README	this file
+  NEWS		describe what is new in the latest version
+  ChangeLog	log of changes to intlfonts package
+  configure	configure script (made from configure.in below)
+  Makefile.in	template of Makefile for configure
+  configure.in	source for autoconf to make configure
+  rmoldfnt.sh	shell script to be used by the make script.
+		It deletes font files installed by the previous
+		version of intlfonts.
+  install-sh	BSD compatible install program
+  Emacs.ap	sample X resource setting to define fontsets for Emacs
+  TrueType	directory containing TrueType fonts
+  Type1		directory containing Type1 fonts
+
+
+1.  How to install fonts
+
+1.0  Suppose that you extracted font archives in $WORKDIR.  This
+directory should contain `configure' scritp as well as this README
+file and archive files.
+
+1.1  Run commands to install
+
+% cd $WORKDIR
+% ./configure
+% make install
+
+Note: You don't have to do `make' before `make install'.
+
+Then all fonts are installed to this directory:
+	/usr/local/share/emacs/fonts
+while being converted to PCF format.
+In addition, BDF font files are installed as is to this directory:
+	/usr/local/share/emacs/fonts/bdf
+
+If you want to install fonts in the different directory (say
+$INSTDIR), run `configure' as below:
+
+% ./configure --with-fontdir=$INSTDIR
+
+Then, PCF fonts are installed in $INSTDIR, and BDF fonts are installed
+in $INSTDIR/bdf.
+
+Here's a list of the other `configure' optioins:
+  --enable-compress[=ARG] whether to compress PCF fonts or not [ARG=gzip]
+  --with-pcf[=ARG]        install PCF fonts
+                          [ARG=yes] on Unix, [ARG=no] on DOS
+  --with-bdf[=ARG]        install BDF fonts [ARG=yes]
+  --with-type1[=ARG]      install Type1 fonts [ARG=no]
+  --with-truetype[=ARG]   install TrueType fonts [ARG=no]
+
+
+1.2  Inform your X server about the new fonts
+
+The step 1.1 converts fonts to a format that X server can read (PCF
+format) and put them in proper directory.  But, you still have to
+inform your X server about the new fonts.
+
+If $INSTDIR is already in your font path (please check it by the
+command `xset q'), you can tell X server to update font hash table by:
+	$ xset fp rehash
+
+If $INSTDIR is not yet in your font path, you can tell one X session
+to use the installed fonts with:
+	% xset +fp $INSTDIR
+On some systems, you may have to give absolute pathname to the command
+`xset'.
+
+To make the effect permanent for future X sessions, you probably have
+to edit certain files in your X installation, for instance, include
+the following line in your ~/.xinitrc or ~/.xsession.
+	xset +fp $INSTDIR
+
+1.3  X resource
+
+The file Emacs.ap contains X resource setting of fontsets for various
+size fonts (14, 16, 18, and 24 dots).  If you want to utilze this
+setting, install it appropriately.  There are many ways to set X
+resource.  For instance, one way for XFree86 users is to merge
+Emacs.ap into /usr/X11R6/lib/X11/app-defaults/Emacs.
+
+Once you set this X resource, Emacs uses fontset-16 by default.  You
+can specify the other fontsets by `-fn' command line argument as below:
+	% emacs -fn fontset-14
+You can change the fontset while running Emacs by, for instance:
+	Shift-Mouse-1 -> Fontset -> 14.
+
+2.  List of font sub-directories
+
+2.1  Classification
+
+2.1.2  X's font (BDF format)
+
+X's Fonts are classified by the following regions:
+	European, Asian, Chinese, Japanese, Korean, Ethiopic, Misc
+This directory contains the following kinds of sub-directories.
+
+o REGION (ex: European, Asian)
+
+The fonts in these sub-directories are the fonts of normal size (less
+than or equal to 24dots) not included in the standard distribution of
+X window system.  You surely need all of them to correctly display all
+characters supported by Emacs 20.
+
+o REGION.X (ex: Chinese.X, Japanese.X)
+
+The fonts in these sub-directories are fonts of normal size included
+in the standard distribution of X window system.  You may not need
+them if you have already installed X's fonts.
+
+o REGION.BIG (ex: Chinese.BIG, Japanese.BIG)
+
+The fonts in these sub-directories are fonts of big size (greater than
+24dots).  None of them are included in the standard distribution of X
+window system.  You need them only when you surely want to see big
+characters.  But, they do not cover all character sets.
+
+2.1.3  Vector fonts  (TrueType and Type1)
+
+We greatly appreciate the contribution of Yannis Haralambous and
+Tereza Tranaka <yannis@fluxus-virus.com>.  They made free TrueType and
+Type1 fonts for Latin-X series, Thai, and Vietnamese.  They will
+eventually make fonts for more character sets.
+
+If you want to install them, run `configure' script with the arguments
+`--with-type1' and/or `--with-truetyep'.
+
+2.2  Contents of each directory
+
+European -- European normal size fonts (suitable with the other fonts)
+	lt1-{1[468],24}-etl.bdf	ISO8859-1 (Latin-1)
+	lt1-16{b,i,bi}-etl.bdf	ISO8859-1 bold, italic, bold-italic
+	lt1-18{b,i,bi}-etl.bdf	ISO8859-1 bold, italic, bold-italic
+	lt1-24{b,i,bi}-etl.bdf	ISO8859-1 bold, italic, bold-italic
+	lt2-{14,16,24}-etl.bdf	ISO8859-2 (Latin-2)
+	lt3-{14,16,24}-etl.bdf	ISO8859-3 (Latin-3)
+	lt4-{14,16,24}-etl.bdf	ISO8859-4 (Latin-4)
+	cyl{14,16,24}-etl.bdf	ISO8859-5 (Cyrillic)
+	grk{14,16,24}-etl.bdf	ISO8859-7 (Greek)
+	lt5-{14,16,24}-etl.bdf	ISO8859-9 (Latin-5)
+	koi{14,16,24}-etl.bdf	KOI8 (Cyrillic)
+
+European.BIG -- European big fonts
+	lt1-40-etl.bdf		   ISO8859-1 (Latin-1)
+
+Asian -- Asian (non-CJK) fonts
+	ind1c{16,24}-mule.bdf	Indian script single column width
+	ind{16,24}-mule.bdf	Indian script double column width
+	ind{16,24}-uni.bdf	Indian script of Unicode encoding.
+	isci{16,24}-mule.bdf	Indian script
+	lao{1[468],24}-mule.bdf	Lao
+	lao18{b,i}-mule.bdf	Bold, italic of lao18-mul.bdf
+	tib1c{16,24}-mule.bdf	Tibetan single column width
+	tib{16,24}-mule.bdf	Tibetan double column width
+	thai{14,18,16,24}.bdf	Thai (TIS620)
+	thai18{b,i,bi}.bdf	Bold, italic, bold-italic of thai18.bdf
+	xtis{18,24}.bdf		Thai XTIS encoding (not used by Emacs)
+	visc{16,18,24}-etl.bdf	Vietnamese (VISCII)
+	visc18{b,i,bi}-etl.bdf	Bold, italic, bold-italic of visc18-etl.bdf
+
+Chinese  -- Chinese normal size fonts excluding what distributed with X
+	guob16.bdf		16 dots GB2312 + GB8565-88
+	cns[1234567]-16.bdf	16 dots CNS Plane 1..7
+	cns[1234567]-24.bdf	24 dots CNS Plane 1..7
+	taipei{16,24}.bdf	16 and 24 dots BIG5 (ETen)
+	sish{14,16,24}-etl.bdf	14, 16, 24 dots SiSheng
+
+Chinese.BIG -- Chinese big fonts
+	cc{40,48}s.bdf		40 and 48 dots GB2312
+	cns[1234567]-40.bdf	40 dots CNS Plane 1..7
+
+Chinese.X -- Chinese fonts distributed with X
+	gb16{fs,st}.bdf		16 dots GB2312 (gb16fs.bdf & gb16st.bdf)
+	gb24st.bdf		24 dots GB2312 (gb24st.bdf)
+
+Japanese -- Japanese normal size fonts excluding what distributed with X
+	j90-16.bdf		16 dots JISX0208.1990
+	j78-16.bdf		16 dots JISX0208.1978
+	jksp16.bdf		16 dots JISX0212.1990 (HojoKanji)
+	j83-18.bdf		18 dots JISX0208.1983
+	j83-18{b,i,bi}.bdf	Bold, italic, bold-italic of j83-18.bdf
+	a18rk.bdf		9x18 dots JISX0201 (Roman & Kana)
+	a18rk{b,i,bi}.bdf	Bold, italic, bold-italic of a18rk.bdf
+
+Japanese.BIG -- Japanese big fonts
+	j83-32.bdf		32 dots JISX0208.1983
+	j83-48.bdf		48 dots JISX0208.1983
+	jksp40.bdf		40 dots JISX0212.1990 (HojoKanji)
+
+Japanese.X -- Japanese fonts distributed with X
+	k14.bdf			14 dots JISX0208.1983
+	jiskan{16,24}.bdf	16 and 24 dots JISX0208.1983
+	8x16rk.bdf		8x16 dots JISX0201 (Roman & Kana)
+	12x24rk.bdf		12x24 dots JISX0201 (Roman & Kana)
+
+Korean.X -- Korean fonts distributed with X
+	hangl[mg]16.bdf		16 dots KSC5601.1987
+	hanglm24.bdf		24 dots KSC5601.1987
+
+Ethiopic -- Ethiopic fonts
+	ethio16f-uni.bdf	16 dots Ethiopic (Unicode)
+	ethio24f-uni.bdf	24 dots Ethiopic (Unicode)
+
+Misc -- fonts for the other regions/scripts
+	ipa{14,16,24}-etl.bdf	International Phonetic Alphabet
+	heb{14,16,24}-etl.bdf	ISO8859-8 (Hebrew)
+	arab{16,24}-0-etl.bdf	Arabic digits
+	arab{16,24}-1-etl.bdf	Arabic single column
+	arab{16,24}-2-etl.bdf	Arabic double column
+	bmp16-etl.bdf		bitmap element glyphs used by bitmap.el
+
+TrueType -- Truetype fonts
+	lt[12345]-{r,b,i,bi}-omega-serif.ttf
+		Latin-X fonts  roman, bold, italic, and bold-italic
+	viscii-omega-serif.ttf
+		Vietnamese (VISCII roman)
+
+Type1 -- Postscript Type1 fonts
+	lt[12345]-{r,b,i,bi}-omega-serif.{pfa,pfb,afm}
+		Latin-X fonts  roman, bold, italic, and bold-italic
+	tis620-r-omega-serif.{pfa,pfb,afm}
+		Thai (TIS620)
+	nf{3,3i}.{pfa,pfb,afm}
+		Thai National Font (TIS620 roman and italic)
+	viscii-r-omega-serif.{pfa,pfb,afm}
+		Vietnamese (VISCII roman)

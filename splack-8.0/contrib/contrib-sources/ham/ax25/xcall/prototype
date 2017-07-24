@@ -1,0 +1,51 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/home 
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.02
+PROGNAME=xcall
+DESC="Packet radio program for X/GTK\n\
+Xcall is a simple packet radio program, which does not do\n\
+much at the moment,  except send what you type and show what\n\
+you receive.\n\
+Author:  Joop Stakenborg <pa3aba@debian.org>\n\
+\n\
+Requires gtkglib.tgz to be installed."
+
+# maintainer
+ARCH=sparc
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="http://incoming.debian.org/"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar zxvf $CWD/${PROGNAME}_$VERSION.tar.gz
+   patch -p0 < $CWD/xcall-0.2-fixed.diff
+   cd $PROGNAME
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   cd $TMP/$PROGNAME
+   make install
+   /usr/bin/install -g root -o root -m 0755 -d /opt/kde/share/applnk/Applications/HamRadio
+   /usr/bin/install -g root -o root -m 0644 $CWD/xcall.kdelnk /opt/kde/share/applnk/Applications/HamRadio/xcall.kdelnk
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cd $TMP/$PROGNAME
+   cp AUTHORS ChangeLog INSTALL NEWS README /usr/doc/$PROGNAME-$VERSION
+}
+
+special() {
+   echo "nothing special..."
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}
+      

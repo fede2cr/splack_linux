@@ -1,0 +1,53 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/ax25/mheard:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/opt:/home
+
+STRIPLIB=y
+STRIPBIN=y
+SETATTR=y
+
+VERSION=7.03e
+PROGNAME=xfbb
+DESC="xfbb-$VERSION \n\
+ \n\
+FBB is a bulletin board software package for amateur packet-radio. \n\
+FBB is developed by Jean-Paul Roubelat, F6FBB."
+
+ARCH=sparc
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="ftp://ftp.f6fbb.org/pub/f6fbb/distrib/linux/src/"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   cd $TMP
+   tar zxvf $CWD/xd703e-src.tgz
+   zcat $CWD/xd703e.diff.gz | patch -p0 --verbose
+   cd fbbsrc.703e/src
+   tar zxvf $CWD/multi2k.tgz multi.c
+   make
+   cd X11
+   make 
+}
+
+install() {
+   cd $TMP/fbbsrc.703e/src
+   make install
+   cp multi /usr/lib/fbb/server
+   cd $TMP/fbbsrc.703e/src/X11
+   cp xfbb /usr/sbin
+   cp xfbbX /usr/sbin
+   cp xfbbX_cl /usr/sbin
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cd $TMP/fbbsrc.703e
+   cp CHANGES FBBTREE README conf/fbb.conf* /usr/doc/$PROGNAME-$VERSION
+   cp $CWD/xfbb.txt /usr/doc/$PROGNAME-$VERSION
+   ln -sf /usr/doc/$PROGNAME-$VERSION/fbb.conf.sample /etc/ax25/
+   tar -C /etc/ax25/fbb -zxvf $CWD/languages.tar.gz
+   cd /usr/doc/$PROGNAME-$VERSION ; tar -zxvf $CWD/multi2k.tgz readme ; mv readme README.multi
+}
+
+attributes() {
+   chmod 600 $PKG//etc/ax25/fbb/*.sys
+}

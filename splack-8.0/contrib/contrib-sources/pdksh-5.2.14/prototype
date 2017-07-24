@@ -1,0 +1,55 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/a
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=5.2.14
+PROGNAME=pdksh
+DESC="\
+pdksh-5.2.14\n\
+\n\
+A freely distributable Korn shell clone."
+
+# maintainer
+BUILD=1
+MAINTAINER="David Cantrell <david@slackware.com>"
+SOURCE=http://www.cs.mun.ca/~michael/pdksh/
+
+# package name
+PKGNAME=pdksh-$VERSION-sparc-$BUILD
+
+compile() {
+   tar xvzf $CWD/pdksh-5.2.14.tar.gz
+   cd pdksh-5.2.14
+   ./configure --prefix=/usr sparc-slackware-linux
+   make CFLAGS=-O2 LDFLAGS=-s
+}
+
+install() {
+   make CFLAGS=-O2 LDFLAGS=-s install
+   mkdir -p /usr/doc/pdksh-5.2.14
+   cp -r BUG-REPORTS CONTRIBUTORS IAFA-PACKAGE INSTALL LEGAL NEWS NOTES \
+      PROJECTS README tests /usr/doc/pdksh-5.2.14
+   mv /usr/bin/ksh /bin/pdksh
+   ( cd /bin
+     rm -rf ksh ; ln -sf pdksh ksh )
+   ( cd /usr/man/man1
+     rm -rf pdksh.1.gz ; ln -sf ksh.1.gz pdksh.1.gz )
+}
+
+attributes() {
+   chmod 755 $PKG/usr/doc/pdksh-5.2.14/tests/th
+   chmod 755 $PKG/usr/doc/pdksh-5.2.14/tests/th-sh
+}
+
+special() {
+   rm -rf $PKG/usr/bin
+
+   mkdir -p $PKG/etc
+   cp -a $TMP/pdksh-5.2.14/etc/ksh.kshrc $PKG/etc/ksh.kshrc
+   chown root.root $PKG/etc/ksh.kshrc
+   chmod 644 $PKG/etc/ksh.kshrc
+
+   mkdir -p $CTL
+   cat $CWD/doinst.sh > $CTL/doinst.sh
+}

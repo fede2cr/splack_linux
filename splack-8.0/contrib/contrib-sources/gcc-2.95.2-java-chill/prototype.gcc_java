@@ -1,0 +1,40 @@
+TAG=OPT
+
+SUBPKGNAME=gcc_java-$VERSION-$ARCH-$BUILD
+
+PROGNAME="GCC Java Compiler"
+DESC="\
+GCC Java Compiler\n\
+\n\
+This package contains the GNU Java compiler from the gcc release.\n\
+To use this compiler, you'll also need to install the gcc C/C++\n\
+compiler package, binutils, gmake, glibc, and\n\
+lxinclude.\n\
+\n\
+Additional components such as libgcj may also be required."
+
+subinstall() {
+   echo "Nothing to install for gcc_java."
+}
+
+subspecial() {
+   # create the tree
+   cd $SUBPKG
+   mkdir -p usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+   mkdir -p usr/bin
+
+   # populate the tree
+   ( cd $TMP/gcc-master
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/jc1 \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/jvgenmain \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/jvgenmain
+
+     cp -a usr/bin/gcj $SUBPKG/usr/bin
+     cp -a usr/bin/gcjh $SUBPKG/usr/bin
+     cp -a usr/bin/jcf-dump $SUBPKG/usr/bin
+     cp -a usr/bin/jv-scan $SUBPKG/usr/bin )
+
+   # permissions
+   chown -R root.bin $SUBPKG/usr/bin
+}

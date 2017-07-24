@@ -1,0 +1,50 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var/log:/var/spool/cron:/A:/C:/D:/boot:/cdrom:/home 
+
+STRIPLIB=y
+STRIPBIN=y
+SETATTR=n
+
+# pkginfo
+VERSION=2.32
+PROGNAME="One-time Passwords In Everything"
+DESC="\
+One-time Passwords In Everything, Release 2.32\n\
+\n\
+OPIE is a freely distributable software package originally developed\n\
+at and for the US Naval Research Laboratory (NRL).\n\
+OPIE provides a one-time password system. The system should be\n\
+secure against the passive attacks now commonplace on the Internet\n\
+(see RFC 1704 for more details).\n\
+This Slackware binary package only contains the OPIE client software."
+
+# maintainer
+ARCH=sparc
+BUILD=3
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.pi8zaa.ampr.org>"
+SOURCE="ftp://ftp.nrl.navy.mil/pub/security/opie"
+LOCATION="http://sharon.pi8zaa.ampr.org/pub/linux/slackware-current/contrib/ham/ax25/"
+
+# package name
+PKGNAME=opie-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar xvzf $CWD/opie-2.32.tar.gz
+   cd opie-2.32
+   FTPD=/usr/sbin/proftpd ; export FTPD ; ./configure --prefix=/usr --enable-insecure-override --enable-anonymous-ftp
+   make client
+   make server
+}
+
+install() {
+   make client-install
+   mkdir -p /usr/doc/opie-$VERSION
+   cp BUG-REPORT COPYRIGHT.NRL INSTALL License.TIN README /usr/doc/opie-$VERSION
+}
+    
+special() {
+   echo "nothing special..."
+}
+
+subpacks() {
+   repack server
+}

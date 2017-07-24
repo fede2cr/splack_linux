@@ -1,0 +1,67 @@
+Open Motif Patches
+Last Update
+16 July 2000
+
+
+
+Acknowledgements
+
+Many thanks to the folks at the MotifZone (ICS)
+(http://www.motifzone.net) for validating and supplying patch1 and patch2 
+and for Takaaki Nomura and Kevin Holbrook for finding and reporting the first
+bugs in the distribution.
+
+Many thanks for Metro Link Inc., especially Jim Burmeister, for
+contributing a substantial number of fixes and enhancements supplied in
+patch3, patch4 and patch5.
+
+Patch Contents
+
+Patch 1 contains a fix to mwm for a divide by zero problem
+in the icon box.
+
+Patch 2 contains other various changes to support the build on additional
+platforms.
+
+Patch 3 contains the Metro Link changes to the Motif libraries, clients, and 
+related files; basically everything except the demo source code.
+
+Patch 4 contains the Metro Link changes to the demo source code.
+
+Patch 5 contains Metro Link updates to all of the stuff under the
+"config" directory, including the Imake configuration files, imake, and
+makedepend.  The patch brings the configuration up to date with recent
+versions of XFree86, allowing Open Motif to build cleanly on most
+current platforms.  This patch is optional, since you don't need to
+update the stuff under "config" if you use ICS's build method of
+linking in the configuration files installed on your system.  Some folks
+prefer having them part of the Motif build tree, so the patch was created
+in case others prefer it too.
+
+See the individual  README files for detailed descriptions of patches 3 to 5.
+
+
+POSIX cksums:
+
+1506066453	630	patch1
+1431200722	8258	patch2
+2752142418	195096	patch3
+2746021797	126297	patch4
+1992253295	480141	patch5
+
+
+To apply the patches:
+
+cd to the top of the source tree (to the directory containing the "motif"
+subdirectory) and do:
+
+        patch -p -s < patchfile
+
+Patch will work silently unless an error occurs.
+If you want to watch patch do its thing, leave out the "-s" argument
+to patch.
+
+Finally, to rebuild after applying a patch, cd to the "motif" subdirectory
+and follow the instructions in the RELNOTES
+
+

@@ -1,0 +1,281 @@
+diff -rc motif.orig/Imakefile motif/Imakefile
+*** motif.orig/Imakefile	Thu May  4 08:30:42 2000
+--- motif/Imakefile	Tue May 23 09:30:03 2000
+***************
+*** 67,72 ****
+--- 67,73 ----
+  
+  includes::
+  	MakeDir($(BUILDINCDIR))
++ 	MakeDir($(BUILDLIBDIR))
+  	MakeDir($(BUILDDOCDIR))
+  	MakeDir($(BUILDLOCDIR))
+  
+diff -rc motif.orig/bindings/Imakefile motif/bindings/Imakefile
+*** motif.orig/bindings/Imakefile	Wed May  3 05:12:34 2000
+--- motif/bindings/Imakefile	Mon May 22 12:55:46 2000
+***************
+*** 63,70 ****
+  	siemens_9733 \
+  	siemens_wx200 \
+  	sony \
+! 	sun_mit \
+! 	sun_news \
+  	tek
+  
+  
+--- 63,70 ----
+  	siemens_9733 \
+  	siemens_wx200 \
+  	sony \
+! 	sun \
+! 	sun_at \
+  	tek
+  
+  
+diff -rc motif.orig/config/cf/Imakefile motif/config/cf/Imakefile
+*** motif.orig/config/cf/Imakefile	Fri Apr 28 11:03:58 2000
+--- motif/config/cf/Imakefile	Mon May 22 12:55:46 2000
+***************
+*** 102,105 ****
+  
+  all::
+  
+! InstallMultipleDestFlags(install,$(INSTFILES),$(CONFIGDIR),$(INSTDATFLAGS))
+--- 102,105 ----
+  
+  all::
+  
+! InstallMultipleDestFlags(install,/**/,/**/,/**/)
+diff -rc motif.orig/config/cf/Motif.tmpl motif/config/cf/Motif.tmpl
+*** motif.orig/config/cf/Motif.tmpl	Tue May  2 11:53:43 2000
+--- motif/config/cf/Motif.tmpl	Mon May 22 12:55:46 2000
+***************
+*** 458,464 ****
+    AUTOCREATESRC = $(AUTOSRCLIB)/Create
+    AUTOVISUALSRC = $(AUTOSRCLIB)/Visual
+      AUTOUTILSRC = $(AUTOSRCLIB)/Util
+!   AUTOEXTRALIBS = -ll -ly -lm
+  #else
+       TESTCOMSRC = $(MANUALSRCLIB)/Common
+  #endif
+--- 458,464 ----
+    AUTOCREATESRC = $(AUTOSRCLIB)/Create
+    AUTOVISUALSRC = $(AUTOSRCLIB)/Visual
+      AUTOUTILSRC = $(AUTOSRCLIB)/Util
+!   AUTOEXTRALIBS = $(LEXLIB) -lm
+  #else
+       TESTCOMSRC = $(MANUALSRCLIB)/Common
+  #endif
+diff -rc motif.orig/config/cf/host.def motif/config/cf/host.def
+*** motif.orig/config/cf/host.def	Fri Apr 28 11:04:00 2000
+--- motif/config/cf/host.def	Mon May 22 15:54:41 2000
+***************
+*** 0 ****
+--- 1,12 ----
++ #define TopLevelProject         Motif
++ #define ProjectRoot             /usr/X11R6
++ #define X11ProjectRoot          /usr/X11R6
++ #define VirtualBindingsPath     /usr/X11R6/lib/X11/bindings
++ #define ImportX11               YES
++ #define USE_BYACC               YES
++ #define NoMessageCatalog        YES
++ #define ForceNormalLib          YES
++ #define DebugLibXm              YES
++ #define DebugLibMrm             YES
++ #define DebugLibUil             YES
++ #define LexLib                  -lfl
+diff -rc motif.orig/demos/programs/Imakefile motif/demos/programs/Imakefile
+*** motif.orig/demos/programs/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/programs/Imakefile	Mon May 22 12:55:46 2000
+***************
+*** 40,48 ****
+  #define IHaveSubdirs
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
+  SUBDIRS = Exm airport animate drag_and_drop draw earth filemanager fileview \
+  	getsubres hellomotif hellomotifi18n i18ninput panner periodic \
+! 	piano popups sampler2_0 setdate todo workspace
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+--- 40,53 ----
+  #define IHaveSubdirs
+  #define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+  
++ #if defined(FreeBSDArchitecture)
++ SETDATE =
++ #else
++ SETDATE = setdate
++ #endif
+  SUBDIRS = Exm airport animate drag_and_drop draw earth filemanager fileview \
+  	getsubres hellomotif hellomotifi18n i18ninput panner periodic \
+! 	piano popups sampler2_0 $(SETDATE) todo workspace
+  
+  MakeSubdirs($(SUBDIRS))
+  DependSubdirs($(SUBDIRS))
+diff -rc motif.orig/demos/programs/animate/Imakefile motif/demos/programs/animate/Imakefile
+*** motif.orig/demos/programs/animate/Imakefile	Wed May  3 05:12:36 2000
+--- motif/demos/programs/animate/Imakefile	Mon May 22 12:55:46 2000
+***************
+*** 45,56 ****
+  EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+! SRCS = animate.c
+! OBJS = animate.o
+  
+  NormalLibraryObjectRule()
+  
+! MSimpleUilTarget(animate)
+  MSimpleUidTarget(dog)
+  MSimpleUidTarget(plane)
+  MSimpleUidTarget(superman)
+--- 45,56 ----
+  EXTRA_LIBRARIES = -lm 
+   EXTRA_INCLUDES = -I$(DEMOLIBDIR)
+  
+! SRCS = xmanimate.c
+! OBJS = xmanimate.o
+  
+  NormalLibraryObjectRule()
+  
+! MSimpleUilTarget(xmanimate)
+  MSimpleUidTarget(dog)
+  MSimpleUidTarget(plane)
+  MSimpleUidTarget(superman)
+diff -rc motif.orig/lib/Xm/Scale.c motif/lib/Xm/Scale.c
+*** motif.orig/lib/Xm/Scale.c	Wed May  3 05:12:42 2000
+--- motif/lib/Xm/Scale.c	Mon May 22 12:55:47 2000
+***************
+*** 47,56 ****
+  #include <stdio.h>
+  #include <limits.h>
+  #ifndef CSRG_BASED
+! # ifdef linux
+  #  define RADIXCHAR MON_DECIMAL_POINT
+  # endif
+- # include <langinfo.h>
+  # ifdef X_LOCALE
+  #  ifdef linux
+     /* avoid conflicting with <X11/Xlocale.h> defines */
+--- 47,69 ----
+  #include <stdio.h>
+  #include <limits.h>
+  #ifndef CSRG_BASED
+! /*
+!  * Modification by Integrated Computer Solutions, Inc.  May 2000
+!  *
+!  * Original:
+!  *
+!  * # ifdef linux
+!  * #  define RADIXCHAR MON_DECIMAL_POINT
+!  * # endif
+!  * # include <langinfo.h>
+!  *
+!  * glibc >= 2.0 defines RADIXCHAR in langinfo.h, simply make sure 
+!  * that it is not redefined here.
+!  */
+! # include <langinfo.h>
+! # if defined(linux) && !defined(RADIXCHAR)
+  #  define RADIXCHAR MON_DECIMAL_POINT
+  # endif
+  # ifdef X_LOCALE
+  #  ifdef linux
+     /* avoid conflicting with <X11/Xlocale.h> defines */
+diff -rc motif.orig/lib/Xm/TextF.c motif/lib/Xm/TextF.c
+*** motif.orig/lib/Xm/TextF.c	Wed May  3 05:12:42 2000
+--- motif/lib/Xm/TextF.c	Mon May 22 12:55:48 2000
+***************
+*** 83,88 ****
+--- 83,145 ----
+  #include "XmStringI.h"
+  #include <Xm/PrintSP.h>         /* for XmIsPrintShell */
+  
++ 
++ #if defined(__FreeBSD__)
++ /*
++  * Modification by Integrated Computer Solutions, Inc.  May 2000
++  *
++  * FreeBSD does not include the necessary wide character string
++  * functions.  Use the internal _Xwc... routines and add the
++  * other missing functions as _Xmwc... routines.  The new functions
++  * are added static to this file.
++  */
++ #define wcslen(c) _Xwcslen(c)
++ #define wcscpy(d,s) _Xwcscpy(d,s)
++ #define wcsncpy(d,s,l) _Xwcsncpy(d,s,l)
++ 
++ static wchar_t* _Xmwcschr(const wchar_t *ws, wchar_t wc)
++ {
++         for (;; ++ws) {
++                 if (*ws == wc)
++                         return((wchar_t *)ws);
++                 if (!*ws)
++                         return((wchar_t *)NULL);
++         }
++         /* NOTREACHED */
++ }
++ #define wcschr(w,c) _Xmwcschr(w,c)
++ 
++ static wchar_t* _Xmwcscat(wchar_t *ws1, const wchar_t *ws2)
++ {
++         wchar_t *save = ws1;
++ 
++         for (; *ws1; ++ws1);
++         while (*ws1++ = *ws2++);
++         return save;
++ }
++ #define wcscat(w1,w2) _Xmwcscat(w1,w2)
++ 
++ static wchar_t* _Xmwcsncat(wchar_t *ws1, const wchar_t *ws2, size_t n)
++ {
++         if (n != 0) {
++                 register wchar_t *d = ws1;
++                 register const wchar_t *s = ws2;
++ 
++                 while (*d != 0)
++                         d++;
++                 do {
++                         if ((*d = *s++) == 0)
++                                 break;
++                         d++;
++                 } while (--n != 0);
++                 *d = 0;
++         }
++         return ws1;
++ }
++ #define wcsncat(w1,w2,l) _Xmwcsncat(w1,w2,l)
++ 
++ #endif /* __FreeBSD__ */
++ 
+  #define MSG1		_XmMMsgTextF_0000
+  #define MSG2		_XmMMsgTextF_0001
+  #define MSG3		_XmMMsgTextF_0002
+diff -rc motif.orig/tests/mwm/PI/Imakefile motif/tests/mwm/PI/Imakefile
+*** motif.orig/tests/mwm/PI/Imakefile	Wed May  3 05:13:00 2000
+--- motif/tests/mwm/PI/Imakefile	Tue May 23 09:31:53 2000
+***************
+*** 45,54 ****
+  DEPS = PICommon.o
+  
+  SRCS = PIColormap.c PICommon.c PIConfig.c PIHints.c PIIconSt.c \
+!        PIMwmHints.c PIMwmInfo.c PINames.c PIProto.c PISizeHints.c PIConfig2.c PICCI.c PIVMwm.c
+  
+  PROGRAMS = PIMwmHints PIColormap PIHints PIMwmInfo PIIconSt PIProto PINames \
+! 		   PISizeHints PIConfig PIConfig2 PICCI PIVMwm
+  
+  NormalLibraryObjectRule()
+  
+--- 45,55 ----
+  DEPS = PICommon.o
+  
+  SRCS = PIColormap.c PICommon.c PIConfig.c PIHints.c PIIconSt.c \
+!        PIMwmHints.c PIMwmInfo.c PINames.c PIProto.c PISizeHints.c \
+!        PIConfig2.c PICCI.c
+  
+  PROGRAMS = PIMwmHints PIColormap PIHints PIMwmInfo PIIconSt PIProto PINames \
+! 		   PISizeHints PIConfig PIConfig2 PICCI
+  
+  NormalLibraryObjectRule()
+  

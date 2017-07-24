@@ -1,0 +1,51 @@
+TAG=OPT
+
+SUBPKGNAME=gccchill-$VERSION-$ARCH-$BUILD
+
+PROGNAME="GCC Chill Compiler"
+DESC="\
+GCC Chill compiler from the gcc-$VERSION release.\n\
+\n\
+This package contains the GNU Chill compiler from the gcc release.\n\
+Chill is the \"CCITT High-Level Language\", a language in the Modula2\n\
+family, targeting many of the same applications as Ada (especially\n\
+large embedded systems).  To use this compiler, you'll also need to\n\
+install the gcc C/C++ compiler package, binutils, gmake, glibc, and\n\
+lxinclude."
+
+subinstall() {
+   echo "Nothing to install for gccchill."
+}
+
+subspecial() {
+   # create the tree
+   cd $SUBPKG
+   mkdir -p usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+   mkdir -p usr/bin
+   mkdir -p usr/doc/gcc-$VERSION/gcc/ch
+   mkdir -p usr/info
+
+   # populate the tree
+   ( cd $TMP/gcc-master
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/libchill.a \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/cc1chill \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+     cp -a usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION/chillrt0.o \
+        $SUBPKG/usr/lib/gcc-lib/$ARCH-slackware-linux/$VERSION
+
+     cp -a usr/bin/chill-gcc-$VERSION $SUBPKG/usr/bin
+
+     cp -a usr/doc/gcc-$VERSION/gcc/ch/* $SUBPKG/usr/doc/gcc-$VERSION/gcc/ch
+
+     cp -a usr/info/chill* $SUBPKG/usr/info )
+
+   # permissions
+   chown -R root.bin $SUBPKG/usr/bin
+
+   # the doinst.sh script
+   cat << EOF > $SUBCTL/doinst.sh
+( cd usr/bin ; rm -rf chill )
+( cd usr/bin ; ln -sf chill-gcc-2.95.3 chill )
+EOF
+}

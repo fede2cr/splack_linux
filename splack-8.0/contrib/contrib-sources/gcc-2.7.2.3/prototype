@@ -1,0 +1,52 @@
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=2.7.2.3
+PROGNAME="gcc-2.7.2.3"
+DESC="\
+gcc-2.7.2.3\n\
+\n\
+This is gcc 2.7.2.3, with support for C only.  This is useful for\n\
+building 2.0.x kernels and some system software."
+
+# maintainer
+BUILD=1
+MAINTAINER="David Cantrell <david@slackware.com>"
+SOURCE=ftp://ftp.gnu.org/pub/gnu/gcc/
+
+# package name
+PKGNAME=gcc-$VERSION-sparc-$BUILD
+
+compile() {
+   tar xvzf $CWD/gcc-2.7.2.3.tar.gz
+   ( cd gcc-2.7.2.3
+     zcat $CWD/gcc272_2.7.2.3-16.diff.gz | patch -p1 --verbose )
+   mkdir gcc-build
+   cd gcc-build
+   ../gcc-2.7.2.3/configure --prefix=/usr \
+                            --local-prefix=/usr/local \
+                            --gxx-include-dir=/usr/include/g++ \
+                            sparc-slackware-linux
+   make CC=gcc CFLAGS=-O2 LDFLAGS=-s LANGUAGES="c"
+}
+
+install() {
+   make CC=gcc CFLAGS=-O2 LDFLAGS=-s LANGUAGES="c" install
+   cd $TMP/gcc-2.7.2.3
+   mkdir -p /usr/doc/gcc-2.7.2.3
+   cp BUGS COPYING* NEWS ORDERS PROBLEMS PROJECTS README* SERVICE \
+      TAGS TESTS.FLUNK /usr/doc/gcc-2.7.2.3
+
+   # symlinks
+   ( cd /usr/bin
+     mv gcc gcc-2.7.2.3
+     rm -rf gcc ; ln -sf gcc-2.7.2.3 gcc
+     rm -rf sparc-slackware-linux-gcc ; ln -sf gcc-2.7.2.3 sparc-slackware-linux-gcc )
+}
+
+special() {
+   rm -rf $PKG/usr/info
+   rm -rf $PKG/usr/man
+}

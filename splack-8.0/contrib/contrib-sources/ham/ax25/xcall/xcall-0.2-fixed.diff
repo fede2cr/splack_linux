@@ -1,0 +1,12 @@
+diff -u --new-file --recursive xcall.orig/po/Makefile.in xcall/po/Makefile.in
+--- xcall.orig/po/Makefile.in	Fri Mar 30 16:56:20 2001
++++ xcall/po/Makefile.in	Sun Apr  1 21:47:38 2001
+@@ -16,7 +16,7 @@
+ srcdir = .
+ top_srcdir = ..
+ 
+-prefix = /usr/local
++prefix = @prefix@
+ exec_prefix = ${prefix}
+ datadir = $(prefix)/share
+ localedir = $(datadir)/locale

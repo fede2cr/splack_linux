@@ -1,0 +1,96 @@
+VERSION=2.1.30
+BUILD=2
+ARCH=sparc
+
+PKGNAME=openmotif-$VERSION-$ARCH-$BUILD
+MAINTAINER="David Cantrell <david@slackware.com>"
+
+IGNOREPATH=/tmp:/proc:/dev:/root:/var:/a
+STRIPLIB=y
+STRIPBIN=y
+
+PROGNAME=OpenMotif
+DESC="\
+OpenMotif $VERSION\n\
+\n\
+The OpenMotif $VERSION toolkit and motif clients, such as the Motif\n\
+Window Manager.\n\
+\n\
+OpenMotif is only free on free operating systems such as Linux,\n\
+BSD, and GNU HURD.  Please see the LICENSE in this directory."
+
+compile() {
+   # remove old docs
+   rm -rf /usr/doc/openmotif$VERSION
+
+   # extract and patch the source
+   tar xvzf $CWD/openmotif$VERSION.tar.gz
+   ( cd motif
+     cat $CWD/fixes/patch1 | patch -p1
+     cat $CWD/fixes/patch2 | patch -p1
+     cat $CWD/fixes/patch3 | patch -p1
+     cat $CWD/fixes/patch4 | patch -p1
+     zcat $CWD/openmotif$VERSION.diff.gz | patch -p1 --verbose
+     zcat $CWD/docs-readme.diff.gz | patch -p1 --verbose
+     zcat $CWD/openmotif$VERSION.sparc.diff.gz | patch -p2 --verbose )
+   cp -a motif motif.orig
+   cd motif
+
+   # Now, get rid of the demo programs so they don't clutter /usr/X11R6/bin.
+   # If users want to try out the demo programs, the source will be in
+   # /usr/doc/openmotif...
+   rm -r demos
+   mkdir demos
+   touch demos/Imakefile
+   cd ..
+   mkdir motif-build
+   lndir $TMP/motif $TMP/motif-build
+   cd motif-build
+   mkdir -p imports/x11
+   ( cd imports/x11
+     ln -sf /usr/X11R6/bin .
+     ln -sf /usr/X11R6/include .
+     ln -sf /usr/X11R6/lib . )
+   make World
+}
+
+install() {
+   make install
+   make install.ln
+   make install.man
+   mkdir -p /usr/doc/openmotif$VERSION
+   cp --verbose $CWD/LICENSE BUGREPORT CLOSEDBUGS COPYRIGHT.MOTIF OPENBUGS \
+      README RELEASE RELNOTES /usr/doc/openmotif$VERSION
+   ( cd doc ; cp -r --verbose ps /usr/doc/openmotif$VERSION )
+   ( cd /usr/doc/openmotif$VERSION/ps
+     gzip -d --verbose *.Z */*.Z
+     gzip -9 --verbose *.ps */*.ps )
+
+   # move this to the right place
+   mv /var/X11/app-defaults/* /etc/X11/app-defaults
+   rm -rf /var/X11
+}
+
+attributes() {
+   chmod 444 $PKG/usr/X11R6/man/man1/*
+   chmod 444 $PKG/usr/X11R6/include/Mrm/*
+   chmod 444 $PKG/usr/X11R6/include/uil/*
+   chmod 444 $PKG/usr/X11R6/include/Xm/*
+}
+
+special() {
+   # no need for static libraries
+   ( cd $PKG/usr/X11R6/lib
+     for f in `/bin/ls -1 *.a`
+     do
+        rm -rf $f
+        rm -rf /usr/X11R6/lib/$f
+     done )
+
+   # we don't want this either
+   rm -rf $PKG/X11
+
+   cp -av $TMP/motif.orig/demos $PKG/usr/doc/openmotif$VERSION
+   chown -R root.root $PKG/usr/doc/openmotif$VERSION/demos
+   find $PKG/usr/doc/openmotif$VERSION/demos -type f -exec chmod 644 {} \;
+}
