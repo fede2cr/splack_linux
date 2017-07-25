@@ -1,0 +1,69 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-postfix-tls
+
+VERSION=2.1.1
+ARCH=i686
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf postfix-tls-$VERSION
+tar xzvf $CWD/postfix-$VERSION.tar.gz
+tar xzvf $CWD/pfixtls-0.8.18-2.1.0-0.9.7d.tar.gz
+cd postfix-$VERSION
+chown -R root.root .
+
+patch -p1 < $CWD/pfixtls-0.8.18-2.1.0-0.9.7d/pfixtls.diff
+# No PCRE at the time. I haven't made the l/pcre package in splack yet
+#make makefiles CARGS="-DUSE_SASL_AUTH -lsasl2 AUXLIBS=-lsasl -L/usr/lib -ldl -lcrypt -lpthread -lssl -lcrypto -DUSE_SSL -DDEF_CONFIG_DIR=/etc/postfix -DDEF_DAEMON_DIR=/usr/lib/postfix -DDEF_PROGRAM_DIR=/usr/lib/postfix -DDEF_MANPAGE_DIR=/usr/share/man -DDEF_README_DIR=/usr/share/doc/postfix/readme -DDEF_SAMPLE_DIR=/usr/share/doc/postfix/sample "
+# -DHAS_PCRE -lpcre
+#make makefiles CCARGS="-DUSE_SSL -I/usr/include/openssl/ -DUSE_SASL_AUTH -I/usr/include/sasl" \
+#  AUXLIBS="-L/usr/lib/ -lssl -lcrypto -L/usr/lib -R/usr/lib -lsasl2"
+
+   make makefiles CCARGS="-DUSE_SASL_AUTH -I/usr/include/sasl \
+   -DHAS_SSL -I/usr/include/openssl" AUXLIBS="-L/usr/lib \
+   -R/usr/lib -lsasl2 -lssl -lcrypto"
+
+make
+/bin/sh postfix-install \
+  -non-interactive \
+  install_root=$PKG \
+  daemon_directory="/usr/lib/postfix" \
+  program_directory="/usr/lib/postfix" \
+  config_directory="/etc/postfix" \
+  readme_directory="/usr/share/doc/postfix/readme" \
+  sample_directory="/usr/share/doc/postfix/sample" \
+  manpage_directory="/usr/share/man" \
+  mail_owner="postfix" \
+  mail_spool_directory=/var/spool/mail \
+  setgid_group="postdrop"
+/bin/sh conf/post-install config_directory=$PKG/etc/postfix \
+  queue_directory=$PKG/var/spool/postfix/ set-permissions
+gzip -f9 $PKG/usr/share/man/man{1,5,8}/*
+
+mkdir -p $PKG/usr/doc/postfix-tls-$VERSION
+cp -a 0README COMPATIBILITY COPYRIGHT HISTORY INSTALL LICENSE PORTING \
+  RELEASE_NOTES $PKG/usr/doc/postfix-tls-$VERSION
+chmod 644 $PKG/usr/doc/postfix-tls-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/postfix-tls-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/postfix-tls-$VERSION
+  rm -rf $PKG
+fi

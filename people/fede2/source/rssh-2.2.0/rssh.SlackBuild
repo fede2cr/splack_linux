@@ -1,0 +1,44 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-rssh
+
+VERSION=2.2.0
+ARCH=i686
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf rssh-$VERSION
+tar xzvf $CWD/rssh-$VERSION.tar.gz
+cd rssh-$VERSION
+chown -R root.root .
+zcat $CWD/install-exec-hook-DESTDIR.patch.gz | patch -p1
+./configure --prefix=/usr --sysconfdir=/etc
+make
+make install DESTDIR=$PKG
+gzip $PKG/usr/man/man*/*
+mkdir -p $PKG/usr/doc/rssh-$VERSION
+cp -a AUTHORS CHROOT COPYING ChangeLog INSTALL NEWS README SECURITY TODO \
+  $PKG/usr/doc/rssh-$VERSION
+chmod 644 $PKG/usr/doc/rssh-$VERSION/*
+#mkdir -p $PKG/install
+#cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/rssh-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/rssh-$VERSION
+  rm -rf $PKG
+fi

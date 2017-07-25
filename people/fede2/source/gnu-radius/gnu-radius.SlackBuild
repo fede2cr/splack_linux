@@ -1,0 +1,45 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-gnu-radius
+
+VERSION=1.1
+ARCH=sparc
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf radius-$VERSION
+tar xjvf $CWD/radius-$VERSION.tar.bz2
+cd radius-$VERSION
+chown -R root.root .
+./configure --without-guile --without-mysql --without-postgres --prefix=/usr
+make DESTDIR=$PKG install
+mkdir -p $PKG/usr/doc/gnu-radius-$VERSION
+cp -a \
+  ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO \
+  $PKG/usr/doc/gnu-radius-$VERSION
+chmod 644 $PKG/usr/doc/gnu-radius-$VERSION/*
+gzip -9f $PKG/usr/man/man{1,8}/*
+rm $PKG/usr/info/dir
+gzip -9f $PKG/usr/info/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/gnu-radius-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/radius-$VERSION
+  rm -rf $PKG
+fi

@@ -1,0 +1,42 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-courier-imap
+
+VERSION=3.0.2
+ARCH=${ARCH:-sparc}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf courier-imap-$VERSION
+tar xjvf $CWD/courier-imap-$VERSION.tar.bz2
+cd courier-imap-$VERSION
+chown -R root.root .
+./configure --disable-root-check
+make
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/courier-imap-$VERSION
+cp -a AUTHORS COPYING COPYING.GPL ChangeLog INSTALL NEWS README \
+  $PKG/usr/doc/courier-imap-$VERSION
+chmod 644 $PKG/usr/doc/courier-imap-$VERSION/*
+#mkdir -p $PKG/install
+#cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/courier-imap-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/courier-imap-$VERSION
+  rm -rf $PKG
+fi

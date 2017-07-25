@@ -1,0 +1,90 @@
+#!/bin/sh
+#
+# Build and package an EAPI-enabled Apache on Slackware.
+# by:  David Cantrell <david@slackware.com>
+# Mantained for Splack by Alvaro Figueroa <fede2@fuerzag.ulatina.ac.cr>
+
+VERSION=2.0.47
+ARCH=sparc
+BUILD=1
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-apache
+
+rm -rf $PKG
+mkdir -p $PKG
+( cd $PKG ; explodepkg $CWD/_apache.tar.gz )
+
+cd $TMP
+tar xvzf $CWD/httpd-$VERSION.tar.gz
+
+# build apache
+cd $TMP/httpd-$VERSION
+cat $CWD/config.layout.slack >> config.layout
+cat $CWD/config.layout.slack >> srclib/apr-util/config.layout
+cat $CWD/config.layout.slack >> srclib/apr/config.layout
+
+# I need to put it back again to the Slackware layout
+./configure --enable-layout=Debian \
+            --enable-mods-shared="cache disk-cache mem-cache deflate logio env mime-magic expires headers usertrack unique-id setenvif proxy proxy-connect proxy-ftp proxy-http ssl status autoindex info imap speling actions rewrite" \
+            --with-mpm=worker
+make
+
+# install apache
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/apache2-$VERSION
+cp -a ABOUT_APACHE CHANGES INSTALL LICENSE README \
+      $PKG/usr/doc/apache2-$VERSION
+
+# we do not want these in the package, if they don't exist on the system
+# then we copy the default one in place as the real file
+( cd $PKG/etc/apache2
+  rm -rf access.conf httpd.conf magic mime.types srm.conf )
+
+# we add a block to the end of httpd.conf and touch zero length files
+# for the SSL and PHP module packages
+cat << EOF >> $PKG/etc/apache2/httpd.conf.default
+
+# By default, all external Apache modules are disabled.  To enable a particular
+# module for Apache, make sure the necessary packages are installed.  Then
+# uncomment the appropriate Include line below, save the file, and restart
+# Apache.  Note that some modules may need additional configuration steps (for
+# example, mod_ssl requires a site certificate, you may need to generate that).
+#
+# Lastly, if you remove a module package, be sure to edit this file and comment
+# out the appropriate Include line.
+
+# ==> mod_php configuration settings <==
+#
+# PACKAGES REQUIRED:  ossllibs.tgz (A series), mysql.tgz (AP series),
+#                     gmp.tgz (GTK series), and apache.tgz (N series)
+#
+#Include /etc/apache/mod_php.conf
+
+# ==> mod_ssl configuration settings <==
+#
+# PACKAGES REQUIRED:  apache.tgz (N series) and openssl.tgz (N series)
+#
+#Include /etc/apache/mod_ssl.conf
+
+EOF
+
+# some housekeeping
+strip $PKG/usr/bin/*
+strip $PKG/usr/sbin/*
+chown -R root.root $PKG/usr/doc/*
+chown -R root.root $PKG/var/www/*
+gzip -9 $PKG/usr/share/man/*/*
+chown root.bin $PKG/usr/bin/*
+chown root.bin $PKG/usr/sbin/*
+
+# make the package
+cd $PKG
+makepkg -l y -c n $TMP/apache-$VERSION-$ARCH-$BUILD.tgz
+
+# clean up
+if [ "$1" = "--cleanup" ]; then
+   cd $CWD
+   rm -rf $TMP/apache_$VERSION
+   rm -rf $PKG
+fi

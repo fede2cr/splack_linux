@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# atsar		This shell script takes care of initializing
+#		the atsar system activity report subsystem.
+#
+# chkconfig: 2345 85 15
+# description:	Atsar is a system activity report logging system.
+#
+
+# Source function library.
+if [ -f /etc/rc.d/init.d/functions ]
+then
+	. /etc/rc.d/init.d/functions
+else
+	alias daemon=nice
+fi
+
+# Check binaries and configuration files.
+[ -f /usr/bin/atsadc ] || exit 0
+
+RETVAL=0
+
+# See how we were called.
+case "$1" in
+  start)
+	# Run atsadc.
+	echo -n "Initializing atsar logging: "
+	daemon /usr/bin/atsadc /var/log/atsar/atsa`date +%d`
+	RETVAL=$?
+        rm -f /var/log/atsar/ftpstat  2> /dev/null
+        rm -f /var/log/atsar/httpstat 2> /dev/null
+
+	if [ -f /etc/atsar.conf ]
+	then
+		/usr/bin/atsaftp
+		/usr/bin/atsahttp
+	fi
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/atsar
+	;;
+  stop)
+	rm -f /var/lock/subsys/atsar
+	;;
+  status)
+	;;
+  reload)
+	$0 stop
+	$0 start
+	;;
+  restart)
+	$0 stop
+	$0 start
+	;;
+  *)
+	#Asumimos que quieren arrancarnos
+	$0 start
+#	echo "Usage: $0 {start|stop|status|reload|restart}"
+#	exit 1
+esac
+
+exit $RETVAL

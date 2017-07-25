@@ -1,0 +1,44 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-grub
+
+VERSION=0.93
+ARCH=i386
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf grub-$VERSION
+tar xzvf $CWD/grub-$VERSION.tar.gz
+cd grub-$VERSION
+chown -R root.root .
+./configure --prefix=/usr
+make
+make install prefix=$PKG/usr
+gzip -9 $PKG/usr/man/man{1,8}/*
+rm -f $PKG/usr/info/dir
+mkdir -p $PKG/usr/doc/grub-$VERSION
+cp -a AUTHORS BUGS COPYING ChangeLog INSTALL MAINTENANCE NEWS README \
+  THANKS TODO  $PKG/usr/doc/grub-$VERSION
+chmod 644 $PKG/usr/doc/grub-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/grub-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/grub-$VERSION
+  rm -rf $PKG
+fi

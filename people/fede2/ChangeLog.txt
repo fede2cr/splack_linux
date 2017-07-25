@@ -1,0 +1,52 @@
+Tue Nov 18 16:50:00 CST 2003
+rarpd, libnet, ccache and binutils packages: Deleted.
+source/grub-0.93: Added.
+source/vlan-utils-1.8: Added.
+packages/vlan-utils-1.8-sparc-1.tgz: Added.
+source/bacula-1.32d: Upgraded to bacula 1.32d.
+packages/pgsql-7.4-sparc-1.tgz: Upgraded to PostgreSQL 7.4.
+----------------------------
+Mon Sep  1 19:39:07 CST 2003
+source/pgsql-7.3.4/ added with source for PostgreSQL.
+packages/pgsql-7.3.4-sparc-1.tgz built.
+----------------------------
+Tue Jun 10 15:28:54 CST 2003
+Moved stuff out from unsupported to source/ and packages/.
+source/ccache Added this incredibly usefull tool.
+packages/ccache.tgz Built from SlackBuild.
+----------------------------
+Tue Aug 20 13:08:25 CST 2002
+unsupported/packages/xchat.tgz Package added.
+unsupported/source/xchat/ Sources for xchat 1.8.10 added.
+unsupported/packages/mozilla.tgz Package for mozilla 1.0 added. Grab the
+sources from Slackware 8.1.
+----------------------------
+Mon Apr 15 10:54:45 CST 2002
+unsupported/packages/rarpd.tgz Rebuilt from SlackBuild.
+unsupported/source/rarpd/ Added. This package will probably go to the
+  /contrib dir of the splack distribution sooner or later.
+unsupported/packages/libnet.tgz Rebuilt from SlackBuild.
+unsupported/source/libnet/ I upgraded it to 1.0.2a which is the latest
+  stable release.
+----------------------------
+Sun Apr 14 19:19:23 CST 2002
+unsupported/packages/binutils.tgz Moved from unsupported/binutils-2.12
+unsupported/packages/libnet.tgz Rebuild from SlackBuild. This package is
+  probably going to /contrib/ or some place like it, because it is needed in
+  order to compile the userland rarpd for serving tftp images on 2.4.
+unsupported/source/libnet/ Sources added.
+----------------------------
+Tue Apr  9 19:27:21 CST 2002
+unsupported/binutils.tgz I added this version (2.12) because it is needed for
+  compiling some stuff. E.g. ksysmoops.
+Ultra1/ I added the XFS 2.4.18 kernel that I grabbed from a CVS snapshot.
+  This is the kernel I use on mantra.ulatina.ac.cr.
+----------------------------
+Sun Mar 24 12:57:16 CST 2002
+unsupported/source/rsync/, unsupported/packages/rsync.tgz deleted, since
+  -current's security patches includes a rsync version witch has the features
+  I need ;)
+---------------------------
+Sun Jan 27 12:06:07 CST 2002
+unsupported/source/rsync/ rsync version 2.5.2 package created to obtain
+  certain features _I_ need.

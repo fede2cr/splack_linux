@@ -1,0 +1,9 @@
+Get rid of the apache (ver 1) stuff, like /etc/apache and /usr/include/apache
+Make a nice little httpd.conf.dist for apache2.
+Rename it httpd?
+Erase the gifs?
+Rename whatever necesary so that apache 1 and apache 2 can be installed on a
+  box at the same time (neat for migrating to apache2).
+(Details about it.
+ modify rc.httpd to use apachectl2
+)

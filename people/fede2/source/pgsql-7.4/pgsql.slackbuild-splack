@@ -1,0 +1,123 @@
+#!/bin/sh
+
+VERSION=7.4
+ARCH=sparc
+BUILD=1
+TMP=/tmp
+
+PKG=$TMP/package-pgsql
+rm -rf $PKG
+mkdir -p $PKG
+CWD=`pwd`
+
+cd $TMP
+rm -rf postgresql-$VERSION
+tar xfvj $CWD/postgresql-$VERSION.tar.bz2
+cd postgresql-$VERSION
+./configure \
+ --prefix=/usr/ \
+ --bindir=/usr/bin/ \
+ --sbindir=/usr/sbin/ \
+ --libexecdir=/usr/lib/pgsql \
+ --datadir=/usr/share/pgsql \
+ --sysconfdir=/etc \
+ --sharedstatedir=/var/run \
+ --localstatedir=/var/lib/pgsql \
+ --libdir=/usr/lib \
+ --includedir=/usr/include/pgsql \
+ --mandir=/usr/share/man \
+ --without-tcl --without-tk \
+ --with-openssl=/usr \
+ --with-CXX \
+ --enable-syslog \
+ --enable-nls \
+ --disable-recode \
+ sparc-slackware-linux
+make
+make DESTDIR=$PKG install
+
+mkdir -p $PKG/var/lib/pgsql/data/
+chmod 700 $PKG/var/lib/pgsql/data/
+chown 28.28 $PKG/var/lib/pgsql/data/
+
+# This profile entry sets up some 
+# default variables
+mkdir -p $PKG/etc/profile.d
+cat <<eof > $PKG/etc/profile.d/pgsql.sh
+if groups | egrep -q "\<pgdb\>"; then
+  export PGDATA=/var/lib/pgsql/data/db01
+fi
+eof
+chmod 755 $PKG/etc/profile.d/pgsql.sh
+
+# This is _not_ standard postgreSQL. It is, however, a convenient
+# way of keeping track of multiple database instances on a same
+# server. I think - I've never actually used more than one ;^P
+mkdir -p $PKG/etc/pgsql
+if [ -f $PKG/etc/pgsql/locations ]; then
+  true
+else
+  echo "/var/lib/pgsql/data/db01" > $PKG/etc/pgsql/locations
+fi
+
+# Strip all binaries
+strip $PKG/usr/bin/ecpg $PKG/usr/bin/pg_controldata $PKG/usr/bin/pg_dump \
+ $PKG/usr/bin/pg_dumpall $PKG/usr/bin/pg_encoding $PKG/usr/bin/pg_id \
+ $PKG/usr/bin/pg_resetxlog $PKG/usr/bin/pg_restore $PKG/usr/bin/postgres \ 
+ $PKG/usr/bin/psql
+# I'm not sure this is a good idea
+strip usr/lib/postgresql/*
+
+# This run control scripts starts the database and initializes all locations
+# that need initializing.
+mkdir -p $PKG/etc/rc.d
+cat <<eof > $PKG/etc/rc.d/rc.pgsql
+#!/bin/sh
+# Set a couple of kernel parameters
+echo 134217728 > /proc/sys/kernel/shmall
+echo 134217728 > /proc/sys/kernel/shmmax
+# Start the database server
+for LOCATION in \`cat /etc/pgsql/locations\`; do
+  if [ ! -d \$LOCATION ]; then
+    su - postgres -c '/usr/bin/initdb -D '\$LOCATION
+  fi
+  su - postgres -c '/usr/bin/pg_ctl -D '\$LOCATION' start'
+done
+
+eof
+chmod 755 $PKG/etc/rc.d/rc.pgsql
+
+# We need doinst.sh to add pgdb (group) and postgres (user),
+# if they do not exist. (Adapted from sshd's doinst.sh)
+# We also ask rc.M to check for (and start) rc.pgsql
+mkdir $PKG/install
+cat <<eof > $PKG/install/doinst.sh
+if grep "^postgres:x:" etc/passwd 1> /dev/null 2> /dev/null ; then
+  true
+else
+  echo "postgres:x:28:28:PostgreSQL:/:" >> etc/passwd
+  echo "postgres:*:9797:0:::::" >> etc/shadow
+fi
+if grep "^pgdb::" etc/group 1> /dev/null 2> /dev/null ; then
+  true
+else
+  echo "pgdb::28:" >> etc/group
+fi
+if grep "pgsql" etc/rc.d/rc.M 1> /dev/null 2> /dev/null ; then
+  true
+else
+cat <<eos >> etc/rc.d/rc.M
+
+# Start the PostgreSQL server
+if [ -x /etc/rc.d/rc.pgsql ]; then
+  . /etc/rc.d/rc.pgsql
+fi
+eos
+
+fi
+
+eof
+chmod 755 $PKG/install/doinst.sh
+# Build package:
+cd $PKG
+makepkg -l y -c n ../pgsql-$VERSION-$ARCH-$BUILD.tgz

@@ -1,0 +1,5 @@
+This package does not compress man pages, and needs a slack.desc
+
+Adding contrib/pg_autovacuum to it, should be nice.
+
+Use id(1) to check for the user, instead of grepping the passwd.

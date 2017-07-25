@@ -1,0 +1,19 @@
+#   Layout for Slackware Linux
+<Layout Slackware>
+    prefix:        /usr
+    exec_prefix:   $prefix
+    bindir:        $exec_prefix/bin
+    sbindir:       $exec_prefix/sbin
+    libexecdir:    $exec_prefix/libexec
+    mandir:        $prefix/man
+    sysconfdir:    /etc/apache
+    datadir:       /var/www
+    iconsdir:      $datadir/icons
+    htdocsdir:     $datadir/htdocs
+    cgidir:        $datadir/cgi-bin
+    includedir:    $prefix/include/apache
+    localstatedir: /var
+    runtimedir:    $localstatedir/run
+    logfiledir:    $localstatedir/log/apache
+    proxycachedir: $localstatedir/cache/proxy
+</Layout>

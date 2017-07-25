@@ -1,0 +1,66 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-postfix
+
+VERSION=2.0.16
+ARCH=sparc
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf postfix-$VERSION
+tar xzvf $CWD/postfix-$VERSION.tar.gz
+cd postfix-$VERSION
+chown -R root.root .
+
+# No PCRE at the time. I haven't made the l/pcre package in splack yet
+make CARGS="-L/usr/lib -ldl -lcrypt -lpthread -lssl -lcrypto -DUSE_SSL \
+  -DDEF_CONFIG_DIR=/etc/postfix \
+  -DDEF_DAEMON_DIR=/usr/lib/postfix \
+  -DDEF_PROGRAM_DIR=/usr/lib/postfix \
+  -DDEF_MANPAGE_DIR=/usr/share/man \
+  -DDEF_README_DIR=/usr/share/doc/postfix/readme \
+  -DDEF_SAMPLE_DIR=/usr/share/doc/postfix/sample" \
+  makefiles  # -DHAS_PCRE -lpcre
+make
+/bin/sh postfix-install \
+  -non-interactive \
+  install_root=$PKG \
+  daemon_directory="/usr/lib/postfix" \
+  program_directory="/usr/lib/postfix" \
+  config_directory="/etc/postfix" \
+  readme_directory="/usr/share/doc/postfix/readme" \
+  sample_directory="/usr/share/doc/postfix/sample" \
+  manpage_directory="/usr/share/man" \
+  mail_owner="postfix" \
+  mail_spool_directory=/var/spool/mail \
+  setgid_group="postdrop"
+/bin/sh conf/post-install config_directory=$PKG/etc/postfix \
+  queue_directory=$PKG/var/spool/postfix/ set-permissions
+gzip -f9 $PKG/usr/share/man/man{1,5,8,}/*
+
+mkdir -p $PKG/usr/doc/postfix-$VERSION
+cp -a 0README COMPATIBILITY COPYRIGHT HISTORY INSTALL LICENSE PORTING \
+  RELEASE_NOTES $PKG/usr/doc/postfix-$VERSION
+chmod 644 $PKG/usr/doc/postfix-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/postfix-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/postfix-$VERSION
+  rm -rf $PKG
+fi

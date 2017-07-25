@@ -1,0 +1,7 @@
+The install script does not verify for the existance of the user postfix and
+the groups postfix and postdrop.
+
+The install script does not put an rc.postfix in place.
+
+It needs a slack-desk.
+

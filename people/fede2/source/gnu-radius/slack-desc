@@ -1,0 +1,17 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+gnu-radius: GNU-Radius (Remote authentication and accounting system)
+gnu-radius:
+gnu-radius: Radius is a server for remote user authentication and accounting. 
+gnu-radius: Its primary use is for Internet Service Providers, though it may as
+gnu-radius: well be used on any network that needs a centralized authentication
+gnu-radius: and/or accounting service for its workstations.
+gnu-radius:
+gnu-radius: The package includes an authentication and accounting server and
+gnu-radius: administrator tools.

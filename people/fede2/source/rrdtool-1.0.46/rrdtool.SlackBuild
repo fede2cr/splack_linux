@@ -1,0 +1,51 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-rrdtool
+
+VERSION=1.0.46
+ARCH=sparc
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf rrdtool-$VERSION
+tar xzvf $CWD/rrdtool-$VERSION.tar.gz
+cd rrdtool-$VERSION
+chown -R root.root .
+./configure --prefix=/usr --sysconfdir=/etc
+make
+make install DESTDIR=$PKG
+make site-perl-install DESTDIR=$PKG
+# Dirty fix. But I need to use this _right now_
+mkdir $PKG/usr/lib/perl5/
+mv $PKG/usr/lib/perl/* $PKG/usr/lib/perl5/site_perl
+mkdir -p $PKG/usr/doc/rrdtool-$VERSION
+cp -a \
+  CHANGES CONTRIBUTORS COPYING COPYRIGHT README TODO \
+  $PKG/usr/doc/rrdtool-$VERSION
+chmod 644 $PKG/usr/doc/rrdtool-$VERSION/*
+# A dirty cleanup. Not in the mood to fix the Makefile
+mv $PKG/usr/doc/* $PKG/usr/html $PKG/usr/examples $PKG/usr/contrib \
+  $PKG/usr/doc/rrdtool-$VERSION
+gzip -9 $PKG/usr/man/man1/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/rrdtool-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/rrdtool-$VERSION
+  rm -rf $PKG
+fi

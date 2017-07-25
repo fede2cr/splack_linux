@@ -1,0 +1,43 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-cyrus-sasl
+
+VERSION=2.1.18
+ARCH=i686
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf cyrus-sasl-$VERSION
+tar xzvf $CWD/cyrus-sasl-$VERSION.tar.gz
+cd cyrus-sasl-$VERSION
+chown -R root.root .
+./configure --prefix=/usr --disable-cram --disable-digest --disable-otp \
+  --enable-plain --disable-anon --disable-gssapi --without-dblib
+make
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/cyrus-sasl-$VERSION
+cp -ar AUTHORS COPYING ChangeLog INSTALL NEWS README doc/ \
+  $PKG/usr/doc/cyrus-sasl-$VERSION
+chmod 644 $PKG/usr/doc/cyrus-sasl-$VERSION/*
+#mkdir -p $PKG/install
+#cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/cyrus-sasl-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/cyrus-sasl-$VERSION
+  rm -rf $PKG
+fi

@@ -1,0 +1,43 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-mtx
+
+VERSION=1.2.17rel
+ARCH=sparc
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/mtx-$VERSION.tar.gz
+cd mtx-$VERSION
+./configure --prefix=/usr --mandir=/usr/share/man/
+make
+make install prefix=$PKG/usr mandir=$PKG/usr/share/man/
+strip $PKG/usr/sbin/*
+gzip -9 $PKG/usr/share/man/man1/*
+mkdir -p $PKG/usr/doc/mtx-$VERSION
+cp -ar CHANGES FAQ README LICENSE TODO html $PKG/usr/doc/mtx-$VERSION
+chown -R root.root $PKG/usr/doc/mtx-$VERSION
+chmod 644 $PKG/usr/doc/mtx-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/mtx-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/mtx-$VERSION
+  rm -rf $PKG
+fi

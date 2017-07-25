@@ -1,0 +1,43 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-libmcrypt
+
+VERSION=2.5.7
+ARCH=sparc
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf libmcrypt-$VERSION
+tar xzvf $CWD/libmcrypt-$VERSION.tar.gz
+cd libmcrypt-$VERSION
+chown -R root.root .
+./configure --prefix=/usr
+make
+make install DESTDIR=$PKG
+gzip -9 $PKG/usr/man/man3/mcrypt.3
+mkdir -p $PKG/usr/doc/libmcrypt-$VERSION
+cp -ar AUTHORS COPYING.LIB ChangeLog INSTALL KNOWN-BUGS NEWS README THANKS \
+  TODO doc/ $PKG/usr/doc/libmcrypt-$VERSION
+chmod 644 $PKG/usr/doc/libmcrypt-$VERSION/*
+#mkdir -p $PKG/install
+#cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/libmcrypt-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/libmcrypt-$VERSION
+  rm -rf $PKG
+fi

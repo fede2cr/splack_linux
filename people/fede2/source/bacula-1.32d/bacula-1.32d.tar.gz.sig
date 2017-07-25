@@ -1,0 +1,7 @@
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.1 (GNU/Linux)
+
+iD8DBQA/ph/Tnpi/MhCnkq0RAgA8AJ9qt3TQu5wHjTzYGFVdWN2mNu1sUwCcCndG
+rfe3NLlzFAB9KGsPfMYE0oQ=
+=Afif
+-----END PGP SIGNATURE-----
