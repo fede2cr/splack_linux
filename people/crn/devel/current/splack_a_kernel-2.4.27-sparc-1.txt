@@ -1,0 +1,11 @@
+kernel: kernel (Linux kernel)
+kernel:
+kernel: The default kernel for both Sparc and UltraSparc systems.
+kernel: The correct 32 bit or 64 bit version will be installed.
+kernel: The 64 bit version includes SMP support. 
+kernel: The 32 bit version does not support SMP, if you have an 
+kernes: SMP system such as the Sparc 20 you can find a suitable
+kernel: kernel in the /kernels directory.
+kernel:
+kernel:
+kernel:
