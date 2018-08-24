@@ -1,0 +1,50 @@
+#!/bin/sh
+
+VERSION=3.9
+echo "+==================+"
+echo "| PCRE $VERSION  |"
+echo "+==================+"
+
+CWD=`pwd`
+
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+if [ ! -d $TMP ]; then
+ mkdir -p $TMP 
+fi
+
+PKG=$TMP/package-pcre
+
+cd $TMP
+rm -rf pcre-$VERSION
+
+tar yxvf $CWD/pcre-$VERSION.tar.bz2
+
+cd pcre-$VERSION
+
+mkdir -p $PKG/usr/doc/pcre-$VERSION
+cp -a AUTHORS COPYING NEWS README NON-UNIX-USE \
+      LICENCE INSTALL doc/pcre.html \
+      $PKG/usr/doc/pcre-$VERSION 
+
+chmod 644 $PKG/usr/doc/pcre-$VERSION/*
+chown root.root $PKG/usr/doc/pcre-$VERSION/*
+
+CFLAGS=-O2 LDFLAGS=-s ./configure --build=sparc-splack-linux \
+       --prefix=/usr  
+make
+make install prefix=$PKG/usr
+
+for file in libpcre.a libpcre.so libpcreposix.a libpcreposix.so; do
+  strip $PKG/usr/lib/$file
+done
+
+
+(cd $PKG;tar zcvf pcre.tgz usr)
+
+if [ "$1" = "--cleanup" ]; then
+    rm -rf $PKG
+fi
+  

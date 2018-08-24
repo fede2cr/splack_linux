@@ -1,0 +1,51 @@
+#!/bin/sh
+
+VERSION=0.99.4
+echo "+==================+"
+echo "|  Ferite $VERSION   |"
+echo "+==================+"
+
+
+CWD=`pwd`
+
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+if [ ! -d $TMP ]; then
+ mkdir -p $TMP 
+fi
+
+PKG=$TMP/package-ferite
+
+cd $TMP
+rm -rf ferite-$VERSION
+
+tar zxvf $CWD/ferite-$VERSION.tar.gz
+
+cd ferite-$VERSION
+
+mkdir -p $PKG/usr/doc/ferite-$VERSION
+cp -a AUTHORS README COPYING ROADMAP $PKG/usr/doc/ferite-$VERSION 
+chmod 644 $PKG/usr/doc/ferite-$VERSION/*
+chown root.root $PKG/usr/doc/ferite-$VERSION/*
+
+CFLAGS=-O2 LDFLAGS=-s ./configure  \
+            --build=sparc-splack-linux \
+            --prefix=/usr 
+make
+make install prefix=$PKG/usr
+
+strip $PKG/usr/lib/libferite.so
+strip $PKG/usr/lib/libferite.a
+
+mkdir $PKG/install
+cp $CWD/doinst.sh $PKG/install
+chmod 755 $PKG/install/doinst.sh
+
+(cd $PKG;tar zcvf ferite.tgz usr)
+
+if [ "$1" = "--cleanup" ]; then
+    rm -rf $PKG
+fi
+  
