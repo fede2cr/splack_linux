@@ -1,0 +1,90 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-git
+
+VERSION=1.4.2.1
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf git-$VERSION
+tar xjvf $CWD/git-$VERSION.tar.bz2
+cd git-$VERSION
+
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+# "doc" needs asciidoc, which seems, er, tricky to install.
+#make prefix=/usr CFLAGS="$SLKCFLAGS" all doc
+
+make prefix=/usr "CFLAGS=$SLKCFLAGS" all || exit 1
+
+#make prefix=/usr "CFLAGS=$SLKCFLAGS" install install-doc DESTDIR=$PKG
+make prefix=/usr "CFLAGS=$SLKCFLAGS" install DESTDIR=$PKG || exit 1
+
+mkdir -p $PKG/usr/man
+( cd $PKG/usr/man
+  tar xjf $CWD/git-manpages-${VERSION}.tar.bz2
+  chown -R root:root .
+  find . -type d -exec chmod 755 {} \;
+  find . -type f -exec chmod 644 {} \;
+  gzip -9 */*.?
+)
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+# Since Stuart Winter hates hard links.  ;-)
+#
+# Switch a hard link with a soft link:
+( cd $PKG/usr/bin
+  find . -links +1 -not -name git | while read gitfile ; do
+    if [ git -ef $gitfile ]; then
+      rm -vf $gitfile
+      ln -vfs git $gitfile
+    fi
+  done
+)
+
+mkdir -p $PKG/usr/doc/git-$VERSION
+cp -a \
+  COPYING INSTALL README \
+  Documentation \
+  contrib \
+  $PKG/usr/doc/git-$VERSION
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/git-$VERSION-$ARCH-$BUILD.tgz
+

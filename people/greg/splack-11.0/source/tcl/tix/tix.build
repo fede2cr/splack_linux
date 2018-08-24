@@ -1,0 +1,32 @@
+# Build/install Tix the way Slackware's binary package is made:
+
+VERSION=8.1.4
+
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/tix-$VERSION.tar.gz
+#cd tix-$VERSION
+cd tix-8.1.4
+mkdir -p /usr/doc/tix-$VERSION
+cp -a ABOUT.* README.* Roadmap.html TODO.html Version license.terms \
+  docs/BinInst.* docs/et.* docs/FAQ.* docs/Files.* docs/Install.* \
+  docs/Release* docs/Uni* docs/html \
+  /usr/doc/tix-$VERSION
+chown -R root:root /usr/doc/tix-$VERSION
+find /usr/doc/tix-$VERSION -type f -exec chmod 644 {} \;
+cd unix
+./configure --prefix=/usr --enable-shared
+cd tk8.4
+#./configure --prefix=/usr \
+#            --with-tcl=../../../tcl8.4.11 \
+#            --with-tk=../../../tk8.4.11
+#make install
+#make clean
+./configure --prefix=/usr --enable-shared \
+            --with-tcl=../../../tcl8.4.11 \
+            --with-tk=../../../tk8.4.11
+make install
+cd ..
+make install
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

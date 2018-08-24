@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+gcc-g77: gcc-g77 (Fortran support for GCC)
+gcc-g77:
+gcc-g77: This package contains those parts of the compiler collection needed to
+gcc-g77: compile Fortran code.  The base gcc package is also required.  GNU
+gcc-g77: Fortran supports a variety of extensions to, and dialects of, the
+gcc-g77: Fortran language.  Its primary base is the ANSI FORTRAN 77 standard,
+gcc-g77: with some some extensions popularized by the 'f77' and 'f2c' compilers,
+gcc-g77: other compilers (such as Digital products), and the Fortran 90
+gcc-g77: standard.
+gcc-g77:
+gcc-g77:

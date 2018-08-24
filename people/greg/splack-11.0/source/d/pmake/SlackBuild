@@ -1,0 +1,70 @@
+#!/bin/sh
+# Build BSD pmake-$VERSION for Slackware by volkerdi@slackware.com.
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-pmake
+
+VERSION=2.1.35
+ARCH=i386
+BUILD=2
+
+# Source site for BSD parallel make is:
+# ftp://ftp.icsi.berkeley.edu/pub/ai/stolcke/software/
+
+echo "+==============+"
+echo "| pmake-$VERSION |"
+echo "+==============+"
+cd $TMP
+tar xzvf $CWD/pmake-$VERSION.tar.gz
+cd pmake
+zcat $CWD/pmake.diff.gz | patch -p1 --verbose -E
+# Add system makefiles for ix86/alpha/sparc Linux:
+tar xzvvf $CWD/sys-linux.mk.tar.gz
+chown -R root:root .
+echo "+=============================================================+"
+echo "| Stage one -- Bootstrap build.  Installs a basic pmake built |"
+echo "| with GNU make on the machine                                |"
+echo "+=============================================================+"
+make -f makefile
+cp pmake /usr/bin/pmake
+( cd /usr/bin
+  rm -f vmake
+  ln -sf pmake vmake )
+( cd /usr/share
+  rm -rf mk
+  mkdir mk )
+cp -a lib/mk/system.mk lib/mk/*.mk /usr/share/mk
+echo "+========================================+"
+echo "| Stage two -- Rebuild pmake with itself |"
+echo "+========================================+"
+pmake -f makefile clean
+pmake -f makefile
+cp pmake /usr/bin/pmake
+echo "+================================================+"
+echo "| Stage three -- Rebuild pmake with itself again |"
+echo "+================================================+"
+pmake -f makefile clean
+pmake -f makefile
+cp pmake /usr/bin/pmake
+# Now, we should be good to build the package:
+rm -rf $PKG
+mkdir -p $PKG/usr/bin
+cp pmake $PKG/usr/bin/pmake
+( cd $PKG/usr/bin ; ln -sf pmake vmake ; strip --strip-unneeded pmake )
+mkdir -p $PKG/usr/share/mk
+cp -a lib/mk/system.mk lib/mk/*.mk $PKG/usr/share/mk
+mkdir -p $PKG/usr/man/man1
+cat $CWD/pmake.1.gz > $PKG/usr/man/man1/pmake.1.gz
+mkdir -p $PKG/usr/doc/pmake-$VERSION
+cp -a CHANGES INSTALL README $PKG/usr/doc/pmake-$VERSION
+groff -ms -Tascii doc/tutorial.ms > $PKG/usr/doc/pmake-$VERSION/tutorial.txt
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/pmake-$VERSION-$ARCH-$BUILD.tgz
+

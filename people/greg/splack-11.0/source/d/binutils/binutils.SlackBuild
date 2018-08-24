@@ -1,0 +1,145 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-binutils
+rm -rf $PKG
+mkdir -p $PKG/usr
+
+VERSION=2.15.92.0.2
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-3}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mcpu=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+else
+  SLKCFLAGS="-O2"
+fi
+
+cd $TMP
+rm -rf binutils-$VERSION
+tar xjvf $CWD/binutils-$VERSION.tar.bz2
+cd binutils-$VERSION
+chown -R root:root .
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+if [ $ARCH = i386 -o \
+     $ARCH = i486 -o \
+     $ARCH = i586 -o \
+     $ARCH = i686 ]; then
+# Build for an x86 glibc2-based Linux system:
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --enable-shared \
+  --enable-targets=$ARCH-slackware-linux,$ARCH-slackware-linux-gnulibc1,$ARCH-slackware-linux-gnuaout \
+  --enable-64-bit-bfd \
+  $ARCH-slackware-linux
+else # make no assumptions
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --enable-shared \
+  --enable-64-bit-bfd \
+  $ARCH-slackware-linux
+fi
+
+make clean
+make -j3
+make info
+# Needed to link ksymoops:
+make install
+# We need to clear ldscripts/ because binutils doesn't implement DESTDIR everywhere:
+rm -rf /usr/lib/ldscripts /usr/${ARCH}-slackware-linux/lib/ldscripts
+# Repopulate it:
+make install
+# Install into the $PKG location:
+make install DESTDIR=$PKG
+# Add fresh ldscripts:
+cp -a /usr/${ARCH}-slackware-linux/lib/ldscripts $PKG/usr/lib
+
+# Missing?
+cp -a gas/doc/as.1 $PKG/usr/man/man1
+
+# "make install" skips this, but binutils.spec doesn't.  Sneaky, huh?
+cp -a include/libiberty.h $PKG/usr/include/libiberty.h
+
+mkdir -p $PKG/usr/doc/binutils-$VERSION
+cp -a $CWD/release.binutils-* $PKG/usr/doc/binutils-$VERSION
+cp -a COPYING* ChangeLog.linux MAI* README* $PKG/usr/doc/binutils-$VERSION
+
+rm -rf $PKG/usr/info
+mkdir -p $PKG/usr/info
+find . -name "as.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "bfd.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "ld.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "gasp.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "gprof.info*" -exec cp -a {} $PKG/usr/info \;
+find . -name "binutils.info*" -exec cp -a {} $PKG/usr/info \;
+gzip -9 $PKG/usr/info/*
+
+( cd $PKG/usr/bin ; mv strings strings-GNU )
+( cd $PKG/usr/man/man1 ; mv strings.1 strings-GNU.1 )
+
+# Add slack-desc:
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Now we must remember to adjust ldscripts (real dir is /usr/lib/ldscripts/,
+# links go in /usr/*-linux/lib/ ), and the bin links:
+mkdir -p $PKG/usr/${ARCH}-slackware-linux/lib
+( cd $PKG/usr/${ARCH}-slackware-linux/lib ; rm -rf ldscripts ; ln -sf /usr/lib/ldscripts . )
+mkdir -p $PKG/usr/${ARCH}-slackware-linux/bin
+( cd $PKG/usr/${ARCH}-slackware-linux/bin
+  for file in * ; do
+    if [ -r "/usr/bin/$file" ]; then
+      rm $file
+      ln -sf /usr/bin/$file .
+    fi
+  done
+)
+
+# Docs adjustment:
+( cd $PKG/usr/man/man1
+  rm -f dlltool.1 windres.1
+  for file in addr2line.1 ar.1 as.1 c++filt.1 gprof.1 ld.1 nlmconv.1 nm.1 objcopy.1 objdump.1 ranlib.1 readelf.1 size.1 strings-GNU.1 strip.1 ; do
+    gzip -9 --force $file
+  done
+)
+
+# By adding ksymoops to the binutils package, we can use the dynamic
+# libbfd and make the binary about 500K smaller.
+
+cd $CWD
+sh ./ksymoops.build
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+cd $PKG
+makepkg -l y -c n $TMP/binutils-$VERSION-$ARCH-$BUILD.tgz
+
+cat << EOF
+
+#############################
+oprofile links to libbfd so
+be sure to recompile that
+#############################
+
+EOF

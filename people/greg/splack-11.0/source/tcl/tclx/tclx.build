@@ -1,0 +1,17 @@
+CWD=`pwd`
+VERSION=8.3.5
+cd /tmp
+tar xzvf $CWD/tclx$VERSION-src.tar.gz
+cd tclx$VERSION
+mkdir -p /usr/doc/tclx$VERSION
+cp -a CHANGES MANIFEST README TO-DO doc/ONVERSION-NOTES /usr/doc/tclx$VERSION
+chown root:root /usr/doc/tclx$VERSION/*
+cd unix
+#./configure --prefix=/usr --enable-tk=YES --disable-shared
+./configure --prefix=/usr --enable-tk=YES
+make -i install
+make clean
+./configure --prefix=/usr --enable-tk=YES --enable-shared
+make -i install
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

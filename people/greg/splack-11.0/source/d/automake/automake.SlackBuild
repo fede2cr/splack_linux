@@ -1,0 +1,53 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+
+VERSION=1.9.6
+ARCH=noarch
+BUILD=1
+
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+PKG=$TMP/package-automake
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf automake-$VERSION
+tar xjvf $CWD/automake-$VERSION.tar.bz2
+cd automake-$VERSION
+chown -R root:root .
+find . -perm 664 -exec chmod 644 {} \;
+./configure \
+  --prefix=/usr \
+  --infodir=/usr/info
+make
+make install DESTDIR=$PKG
+rm -f $PKG/usr/info/dir
+gzip -9 $PKG/usr/info/*
+# Change hard links to symlinks:
+SHORTNAME=`echo $VERSION | cut -f1,2 -d .`
+( cd $PKG/usr/bin
+  rm -f aclocal
+  ln -sf aclocal-$SHORTNAME aclocal
+  rm -rf automake
+  ln -sf automake-$SHORTNAME automake
+)
+#linkup;
+# Create local aclocal dir:
+mkdir -p $PKG/usr/share/aclocal
+touch $PKG/usr/share/aclocal
+mkdir -p $PKG/usr/doc/automake-$VERSION
+cp -a \
+  AUTHORS COPYING INSTALL NEWS README THANKS TODO \
+  $PKG/usr/doc/automake-$VERSION
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/automake-$VERSION-$ARCH-$BUILD.tgz
+

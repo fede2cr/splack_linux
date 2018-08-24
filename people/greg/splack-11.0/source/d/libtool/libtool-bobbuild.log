@@ -1,0 +1,783 @@
+libtool-1.5.22/
+libtool-1.5.22/README
+libtool-1.5.22/acinclude.m4
+libtool-1.5.22/configure.ac
+libtool-1.5.22/aclocal.m4
+libtool-1.5.22/Makefile.am
+libtool-1.5.22/Makefile.in
+libtool-1.5.22/configure
+libtool-1.5.22/AUTHORS
+libtool-1.5.22/COPYING
+libtool-1.5.22/ChangeLog
+libtool-1.5.22/INSTALL
+libtool-1.5.22/NEWS
+libtool-1.5.22/THANKS
+libtool-1.5.22/TODO
+libtool-1.5.22/compile
+libtool-1.5.22/config.guess
+libtool-1.5.22/config.sub
+libtool-1.5.22/install-sh
+libtool-1.5.22/ltmain.sh
+libtool-1.5.22/missing
+libtool-1.5.22/libtool.m4
+libtool-1.5.22/ltdl.m4
+libtool-1.5.22/bootstrap
+libtool-1.5.22/libtoolize.in
+libtool-1.5.22/ltmain.in
+libtool-1.5.22/mkstamp
+libtool-1.5.22/ChangeLog.0
+libtool-1.5.22/ChangeLog.1
+libtool-1.5.22/libltdl/
+libtool-1.5.22/libltdl/README
+libtool-1.5.22/libltdl/acinclude.m4
+libtool-1.5.22/libltdl/configure.ac
+libtool-1.5.22/libltdl/aclocal.m4
+libtool-1.5.22/libltdl/ltdl.h
+libtool-1.5.22/libltdl/Makefile.am
+libtool-1.5.22/libltdl/Makefile.in
+libtool-1.5.22/libltdl/config-h.in
+libtool-1.5.22/libltdl/configure
+libtool-1.5.22/libltdl/COPYING.LIB
+libtool-1.5.22/libltdl/config.guess
+libtool-1.5.22/libltdl/config.sub
+libtool-1.5.22/libltdl/install-sh
+libtool-1.5.22/libltdl/ltmain.sh
+libtool-1.5.22/libltdl/missing
+libtool-1.5.22/libltdl/ltdl.c
+libtool-1.5.22/doc/
+libtool-1.5.22/doc/PLATFORMS
+libtool-1.5.22/doc/fdl.texi
+libtool-1.5.22/doc/Makefile.am
+libtool-1.5.22/doc/Makefile.in
+libtool-1.5.22/doc/stamp-vti
+libtool-1.5.22/doc/version.texi
+libtool-1.5.22/doc/mdate-sh
+libtool-1.5.22/doc/texinfo.tex
+libtool-1.5.22/doc/libtool.texi
+libtool-1.5.22/doc/libtool.info
+libtool-1.5.22/doc/libtool.info.orig
+libtool-1.5.22/tests/
+libtool-1.5.22/tests/Makefile.am
+libtool-1.5.22/tests/Makefile.in
+libtool-1.5.22/tests/defs
+libtool-1.5.22/tests/cdemo-static.test
+libtool-1.5.22/tests/cdemo-make.test
+libtool-1.5.22/tests/cdemo-exec.test
+libtool-1.5.22/tests/demo-static.test
+libtool-1.5.22/tests/demo-make.test
+libtool-1.5.22/tests/demo-exec.test
+libtool-1.5.22/tests/demo-inst.test
+libtool-1.5.22/tests/demo-unst.test
+libtool-1.5.22/tests/depdemo-static.test
+libtool-1.5.22/tests/depdemo-make.test
+libtool-1.5.22/tests/depdemo-exec.test
+libtool-1.5.22/tests/depdemo-inst.test
+libtool-1.5.22/tests/depdemo-unst.test
+libtool-1.5.22/tests/mdemo-static.test
+libtool-1.5.22/tests/mdemo-make.test
+libtool-1.5.22/tests/mdemo-exec.test
+libtool-1.5.22/tests/mdemo-inst.test
+libtool-1.5.22/tests/mdemo-unst.test
+libtool-1.5.22/tests/cdemo-conf.test
+libtool-1.5.22/tests/demo-conf.test
+libtool-1.5.22/tests/deplibs.test
+libtool-1.5.22/tests/depdemo-conf.test
+libtool-1.5.22/tests/mdemo-conf.test
+libtool-1.5.22/tests/dryrun.test
+libtool-1.5.22/tests/demo-nofast.test
+libtool-1.5.22/tests/demo-pic.test
+libtool-1.5.22/tests/demo-nopic.test
+libtool-1.5.22/tests/depdemo-nofast.test
+libtool-1.5.22/tests/cdemo-shared.test
+libtool-1.5.22/tests/demo-shared.test
+libtool-1.5.22/tests/hardcode.test
+libtool-1.5.22/tests/build-relink.test
+libtool-1.5.22/tests/noinst-link.test
+libtool-1.5.22/tests/depdemo-shared.test
+libtool-1.5.22/tests/build-relink2.test
+libtool-1.5.22/tests/mdemo-shared.test
+libtool-1.5.22/tests/assign.test
+libtool-1.5.22/tests/link.test
+libtool-1.5.22/tests/link-2.test
+libtool-1.5.22/tests/nomode.test
+libtool-1.5.22/tests/quote.test
+libtool-1.5.22/tests/sh.test
+libtool-1.5.22/tests/suffix.test
+libtool-1.5.22/tests/pdemo-conf.test
+libtool-1.5.22/tests/pdemo-make.test
+libtool-1.5.22/tests/pdemo-exec.test
+libtool-1.5.22/tests/pdemo-inst.test
+libtool-1.5.22/tests/mdemo2-conf.test
+libtool-1.5.22/tests/mdemo2-make.test
+libtool-1.5.22/tests/mdemo2-exec.test
+libtool-1.5.22/tests/duplicate_members.test
+libtool-1.5.22/tests/link-order.test
+libtool-1.5.22/tests/tagdemo-static.test
+libtool-1.5.22/tests/tagdemo-make.test
+libtool-1.5.22/tests/tagdemo-exec.test
+libtool-1.5.22/tests/tagdemo-conf.test
+libtool-1.5.22/tests/tagdemo-shared.test
+libtool-1.5.22/tests/f77demo-static.test
+libtool-1.5.22/tests/f77demo-make.test
+libtool-1.5.22/tests/f77demo-exec.test
+libtool-1.5.22/tests/f77demo-conf.test
+libtool-1.5.22/tests/f77demo-shared.test
+libtool-1.5.22/cdemo/
+libtool-1.5.22/cdemo/README
+libtool-1.5.22/cdemo/acinclude.m4
+libtool-1.5.22/cdemo/configure.ac
+libtool-1.5.22/cdemo/aclocal.m4
+libtool-1.5.22/cdemo/foo.h
+libtool-1.5.22/cdemo/Makefile.am
+libtool-1.5.22/cdemo/Makefile.in
+libtool-1.5.22/cdemo/configure
+libtool-1.5.22/cdemo/foo.c
+libtool-1.5.22/cdemo/main.c
+libtool-1.5.22/pdemo/
+libtool-1.5.22/pdemo/acinclude.m4
+libtool-1.5.22/pdemo/configure.ac
+libtool-1.5.22/pdemo/aclocal.m4
+libtool-1.5.22/pdemo/foo.h
+libtool-1.5.22/pdemo/Makefile.am
+libtool-1.5.22/pdemo/Makefile.in
+libtool-1.5.22/pdemo/configure
+libtool-1.5.22/pdemo/longer_file_name_hello.c
+libtool-1.5.22/pdemo/longer_file_name_foo.c
+libtool-1.5.22/pdemo/longer_file_name_hell1.c
+libtool-1.5.22/pdemo/longer_file_name_hell2.c
+libtool-1.5.22/pdemo/longer_file_name_foo2.c
+libtool-1.5.22/pdemo/longer_file_name_main.c
+libtool-1.5.22/pdemo/longer_file_name_dlmain.c
+libtool-1.5.22/demo/
+libtool-1.5.22/demo/README
+libtool-1.5.22/demo/acinclude.m4
+libtool-1.5.22/demo/configure.ac
+libtool-1.5.22/demo/aclocal.m4
+libtool-1.5.22/demo/foo.h
+libtool-1.5.22/demo/Makefile.am
+libtool-1.5.22/demo/Makefile.in
+libtool-1.5.22/demo/configure
+libtool-1.5.22/demo/hello.c
+libtool-1.5.22/demo/foo.c
+libtool-1.5.22/demo/hell1.c
+libtool-1.5.22/demo/hell2.c
+libtool-1.5.22/demo/main.c
+libtool-1.5.22/demo/dlmain.c
+libtool-1.5.22/depdemo/
+libtool-1.5.22/depdemo/README
+libtool-1.5.22/depdemo/acinclude.m4
+libtool-1.5.22/depdemo/configure.ac
+libtool-1.5.22/depdemo/aclocal.m4
+libtool-1.5.22/depdemo/Makefile.am
+libtool-1.5.22/depdemo/Makefile.in
+libtool-1.5.22/depdemo/configure
+libtool-1.5.22/depdemo/main.c
+libtool-1.5.22/depdemo/sysdep.h
+libtool-1.5.22/depdemo/l1/
+libtool-1.5.22/depdemo/l1/Makefile.am
+libtool-1.5.22/depdemo/l1/Makefile.in
+libtool-1.5.22/depdemo/l1/l1.c
+libtool-1.5.22/depdemo/l1/l1.h
+libtool-1.5.22/depdemo/l2/
+libtool-1.5.22/depdemo/l2/Makefile.am
+libtool-1.5.22/depdemo/l2/Makefile.in
+libtool-1.5.22/depdemo/l2/l2.c
+libtool-1.5.22/depdemo/l2/l2.h
+libtool-1.5.22/depdemo/l3/
+libtool-1.5.22/depdemo/l3/Makefile.am
+libtool-1.5.22/depdemo/l3/Makefile.in
+libtool-1.5.22/depdemo/l3/l3.c
+libtool-1.5.22/depdemo/l3/l3.h
+libtool-1.5.22/depdemo/l4/
+libtool-1.5.22/depdemo/l4/Makefile.am
+libtool-1.5.22/depdemo/l4/Makefile.in
+libtool-1.5.22/depdemo/l4/l4.c
+libtool-1.5.22/depdemo/l4/l4.h
+libtool-1.5.22/mdemo/
+libtool-1.5.22/mdemo/README
+libtool-1.5.22/mdemo/acinclude.m4
+libtool-1.5.22/mdemo/configure.ac
+libtool-1.5.22/mdemo/aclocal.m4
+libtool-1.5.22/mdemo/foo.h
+libtool-1.5.22/mdemo/Makefile.am
+libtool-1.5.22/mdemo/Makefile.in
+libtool-1.5.22/mdemo/configure
+libtool-1.5.22/mdemo/foo1.c
+libtool-1.5.22/mdemo/foo2.c
+libtool-1.5.22/mdemo/mlib.c
+libtool-1.5.22/mdemo/sub.c
+libtool-1.5.22/mdemo/main.c
+libtool-1.5.22/mdemo2/
+libtool-1.5.22/mdemo2/README
+libtool-1.5.22/mdemo2/acinclude.m4
+libtool-1.5.22/mdemo2/configure.ac
+libtool-1.5.22/mdemo2/aclocal.m4
+libtool-1.5.22/mdemo2/Makefile.am
+libtool-1.5.22/mdemo2/Makefile.in
+libtool-1.5.22/mdemo2/configure
+libtool-1.5.22/mdemo2/main.c
+libtool-1.5.22/tagdemo/
+libtool-1.5.22/tagdemo/README
+libtool-1.5.22/tagdemo/acinclude.m4
+libtool-1.5.22/tagdemo/configure.ac
+libtool-1.5.22/tagdemo/aclocal.m4
+libtool-1.5.22/tagdemo/foo.h
+libtool-1.5.22/tagdemo/baz.h
+libtool-1.5.22/tagdemo/Makefile.am
+libtool-1.5.22/tagdemo/Makefile.in
+libtool-1.5.22/tagdemo/configure
+libtool-1.5.22/tagdemo/baz.cpp
+libtool-1.5.22/tagdemo/foo.cpp
+libtool-1.5.22/tagdemo/main.cpp
+libtool-1.5.22/f77demo/
+libtool-1.5.22/f77demo/README
+libtool-1.5.22/f77demo/acinclude.m4
+libtool-1.5.22/f77demo/configure.ac
+libtool-1.5.22/f77demo/aclocal.m4
+libtool-1.5.22/f77demo/foo.h
+libtool-1.5.22/f77demo/Makefile.am
+libtool-1.5.22/f77demo/Makefile.in
+libtool-1.5.22/f77demo/config-h.in
+libtool-1.5.22/f77demo/configure
+libtool-1.5.22/f77demo/foof.f
+libtool-1.5.22/f77demo/fooc.c
+libtool-1.5.22/f77demo/cprogram.c
+libtool-1.5.22/f77demo/fprogram.f
+configure: WARNING: you should use --build, --host, --target
+checking for a BSD-compatible install... /usr/bin/ginstall -c
+checking whether build environment is sane... yes
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking for sparc-bobware-linux-gcc... gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for style of include used by make... GNU
+checking dependency style of gcc... none
+checking for a sed that does not truncate output... /usr/bin/sed
+checking build system type... sparc-bobware-linux-gnu
+checking host system type... sparc-bobware-linux-gnu
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ld used by gcc... /usr/sparc-bobware-linux/bin/ld
+checking if the linker (/usr/sparc-bobware-linux/bin/ld) is GNU ld... yes
+checking for BSD-compatible nm... /usr/bin/nm -B
+checking whether ln -s works... yes
+checking for sparc-bobware-linux-g++... sparc-bobware-linux-g++
+checking whether we are using the GNU C++ compiler... yes
+checking whether sparc-bobware-linux-g++ accepts -g... yes
+checking dependency style of sparc-bobware-linux-g++... none
+checking for sparc-bobware-linux-g77... no
+checking for sparc-bobware-linux-f77... no
+checking for sparc-bobware-linux-xlf... no
+checking for sparc-bobware-linux-frt... no
+checking for sparc-bobware-linux-pgf77... no
+checking for sparc-bobware-linux-cf77... no
+checking for sparc-bobware-linux-fort77... no
+checking for sparc-bobware-linux-fl32... no
+checking for sparc-bobware-linux-af77... no
+checking for sparc-bobware-linux-f90... no
+checking for sparc-bobware-linux-xlf90... no
+checking for sparc-bobware-linux-pgf90... no
+checking for sparc-bobware-linux-pghpf... no
+checking for sparc-bobware-linux-epcf90... no
+checking for sparc-bobware-linux-gfortran... no
+checking for sparc-bobware-linux-g95... no
+checking for sparc-bobware-linux-f95... no
+checking for sparc-bobware-linux-fort... no
+checking for sparc-bobware-linux-xlf95... no
+checking for sparc-bobware-linux-ifort... no
+checking for sparc-bobware-linux-ifc... no
+checking for sparc-bobware-linux-efc... no
+checking for sparc-bobware-linux-pgf95... no
+checking for sparc-bobware-linux-lf95... no
+checking for sparc-bobware-linux-ftn... no
+checking for g77... g77
+checking whether we are using the GNU Fortran 77 compiler... yes
+checking whether g77 accepts -g... yes
+checking for sparc-bobware-linux-gcj... sparc-bobware-linux-gcj
+checking for sparc-bobware-linux-windres... no
+checking for windres... no
+checking for /usr/sparc-bobware-linux/bin/ld option to reload object files... -r
+checking how to recognise dependent libraries... pass_all
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking how to run the C++ preprocessor... sparc-bobware-linux-g++ -E
+checking the maximum length of command line arguments... 65536
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for objdir... .libs
+checking for sparc-bobware-linux-ar... no
+checking for ar... ar
+checking for sparc-bobware-linux-ranlib... no
+checking for ranlib... ranlib
+checking for sparc-bobware-linux-strip... no
+checking for strip... strip
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC
+checking if gcc PIC flag -fPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking whether the gcc linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking for shl_load... no
+checking for shl_load in -ldld... no
+checking for dlopen... no
+checking for dlopen in -ldl... yes
+checking whether a program can dlopen itself... yes
+checking whether a statically linked program can dlopen itself... no
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+configure: creating libtool
+appending configuration tag "CXX" to libtool
+checking for ld used by sparc-bobware-linux-g++... /usr/sparc-bobware-linux/bin/ld
+checking if the linker (/usr/sparc-bobware-linux/bin/ld) is GNU ld... yes
+checking whether the sparc-bobware-linux-g++ linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking for sparc-bobware-linux-g++ option to produce PIC... -fPIC
+checking if sparc-bobware-linux-g++ PIC flag -fPIC works... yes
+checking if sparc-bobware-linux-g++ static flag -static works... yes
+checking if sparc-bobware-linux-g++ supports -c -o file.o... yes
+checking whether the sparc-bobware-linux-g++ linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+appending configuration tag "F77" to libtool
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking for g77 option to produce PIC... -fPIC
+checking if g77 PIC flag -fPIC works... yes
+checking if g77 static flag -static works... yes
+checking if g77 supports -c -o file.o... yes
+checking whether the g77 linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+appending configuration tag "GCJ" to libtool
+checking if sparc-bobware-linux-gcj supports -fno-rtti -fno-exceptions... (cached) no
+checking for sparc-bobware-linux-gcj option to produce PIC... -fPIC
+checking if sparc-bobware-linux-gcj PIC flag -fPIC works... yes
+checking if sparc-bobware-linux-gcj static flag -static works... no
+checking if sparc-bobware-linux-gcj supports -c -o file.o... yes
+checking whether the sparc-bobware-linux-gcj linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating doc/Makefile
+config.status: creating tests/Makefile
+config.status: executing depfiles commands
+=== configuring in libltdl (/tmp/libtool-1.5.22/libltdl)
+configure: running /bin/sh './configure' --prefix=/usr  '--prefix=/usr' 'sparc-bobware-linux' 'build_alias=sparc-bobware-linux' 'host_alias=sparc-bobware-linux' 'target_alias=sparc-bobware-linux' 'CC=gcc' 'CFLAGS=-O2 -m32 -mcpu=v8 -mtune=v9' --enable-ltdl-install --cache-file=/dev/null --srcdir=.
+configure: WARNING: you should use --build, --host, --target
+checking for a BSD-compatible install... /usr/bin/ginstall -c
+checking whether build environment is sane... yes
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking for sparc-bobware-linux-gcc... gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for style of include used by make... GNU
+checking dependency style of gcc... none
+checking for an ANSI C-conforming const... yes
+checking for inline... inline
+checking build system type... sparc-bobware-linux-gnu
+checking host system type... sparc-bobware-linux-gnu
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ld used by gcc... /usr/sparc-bobware-linux/bin/ld
+checking if the linker (/usr/sparc-bobware-linux/bin/ld) is GNU ld... yes
+checking for /usr/sparc-bobware-linux/bin/ld option to reload object files... -r
+checking for BSD-compatible nm... /usr/bin/nm -B
+checking whether ln -s works... yes
+checking how to recognise dependent libraries... pass_all
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking for sparc-bobware-linux-g++... sparc-bobware-linux-g++
+checking whether we are using the GNU C++ compiler... yes
+checking whether sparc-bobware-linux-g++ accepts -g... yes
+checking dependency style of sparc-bobware-linux-g++... none
+checking how to run the C++ preprocessor... sparc-bobware-linux-g++ -E
+checking for sparc-bobware-linux-g77... no
+checking for sparc-bobware-linux-f77... no
+checking for sparc-bobware-linux-xlf... no
+checking for sparc-bobware-linux-frt... no
+checking for sparc-bobware-linux-pgf77... no
+checking for sparc-bobware-linux-cf77... no
+checking for sparc-bobware-linux-fort77... no
+checking for sparc-bobware-linux-fl32... no
+checking for sparc-bobware-linux-af77... no
+checking for sparc-bobware-linux-f90... no
+checking for sparc-bobware-linux-xlf90... no
+checking for sparc-bobware-linux-pgf90... no
+checking for sparc-bobware-linux-pghpf... no
+checking for sparc-bobware-linux-epcf90... no
+checking for sparc-bobware-linux-gfortran... no
+checking for sparc-bobware-linux-g95... no
+checking for sparc-bobware-linux-f95... no
+checking for sparc-bobware-linux-fort... no
+checking for sparc-bobware-linux-xlf95... no
+checking for sparc-bobware-linux-ifort... no
+checking for sparc-bobware-linux-ifc... no
+checking for sparc-bobware-linux-efc... no
+checking for sparc-bobware-linux-pgf95... no
+checking for sparc-bobware-linux-lf95... no
+checking for sparc-bobware-linux-ftn... no
+checking for g77... g77
+checking whether we are using the GNU Fortran 77 compiler... yes
+checking whether g77 accepts -g... yes
+checking the maximum length of command line arguments... 65536
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for objdir... .libs
+checking for sparc-bobware-linux-ar... no
+checking for ar... ar
+checking for sparc-bobware-linux-ranlib... no
+checking for ranlib... ranlib
+checking for sparc-bobware-linux-strip... no
+checking for strip... strip
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC
+checking if gcc PIC flag -fPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking whether the gcc linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+configure: creating libtool
+appending configuration tag "CXX" to libtool
+checking for ld used by sparc-bobware-linux-g++... /usr/sparc-bobware-linux/bin/ld
+checking if the linker (/usr/sparc-bobware-linux/bin/ld) is GNU ld... yes
+checking whether the sparc-bobware-linux-g++ linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking for sparc-bobware-linux-g++ option to produce PIC... -fPIC
+checking if sparc-bobware-linux-g++ PIC flag -fPIC works... yes
+checking if sparc-bobware-linux-g++ static flag -static works... yes
+checking if sparc-bobware-linux-g++ supports -c -o file.o... yes
+checking whether the sparc-bobware-linux-g++ linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+appending configuration tag "F77" to libtool
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking for g77 option to produce PIC... -fPIC
+checking if g77 PIC flag -fPIC works... yes
+checking if g77 static flag -static works... yes
+checking if g77 supports -c -o file.o... yes
+checking whether the g77 linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking which extension is used for loadable modules... .so
+checking which variable specifies run-time library path... LD_LIBRARY_PATH
+checking for the default library search path... /lib /usr/lib /usr/local/lib /usr/X11R6/lib /usr/i486-slackware-linux/lib /opt/kde/lib /usr/lib/qt/lib 
+checking for objdir... .libs
+checking whether libtool supports -dlopen/-dlpreopen... yes
+checking for shl_load... no
+checking for shl_load in -ldld... no
+checking for dlopen in -ldl... yes
+checking for dlerror... yes
+checking for _ prefix in compiled symbols... no
+checking whether deplibs are loaded by dlopen... yes
+checking argz.h usability... yes
+checking argz.h presence... yes
+checking for argz.h... yes
+checking for error_t... yes
+checking for argz_append... yes
+checking for argz_create_sep... yes
+checking for argz_insert... yes
+checking for argz_next... yes
+checking for argz_stringify... yes
+checking assert.h usability... yes
+checking assert.h presence... yes
+checking for assert.h... yes
+checking ctype.h usability... yes
+checking ctype.h presence... yes
+checking for ctype.h... yes
+checking errno.h usability... yes
+checking errno.h presence... yes
+checking for errno.h... yes
+checking malloc.h usability... yes
+checking malloc.h presence... yes
+checking for malloc.h... yes
+checking for memory.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking stdio.h usability... yes
+checking stdio.h presence... yes
+checking for stdio.h... yes
+checking for unistd.h... (cached) yes
+checking dl.h usability... no
+checking dl.h presence... no
+checking for dl.h... no
+checking sys/dl.h usability... no
+checking sys/dl.h presence... no
+checking for sys/dl.h... no
+checking dld.h usability... no
+checking dld.h presence... no
+checking for dld.h... no
+checking mach-o/dyld.h usability... no
+checking mach-o/dyld.h presence... no
+checking for mach-o/dyld.h... no
+checking for string.h... (cached) yes
+checking for strchr... yes
+checking for strrchr... yes
+checking for memcpy... yes
+checking for memmove... yes
+checking for strcmp... yes
+checking for closedir... yes
+checking for opendir... yes
+checking for readdir... yes
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+Making all in .
+make[1]: Entering directory `/tmp/libtool-1.5.22'
+CONFIG_FILES=libtoolize CONFIG_HEADERS= /bin/sh ./config.status
+config.status: creating libtoolize
+config.status: executing depfiles commands
+chmod +x libtoolize
+make[1]: Leaving directory `/tmp/libtool-1.5.22'
+Making all in libltdl
+make[1]: Entering directory `/tmp/libtool-1.5.22/libltdl'
+make  all-am
+make[2]: Entering directory `/tmp/libtool-1.5.22/libltdl'
+/bin/sh ./libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I.     -O2 -m32 -mcpu=v8 -mtune=v9 -c -o ltdl.lo ltdl.c
+mkdir .libs
+ gcc -DHAVE_CONFIG_H -I. -I. -I. -O2 -m32 -mcpu=v8 -mtune=v9 -c ltdl.c  -fPIC -DPIC -o .libs/ltdl.o
+ gcc -DHAVE_CONFIG_H -I. -I. -I. -O2 -m32 -mcpu=v8 -mtune=v9 -c ltdl.c -o ltdl.o >/dev/null 2>&1
+/bin/sh ./libtool --tag=CC   --mode=link gcc  -O2 -m32 -mcpu=v8 -mtune=v9 -no-undefined -version-info 4:4:1  -o libltdl.la -rpath /usr/lib ltdl.lo -ldl 
+gcc -shared  .libs/ltdl.o  -ldl  -m32 -mcpu=v8 -mtune=v9 -Wl,-soname -Wl,libltdl.so.3 -o .libs/libltdl.so.3.1.4
+(cd .libs && rm -f libltdl.so.3 && ln -s libltdl.so.3.1.4 libltdl.so.3)
+(cd .libs && rm -f libltdl.so && ln -s libltdl.so.3.1.4 libltdl.so)
+ar cru .libs/libltdl.a  ltdl.o
+ranlib .libs/libltdl.a
+creating libltdl.la
+(cd .libs && rm -f libltdl.la && ln -s ../libltdl.la libltdl.la)
+make[2]: Leaving directory `/tmp/libtool-1.5.22/libltdl'
+make[1]: Leaving directory `/tmp/libtool-1.5.22/libltdl'
+Making all in doc
+make[1]: Entering directory `/tmp/libtool-1.5.22/doc'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/tmp/libtool-1.5.22/doc'
+Making all in tests
+make[1]: Entering directory `/tmp/libtool-1.5.22/tests'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/tmp/libtool-1.5.22/tests'
+Making install in .
+make[1]: Entering directory `/tmp/libtool-1.5.22'
+make[2]: Entering directory `/tmp/libtool-1.5.22'
+test -z "/usr/bin" || mkdir -p -- "/tmp/package-libtool/usr/bin"
+ /usr/bin/ginstall -c 'libtool' '/tmp/package-libtool/usr/bin/libtool'
+ /usr/bin/ginstall -c 'libtoolize' '/tmp/package-libtool/usr/bin/libtoolize'
+test -z "/usr/share/aclocal" || mkdir -p -- "/tmp/package-libtool/usr/share/aclocal"
+ /usr/bin/ginstall -c -m 644 'libtool.m4' '/tmp/package-libtool/usr/share/aclocal/libtool.m4'
+ /usr/bin/ginstall -c -m 644 'ltdl.m4' '/tmp/package-libtool/usr/share/aclocal/ltdl.m4'
+test -z "/usr/share/libtool/libltdl" || mkdir -p -- "/tmp/package-libtool/usr/share/libtool/libltdl"
+ /usr/bin/ginstall -c -m 644 'libltdl/COPYING.LIB' '/tmp/package-libtool/usr/share/libtool/libltdl/COPYING.LIB'
+ /usr/bin/ginstall -c -m 644 'libltdl/README' '/tmp/package-libtool/usr/share/libtool/libltdl/README'
+ /usr/bin/ginstall -c -m 644 'libltdl/configure.ac' '/tmp/package-libtool/usr/share/libtool/libltdl/configure.ac'
+ /usr/bin/ginstall -c -m 644 'libltdl/Makefile.am' '/tmp/package-libtool/usr/share/libtool/libltdl/Makefile.am'
+ /usr/bin/ginstall -c -m 644 'libltdl/ltdl.c' '/tmp/package-libtool/usr/share/libtool/libltdl/ltdl.c'
+ /usr/bin/ginstall -c -m 644 'libltdl/ltdl.h' '/tmp/package-libtool/usr/share/libtool/libltdl/ltdl.h'
+ /usr/bin/ginstall -c -m 644 'libltdl/config.guess' '/tmp/package-libtool/usr/share/libtool/libltdl/config.guess'
+ /usr/bin/ginstall -c -m 644 'libltdl/config.sub' '/tmp/package-libtool/usr/share/libtool/libltdl/config.sub'
+ /usr/bin/ginstall -c -m 644 'libltdl/install-sh' '/tmp/package-libtool/usr/share/libtool/libltdl/install-sh'
+ /usr/bin/ginstall -c -m 644 'libltdl/missing' '/tmp/package-libtool/usr/share/libtool/libltdl/missing'
+ /usr/bin/ginstall -c -m 644 'libltdl/ltmain.sh' '/tmp/package-libtool/usr/share/libtool/libltdl/ltmain.sh'
+ /usr/bin/ginstall -c -m 644 'libltdl/acinclude.m4' '/tmp/package-libtool/usr/share/libtool/libltdl/acinclude.m4'
+ /usr/bin/ginstall -c -m 644 'libltdl/aclocal.m4' '/tmp/package-libtool/usr/share/libtool/libltdl/aclocal.m4'
+ /usr/bin/ginstall -c -m 644 'libltdl/Makefile.in' '/tmp/package-libtool/usr/share/libtool/libltdl/Makefile.in'
+ /usr/bin/ginstall -c -m 644 'libltdl/configure' '/tmp/package-libtool/usr/share/libtool/libltdl/configure'
+ /usr/bin/ginstall -c -m 644 'libltdl/config-h.in' '/tmp/package-libtool/usr/share/libtool/libltdl/config-h.in'
+test -z "/usr/share/libtool" || mkdir -p -- "/tmp/package-libtool/usr/share/libtool"
+ /usr/bin/ginstall -c -m 644 'config.guess' '/tmp/package-libtool/usr/share/libtool/config.guess'
+ /usr/bin/ginstall -c -m 644 'config.sub' '/tmp/package-libtool/usr/share/libtool/config.sub'
+ /usr/bin/ginstall -c -m 644 'install-sh' '/tmp/package-libtool/usr/share/libtool/install-sh'
+ /usr/bin/ginstall -c -m 644 'ltmain.sh' '/tmp/package-libtool/usr/share/libtool/ltmain.sh'
+make  install-data-hook
+make[3]: Entering directory `/tmp/libtool-1.5.22'
+chmod +x /tmp/package-libtool/usr/share/libtool/config.guess
+chmod +x /tmp/package-libtool/usr/share/libtool/config.sub
+chmod +x /tmp/package-libtool/usr/share/libtool/install-sh
+chmod +x /tmp/package-libtool/usr/share/libtool/libltdl/config.guess
+chmod +x /tmp/package-libtool/usr/share/libtool/libltdl/config.sub
+chmod +x /tmp/package-libtool/usr/share/libtool/libltdl/install-sh
+chmod +x /tmp/package-libtool/usr/share/libtool/libltdl/configure
+chmod +x /tmp/package-libtool/usr/share/libtool/libltdl/missing
+make[3]: Leaving directory `/tmp/libtool-1.5.22'
+make[2]: Leaving directory `/tmp/libtool-1.5.22'
+make[1]: Leaving directory `/tmp/libtool-1.5.22'
+Making install in libltdl
+make[1]: Entering directory `/tmp/libtool-1.5.22/libltdl'
+make[2]: Entering directory `/tmp/libtool-1.5.22/libltdl'
+test -z "/usr/lib" || mkdir -p -- "/tmp/package-libtool/usr/lib"
+ /bin/sh ./libtool --mode=install /usr/bin/ginstall -c  'libltdl.la' '/tmp/package-libtool/usr/lib/libltdl.la'
+/usr/bin/ginstall -c .libs/libltdl.so.3.1.4 /tmp/package-libtool/usr/lib/libltdl.so.3.1.4
+(cd /tmp/package-libtool/usr/lib && { ln -s -f libltdl.so.3.1.4 libltdl.so.3 || { rm -f libltdl.so.3 && ln -s libltdl.so.3.1.4 libltdl.so.3; }; })
+(cd /tmp/package-libtool/usr/lib && { ln -s -f libltdl.so.3.1.4 libltdl.so || { rm -f libltdl.so && ln -s libltdl.so.3.1.4 libltdl.so; }; })
+/usr/bin/ginstall -c .libs/libltdl.lai /tmp/package-libtool/usr/lib/libltdl.la
+/usr/bin/ginstall -c .libs/libltdl.a /tmp/package-libtool/usr/lib/libltdl.a
+chmod 644 /tmp/package-libtool/usr/lib/libltdl.a
+ranlib /tmp/package-libtool/usr/lib/libltdl.a
+libtool: install: warning: remember to run `libtool --finish /usr/lib'
+test -z "/usr/include" || mkdir -p -- "/tmp/package-libtool/usr/include"
+ /usr/bin/ginstall -c -m 644 'ltdl.h' '/tmp/package-libtool/usr/include/ltdl.h'
+make[2]: Leaving directory `/tmp/libtool-1.5.22/libltdl'
+make[1]: Leaving directory `/tmp/libtool-1.5.22/libltdl'
+Making install in doc
+make[1]: Entering directory `/tmp/libtool-1.5.22/doc'
+make[2]: Entering directory `/tmp/libtool-1.5.22/doc'
+make[2]: Nothing to be done for `install-exec-am'.
+test -z "/usr/share/info" || mkdir -p -- "/tmp/package-libtool/usr/share/info"
+ /usr/bin/ginstall -c -m 644 './libtool.info' '/tmp/package-libtool/usr/share/info/libtool.info'
+ install-info --info-dir='/tmp/package-libtool/usr/share/info' '/tmp/package-libtool/usr/share/info/libtool.info'
+make[2]: Leaving directory `/tmp/libtool-1.5.22/doc'
+make[1]: Leaving directory `/tmp/libtool-1.5.22/doc'
+Making install in tests
+make[1]: Entering directory `/tmp/libtool-1.5.22/tests'
+make[2]: Entering directory `/tmp/libtool-1.5.22/tests'
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+make[2]: Leaving directory `/tmp/libtool-1.5.22/tests'
+make[1]: Leaving directory `/tmp/libtool-1.5.22/tests'
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+usr/lib/libltdl.so.3 -> libltdl.so.3.1.4
+usr/lib/libltdl.so -> libltdl.so.3.1.4
+
+Making symbolic link creation script:
+( cd usr/lib ; rm -rf libltdl.so.3 )
+( cd usr/lib ; ln -sf libltdl.so.3.1.4 libltdl.so.3 )
+( cd usr/lib ; rm -rf libltdl.so )
+( cd usr/lib ; ln -sf libltdl.so.3.1.4 libltdl.so )
+
+Unless your existing installation script already contains the code
+to create these links, you should append these lines to your existing
+install script. Now's your chance. :^)
+
+Would you like to add this stuff to the existing install script and
+remove the symbolic links ([y]es, [n]o)? y
+
+
+Removing symbolic links:
+removed `./usr/lib/libltdl.so.3'
+removed `./usr/lib/libltdl.so'
+
+Updating your ./install/doinst.sh...
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? n
+
+
+Creating tar file libtool-1.5.22-sparc-1.tar...
+
+./
+usr/
+usr/bin/
+usr/bin/libtool
+usr/bin/libtoolize
+usr/share/
+usr/share/aclocal/
+usr/share/aclocal/libtool.m4
+usr/share/aclocal/ltdl.m4
+usr/share/libtool/
+usr/share/libtool/libltdl/
+usr/share/libtool/libltdl/COPYING.LIB
+usr/share/libtool/libltdl/README
+usr/share/libtool/libltdl/configure.ac
+usr/share/libtool/libltdl/Makefile.am
+usr/share/libtool/libltdl/ltdl.c
+usr/share/libtool/libltdl/ltdl.h
+usr/share/libtool/libltdl/config.guess
+usr/share/libtool/libltdl/config.sub
+usr/share/libtool/libltdl/install-sh
+usr/share/libtool/libltdl/missing
+usr/share/libtool/libltdl/ltmain.sh
+usr/share/libtool/libltdl/acinclude.m4
+usr/share/libtool/libltdl/aclocal.m4
+usr/share/libtool/libltdl/Makefile.in
+usr/share/libtool/libltdl/configure
+usr/share/libtool/libltdl/config-h.in
+usr/share/libtool/config.guess
+usr/share/libtool/config.sub
+usr/share/libtool/install-sh
+usr/share/libtool/ltmain.sh
+usr/lib/
+usr/lib/libltdl.so.3.1.4
+usr/lib/libltdl.la
+usr/lib/libltdl.a
+usr/include/
+usr/include/ltdl.h
+usr/info/
+usr/info/libtool.info.gz
+usr/doc/
+usr/doc/libtool-1.5.22/
+usr/doc/libtool-1.5.22/AUTHORS
+usr/doc/libtool-1.5.22/COPYING
+usr/doc/libtool-1.5.22/INSTALL
+usr/doc/libtool-1.5.22/NEWS
+usr/doc/libtool-1.5.22/README
+usr/doc/libtool-1.5.22/THANKS
+usr/doc/libtool-1.5.22/TODO
+install/
+install/doinst.sh
+install/slack-desc
+tar-1.13: libtool-1.5.22-sparc-1.tar is the archive; not dumped
+
+Gzipping libtool-1.5.22-sparc-1.tar...
+
+Renaming libtool-1.5.22-sparc-1.tar.gz to libtool-1.5.22-sparc-1.tgz...
+
+Moving libtool-1.5.22-sparc-1.tgz to /tmp...
+
+Package creation complete.
+

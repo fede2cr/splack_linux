@@ -1,0 +1,28 @@
+#!/bin/sh
+CWD=`pwd`
+
+VERSION=0.16.15
+ARCH=i486
+BUILD=1
+
+cd /tmp
+tar xjvf $CWD/bin86-$VERSION.tar.bz2
+cd bin86-$VERSION
+zcat $CWD/bin86.diff.gz | patch -p1
+mkdir -p /usr/doc/bin86-$VERSION
+cp -a ChangeLog README README-0.4 as/TODO as/COPYING /usr/doc/bin86-$VERSION
+chmod 644 /usr/doc/bin86-$VERSION/*
+chown root:root /usr/doc/bin86-$VERSION/*
+make
+strip as/as86 ld/ld86 ld/objdump86
+cat as/as86 > /usr/bin/as86
+cat as/as86_encap > /usr/bin/as86_encap
+cat ld/ld86 > /usr/bin/ld86
+cat ld/objdump86> /usr/bin/objdump86
+chmod 755 /usr/bin/as86 /usr/bin/as86_encap /usr/bin/ld86 /usr/bin/objdump86
+( rm -f /usr/bin/nm86 /usr/bin/size86 ; cd /usr/bin ; ln -sf objdump86 nm86 ; ln -sf objdump86 size86 )
+cat man/as86.1 | gzip -9c > /usr/man/man1/as86.1.gz
+cat man/ld86.1 | gzip -9c > /usr/man/man1/ld86.1.gz
+( rm -f /usr/man/man1/as86_encap.1.gz ; cd /usr/man/man1 ; ln -sf as86.1.gz as86_encap.1.gz )
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

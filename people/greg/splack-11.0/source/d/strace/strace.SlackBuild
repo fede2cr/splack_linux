@@ -1,0 +1,45 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-strace
+
+VERSION=4.5.14
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf strace-$VERSION
+tar xjvf $CWD/strace-$VERSION.tar.bz2
+cd strace-$VERSION
+chown -R root:root .
+mkdir -p $PKG/usr/doc/strace-$VERSION
+cp -a \
+  COPYRIGHT CREDITS NEWS PORTING README README-CVS README-freebsd README-linux README-sunos4 README-svr4 TODO \
+$PKG/usr/doc/strace-$VERSION
+chmod 644 $PKG/usr/doc/strace-$VERSION/*
+./configure --prefix=/usr
+make
+make install DESTDIR=$PKG
+strip $PKG/usr/bin/strace
+gzip -9 $PKG/usr/man/man1/strace.1
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/strace-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/strace-$VERSION
+  rm -rf $PKG
+fi

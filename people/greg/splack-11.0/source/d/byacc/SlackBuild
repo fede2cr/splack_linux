@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# Home source: ftp://ftp.cs.berkeley.edu/ucb/4bsd/byacc.1.9.tar.Z
+
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-byacc
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_byacc.tar.gz
+
+echo "+=======+"
+echo "| byacc |"
+echo "+=======+"
+cd $TMP
+mkdir byacc
+cd byacc
+tar xzvf $CWD/byacc.1.9.tar.Z
+make
+strip yacc
+cat yacc > $PKG/usr/bin/yacc
+( cd $PKG/usr/bin ; ln -sf yacc byacc )
+cat yacc.1 | gzip -9c > $PKG/usr/man/man1/yacc.1.gz
+( cd $PKG/usr/man/man1 ; ln -sf yacc.1.gz byacc.1.gz )
+mkdir -p $PKG/usr/doc/byacc-1.9
+cp -a ACKNOWLEDGEMENTS NEW_FEATURES NOTES NO_WARRANTY README \
+      $PKG/usr/doc/byacc-1.9
+chmod 644 $PKG/usr/doc/byacc-1.9/*
+chown root:root $PKG/usr/doc/byacc-1.9/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/byacc-1.9-i386-1.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/byacc
+  rm -rf $PKG
+fi

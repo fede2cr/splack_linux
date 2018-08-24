@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+emacs-lisp: emacs-lisp (Emacs Lisp source files)
+emacs-lisp:
+emacs-lisp: This package contains source code for the parts of Emacs that are
+emacs-lisp: written in Emacs Lisp.  *.el files are Emacs Lisp source, and the
+emacs-lisp: corresponding *.elc files are byte-compiled versions.
+emacs-lisp:
+emacs-lisp: The emacs package contains all of the *.el files that emacs
+emacs-lisp: requires to run, but these are probably good to have if you've got
+emacs-lisp: the space on your hard drive.
+emacs-lisp:
+emacs-lisp:

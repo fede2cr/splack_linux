@@ -1,0 +1,42 @@
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/hfsutils-3.2.6.tar.gz
+cd hfsutils-3.2.6
+zcat $CWD/hfsutils.errno.diff.gz | patch -p1
+mkdir -p /usr/doc/hfsutils-3.2.6
+cp -a CHANGES COPYING COPYRIGHT CREDITS INSTALL \
+  README TODO /usr/doc/hfsutils-3.2.6
+chown root:root /usr/doc/hfsutils-3.2.6/*
+CFLAGS=-O2 ./configure --prefix=/usr --with-tcl --with-tk --enable-devlibs
+make
+make install
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc
+( cd /
+( cd usr/bin ; rm -rf hattrib )
+( cd usr/bin ; ln -sf hmount hattrib )
+( cd usr/bin ; rm -rf hcd )
+( cd usr/bin ; ln -sf hmount hcd )
+( cd usr/bin ; rm -rf hcopy )
+( cd usr/bin ; ln -sf hmount hcopy )
+( cd usr/bin ; rm -rf hdel )
+( cd usr/bin ; ln -sf hmount hdel )
+( cd usr/bin ; rm -rf hdir )
+( cd usr/bin ; ln -sf hmount hdir )
+( cd usr/bin ; rm -rf hformat )
+( cd usr/bin ; ln -sf hmount hformat )
+( cd usr/bin ; rm -rf hls )
+( cd usr/bin ; ln -sf hmount hls )
+( cd usr/bin ; rm -rf hmkdir )
+( cd usr/bin ; ln -sf hmount hmkdir )
+( cd usr/bin ; rm -rf hpwd )
+( cd usr/bin ; ln -sf hmount hpwd )
+( cd usr/bin ; rm -rf hrename )
+( cd usr/bin ; ln -sf hmount hrename )
+( cd usr/bin ; rm -rf hrmdir )
+( cd usr/bin ; ln -sf hmount hrmdir )
+( cd usr/bin ; rm -rf humount )
+( cd usr/bin ; ln -sf hmount humount )
+( cd usr/bin ; rm -rf hvol )
+( cd usr/bin ; ln -sf hmount hvol )
+)

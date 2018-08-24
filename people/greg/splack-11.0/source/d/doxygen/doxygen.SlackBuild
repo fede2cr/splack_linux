@@ -1,0 +1,42 @@
+#!/bin/sh
+
+VERSION=1.4.7
+ARCH=${ARCH:-i486}
+BUILD=1
+
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-doxygen
+rm -rf $PKG
+mkdir -p $PKG/usr
+cd $TMP
+rm -rf doxygen-$VERSION
+tar xjvf $CWD/doxygen-${VERSION}.src.tar.bz2
+cd doxygen-$VERSION
+# Allow setting complete docdir:
+zcat $CWD/doxygen.docdir.diff.gz | patch -p1 --verbose || exit 1
+chown -R root:root .
+./configure \
+  --shared \
+  --release \
+  --prefix /usr \
+  --docdir /usr/doc/doxygen-$VERSION \
+  --with-doxywizard
+make -j3
+make install INSTALL=$PKG/usr DOCDIR=$PKG/usr/doc/doxygen-$VERSION
+make install_docs INSTALL=$PKG/usr DOCDIR=$PKG/usr/doc/doxygen-$VERSION
+gzip -9 $PKG/usr/man/man?/*.?
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/usr/doc/doxygen-$VERSION
+cp -a \
+  INSTALL LANGUAGE.HOWTO LICENSE PLATFORMS README VERSION \
+  $PKG/usr/doc/doxygen-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/doxygen-$VERSION-$ARCH-$BUILD.tgz
+

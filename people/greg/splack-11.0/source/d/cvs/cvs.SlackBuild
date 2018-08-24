@@ -1,0 +1,42 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-cvs
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=1.11.22
+ARCH=${ARCH:-i486}
+BUILD=1
+
+cd /tmp
+rm -rf cvs-$VERSION
+tar xjvf $CWD/cvs-$VERSION.tar.bz2
+cd cvs-$VERSION
+chown -R root:root .
+CFLAGS=-O2 ./configure --prefix=/usr
+make -j3
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+rm $PKG/usr/info/dir
+gzip -9 $PKG/usr/info/*
+gzip -9 $PKG/usr/man/man?/*.?
+( cd doc ; make txt )
+mkdir -p $PKG/usr/doc/cvs-$VERSION
+cp -a \
+  BUGS COPYING COPYING.LIB DEVEL-CVS FAQ HACKING INSTALL MINOR-BUGS NEWS PROJECTS README TESTS TODO \
+  $PKG/usr/doc/cvs-$VERSION
+cat doc/cvs.txt | gzip -9c > $PKG/usr/doc/cvs-$VERSION/cvs.txt.gz
+cat doc/cvsclient.txt | gzip -9c > $PKG/usr/doc/cvs-$VERSION/cvsclient.txt.gz
+chmod 644 $PKG/usr/doc/cvs-$VERSION/*
+gzip -9 $PKG/usr/doc/cvs-$VERSION/FAQ
+( cd $PKG/usr/doc/cvs-$VERSION ; rm -rf contrib )
+( cd $PKG/usr/doc/cvs-$VERSION ; ln -sf ../../share/cvs/contrib contrib )
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../cvs-$VERSION-$ARCH-$BUILD.tgz
+

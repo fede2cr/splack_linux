@@ -1,0 +1,43 @@
+CWD=`pwd`
+
+VERSION=5.43
+
+# We need includes from this:
+( cd /tmp
+  tar xjvf $CWD/tcl8.4.13-src.tar.bz2
+  cd tcl8.4.13/unix
+  ./configure --prefix=/usr )
+
+## Build and install static version:
+#( cd /tmp
+#tar xzvf $CWD/expect-$VERSION.tar.gz
+#cd expect-$VERSION
+#./configure --prefix=/usr --with-tclconfig=/usr/lib \
+#  --with-tclinclude=/tmp/tcl8.4.13/generic
+#make
+#make install )
+#mv /tmp/expect-$VERSION /tmp/expect-$VERSION-static
+
+# Build and install shared version:
+( cd /tmp
+tar xzvf $CWD/expect-${VERSION}.0.tar.gz
+cd expect-$VERSION
+chown -R root:root .
+./configure --prefix=/usr --with-tclconfig=/usr/lib \
+  --with-tclinclude=/tmp/tcl8.4.13/generic --enable-shared
+make
+make install
+mkdir -p /usr/doc/expect-$VERSION
+cp -a \
+  FAQ HISTORY INSTALL NEWS README example \
+  /usr/doc/expect-$VERSION
+)
+
+( cd /usr/lib
+  rm -rf libexpect.a
+  ln -sf libexpect${VERSION}.a libexpect.a
+  rm -rf libexpect.so
+  ln -sf libexpect${VERSION}.so libexpect.so )
+
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

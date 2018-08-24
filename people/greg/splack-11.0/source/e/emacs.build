@@ -1,0 +1,58 @@
+#!/bin/sh
+# Build and install GNU emacs for Slackware.
+# Before starting, you might want to reduce dependancies in the
+# .tgz packages by doing this (no, you really don't want to do this):
+#                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#removepkg xaw3d
+#rm /usr/lib/libjpeg.so
+#rm /usr/lib/libpng.so
+#rm /usr/lib/libtiff.so
+#rm /usr/lib/libungif.so
+# and then replace these things after the build.
+CWD=`pwd`
+PKGVER=21.4a
+VERSION=21.4
+cd /tmp
+rm -rf emacs-$VERSION
+tar xjvf $CWD/emacs-$PKGVER.tar.bz2
+tar xjvf $CWD/leim-$VERSION.tar.bz2
+cd emacs-$VERSION
+zcat $CWD/emacs.xterm.h.diff.gz | patch -p1 --verbose || exit
+chown -R root.root .
+find . -perm 664 -exec chmod 644 {} \;
+# Save some docs:
+rm -rf /usr/doc/emacs-$VERSION
+mkdir -p /usr/doc/emacs-$VERSION
+cp -a BUGS FTP INSTALL README /usr/doc/emacs-$VERSION
+chmod 644 /usr/doc/emacs-$VERSION/*
+( cd /usr/doc/emacs-$VERSION ; ln -sf /usr/share/emacs/$VERSION/etc . )
+# Build a version of emacs that is not linked to the X11 libraries:
+CFLAGS=-O2 LDFLAGS=-s ./configure i486-slackware-linux \
+            --prefix=/usr \
+            --with-x=no \
+            --with-pop
+make
+make install
+( cd /usr/bin ; mv emacs-$VERSION emacs-$VERSION-no-x11 )
+# OK, now we start over building the full X11 emacs:
+CFLAGS=-O2 LDFLAGS=-s ./configure i486-slackware-linux \
+            --prefix=/usr \
+            --with-x11 \
+            --with-x-toolkit \
+            --with-pop
+make
+make install
+( cd /usr/bin
+  mv emacs-$VERSION emacs-$VERSION-with-x11 
+  ln -sf emacs-$VERSION-with-x11 emacs
+)
+
+# This avoids a collision with Exuberant Ctags...
+mv /usr/bin/ctags /usr/bin/ctags-emacs
+mv /usr/man/man1/ctags.1 /usr/man/man1/ctags-emacs.1
+
+# You'll get to sort through these later:
+mkdir -p /install
+cp -a $CWD/slack-desc* /install
+# This will attempt to handle the Exuberant Ctags situation gracefully...
+cp -a $CWD/doinst.sh-emacs /install

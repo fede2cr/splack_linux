@@ -1,0 +1,64 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-distcc
+
+VERSION=2.18.3
+ARCH=${ARCH:-i486}
+BUILD=2
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf distcc-$VERSION
+tar xjvf $CWD/distcc-$VERSION.tar.bz2
+cd distcc-$VERSION
+chown -R root:root .
+./configure \
+  --prefix=/usr \
+  --datadir=/usr/share \
+  --sysconfdir=/etc \
+  --with-gtk \
+  --without-gnome \
+  $ARCH-slackware-linux
+make
+make install DESTDIR=$PKG docdir=/usr/doc/distcc-$VERSION
+# pkgdocdir=/usr/doc/distcc-$VERSION
+mkdir -p $PKG/usr/share/applications
+( cd $PKG/usr/share/applications
+  ln -sf /usr/share/distcc/distccmon-gnome.desktop .
+)
+gzip -9 $PKG/usr/man/man?/*
+# Restore original timestamps on the doc files:
+for file in * ; do
+  if [ -f $file ]; then
+    if [ -r $PKG/usr/doc/distcc-$VERSION/$file ]; then
+      cp -a $file $PKG/usr/doc/distcc-$VERSION/$file
+      chmod 644 $PKG/usr/doc/distcc-$VERSION/$file
+    fi
+  fi
+done
+# Strip binaries:
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/distcc-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/distcc-$VERSION
+  rm -rf $PKG
+fi
