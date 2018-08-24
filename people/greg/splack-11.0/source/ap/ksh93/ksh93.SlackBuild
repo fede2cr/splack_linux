@@ -1,0 +1,126 @@
+#!/bin/sh
+# Copyright 2001 BSDi, Inc. Concord, CA, USA
+# Copyright 2004 Slackware Linux, Inc.  Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+VERSION=20030724
+# ast still considers this an i386 arch, so we'll humor it but package with
+# the i486 arch label...
+ARCH=i386
+PARC=i486
+BUILD=1
+
+CWD=$(pwd)
+TMP=/tmp/build-ksh93
+PKG=/tmp/package-ksh93
+
+rm -rf $TMP $PKG
+mkdir -p $TMP $PKG
+cd $TMP
+
+mkdir -p ast-base/lib/package/tgz
+cp $CWD/*.tgz ast-base/lib/package/tgz
+cd ast-base/
+
+tar -xvzf lib/package/tgz/INIT.2003-07-24.tgz
+bin/package read
+bin/package make SHELL=/bin/bash
+
+mkdir -p $PKG/bin
+cp arch/linux.$ARCH/bin/ksh $PKG/bin/ksh.new
+strip --strip-unneeded $PKG/bin/ksh.new
+
+#cp arch/linux.$ARCH/lib/libshell.so.1.1 /usr/lib
+#cp arch/linux.$ARCH/lib/libshell.a /usr/lib
+#cp arch/linux.$ARCH/lib/libast.so.5.4 /usr/lib
+#cp arch/linux.$ARCH/lib/libast.a /usr/lib
+#cp arch/linux.$ARCH/src/cmd/ksh93/cc-g,-fpic/libshell.so.1.1 /usr/lib
+#cp arch/linux.$ARCH/src/cmd/ksh93/cc-g,-fpic/libshell.a /usr/lib
+#cp arch/linux.$ARCH/src/lib/libast/libast.so.5.4 /usr/lib
+#cp arch/linux.$ARCH/src/cmd/ksh93/cc-g,-fpic/libast.a /usr/lib
+#strip /usr/lib/libast.so.5.4 /usr/lib/libshell.so.1.1
+
+mkdir -p $PKG/usr/man/man1
+sed -e "s#\.nr Z 0#\.nr Z 1#g" src/cmd/ksh93/sh.1 > \
+       $PKG/usr/man/man1/ksh.1
+#mkdir -p $PKG/usr/man/man1
+#cp src/cmd/ksh93/shell.3 $PKG/usr/man/man3
+#cp src/cmd/ksh93/nval.3 $PKG/usr/man/man3
+gzip -9 $PKG/usr/man/man?/*
+
+#cp src/cmd/ksh93/include/shell.h /usr/include
+
+# If anyone is actually using the ksh libraries, drop me some mail
+# and explain which libs you use and what they're for.  As it is, I
+# don't see a compeling reason to include them, as ksh itself doesn't
+# use them.
+#( cd /usr/lib ; ln -sf libshell.so.1.1 libshell.so )
+#( cd /usr/lib rm -rf libast.so ; ln -sf libast.so.5.4 libast.so )
+
+( cd $PKG/bin ; ln -sf ksh rksh )
+( cd $PKG/usr/man/man1 ; ln -sf ksh.1.gz rksh.1.gz )
+
+mkdir -p $PKG/usr/doc/ksh93-$VERSION
+( cd src/cmd/ksh93
+  cp -a COMPATIBILITY DESIGN OBSOLETE OPTIONS README RELEASE* \
+     $PKG/usr/doc/ksh93-$VERSION
+)
+( cd /tmp/build-ksh93/ast-base
+  mkdir -p $PKG/usr/doc/ksh93-$VERSION/LICENSE
+  # AT&T says I have to include this empty file:
+  cp -a './------------ NOTICE -- LICENSED SOFTWARE -- SEE README FOR DETAILS ------------' $PKG/usr/doc/ksh93-$VERSION/LICENSE
+  cp -a README $PKG/usr/doc/ksh93-$VERSION/LICENSE
+  cp -a lib/package/LICENSES/ast $PKG/usr/doc/ksh93-$VERSION/LICENSE/LICENSE.ast )
+
+chown -R root:root $PKG/usr/doc/ksh93-$VERSION
+find /usr/doc/ksh93-$VERSION -type f -exec chmod 644 "{}" \;
+find /usr/doc/ksh93-$VERSION -type d -exec chmod 755 "{}" \;
+
+#chmod 755 /usr/lib/libshell.so.1.1
+#chmod 755 /usr/lib/libast.so.5.4
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cat <<EOF >> $PKG/install/doinst.sh
+# Backup the old copy if we find one, move the new one in place
+if [ -f bin/ksh ]; then
+   mv bin/ksh bin/ksh.old
+fi
+mv bin/ksh.new bin/ksh
+if [ -f bin/ksh.old ]; then
+  rm -f bin/ksh.old
+fi
+# Add entries to /etc/shells if we need them
+if [ ! -r etc/shells ] ; then
+   touch etc/shells
+   chmod 644 etc/shells
+fi
+ 
+if fgrep "/bin/ksh" etc/shells 1> /dev/null 2> /dev/null ; then
+   GOOD=y
+   else
+   echo "/bin/ksh" >> etc/shells
+fi
+EOF
+
+cd $PKG
+makepkg -l y -c n /tmp/ksh93-$VERSION-$PARC-$BUILD.tgz
+

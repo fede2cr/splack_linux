@@ -1,0 +1,33 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-etc
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=11.0
+ARCH=noarch
+BUILD=2
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_etc.tar.gz
+cp -a $CWD/termcap-BSD.gz etc/termcap-BSD.gz
+gzip -d --force etc/termcap-BSD.gz
+chown root:root etc/termcap-BSD
+chmod 644 etc/termcap-BSD
+zcat $CWD/nsswitch.conf.gz > $PKG/etc/nsswitch.conf.new
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+echo "n" | makepkg $TMP/etc-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $PKG
+fi

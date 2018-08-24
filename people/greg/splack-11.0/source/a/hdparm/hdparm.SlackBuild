@@ -1,0 +1,46 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-hdparm
+
+VERSION=${VERSION:-6.6}
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf hdparm-$VERSION
+tar xzvf $CWD/hdparm-$VERSION.tar.gz
+cd hdparm-$VERSION
+chown -R root:root .
+make
+strip hdparm
+mkdir -p $PKG/usr/sbin
+cat hdparm > $PKG/usr/sbin/hdparm
+chmod 755 $PKG/usr/sbin/hdparm
+mkdir -p $PKG/usr/man/man8
+cat hdparm.8 | gzip -9c > $PKG/usr/man/man8/hdparm.8.gz
+mkdir -p $PKG/usr/doc/hdparm-$VERSION
+cp -a \
+  LICENSE.TXT README.acoustic hdparm.lsm contrib \
+  $PKG/usr/doc/hdparm-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/hdparm-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/hdparm-$VERSION
+  rm -rf $PKG
+fi

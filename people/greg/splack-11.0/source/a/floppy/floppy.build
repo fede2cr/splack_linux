@@ -1,0 +1,35 @@
+#!/bin/sh
+CWD=`pwd`
+
+VERSION=5.4
+ARCH=i386
+BUILD=2
+
+cd /tmp
+tar xzvf $CWD/fdutils-5.4.tar.gz
+cd fdutils-5.4
+zcat $CWD/fdutils-5.4-20020222.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/fdutils.mediaprm.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+CFLAGS=-O ./configure i386-slackware-linux --prefix=/usr --sysconfdir=/etc
+make install
+mkdir -p /usr/doc/fdutils-5.4
+cp -a COPYING CREDITS Changelog INSTALL doc/FAQ.html doc/README \
+  /usr/doc/fdutils-5.4
+chown root:root /usr/doc/fdutils-5.4/*
+chmod 644 /usr/doc/fdutils-5.4/*
+cd /tmp
+tar xzvf $CWD/mtools-3.9.8.tar.gz
+cd mtools-3.9.8
+CFLAGS=-O ./configure i386-slackware-linux --prefix=/usr --sysconfdir=/etc
+cat $CWD/mtools.conf > /etc/mtools.conf
+make install
+mkdir -p /usr/doc/mtools-3.9.8
+cp -a COPYING Changelog INSTALL README Release.notes TODO \
+  /usr/doc/mtools-3.9.8
+chown root:root /usr/doc/mtools-3.9.8/*
+chmod 644 /usr/doc/mtools-3.9.8/*
+# These are obsolete and/or cruft:
+rm -f /usr/bin/MAKEFLOPPIES /usr/bin/lz /usr/bin/mcheck /usr/bin/mcomp \
+      /usr/bin/mxtar /usr/bin/tgz /usr/bin/uz /usr/man/man1/makefloppies.1
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

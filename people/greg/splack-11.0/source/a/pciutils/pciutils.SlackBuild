@@ -1,0 +1,87 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-pciutils
+
+VERSION=${VERSION:-2.2.3}
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_pciutils.tar.gz
+
+cd $TMP
+rm -rf pciutils-$VERSION
+tar xjvf $CWD/pciutils-$VERSION.tar.bz2
+cd pciutils-$VERSION
+
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+# Enable the building of pcimodules, still needed for now on 2.4 systems:
+zcat $CWD/pcimodules-pciutils-$VERSION.diff.gz | patch -p1 --verbose || exit 1
+
+# Fixes memory allocation and strcpy bugs that cause pcimodules
+# to hang on systems using libsafe:
+zcat $CWD/pcimodules.overflow.diff.gz | patch -p1 --verbose || exit 1
+
+# Change prefix from /usr/local to /usr:
+zcat $CWD/pciutils.prefix.diff.gz | patch -p1 --verbose || exit 1
+
+# Fetch the latest pci.ids:
+rm -f pci.ids
+sh $CWD/update-pciids.sh
+
+make -j3 || exit 1
+
+strip lspci setpci pcimodules
+cat lspci > $PKG/sbin/lspci
+cat setpci > $PKG/sbin/setpci
+cat pcimodules > $PKG/sbin/pcimodules
+chmod 755 $PKG/sbin/*
+cat pci.ids > $PKG/usr/share/pci.ids
+mkdir -p $PKG/usr/include/pci
+for file in config.h header.h pci.h types.h ; do
+  cp -a lib/$file $PKG/usr/include/pci
+done
+mkdir -p $PKG/usr/lib
+cat lib/libpci.a > $PKG/usr/lib/libpci.a
+gzip -9c lspci.8 > $PKG/usr/man/man8/lspci.8.gz
+gzip -9c setpci.8 > $PKG/usr/man/man8/setpci.8.gz
+gzip -9c pcimodules.8 > $PKG/usr/man/man8/pcimodules.8.gz
+mkdir -p $PKG/usr/doc/pciutils-$VERSION
+cp -a README ChangeLog TODO $PKG/usr/doc/pciutils-$VERSION
+chmod 644 $PKG/usr/doc/pciutils-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/pciutils-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/pciutils-$VERSION
+  rm -rf $PKG
+fi
+

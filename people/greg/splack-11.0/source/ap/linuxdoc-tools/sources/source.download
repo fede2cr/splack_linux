@@ -1,0 +1,57 @@
+# If you can't find the Source RPMs at the locations listed here, it's probably
+# because they've been moved into test release of Fedora: try finding them there.
+#
+
+# linuxdoc-tools:
+# This provides things such as sgml2txt.
+# We're using this rather than sgml-tools-lite:
+wget -c http://download.fedora.redhat.com/pub/fedora/linux/core/test/4.92/source/SRPMS/linuxdoc-tools-0.9.21-6.2.1.src.rpm
+
+# OpenSP:
+# http://openjade.sourceforge.net/download.html
+wget -c http://kent.dl.sourceforge.net/sourceforge/openjade/OpenSP-1.5.1.tar.gz
+wget -c http://lfs.securewebservices.co.uk/patches/downloads/OpenSP/OpenSP-1.5.1-gcc34-1.patch
+
+# OpenJade:
+# http://openjade.sourceforge.net/
+wget -c http://kent.dl.sourceforge.net/sourceforge/openjade/openjade-1.3.2.tar.gz
+
+# sgmltools:
+# http://sourceforge.net/projects/sgmltools-lite/
+wget -c http://kent.dl.sourceforge.net/sourceforge/sgmltools-lite/sgmltools-lite-3.0.3.tar.gz
+
+# sgmltools-common.
+# No point - it's broken and needs patching:
+#wget -c ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/sgml-common-0.6.3.tgz
+wget -c http://download.fedora.redhat.com:/pub/fedora/linux/core/development/SRPMS/sgml-common-0.6.3-17.1.src.rpm
+
+# docbook-utils:
+#wget -c ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/docbook-utils-0.6.14.tar.gz
+wget -c http://download.fedora.redhat.com:/pub/fedora/linux/core/development/docbook-utils-0.6.14-5.src.rpm
+
+# docbook docs:
+# http://www.oasis-open.org/docbook/sgml/
+# To get a list of these, I went to:
+# http://download.fedora.redhat.com/pub/fedora/linux/core/development/SRPMS/
+# and grabbed everything that was 'docbook-'
+wget -c http://download.fedora.redhat.com:/pub/fedora/linux/core/development/docbook-dtds-1.0-30.src.rpm
+wget -c http://download.fedora.redhat.com:/pub/fedora/linux/core/development/docbook-simple-1.0-2.1.src.rpm
+wget -c http://download.fedora.redhat.com:/pub/fedora/linux/core/development/docbook-slides-3.3.1-2.1.src.rpm
+wget -c http://download.fedora.redhat.com:/pub/fedora/linux/core/development/docbook-style-dsssl-1.79-4.src.rpm
+wget -c http://download.fedora.redhat.com:/pub/fedora/linux/core/development/docbook-style-xsl-1.69.1-5.src.rpm
+# The real stuff is here:
+#wget -c http://www.oasis-open.org/docbook/sgml/4.5b1/docbook-4.5b1.zip
+#wget -c http://www.oasis-open.org/cover/ISOEnts.zip
+
+# jadetex:
+# http://sourceforge.net/projects/jadetex
+wget -c http://kent.dl.sourceforge.net/sourceforge/jadetex/jadetex-3.13.tar.gz
+
+# gtk-doc:
+wget -c http://ftp.gnome.org/pub/GNOME/sources/gtk-doc/1.4/gtk-doc-1.4.tar.bz2
+
+# sgmlspl
+# http://www.cs.indiana.edu/~asengupt/sgml/SGMLSpm/DOC/HTML/sgmlspl/sgmlspl.html
+# There's nothing in the FTP download site at this time, so I'll take it from Debian.
+wget -c http://ftp.debian.org/debian/pool/main/libs/libsgmls-perl/libsgmls-perl_1.03ii.orig.tar.gz
+wget -c http://ftp.debian.org/debian/pool/main/libs/libsgmls-perl/libsgmls-perl_1.03ii-31.diff.gz

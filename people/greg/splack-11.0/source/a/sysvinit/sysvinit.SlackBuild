@@ -1,0 +1,87 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sysvinit
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=${VERSION:-2.84}
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-69}
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_sysvinit.tar.gz
+
+# Install scripts and config files from $CWD/scripts/:
+cat $CWD/scripts/inittab > $PKG/etc/inittab.new
+cat $CWD/scripts/rc.4 > $PKG/etc/rc.d/rc.4.new
+cat $CWD/scripts/rc.6 > $PKG/etc/rc.d/rc.6.new
+cat $CWD/scripts/rc.K > $PKG/etc/rc.d/rc.K.new
+cat $CWD/scripts/rc.M > $PKG/etc/rc.d/rc.M.new
+cat $CWD/scripts/rc.S > $PKG/etc/rc.d/rc.S.new
+cat $CWD/scripts/rc.local > $PKG/etc/rc.d/rc.local.new
+cat $CWD/scripts/rc.scanluns > $PKG/etc/rc.d/rc.scanluns.new
+cat $CWD/scripts/rc.sysvinit > $PKG/etc/rc.d/rc.sysvinit.new
+# Add a very handy tool for scanning new SCSI devices.  Most useful for
+# finding new USB and Firewire storage devices which show up as SCSI.
+cat $CWD/scripts/rescan-scsi-bus.sh > $PKG/sbin/rescan-scsi-bus
+
+cd $TMP
+rm -rf sysvinit-$VERSION
+tar xzvf $CWD/sysvinit-$VERSION.tar.gz
+cd sysvinit-$VERSION
+chown -R root:root .
+zcat $CWD/sysvinit.diff.gz | patch -p1 -E --verbose --backup --suffix=.orig || exit 1
+cd doc
+mkdir -p $PKG/usr/doc/sysvinit-$VERSION
+cp -a Install Propaganda sysvinit-$VERSION.lsm \
+  $PKG/usr/doc/sysvinit-$VERSION
+chmod -R 644 $PKG/usr/doc/sysvinit-$VERSION/*
+chmod 755 $PKG/usr/doc/sysvinit-$VERSION
+cd ../src
+make clobber
+make || exit 1
+
+for program in halt init killall5 shutdown runlevel ; do
+  strip $program
+  cat $program > $PKG/sbin/$program
+done
+strip last
+cat last > $PKG/usr/bin/last
+( cd $PKG/usr/bin ; ln -sf last lastb )
+mv $PKG/sbin/init $PKG/sbin/init.new
+# This version is old.  We use genpower now.
+#cat wall > $PKG/usr/bin/wall
+#strip powerd
+#cat powerd > $PKG/sbin/powerd
+cp initscript.sample $PKG/sbin/initscript.sample
+cd ../man
+cat last.1 | gzip -9c > $PKG/usr/man/man1/last.1.gz
+( cd $PKG/usr/man/man1 ; ln -sf last.1.gz lastb.1.gz )
+for page in inittab.5 initscript.5 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man5/$page.gz
+done
+for page in halt.8 init.8 killall5.8 pidof.8 poweroff.8 reboot.8 runlevel.8 \
+  shutdown.8 telinit.8 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man8/$page.gz
+done
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/sysvinit-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/sysvinit-$VERSION
+  rm -rf $PKG
+fi

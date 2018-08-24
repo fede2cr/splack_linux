@@ -1,0 +1,589 @@
+#!/bin/bash
+
+###############################################################################
+# linuxdoc-tools.build
+# Build & install all components that form the linuxdoc-tools Slackware Package.
+# by Stuart Winter <mozes@armedslack.org>
+# 01-Oct-2005
+###############################################################################
+
+# This currently installs onto the filesystem.  altertrack (from slacktrack) will
+# build you a good package.  The other way would be to create individual packages.
+# Having looked at the spec and Debian rules files and seen some of the kludges, 
+# I concluded that it's far easier to install everything onto the filesystem - 
+# especially since scripts already exist to track and build packages such build 
+# scripts.
+# If you don't want to use altertrack then take heed of the additional pre and post
+# build scripts 'trackbuild.linuxdoc-tools' and 'postbuildfixes.sh' respectively.
+#
+# The configuration options are based on the RPM spec files contained
+# in the source RPMs used to build the original sgmltools Slackware
+# package.  This helps keep the package as similar as possible.
+
+# Bundled package versions:
+LINUXDOCTOOLSVER=0.9.21
+SGMLCOMMONVER=0.6.3
+OPENJADEVER=1.3.2
+OPENSPVER=1.5.1
+DOCBOOKVER=4.3
+DOCBOOKUTILSVER=0.6.14
+GTKDOCVER=1.4
+SGMLSPLVER=1.03ii
+
+# jadetex was folded into the teTeX packages:
+#JADETEXVER=3.13
+
+# Base names of the source RPMs that we use to build docbook.
+# Do not alter the order of these unless you know what you're doing:
+# the installation order is important -- we can't let RPM resolve
+# dependencies (which it normally would if you issued rpm -Uvh *.rpm)
+# because this is not a Red Hat box so RPM doesn't know about our
+# installed Slackware packages.
+# The installation order came from examining the .spec files.
+export DOCBOOKS="docbook-dtds
+docbook-simple
+docbook-style-xsl
+docbook-style-dsssl
+docbook-slides"
+
+# Determine the general CFLAGS for the known architectures:
+case $ARCH in
+   arm)     export SLKCFLAGS="-O2 -march=armv3 -mtune=xscale" ;;
+   i486)    export SLKCFLAGS="-O2 -march=i486 -mtune=i686" ;;
+   s390)    export SLKCFLAGS="-O2" ;;
+   x86_64)  export SLKCFLAGS="-O2" ;;
+esac
+
+# Install the XML catalogue population script:
+# This was taken from the original Slackware 'source/ap/sgml-tools/updates/' directory.
+bzcat $CWD/sources/buildDocBookCatalog.bz2 > /usr/bin/buildDocBookCatalog
+chmod 755 /usr/bin/buildDocBookCatalog
+
+# The build order is purposive -- don't modify it unless you know
+# what you're doing.
+
+####################### Build OpenSP ############################
+
+# Extract source:
+cd $TMP
+tar zxvvf $CWD/sources/OpenSP-$OPENSPVER.tar.gz
+cd OpenSP-$OPENSPVER
+chown -R root:root .
+chmod -R og-w .
+
+# Apply patches:
+patch -p1 --verbose < $CWD/sources/OpenSP-1.5.1-gcc34-1.patch || exit 1
+
+# Configure:
+./configure \
+   --prefix=/usr \
+   --mandir=/usr/man \
+   --enable-default-catalog=/etc/sgml/catalog \
+   --enable-default-search-path=/usr/share/sgml \
+   --enable-http \
+   --enable-shared \
+   --enable-static || exit 1
+
+# Build:
+make || exit 1
+
+# Remove docs dir:
+rm -rf /usr/doc/OpenSP*
+
+# Install onto the filesystem:
+make install
+
+# Create symlinks to binaries:
+( cd /usr/bin
+  for file in nsgmls sgmlnorm spam spent sx ; do
+     rm -f $file
+     ln -fs o$file $file
+  done )
+
+# Fix man pages:
+( cd /usr/man/man1
+  for file in nsgmls sgmlnorm spam spent sx ; do
+     rm -f ${file}.1*
+     ln -fs o${file}.1 ${file}.1 
+  done )
+
+# Rename docs directory:
+mv -f /usr/doc/OpenSP /usr/doc/OpenSP-$OPENSPVER
+
+####################### Build OpenJade ############################
+
+# Extract source:
+cd $TMP
+tar zxvvf $CWD/sources/openjade-$OPENJADEVER.tar.gz
+cd openjade-$OPENJADEVER*
+chown -R root:root .
+chmod -R og-w .
+
+# Configure:
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+   --prefix=/usr \
+   --mandir=/usr/man \
+   --datadir=/usr/share/sgml/openjade \
+   --enable-default-catalog=/etc/sgml/catalog \
+   --enable-default-search-path=/usr/share/sgml \
+   --enable-static \
+   --disable-shared \
+   --enable-http \
+   --enable-html \
+   --enable-mif || exit 1
+
+# Build:
+make || exit 1
+
+# Install onto the filesystem:
+mkdir -p /etc/sgml
+make install
+chmod 644 dsssl/*
+cp -fa dsssl/* /etc/sgml # this includes the 'catalog' file.
+rm -f /etc/sgml/README*
+
+# Incase later builds can't find the catalog file:
+#export SGML_CATALOG_FILES="./catalog;/etc/sgml/catalog"
+
+# Create binary symlinks:
+( cd /usr/bin && ln -fs openjade jade )
+
+# Fix man pages:
+install -m644 docsrc/openjade.1 /usr/man/man1
+( cd /usr/man/man1 && ln -fs openjade.1 jade.1 )
+
+# Copy docs:
+mkdir -pm755 /usr/doc/openjade-$OPENJADEVER
+cp -fa COPYING NEWS README VERSION doc/* dsssl/README.jadetex pubtext jadedoc unicode \
+       /usr/doc/openjade-$OPENJADEVER
+
+# The original package has this file, but it has most of the world's documentation
+# too; we'll leave it in for the time being but I don't like it.
+# rm -f /usr/doc/openjade-$OPENJADEVER/doc/Makefile
+
+####################### Build sgml-common ############################
+
+# Extract source.  We're using a source RPM since it contains a number of
+# patches that we need:
+cd $TMP
+# Extract the contents of the source rpm:
+rpm2tgz $CWD/sources/sgml-common-${SGMLCOMMONVER}*.src.rpm
+tar zxvvf sgml-common-*src.tgz
+cd sgml-common-$SGMLCOMMONVER-*
+# Extract the real source archive:
+tar zxvvf sgml-common-$SGMLCOMMONVER.tgz
+cd sgml-common-$SGMLCOMMONVER
+chown -R root:root .
+chmod -R og-w .
+
+# Apply patches (these are included in the source rpm):
+patch -p1 < ../sgml-common-umask.patch        || exit 1
+patch -p1 < ../sgml-common-xmldir.patch       || exit 1
+patch -p1 < ../sgml-common-quotes.patch       || exit 1
+# Hacks from the spec file:
+tar zxvvf ../sgml-common-automake.tar.gz 
+patch -p1 < ../sgml-common-automake.patch     || exit 1
+patch -p1 < ../sgml-common-0.6.3-docdir.patch || exit 1
+
+# Configure:
+aclocal
+automake --add-missing --copy
+./configure \
+   --prefix=/usr \
+   --sysconfdir=/etc \
+   --with-etcsgml=/etc/sgml || exit 1
+
+# Build:
+make || exit 1
+
+# Install onto the filesystem:
+make -e 'mkdir_p=mkdir -p' install || exit 1
+
+# Install docs:
+cp -fa COPYING AUTHORS INSTALL NEWS README ../sgml-common-CHANGES \
+       /usr/doc/sgml-common-$SGMLCOMMONVER
+
+######################## Build jadetex ############################
+#
+## sgmltools-lite's POSTINSTALL document suggests that if jadetex
+## is eating huge amounts of RAM, we need to configure it thusly:
+## cat << EOF > /usr/share/texmf/texmf.cnf
+##  hash_extra.jadetex = 15000
+##  pool_size.jadetex = 200000
+##  max_strings.jadetex = 50000
+##  save_size.jadetex = 15000
+##EOF
+## chmod 644 /usr/share/texmf/texmf.cnf
+##
+## Slackware's t/tetex package contains this config file (without the
+## .jadetext config) so I won't overwrite it here.  However, we may
+## wish to append this configuration to an install script for
+## this package; but it'd get overwritten by new versions of
+## t/tetex.  Perhaps this configuration could be added to the tetex package?
+#
+## Extract source:
+#cd $TMP
+#tar zxvvf $CWD/sources/jadetex-$JADETEXVER.tar.gz
+#cd jadetex-$JADETEXVER
+#chown -R root:root .
+#chmod -R og-w .
+#
+## Build:
+## The install phase breaks if we use tex or etex, so we use latex instead:
+#sed -ie "s?tex -ini?latex -ini?" Makefile
+#make || exit 1
+#
+## Install onto filesystem:
+#make install || exit 1
+#
+## Create jadetex symlinks to the TeTex binaries:
+#( cd /usr/bin
+#  rm -f jadetex pdfjadetex
+#  ln -fs /usr/share/texmf/bin/latex jadetex
+#  ln -fs /usr/share/texmf/bin/pdfetex pdfjadetex )
+#
+## Update the references to jadetex & pdfjadetex:
+#mktexlsr
+#
+## Install man pages - these are missed by the Makefile:
+#mkdir -p /usr/man/man1
+#install -m644 jadetex.1 pdfjadetex.1 /usr/man/man1
+#
+####################### Build sgml-tools-lite ########################
+
+# We're not building this -- see linuxdoc-tools below.
+
+# Extract source:
+#cd $TMP
+#tar zxvvf $CWD/sources/sgmltools-lite-$SGMLTOOLSVER.tar.gz
+#cd sgmltools-lite-$SGMLTOOLSVER
+#chown -R root:root .
+#chmod -R og-w .
+# Clean up CVS left over junk:
+#find . -name CVS -type d -print0 | xargs -0 rm -rf
+#find . -name .cvsignore  -print0 | xargs -0 rm -rf
+
+# Configure:
+#CFLAGS="$SLKCFLAGS" \
+#./configure \
+#   --prefix=/usr \
+#   --with-etcsgml=/etc/sgml \
+#   --sysconfdir=/etc \
+#   --datadir=/usr/share \
+#   --mandir=/usr/man \
+#   --with-dbimages=/usr/share/sgml/docbook/dsssl-stylesheets/images/ || exit 1
+
+# Build:
+#make || exit 1
+
+# Install onto the filesystem:
+#make install || exit 1
+## Create symlink to man page:
+#( cd /usr/man/man1 && ln -fs sgmltools-lite.1 sgmltools.1 )
+
+# Remove useless catalog samples:
+#rm -rf /etc/sgml/catalog.*
+# Create a new catalog file:
+#buildcat > /etc/sgml/catalog
+
+# Copy docs:
+#mkdir -pm755 /usr/doc/sgmltools-lite-$SGMLTOOLSVER
+#cp -fa COPYING POSTINSTALL README \
+#       /usr/doc/sgmltools-lite-$SGMLTOOLSVER
+
+####################### Build linuxdoc-tools ########################
+#
+# This is the suite that replaced the original 'sgml-tools' package.
+# It was later superceded by sgml-tools-lite.
+# However, sgmltools-lite is missing things such as the sgml2{rtf,txt}
+# et al.
+# So we'll use linuxdoc-tools to maintain as much compatability
+# with the original Slackware package as possible.
+# But if you want to use sgml-tools-lite then uncomment the above
+# code, but be aware that there may be some file name clashes.
+
+# Update of the /etc/xml/ catalogue data:
+rm -f /etc/xml/catalog # otherwise the buildDocBookCatalog can't update it
+/usr/bin/buildDocBookCatalog
+
+# Extract source:
+cd $TMP
+rpm2tgz $CWD/sources/linuxdoc-tools-${LINUXDOCTOOLSVER}*.src.rpm
+# Extract the contents of the source rpm:
+tar zxvvf linuxdoc-tools-${LINUXDOCTOOLSVER}*.src.tgz
+cd linuxdoc-tools-${LINUXDOCTOOLSVER}*
+# Extract the real source archive:
+tar zxvvf linuxdoc-tools_$LINUXDOCTOOLSVER.tar.gz
+cd linuxdoc-tools-$LINUXDOCTOOLSVER
+chown -R root:root .
+chmod -R og-w .
+
+# Apply patches (these are included in the source rpm):
+patch --verbose -p1 < ../linuxdoc-tools-0.9.13-letter.patch || exit 1
+patch --verbose -p1 < ../linuxdoc-tools-0.9.20-strip.patch  || exit 1
+patch --verbose -p1 < ../linuxdoc-tools-0.9.20-lib64.patch  || exit 1
+patch --verbose -p1 < ../linuxdoc-tools-0.9.21-badif.patch  || exit 1
+
+# Configure:
+( cd entity-map
+  autoconf
+  ./configure \
+     --prefix=/usr \
+     --mandir=/usr/man \
+     --with-installed-nsgmls ) || exit 1
+#    --with-installed-iso-entities \
+./configure \
+    --prefix=/usr \
+    --mandir=/usr/man \
+    --with-installed-nsgmls || exit 1
+#    --with-installed-iso-entities \
+
+# Build:
+make -i OPTIMIZE="$SLKCFLAGS" \
+     prefix=/usr \
+     mandir=/usr/man \
+     PERL=/usr/bin/perl \
+     LINUXDOCDOC=/usr/doc/linuxdoc-tools-$LINUXDOCTOOLSVER 
+
+# Ensure that we install this into Perl's site_perl directory.  Red Hat has
+# a 'vendor_perl' directory; we don't.
+eval `perl '-V:installsitelib'`
+
+# Install into package:
+#make prefix=/tmp/pkg/usr \
+#     mandir=/tmp/pkg/usr/man \
+#     bindir=/tmp/pkg/usr/bin \
+#     perl5libdir=/tmp/pkg/$installsitelib \
+#     PERL=/usr/bin/perl \
+#     LINUXDOCDOC=/tmp/pkg/usr/doc/linuxdoc-tools-$LINUXDOCTOOLSVER \
+#     install
+
+# Install onto the filesystem:
+make prefix=/usr \
+     mandir=/usr/man \
+     bindir=/usr/bin \
+     PERL=/usr/bin/perl \
+     perl5libdir=/$installsitelib \
+     LINUXDOCDOC=/usr/doc/linuxdoc-tools-$LINUXDOCTOOLSVER \
+     install || exit 1
+
+####################### Install docbook ############################
+
+
+# There are three ways of doing this:
+# [1] Spend a considerable amount of time writing a docbook build script.
+#     Having examined Debian's and Fedora's scripts, I realised that 
+#     this would consume too much time, but would be ideal.
+# [2] Build Fedora's source RPMs and install them - this is the way it was
+#     done previously in Slackware.
+# [3] Install the prebuilt noarch RPMs which will be identical to those
+#     built from this script.
+# 
+# I choose the [2].  I chose [3] for a brief moment due to rpm not knowing
+# about more recent additions to the ARM architecture family, but then 
+# I found that rpm won't even install a *noarch* RPM if it doesn't
+# recognise the architecture reported from uname(2).  LD_PRELOAD is great.
+
+# This is option [3]:
+#for rpmfile in $DOCBOOKS ; do
+#  # Install the pre-built RPM onto the filesystem:
+#  rpm --force --nodeps -Uvh $CWD/sources/$rpmfile-*noarch.rpm || exit 2
+#  # Update the XML catalogue data:
+#  rm -f /etc/xml/catalog
+#  /usr/bin/buildDocBookCatalog
+#done
+
+# Option [2]:
+# Save any previous rpm macros file:
+if [ -f ~/.rpmmacros ]; then
+   mv -f ~/.rpmmacros ~/.rpmmacros.bak
+fi
+
+# We'll have none of this /usr/src/rpm hanky panky:
+cat << EOF > ~/.rpmmacros
+%_topdir    $TMP/rpms/
+EOF
+
+# Why can't rpm do this itself?
+mkdir -p $TMP/rpms/{BUILD/noarch,RPMS,SOURCES,SPECS,SRPMS,tmp,wrappers}
+
+# Install my tar wrapper to work around older versions of RPM
+# so that we call unzip instead of tar when required:
+# I know, I know!
+install -m755 $CWD/tar-wrapper $TMP/rpms/wrappers/tar
+
+# Remove the xml catalogue and rebuild it.
+# The docbook RPM install scriptlets throw a wobbly if the
+# file is 0 bytes or doesn't exist:
+rm -f /etc/xml/catalog
+/usr/bin/buildDocBookCatalog
+
+# Build & install RPMs:
+# On Red Hat, rpmbuild should work to save us faffing about extracting
+# sources, but on Slackware it doesn't seem to work reliably (rpm tries to
+# use tar to extract zip files and so on; maybe because the version of rpm
+# Slackware ships is older).  This way I can wrap tar and prevent the builds
+# from failing; plus we can inject any of our own patches more easily in the
+# future.
+for rpmbasename in $DOCBOOKS ; do
+  rpmfile=$CWD/sources/$rpmbasename-*.src.rpm
+  echo "[**] Building $rpmfile [**]"
+  # Clean out the temp & source directories:
+  rm -rf $TMP/rpms/tmp/*
+  rm -rf $TMP/rpms/SOURCES/*
+  ( cd $TMP/rpms/tmp
+    # Add the tar wrapper to the PATH so rpm finds the tar wrapper:
+    export PATH=$TMP/rpms/wrappers:$PATH
+    # Convert the Source RPM into a tar archive:
+    rpm2tgz $rpmfile
+    # Extract the tar archive into the RPM 'SOURCES' directory:
+    tar zxvvf ${rpmbasename}*.tgz -C $TMP/rpms/SOURCES
+    # Build the binary RPM:
+    cd $TMP/rpms/SOURCES/${rpmbasename}*
+    cp -fa * ../ # So that RPM can find the sources... it's just an uphill struggle, this thing..
+    rpmbuild -bb --nodeps --rebuild $rpmbasename.spec || exit 2 )
+done
+
+# Install the new RPM onto the filesystem.  Previously I was
+# converting it into a tgz then exploding it onto the filesystem but
+# the problem with that was that it wasn't updating the /etc/sgml/catalog 
+# files.  The post install script for the RPMs handles all of this.
+# Install in the right order.  This line below works but that may be
+# because the shell happens to choose the right order due to file name sorting.
+# Best be safe for the future:
+# rpm --force --nodeps -Uvh $TMP/rpms/RPMS/noarch/*.rpm || exit 2
+( cd $TMP/rpms/RPMS/noarch
+  for rpmname in $DOCBOOKS ; do
+      rpm --force --nodeps -Uvh ${rpmname}*.rpm
+  done ) || exit 2
+
+# If there was one, move back the original ~/.rpmmacros file:
+if [ -f ~/.rpmmacros.bak ]; then
+   mv -f ~/.rpmmacros.bak ~/.rpmmacros
+  else
+   rm -f ~/.rpmmacros # to save breaking any future build using rpm
+fi
+
+####################### Build docbook-utils ########################
+
+# docbook-utils requires some of the docbook docs to be installed 
+# prior to being built.
+
+# Extract source:
+cd $TMP
+rpm2tgz $CWD/sources/docbook-utils-${DOCBOOKUTILSVER}*.src.rpm
+tar zxvvf docbook-utils-*src.tgz
+cd docbook-utils-${DOCBOOKUTILSVER}*
+tar zxvvf docbook-utils-$DOCBOOKUTILSVER.tar.gz
+cd docbook-utils-$DOCBOOKUTILSVER
+chown -R root:root .
+chmod -R og-w .
+
+# Apply patches:
+patch -p1 < ../docbook-utils-spaces.patch || exit 1
+
+# Configure:
+./configure \
+   --prefix=/usr \
+   --mandir=/usr/man || exit 1
+
+# Build:
+make || exit 1
+
+# Install onto the filesystem:
+make -i install htmldir=/usr/doc/docbook-utils-$DOCBOOKUTILSVER/html || read k # exit 1
+# Due to the html files not existing, this directory is currently empty:
+rmdir /usr/doc/docbook-utils-$DOCBOOKUTILSVER/html
+
+# db2html is not just a symlink, as it has to create the output directory:
+rm -f /usr/bin/db2html
+install -m755 ../db2html /usr/bin
+install -m644 ../gdp-both.dsl /usr/share/sgml/docbook/utils-$DOCBOOKUTILSVER/docbook-utils.dsl
+
+# Make binary symlinks:
+( cd /usr/bin
+  for util in dvi html pdf ps rtf ; do
+     rm -f db2$util
+     ln -fs docbook2$util db2$util
+  done )
+
+# Make man page symlinks:
+( cd /usr/man/man1
+  for util in dvi html pdf ps rtf ; do
+     rm -f db2$util.1*
+     ln -fs jw.1 db2$util.1
+  done )
+
+# Install docs:
+mkdir -pm755 /usr/doc/docbook-utils-$DOCBOOKUTILSVER
+cp -fa AUTHORS NEWS README TODO \
+       /usr/doc/docbook-utils-$DOCBOOKUTILSVER
+
+####################### Build gtk-doc ###############################
+
+# Re-generate /etc/xml catalogue data:
+rm -f /etc/xml/catalog
+/usr/bin/buildDocBookCatalog
+
+# Extract source:
+cd $TMP
+tar jxvvf $CWD/sources/gtk-doc-$GTKDOCVER.tar.bz2
+cd gtk-doc-$GTKDOCVER
+chown -R root:root .
+chmod -R og-w .
+
+# Configure:
+./configure \
+   --prefix=/usr \
+   --enable-public-id || exit 1
+
+# Install onto the filesystem:
+make install || exit 1
+
+# Install docs:
+mkdir -pm755 /usr/doc/gtk-doc-$GTKDOCVER
+cp -fa AUTHORS COPYING INSTALL MAINTAINERS NEWS README TODO \
+       /usr/doc/gtk-doc-$GTKDOCVER
+
+####################### Build SGMLSPL ##############################
+
+# Extract source:
+cd $TMP
+tar zxvvf $CWD/sources/libsgmls-perl_$SGMLSPLVER.orig.tar.gz
+cd libsgmls-perl-$SGMLSPLVER.orig
+chown -R root:root .
+chmod -R og-w .
+zcat $CWD/sources/libsgmls-perl_$SGMLSPLVER-*.diff.gz | patch -p1 || exit 1
+
+# Configure:
+perl Makefile.PL INSTALLDIRS=site || exit 1
+
+# Slackware man pages live in /usr/man:
+sed -i 's?/share/man?/man/?g' Makefile
+
+# Build:
+make OPTIMIZE="$SLKCFLAGS" || exit 1
+
+# Install into filesystem:
+make install PREFIX=/usr
+sed 's?usr/share/doc/sgmls-doc/?usr/doc/sgmlspl-'"$SGMLSPLVER"'/?g' sgmlspl.1 > /usr/man/man1/sgmlspl.1
+
+# Copy docs:
+mkdir -pm755 /usr/doc/sgmlspl-$SGMLSPLVER
+cp -fa BUGS COPYING README TODO \
+       /usr/doc/sgmlspl-$SGMLSPLVER
+cp -fa DOC/HTML/{SGMLSpm,sgmlspl} \
+       /usr/doc/sgmlspl-$SGMLSPLVER
+
+#######################################################################
+
+# Do a final update of the /etc/xml/ catalogue data:
+rm -f /etc/xml/catalog
+/usr/bin/buildDocBookCatalog
+
+# Install the package description:
+rm -rf /install
+mkdir -pm755 /install
+install -m644 $CWD/slack-desc /install

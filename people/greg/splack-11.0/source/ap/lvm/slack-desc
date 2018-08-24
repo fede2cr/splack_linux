@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+lvm: lvm (Logical Volume Manager)
+lvm:
+lvm: Heinz Mauelshagen's LVM (Logical Volume Manager) for Linux.
+lvm: LVM adds an additional layer between the physical peripherals and the
+lvm: I/O interface in the 2.4.x kernel to get a logical view of disks.  
+lvm: This allows the concatenation of several disks (so-called physical
+lvm: volumes or PVs) to form a storage pool (so-called Volume Group or VG)
+lvm: with allocation units called physical extents (called PE).  With LVM,
+lvm: you can actually extend, resize, or relocate storage dynamically.
+lvm:
+lvm:

@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# arm/build
+# Check package dependencies, set metadata and launch
+# package build script.
+# by Stuart Winter <stuart@armedslack.org>
+#
+source /usr/share/slackdev/buildkit.sh
+
+# Package metadata:
+export PACKAGE=linuxdoc-tools
+export VERSION=3.0.3
+export ARCH=arm
+export BUILD=2
+export PKGSERIES=ap
+export SLACKPACKAGE=$PACKAGE-$VERSION-$ARCH-$BUILD.tgz
+
+# Reset the ARM file system: restore it to the 'factory settings'
+# as it were (this has no effect when building natively):
+sboxsysrestore
+
+# Ensure base ARM packages are installed first:
+slackbasedeps
+
+# Ensure $PACKAGE isn't already installed:
+slackfailpkgdeps $PACKAGE || removepkg $PACKAGE
+
+# Ensure specific build dependencies - libraries and development tools.
+# There are many more dependencies but these are the core ones I picked out
+# as I was building the software included within this package.
+#
+slackcheckpkgdeps libxml2 || installpkg $PKGSTORE/l/libxml2-*.tgz
+# to build docbook:
+slackcheckpkgdeps rpm     || installpkg $PKGSTORE/ap/rpm-*.tgz
+# for sgml-tools-lite:
+slackcheckpkgdeps python  || installpkg $PKGSTORE/d/python-*.tgz
+slackcheckpkgdeps libxslt || installpkg $PKGSTORE/d/libxslt-*.tgz
+# for OpenJade:
+slackcheckpkgdeps tetex   || installpkg $PKGSTORE/t/tetex-[0-9]*.tgz
+# Ensure the packages are installed; exit if not.
+slackcheckpkgdeps libxml2,rpm,python,libxslt,tetex || exit 99
+
+# Stop daemons/processes which tend to modify the contents of the filesystem:
+altertrackprep
+
+# Launch the package build script:
+# We run the whole process with the uname faker because rpm does not 
+# know about more recent versions of the ARM family.
+# This uname faker reports the machine type as 'armv3l'.
+LD_PRELOAD=/usr/lib/libfakeunamearmv3l.so  ./trackbuild.$PACKAGE
+
+# Compress the build log:
+bzip2 -9f build.$ARCH.log

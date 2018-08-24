@@ -1,0 +1,62 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-jove
+
+VERSION=4.16.0.61
+ARCH=i386
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xjvf $CWD/jove$VERSION.tar.bz2
+cd jove$VERSION
+chown -R root:root .
+zcat $CWD/jove.makefile.diff.gz | patch -p1 --verbose --backup
+make
+strip recover jjove teachjove
+mkdir -p $PKG/usr/lib/jove
+install -c -m 755 recover $PKG/usr/lib/jove/recover
+mkdir -p $PKG/usr/bin
+install -c -m 755 jjove $PKG/usr/bin/jove
+install -c -m 755 teachjove $PKG/usr/bin/teachjove
+( cd $PKG/usr/bin
+  ln -sf /usr/lib/jove/recover jove-recover
+)
+install -c -m 644 doc/teach-jove $PKG/usr/lib/jove/teach-jove
+install -c -m 644 doc/cmds.doc $PKG/usr/lib/jove/cmds.doc
+install -c -m 644 doc/jove.rc.sun doc/keychart.sun doc/jove.rc.sun-cmd doc/keychart.sun-cmd doc/jove.rc.vt100 doc/keychart.vt100 doc/jove.rc.wyse doc/keychart.wyse doc/jove.rc.xterm doc/keychart.xterm doc/jove.rc.z29 doc/keychart.z29 doc/jove.rc.3022 doc/keychart.3022 doc/keychart. doc/XTermresource $PKG/usr/lib/jove
+install -c -m 644 doc/jove.rc $PKG/usr/lib/jove/jove.rc
+mkdir -p $PKG/usr/man/man1
+install -c -m 644 doc/jove.1 $PKG/usr/man/man1/jove.1
+install -c -m 644 doc/teachjove.1 $PKG/usr/man/man1/teachjove.1
+gzip -9 $PKG/usr/man/man1/*
+mkdir -p $PKG/usr/doc/jove$VERSION
+cp -a \
+  README $CWD/jove.README \
+  $PKG/usr/doc/jove$VERSION
+chmod 644 $PKG/usr/doc/jove$VERSION/*
+# This is only used on systems without pttys.
+# cat portsrv > $PKG/usr/lib/jove/portsrv
+# chmod 755 $PKG/usr/lib/jove/portsrv
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/jove-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/jove$VERSION
+  rm -rf $PKG
+fi

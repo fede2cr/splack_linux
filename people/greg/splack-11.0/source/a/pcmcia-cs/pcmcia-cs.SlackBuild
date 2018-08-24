@@ -1,0 +1,92 @@
+#!/bin/sh
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+CWD=`pwd`
+PKG=$TMP/package-pcmcia-cs
+
+VERSION=${VERSION:-3.2.8}
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-3}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf pcmcia-cs-$VERSION
+tar xjvf $CWD/pcmcia-cs-$VERSION.tar.bz2
+cd pcmcia-cs-$VERSION
+chown -R root:root .
+zcat $CWD/pcmcia-cs.dhcpcd.diff.gz | patch -p1 --verbose
+mkdir -p $PKG/usr/doc/pcmcia-cs-$VERSION
+cp -a \
+  BUGS COPYING LICENSE MAINTAINERS doc/PCMCIA-HOWTO \
+  doc/PCMCIA-PROG README* SUPPORTED.CARDS \
+  $PKG/usr/doc/pcmcia-cs-$VERSION
+chmod 644 $PKG/usr/doc/pcmcia-cs-$VERSION/*
+make clean
+./Configure --noapm --nopnp --trust --kernel=/usr/src/linux --noprompt --current --bsd
+make all || exit 1
+make install PREFIX=$PKG || exit 1
+# I see no good reason to make these setuid root.
+# If you want to be crazy (or have no "problem" users :-), change 'em yourself.
+chmod 755 $PKG/sbin/cardctl
+#chmod 755 $PKG/usr/X11R6/bin/xcardinfo
+# This version of rc.pcmcia has been modified to probe for the proper PCIC.
+mkdir -p $PKG/etc/rc.d
+zcat $CWD/rc.pcmcia.gz > $PKG/etc/rc.d/rc.pcmcia
+mv $PKG/etc/rc.d/rc.pcmcia $PKG/etc/rc.d/rc.pcmcia.new
+# Patch the config.opts for the correct WebGear wireless defaults:
+( cd $PKG ; zcat $CWD/config.opts.diff.gz | patch -p1 --backup --suffix=.orig )
+# Remove original version (the changes are well commented within the file):
+rm -f $PKG/etc/pcmcia/config.opts.orig
+chmod 644 $PKG/etc/pcmcia/*.opts
+# Move config files to *.new:
+( cd $PKG/etc/pcmcia
+  for file in *.opts ; do
+    mv $file ${file}.new
+  done
+)
+
+# This seems like a dumb idea.
+#mkdir -p /usr/include/pcmcia
+#cp -a include/pcmcia/* /usr/include/pcmcia
+#chmod 644 /usr/include/pcmcia/*
+#chown root:root /usr/include/pcmcia/*
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+# Compress and if needed symlink the man pages:
+if [ -d $PKG/usr/man ]; then
+  ( cd $PKG/usr/man
+    for manpagedir in $(find . -type d -name "man*") ; do
+      ( cd $manpagedir
+        for eachpage in $( find . -type l -maxdepth 1) ; do
+          ln -s $( readlink $eachpage ).gz $eachpage.gz
+          rm $eachpage
+        done
+        gzip -9 *.?
+      )
+    done
+  )
+fi
+
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../pcmcia-cs-$VERSION-$ARCH-$BUILD.tgz
+

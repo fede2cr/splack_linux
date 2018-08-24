@@ -1,0 +1,47 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-rexima
+
+VERSION=1.4
+ARCH=i486
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf rexima-$VERSION
+tar xzvf $CWD/rexima-$VERSION.tar.gz
+cd rexima-$VERSION
+chown -R root:root .
+make
+strip rexima
+mkdir -p $PKG/usr/bin
+cat rexima > $PKG/usr/bin/rexima
+chmod 755 $PKG/usr/bin/rexima
+mkdir -p $PKG/usr/man/man1
+cat rexima.1 | gzip -9c > $PKG/usr/man/man1/rexima.1.gz
+mkdir -p $PKG/usr/doc/rexima-$VERSION
+cp -a \
+  COPYING README ChangeLog NEWS \
+  $PKG/usr/doc/rexima-$VERSION
+chmod 644 $PKG/usr/doc/rexima-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/rexima-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/rexima-$VERSION
+  rm -rf $PKG
+fi

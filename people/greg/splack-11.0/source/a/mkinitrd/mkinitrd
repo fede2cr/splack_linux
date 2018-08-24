@@ -1,0 +1,253 @@
+#!/bin/sh
+# Copyright 2004  Slackware Linux, Inc., Concord, CA, USA
+# Copyright 2004  Patrick J. Volkerding, Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+MKINITRD_VERSION=1.0.1
+
+print_usage() {
+  cat << EOF
+Usage: mkinitrd [OPTION]
+
+mkinitrd creates an initial ramdisk used to load kernel modules that
+are needed to mount the root filesystem, or other modules that might
+be needed before the root filesystem is available.
+
+  -c      Clear the existing initrd tree first
+  -f      Filesystem to use for root partition (must be used with -r)
+  --help  Display this message
+  -k      Kernel version to use
+  -m      A colon (:) delimited list of kernel modules to load.
+          Additional options may be added to use when loading the
+          kernel modules (but in this case the entire list must be
+          wrapped with double quotes).
+  -o      Output image (default /boot/initrd.gz)
+  -r      Root partition device (must be used with -f)
+  -s      Initrd source tree (default /boot/initrd-tree/)
+  -V      Display version number
+
+A simple example:  Build an initrd for a reiserfs root partition:
+
+  mkinitrd -c -m reiserfs
+
+Another example:  Build an initrd image using Linux 2.6.7 kernel
+modules for a system with an ext3 root partition on /dev/hdb3:
+
+  mkinitrd -c -k 2.6.7 -m jbd:ext3 -f ext3 -r /dev/hdb3
+
+If run without options, mkinitrd will rebuild an initrd image using
+the contents of the $SOURCE_TREE directory, or, if that directory
+does not exist it will be created and populated, and then mkinitrd
+will exit.
+
+EOF
+}
+
+create_new_source_tree() {
+  mkdir -p $SOURCE_TREE
+  ( cd $SOURCE_TREE ; tar xzf /usr/share/mkinitrd/initrd-tree.tar.gz )
+  # Make sure we have any block devices that might be needed:
+  SLOPPY_DEV_LIST=$(cat /proc/partitions)
+  for device in $SLOPPY_DEV_LIST ; do
+    if [ ! -r $SOURCE_TREE/dev/$device -a -b /dev/$device ]; then
+      cp -a /dev/$device $SOURCE_TREE/dev
+    fi
+  done
+  # Make sure a kernel module directory exists:
+  mkdir -p $SOURCE_TREE/lib/modules/${KERNEL_VERSION}
+}
+
+clear_source_tree() {
+  if [ -d "$SOURCE_TREE" ]; then
+    rm -rf $SOURCE_TREE
+  fi
+}
+
+build_initrd_image() {
+  # Calculate size needed for initrd:
+  SIZE="$(du -s -k $SOURCE_TREE | tr "\t" " " | cut -f 1 -d ' ')"
+  # Add a bit of padding:
+  PAD=98
+  SIZE="$(expr $SIZE + $PAD)"
+  # Make an empty file of the proper size:
+  INITRD=$(mktemp)
+  dd if=/dev/zero of=$INITRD bs=1k count=$SIZE 2> /dev/null
+  # Create a filesystem on it:
+  mke2fs -F $INITRD 1> /dev/null 2> /dev/null
+  # Fix broken ext2fs defaults:
+  tune2fs -c 0 -i 0 -m 0 $INITRD 1> /dev/null 2> /dev/null
+  # Mount the initrd-to-be:
+  MOUNTPOINT=$(mktemp -d)
+  mount -o loop -t ext2 $INITRD $MOUNTPOINT
+  # Populate the initrd image:
+  ( cd $SOURCE_TREE
+    cp -a * $MOUNTPOINT
+  )
+  # Make sure we have any block devices that might be needed:
+  SLOPPY_DEV_LIST=$(cat /proc/partitions)
+  for device in $SLOPPY_DEV_LIST ; do
+    if [ ! -r $SOURCE_TREE/dev/$device -a -b /dev/$device ]; then
+      cp -a /dev/$device $SOURCE_TREE/dev
+    fi
+  done
+  # Unmount the initrd and move it into place:
+  umount $INITRD
+  rmdir $MOUNTPOINT
+  gzip -9 $INITRD
+  rm -f $OUTPUT_IMAGE
+  mv ${INITRD}.gz $OUTPUT_IMAGE
+}
+
+# If --help is given, print_usage and exit:
+if echo $* | grep -wq '\--help' ; then
+  print_usage
+  exit 0
+fi
+
+# If -V given, print version and exit:
+if echo $* | grep -wq '\-V' ; then
+  echo "mkinitrd version $MKINITRD_VERSION"
+  exit 0
+fi
+
+# Default values if these aren't previously set.
+# Might be changed by -s and -o options, too.
+SOURCE_TREE=${SOURCE_TREE:-/boot/initrd-tree}
+OUTPUT_IMAGE=${OUTPUT_IMAGE:-/boot/initrd.gz}
+# Set default kernel to build for to the running one:
+KERNEL_VERSION="$(uname -r)"
+
+# Default actions without options:
+if [ -z "$1" ]; then
+  # If the output tree doesn't exist, create it and then exit:
+  if [ ! -d $SOURCE_TREE ]; then
+    echo "Nothing found at location $SOURCE_TREE, so we will create an"
+    echo -n "initrd directory structure there... "
+    create_new_source_tree
+    echo "done."
+    echo
+    echo "Now cd to $SOURCE_TREE and install some modules in your"
+    echo "module directory (lib/modules/${KERNEL_VERSION}).  Then see linuxrc"
+    echo "for more information (there are a few other files to edit)."
+    echo "Finally, run mkinitrd again once the initrd-tree is ready,"
+    echo "and $OUTPUT_IMAGE will be created from it."
+    echo
+    exit 0
+  else
+    # If the source tree does exist, the default is to build the initrd
+    # image from it and then exit:
+    build_initrd_image
+    echo "$OUTPUT_IMAGE created."
+    echo "Be sure to run lilo again if you use it."
+    exit 0
+  fi
+fi # default no-option actions
+
+# Parse options:
+while [ ! -z "$1" ]; do
+  case $1 in
+    -c)
+      clear_source_tree
+      shift
+      ;;
+    -f)
+      ROOTFS="$2"
+      shift 2
+      ;;
+    -k)
+      KERNEL_VERSION="$2"
+      shift 2
+      ;;
+    -m)
+      MODULE_LIST="$2"
+      shift 2
+      ;;
+    -o)
+      OUTPUT_IMAGE="$2"
+      shift 2
+      ;;
+    -r)
+      ROOTDEV="$2"
+      shift 2
+      ;;
+    -s)
+      SOURCE_TREE="$2"
+      shift 2
+      ;;
+    *) # unknown, prevent infinite loop
+      shift
+      ;;
+  esac
+done
+
+# If there's no $SOURCE_TREE, make one now:
+if [ ! -d "$SOURCE_TREE" ]; then
+  create_new_source_tree
+fi
+
+# If both $ROOTDEV and $ROOTFS are set, write them in the initrd-tree:
+if [ ! -z "$ROOTDEV" -a ! -z "$ROOTFS" ]; then
+  echo $ROOTDEV > $SOURCE_TREE/rootdev
+  echo $ROOTFS > $SOURCE_TREE/rootfs
+fi
+
+# Make module directory:
+if [ ! -d $SOURCE_TREE/lib/modules/$KERNEL_VERSION ]; then
+  mkdir -p $SOURCE_TREE/lib/modules/$KERNEL_VERSION
+fi
+
+# If a module list was given, copy the modules into place:
+if [ ! -z "$MODULE_LIST" ]; then
+  rm -f $SOURCE_TREE/load_kernel_modules
+  touch $SOURCE_TREE/load_kernel_modules
+  chmod 755 $SOURCE_TREE/load_kernel_modules
+  echo "# This is a script used to load the kernel modules." >> $SOURCE_TREE/load_kernel_modules
+  echo "# To use it, chmod it 755, and then add the insmod" >> $SOURCE_TREE/load_kernel_modules
+  echo "# lines needed to load your modules, like this:" >> $SOURCE_TREE/load_kernel_modules
+  echo >> $SOURCE_TREE/load_kernel_modules
+  while echo "$MODULE_LIST" | grep -q : ; do
+    MODFIELD="$(echo "$MODULE_LIST" | cut -f 1 -d : )"
+    MODULE="$(echo "$MODFIELD" | cut -f 1 -d ' ' )"
+    # Now find this module:
+    SRCMOD=$(find /lib/modules/$KERNEL_VERSION -name "${MODULE}.*")
+    if [ -r "$SRCMOD" ]; then
+      cp $SRCMOD $SOURCE_TREE/lib/modules/$KERNEL_VERSION
+      echo "insmod /lib/modules/\$(uname -r)/$(basename $SRCMOD)" >> $SOURCE_TREE/load_kernel_modules
+    else
+      echo "WARNING:  Could not find module for \"$MODFIELD\""
+    fi
+    MODULE_LIST="$(echo "$MODULE_LIST" | cut -f 2- -d : )"
+  done
+  # One last module left here:
+  MODFIELD="$MODULE_LIST"
+  MODULE="$(echo "$MODFIELD" | cut -f 1 -d ' ' )"
+  # Now find this module:
+  SRCMOD=$(find /lib/modules/$KERNEL_VERSION -name "${MODULE}.*")
+  if [ -r "$SRCMOD" ]; then
+    cp $SRCMOD $SOURCE_TREE/lib/modules/$KERNEL_VERSION
+    echo "insmod /lib/modules/\$(uname -r)/$(basename $SRCMOD)" >> $SOURCE_TREE/load_kernel_modules
+  else
+    echo "WARNING:  Could not find module for \"$MODFIELD\""
+  fi
+fi
+
+# And finally, build the initrd:
+build_initrd_image
+

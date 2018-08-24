@@ -1,0 +1,237 @@
+#
+# Listing a module here prevents the hotplug scripts from loading it.
+# Usually that'd be so that some other driver will bind it instead,
+# no matter which driver happens to get probed first.  Sometimes user
+# mode tools can also control driver binding.
+#
+# Syntax:  driver name alone (without any spaces) on a line. Other
+# lines are ignored.
+#
+
+# uhci ... usb-uhci handles the same pci class, so one of the two
+# needs to be listed below.
+usb-uhci
+# usbcore ... module is loaded implicitly, ignore it otherwise
+usbcore
+
+# tulip ... de4x5, xircom_tulip_cb, dmfe (...) handle same devices
+de4x5
+
+# At least 2.4.3 and later xircom_tulip doesn't have that conflict
+# xircom_tulip_cb
+dmfe
+
+#evbug is a debug tool and should be loaded explicitly
+evbug
+
+# Alternate Intel EtherExpress Pro/100 support driver.  List it
+# here so it won't conflict with an already-loaded eepro100 module.
+e100
+
+# Alternate 8139 driver.  Some 8139 cards need this specific driver,
+# though...
+8139cp
+
+# Modules used to run a wireless adaptor as an access point.  These
+# conflict with the normal driver for the device, and so should be
+# loaded manually.
+hostap_cs
+hostap_pci
+hostap_plx
+hostap
+
+# Ethernet over IEEE1394 module.  In too many cases this will load
+# when there's no eth1394 device present (just an IEEE1394 port)
+eth1394
+
+# This module causes many Intel motherboards to crash and reboot.
+i810-tco
+
+# This module has also been known to cause crashes with some hardware.
+hw_random
+
+# The kernel lists this as "experimental", but for now it's "broken"
+via-ircc
+
+# ALSA modules to support sound modems.  These should be loaded manually
+# if needed.  For most people they just break sound support...
+snd-atiixp-modem
+snd-intel8x0m
+snd-via82xx-modem
+
+# OSS (Open Sound System) modules.  This is the old and deprecated Linux
+# sound system, though we still ship modules for it (for now).  If you
+# want to use OSS, remove the alsa-driver package and cut out (or comment
+# out) this list.  With these modules blacklisted ALSA will load by default.
+ac97
+ac97_codec
+aci
+ad1816
+ad1848
+ad1889
+adlib_card
+aedsp16
+ali5455
+awe_wave
+btaudio
+cmpci
+cs4232
+cs4281
+cs46xx
+emu10k1
+es1370
+es1371
+esssolo1
+forte
+gus
+i810_audio
+kahlua
+mad16
+maestro
+maestro3
+maui
+mpu401
+msnd
+msnd_classic
+msnd_pinnacle
+nm256_audio
+opl3
+opl3sa
+opl3sa2
+pas2
+pss
+rme96xx
+sb
+sb_lib
+sgalaxy
+sonicvibes
+sound
+sscape
+trident
+trix
+uart401
+uart6850
+v_midi
+via82cxxx_audio
+wavefront
+ymfpci
+
+# Hardware specific video framebuffer modules.  If the user wants
+# these, they can load them manually or de-blacklist them.  Having
+# them load automatically may lead to funny side effects with
+# certain revisions of video hardware.
+
+arcfb
+aty128fb
+atyfb
+cirrusfb
+clgenfb
+cyber2000fb
+fbcon-cfb2
+fbcon-cfb4
+fbcon-hga
+fbcon-mfb
+fbcon-vga-planes
+fbgen
+hgafb
+i2c-matroxfb
+i810fb
+intelfb
+kyrofb
+matroxfb_DAC1064
+matroxfb_Ti3026
+matroxfb_accel
+matroxfb_base
+matroxfb_crtc2
+matroxfb_g450
+matroxfb_maven
+matroxfb_misc
+neofb
+nvidiafb
+pm2fb
+pm3fb
+radeonfb
+rivafb
+savagefb
+sisfb
+sstfb
+tdfxfb
+tridentfb
+vga16fb
+
+# SCSI and SATA controller modules.  Typically these are either
+# built into the kernel or loaded with an initrd already.
+3w-xxxx
+53c7,8xx
+AM53C974
+BusLogic
+NCR53c406a
+a100u2w
+advansys
+aha152x
+aha1542
+aha1740
+aic79xx
+aic7xxx
+aic7xxx_old
+ata_piix
+atp870u
+cpqfc
+dc395x
+dmx3191d
+dpt_i2o
+dtc
+eata
+eata_dma
+eata_pio
+fdomain
+g_NCR5380
+g_NCR5380_mmio
+gdth
+ide-scsi
+imm
+in2000
+initio
+ipr
+ips
+libata
+megaraid
+ncr53c8xx
+nsp32
+osst
+pas16
+pci2000
+pci2220i
+ppa
+psi240i
+qla1280
+qla2100
+qla2200
+qla2300
+qla2322
+qla2xxx
+qla6312
+qla6322
+qlogicfas
+qlogicfas408
+qlogicfc
+qlogicisp
+seagate
+sim710
+sata_promise
+sata_sil
+sata_sis
+sata_svw
+sata_sx4
+sata_via
+sata_vsc
+scsi_debug
+scsi_transport_fc
+scsi_transport_spi
+sym53c416
+sym53c8xx
+sym53c8xx
+t128
+tmscsim
+u14-34f
+

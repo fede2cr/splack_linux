@@ -1,0 +1,89 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-hotplug
+
+VERSION=2004_09_23
+ARCH=noarch
+BUILD=11
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+rm -rf hotplug-$VERSION
+tar xjvf $CWD/hotplug-$VERSION.tar.bz2
+cd hotplug-$VERSION
+chown -R root:root .
+find . -perm 775 | xargs chmod 755
+find . -perm 664 | xargs chmod 644
+# Fix net.agent to use rc.inet1:
+zcat $CWD/hotplug.netagent.diff.gz | patch -p1 --verbose || exit 1
+# Patch net.agent again to shut down a DHCP lease via rc.inet1:
+zcat $CWD/hotplug.netagent.dhcpcd.down.diff.gz | patch -p1 --verbose || exit 1
+## Use usbfs, not usbdevfs.
+#zcat $CWD/hotplug.usbfs.diff.gz | patch -p1 --verbose || exit 1
+## Use {usb/pci}modules to find modules.
+#zcat $CWD/hotplug.lister.diff.gz | patch -p1 --verbose || exit 1
+# quell a pointless error message
+zcat $CWD/hotplug.inputrc.diff.gz | patch -p1 --verbose || exit 1
+# Log entry/exit to rc.hotplug:
+zcat $CWD/hotplug.logging.diff.gz | patch -p1 --verbose || exit 1
+# Don't stuff the logs full of warnings about attempts to load unneeded modules:
+zcat $CWD/hotplug.logstooverbose.diff.gz | patch -p1 --verbose || exit 1
+# Quiet this thing down.  It should never be spitting out messages on the console.
+zcat $CWD/hotplug.quiet.modprobe.diff.gz | patch -p1 --verbose || exit 1
+# In theory, no lister program should be needed for 2.6.x.
+# In practice, it doesn't work...
+zcat $CWD/hotplug.listerslop.diff.gz | patch -p1 --verbose || exit 1
+# If we're using a new enough kernel, try to use udevsend/udevstart after the
+# initial setup with hotplug.  That leaves the system in a state where HAL will
+# function as expected.
+zcat $CWD/hotplug.udevsend.diff.gz | patch -p1 --verbose || exit 1
+# If we're using a new udev, skip rc.hotplug entirely.  No wonder people were
+# reporting that the new udev wasn't speeding anything up -- it was still
+# running all those old shell scripts.
+zcat $CWD/hotplug.skipfornewudev.diff.gz | patch -p1 --verbose || exit 1
+# Under certain circumstances dhcpcd will exit right away (e.g. an infinite
+# lease time), so nullify any output from it at shutdown as it is unlikely
+# to be useful:
+zcat $CWD/hotplug.netagent.dhcpcd.quiet.diff.gz | patch -p1 --verbose || exit 1
+# junk removal:
+find . -name "*~" | xargs rm -f
+find . -name "*.orig" | xargs rm -f
+find . -name "*.rej" | xargs rm -f
+mkdir -p $PKG/lib/firmware
+mkdir -p $PKG/sbin
+mkdir -p $PKG/etc/hotplug/pci
+mkdir -p $PKG/etc/hotplug/usb
+cat sbin/hotplug > $PKG/sbin/hotplug
+chmod 755 $PKG/sbin/hotplug
+cp -a etc $PKG
+mv $PKG/etc/rc.d/init.d/hotplug $PKG/etc/rc.d/rc.hotplug.new
+rmdir $PKG/etc/rc.d/init.d
+mkdir -p $PKG/usr/man/man8
+cat hotplug.8 | gzip -9c > $PKG/usr/man/man8/hotplug.8.gz
+mkdir -p $PKG/usr/doc/hotplug-$VERSION
+cp -a ChangeLog README* $PKG/usr/doc/hotplug-$VERSION
+# Fix wrong doc perms:
+chmod 644 $PKG/usr/doc/hotplug-$VERSION/*
+mkdir -p $PKG/var/log/setup
+cat $CWD/setup.hotplug > $PKG/var/log/setup/setup.hotplug
+chmod 755 $PKG/var/log/setup/setup.hotplug
+cat $CWD/config/blacklist > $PKG/etc/hotplug/blacklist.new
+rm -f $PKG/etc/hotplug/blacklist
+mv $PKG/etc/hotplug/usb.usermap $PKG/etc/hotplug/usb.usermap.new
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/hotplug-$VERSION-$ARCH-$BUILD.tgz
+

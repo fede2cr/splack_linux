@@ -1,0 +1,24 @@
+#!/bin/sh
+CWD=`pwd`
+
+# First, build psutils:
+sh ./psutils.build
+
+# Then, build a2ps:
+cd /tmp
+tar xzvf $CWD/a2ps-4.13b.tar.gz
+cd a2ps-4.13
+zcat $CWD/a2ps-4.13b.diff.gz | patch -p1 --verbose --backup --suffix=.orig -E
+./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --with-medium=letter \
+            i386-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install
+mkdir -p /usr/doc/a2ps-4.13b
+cp -a ABOUT-NLS ANNOUNCE AUTHORS COPYING ChangeLog FAQ INSTALL NEWS README THANKS TODO \
+  /usr/doc/a2ps-4.13b
+chown -R root:root /usr/doc/a2ps-4.13b
+chmod 644 /usr/doc/a2ps-4.13b/*
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

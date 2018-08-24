@@ -1,0 +1,71 @@
+#!/bin/bash
+
+#####################################################################
+# trackbuild.liunxdoc-tools
+# by Stuart Winter <mozes@armedslack.org>
+# Preform a few pre-build requirements then launch the build script
+# through altertrack
+# 01-Oct-2005
+#####################################################################
+
+# Build requirements:
+# ap/unzip for the docbook stuff
+# l/libxml for /usr/bin/xmlcatalogue
+# ap/rpm to build the docbook stuff
+# l/libxslt
+# t/tetex
+# Just install it on a full Slackware installation - it works for me ;-)
+
+# Package info:
+PACKAGE=linuxdoc-tools
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+PKGVERSION=0.9.21 # use the version of linuxdoc-tools as the package version.
+
+# Current working directory (where this build script is):
+export CWD=$PWD
+
+# Store the finished Slackware package .tgz in /tmp:
+export PKGSTORE=/tmp
+
+# Temporary directories: 
+export TMP=/tmp/build-$PACKAGE/
+rm -rf $TMP
+
+####################### Clean up before build #####################
+
+# It's best to clear this stuff up prior to the build.
+# All of these directories (apart from /usr/share/xml/libglade) are
+# created by this build script.
+
+# Probably best to remove the RPMs if they are installed
+# just incase the package tracking scripts miss out some files.
+# We remove these RPMs now rather than later because removing RPMs
+# fiddles with the contents of the /etc/xml and /etc/sgml directories
+# which I don't want them to do after we've built the rest of the software.
+# Besides, the only thing I care about with removing these RPMs is to
+# catch anything that my sladge-hammer-to-crack-a-nut rm -rf's below
+# won't catch.
+#
+( rpm -qa | grep docbook- | while read rpmname ; do rpm -e --nodeps $rpmname ; done ) > /dev/null 2>&1
+
+removepkg linuxdoc-tools
+rm -rf /etc/{xml,sgml}
+rm -rf /usr/share/sgml
+rm -rf /usr/share/xml/{docbook,xml-iso-entities*} # can't wipe the entire dir because of libglade
+rm -rf ~/.texmf-var/ # created by docbook-utils
+
+# Remove some dangling symlinks from the previous Slackware package
+# (they were symlinks in the tar rather than in the install script)
+rm -f /usr/bin/sgml{2*,tools*,check}
+
+####################################################################
+
+# Launch the build script via altertrack:
+altertrack \
+   --notidy \
+   -T $TMP \
+   -l $CWD/build.$ARCH.log \
+   -R $CWD/postbuildfixes.sh \
+   -b $PKGSTORE \
+   -OcQp $PACKAGE-$PKGVERSION-$ARCH-$BUILD.tgz ./linuxdoc-tools.build

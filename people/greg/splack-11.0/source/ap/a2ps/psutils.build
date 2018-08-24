@@ -1,0 +1,12 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/psutils-1.17.tar.gz
+cd psutils
+zcat $CWD/psutils-1.17.diff.gz | patch -p1 --verbose -E --backup --suffix=.orig
+make -f Makefile.unix
+make -f Makefile.unix install
+mkdir -p /usr/doc/psutils-1.17
+cp -a LICENSE README /usr/doc/psutils-1.17
+chown -R root:root /usr/doc/psutils-1.17
+chmod 644 /usr/doc/psutils-1.17/*

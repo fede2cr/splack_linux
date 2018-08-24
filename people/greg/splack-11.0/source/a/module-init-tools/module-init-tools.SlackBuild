@@ -1,0 +1,173 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-module-init-tools
+rm -rf $PKG
+mkdir -p $PKG
+
+
+VERSION=3.2.2
+PKGVER=3.2.2
+ARCH=${ARCH:-i486}
+BUILD=2
+
+
+# Build old modutils for 2.4.x.  This will eventually go away...
+VMODUTILS=2.4.27
+cd $TMP
+rm -rf modutils-$VMODUTILS
+tar xjvf $CWD/modutils-$VMODUTILS.tar.bz2
+cd modutils-$VMODUTILS
+chown -R root:root .
+# insmod should use stderr for usage hints, not stdout:
+zcat $CWD/insmod-hint-use-stderr.diff.gz | patch -p1 --verbose --backup -E --suffix=.orig || exit 1
+mkdir -p $PKG/usr/doc/modutils-$VMODUTILS
+cp -a COPYING CREDITS ChangeLog NEWS README TODO $PKG/usr/doc/modutils-$VMODUTILS
+cp -a depmod/create_syms $PKG/usr/doc/modutils-$VMODUTILS
+cp -a insmod/insmod_ksymoops_clean $PKG/usr/doc/modutils-$VMODUTILS
+# cp -a kerneld/README.* $PKG/usr/doc/modutils-$VMODUTILS
+CFLAGS= \
+./configure \
+  --enable-zlib \
+  --enable-insmod-static \
+  $ARCH-slackware-linux
+make
+cd man
+mkdir -p $PKG/usr/man/man1
+cat kernelversion.1 | gzip -9c > $PKG/usr/man/man1/kernelversion.1.gz
+mkdir -p $PKG/usr/man/man5
+cat modules.conf.5 | gzip -9c > $PKG/usr/man/man5/modules.conf.5.gz
+mkdir -p $PKG/usr/man/man2
+for manpage in *.2 ; do
+  cat $manpage | gzip -9c > $PKG/usr/man/man2/$manpage.gz
+done
+mkdir -p $PKG/usr/man/man8
+for manpage in `ls *.8 | grep -v kerneld` ; do
+  cat $manpage | gzip -9c > $PKG/usr/man/man8/$manpage.gz
+done
+# Move some of these manpages to .old:
+mv $PKG/usr/man/man8/depmod.8.gz $PKG/usr/man/man8/depmod.old.8.gz
+mv $PKG/usr/man/man8/insmod.8.gz $PKG/usr/man/man8/insmod.old.8.gz
+mv $PKG/usr/man/man8/lsmod.8.gz $PKG/usr/man/man8/lsmod.old.8.gz
+mv $PKG/usr/man/man8/modinfo.8.gz $PKG/usr/man/man8/modinfo.old.8.gz
+mv $PKG/usr/man/man8/modprobe.8.gz $PKG/usr/man/man8/modprobe.old.8.gz
+mv $PKG/usr/man/man8/rmmod.8.gz $PKG/usr/man/man8/rmmod.old.8.gz
+cd ..
+mkdir -p $PKG/sbin
+cat depmod/depmod > $PKG/sbin/depmod.old
+cat genksyms/genksyms > $PKG/sbin/genksyms
+cat insmod/insmod > $PKG/sbin/insmod.old
+cat insmod/insmod.static > $PKG/sbin/insmod.static.old
+cat insmod/modinfo > $PKG/sbin/modinfo.old
+cat insmod/kernelversion > $PKG/sbin/kernelversion
+cat insmod/insmod_ksymoops_clean > $PKG/sbin/insmod_ksymoops_clean
+chmod 755 $PKG/sbin/*
+( cd $PKG
+  ( cd sbin ; rm -rf ksyms )
+  ( cd sbin ; ln -sf insmod.old ksyms )
+  ( cd sbin ; rm -rf lsmod.old )
+  ( cd sbin ; ln -sf insmod.old lsmod.old )
+  ( cd sbin ; rm -rf modprobe.old )
+  ( cd sbin ; ln -sf insmod.old modprobe.old )
+  ( cd sbin ; rm -rf rmmod.old )
+  ( cd sbin ; ln -sf insmod.old rmmod.old )
+  ( cd sbin ; rm -rf kallsyms )
+  ( cd sbin ; ln -sf insmod.old kallsyms )
+)
+
+# Build module-init-tools for 2.6.x+:
+cd $TMP
+rm -rf module-init-tools-$VERSION
+tar xjf $CWD/module-init-tools-$VERSION.tar.bz2
+cd module-init-tools-$VERSION
+
+# Look for /etc/modprobe.d/ first rather than bailing on the idea if /etc/modprobe.conf
+# exists.  IMHO, this is a better default behavior because it allows /etc/modprobe.conf
+# to remain behind for 2.4 kernels and allows a smoother transition towards using
+# /etc/modprobe.d/.
+zcat $CWD/modprobe.favor.etc.modprobe.d.diff.gz | patch -p1 --verbose --backup --suffix=.orig || exit 1
+
+find . -perm 664 | xargs chmod 644
+chown -R root:root .
+CFLAGS= \
+./configure \
+  --prefix=/ \
+  --enable-zlib \
+  $ARCH-slackware-linux
+make
+cat depmod > $PKG/sbin/depmod
+cat generate-modprobe.conf > $PKG/sbin/generate-modprobe.conf
+cat insmod > $PKG/sbin/insmod
+cat insmod.static > $PKG/sbin/insmod.static
+cat lsmod > $PKG/sbin/lsmod
+cat modinfo > $PKG/sbin/modinfo
+cat modprobe > $PKG/sbin/modprobe
+cat rmmod > $PKG/sbin/rmmod
+chmod 755 $PKG/sbin/*
+mkdir -p $PKG/bin
+( cd $PKG/bin ; ln -sf /sbin/lsmod . )
+( cd $PKG/bin ; ln -sf /sbin/lsmod.old . )
+mkdir -p $PKG/usr/man/man5
+for file in *.5 ; do
+  cat $file | gzip -9c > $PKG/usr/man/man5/$file.gz
+done
+mkdir -p $PKG/usr/man/man8
+for file in *.8 ; do
+  cat $file | gzip -9c > $PKG/usr/man/man8/$file.gz
+done
+mkdir -p $PKG/usr/doc/module-init-tools-$VERSION
+cp -a \
+  AUTHORS COPYING ChangeLog FAQ INSTALL NEWS README TODO \
+  $PKG/usr/doc/module-init-tools-$VERSION
+
+# Strip things:
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+mkdir -p $PKG/etc/cron.hourly
+zcat $CWD/kmod.gz > $PKG/etc/cron.hourly/kmod
+chmod 755 $PKG/etc/cron.hourly/kmod
+
+cat << EOF > $PKG/etc/modules.conf.new
+# /etc/modules.conf (Linux 2.4 modules config file)
+#
+# This file is for setting module options when using a 2.4 kernel.
+#
+# For more information, see "man modules.conf".
+EOF
+
+cat << EOF > $PKG/etc/modprobe.conf.new
+# /etc/modprobe.conf (old location for Linux 2.6+ config)
+#
+# The use of this config file is deprecated if you are using a
+# 2.6.x or newer kernel.  Instead, create files in the
+# /etc/modprobe.d/ directory containing modprobe options.
+#
+# For more information, see "man modprobe.conf".
+EOF
+
+mkdir -p $PKG/etc/modprobe.d/
+
+if [ -f $PKG/usr/man/man5/modprobe.conf.5.gz -a ! -e $PKG/usr/man/man5/modprobe.d.5.gz ]; then
+  ( cd $PKG/usr/man/man5 ; ln -sf modprobe.conf.5.gz modprobe.d.5.gz )
+fi
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/module-init-tools-$PKGVER-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/modutils-$VMODUTILS
+  rm -rf $TMP/module-init-tools-$VERSION
+  rm -rf $PKG
+fi

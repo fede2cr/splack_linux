@@ -1,0 +1,63 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-flac
+
+VERSION=1.1.2
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mcpu=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf flac-$VERSION
+tar xzvf $CWD/flac-$VERSION.tar.gz
+cd flac-$VERSION
+zcat $CWD/flac.man.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/xmms-plugin.diff.gz | patch -p0 --verbose --backup --suffix=.orig
+chown -R root:root .
+find . -perm 777 | xargs chmod 755
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  $ARCH-slackware-linux
+make -j3
+make install DESTDIR=$PKG
+# Adjust docs to traditional Slackware location:
+mv $PKG/usr/share/doc $PKG/usr
+rm $PKG/usr/doc/flac-$VERSION/FLAC.tag
+mv $PKG/usr/doc/flac-$VERSION/html/* $PKG/usr/doc/flac-$VERSION
+rmdir $PKG/usr/doc/flac-$VERSION/html
+# we're not putting 3MB of API docs in the binary package...
+( cd $PKG/usr/doc/flac-$VERSION/api && rm -r * )
+cat << EOF > $PKG/usr/doc/flac-$VERSION/api/README
+Full HTML based API documentation may be found in the FLAC
+source package.  It is not included in the binary package due
+to size.
+EOF
+# Add a few more docs:
+cp -a AUTHORS COPYING* README $PKG/usr/doc/flac-$VERSION
+# Strip files
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+gzip -9 $PKG/usr/man/man?/*.?
+mkdir $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../flac-$VERSION-$ARCH-$BUILD.tgz
+

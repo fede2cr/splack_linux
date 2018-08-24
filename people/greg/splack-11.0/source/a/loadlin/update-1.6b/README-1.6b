@@ -1,0 +1,13 @@
+LOADLIN-16b
+===========
+
+This version of LOADLIN contains a small fix to boot kernels with
+GDT layouts other than the standard ones (loadlin-1.6b nevertheless
+can boot also standard kernels).
+Prominent example of such a non-standard GDT kernel is Win4Lin.
+
+Thanks to Robert W. Hall <bobh@n-cantrell.demon.co.uk> for pointing
+this out, having made a primary fix and testing the final binary;-)
+
+
+                                Dec 6 2000, Hans Lermen <lermen@fgan.de>

@@ -1,0 +1,57 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-sc
+
+VERSION=7.16
+ARCH=i386
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_sc.tar.gz
+
+echo "+========+"
+echo "| sc-$VERSION |"
+echo "+========+"
+cd $TMP
+tar xzvf $CWD/sc-$VERSION.tar.gz
+cd sc-$VERSION
+mkdir -p $PKG/usr/doc/sc-$VERSION
+cp -a CHANGES README TODO $PKG/usr/doc/sc-$VERSION
+chown root:root $PKG/usr/doc/sc-$VERSION/*
+chmod 644 $PKG/usr/doc/sc-$VERSION/*
+cat tutorial.sc > $PKG/usr/lib/sc/tutorial.sc
+make
+cat sc > $PKG/usr/bin/sc
+cat scqref > $PKG/usr/bin/scqref
+cat psc > $PKG/usr/bin/psc
+name=sc NAME=SC LIBDIR=/usr/lib/sc sh torev sc.doc >  sc.1
+name=sc NAME=SC LIBDIR=/usr/lib/sc sh torev psc.doc > psc.1
+cat sc.1 | gzip -9c > $PKG/usr/man/man1/sc.1.gz
+cat psc.1 | gzip -9c > $PKG/usr/man/man1/psc.1.gz
+( cd $PKG
+  find . | xargs file | grep "ELF 32-bit LSB executable" | grep 80386 | cut -f 1 -d : | xargs strip --strip-unneeded
+)
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/sc-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/sc-$VERSION
+  rm -rf $PKG
+fi

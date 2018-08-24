@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+loadlin: loadlin (loads a Linux kernel from MS-DOS)
+loadlin:
+loadlin: LOADLIN.EXE, a loader (running under DOS) for LINUX kernel images
+loadlin: fully supporting the kernel's command line feature. 
+loadlin:
+loadlin: LOADLIN is the safest way to boot Linux from your hard disk, if you
+loadlin: have a bootable DOS partition on your machine.
+loadlin:
+loadlin: LOADLIN was written by Hans Lermen (lermen@elserv.ffm.fgan.de)
+loadlin:
+loadlin:

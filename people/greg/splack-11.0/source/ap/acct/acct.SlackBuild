@@ -1,0 +1,67 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-acct
+
+VERSION=6.3.2
+ARCH=i386
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+cd $TMP
+tar xzvf $CWD/acct-$VERSION.tar.gz
+cd acct-$VERSION
+chown -R root:root .
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="-O2 -march=i386 -mcpu=i686" \
+./configure --prefix=/usr
+zcat $CWD/acct.files.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+make
+mkdir -p $PKG/sbin
+cat accton > $PKG/sbin/accton
+chmod 755 $PKG/sbin/accton
+mkdir -p $PKG/usr/bin
+cat ac > $PKG/usr/bin/ac
+cat lastcomm > $PKG/usr/bin/lastcomm
+cat sa > $PKG/usr/bin/sa
+chmod 755 $PKG/usr/bin/*
+mkdir -p $PKG/usr/sbin
+cat dump-acct > $PKG/usr/sbin/dump-acct
+cat dump-utmp > $PKG/usr/sbin/dump-utmp
+chmod 755 $PKG/usr/sbin/*
+mkdir -p $PKG/usr/info
+cat accounting.info | gzip -9c > $PKG/usr/info/accounting.info.gz
+mkdir -p $PKG/usr/man/man1
+cat ac.1 | gzip -9c > $PKG/usr/man/man1/ac.1.gz
+cat lastcomm.1 | gzip -9c > $PKG/usr/man/man1/lastcomm.1.gz
+mkdir -p $PKG/usr/man/man8
+cat accton.8 | gzip -9c > $PKG/usr/man/man8/accton.8.gz
+cat sa.8 | gzip -9c > $PKG/usr/man/man8/sa.8.gz
+mkdir -p $PKG/usr/doc/acct-$VERSION
+cp -a \
+   AUTHORS COPYING NEWS README \
+   $PKG/usr/doc/acct-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+( cd $PKG
+  find . | xargs file | grep "ELF 32-bit LSB executable" | grep 80386 | cut -f 1 -d : | xargs strip --strip-unneeded
+)
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/acct-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/acct-$VERSION
+  rm -rf $PKG
+fi

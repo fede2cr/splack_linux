@@ -1,0 +1,43 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-beecrypt
+
+VERSION=3.1.0
+ARCH=i486
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG # place for the package to be built
+
+cd $TMP
+tar xjvf $CWD/beecrypt-$VERSION.tar.bz2
+cd beecrypt-$VERSION
+CFLAGS="-O2 -march=i486 -mcpu=i686" \
+./configure \
+  --prefix=/usr \
+  --enable-shared=no \
+  --enable-static=yes \
+  --with-cpu=i686 \
+  --with-arch=i486 \
+  --with-pic \
+  i486-slackware-linux
+make
+make install DESTDIR=$PKG
+strip -g $PKG/usr/lib/*.a
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/beecrypt-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/beecrypt-$VERSION
+  rm -rf $PKG
+fi

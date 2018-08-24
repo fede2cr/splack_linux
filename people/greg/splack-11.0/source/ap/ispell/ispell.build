@@ -1,0 +1,21 @@
+#!/bin/sh
+CWD=`pwd`
+
+VERSION=3.2.06
+
+cd /tmp
+tar xzvf $CWD/ispell-$VERSION.tar.gz
+cd ispell-$VERSION
+zcat $CWD/ispell.diff.gz | patch -p1 --verbose
+make
+make install
+( cd /usr/lib/ispell
+  ln -sf americanmed.hash american.hash
+  ln -sf americanmed.hash english.hash
+)
+mkdir -p /usr/doc/ispell-$VERSION
+cp -a Contributors Magiclines README WISHES \
+  /usr/doc/ispell-$VERSION
+chown -R root:root /usr/doc/ispell-$VERSION
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

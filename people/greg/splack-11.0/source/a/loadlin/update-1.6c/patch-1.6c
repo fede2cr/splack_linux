@@ -1,0 +1,353 @@
+diff -ur src-1.6/src/loadlin.asm src-1.6c/src/loadlin.asm
+--- src-1.6/src/loadlin.asm	Sun Apr 28 22:13:20 1996
++++ src-1.6c/src/loadlin.asm	Mon Apr 15 21:00:38 2002
+@@ -1,5 +1,5 @@
+ TESTX = 0
+-LOADLIN_VERSION equ '1.6'
++LOADLIN_VERSION equ '1.6c'
+ 
+ ;   >>> this is file LOADLIN.ASM
+ ;============================================================================
+@@ -159,7 +159,7 @@
+ ;             --------------------------------
+ ;                        within this as loaded from "zImage"
+               org     01F4h
+-kernel_size   dw      ?  ; size of kernel-part in the image-file
++kernel_size16 dw      ?  ; size of kernel-part in the image-file
+                          ; (in 16 byte units, rounded up)
+ swap_dev      dw      ?  ; swap device
+ 
+@@ -321,7 +321,7 @@
+     ; the following values are cleared on each call to "parscommandline"
+     ; (see "clear_to_default")
+ parse_switches  label byte
+-new_setup_size  dw    0
++new_setup_size  dw    0,0	; NOTE: need the high word to be 0
+ new_vga_mode    dw    0
+ new_ram_disk    dw    0
+ cl_pointer      dw    0  ; while parsing: aux pointer to command_line
+@@ -377,6 +377,8 @@
+ setup_version    dw   0       ; =0, if old setup
+                               ; else contents of setup_header_version
+ 
++kernel_size	dd    0       ; will be either calculated from kernel_size16
++			      ; or from the filesize of the image
+ 
+ ;--------------------higmem stuff -----v
+ xms_entry dd      0
+@@ -1002,6 +1004,7 @@
+         cmp      ax,cx
+         jne      fileopened_wrong
+         call     get_setup_version
++	call     handle_kernel_size  ; kernel >2.4.5 we may have bzImages > 1Meg
+         cmp      setup_version,0201h ; do we have to set setup heap ?
+         jb       new_bootsect_3      ; no
+         cmp      option_noheap,0     ; yes, but is it disabled ?
+@@ -1109,8 +1112,9 @@
+         mov      kernelversion,eax
+         call     handle_kernel_specifics
+                           ; ok, now check the size of the kernel
+-        movzx    eax,kernel_size
+-        shl      eax,4
++;        movzx    eax,kernel_size
++;        shl      eax,4
++	mov	eax,kernel_size
+         cmp      eax,load_buffer_size
+         jb       have_space
+         lea      dx,err_kernel_to_big_tx
+@@ -1176,8 +1180,9 @@
+ 
+                             ; now loading the kernel
+         mov      bx,fhandle
+-        movzx    ecx,kernel_size
+-        shl      ecx,4
++;        movzx    ecx,kernel_size
++;        shl      ecx,4
++	mov	ecx,kernel_size
+         mov      di,kernel_load_frame
+         movzx    edi,di
+         shl      edi,4
+@@ -1187,8 +1192,11 @@
+         mov      print_dots,0
+         call     print_crlf
+         jc       err_io
++	cmp      setup_version,0202h
++	jae      no_need_to_roundup
+         add      eax,15
+         and      al,0f0h
++no_need_to_roundup:
+         cmp      eax,ecx
+         jnz      fileopened_wrong
+                            ; ok, all is read into memory
+@@ -1298,7 +1306,7 @@
+         cld
+ mgran = 08000h
+         mov      bp,mgran shr 4
+-        mov      ax,kernel_size
++        mov      ax,kernel_size16
+         mov      bx,kernel_start
+         mov      dx,kernel_load_frame
+ @@loop:
+@@ -1463,6 +1471,33 @@
+ 
+ 
+ granularity = 01000h
++
++handle_kernel_size proc near
++; this tries to find out the actual kernel size
++; because kernels > 2.4.5 can have bigger bzImages then 1Meg and
++; kernel_size16 simply will wrap around without notification
++	push	bx
++	push	eax
++		; first check if the kernel follows the old standard
++	cmp	setup_version,0202h
++	jae	@@bigger
++	movzx	eax,kernel_size16
++	shl	eax,4
++	jmp	short @@ex
++
++@@bigger:
++		; first get the filesize
++	mov	bx,fhandle
++	call	get_filesize
++		; now subtract bootsect and setup.S size
++	sub	eax,dword ptr new_setup_size	; minus setup.S
++	sub	eax,200h			; minus bootsector
++@@ex:
++	mov	kernel_size,eax
++	pop	eax
++	pop	bx
++	ret
++handle_kernel_size endp
+ 
+ read_handle proc    near
+ ; input:
+diff -ur src-1.6/src/loadlinj.asm src-1.6c/src/loadlinj.asm
+--- src-1.6/src/loadlinj.asm	Mon Apr 29 00:25:00 1996
++++ src-1.6c/src/loadlinj.asm	Sun Apr 14 17:19:59 2002
+@@ -733,7 +733,9 @@
+          call     print
+ @@m1:
+          @@print  @@t2
+-         @@hexw   kernel_size
++;         @@hexw   kernel_size
++	 mov      eax,kernel_size
++	 call     writehexdword
+          cmp      have_big_kernel,0
+          jz       @@m1_1
+          @@print  @@t2_big
+@@ -868,8 +870,9 @@
+          @@print  @@w1
+ @@6:
+ 
+-         movzx    eax,kernel_size
+-         shl      eax,4
++;         movzx    eax,kernel_size
++;         shl      eax,4
++         mov      eax,kernel_size
+          cmp      eax,load_buffer_size
+          jb       @@7
+          @@print  @@w2
+@@ -890,8 +893,10 @@
+          db         13,10,'  image file:       $'
+ @@t1_    db         13,10,'  kernel version    $'
+ @@t2     db         13,10,'  kernel size:     0x$'
+-@@t2_    db               '0                  setup size:  0x$'
+-@@t2_big db               '0 (high loaded)    setup size:  0x$'
++;@@t2_    db               '0                  setup size:  0x$'
++;@@t2_big db               '0 (high loaded)    setup size:  0x$'
++@@t2_    db               '               setup size:  0x$'
++@@t2_big db               ' (high loaded) setup size:  0x$'
+ @@t2_heap db                                                  ', heap: 0x$'
+ 
+ IF 0
+@@ -1017,7 +1022,7 @@
+ IFDEF ALPHA
+   INCLUDE LOADLINA.ASM
+ ENDIF
+-                      db   'LOADLIN v',LOADLIN_VERSION,' (C) 1994..1996 Hans Lermen <lermen@elserv.ffm.fgan.de>',13,10,'$'
++                      db   'LOADLIN v',LOADLIN_VERSION,' (C) 1994..2002 Hans Lermen <lermen@fgan.de>',13,10,'$'
+ comspec_tx            db   'comspec',0
+ windows_tx            db   'windir',0
+ err_uppermem_tx       db   'Not enough free memory between 90000h and 9ffffh,',13,10
+diff -ur src-1.6/src/loadlinm.asm src-1.6c/src/loadlinm.asm
+--- src-1.6/src/loadlinm.asm	Sun Mar 31 00:41:10 1996
++++ src-1.6c/src/loadlinm.asm	Sun Apr 14 17:15:03 2002
+@@ -697,10 +697,13 @@
+         add      eax,@@end_of_physmem
+         and      ax,0f000h     ; round down to full page boundary
+         mov      ramdisk_image,eax
+-        movzx    eax,kernel_size
+-        add      ax,0ffh
+-        mov      al,0          ; round up to page boundary
+-        shl      eax,4         ; size of compressed kernel
++;        movzx    eax,kernel_size
++;        add      ax,0ffh
++;        mov      al,0          ; round up to page boundary
++;        shl      eax,4         ; size of compressed kernel
++	mov      eax,kernel_size
++	add      eax,0fffh	; round up to page boundary
++	and      eax,0fffff000h	; size of compressed kernel
+         mov      ecx,eax
+         shl      eax,1         ; estimated size of decompressed kernel
+                                ; (we assume a decompression rate of 1:2)
+diff -ur src-1.6/src/srclinux/Makefile src-1.6c/src/srclinux/Makefile
+--- src-1.6/src/srclinux/Makefile	Sun Mar 17 01:28:18 1996
++++ src-1.6c/src/srclinux/Makefile	Sun Apr 14 01:26:50 2002
+@@ -6,7 +6,7 @@
+ 
+ OBJECTS = $(HEAD) pgadjust.o
+ 
+-CFLAGS = -D__KERNEL__ -m386 -O2 -DSTDC_HEADERS -fomit-frame-pointer \
++CFLAGS = -D__KERNEL__ -m386 -Os -DSTDC_HEADERS -fomit-frame-pointer \
+          -fno-strength-reduce -fno-force-mem
+ 
+ ifneq (1,$(shell if grep __ELF__ `gcc -v 2>&1|head -n1|cut -d' ' -f4` 1>/dev/null 2>&1;then echo -n 1;fi))
+@@ -15,24 +15,25 @@
+   exit 1;
+ endif
+ 
+-all: pgadjust.asm Makefile
++all: ../pgadjust.asm Makefile
+ #all: testpg Makefile
+ 
+-pgadjust.asm: pgadjust.out Makefile
++../pgadjust.asm: pgadjust.out Makefile
+ 	echo "; 32-bit code, linkaddress: $(IMAGE_OFFSET)" >pgadjust.as
+ 	hexdump -v -e '" DD  " 8/4 "0%Xh," 1/4 "0%Xh\n"' pgadjust.out >>pgadjust.as
+-	todos <pgadjust.as >pgadjust.asm
++	perl -pe 's/\n/\r\n/' <pgadjust.as >../pgadjust.asm
+ 	rm -f pgadjust.as
+ 
+ pgadjust.out: pgadjust Makefile
+-	objdump -k -q  -o $(IMAGE_OFFSET) pgadjust > pgadjust.out
++	objcopy -O binary pgadjust pgadjust.out
++#	objdump -k -q  -o $(IMAGE_OFFSET) pgadjust > pgadjust.out
+ 	
+ loadlinh.o: loadlinh.S
+ 	$(CC) -traditional -c loadlinh.S
+ 
+ pgadjust: $(OBJECTS) Makefile
+-	ld -m elf_i386 -Ttext $(IMAGE_OFFSET) -relax -e startup_32  -o pgadjust $(OBJECTS)
+-#                      this avoids page align ^^^^^^ (and holes between sections)
++	ld -m elf_i386 -Ttext $(IMAGE_OFFSET) -N -e startup_32  -o pgadjust $(OBJECTS)
++#                      this avoids page align ^^ (and holes between sections)
+ 
+ pgadjust.o: pgadjust.c
+ 	$(CC) $(CFLAGS) -c pgadjust.c -o pgadjust.o
+@@ -41,4 +42,10 @@
+ 	$(CC) $(CFLAGS) -DSTANDALONE_DEBUG -o testpg pgadjust.c
+ 
+ clean:
+-	rm -f $(OBJECTS) pgadjust.asm pgadjust.out pgadjust
++	rm -f $(OBJECTS) ../pgadjust.asm pgadjust.out pgadjust
++
++#       for final distrib leave pgadjust.asm in the DOS part
++distclean:
++	rm -f $(OBJECTS) pgadjust.out pgadjust *~
++	(cd ..; mv -f loadlin.exe ..; rm -f *~ *.obj *.lst)
++	(cd ..; tar -czf srclinux.tgz srclinux)
+diff -ur src-1.6/src/srclinux/loadlinh.S src-1.6c/src/srclinux/loadlinh.S
+--- src-1.6/src/srclinux/loadlinh.S	Sat Feb 10 01:02:38 1996
++++ src-1.6c/src/srclinux/loadlinh.S	Sun Apr 14 01:28:54 2002
+@@ -16,9 +16,11 @@
+ 	.globl startup_32
+ 	
+ startup_32:
+-	cld
+ 	cli
+-	movl $(KERNEL_DS),%eax
++	cld
++	movw %cs,%ax
++	addb $8,%al	#KERNEL_DS is always one slot behind KERNEL_CS
++#	movl $(KERNEL_DS),%eax
+ 	mov %ax,%ds
+ 	mov %ax,%es
+ 	mov %ax,%fs
+@@ -43,4 +45,4 @@
+ 	call SYMBOL_NAME(page_adjustment)
+ 	xorl %ebx,%ebx
+ #	ljmp $(KERNEL_CS), $0x1000
+-	jmp  %eax
++	jmp  *%eax
+diff -ur src-1.6/src/srclinux/pgadjust.c src-1.6c/src/srclinux/pgadjust.c
+--- src-1.6/src/srclinux/pgadjust.c	Sun Mar 17 01:27:44 1996
++++ src-1.6c/src/srclinux/pgadjust.c	Sun Apr 14 00:37:25 2002
+@@ -8,12 +8,11 @@
+ #ifdef STANDALONE_DEBUG
+   #include <stdio.h>
+   #include <stdlib.h>
++  #include <string.h>
+ #endif
+ 
+ 
+-#include <string.h>
+ #include <asm/segment.h>
+-#include <asm/io.h>
+ 
+ /*
+  * These are set up by the setup-routine at boot-time:
+@@ -88,6 +87,32 @@
+ static void error(char *m);
+  
+ #ifndef STANDALONE_DEBUG
++
++	/* ---- outb_p stolen from linux/include/asm/io.h ---- */
++
++#define SLOW_DOWN_IO __asm__ __volatile__("outb %al,$0x80")
++
++#define __OUT1(s,x) \
++extern inline void __out##s(unsigned x value, unsigned short port) {
++
++#define __OUT2(s,s1,s2) \
++__asm__ __volatile__ ("out" #s " %" s1 "0,%" s2 "1"
++
++#define __OUT(s,s1,x) \
++__OUT1(s,x) __OUT2(s,s1,"w") : : "a" (value), "d" (port)); } \
++__OUT1(s##c,x) __OUT2(s,s1,"") : : "a" (value), "id" (port)); } \
++__OUT1(s##_p,x) __OUT2(s,s1,"w") : : "a" (value), "d" (port)); SLOW_DOWN_IO; } \
++__OUT1(s##c_p,x) __OUT2(s,s1,"") : : "a" (value), "id" (port)); SLOW_DOWN_IO; }
++
++__OUT(b,"b",char)
++
++#define outb_p(val,port) \
++((__builtin_constant_p((port)) && (port) < 256) ? \
++	__outbc_p((val),(port)) : \
++	__outb_p((val),(port)))
++
++	/* ---- end of outb_p ----- */
++
+ static void puts(const char *);
+   
+ static char *vidmem = (char *)0xb8000;
+@@ -140,16 +165,8 @@
+ 	outb_p(0xff & (pos >> 1), vidport+1);
+ }
+ 
+-__ptr_t memset(__ptr_t s, int c, size_t n)
+-{
+-	int i;
+-	char *ss = (char*)s;
+-
+-	for (i=0;i<n;i++) ss[i] = c;
+-}
+-
+-__ptr_t memcpy(__ptr_t __dest, __const __ptr_t __src,
+-			    size_t __n)
++static void * memcpy(void * __dest, void * __src,
++			    unsigned int __n)
+ {
+ 	int i;
+ 	char *d = (char *)__dest, *s = (char *)__src;
+@@ -345,7 +362,11 @@
+   lines = SCREEN_INFO.orig_video_lines;
+   cols = SCREEN_INFO.orig_video_cols;
+ 
++#if 0 /* this won;t work any more, because 2.1.22 changed the format
++         of EXT_MEM_K, see STANDARD_MEMORY_BIOS_CALL in setup.S
++       */
+   if (EXT_MEM_K < (3*1024)) error("Less than 4MB of memory.\n");
++#endif
+ 
+   if (PAGELIST) {
+ #ifdef VERBOSE

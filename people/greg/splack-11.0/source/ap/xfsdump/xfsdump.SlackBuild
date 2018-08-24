@@ -1,0 +1,94 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-xfsdump
+
+VERSION=2.2.38-1
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf xfsdump-$(echo $VERSION | cut -f 1 -d '-')
+tar xzvf $CWD/xfsdump_$VERSION.tar.gz
+cd xfsdump-$(echo $VERSION | cut -f 1 -d '-')
+
+zcat $CWD/xfsdump.destdir.diff.gz | patch -p1 --verbose --backup --suffix=.orig || exit 1
+
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+# Make sure you have the same version of autoconf as the
+# developers did...  ;-)
+autoconf
+
+./configure \
+  --prefix=/usr \
+  --sbindir=/sbin \
+  --bindir=/usr/sbin \
+  --enable-gettext=yes \
+  --mandir=/usr/man \
+  --datadir=/usr/share
+
+make || exit 1
+make install DESTDIR=$PKG
+
+( cd $PKG/usr/sbin
+  rm -f xfsdump xfsrestore
+  ln -sf /sbin/xfsdump xfsdump
+  ln -sf /sbin/xfsrestore xfsrestore
+)
+
+# Strip libraries:
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+# Compress and if needed symlink the man pages:
+if [ -d $PKG/usr/man ]; then
+  ( cd $PKG/usr/man
+    for manpagedir in $(find . -type d -name "man*") ; do
+      ( cd $manpagedir
+        for eachpage in $( find . -type l -maxdepth 1) ; do
+          ln -s $( readlink $eachpage ).gz $eachpage.gz
+          rm $eachpage
+        done
+        gzip -9 *.?
+      )
+    done
+  )
+fi
+
+mv $PKG/usr/share/doc $PKG/usr
+( cd $PKG/usr/doc ; mv xfsdump xfsdump-$VERSION )
+# It would be nice to keep the same timestamps that the files have in the source:
+cp -a \
+  README doc/COPYING doc/CREDITS doc/PORTING \
+  $PKG/usr/doc/xfsdump-$VERSION
+mkdir -p $PKG/usr/doc/xfsdump-$VERSION/html
+( cd doc
+  cp -a *.gif *.html $PKG/usr/doc/xfsdump-$VERSION/html
+)
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/xfsdump-$(echo $VERSION | tr - _ )-$ARCH-$BUILD.tgz
+

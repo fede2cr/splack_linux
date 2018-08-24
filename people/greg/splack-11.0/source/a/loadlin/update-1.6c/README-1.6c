@@ -1,0 +1,37 @@
+			History
+			=======
+
+
+LOADLIN-16c
+===========
+
+Support for loading bzImages bigger than 1MB compressed.
+Those images may be produced by kernels >= 2.4.5
+(setup_header_version >= 0x0202).
+
+				Apr 15 2002, Hans Lermen <lermen@fgan.de>
+
+
+LOADLIN-16b
+===========
+
+This version of LOADLIN contains a small fix to boot kernels with
+GDT layouts other than the standard ones (loadlin-1.6b nevertheless
+can boot also standard kernels).
+Prominent example of such a non-standard GDT kernel is Win4Lin.
+
+Thanks to Robert W. Hall <bobh@n-cantrell.demon.co.uk> for pointing
+this out, having made a primary fix and testing the final binary;-)
+
+
+				Dec 6 2000, Hans Lermen <lermen@fgan.de>
+
+
+LOADLIN-16a
+===========
+
+Small fix to EXT_MEM_K changes in kernels > 2.1.22. We don't check < 4MB
+in LOADLIN any more.
+
+
+				Jan 24 1997, Hans Lermen <lermen@fgan.de>

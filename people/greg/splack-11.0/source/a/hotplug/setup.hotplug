@@ -1,0 +1,28 @@
+#!/bin/sh
+#BLURB="Enable/disable hotplug activation at boot"
+T_PX=$1
+TMP=/var/log/setup/tmp
+if [ "$COLOR" = "on" -o -r $TMP/SeTcolor ]; then
+  dialog --title "ENABLE HOTPLUG/UDEV SUBSYSTEM AT BOOT?" --yesno \
+ "The Linux kernel uses the hotplug (or with newer kernels, udev) \
+subsystem to activate hardware.  Examples include network cards, \
+USB devices, sound cards, or Cardbus devices used with laptops.  \
+Activating this system allows the kernel to discover and enable \
+most hardware automatically.  If udev is used, the contents of \
+/dev are also created dynamically depending on what hardware is \
+found.  However, on some machines hotplug/udev may load modules \
+that crash or hang the machine, in which case you can skip enabling \
+it by passing the \"nohotplug\" option to the kernel, or making \
+/etc/rc.d/rc.hotplug and/or /etc/rc.d/rc.udev non-executable, or \
+adding the offending modules to /etc/hotplug/blacklist and \
+/etc/modprobe.d/blacklist.  Answering YES below is usually \
+the best choice." \
+16 73
+  if [ $? = 0 ]; then
+    chmod 755 etc/rc.d/rc.hotplug
+    chmod 755 etc/rc.d/rc.udev
+  else
+    chmod 644 etc/rc.d/rc.hotplug
+    chmod 644 etc/rc.d/rc.udev
+  fi
+fi

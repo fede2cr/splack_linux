@@ -1,0 +1,16 @@
+#!/bin/sh
+CWD=`pwd`
+VERSION=1.00.3
+cd /tmp
+tar xzvf $CWD/raidtools-$VERSION.tar.gz
+cd raidtools-$VERSION
+chown -R root:root .
+./configure --prefix=/usr
+make
+make install
+mkdir -p /usr/doc/raidtools-$VERSION
+cp -a \
+  COPYING README Software-RAID.HOWTO *.sample raidreconf-HOWTO *.txt summary \
+  /usr/doc/raidtools-$VERSION
+mkdir -p /install
+cat $CWD/slack-desc > $PKG/install/slack-desc

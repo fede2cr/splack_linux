@@ -1,0 +1,396 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-bin
+
+VERSION=11.0
+ARCH=${ARCH:-i486}
+BUILD=3
+
+DUTILS=2.7
+DOSFS=2.10
+WHICH=2.16
+EJECT=2.1.5
+FILE=4.17
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_bin.tar.gz
+
+echo "+=============+"
+echo "| debianutils |"
+echo "+=============+"
+cd $TMP
+rm -rf debianutils-$DUTILS
+tar xzvf $CWD/debianutils_$DUTILS.tar.gz
+cd debianutils-$DUTILS
+chown -R root:root .
+./configure --prefix=/usr
+make || exit 1
+## We actually use our own very simple run-parts script instead...
+#cat run-parts > $PKG/usr/bin/run-parts
+#cat run-parts.8 | gzip -9c > $PKG/usr/man/man8/run-parts.8.gz
+cat mktemp > $PKG/usr/bin/mktemp
+cat mktemp.1 | gzip -9c > $PKG/usr/man/man1/mktemp.1.gz
+cat savelog > $PKG/usr/bin/savelog
+cat savelog.8 | gzip -9c > $PKG/usr/man/man8/savelog.8.gz
+cat tempfile > $PKG/usr/bin/tempfile
+cat tempfile.1 | gzip -9c > $PKG/usr/man/man1/tempfile.1.gz
+
+echo "+=======+"
+echo "| eject |"
+echo "+=======+"
+cd $TMP
+rm -rf eject
+tar xzvf $CWD/eject-$EJECT.tar.gz
+cd eject
+chown -R root:root .
+CFLAGS= ./configure --prefix=/usr
+make || exit 1
+cat eject > $PKG/usr/bin/eject
+cat eject.1 | gzip -9c > $PKG/usr/man/man1/eject.1.gz
+cat volname > $PKG/usr/bin/volname
+cat volname.1 | gzip -9c > $PKG/usr/man/man1/volname.1.gz
+mkdir -p $PKG/usr/doc/eject-$EJECT
+cp -a AUTHORS COPYING NEWS PORTING PROBLEMS README TODO eject-$EJECT.lsm \
+  $PKG/usr/doc/eject-$EJECT
+chmod 644 $PKG/usr/doc/eject-$EJECT/*
+
+echo "+===========+"
+echo "| fbset-2.1 |"
+echo "+===========+"
+cd $TMP
+rm -rf fbset-2.1
+tar xzvf $CWD/fbset-2.1.tar.gz
+cd fbset-2.1
+chown -R root:root .
+make || exit 1
+mkdir -p $PKG/usr/sbin
+cat fbset > $PKG/usr/sbin/fbset
+chmod 755 $PKG/usr/sbin/fbset
+mkdir -p $PKG/etc
+cat etc/fb.modes.ATI > $PKG/etc/fb.modes
+mkdir -p $PKG/usr/man/man5
+cat fb.modes.5 | gzip -9c > $PKG/usr/man/man5/fb.modes.5.gz
+mkdir -p $PKG/usr/man/man8
+cat fbset.8 | gzip -9c > $PKG/usr/man/man8/fbset.8.gz
+
+echo "+===========+"
+echo "| lha-1.14i |"
+echo "+===========+"
+cd $TMP
+rm -rf lha-114i
+tar xzvf $CWD/lha-114i.tar.gz
+cd lha-114i
+zcat $CWD/lha-114i-sec.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/lha-114i-symlink.patch.gz | patch -p1 --verbose || exit 1
+chown -R root:root .
+make || exit 1
+cat src/lha > $PKG/usr/bin/lha
+
+echo "+========+"
+echo "| ed-0.2 |"
+echo "+========+"
+cd $TMP
+rm -rf ed-0.2
+tar xzvf $CWD/ed-0.2.tar.gz
+cd ed-0.2
+chown -R root:root .
+zcat $CWD/ed-0.2.mkstemp.diff.gz | patch -p1 -E --backup --verbose || exit 1
+CFLAGS=-O2 \
+./configure \
+  --prefix=/usr \
+  $ARCH-slackware-linux
+make || exit 1
+cat ed > $PKG/bin/ed
+cat ed.1 | gzip -9c > $PKG/usr/man/man1/ed.1.gz
+cat ed.info | gzip -9c > $PKG/usr/info/ed.info.gz
+
+echo "+==========+"
+echo "| compress |"
+echo "+==========+"
+cd $TMP
+rm -rf ncompress-4.2.4
+tar xzf $CWD/ncompress-4.2.4.tar.gz
+cd ncompress-4.2.4
+chown -R root:root .
+zcat $CWD/ncompress.make.diff.gz | patch -p1 --verbose || exit 1
+zcat $CWD/ncompress.lfs2.diff.gz | patch -p1 --verbose || exit 1
+zcat $CWD/ncompress.filenamelen.diff.gz | patch -p1 --verbose || exit 1
+zcat $CWD/ncompress.2GB.diff.gz | patch -p1 --verbose || exit 1
+zcat $CWD/ncompress.zerobyteforce.diff.gz | patch -p1 --verbose || exit 1
+make ENDIAN=4321 || exit 1
+cat compress > $PKG/usr/bin/compress
+cat compress.1 | gzip -9c > $PKG/usr/man/man1/compress.1.gz
+echo '.so man1/compress.1' | gzip -9c > $PKG/usr/man/man1/uncompress.1.gz
+mkdir -p $PKG/usr/doc/ncompress-4.2.4
+cp -a \
+  Acknowleds LZW.INFO README \
+  $PKG/usr/doc/ncompress-4.2.4
+
+echo "+=========+"
+echo "| banners |"
+echo "+=========+"
+cd $TMP
+rm -rf banners
+tar xzvf $CWD/banners.tar.gz
+cd banners
+chown -R root:root .
+make || exit 1
+cat bban > $PKG/usr/bin/bban
+cat sysvbanner > $PKG/usr/bin/sysvbanner
+
+echo "+===========+"
+echo "| file-$FILE |"
+echo "+===========+"
+cd $TMP
+rm -rf file-$FILE
+tar xzvf $CWD/file-$FILE.tar.gz
+cd file-$FILE
+chown -R root:root .
+zcat $CWD/file.quiet.diff.gz | patch -p1 -E --verbose || exit 1
+zcat $CWD/file.short.diff.gz | patch -p1 -E --verbose || exit 1
+zcat $CWD/file.rzip.magic.gz >> magic/Magdir/compress
+zcat $CWD/file.zisofs.magic.gz >> magic/Magdir/compress
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --datadir=/etc \
+  --enable-fsect-man5 \
+  --enable-shared=no \
+  $ARCH-slackware-linux
+make || exit 1
+make install DESTDIR=$PKG
+# Is file really this much of a processing bottleneck?  Doubtful.
+rm -f $PKG/etc/file/magic.mgc $PKG/etc/file/magic.mime.mgc
+strip -g $PKG/usr/lib/libmagic.a
+mkdir -p $PKG/usr/doc/file-$FILE
+cp -a \
+  LEGAL.NOTICE README \
+  $PKG/usr/doc/file-$FILE
+chmod 644 $PKG/usr/doc/file-$FILE/*
+gzip -9 $PKG/usr/man/man1/file.1 \
+        $PKG/usr/man/man3/libmagic.3 \
+        $PKG/usr/man/man5/magic.5
+# /etc/magic has been traditional for so long that it seems like a
+# real good idea to provide a link:
+( cd $PKG/etc
+  ln -sf file/magic magic
+)
+
+echo "+============+"
+echo "| dosfstools |"
+echo "+============+"
+cd $TMP
+rm -rf dosfstools-$DOSFS
+tar xzvf $CWD/dosfstools-$DOSFS.tar.gz
+cd dosfstools-$DOSFS
+chown -R root:root .
+mkdir -p $PKG/usr/doc/dosfstools-$DOSFS
+cp -a CHANGES README.Atari TODO $PKG/usr/doc/dosfstools-$DOSFS
+mkdir -p $PKG/usr/doc/dosfstools-$DOSFS/mkdosfs
+( cd mkdosfs ; cp -a ANNOUNCE COPYING README mkdosfs-ygg-0.3b.lsm $PKG/usr/doc/dosfstools-$DOSFS/mkdosfs )
+mkdir -p $PKG/usr/doc/dosfstools-$DOSFS/dosfsck
+( cd dosfsck ; cp -a CHANGES COPYING README $PKG/usr/doc/dosfstools-$DOSFS/dosfsck )
+make || exit 1
+cd mkdosfs
+cat mkdosfs > $PKG/sbin/mkdosfs
+cat mkdosfs.8 | gzip -9c > $PKG/usr/man/man8/mkdosfs.8.gz
+cd ../dosfsck
+cat dosfsck > $PKG/sbin/dosfsck
+cat dosfsck.8 | gzip -9c > $PKG/usr/man/man8/dosfsck.8.gz
+
+echo "+=============+"
+echo "| patch-2.5.4 |"
+echo "+=============+"
+cd $TMP
+rm -rf patch-2.5.4
+tar xzvf $CWD/patch-2.5.4.tar.gz
+cd patch-2.5.4
+chown -R root:root .
+mkdir -p $PKG/usr/doc/patch-2.5.4
+cp -a AUTHORS COPYING NEWS README $PKG/usr/doc/patch-2.5.4
+chmod 644 $PKG/usr/doc/patch-2.5.4/*
+./configure \
+  --prefix=/usr \
+  $ARCH-slackware-linux
+make CFLAGS=-O2 || exit 1
+cat patch > $PKG/usr/bin/patch
+cat patch.man  | gzip -9c > $PKG/usr/man/man1/patch.1.gz
+
+echo "+===========+"
+echo "| rpm2targz |"
+echo "+===========+"
+cd $TMP
+cc -o rpmoffset $CWD/rpmoffset.c
+cat rpmoffset > $PKG/usr/bin/rpmoffset
+rm rpmoffset
+cat $CWD/rpm2targz > $PKG/usr/bin/rpm2targz
+mkdir -p $PKG/usr/doc/rpm2targz
+cp -a $CWD/rpm2targz.README $PKG/usr/doc/rpm2targz/rpm2targz.README
+chmod 644 $PKG/usr/doc/rpm2targz/rpm2targz.README
+
+echo "+===========+"
+echo "| run-parts |"
+echo "+===========+"
+zcat $CWD/run-parts.gz > $PKG/usr/bin/run-parts
+chmod 755 $PKG/usr/bin/run-parts
+cat $CWD/run-parts.8.gz > $PKG/usr/man/man8/run-parts.8.gz
+
+echo "+===============+"
+echo "| splitvt-1.6.5 |"
+echo "+===============+"
+cd $TMP
+rm -rf splitvt-1.6.5
+tar xzvf $CWD/splitvt-1.6.5.tar.gz
+cd splitvt-1.6.5
+zcat $CWD/splitvt.devpts.diff.gz | patch -p1 --verbose || exit 1
+chown -R root:root .
+./configure
+make || exit 1
+cat splitvt > $PKG/usr/bin/splitvt
+cat splitvt.1 | gzip -9c > $PKG/usr/man/man1/splitvt.1.gz
+mkdir -p $PKG/usr/doc/splitvt-1.6.5
+cp -a examples ANNOUNCE CHANGES NOTES README TODO \
+  $PKG/usr/doc/splitvt-1.6.5
+( cd $PKG/usr/doc/splitvt-1.6.5
+  find . -type d | xargs chmod 755
+  find . -type f | xargs chmod 644 )
+
+echo "+==========+"
+echo "| time-1.7 |"
+echo "+==========+"
+cd $TMP
+rm -rf time-1.7
+tar xvzf $CWD/time-1.7.tar.gz
+cd time-1.7
+chown -R root:root .
+./configure \
+  --prefix=/usr \
+  $ARCH-slackware-linux
+make CFLAGS=-O2 || exit 1
+cat time > $PKG/usr/bin/time
+cat time.info | gzip -9c > $PKG/usr/info/time.info.gz
+
+echo "+===============+"
+echo "| todos/fromdos |"
+echo "+===============+"
+cd $TMP
+rm -rf todos
+tar xzvf $CWD/todos.tar.gz
+cd todos
+chown -R root:root .
+make || exit 1
+cat todos > $PKG/usr/bin/todos
+cat fromdos > $PKG/usr/bin/fromdos
+cat todos.1.gz > $PKG/usr/man/man1/todos.1.gz
+cat fromdos.1.gz > $PKG/usr/man/man1/fromdos.1.gz
+
+echo "+============+"
+echo "| tree-1.5.0 |"
+echo "+============+"
+cd $TMP
+rm -rf tree-1.5.0
+tar xzvf $CWD/tree-1.5.0.tar.gz
+cd tree-1.5.0
+chown -R root:root .
+make || exit 1
+cat tree > $PKG/usr/bin/tree
+chmod 755 $PKG/usr/bin/tree
+cat tree.1 | gzip -9c > $PKG/usr/man/man1/tree.1.gz
+mkdir -p $PKG/usr/doc/tree-1.5.0
+cp -a CHANGES LICENSE README $PKG/usr/doc/tree-1.5.0
+chmod 644 $PKG/usr/doc/tree-1.5.0/*
+
+echo "+==========+"
+echo "| unarj230 |"
+echo "+==========+"
+cd $TMP
+rm -rf unarj230
+tar xzvf $CWD/unarj230.tar.gz
+cd unarj230
+chown -R root:root .
+zcat $CWD/unarj230.diff.gz | patch -p0 -E --verbose --backup || exit 1
+make || exit 1
+cat unarj > $PKG/usr/bin/unarj
+
+echo "+============+"
+echo "| which-$WHICH |"
+echo "+============+"
+cd $TMP
+rm -rf which-$WHICH
+tar xzvf $CWD/which-$WHICH.tar.gz
+cd which-$WHICH
+chown -R root:root .
+CFLAGS=-O2 ./configure --prefix=/usr
+make || exit 1
+cat which > $PKG/bin/which
+cat which.1 | gzip -9c > $PKG/usr/man/man1/which.1.gz
+cat which.info | gzip -9c > $PKG/usr/info/which.info.gz
+mkdir -p $PKG/usr/doc/which-$WHICH
+cp -a AUTHORS COPYING EXAMPLES NEWS README README.alias $PKG/usr/doc/which-$WHICH
+
+echo "+==========+"
+echo "| zoo-2.10 |"
+echo "+==========+"
+cd $TMP
+rm -rf zoo-2.10
+tar xzvf $CWD/zoo-2.10.tar.gz
+cd zoo-2.10
+chown -R root:root .
+zcat $CWD/zoo_2.10-17.diff.gz | patch -p1 -E --verbose --backup || exit 1
+for diff in debian/patches/*.dpatch ; do
+  cat $diff | patch -p1 --verbose || exit 1
+done
+make linux || exit 1
+cat fiz > $PKG/usr/bin/fiz
+cat zoo > $PKG/usr/bin/zoo
+for page in fiz.1 zoo.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+
+# Strip everything for good measure:
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/bin-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/pwd
+  rm -rf $TMP/ed-0.2
+  rm -rf $TMP/banners
+  rm -rf $TMP/debianutils-$DUTILS
+  rm -rf $TMP/eject-$EJECT
+  rm -rf $TMP/fbset-2.1
+  rm -rf $TMP/file-$FILE
+  rm -rf $TMP/gencat
+  rm -rf $TMP/lha-1.00
+  rm -rf $TMP/dosfstools-$DOSFS
+  rm -rf $TMP/patch-2.5.4
+  rm -rf $TMP/time-1.7
+  rm -rf $TMP/todos
+  rm -rf $TMP/unarj230
+  rm -rf $TMP/which-$WHICH
+  rm -rf $TMP/zoo-2.10
+  rm -rf $TMP/compress
+  rm -rf $TMP/splitvt-1.6.5
+  rm -rf $TMP/tree-1.5.0
+  rm -rf $PKG
+fi

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+kernel-ide: kernel-ide (Linux kernel without SCSI controller support)
+kernel-ide:
+kernel-ide: A Linux kernel for computers that do not need SCSI support. You must 
+kernel-ide: install a kernel image in order for your system to boot. This kernel
+kernel-ide: supports IDE (ATA and SATA) hard drives and optical drives.  Other
+kernel-ide: drivers for hardware such as network and sound cards may be loaded as
+kernel-ide: modules.  See /etc/rc.d/rc.modules for examples, although the hotplug
+kernel-ide: system will load most of the required modules automatically.
+kernel-ide:
+kernel-ide:
+kernel-ide:

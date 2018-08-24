@@ -1,0 +1,78 @@
+diff -urN src-1.6/src/loadlin.asm src-1.6b/src/loadlin.asm
+--- src-1.6/src/loadlin.asm	Sun Apr 28 22:13:20 1996
++++ src-1.6b/src/loadlin.asm	Thu Nov 30 16:41:57 2000
+@@ -1,5 +1,5 @@
+ TESTX = 0
+-LOADLIN_VERSION equ '1.6'
++LOADLIN_VERSION equ '1.6b'
+ 
+ ;   >>> this is file LOADLIN.ASM
+ ;============================================================================
+diff -urN src-1.6/src/loadlinj.asm src-1.6b/src/loadlinj.asm
+--- src-1.6/src/loadlinj.asm	Mon Apr 29 00:25:00 1996
++++ src-1.6b/src/loadlinj.asm	Thu Nov 30 18:20:55 2000
+@@ -1017,7 +1017,7 @@
+ IFDEF ALPHA
+   INCLUDE LOADLINA.ASM
+ ENDIF
+-                      db   'LOADLIN v',LOADLIN_VERSION,' (C) 1994..1996 Hans Lermen <lermen@elserv.ffm.fgan.de>',13,10,'$'
++                      db   'LOADLIN v',LOADLIN_VERSION,' (C) 1994..2000 Hans Lermen <lermen@fgan.de>',13,10,'$'
+ comspec_tx            db   'comspec',0
+ windows_tx            db   'windir',0
+ err_uppermem_tx       db   'Not enough free memory between 90000h and 9ffffh,',13,10
+diff -urN src-1.6/src/srclinux/Makefile src-1.6b/src/srclinux/Makefile
+--- src-1.6/src/srclinux/Makefile	Sun Mar 17 01:28:18 1996
++++ src-1.6b/src/srclinux/Makefile	Thu Nov 30 16:34:34 2000
+@@ -21,11 +21,12 @@
+ pgadjust.asm: pgadjust.out Makefile
+ 	echo "; 32-bit code, linkaddress: $(IMAGE_OFFSET)" >pgadjust.as
+ 	hexdump -v -e '" DD  " 8/4 "0%Xh," 1/4 "0%Xh\n"' pgadjust.out >>pgadjust.as
+-	todos <pgadjust.as >pgadjust.asm
++	u2d <pgadjust.as >pgadjust.asm
+ 	rm -f pgadjust.as
+ 
+ pgadjust.out: pgadjust Makefile
+-	objdump -k -q  -o $(IMAGE_OFFSET) pgadjust > pgadjust.out
++	objcopy -O binary pgadjust pgadjust.out
++#	objdump -k -q  -o $(IMAGE_OFFSET) pgadjust > pgadjust.out
+ 	
+ loadlinh.o: loadlinh.S
+ 	$(CC) -traditional -c loadlinh.S
+diff -urN src-1.6/src/srclinux/loadlinh.S src-1.6b/src/srclinux/loadlinh.S
+--- src-1.6/src/srclinux/loadlinh.S	Sat Feb 10 01:02:38 1996
++++ src-1.6b/src/srclinux/loadlinh.S	Wed Dec  6 14:11:54 2000
+@@ -16,9 +16,11 @@
+ 	.globl startup_32
+ 	
+ startup_32:
+-	cld
+ 	cli
+-	movl $(KERNEL_DS),%eax
++	cld
++	movw %cs,%ax
++	addb $8,%ax	#KERNEL_DS is always one slot behind KERNEL_CS
++#	movl $(KERNEL_DS),%eax
+ 	mov %ax,%ds
+ 	mov %ax,%es
+ 	mov %ax,%fs
+@@ -43,4 +45,4 @@
+ 	call SYMBOL_NAME(page_adjustment)
+ 	xorl %ebx,%ebx
+ #	ljmp $(KERNEL_CS), $0x1000
+-	jmp  %eax
++	jmp  *%eax
+diff -urN src-1.6/src/srclinux/pgadjust.c src-1.6b/src/srclinux/pgadjust.c
+--- src-1.6/src/srclinux/pgadjust.c	Sun Mar 17 01:27:44 1996
++++ src-1.6b/src/srclinux/pgadjust.c	Thu Nov 30 16:39:11 2000
+@@ -345,7 +345,11 @@
+   lines = SCREEN_INFO.orig_video_lines;
+   cols = SCREEN_INFO.orig_video_cols;
+ 
++#if 0 /* this won;t work any more, because 2.1.22 changed the format
++         of EXT_MEM_K, see STANDARD_MEMORY_BIOS_CALL in setup.S
++       */
+   if (EXT_MEM_K < (3*1024)) error("Less than 4MB of memory.\n");
++#endif
+ 
+   if (PAGELIST) {
+ #ifdef VERBOSE

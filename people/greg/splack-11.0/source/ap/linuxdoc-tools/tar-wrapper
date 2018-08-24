@@ -1,0 +1,16 @@
+#!/bin/bash
+
+######################################################################
+# tar wrapper to fix RPM builds which incorrectly call tar to extract
+# .zip files.
+# <mozes@armedslack.org>
+# 03-Oct-2005
+######################################################################
+
+# If it's a zip file then parse through zip, otherwise
+# let tar handle it.
+if [ "${2##*.}" = "zip" ]; then
+   /usr/bin/unzip $2
+  else
+   /usr/bin/tar $@
+fi

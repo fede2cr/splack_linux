@@ -1,0 +1,59 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-dcron
+
+VERSION=2.3.3
+ARCH=${ARCH:-i486}
+BUILD=5
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_dcron.tar.gz
+
+cd $TMP
+rm -rf dcron-$VERSION
+tar xzvf $CWD/dcron-$VERSION.tar.gz
+cd dcron-$VERSION
+mkdir -p $PKG/usr/doc/dcron-$VERSION
+cp -a CHANGES README dcron-$VERSION.lsm $PKG/usr/doc/dcron-2.3.3
+chown root:root $PKG/usr/doc/dcron-$VERSION/*
+chmod 644 $PKG/usr/doc/dcron-$VERSION/*
+zcat $CWD/dcron-$VERSION.diff.gz | patch -p1 -E --verbose --backup || exit
+# Added signal handling/logging patch from TEMHOTA <temnota@kmv.ru>:
+zcat $CWD/dcron-$VERSION.diff2.gz | patch -p1 -E --verbose --backup || exit
+# Use /usr/sbin/sendmail, not /usr/lib/sendmail.  Fixes cron working
+# with Postfix.  Suggested by Big Brother.
+zcat $CWD/dcron-$VERSION.diff3.gz | patch -p1 -E --verbose --backup || exit
+# Fix problem where user creates /var/spool/cron/crontabs/<user>.new 
+# using 'crontab -', exits with control-c, and then crontab refuses to
+# overwrite the junk file:
+zcat $CWD/dcron-$VERSION.crontab.diff4.gz | patch -p1 -E --verbose --backup || exit
+# Dcron reports wrong version:
+zcat $CWD/dcron-2.3.3.version.diff.gz | patch -p1 || exit
+# Keep dcron from improperly forking in some circumstances.
+# Thanks to Henrik Carlqvist for the patch.
+zcat $CWD/dcron.fork.diff.gz | patch -p1
+make
+strip crond crontab
+cat crond > $PKG/usr/sbin/crond
+cat crontab > $PKG/usr/bin/crontab
+cat crontab.1 | gzip -9c > $PKG/usr/man/man1/crontab.1.gz
+cat crond.8 | gzip -9c > $PKG/usr/man/man8/crond.8.gz
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/dcron-$VERSION-$ARCH-$BUILD.tgz
+

@@ -1,0 +1,71 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-cpio
+
+VERSION=2.5
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf cpio-$VERSION
+tar xzvf $CWD/cpio-$VERSION.tar.gz
+cd cpio-$VERSION
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure --prefix=/usr
+make -j3
+mkdir -p $PKG/bin
+strip --strip-unneeded cpio mt
+cat cpio > $PKG/bin/cpio
+cat mt > $PKG/bin/mt-GNU
+chmod 755 $PKG/bin/*
+mkdir -p $PKG/usr/man/man1
+for page in cpio.1 mt.1 ; do
+  cat $page | gzip -9c > $PKG/usr/man/man1/$page.gz
+done
+makeinfo cpio.texi
+mkdir -p $PKG/usr/info
+cat cpio.info | gzip -9c > $PKG/usr/info/cpio.info.gz
+mkdir -p $PKG/usr/doc/cpio-$VERSION
+cp -a \
+  COPYING COPYING.LIB ChangeLog INSTALL NEWS README \
+  $PKG/usr/doc/cpio-$VERSION
+chmod 644 $PKG/usr/doc/cpio-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/cpio-$VERSION-$ARCH-$BUILD.tgz
+

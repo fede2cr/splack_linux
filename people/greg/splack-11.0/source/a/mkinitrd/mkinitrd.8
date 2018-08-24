@@ -1,0 +1,119 @@
+.\" -*- nroff -*-
+.ds g \" empty
+.ds G \" empty
+.\" Like TP, but if specified indent is more than half
+.\" the current line-length - indent, use the default indent.
+.de Tp
+.ie \\n(.$=0:((0\\$1)*2u>(\\n(.lu-\\n(.iu)) .TP
+.el .TP "\\$1"
+..
+.TH MKINITRD 8 "20 Jun 2004" "Slackware Version 10.0"
+.SH NAME
+mkinitrd \- create or rebuilt an initrd (initial ramdisk).
+.SH SYNOPSIS
+.B mkinitrd
+[
+.B \-c
+]
+[
+.B \-f filesystem
+]
+[
+.B \-k kernel_version
+]
+[
+.B \-m module1:module2:module3...
+]
+[
+.B \-o output_file
+]
+[
+.B \-r root_device
+]
+[
+.B \-s source_tree
+]
+.SH DESCRIPTION
+.B mkinitrd
+is used to build an initial ramdisk.  An initial ramdisk is a very small
+Linux filesystem that is loaded into RAM and mounted as the kernel boots (before the main root filesystem is mounted).  The usual reason to use an initrd
+is because you need to load kernel modules before mounting the root partition.
+Usually these modules are
+required to support the filesystem used by the root partition (ext3,
+reiserfs, xfs), or perhaps the controller that the hard drive is attached
+to (SCSI, RAID, etc).  Essentially, there are so many different options
+available in modern Linux kernels that it isn't practical to try to ship
+many different kernels to try to cover everyone's needs.  It's a lot more
+flexible to ship a generic kernel and a set of kernel modules for it. 
+.SH OPTIONS
+.TP
+.B \-c
+Clear the existing initrd tree (by default in /boot/initrd-tree/) first.
+.TP
+.B \-f filesystem
+Specify the filesystem to use for the root partition.  If this isn't given,
+mount will usually figure it out.  This option must be used together with the
+\-r option in order to be beneficial.
+.TP
+.B \--help
+Display a help summary.
+.TP
+.B \-k kernel version
+Use kernel modules from the specified kernel version.  mkinitrd will look for them in
+/lib/modules/(kernel version).
+.TP
+.B \-m module list
+This is a list of colon-delimited modules to build into the initrd.  For example,
+the modules needed for the ext3 filesystem would be: jbd:ext3
+.TP
+.B \-o output image
+The file to write the initrd to.  (default: /boot/initrd.gz)
+.TP
+.B \-r root partition
+Specify the device to be used as the root partition.  If this isn't given, the
+kernel default will be used (which is usually fine).  This option must be used
+together with the \-f option in order to be beneficial.
+will be used).  The default is "tagfile" in the package's directory.
+.TP
+.B \-s source tree
+The directory to use as the source for the initrd.  (default: /boot/initrd-tree/)
+.TP
+.B \-V
+Display version information and exit.
+.SH EXAMPLES
+A simple example:  Build an initrd for a reiserfs root partition:
+
+  mkinitrd -c -m reiserfs
+
+Another example:  Build an initrd image using Linux 2.6.7 kernel
+modules for a system with an ext3 root partition on /dev/hdb3:
+
+  mkinitrd -c -k 2.6.7 -m jbd:ext3 -f ext3 -r /dev/hdb3
+
+If run without options, mkinitrd will rebuild an initrd image using
+the contents of the $SOURCE_TREE directory, or, if that directory
+does not exist it will be created and populated, and then mkinitrd
+will exit.  These options are handy for building an initrd mostly
+by hand.  After creating /boot/initrd-tree/, you can add modules and
+edit files by hand, and then rerun mkinitrd to create the initrd.
+
+Once the initrd is created, you'll need to tell your boot loader
+to load it.  If you boot with LILO, you will need to add an initrd
+line to /etc/lilo.conf.  Here's a section of lilo.conf that shows
+how to set this up:
+
+ # Linux bootable partition config begins
+ image = /boot/vmlinuz-generic-2.6.7
+   initrd = /boot/initrd.gz
+   root = /dev/hda6
+   label = Linux267
+   read-only
+ # Linux bootable partition config ends
+
+Once you've created the initrd and editing /etc/lilo.conf, you will
+need to run 'lilo' to write out the changed boot block.  The next
+time you reboot the initrd should be loaded along with the kernel.
+
+Have fun!
+.SH AUTHOR
+Patrick J. Volkerding <volkerdi@slackware.com>
