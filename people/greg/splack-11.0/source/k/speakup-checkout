@@ -1,0 +1,82 @@
+#!/bin/bash
+
+ROOTDIR=/usr/src/linux
+if [ "$1" != "" ]; then
+	ROOTDIR="$1"
+else
+    if [ -d kernel -a -d Documentation ]; then
+	ROOTDIR=`pwd`
+    fi
+fi
+
+VERSION=v`head -2 $ROOTDIR/Makefile | \
+	awk '{ printf "%s",$3 }'`
+
+DIR=$ROOTDIR/drivers/char/speakup
+
+echo "Patching version $VERSION"
+
+if [ ! -d ${DIR}/CVS ] && [ "$CVSROOT" == "" ]; then
+	echo 'CVSROOT not set.  Enter it below.  Hit enter for anonymous.'
+	read -p 'CVSROOT> ' CVSROOT
+	[ "$CVSROOT" == "" ] &&
+	  CVSROOT=':pserver:anonymous@linux-speakup.org:/usr/src/CVS'
+	export CVSROOT
+	cvs login || exit
+fi
+
+if [ "$1" != "-p" ]; then
+	#  get new version
+	mkdir -p ${DIR%/speakup}
+	cd ${DIR%/speakup}
+	if [ -d speakup ] && [ -d ${DIR}/CVS ]; then
+		cd speakup
+		cvs update -d -P || exit
+	else
+	rm -fr ${DIR}
+		cvs co -P speakup || exit
+		cd speakup
+	fi
+fi
+
+#  make .orig files
+echo -n 'Creating .orig files ['
+for i in `cat ${DIR}/patchlist-${VERSION}`; do
+	patch=`echo $i | cut -f 1 -d ,`
+	filebase=`echo $i | cut -f 2 -d ,`
+
+	mkdir -p `dirname $ROOTDIR/$filebase`
+	if [ "$patch" == "1" ]; then
+		if [ ! -e $ROOTDIR/$filebase.orig ]; then
+			echo -n .
+			cp $ROOTDIR/$filebase $ROOTDIR/$filebase.orig
+		fi
+	fi
+done
+echo '] done.'
+
+#  apply patches
+echo -n 'Patching files ['
+for i in ${DIR}/diff-${VERSION}/*.patch; do
+	# skip dirs
+	[ -d $i ] && continue
+	echo -n p
+	writeloc=${i##$DIR\/diff-${VERSION}\/}
+	writeloc=${writeloc%.patch}
+	writeloc=${writeloc//^/\/} 
+	patch --silent -f -p0 -o $ROOTDIR/$writeloc $ROOTDIR/$writeloc.orig $i
+done
+echo '] done.'
+
+#  copy files
+echo -n 'Copying files ['
+for i in ${DIR}/diff-${VERSION}/*.copy; do
+	# skip dirs
+	[ -d $i ] && continue
+	echo -n c
+	writeloc=${i##$DIR\/diff-${VERSION}\/}
+	writeloc=${writeloc%.copy}
+	writeloc=${writeloc//^/\/} 
+	cp $i $ROOTDIR/$writeloc
+done
+echo '] done.'

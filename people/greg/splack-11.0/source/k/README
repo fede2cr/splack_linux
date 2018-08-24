@@ -1,0 +1,52 @@
+Since I should document this somewhere, here's the procedure
+for building the Slackware kernel package.  I do not patch the official
+kernel sources, but it's not exactly a virgin either.
+
+=============================================================
+Version specific notes (if any):
+=============================================================
+  
+For a 2.4.x kernel:
+
+1.  Untar Linus' source in /usr/src.
+2.  mv linux linux-2.x.x (version number)
+3.  cp -a linux-2.x.x linux-2.x.x.orig
+4.  ln -sf linux-2.x.x linux
+5.  cd linux
+
+Insert Slackware's bare.i config:
+6.  cp kernels/bare.i/config .config
+7.  make oldconfig
+8.  make dep ; make clean ; make bzImage ; make clean
+9.  cd drivers/net/hamradio/soundmodem
+    rm *
+    cp -a /usr/src/linux-2.x.x.orig/drivers/net/hamradio/soundmodem/* .
+10.  cd scripts
+     rm -r *
+     cp -a /usr/src/linux-2.x.x.orig/scripts/* .
+11.  rm -r linux-2.x.x.orig
+12.  rm linux-2.x.x/.version
+13.  Lucky step 13  :-)
+     find . -name ".depend" | xargs rm
+     find . -name ".hdepend" | xargs rm
+     find . -name ".??*flags" | xargs rm
+     rm drivers/sound/.pss_boot.h.boot
+     rm drivers/sound/.maui_boot.h.boot
+     rm drivers/sound/.trix_boot.h.boot
+     rm .config.old
+
+OK, that's it.  Now just pack up /usr/src/linux-2.x.x, the 
+/usr/src/linux symlink, and /install/slack-desc.
+
+For a 2.6.x kernel (much easier):
+
+   Untar Linus' source in /usr/src.
+   Make all files owned by root:root with reasonable perms.
+   Install a suitable .config, or use make menuconfig, etc.
+   make oldconfig > /dev/null
+   make bzImage
+   make clean
+   rm .version
+
+That's it!
+  

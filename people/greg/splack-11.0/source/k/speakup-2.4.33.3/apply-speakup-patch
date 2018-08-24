@@ -1,0 +1,11 @@
+#!/bin/sh
+# The speakup patch adds support to the kernel for many speech synthesizers.
+
+CWD=`pwd`
+cd ../linux-2.4.33.3
+
+# This newer version was tried but did not compile:
+#zcat $CWD/speakup-cvs-20060812.diff.gz | patch -p1 --verbose
+
+zcat $CWD/speakup-cvs-20050501.diff.gz | patch -p1 --verbose
+

@@ -1,0 +1,197 @@
+#!/bin/sh
+# Build Qt
+
+# Set the config option variables if they are not already set:
+if [ -r ../KDE.options ]; then
+  . ../KDE.options
+fi
+
+# The global options may be overridden here (if needed):
+if [ -r ./local.options ]; then
+  . ./local.options
+fi
+
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-qt
+rm -rf $PKG
+mkdir -p $PKG
+HTMLDOCS=$TMP/package-qt-htmldocs
+EXAMPLES=$TMP/package-qt-examples
+
+# Trust me, we avoid a lot of problems building in the target location. :-)
+cd /usr/lib
+# NOTE THIS NUKES THE EXISTING QT
+rm -rf qt*
+tar xjvf $CWD/qt-x11-free-$VERSION.tar.bz2
+mv qt-x11-free-$VERSION qt
+cd qt
+QTDIR=`pwd`
+export QTDIR
+export YACC='byacc -d'
+
+if [ $ARCH = "i486" ]; then
+  zcat $CWD/qt.x86.cflags.diff.gz | patch -p1 || exit 1
+fi
+
+zcat $CWD/kubuntu_01_arabic_fonts.dpatch.gz | patch -p1 || exit 1
+
+zcat $CWD/qt-x11.diff.gz | patch -p1 || exit 1
+zcat $CWD/qt.mysql.h.diff.gz | patch -p1 || exit 1
+
+# Fix file perms:
+chown -R root:root .
+find . -perm 2775 -exec chmod 755 {} \;
+find . -perm 2755 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+
+# Make symlinks for the examples/docs right away:
+mkdir -p $PKG/usr/doc/qt-$VERSION
+( cd $PKG/usr/doc/qt-$VERSION
+  ln -sf /usr/lib/qt-$VERSION/examples .
+  ln -sf /usr/lib/qt-$VERSION/tutorial .
+  ln -sf /usr/lib/qt-$VERSION/doc/html .
+  ln -sf /usr/lib/qt-$VERSION/doc/man .
+ )
+
+# These are the flags recommended by KDE (circa 3.0.x):
+#./configure -system-zlib -qt-gif -system-libpng -system-libjpeg -plugin-imgfmt-mng -thread -no-stl -no-xinerama -no-g++-exceptions
+
+# And here's what we are currently using.  The "yes" agrees to the GPL, so don't run this script if you
+# don't agree.  :-)
+echo "yes" | ./configure \
+ -prefix /usr/lib/qt \
+ -release \
+ -system-zlib \
+ -system-libpng \
+ -qt-imgfmt-png \
+ -system-libmng \
+ -qt-imgfmt-mng \
+ -system-libjpeg \
+ -qt-imgfmt-jpeg \
+ -qt-gif \
+ -thread \
+ -stl \
+ -no-g++-exceptions \
+ -xft \
+ -plugin-sql-mysql \
+ -plugin-style-cde \
+ -plugin-style-compact \
+ -qt-style-motif \
+ -plugin-style-motifplus \
+ -plugin-style-platinum \
+ -plugin-style-sgi \
+ -plugin-style-windows \
+ -enable-opengl
+
+# We're using '-i' to work around a bug where the build tries to strip html files.
+# Build the important stuff:
+make $NUMJOBS -i symlinks sub-src sub-tools || exit 1
+
+# Half the time this doesn't work for squat, so don't write to tell me I should be
+# using "make install".  The methods used here are more likely to continue to work.
+#make -i INSTALL_ROOT=$PKG moc-install src-install tools-install qmake-install plugins-install  
+
+## These are (and always were) a kludge to work around certain vendors still linking
+## against a non-threaded Qt.  Now that the links are breaking things (like the kdebindings
+## build), out they go.  If something breaks, either recompile it or complain to the vendor.
+##
+## Add libqt symlinks:
+#( cd /usr/lib/qt/lib
+#  for link in libqt.so.3 libqt.so.`echo $VERSION | cut -f 1-2 -d .` libqt.so.${VERSION} ; do
+#    ln -sf libqt-mt.so.${VERSION} $link
+#  done
+#)
+
+# Then, package things up in $PKG:
+mkdir -p $PKG/usr/lib
+cp -a /usr/lib/qt $PKG/usr/lib
+( cd $PKG/usr/lib
+  mv qt qt-$VERSION
+  ln -sf qt-$VERSION qt )
+
+( cd $PKG/usr/lib/qt-$VERSION
+  mv \
+    FAQ INSTALL LICENSE.GPL LICENSE.QPL MANIFEST PLATFORMS README* changes* \
+    $PKG/usr/doc/qt-$VERSION )
+
+gzip -9 $PKG/usr/lib/qt/doc/man/man*/*
+
+( cd $PKG/usr/lib/qt/include/private
+  mkdir tmp
+  cp *.h tmp
+  rm *.h
+  mv tmp/* .
+  rmdir tmp
+  cd ..
+  mkdir tmp
+  cp *.h tmp
+  rm *.h
+  mv tmp/* .
+  rmdir tmp )
+
+( cd $PKG/usr/lib/qt/bin
+  cp qmake qmake.bin
+  rm qmake
+  mv qmake.bin qmake 
+  strip * )
+
+mkdir -p $PKG/usr/bin
+( cd $PKG/usr/bin
+  for file in assistant designer linguist lrelease lupdate moc qm2ts qmake qtconfig uic ; do
+    ln -sf /usr/lib/qt/bin/$file .
+  done )
+
+( cd $PKG/usr/lib/qt/lib
+  strip --strip-unneeded *.so
+  rm README )
+
+( cd $PKG/usr/lib/qt/plugins
+  strip --strip-unneeded */*.so
+  cd ..
+  find . -type d -name .obj -exec rm -r {} \;
+  find . -type d -name .moc -exec rm -r {} \; )
+
+( cd $PKG/usr/lib/qt
+  rm -r config.tests qmake src tools translations 
+  rm config.status configure Makefile )
+
+mkdir -p $PKG/usr/lib/pkgconfig
+( cd $PKG/usr/lib/pkgconfig
+  ln -sf /usr/lib/qt-${VERSION}/lib/qt-mt.pc .
+)
+
+mkdir -p $PKG/etc/profile.d
+cat $CWD/profile.d/qt.sh > $PKG/etc/profile.d/qt.sh
+cat $CWD/profile.d/qt.csh > $PKG/etc/profile.d/qt.csh
+chmod 755 $PKG/etc/profile.d/*
+
+if [ $ARCH = "i486" ]; then
+  # Put this back as shipped:
+  ( cd $PKG/usr/lib/qt
+    zcat $CWD/qt.x86.cflags.diff.gz | patch -p1 -R )
+fi
+
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+## Maybe something for later?  :-)
+##
+## HTML documentation and examples are HUGE so they go in their own packages.
+#rm -rf $HTMLDOCS $EXAMPLES
+#mkdir -p $HTMLDOCS/usr/doc/qt-$VERSION $EXAMPLES/usr/doc/qt-$VERSION
+#mv $PKG/usr/doc/qt-$VERSION/html $HTMLDOCS/usr/doc/qt-$VERSION
+#mv $PKG/usr/doc/qt-$VERSION/examples $EXAMPLES/usr/doc/qt-$VERSION
+#cd $HTMLDOCS
+#makepkg -l y -c n $TMP/qt-htmldocs-$VERSION-noarch-$BUILD.tgz
+#cd $EXAMPLES
+#makepkg -l y -c n $TMP/qt-examples-$VERSION-noarch-$BUILD.tgz
+
+# Build package:
+cd $PKG
+makepkg -l y -c n --prepend $TMP/qt-$VERSION-$ARCH-$BUILD.tgz
+

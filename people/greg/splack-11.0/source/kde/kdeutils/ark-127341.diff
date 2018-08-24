@@ -1,0 +1,15 @@
+--- kdeutils-3.5.4/ark/arch.cpp.orig	2006-05-22 20:08:38.000000000 +0200
++++ kdeutils-3.5.4/ark/arch.cpp	2006-08-23 04:17:28.000000000 +0200
+@@ -193,9 +193,11 @@
+     }
+   }
+   m_password = "";
+-  emit sigExtract( success );
++
+   delete _kp;
+   _kp = m_currentProcess = 0;
++
++  emit sigExtract( success );
+ }
+ 
+ void Arch::unarchFile( QStringList *fileList, const QString & destDir,
