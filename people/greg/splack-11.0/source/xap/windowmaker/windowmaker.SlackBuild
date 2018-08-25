@@ -1,0 +1,87 @@
+#!/bin/sh
+CWD=`pwd` 
+PKG=/tmp/package-windowmaker
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=0.92.0
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mcpu=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+cd /tmp
+rm -rf WindowMaker-$VERSION
+tar xjvf $CWD/WindowMaker-$VERSION.tar.bz2
+cd WindowMaker-$VERSION
+chown -R root:root .
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+# This should be non-interactive where possible.
+zcat $CWD/wmaker.inst.diff.gz | patch -p1 --verbose || exit
+
+LINGUAS="`cd po ; /bin/ls *.po | sed 's/.po//g'`" \
+GNUSTEP_LOCAL_ROOT=/usr/lib/GNUstep \
+CFLAGS="$SLKCFLAGS" \
+NLSDIR=/usr/share/locale \
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc/X11 \
+  --enable-gnome \
+  --enable-kde \
+  --enable-usermenu \
+  --with-appspath=/usr/lib/GNUstep/Applications \
+  $ARCH-slackware-linux
+# NLS bugs like -i
+make -i
+
+# Change /usr/local/GNUstep to /usr/lib/GNUstep in the WMRootMenu:
+zcat $CWD/windowmaker.wmrootmenu.diff.gz | patch -p1 --verbose || exit
+
+make -i install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/WindowMaker-$VERSION
+cp -a \
+  AUTHORS BUGFORM BUGS COPYING COPYING.WTFPL FAQ FAQ.I18N FAQ.I18N.cs FAQ.I18N.sk INSTALL INSTALL.cs INSTALL.es INSTALL.fr INSTALL.pt INSTALL.sk MIRRORS NEWS README README.definable-cursor README.pt TODO \
+   $PKG/usr/doc/WindowMaker-$VERSION
+cd /tmp
+rm -rf WindowMaker-extra-0.1
+tar xzvf $CWD/WindowMaker-extra-0.1.tar.gz
+cd WindowMaker-extra-0.1
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --with-iconsdir=/usr/share/pixmaps \
+  $ARCH-slackware-linux
+make
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/etc/X11/xinit
+cat $CWD/xinitrc.wmaker > $PKG/etc/X11/xinit/xinitrc.wmaker
+chmod 755 $PKG/etc/X11/xinit/xinitrc.wmaker
+gzip -9 $PKG/usr/man/man1/* $PKG/usr/man/sk/man1/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n /tmp/windowmaker-$VERSION-$ARCH-$BUILD.tgz
+

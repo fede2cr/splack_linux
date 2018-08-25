@@ -1,0 +1,72 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-mozilla-thunderbird
+
+# This is not a source build script.  Rather, it builds a Slackware
+# package from the official binary tarball available from mozilla.org.
+# Using the official binaries seems like the most direct way to satify
+# the Mozilla project's concerns about quality control (and thus to
+# provide the most quality-certified package possible), and therefore
+# be able to use the official trademarks and logos.
+#
+# Thanks to the folks at the Mozilla Foundation for permission to
+# distribute this, and for all the great work!  :-)
+
+VERSION=1.5.0.7
+ARCH=${ARCH:-i686}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG/usr/lib
+( cd $PKG/usr/lib
+  tar xzf $CWD/thunderbird-$VERSION.tar.gz
+  chown -R root:root .
+  mv thunderbird thunderbird-$VERSION
+  ln -sf thunderbird-$VERSION thunderbird
+  cd thunderbird-$VERSION
+  zcat $CWD/mozilla-thunderbird-simple.diff.gz | patch -p1 --verbose --backup --suffix=.orig || exit 1
+  if [ ! $? = 0 ]; then
+    exit 1
+  fi
+  zcat $CWD/mozilla-thunderbird-firefox.diff.gz | patch -p1 --verbose --backup --suffix=.orig || exit 1
+  if [ ! $? = 0 ]; then
+    exit 1
+  fi
+  rm -f defaults/pref/all-thunderbird.js.orig
+)
+if [ ! $? = 0 ]; then
+  exit 1
+fi
+mkdir -p $PKG/usr/bin
+( cd $PKG/usr/bin
+  ln -sf /usr/lib/thunderbird-$VERSION/thunderbird .
+)
+mkdir -p $PKG/usr/share/applications
+cat $CWD/mozilla-thunderbird.desktop > $PKG/usr/share/applications/mozilla-thunderbird.desktop
+mkdir -p $PKG/usr/share/pixmaps
+cat $CWD/thunderbird.png > $PKG/usr/share/pixmaps/thunderbird.png
+
+# These files/directories are usually created if Thunderbird is run as root, which on many
+# systems might (and possibly should) be never.  Therefore, if we don't see them we'll
+# put stubs in place to prevent startup errors.
+( cd $PKG/usr/lib/thunderbird-$VERSION
+  if [ -d chrome ]; then
+    if [ ! -r chrome/app-chrome.manifest ]; then
+      echo > chrome/app-chrome.manifest
+    fi
+  fi
+  if [ ! -d updates ]; then
+    mkdir -p updates/0
+  fi
+)
+
+mkdir $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/mozilla-thunderbird-$VERSION-$ARCH-$BUILD.tgz
+

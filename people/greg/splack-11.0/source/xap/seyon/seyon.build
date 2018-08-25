@@ -1,0 +1,23 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/seyon-2.20c.tar.gz
+cd seyon-2.20c
+zcat $CWD/seyon-2.20c.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+zcat $CWD/seyon.usleep.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+chmod 755 makever.sh
+xmkmf
+make
+make install
+rm -rf /usr/doc/seyon-2.20c
+mkdir -p /usr/doc/seyon-2.20c
+cp -a 1-* COPYING /usr/doc/seyon-2.20c
+mkdir /usr/doc/seyon-2.20c/.seyon
+cp -a phonelist protocols script.CIS script.PCBoard script.QWK script.unix startup /usr/doc/seyon-2.20c/.seyon
+find /usr/doc/seyon-2.20c -type f -exec chmod 644 {} \;
+find /usr/doc/seyon-2.20c -type d -exec chmod 755 {} \;
+( cd /usr/doc/seyon-2.20c ; ln -sf .seyon HOME.seyon.directory.example )
+chown -R root:root /usr/doc/seyon-2.20c
+cat seyon.man | gzip -9c > /usr/X11R6/man/man1/seyon.1.gz
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

@@ -1,0 +1,56 @@
+#!/bin/sh
+# Set initial variables:
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-xxgdb
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=1.12
+ARCH=i386
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+echo "+===========+"
+echo "| xxgdb-$VERSION |"
+echo "+===========+"
+cd $TMP
+tar xzvf $CWD/xxgdb-$VERSION.tar.gz
+cd xxgdb-$VERSION
+xmkmf
+make
+mkdir -p $PKG/usr/X11R6/bin
+strip xxgdb
+cat xxgdb > $PKG/usr/X11R6/bin/xxgdb
+chmod 755 $PKG/usr/X11R6/bin/*
+mkdir -p $PKG/etc/X11/app-defaults
+cat XDbx.ad > $PKG/etc/X11/app-defaults/XDbx
+mkdir -p $PKG/usr/X11R6/man/man1
+cat xxgdb.man | gzip -9c > $PKG/usr/X11R6/man/man1/xxgdb.1.gz
+mkdir -p $PKG/usr/doc/xxgdb-$VERSION
+cp -a \
+  README README.NEW_INTERFACE XDBX_README XDbx.NEW_INTERFACE XXGDB_README \
+  $PKG/usr/doc/xxgdb-$VERSION
+chmod 644 $PKG/usr/doc/xxgdb-$VERSION/*
+chown -R root.root $PKG/usr/doc/xxgdb-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/xxgdb-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/xxgdb-$VERSION
+  rm -rf $PKG
+fi

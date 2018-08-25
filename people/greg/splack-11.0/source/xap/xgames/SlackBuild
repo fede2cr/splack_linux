@@ -1,0 +1,112 @@
+#!/bin/sh
+CWD=`pwd`
+VERSION=0.2
+ARCH=i386
+BUILD=1
+PKG=/tmp/package-xgames
+rm -rf $PKG
+mkdir -p $PKG
+# Build spider:
+cd /tmp
+tar xzvf $CWD/spider.tar.gz
+cd spider
+xmkmf
+make
+mkdir -p $PKG/usr/X11R6/bin
+cat spider > $PKG/usr/X11R6/bin/spider
+mkdir -p $PKG/usr/X11R6/man/man6
+cat spider.man | gzip -9c > $PKG/usr/X11R6/man/man6/spider.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/spider
+cp -a README* $PKG/usr/doc/xgames-$VERSION/spider
+# Build maze:
+cd /tmp
+tar xzvf $CWD/maze.tar.gz
+cd maze
+zcat $CWD/maze.diff.gz | patch -p1
+xmkmf
+make
+cat maze > $PKG/usr/X11R6/bin/maze
+cat maze.man | gzip -9c > $PKG/usr/X11R6/man/man6/maze.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/maze
+cp -a README $PKG/usr/doc/xgames-$VERSION/maze
+# Build xcolormap:
+cd /tmp
+tar xzvf $CWD/xcolormap.tar.gz
+cd xcolormap
+zcat $CWD/xcolormap.diff.gz | patch -p1
+make
+cat xcolormap > $PKG/usr/X11R6/bin/xcolormap
+mkdir -p $PKG/usr/doc/xgames-$VERSION/xcolormap
+cp -a README $PKG/usr/doc/xgames-$VERSION/xcolormap
+# Build xcuckoo:
+cd /tmp
+tar xzvf $CWD/xcuckoo-1.1.tar.gz
+cd xcuckoo
+xmkmf
+make
+cat xcuckoo > $PKG/usr/X11R6/bin/xcuckoo
+cat xcuckoo.man | gzip -9c > $PKG/usr/X11R6/man/man6/xcuckoo.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/xcuckoo
+cp -a CHANGES $PKG/usr/doc/xgames-$VERSION/xcuckoo
+# Build xlander:
+cd /tmp
+tar xzvf $CWD/xlander.tar.gz
+cd xlander
+xmkmf
+make
+cat xlander > $PKG/usr/X11R6/bin/xlander
+cat xlander.man | gzip -9c > $PKG/usr/X11R6/man/man6/xlander.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/xlander
+cp -a README $PKG/usr/doc/xgames-$VERSION/xlander
+# Build xminesweep:
+cd /tmp
+tar xzvf $CWD/xminesweep2.1.tar.gz
+cd xminesweep2.1
+xmkmf
+make
+cat xminesweep > $PKG/usr/X11R6/bin/xminesweep
+cat xminesweep.man | gzip -9c > $PKG/usr/X11R6/man/man6/xminesweep.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/xminesweep
+cp -a README $PKG/usr/doc/xgames-$VERSION/xminesweep
+# Build xneko:
+cd /tmp
+tar xzvf $CWD/xneko.tar.gz
+cd xneko
+xmkmf
+make
+cat xneko > $PKG/usr/X11R6/bin/xneko
+cat xneko.man | gzip -9c > $PKG/usr/X11R6/man/man6/xneko.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/xneko
+cp -a README $PKG/usr/doc/xgames-$VERSION/xneko
+# Build xroach:
+cd /tmp
+tar xzvf $CWD/xroach.tar.gz
+cd xroach
+xmkmf
+make
+cat xroach > $PKG/usr/X11R6/bin/xroach
+cat xroach.man | gzip -9c > $PKG/usr/X11R6/man/man6/xroach.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/xroach
+cp -a README.linux $PKG/usr/doc/xgames-$VERSION/xroach
+# Build xsnow:
+cd /tmp
+tar xzvf $CWD/xsnow-1.40.tar.gz
+cd xsnow-1.40
+xmkmf
+make
+cat xsnow > $PKG/usr/X11R6/bin/xsnow
+cat xsnow.man | gzip -9c > $PKG/usr/X11R6/man/man6/xsnow.6.gz
+mkdir -p $PKG/usr/doc/xgames-$VERSION/xsnow
+cp -a README $PKG/usr/doc/xgames-$VERSION/xsnow
+# Fix everything up:
+chmod 755 $PKG/usr/X11R6/bin/*
+strip $PKG/usr/X11R6/bin/*
+( cd $PKG/usr/doc
+  find . -type f -exec chown root.root {} \;
+  find . -type f -exec chmod 644 {} \; )
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n /tmp/xgames-$VERSION-$ARCH-$BUILD.tgz
+

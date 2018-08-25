@@ -1,0 +1,36 @@
+#!/bin/sh
+# Set initial variables:
+
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+VERSION=2.7.0
+ARCH=i486
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+cd $TMP
+tar xjvf $CWD/xpaint-$VERSION.tar.bz2
+cd xpaint-$VERSION
+zcat $CWD/xpaint.errno.diff.gz | patch -p1
+chown -R root:root .
+SHAREDIR=/usr/X11R6/share/xpaint xmkmf -a
+make xaw SHAREDIR=/usr/X11R6/share/xpaint
+make install SHAREDIR=/usr/X11R6/share/xpaint
+make install.man SHAREDIR=/usr/X11R6/share/xpaint
+mkdir -p /usr/doc/xpaint-$VERSION
+cp -a \
+  README README.PNG README.old TODO \
+  /usr/doc/xpaint-$VERSION
+chmod 644 /usr/doc/xpaint-$VERSION/*
+cd bitmaps
+mkdir -p /usr/X11R6/include/X11/bitmaps
+find . -name "*.xbm" -exec cp {} /usr/X11R6/include/X11/bitmaps \;
+mkdir -p /usr/X11R6/include/X11/pixmaps
+find . -name "*.xpm" -exec cp {} /usr/X11R6/include/X11/pixmaps \;
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

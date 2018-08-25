@@ -1,0 +1,63 @@
+#!/bin/sh
+# Copyright 2001 Patrick Volkerding, Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+VERSION=20.2.03
+ARCH=i386
+BUILD=1
+
+CWD=`pwd`
+TMP=/tmp
+SRC=$TMP/build-xfractint
+PKG=$TMP/package-xfractint
+
+rm -rf $PKG
+mkdir -p $PKG
+rm -rf $SRC
+mkdir -p $SRC
+cd $SRC
+
+unzip $CWD/xfract${VERSION}.zip
+zcat $CWD/xfract.srcdir.diff.gz | patch -p1 --verbose --backup --suffix=.orig
+make
+strip xfractint
+mkdir -p $PKG/usr/X11R6/bin
+cat xfractint > $PKG/usr/X11R6/bin/xfractint
+chmod 755 $PKG/usr/X11R6/bin/xfractint
+mkdir -p $PKG/usr/X11R6/man/man1
+cat xfractint.man | gzip -9c > $PKG/usr/X11R6/man/man1/xfractint.1.gz
+mkdir -p $PKG/usr/X11R6/share/xfractint
+# Add palette maps missing from latest sources:
+( cd $PKG/usr/X11R6/share/xfractint ; tar xzf $CWD/palette.maps.tar.gz )
+cp -a *.par *.frm *.ifs *.l *.map *.hlp $PKG/usr/X11R6/share/xfractint
+chmod 644 $PKG/usr/X11R6/share/xfractint/*
+chown root.root $PKG/usr/X11R6/share/xfractint/*
+mkdir -p $PKG/usr/doc/xfractint-$VERSION
+cp -a fractsrc.doc hc.doc $PKG/usr/doc/xfractint-$VERSION
+chown -R root.root $PKG/usr/doc/xfractint-${VERSION}
+chmod 644 $PKG/usr/doc/xfractint-${VERSION}/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/xfractint-$VERSION-$ARCH-$BUILD.tgz
+

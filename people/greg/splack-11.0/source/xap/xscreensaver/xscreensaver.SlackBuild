@@ -1,0 +1,59 @@
+TMP=/tmp
+PKG=$TMP/package-xscreensaver
+CWD=`pwd` 
+
+VERSION=5.00
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+rm -rf $PKG
+mkdir -p $PKG/opt/kde/bin
+cd $TMP
+rm -rf xscreensaver-$VERSION
+tar xjvf $CWD/xscreensaver-$VERSION.tar.bz2
+cd xscreensaver-$VERSION
+
+# Allow xscreensaver to work setgid shadow.  I'd rather avoid requiring
+# setuid root on this if at all possible...
+zcat $CWD/xscreensaver.setuid.diff.gz | patch -p1 --verbose --backup --suffix=.orig || exit 1
+
+chown -R root:root .
+xml_config=/usr/bin/xml-config xml2_config=/usr/bin/xml2-config \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr/X11R6 \
+  --mandir=/usr/X11R6/man \
+  --with-shadow \
+  --with-jpeg \
+  --with-gl \
+  $ARCH-slackware-linux
+# We use '-i' because xscreensaver's NLS support has always been horribly broken
+make -i -j3
+make -i install_prefix=$PKG install-strip
+gzip -9 $PKG/usr/X11R6/man/man?/*
+chown root:shadow $PKG/usr/X11R6/bin/xscreensaver
+chmod 2751 $PKG/usr/X11R6/bin/xscreensaver
+# This is needed for the menus:
+mkdir -p $PKG/usr/share/pixmaps
+mkdir -p $PKG/etc
+mv $PKG/usr/X11R6/lib/X11 $PKG/etc
+cp -a $PKG/usr/share/xscreensaver/xscreensaver.xpm $PKG/usr/share/pixmaps/xscreensaver.xpm
+mkdir -p $PKG/usr/doc/xscreensaver-$VERSION
+cp -a README README.debugging $PKG/usr/doc/xscreensaver-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/xscreensaver-$VERSION-$ARCH-$BUILD.tgz
+

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+x11-sdk: x11-sdk (Server development SDK)
+x11-sdk:
+x11-sdk: This is a set of files needed to compile server extensions.  For
+x11-sdk: example, Wacom tablet drivers or other server module add-ons.
+x11-sdk:
+x11-sdk: The majority of users should not need this, which is why it is here
+x11-sdk: in /extra.
+x11-sdk:
+x11-sdk:
+x11-sdk:
+x11-sdk:

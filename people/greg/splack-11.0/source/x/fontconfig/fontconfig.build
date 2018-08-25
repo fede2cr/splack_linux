@@ -1,0 +1,59 @@
+#!/bin/sh
+CWD=`pwd`
+VERSION=2.2.3
+
+echo "YODESTDIR=$DESTDIR"
+
+if [ "$DESTDIR" = "" ]; then
+  DESTDIR=/
+fi
+
+cat << EOF
+
+***************************************************
+* Building fontconfig-$VERSION
+***************************************************
+
+EOF
+
+# Step one is to remove existing fontconfig cruft:
+rm --verbose -f \
+      $DESTDIR/usr/lib/pkgconfig/fontconfig.pc \
+      $DESTDIR/usr/bin/fontconfig-config \
+      $DESTDIR/usr/lib/libfontconfig.* \
+      $DESTDIR/usr/X11R6/lib/pkgconfig/fontconfig.pc \
+      $DESTDIR/usr/X11R6/bin/fontconfig-config \
+      $DESTDIR/usr/X11R6/lib/libfontconfig.* \
+      $DESTDIR/usr/X11R6/man/man?/fc-*
+rm --verbose -rf \
+      $DESTDIR/usr/include/fontconfig \
+      $DESTDIR/usr/X11R6/include/fontconfig
+
+cd /tmp
+rm -rf fontconfig-$VERSION
+tar xjf $CWD/fontconfig-$VERSION.tar.bz2
+cd fontconfig-$VERSION
+
+# Prefer DejaVu to Vera:
+zcat $CWD/fontconfig.dejavu.diff.gz | patch -p1 --verbose || exit 1
+
+chown -R root:root .
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="-O2" \
+./configure --prefix=/usr/X11R6 \
+            --sysconfdir=/etc
+# Uses some obscure sgml tool...
+make -i
+make -i install DESTDIR=$DESTDIR
+ldconfig
+mkdir -p $DESTDIR/usr/X11R6/lib/X11/doc/fontconfig-$VERSION
+cp -a AUTHORS COPYING INSTALL NEWS README \
+  $DESTDIR/usr/X11R6/lib/X11/doc/fontconfig-$VERSION
+
+#mv $DESTDIR/etc/fonts/local.conf $DESTDIR/etc/fonts/local.conf.new
+rm -f $DESTDIR/etc/fonts/local.conf
+
+# this is now correctly supplied
+#cat $CWD/fontconfig-config.script > $DESTDIR/usr/X11R6/bin/fontconfig-config
+#chmod 755 $DESTDIR/usr/X11R6/bin/fontconfig-config
+

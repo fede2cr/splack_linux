@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+x11-xvfb: x11-xvfb (virtual framebuffer X server)
+x11-xvfb:
+x11-xvfb: Xvfb is an X server that can run on machines with no display hardware
+x11-xvfb: and no physical input devices.  It emulates a dumb framebuffer using 
+x11-xvfb: virtual memory.  The primary use of this server is intended to be 
+x11-xvfb: server testing.  The mfb or cfb code for any depth can be exercised
+x11-xvfb: with this server without the need for real hardware that supports the
+x11-xvfb: desired depths.  A secondary use is testing clients against unusual
+x11-xvfb: depths and screen configurations.
+x11-xvfb:
+x11-xvfb:

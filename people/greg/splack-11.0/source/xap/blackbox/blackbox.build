@@ -1,0 +1,47 @@
+#!/bin/sh
+CWD=`pwd`
+VERSION=0.65.0
+BBKEYS=0.8.6
+ARCH=i386
+BUILD=1
+cd /tmp
+tar xzvf $CWD/blackbox-$VERSION.tar.gz
+cd blackbox-$VERSION
+CXXFLAGS="-O2 -march=i386 -mcpu=i686" \
+CFLAGS="-O2 -march=i386 -mcpu=i686" ./configure --prefix=/usr/X11R6 \
+            --enable-shape \
+            --enable-slit \
+            --enable-interlace \
+            --enable-nls \
+            --enable-timed-cache
+make
+make install
+mkdir -p /etc/X11/xinit
+zcat $CWD/xinitrc.blackbox.gz > /etc/X11/xinit/xinitrc.blackbox
+chmod 755 /etc/X11/xinit/xinitrc.blackbox
+mkdir -p /usr/doc/blackbox-$VERSION
+cp -a \
+  AUTHORS ChangeLog INSTALL LICENSE README* TODO \
+  /usr/doc/blackbox-$VERSION
+chown -R root:root /usr/doc/blackbox-$VERSION
+chmod 644 /usr/doc/blackbox-$VERSION/*
+
+cd /tmp
+tar xzvf $CWD/bbkeys-$BBKEYS.tar.gz
+cd bbkeys-$BBKEYS
+CFLAGS="-O2 -march=i386 -mcpu=i686" ./configure --prefix=/usr/X11R6 \
+            --enable-interlace
+make
+make install
+mkdir -p /usr/doc/bbkeys-$BBKEYS
+cp -a \
+  AUTHORS BUGS COPYING ChangeLog INSTALL NEWS README* TODO \
+  /usr/doc/bbkeys-$BBKEYS
+chown -R root:root /usr/doc/bbkeys-$BBKEYS
+chmod 644 /usr/doc/bbkeys-$BBKEYS/*
+
+rm -r /usr/X11R6/doc/bbkeys
+rmdir /usr/X11R6/doc
+
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

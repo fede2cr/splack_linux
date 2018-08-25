@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+         |-----handy-ruler------------------------------------------------------|
+x11-xnest: x11-xnest (a nested X server)
+x11-xnest:
+x11-xnest: Xnest is an experimental nested server for X that acts as both a 
+x11-xnest: client and a server.  Xnest is a client of the real server which
+x11-xnest: manages windows and graphics requests on its behalf.  Xnest is a
+x11-xnest: server to its own clients.  Xnest manages windows and graphics 
+x11-xnest: requests on their behalf.  To these clients Xnest appears to be a 
+x11-xnest: conventional server.
+x11-xnest:
+x11-xnest:
+x11-xnest:

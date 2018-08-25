@@ -1,0 +1,643 @@
+#!/bin/sh
+#
+# Build and install X11 on Slackware Linux.
+#
+
+VERSION=6.9.0
+export ARCH=${ARCH:-i486}
+BUILD=${BUILD:-11}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+TMP=/tmp
+BLOC=$TMP/x11-build
+PKG=$BLOC/package-x11
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $BLOC $PKG
+mkdir -p $BLOC $PKG
+
+CWD=`pwd`
+cd $BLOC
+rm -rf xc
+for file in $CWD/X11R${VERSION}-src*.tar.bz2 ; do
+  tar xjvf $file
+done
+
+cd xc
+chown -R root:root .
+
+# Misc patches:
+zcat $CWD/site.def.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/Xlib.h.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/linux.cf.zlib.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/xorgconfig.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/x11.startwithblackscreen.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/x11.buildxterm.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/x11r6.9.0-geteuid.diff.gz | patch -p0 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/x11r6.9.0-mitri.diff.gz | patch -p0 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/x11r6.9.0-setuid-slackware-fixed.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/x11r6.9.0-cidfonts.diff.gz | patch -p0 --backup --verbose --suffix=.orig -E || exit 1
+cd programs/xkbcomp
+  zcat $CWD/xkbdata_enable_ca_variants.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+cd ../..
+
+# add support for the i945gm chip:
+zcat $CWD/x11r6.9.0-i945gm-1.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+zcat $CWD/x11r6.9.0-i945gm-2.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+
+# Fix problems with some ATI chipsets:
+#
+# NOTE:  This is commented out, as it seems to break ATI Mobility Radeon chipset
+# support.  *However*, if you have a different ATI chipset and are experiencing
+# problems where your machine locks up in X after some time (from a few seconds to
+# minutes), perhaps the patch below could help you.  To apply it, just cut out the
+# comment mark '#' from the patch line below and run ./x11.SlackBuild to rebuild X.
+# The freetype and fontconfig package sources will also need to be located in the
+# usual places within the Slackware source tree.  I hope this helps someone...  :-)
+#
+# I'm considering a patch package in /extra, so you might look there if you just
+# want a quick package fix.
+#
+#zcat $CWD/x11r6.9.0.ati.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+
+# Fix PCF font parsing bugs that can crash the X server:
+zcat $CWD/x11r6.9.0.pcf.parser.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+
+# Fix Greek keyboard layout:
+zcat $CWD/x11r6.9.0-grlayout.diff.gz | patch -p1 --backup --verbose --suffix=.orig -E || exit 1
+
+# Fix sloppiness:
+find . -type f -name configure -exec chmod 755 {} \;
+find . -type f -name mkinstalldirs -exec chmod 755 {} \;
+
+# Set various compile defaults in host.def:
+cat << EOF > config/cf/host.def 
+/*
+ * By default, the sample config files for xinit, xdm and xfs are installed
+ * only when there is no pre-existing version installed.  Uncommenting the
+ * following lines will force the sample versions to be installed even if
+ * it means over-writing existing versions.
+ */
+#define InstallXinitConfig     YES
+#define InstallXdmConfig       YES
+#define InstallFSConfig        YES
+/* Other Slackware defaults */
+#define FSUseSyslog            YES
+#define HasPam                 NO
+#define UseUtempter            YES
+#define HasZlib                YES
+#define SharedLibGlu           YES
+
+/* Xprint is not the way to go on Linux which already has */
+/* much better print facilities.  I'm especially */
+/* unimpressed with all the junk it drops in /etc/X11/... */
+/* I can't imagine anyone actually using this on Linux. */
+#define BuildXprint            NO
+#define BuildXprintClients     NO
+/* Support lagacy apps that link with libXp.so */
+#define BuildXprintLib         YES
+/* This won't build without the all the other Xprint */
+/* clutter, but was probably rather useless anyway. */
+/* I've noticed that since all the unwanted Xprint junk */
+/* was merged into X.Org that everyone else has also */
+/* dropped support for Xprt...  time to follow suit. */
+#define XprtServer             NO
+
+/* Build static libs, too */
+#define ForceNormalLib         YES
+/* Let X provide freetype2 at first, or it might not build correctly */
+/* Later we can replace this with a newer version (if it passes our test suite) */
+/* #define BuildFreetype2         YES */
+/* We use our own expat */
+#define HasExpat               YES
+/* We will allow X to build fontconfig, but will later upgrade it. */
+/* #define HasFontconfig          YES */
+/* These are just examples if you use Glide... */
+/* #define HasGlide3              YES */
+/* #define Glide3IncDir           /usr/include/glide3 */
+EOF
+
+# If we have the precompiled fonts, use those:
+if [ -r $CWD/fonts.tar.bz2 ]; then
+  cat << EOF >> config/cf/host.def
+/* Don't build the fonts, as we've already got them */
+#define BuildFonts             NO
+EOF
+  mkdir -p /usr/X11R6/lib/X11
+  ( cd /usr/X11R6/lib/X11
+    tar xjvf $CWD/fonts.tar.bz2
+  )
+  mkdir -p $PKG/usr/X11R6/lib/X11
+  ( cd $PKG/usr/X11R6/lib/X11
+    tar xjvf $CWD/fonts.tar.bz2
+  )
+else # otherwise build the fonts from source
+  cat << EOF >> config/cf/host.def
+/* Build the X fonts from source */
+#define BuildFonts             YES
+EOF
+fi
+
+# pkgconfig files (like alocal files) are best placed in a single location, like /usr/lib/pkgconfig.
+# First make sure the pkgconfig directories exist:
+mkdir -p /usr/lib/pkgconfig /usr/X11R6/lib/pkgconfig
+# Then, move any existing files.  This may (and probably will) produce an error if
+# /usr/X11R6/lib/pkgconfig is empty, so we'll silence stderr:
+mv /usr/X11R6/lib/pkgconfig/* /usr/lib/pkgconfig 2> /dev/null
+# Finally, make a link from the old location to the system-wide one:
+( cd /usr/X11R6/lib ; rm -rf pkgconfig )
+( cd /usr/X11R6/lib ; ln -sf ../../lib/pkgconfig . )
+# Now set up the same structure in the target install location:
+mkdir -p $PKG/usr/lib/pkgconfig $PKG/usr/X11R6/lib
+( cd $PKG/usr/X11R6/lib ; rm -rf pkgconfig )
+( cd $PKG/usr/X11R6/lib ; ln -sf ../../lib/pkgconfig . )
+
+# It's VERY important to build freetype2 ourselves first (or some functions are left
+# out), but also to use the X supplied sources.
+#
+# Step one is to remove existing freetype2 cruft:
+rm -rf /usr/include/freetype2 \
+       /usr/X11R6/include/freetype2 \
+       /usr/X11R6/include/ft2build.h \
+       /usr/lib/libfreetype.* \
+       /usr/X11R6/lib/libfreetype.*
+# It seems prudent to move this into /usr rather than /usr/X11R6, as *many* source bits
+# won't find ft2build.h in /usr/X11R6/include without some patching.
+# Therefore, --prefix=/usr must be the ad-hoc standard.  Another
+# rationale:  /usr is also the prefix for freetype1 (for as long as that sticks around),
+# and putting them in different prefixes causes problems.  Also, we're bumping the -march
+# from i386 to i486, as I can't imagine too many people are running the latest Slackware
+# with X on a 386 in the year 2002.  If there are, maybe they can get away with running an
+# earlier version of X.  :-) 
+( cd extras/freetype2
+  CFLAGS="$SLKCFLAGS" make setup CFG="--prefix=/usr $ARCH-slackware-linux"
+  make
+  # This only needs to go to the main system for now
+  make install
+)
+ldconfig
+
+# This shouldn't be needed (apps should pick up -I/usr/include/freetype2 from
+# `freetype-config --cflags` while compiling), but it's so often reported as a bug that
+# I'll give in to the point.  Now that Freetype1 is pretty much gone having this link
+# shouldn't hurt anything.  Try not to rely on it, though.
+( cd /usr/include
+  rm -rf freetype
+  ln -sf freetype2/freetype .
+)
+
+# Build and install X:
+make World -j2 -i CDEBUGFLAGS="$SLKCFLAGS" || exit 1
+make install DESTDIR=$PKG || exit 1
+
+# Here, enjoy this old cruft and some never-used build script.
+
+# Comment this out to see if 6.9.0 fixes this...  it does.  :-)
+#
+## On systems with ATI Rage128 video cards, the default DRI driver is no longer
+## working due to a missing symbol bug.  The bug in the 6.8.2 release can be
+## demonstrated by setting up DRI on a system with an ATI Rage128 card and
+## running the following command:
+##   LIBGL_DEBUG=verbose glxinfo
+## This has been reported to X.Org's bug tracking system, but has not yet been
+## fixed in a release, so until then we'll revert to using the r128_dri module
+## from the previous version of X which works fine on my test boxes:
+#if [ "$ARCH" = "i386" -o "$ARCH" = "i486" ]; then
+#  zcat $CWD/r128-module/r128_dri.so.gz > $PKG/usr/X11R6/lib/modules/dri/r128_dri.so
+#fi
+
+# This causes other utilities (like bdftruncate and ucs2any) to not be built, so
+# while it saves time it's probably not a good way to build by default...
+#
+## Save the fonts so we don't need to build them the next time.
+#if [ ! -r $CWD/fonts.tar.bz2 ]; then
+#  ( cd $PKG/usr/X11R6/lib/X11/fonts
+#    find . -type f | xargs chmod 644
+#  )
+#  ( cd $PKG/usr/X11R6/lib/X11
+#    tar cjvf $CWD/fonts.tar.bz2 fonts
+#  )
+#fi
+
+## Do we want the X.Org SDK?  Had a couple of requests, so maybe for /extra.
+## Amazing that we got by this whole time without anything wanting
+## xf86Version.h so it can't be something most people are clamoring for.
+##
+## Sorry...  this is 10MB, and with only rare requests you'll have to build
+## it from the sources.  If you want it, just uncomment this stuff.
+## Then build.  :-)
+##
+## Oh -- more stuff to uncomment near the bottom of this script as well.
+## Search for x11-sdk and you'll finf it easily.
+##
+#PKG13=$BLOC/package-x11-sdk
+#mkdir -p $PKG13/install
+#make install.sdk DESTDIR=$PKG13 || exit 1
+#( cd $PKG13
+#  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+#  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip -g 2> /dev/null
+#)
+
+# OK, now we must spam your development box to ensure that the our rebuild of
+# fontconfig links against the correct libraries.  We'll also be doing this
+# with the freetype rebuild.  It saves many problems that could crop up with
+# the compile, and besides, that's what a development box is for.  It should
+# be disposable.  :-)
+
+make install
+ldconfig
+
+# Install man pages:
+make install.man DESTDIR=$PKG
+
+# More useless Xprint clutter.  Great to see new cruft.
+rm -rf $PKG/usr/X11R6/include/X11/Xprint*
+rm -f $PKG/usr/X11R6/lib/libXprint*.a
+rm -f $PKG/usr/X11R6/man/man7/Xprint*
+
+## *** If this is still a problem, report it to X.Org ***
+##
+## Just to be on the safe side, we should provide Compose files where
+## they are missing, as it's been known to cause a crash.
+#for dir in $PKG/usr/X11R6/lib/X11/locale/* ; do
+#  if [ -d $dir ]; then
+#    if [ -r $dir/XI18N_OBJS -o -r $dir/XLC_LOCALE ]; then
+#      if [ ! -r $dir/Compose ]; then
+#        NAME=`basename $dir`
+#        CAPN=`echo $NAME | tr [a-z] [A-Z]`
+#        cat << EOF > $dir/Compose
+##
+## $CAPN Compose Sequence
+##
+## Sequence Definition
+##
+## \$X11: xc/nls/Compose/$NAME,v 1.3 `date` volkerdi Exp $
+##
+## This file currently has no entries.  It appears that a compose file (even
+## just an empty one) is required for the appropriate keysyms to work for
+## this encoding.
+##
+## <Multi_key> Means <Compose>
+## Special Character
+#
+## End of Sequence Definition
+#EOF
+#      fi
+#    fi
+#  fi
+#done
+
+# These are currently broken with Qt, but we'll install them anyway.
+# Someday they might work in Konsole again.
+mkdir -p $PKG/usr/X11R6/lib/X11/fonts/misc
+cat $CWD/linux8x16.pcf.gz > $PKG/usr/X11R6/lib/X11/fonts/misc/linux8x16.pcf.gz
+cat $CWD/linux8x8.pcf.gz > $PKG/usr/X11R6/lib/X11/fonts/misc/linux8x8.pcf.gz
+
+# Don't need this
+rm -f /usr/X11R6/lib/X11/config/host.def
+rm -f $PKG/usr/X11R6/lib/X11/config/host.def
+
+mkdir -p $PKG/etc/X11/xinit
+cat $CWD/xinit/README.Xmodmap > $PKG/etc/X11/xinit/README.Xmodmap
+# obsolete
+#cat $CWD/xinit/.Xmodmap > $PKG/etc/X11/xinit/.Xmodmap
+
+cp -a $PKG/etc/X11/xdm/Xsession $PKG/etc/X11/xdm/Xsession.orig
+cp -a $PKG/etc/X11/xdm/Xsetup_0 $PKG/etc/X11/xdm/Xsetup_0.orig
+cat $CWD/xdm/Xsession > $PKG/etc/X11/xdm/Xsession
+cat $CWD/xdm/Xsetup_0 > $PKG/etc/X11/xdm/Xsetup_0
+## I don't get this
+#cat $CWD/xdm/Xsession.orig > $PKG/etc/X11/xdm/Xsession.orig
+#cat $CWD/xdm/Xsetup_0.orig > $PKG/etc/X11/xdm/Xsetup_0.orig
+# Treat some of these as config files:
+mv $PKG/etc/X11/xdm/Xsession $PKG/etc/X11/xdm/Xsession.new
+mv $PKG/etc/X11/xdm/xdm-config $PKG/etc/X11/xdm/xdm-config.new
+mv $PKG/etc/X11/xdm/Xservers $PKG/etc/X11/xdm/Xservers.new
+rm -rf $PKG/install
+mkdir $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+
+# Cruft.
+rm -f /usr/X11R6/lib/libz.a
+rm -f $PKG/usr/X11R6/lib/libz.a
+
+# We'll use the encodings on the system, so hopefully they are the right ones...
+( cd $PKG/usr/X11R6/lib/X11/fonts/misc
+  mkfontdir -e /usr/X11R6/lib/X11/fonts/encodings -e /usr/X11R6/lib/X11/fonts/encodings/large .
+)
+
+## These are now handled properly without our help  :-)
+#( cd $PKG/etc/X11/xdm
+#  rm authdir
+#  ln -sf ../../../var/lib/xdm authdir
+#)
+#( cd /etc/X11/xkb
+#  rm compiled
+#  ln -sf ../../../var/lib/xkb compiled
+#)
+
+mv $PKG/etc/X11/xinit/xinitrc $PKG/etc/X11/xinit/xinitrc.twm
+chmod 755 $PKG/etc/X11/xinit/xinitrc.twm
+#mkdir -p $PKG/var/log/setup
+#cat $CWD/setup.05.fontconfig > $PKG/var/log/setup/setup.05.fontconfig
+#chmod 755 $PKG/var/log/setup/setup.05.fontconfig
+
+cat $CWD/x11-devel/doinst.sh > $PKG/install/doinst.sh.devel
+cp $CWD/slack-desc/slack-desc.* $PKG/install
+
+cat << EOF >> $PKG/install/doinst.sh.fonts
+#!/bin/sh
+# Update the X font indexes:
+if [ -x /usr/X11R6/bin/fc-cache ]; then
+  /usr/X11R6/bin/fc-cache -f
+fi
+# else we'll catch it later with setup.fontconfig :-)
+# make links:
+EOF
+
+# A tool for configuring S3 Savage cards:
+cd $BLOC
+rm -rf s3switch
+mkdir s3switch
+cd s3switch
+unzip $CWD/savage/s3ssrc.zip
+make
+cat s3switch > $PKG/usr/X11R6/bin/s3switch
+chmod 755 $PKG/usr/X11R6/bin/s3switch
+cat s3switch.1x | gzip -9c > $PKG/usr/X11R6/man/man1/s3switch.1x.gz
+
+# Utilities to try the compositing and transparancy extensions:
+cd $BLOC
+rm -rf transset
+tar xzf $CWD/transset.tar.gz
+cd transset
+make
+cat transset > $PKG/usr/X11R6/bin/transset
+chmod 755 $PKG/usr/X11R6/bin/transset
+cd $BLOC
+rm -rf xcompmgr
+tar xzf $CWD/xcompmgr.tar.gz
+cd xcompmgr
+sh autogen.sh
+./configure --prefix=/usr/X11R6
+make
+cat xcompmgr > $PKG/usr/X11R6/bin/xcompmgr
+chmod 755 $PKG/usr/X11R6/bin/xcompmgr
+cat xcompmgr.1 | gzip -9c > $PKG/usr/X11R6/man/man1/xcompmgr.1.gz
+
+# Replace freetype2:
+( cd $CWD/../../l/freetype
+  ./freetype2.build
+  ldconfig
+  DESTDIR=$PKG ./freetype2.build
+)
+
+# Replace fontconfig:
+( cd $CWD/../fontconfig
+  ./fontconfig.build
+  ldconfig
+  DESTDIR=$PKG ./fontconfig.build
+)
+
+# crud removal:
+rm -rf $PKG/usr/X11R6/share/doc
+# We don't ship fonts.cache-1 files, we create them later.
+find $PKG/usr -type f -name fonts.cache-1 -exec rm {} \;
+
+# Strip binaries:
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip -g 2> /dev/null
+)
+
+# Compress all manpages:
+find $PKG/usr/X11R6/man -name "*.?" | xargs gzip -9
+find $PKG/usr/X11R6/man -name "*.?x" | xargs gzip -9
+
+# Some of these links are now made, but some are missing.
+# It's not known if they are really needed, but they don't hurt anything.
+( cd $PKG
+  ( cd etc/X11/xkb/rules ; rm -rf xfree86.lst )
+  ( cd etc/X11/xkb/rules ; ln -sf xorg.lst xfree86.lst )
+  ( cd etc/X11/xkb/rules ; rm -rf xfree86.xml )
+  ( cd etc/X11/xkb/rules ; ln -sf xorg.xml xfree86.xml )
+  ( cd etc/X11/xkb/rules ; rm -rf xfree86-it.lst )
+  ( cd etc/X11/xkb/rules ; ln -sf xorg-it.lst xfree86-it.lst )
+  ( cd etc/X11/xkb/rules ; rm -rf xfree86 )
+  ( cd etc/X11/xkb/rules ; ln -sf xorg xfree86 )
+)
+
+# Clean out any freetype/fontconfig "residue":
+rm --verbose -rf \
+      $PKG/usr/X11R6/bin/freetype-config \
+      $PKG/usr/X11R6/include/freetype2 \
+      $PKG/usr/X11R6/include/ft2build.h \
+      $PKG/usr/X11R6/lib/libfreetype.* \
+      $PKG/usr/X11R6/lib/X11/doc/freetype* \
+      $PKG/usr/X11R6/lib/pkgconfig/freetype.pc \
+      $PKG/usr/bin/freetype-config \
+      $PKG/usr/include/freetype2 \
+      $PKG/usr/include/ft2build.h \
+      $PKG/usr/lib/libfreetype.* \
+      $PKG/usr/doc/freetype* \
+      $PKG/usr/lib/pkgconfig/freetype.pc \
+      $PKG/usr/share/aclocal/freetype2.m4
+rmdir $PKG/usr/share/aclocal
+rmdir $PKG/usr/share
+rm --verbose -rf \
+      $PKG/usr/X11R6/bin/fontconfig-config \
+      $PKG/usr/X11R6/include/fontconfig \
+      $PKG/usr/X11R6/lib/pkgconfig/fontconfig.pc \
+      $PKG/usr/X11R6/lib/libfontconfig.* \
+      $PKG/usr/X11R6/lib/X11/doc/fontconfig* \
+      $PKG/usr/X11R6/man/man?/fc-* \
+      $PKG/usr/X11R6/man/man3/Fc* \
+      $PKG/usr/bin/fontconfig-config \
+      $PKG/usr/include/fontconfig \
+      $PKG/usr/lib/pkgconfig/fontconfig.pc \
+      $PKG/usr/lib/libfontconfig.* \
+      $PKG/usr/doc/fontconfig* \
+      $PKG/usr/man/man?/fc-*
+rm --verbose -rf \
+      $PKG/etc/fonts
+
+cat << EOF
+
+Slackware X build complete!
+
+EOF
+
+# Perms needed for ordinary users to start X:
+chmod 4711 $PKG/usr/X11R6/bin/Xorg
+
+# x11-fonts-misc package:
+PKG2=$BLOC/package-x11-fonts-misc
+mkdir -p $PKG2/usr/X11R6/lib/X11/fonts $PKG2/install
+mv $PKG/usr/X11R6/lib/X11/fonts/75dpi $PKG2/usr/X11R6/lib/X11/fonts
+mv $PKG/usr/X11R6/lib/X11/fonts/CID $PKG2/usr/X11R6/lib/X11/fonts
+mv $PKG/usr/X11R6/lib/X11/fonts/encodings $PKG2/usr/X11R6/lib/X11/fonts
+mv $PKG/usr/X11R6/lib/X11/fonts/misc $PKG2/usr/X11R6/lib/X11/fonts
+mv $PKG/usr/X11R6/lib/X11/fonts/util $PKG2/usr/X11R6/lib/X11/fonts
+# Make other directories to avoid fontpath warnings:
+mkdir -p \
+  $PKG2/usr/X11R6/lib/X11/fonts/TTF \
+  $PKG2/usr/X11R6/lib/X11/fonts/Type1 \
+  $PKG2/usr/X11R6/lib/X11/fonts/local \
+  $PKG2/usr/X11R6/lib/X11/fonts/Speedo \
+  $PKG2/usr/X11R6/lib/X11/fonts/100dpi \
+  $PKG2/usr/X11R6/lib/X11/fonts/cyrillic
+cp $PKG/install/doinst.sh.fonts $PKG2/install/doinst.sh
+mv $PKG/install/slack-desc.x11-fonts-misc $PKG2/install/slack-desc
+
+# x11-fonts-100dpi package:
+PKG3=$BLOC/package-x11-fonts-100dpi
+mkdir -p $PKG3/usr/X11R6/lib/X11/fonts $PKG3/install
+mv $PKG/usr/X11R6/lib/X11/fonts/100dpi $PKG3/usr/X11R6/lib/X11/fonts
+cp $PKG/install/doinst.sh.fonts $PKG3/install/doinst.sh
+mv $PKG/install/slack-desc.x11-fonts-100dpi $PKG3/install/slack-desc
+
+# x11-fonts-cyrillic package:
+PKG4=$BLOC/package-x11-fonts-cyrillic
+mkdir -p $PKG4/usr/X11R6/lib/X11/fonts $PKG4/install
+mv $PKG/usr/X11R6/lib/X11/fonts/cyrillic $PKG4/usr/X11R6/lib/X11/fonts
+cp $PKG/install/doinst.sh.fonts $PKG4/install/doinst.sh
+mv $PKG/install/slack-desc.x11-fonts-cyrillic $PKG4/install/slack-desc
+
+# x11-fonts-scale package:
+PKG5=$BLOC/package-x11-fonts-scale
+mkdir -p $PKG5/usr/X11R6/lib/X11/fonts $PKG5/install
+mv $PKG/usr/X11R6/lib/X11/fonts/TTF $PKG5/usr/X11R6/lib/X11/fonts
+mv $PKG/usr/X11R6/lib/X11/fonts/Type1 $PKG5/usr/X11R6/lib/X11/fonts
+mv $PKG/usr/X11R6/lib/X11/fonts/Speedo $PKG5/usr/X11R6/lib/X11/fonts
+cp $PKG/install/doinst.sh.fonts $PKG5/install/doinst.sh
+mv $PKG/install/slack-desc.x11-fonts-scale $PKG5/install/slack-desc
+
+# x11-docs-html package:
+PKG6=$BLOC/package-x11-docs-html
+mkdir -p $PKG6/usr/X11R6/lib/X11/doc $PKG6/install
+mv $PKG/usr/X11R6/lib/X11/doc/html $PKG6/usr/X11R6/lib/X11/doc
+mv $PKG/install/slack-desc.x11-docs-html $PKG6/install/slack-desc
+
+# x11-docs package:
+PKG7=$BLOC/package-x11-docs
+mkdir -p $PKG7/usr/X11R6/lib/X11 $PKG7/install
+mv $PKG/usr/X11R6/lib/X11/doc $PKG7/usr/X11R6/lib/X11
+mv $PKG/install/slack-desc.x11-docs $PKG7/install/slack-desc
+
+# x11-xnest package:
+PKG8=$BLOC/package-x11-xnest
+mkdir -p $PKG8/usr/X11R6/bin $PKG8/install
+mv $PKG/usr/X11R6/bin/Xnest $PKG8/usr/X11R6/bin
+mv $PKG/install/slack-desc.x11-xnest $PKG8/install/slack-desc
+
+## x11-xprt package (deprecated due to unacceptable Xprint bloat):
+#PKG9=$BLOC/package-x11-xprt
+#mkdir -p $PKG9/usr/X11R6/bin $PKG9/install
+#mv $PKG/usr/X11R6/bin/Xprt $PKG9/usr/X11R6/bin
+#mv $PKG/install/slack-desc.x11-xprt $PKG9/install/slack-desc
+
+# x11-xvfb package:
+PKG10=$BLOC/package-x11-xvfb
+mkdir -p $PKG10/usr/X11R6/bin $PKG10/install
+mv $PKG/usr/X11R6/bin/Xvfb $PKG10/usr/X11R6/bin
+mv $PKG/install/slack-desc.x11-xvfb $PKG10/install/slack-desc
+
+# x11-devel package:
+PKG11=$BLOC/package-x11-devel
+mkdir -p $PKG11/usr/X11R6/lib/X11 $PKG11/usr/lib $PKG11/usr/X11R6/man $PKG11/install
+mv $PKG/usr/lib/pkgconfig $PKG11/usr/lib
+chmod 644 $PKG11/usr/lib/pkgconfig/*
+mv $PKG/usr/X11R6/lib/pkgconfig $PKG11/usr/X11R6/lib
+mv $PKG/usr/X11R6/lib/X11/config $PKG11/usr/X11R6/lib/X11
+mv $PKG/usr/X11R6/lib/*.a $PKG11/usr/X11R6/lib
+mv $PKG/usr/lib/*.a $PKG11/usr/lib
+mv $PKG/usr/X11R6/man/man3 $PKG11/usr/X11R6/man
+mv $PKG/usr/share $PKG11/usr
+mv $PKG/usr/include $PKG11/usr
+mv $PKG/usr/X11R6/src $PKG11/usr/X11R6
+mv $PKG/usr/X11R6/include $PKG11/usr/X11R6
+# We don't want it all, we just want a little bit.
+mkdir -p $PKG/usr/X11R6/include/X11
+mv $PKG11/usr/X11R6/include/X11/bitmaps $PKG/usr/X11R6/include/X11
+mv $PKG11/usr/X11R6/include/X11/pixmaps $PKG/usr/X11R6/include/X11
+# Don't ship this:
+mv $PKG/install/slack-desc.x11-devel $PKG11/install/slack-desc
+mv $PKG/install/doinst.sh.devel $PKG11/install/doinst.sh
+
+# x11-xdmx package:
+PKG12=$BLOC/package-x11-xdmx
+mkdir -p $PKG12/usr/X11R6/bin $PKG12/usr/X11R6/man/man1 $PKG12/install
+mv $PKG/usr/X11R6/bin/Xdmx $PKG12/usr/X11R6/bin
+mv $PKG/usr/X11R6/man/man1/Xdmx.1x.gz $PKG12/usr/X11R6/man/man1
+mv $PKG/usr/X11R6/man/man1/dmxtodmx.1x.gz $PKG12/usr/X11R6/man/man1
+mv $PKG/usr/X11R6/man/man1/vdltodmx.1x.gz $PKG12/usr/X11R6/man/man1
+mv $PKG/usr/X11R6/man/man1/xdmxconfig.1x.gz $PKG12/usr/X11R6/man/man1
+mv $PKG/install/slack-desc.x11-xdmx $PKG12/install/slack-desc
+
+# Clean up leftover stuff:
+rm -f $PKG/install/doinst.sh.fonts \
+      $PKG/install/slack-desc.x11-drm
+
+# Don't ship anything in here:
+rm -f $PKG/usr/X11R6/lib/X11/fonts/local/*
+
+# Build the packages:
+cd $PKG
+mv install/slack-desc.x11 install/slack-desc
+makepkg -l y -c n ../x11-$VERSION-$ARCH-$BUILD.tgz
+
+cd $PKG2
+makepkg -l y -c n ../x11-fonts-misc-$VERSION-noarch-$BUILD.tgz
+
+cd $PKG3
+makepkg -l y -c n ../x11-fonts-100dpi-$VERSION-noarch-$BUILD.tgz
+
+cd $PKG4
+makepkg -l y -c n ../x11-fonts-cyrillic-$VERSION-noarch-$BUILD.tgz
+
+cd $PKG5
+makepkg -l y -c n ../x11-fonts-scale-$VERSION-noarch-$BUILD.tgz
+
+cd $PKG6
+makepkg -l y -c n ../x11-docs-html-$VERSION-noarch-$BUILD.tgz
+
+cd $PKG7
+makepkg -l y -c n ../x11-docs-$VERSION-noarch-$BUILD.tgz
+
+cd $PKG8
+makepkg -l y -c n ../x11-xnest-$VERSION-$ARCH-$BUILD.tgz
+
+#cd $PKG9
+#makepkg -l y -c n ../x11-xprt-$VERSION-$ARCH-$BUILD.tgz
+
+cd $PKG10
+makepkg -l y -c n ../x11-xvfb-$VERSION-$ARCH-$BUILD.tgz
+
+cd $PKG11
+makepkg -l y -c n ../x11-devel-$VERSION-$ARCH-$BUILD.tgz
+
+cd $PKG12
+makepkg -l y -c n ../x11-xdmx-$VERSION-$ARCH-$BUILD.tgz
+
+## Sorry, not by default due to size increase.  Maybe next time.
+#if [ -d $PKG13 ]; then
+#  cd $PKG13
+#  makepkg -l y -c n ../x11-sdk-$VERSION-$ARCH-$BUILD.tgz
+#fi
+
+cat << EOF
+
+Slackware X .tgz packages build complete!
+
+EOF
+

@@ -1,0 +1,58 @@
+#!/bin/sh
+CWD=$(pwd)
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-dejavu-ttf
+
+VERSION=2.10
+ARCH=noarch
+BUILD=1
+
+# I suppose we'll be nice and try to fetch this if
+# you know the version you want.
+if [ ! -e $CWD/dejavu-ttf-$VERSION.tar.gz ]; then
+  if [ ! -e $CWD/dejavu-ttf-$VERSION.tar.bz2 ]; then
+    lftpget http://dejavu.sourceforge.net/snapshots/dejavu-ttf-$VERSION.tar.gz
+  fi
+fi
+if [ -e $CWD/dejavu-ttf-$VERSION.tar.gz ]; then
+  gzip -d $CWD/dejavu-ttf-$VERSION.tar.gz
+  bzip2 -9 $CWD/dejavu-ttf-$VERSION.tar
+fi
+
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf dejavu-ttf-$VERSION
+tar xjvf $CWD/dejavu-ttf-$VERSION.tar.bz2
+cd dejavu-ttf-$VERSION
+
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+mkdir -p $PKG/usr/X11R6/lib/X11/fonts/TTF/
+cp -a *.ttf $PKG/usr/X11R6/lib/X11/fonts/TTF/
+
+mkdir -p $PKG/usr/X11R6/lib/X11/doc/dejavu-ttf/
+cp -a \
+  AUTHORS BUGS LICENSE NEWS README \
+  $PKG/usr/X11R6/lib/X11/doc/dejavu-ttf/
+mkdir -p $PKG/usr/doc
+( cd $PKG/usr/doc ; ln -sf /usr/X11R6/lib/X11/doc/dejavu-ttf dejavu-ttf-$VERSION )
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+
+cd $PKG
+makepkg -l y -c n $TMP/dejavu-ttf-$(echo $VERSION | tr - _ )-$ARCH-$BUILD.tgz
+

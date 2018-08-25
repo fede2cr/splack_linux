@@ -1,0 +1,83 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-gaim
+
+VERSION=1.5.0
+GAIMENC=2.38
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+rm -rf $PKG
+mkdir -p $PKG
+cd /tmp
+rm -rf gaim-$VERSION
+tar xjvf $CWD/gaim-$VERSION.tar.bz2
+cd gaim-$VERSION
+chown -R root:root .
+if [ ! -r configure ]; then
+  sh autogen.sh
+fi
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --program-prefix="" \
+  --program-suffix="" \
+  $ARCH-slackware-linux
+make -j4
+make install DESTDIR=$PKG
+
+if [ -f $PKG/Gaim.pm ]; then # GAIM's perl module installer must be smoking crack
+  mkdir -p $PKG/usr/lib/perl5/5.8.8/i486-linux $PKG/usr/man/man3
+  mv $PKG/Gaim.pm $PKG/usr/lib/perl5/5.8.8/i486-linux
+  mv $PKG/auto $PKG/usr/lib/perl5/5.8.8/i486-linux
+  mv $PKG/Gaim.3 $PKG/usr/man/man3
+fi
+
+### add gaim-encryption
+( cd /tmp
+  rm -rf gaim-encryption-$GAIMENC
+  tar xjf $CWD/gaim-encryption-$GAIMENC.tar.bz2
+  cd gaim-encryption-$GAIMENC
+  ./configure \
+  --prefix=/usr \
+  --disable-static \
+  --with-gaim=/tmp/gaim-$VERSION \
+  --program-prefix="" \
+  --program-suffix="" \
+  $ARCH-slackware-linux
+  make -j4
+  make install DESTDIR=$PKG
+)
+### end add gaim-encryption
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+( cd $PKG
+  find . -name perllocal.pod | xargs rm -f
+)
+mkdir -p $PKG/usr/doc/gaim-$VERSION
+cp -a \
+  ABOUT-NLS AUTHORS COPYING ChangeLog HACKING NEWS README TODO doc/FAQ doc/CREDITS \
+  $PKG/usr/doc/gaim-$VERSION
+chmod 644 $PKG/usr/doc/gaim-$VERSION/*
+gzip -9 $PKG/usr/man/man?/*
+chmod 644 $PKG/usr/man/man?/*.gz
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../gaim-$VERSION-$ARCH-$BUILD.tgz
+

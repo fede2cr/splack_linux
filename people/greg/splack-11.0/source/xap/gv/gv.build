@@ -1,0 +1,21 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/gv-3.5.8.tar.gz
+cd gv-3.5.8
+zcat $CWD/gv-3.5.8.diff.gz | patch -p1 -E --verbose --backup --suffix=.orig
+xmkmf
+make Makefiles
+make
+make install
+mkdir -p /usr/doc/gv-3.5.8
+cp -a CHANGES COPYING INSTALL.Unix README doc/*.html \
+  /usr/doc/gv-3.5.8
+cd doc
+zcat key-bindings.txt-gz > /usr/doc/gv-3.5.8/key-bindings.txt
+zcat comments.doc-gz > /usr/doc/gv-3.5.8/comments.doc
+zcat gs.interface-gz > /usr/doc/gv-3.5.8/gs.interface
+cat gv.man | gzip -9c > /usr/X11R6/man/man1/gv.1.gz
+chown -R root:root /usr/doc/gv-3.5.8
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

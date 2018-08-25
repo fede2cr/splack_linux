@@ -1,0 +1,149 @@
+#!/bin/sh
+# Copyright 2003  Slackware Linux, Inc., Concord, CA, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+TMP=/tmp/xfce-build-dir
+rm -rf $TMP
+mkdir -p $TMP
+PKG=$TMP/package-xfce
+rm -rf $PKG
+mkdir -p $PKG
+CWD=`pwd`
+
+VERSION=4.2.3
+PKGVER=4.2.3.2
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+for file in \
+dbh-1.0.24.tar.bz2 \
+libxfce4util-4.2.3.2.tar.bz2 \
+libxfcegui4-$VERSION.tar.bz2 \
+libxfce4mcs-$VERSION.tar.bz2 \
+xfce-mcs-manager-$VERSION.tar.bz2 \
+xfce4-panel-$VERSION.tar.bz2 \
+gtk-xfce-engine-2.2.8.tar.bz2 \
+xfce-mcs-plugins-$VERSION.tar.bz2 \
+xfce-utils-$VERSION.tar.bz2 \
+xfce4-appfinder-$VERSION.tar.bz2 \
+xfce4-iconbox-$VERSION.tar.bz2 \
+xfce4-icon-theme-$VERSION.tar.bz2 \
+xfce4-mixer-$VERSION.tar.bz2 \
+xfce4-systray-$VERSION.tar.bz2 \
+xfce4-session-$VERSION.tar.bz2 \
+xfce4-toys-$VERSION.tar.bz2 \
+xfce4-trigger-launcher-$VERSION.tar.bz2 \
+xfdesktop-$VERSION.tar.bz2 \
+xffm-$VERSION.tar.bz2 \
+xfprint-$VERSION.tar.bz2 \
+xfwm4-4.2.3.2.tar.bz2 \
+xfwm4-themes-$VERSION.tar.bz2 \
+xfcalendar-$VERSION.tar.bz2 \
+; do
+  ( cd $TMP
+    tar xjf $CWD/$file
+    cd `basename $file .tar.bz2`
+
+    # Strengthen resistance to /tmp attacks (low risk, but might as well...).
+    if [ "$file" = "xfce-utils-$VERSION.tar.bz2" ]; then
+      zcat $CWD/xfce-utils-xinitrc.diff.gz | patch -p1 --verbose
+    fi
+
+    chown -R root:root .
+    find . -perm 777 -exec chmod 755 {} \;
+    find . -perm 775 -exec chmod 755 {} \;
+    find . -perm 666 -exec chmod 644 {} \;
+    find . -perm 664 -exec chmod 644 {} \;
+    # From the COMPOSITOR file in xfwm4:
+    #
+    # xfwm4 now features a compositing manager. This code is new and has received only
+    # a moderate amount of testing, so it's disabled by default.
+    # 
+    # So, if you want to stay safe, keep the compositor disabled...
+    # 
+    # If you still want to try the compositor extensions with xfwm4, here follows how
+    # to enable the compositing manager in xfwm4.
+    # 
+    # 1) Enabling the compositor manager in xfwm4
+    # -------------------------------------------
+    # 
+    # To enable the compositing manager in xfwm4, add --enable-compositor when running
+    # the configure script.
+    # 
+    CFLAGS="$SLKCFLAGS" \
+    CXXFLAGS="$SLKCFLAGS" \
+    ./configure --prefix=/usr \
+      --sysconfdir=/etc/X11 \
+      --enable-static=no \
+      --enable-xinerama
+    make -j3
+    make install
+    make install DESTDIR=$PKG
+    mkdir -p $PKG/usr/doc/`basename $file .tar.bz2`
+    cp -a \
+      AUTHORS COPYING INSTALL NEWS README TODO \
+      $PKG/usr/doc/`basename $file .tar.bz2` 
+    ( cd $PKG
+      find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+      find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+      for mandir in `find . -name man -type d` ; do
+        if [ -d $mandir ]; then
+          ( cd $mandir
+            find . -type f -name "*.?" -exec gzip -9 {} \;
+          )
+        fi
+      done
+    )
+  )
+done
+( cd $PKG/usr/bin
+  ln -sf xffm xffstab4
+  ln -sf xffm xfapps
+  ln -sf xffm xfbook
+  ln -sf xffm xfsamba4
+  ln -sf xffm xftrash4
+  ln -sf xffm xfapps4
+  ln -sf xffm xfbook4
+  ln -sf xffm xffstab
+  ln -sf xffm xfglob4
+  ln -sf xffm xftree4
+)
+( mkdir -p $PKG/etc/X11/xinit
+  cd $PKG/etc/X11/xinit
+  ln -sf ../xdg/xfce4/xinitrc xinitrc.xfce
+  chmod 755 ../xdg/xfce4/xinitrc
+)
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/xfce-$PKGVER-$ARCH-$BUILD.tgz
+
