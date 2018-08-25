@@ -1,0 +1,11 @@
+bin: bin (some common system utilities)
+bin:
+bin: The "bin" package is a collection of utilities for handling various
+bin: kinds of archives, identifying file types, and processing data.
+bin: Several of these tools are used by system scripts, so this is a
+bin: required package.  The bin package contains these programs:
+bin:
+bin: bban compress diskcopy dosfsck ed eject fbset file fiz fromdos lha
+bin: mkdosfs mktemp patch rescan-scsi-bus rpm2targz rpmoffset run-parts
+bin: savelog splitvt sysvbanner tempfile time todos tree unarj volname
+bin: which xx zoo

@@ -1,0 +1,11 @@
+slocate: slocate (Secure Locate)
+slocate:
+slocate: Slocate is an enhanced version of locate, a command to help you locate
+slocate: files on the system.  Like the original version of locate, Slocate
+slocate: maintains a database of files on the system, updating it nightly.
+slocate: Unlike the original, Slocate indexes every file on the machine rather
+slocate: than only the ones that can be seen by everyone.  The "secure" part of
+slocate: slocate is that it will only return matches if the user is allowed to
+slocate: see the files.
+slocate:
+slocate:

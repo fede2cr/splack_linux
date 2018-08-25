@@ -1,0 +1,11 @@
+man: man (format and display the on-line manual pages)
+man:
+man: The man package is a collection of tools used for searching and
+man: reading the online system documentation.  In fact, on most UNIX-like
+man: operating systems it is the primary means of finding out how programs
+man: on the system work.  For example, 'man man' will display the
+man: documentation for man itself.
+man:
+man: Man requires the groff text processing package.
+man:
+man:

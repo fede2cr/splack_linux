@@ -1,0 +1,11 @@
+hpijs: hpijs (Hewlett-Packard inkjet drivers for Ghostscript)
+hpijs:
+hpijs: The Hewlett-Packard Inkjet Driver Project (HPIJS) is an add-on printer
+hpijs: driver for GNU Ghostscript.  There are two parts to the IJS interface:
+hpijs: the IJS client that resides in GNU Ghostscript, and the IJS server
+hpijs: (in this package).  HPIJS runs as a server or co-process to GNU
+hpijs: Ghostscript. The server is spawned automatically by GNU Ghostscript.
+hpijs:
+hpijs: There are currently more than 80 HP inkjet printer models supported
+hpijs: with HPIJS.
+hpijs:

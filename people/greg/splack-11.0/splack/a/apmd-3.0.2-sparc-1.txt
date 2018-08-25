@@ -1,0 +1,11 @@
+apmd: apmd (Advanced Power Management daemon)
+apmd:
+apmd: apmd is an APM monitoring daemon, and works in conjunction with the
+apmd: APM BIOS driver in the kernel.  Apmd (and the included tools) handle
+apmd: tasks such as automatically putting a laptop into suspend when the
+apmd: power level drop below a certain point.  This package also includes
+apmd: the graphical power management tools xapm and xbattery.
+apmd:
+apmd: The apmd tools were written by Rik Faith and are maintained by
+apmd: Avery Pennarun.  xbattery was written by Nathan Sidwell.
+apmd:

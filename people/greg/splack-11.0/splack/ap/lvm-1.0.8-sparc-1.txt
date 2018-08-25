@@ -1,0 +1,11 @@
+lvm: lvm (Logical Volume Manager)
+lvm:
+lvm: Heinz Mauelshagen's LVM (Logical Volume Manager) for Linux.
+lvm: LVM adds an additional layer between the physical peripherals and the
+lvm: I/O interface in the 2.4.x kernel to get a logical view of disks.  
+lvm: This allows the concatenation of several disks (so-called physical
+lvm: volumes or PVs) to form a storage pool (so-called Volume Group or VG)
+lvm: with allocation units called physical extents (called PE).  With LVM,
+lvm: you can actually extend, resize, or relocate storage dynamically.
+lvm:
+lvm:

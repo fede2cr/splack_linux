@@ -1,0 +1,11 @@
+kernel-ide: kernel-ide (Linux kernel without SCSI controller support)
+kernel-ide:
+kernel-ide: A Linux kernel for computers that do not need SCSI support. You must 
+kernel-ide: install a kernel image in order for your system to boot. This kernel
+kernel-ide: supports IDE (ATA and SATA) hard drives and optical drives.  Other
+kernel-ide: drivers for hardware such as network and sound cards may be loaded as
+kernel-ide: modules.  See /etc/rc.d/rc.modules for examples, although the hotplug
+kernel-ide: system will load most of the required modules automatically.
+kernel-ide:
+kernel-ide:
+kernel-ide:

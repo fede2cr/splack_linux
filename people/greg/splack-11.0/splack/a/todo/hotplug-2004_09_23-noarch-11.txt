@@ -1,0 +1,11 @@
+hotplug: hotplug (scripts to detect and configure hardware devices)
+hotplug:
+hotplug: This package contains scripts used to initialize and configure
+hotplug: hardware at boot time or when it is plugged into the machine (aka
+hotplug: hotplugging).  The /sbin/hotplug script will be called by the
+hotplug: kernel to load the appropriate support modules and set up the device.
+hotplug:
+hotplug:
+hotplug:
+hotplug:
+hotplug:

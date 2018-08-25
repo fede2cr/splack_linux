@@ -1,0 +1,11 @@
+pcmcia-cs: pcmcia-cs (laptop card support)
+pcmcia-cs:
+pcmcia-cs: Card Services for Linux is a complete PCMCIA support package.  It
+pcmcia-cs: includes a set of loadable kernel modules that implement a version of
+pcmcia-cs: the PCMCIA Card Services applications program interface, a set of
+pcmcia-cs: client drivers for specific cards, and a card manager daemon that can
+pcmcia-cs: respond to card insertion and removal events, loading and unloading
+pcmcia-cs: drivers on demand.  It supports ``hot swapping'' of PCMCIA cards, so
+pcmcia-cs: cards can be inserted and ejected at any time.
+pcmcia-cs:
+pcmcia-cs:
