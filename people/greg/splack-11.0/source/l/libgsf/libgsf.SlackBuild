@@ -1,0 +1,68 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-libgsf
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=1.14.1
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+cd $TMP
+rm -rf libgsf-$VERSION
+tar xjvf $CWD/libgsf-$VERSION.tar.bz2
+cd libgsf-$VERSION
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var/lib \
+  --with-html-dir=/usr/share/gtk-doc/html \
+  --mandir=/usr/man \
+  --disable-static \
+  $ARCH-slackware-linux
+make
+make install DESTDIR=$PKG
+
+# This is useless, describing a command that's not installed:
+rm -f $PKG/usr/man/man1/gsf-office-thumbnailer.1
+rmdir $PKG/usr/man/man1 2> /dev/null
+rmdir $PKG/usr/man 2> /dev/null
+
+# And this, more simple removal is about what libgsf deserves if it ignores
+# the --mandir option to configure, which is more than likely...
+rm -rf $PKG/usr/share/man
+
+# In the remote chance that any other man page was installed, and to the
+# requested directory too, then let's gzip it.  Probably send the error
+# output from this one to /dev/null, because gzip won't find anything.
+gzip -9 $PKG/usr/man/man?/*.? 2> /dev/null
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/usr/doc/libgsf-$VERSION
+cp -a \
+  AUTHORS BUGS COPYING* HACKING NEWS README TODO \
+  $PKG/usr/doc/libgsf-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/libgsf-$VERSION-$ARCH-$BUILD.tgz
+

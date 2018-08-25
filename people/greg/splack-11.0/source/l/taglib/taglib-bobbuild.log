@@ -1,0 +1,859 @@
+taglib-1.4/
+taglib-1.4/bindings/
+taglib-1.4/bindings/c/
+taglib-1.4/bindings/c/tag_c.h
+taglib-1.4/bindings/c/tag_c.cpp
+taglib-1.4/bindings/c/Makefile.am
+taglib-1.4/bindings/c/Makefile.in
+taglib-1.4/bindings/c/Makefile.am.orig
+taglib-1.4/bindings/README
+taglib-1.4/bindings/Makefile.am
+taglib-1.4/bindings/Makefile.in
+taglib-1.4/TODO
+taglib-1.4/admin/
+taglib-1.4/admin/compile
+taglib-1.4/admin/Doxyfile.global
+taglib-1.4/admin/depcomp
+taglib-1.4/admin/release.sh
+taglib-1.4/admin/make-changes.diff
+taglib-1.4/admin/Makefile.common
+taglib-1.4/admin/ltmain.sh
+taglib-1.4/admin/config.pl
+taglib-1.4/admin/configure.in.min
+taglib-1.4/admin/config.guess
+taglib-1.4/admin/acinclude.m4.in
+taglib-1.4/admin/install-sh
+taglib-1.4/admin/config.sub
+taglib-1.4/admin/missing
+taglib-1.4/admin/mkinstalldirs
+taglib-1.4/admin/cvs.sh
+taglib-1.4/admin/conf.change.pl
+taglib-1.4/admin/am_edit
+taglib-1.4/admin/libtool.m4.in
+taglib-1.4/admin/svn-clean.pl
+taglib-1.4/admin/ylwrap
+taglib-1.4/admin/cvs-clean.pl
+taglib-1.4/admin/debianrules
+taglib-1.4/admin/detect-autoconf.sh
+taglib-1.4/admin/ChangeLog
+taglib-1.4/admin/Doxyfile.am
+taglib-1.4/admin/configure.in.bot.end
+taglib-1.4/aclocal.m4
+taglib-1.4/tests/
+taglib-1.4/tests/Makefile.am
+taglib-1.4/tests/Makefile.in
+taglib-1.4/tests/toolkit-test.cpp
+taglib-1.4/README
+taglib-1.4/configure
+taglib-1.4/configure.in
+taglib-1.4/subdirs
+taglib-1.4/taglib-api/
+taglib-1.4/taglib-api/taglib-api.css
+taglib-1.4/taglib-api/taglib.doxygen
+taglib-1.4/taglib-api/README
+taglib-1.4/taglib-api/taglib.png
+taglib-1.4/taglib-api/api-footer.html
+taglib-1.4/taglib-api/api-header.html
+taglib-1.4/Makefile.am
+taglib-1.4/Makefile.in
+taglib-1.4/configure.files
+taglib-1.4/configure.in.in
+taglib-1.4/config.h.in
+taglib-1.4/Makefile.cvs
+taglib-1.4/acinclude.m4
+taglib-1.4/taglib/
+taglib-1.4/taglib/ape/
+taglib-1.4/taglib/ape/ape-tag-format.txt
+taglib-1.4/taglib/ape/apetag.cpp
+taglib-1.4/taglib/ape/apetag.h
+taglib-1.4/taglib/ape/apefooter.h
+taglib-1.4/taglib/ape/Makefile.am
+taglib-1.4/taglib/ape/Makefile.in
+taglib-1.4/taglib/ape/apeitem.h
+taglib-1.4/taglib/ape/apeitem.cpp
+taglib-1.4/taglib/ape/apefooter.cpp
+taglib-1.4/taglib/mpc/
+taglib-1.4/taglib/mpc/mpcfile.h
+taglib-1.4/taglib/mpc/mpcproperties.h
+taglib-1.4/taglib/mpc/mpcfile.cpp
+taglib-1.4/taglib/mpc/combinedtag.h
+taglib-1.4/taglib/mpc/Makefile.am
+taglib-1.4/taglib/mpc/Makefile.in
+taglib-1.4/taglib/mpc/mpcproperties.cpp
+taglib-1.4/taglib/ogg/
+taglib-1.4/taglib/ogg/flac/
+taglib-1.4/taglib/ogg/flac/oggflacfile.cpp
+taglib-1.4/taglib/ogg/flac/Makefile.am
+taglib-1.4/taglib/ogg/flac/Makefile.in
+taglib-1.4/taglib/ogg/flac/oggflacfile.h
+taglib-1.4/taglib/ogg/oggpageheader.cpp
+taglib-1.4/taglib/ogg/oggfile.h
+taglib-1.4/taglib/ogg/oggpage.h
+taglib-1.4/taglib/ogg/oggpage.cpp
+taglib-1.4/taglib/ogg/Makefile.am
+taglib-1.4/taglib/ogg/Makefile.in
+taglib-1.4/taglib/ogg/xiphcomment.cpp
+taglib-1.4/taglib/ogg/oggfile.cpp
+taglib-1.4/taglib/ogg/vorbis/
+taglib-1.4/taglib/ogg/vorbis/vorbisfile.h
+taglib-1.4/taglib/ogg/vorbis/Makefile.am
+taglib-1.4/taglib/ogg/vorbis/Makefile.in
+taglib-1.4/taglib/ogg/vorbis/vorbisfile.cpp
+taglib-1.4/taglib/ogg/vorbis/vorbisproperties.h
+taglib-1.4/taglib/ogg/vorbis/vorbisproperties.cpp
+taglib-1.4/taglib/ogg/xiphcomment.h
+taglib-1.4/taglib/ogg/oggpageheader.h
+taglib-1.4/taglib/flac/
+taglib-1.4/taglib/flac/flactag.h
+taglib-1.4/taglib/flac/flacfile.h
+taglib-1.4/taglib/flac/flacproperties.h
+taglib-1.4/taglib/flac/Makefile.am
+taglib-1.4/taglib/flac/Makefile.in
+taglib-1.4/taglib/flac/flacproperties.cpp
+taglib-1.4/taglib/flac/flacfile.cpp
+taglib-1.4/taglib/mpeg/
+taglib-1.4/taglib/mpeg/xingheader.h
+taglib-1.4/taglib/mpeg/id3v1/
+taglib-1.4/taglib/mpeg/id3v1/id3v1tag.cpp
+taglib-1.4/taglib/mpeg/id3v1/id3v1genres.h
+taglib-1.4/taglib/mpeg/id3v1/id3v1genres.cpp
+taglib-1.4/taglib/mpeg/id3v1/Makefile.am
+taglib-1.4/taglib/mpeg/id3v1/Makefile.in
+taglib-1.4/taglib/mpeg/id3v1/id3v1tag.h
+taglib-1.4/taglib/mpeg/id3v2/
+taglib-1.4/taglib/mpeg/id3v2/id3v2framefactory.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2header.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2.4.0-frames.txt
+taglib-1.4/taglib/mpeg/id3v2/id3v2footer.cpp
+taglib-1.4/taglib/mpeg/id3v2/frames/
+taglib-1.4/taglib/mpeg/id3v2/frames/uniquefileidentifierframe.h
+taglib-1.4/taglib/mpeg/id3v2/frames/uniquefileidentifierframe.cpp
+taglib-1.4/taglib/mpeg/id3v2/frames/attachedpictureframe.h
+taglib-1.4/taglib/mpeg/id3v2/frames/relativevolumeframe.cpp
+taglib-1.4/taglib/mpeg/id3v2/frames/unknownframe.h
+taglib-1.4/taglib/mpeg/id3v2/frames/attachedpictureframe.cpp
+taglib-1.4/taglib/mpeg/id3v2/frames/commentsframe.cpp
+taglib-1.4/taglib/mpeg/id3v2/frames/Makefile.am
+taglib-1.4/taglib/mpeg/id3v2/frames/Makefile.in
+taglib-1.4/taglib/mpeg/id3v2/frames/textidentificationframe.cpp
+taglib-1.4/taglib/mpeg/id3v2/frames/relativevolumeframe.h
+taglib-1.4/taglib/mpeg/id3v2/frames/textidentificationframe.h
+taglib-1.4/taglib/mpeg/id3v2/frames/unknownframe.cpp
+taglib-1.4/taglib/mpeg/id3v2/frames/commentsframe.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2header.cpp
+taglib-1.4/taglib/mpeg/id3v2/Makefile.am
+taglib-1.4/taglib/mpeg/id3v2/Makefile.in
+taglib-1.4/taglib/mpeg/id3v2/id3v2tag.cpp
+taglib-1.4/taglib/mpeg/id3v2/id3v2footer.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2synchdata.cpp
+taglib-1.4/taglib/mpeg/id3v2/id3v2framefactory.cpp
+taglib-1.4/taglib/mpeg/id3v2/id3v2tag.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2synchdata.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2frame.cpp
+taglib-1.4/taglib/mpeg/id3v2/id3v2frame.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2extendedheader.cpp
+taglib-1.4/taglib/mpeg/id3v2/id3v2extendedheader.h
+taglib-1.4/taglib/mpeg/id3v2/id3v2.4.0-structure.txt
+taglib-1.4/taglib/mpeg/mpegheader.h
+taglib-1.4/taglib/mpeg/mpegproperties.cpp
+taglib-1.4/taglib/mpeg/xingheader.cpp
+taglib-1.4/taglib/mpeg/mpegfile.h
+taglib-1.4/taglib/mpeg/Makefile.am
+taglib-1.4/taglib/mpeg/Makefile.in
+taglib-1.4/taglib/mpeg/mpegfile.cpp
+taglib-1.4/taglib/mpeg/mpegheader.cpp
+taglib-1.4/taglib/mpeg/mpegproperties.h
+taglib-1.4/taglib/fileref.h
+taglib-1.4/taglib/tag.h
+taglib-1.4/taglib/taglib-config.in
+taglib-1.4/taglib/configure.in.bot
+taglib-1.4/taglib/tag.cpp
+taglib-1.4/taglib/taglib.pc.in
+taglib-1.4/taglib/audioproperties.h
+taglib-1.4/taglib/Makefile.am
+taglib-1.4/taglib/Makefile.in
+taglib-1.4/taglib/toolkit/
+taglib-1.4/taglib/toolkit/tdebug.h
+taglib-1.4/taglib/toolkit/unicode.h
+taglib-1.4/taglib/toolkit/tbytevectorlist.cpp
+taglib-1.4/taglib/toolkit/tmap.tcc
+taglib-1.4/taglib/toolkit/tfile.h
+taglib-1.4/taglib/toolkit/tlist.h
+taglib-1.4/taglib/toolkit/tbytevectorlist.h
+taglib-1.4/taglib/toolkit/tstring.h
+taglib-1.4/taglib/toolkit/Makefile.am
+taglib-1.4/taglib/toolkit/Makefile.in
+taglib-1.4/taglib/toolkit/tstringlist.cpp
+taglib-1.4/taglib/toolkit/taglib.h
+taglib-1.4/taglib/toolkit/tlist.tcc
+taglib-1.4/taglib/toolkit/tmap.h
+taglib-1.4/taglib/toolkit/tdebug.cpp
+taglib-1.4/taglib/toolkit/unicode.cpp
+taglib-1.4/taglib/toolkit/tbytevector.cpp
+taglib-1.4/taglib/toolkit/tstringlist.h
+taglib-1.4/taglib/toolkit/tbytevector.h
+taglib-1.4/taglib/toolkit/tfile.cpp
+taglib-1.4/taglib/toolkit/tstring.cpp
+taglib-1.4/taglib/configure.in.in
+taglib-1.4/taglib/audioproperties.cpp
+taglib-1.4/taglib/fileref.cpp
+taglib-1.4/stamp-h.in
+taglib-1.4/AUTHORS
+taglib-1.4/INSTALL
+taglib-1.4/examples/
+taglib-1.4/examples/strip-id3v1.cpp
+taglib-1.4/examples/framelist.cpp
+taglib-1.4/examples/tagwriter.cpp
+taglib-1.4/examples/tagreader.cpp
+taglib-1.4/examples/tagreader_c.c
+taglib-1.4/examples/Makefile.am
+taglib-1.4/examples/Makefile.in
+taglib-1.4/ChangeLog
+taglib-1.4/COPYING
+configure: WARNING: you should use --build, --host, --target
+checking build system type... sparc-bobware-linux-gnu
+checking host system type... sparc-bobware-linux-gnu
+checking target system type... sparc-bobware-linux-gnu
+checking for a BSD-compatible install... /usr/bin/ginstall -c
+checking for -p flag to install... yes
+checking whether build environment is sane... yes
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking for style of include used by make... GNU
+checking for sparc-bobware-linux-gcc... sparc-bobware-linux-gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether sparc-bobware-linux-gcc accepts -g... yes
+checking for sparc-bobware-linux-gcc option to accept ANSI C... none needed
+checking dependency style of sparc-bobware-linux-gcc... gcc3
+checking how to run the C preprocessor... sparc-bobware-linux-gcc -E
+checking for sparc-bobware-linux-g++... sparc-bobware-linux-g++
+checking whether we are using the GNU C++ compiler... yes
+checking whether sparc-bobware-linux-g++ accepts -g... yes
+checking dependency style of sparc-bobware-linux-g++... gcc3
+checking whether sparc-bobware-linux-gcc is blacklisted... no
+checking whether sparc-bobware-linux-g++ supports -Wmissing-format-attribute... yes
+checking whether sparc-bobware-linux-gcc supports -Wmissing-format-attribute... yes
+checking whether sparc-bobware-linux-g++ supports -Wundef... yes
+checking whether sparc-bobware-linux-g++ supports -Wno-long-long... yes
+checking whether sparc-bobware-linux-g++ supports -Wnon-virtual-dtor... yes
+checking whether sparc-bobware-linux-g++ supports -fno-exceptions... yes
+checking whether sparc-bobware-linux-g++ supports -fno-check-new... yes
+checking whether sparc-bobware-linux-g++ supports -fno-common... yes
+checking whether sparc-bobware-linux-g++ supports -fexceptions... yes
+checking how to run the C++ preprocessor... sparc-bobware-linux-g++ -E
+checking whether sparc-bobware-linux-g++ supports -O0... yes
+checking whether sparc-bobware-linux-g++ supports -Wl,--no-undefined... yes
+checking whether sparc-bobware-linux-g++ supports -Wl,--allow-shlib-undefined... yes
+not using lib directory suffix
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for egrep... grep -E
+checking for ld used by sparc-bobware-linux-gcc... /usr/sparc-bobware-linux/bin/ld
+checking if the linker (/usr/sparc-bobware-linux/bin/ld) is GNU ld... yes
+checking for /usr/sparc-bobware-linux/bin/ld option to reload object files... -r
+checking for BSD-compatible nm... nm
+checking whether ln -s works... yes
+checking how to recognise dependent libraries... pass_all
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking for sparc-bobware-linux-g77... no
+checking for sparc-bobware-linux-f77... no
+checking for sparc-bobware-linux-xlf... no
+checking for sparc-bobware-linux-frt... no
+checking for sparc-bobware-linux-pgf77... no
+checking for sparc-bobware-linux-fort77... no
+checking for sparc-bobware-linux-fl32... no
+checking for sparc-bobware-linux-af77... no
+checking for sparc-bobware-linux-f90... no
+checking for sparc-bobware-linux-xlf90... no
+checking for sparc-bobware-linux-pgf90... no
+checking for sparc-bobware-linux-epcf90... no
+checking for sparc-bobware-linux-f95... no
+checking for sparc-bobware-linux-fort... no
+checking for sparc-bobware-linux-xlf95... no
+checking for sparc-bobware-linux-ifc... no
+checking for sparc-bobware-linux-efc... no
+checking for sparc-bobware-linux-pgf95... no
+checking for sparc-bobware-linux-lf95... no
+checking for sparc-bobware-linux-gfortran... no
+checking for g77... g77
+checking whether we are using the GNU Fortran 77 compiler... yes
+checking whether g77 accepts -g... yes
+checking the maximum length of command line arguments... 65536
+checking command to parse nm output from sparc-bobware-linux-gcc object... ok
+checking for objdir... .libs
+checking for sparc-bobware-linux-ar... no
+checking for ar... ar
+checking for sparc-bobware-linux-ranlib... no
+checking for ranlib... ranlib
+checking for sparc-bobware-linux-strip... no
+checking for strip... strip
+checking if sparc-bobware-linux-gcc static flag  works... yes
+checking if sparc-bobware-linux-gcc supports -fno-rtti -fno-exceptions... no
+checking for sparc-bobware-linux-gcc option to produce PIC... -fPIC
+checking if sparc-bobware-linux-gcc PIC flag -fPIC works... yes
+checking if sparc-bobware-linux-gcc supports -c -o file.o... yes
+checking whether the sparc-bobware-linux-gcc linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking for shl_load... no
+checking for shl_load in -ldld... no
+checking for dlopen... no
+checking for dlopen in -ldl... yes
+checking whether a program can dlopen itself... yes
+checking whether a statically linked program can dlopen itself... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+configure: creating libtool
+appending configuration tag "CXX" to libtool
+checking for ld used by sparc-bobware-linux-g++... /usr/sparc-bobware-linux/bin/ld
+checking if the linker (/usr/sparc-bobware-linux/bin/ld) is GNU ld... yes
+checking whether the sparc-bobware-linux-g++ linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking for sparc-bobware-linux-g++ option to produce PIC... -fPIC
+checking if sparc-bobware-linux-g++ PIC flag -fPIC works... yes
+checking if sparc-bobware-linux-g++ supports -c -o file.o... yes
+checking whether the sparc-bobware-linux-g++ linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking for shl_load... (cached) no
+checking for shl_load in -ldld... (cached) no
+checking for dlopen... (cached) no
+checking for dlopen in -ldl... (cached) yes
+checking whether a program can dlopen itself... (cached) yes
+checking whether a statically linked program can dlopen itself... (cached) yes
+appending configuration tag "F77" to libtool
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking for g77 option to produce PIC... -fPIC
+checking if g77 PIC flag -fPIC works... yes
+checking if g77 supports -c -o file.o... yes
+checking whether the g77 linker (/usr/sparc-bobware-linux/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking zlib.h usability... yes
+checking zlib.h presence... yes
+checking for zlib.h... yes
+checking if bindings should be compiled... yes
+checking if examples should be compiled... yes
+checking if taglib should be compiled... yes
+checking if tests should be compiled... yes
+configure: creating ./config.status
+fast creating Makefile
+fast creating bindings/Makefile
+fast creating bindings/c/Makefile
+fast creating examples/Makefile
+fast creating taglib/Makefile
+fast creating taglib/ape/Makefile
+fast creating taglib/flac/Makefile
+fast creating taglib/mpc/Makefile
+fast creating taglib/mpeg/Makefile
+fast creating taglib/mpeg/id3v1/Makefile
+fast creating taglib/mpeg/id3v2/Makefile
+fast creating taglib/mpeg/id3v2/frames/Makefile
+fast creating taglib/ogg/Makefile
+fast creating taglib/ogg/flac/Makefile
+fast creating taglib/ogg/vorbis/Makefile
+fast creating taglib/toolkit/Makefile
+fast creating tests/Makefile
+fast creating taglib/taglib-config
+fast creating taglib/taglib.pc
+config.pl: fast created 19 file(s).
+config.status: creating config.h
+config.status: executing depfiles commands
+
+Good - your configure finished. Start make now
+
+make  all-recursive
+make[1]: Entering directory `/tmp/taglib-1.4'
+Making all in taglib
+make[2]: Entering directory `/tmp/taglib-1.4/taglib'
+Making all in toolkit
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/toolkit'
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../..     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tstring.lo -MD -MP -MF ".deps/tstring.Tpo" -c -o tstring.lo tstring.cpp; \
+then mv -f ".deps/tstring.Tpo" ".deps/tstring.Plo"; else rm -f ".deps/tstring.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../..     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tstringlist.lo -MD -MP -MF ".deps/tstringlist.Tpo" -c -o tstringlist.lo tstringlist.cpp; \
+then mv -f ".deps/tstringlist.Tpo" ".deps/tstringlist.Plo"; else rm -f ".deps/tstringlist.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../..     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tbytevector.lo -MD -MP -MF ".deps/tbytevector.Tpo" -c -o tbytevector.lo tbytevector.cpp; \
+then mv -f ".deps/tbytevector.Tpo" ".deps/tbytevector.Plo"; else rm -f ".deps/tbytevector.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../..     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tbytevectorlist.lo -MD -MP -MF ".deps/tbytevectorlist.Tpo" -c -o tbytevectorlist.lo tbytevectorlist.cpp; \
+then mv -f ".deps/tbytevectorlist.Tpo" ".deps/tbytevectorlist.Plo"; else rm -f ".deps/tbytevectorlist.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../..     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tfile.lo -MD -MP -MF ".deps/tfile.Tpo" -c -o tfile.lo tfile.cpp; \
+then mv -f ".deps/tfile.Tpo" ".deps/tfile.Plo"; else rm -f ".deps/tfile.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../..     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tdebug.lo -MD -MP -MF ".deps/tdebug.Tpo" -c -o tdebug.lo tdebug.cpp; \
+then mv -f ".deps/tdebug.Tpo" ".deps/tdebug.Plo"; else rm -f ".deps/tdebug.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../..     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT unicode.lo -MD -MP -MF ".deps/unicode.Tpo" -c -o unicode.lo unicode.cpp; \
+then mv -f ".deps/unicode.Tpo" ".deps/unicode.Plo"; else rm -f ".deps/unicode.Tpo"; exit 1; fi
+/bin/sh ../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libtoolkit.la   tstring.lo tstringlist.lo tbytevector.lo tbytevectorlist.lo tfile.lo tdebug.lo unicode.lo  
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/toolkit'
+Making all in mpeg
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/mpeg'
+Making all in id3v1
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v1'
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v1tag.lo -MD -MP -MF ".deps/id3v1tag.Tpo" -c -o id3v1tag.lo id3v1tag.cpp; \
+then mv -f ".deps/id3v1tag.Tpo" ".deps/id3v1tag.Plo"; else rm -f ".deps/id3v1tag.Tpo"; exit 1; fi
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v1genres.lo -MD -MP -MF ".deps/id3v1genres.Tpo" -c -o id3v1genres.lo id3v1genres.cpp; \
+then mv -f ".deps/id3v1genres.Tpo" ".deps/id3v1genres.Plo"; else rm -f ".deps/id3v1genres.Tpo"; exit 1; fi
+/bin/sh ../../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libid3v1.la   id3v1tag.lo id3v1genres.lo  
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v1'
+Making all in id3v2
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+Making all in frames
+make[5]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2/frames'
+if /bin/sh ../../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../../.. -I../../../../taglib -I../../../../taglib/toolkit -I../../../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT attachedpictureframe.lo -MD -MP -MF ".deps/attachedpictureframe.Tpo" -c -o attachedpictureframe.lo attachedpictureframe.cpp; \
+then mv -f ".deps/attachedpictureframe.Tpo" ".deps/attachedpictureframe.Plo"; else rm -f ".deps/attachedpictureframe.Tpo"; exit 1; fi
+if /bin/sh ../../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../../.. -I../../../../taglib -I../../../../taglib/toolkit -I../../../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT commentsframe.lo -MD -MP -MF ".deps/commentsframe.Tpo" -c -o commentsframe.lo commentsframe.cpp; \
+then mv -f ".deps/commentsframe.Tpo" ".deps/commentsframe.Plo"; else rm -f ".deps/commentsframe.Tpo"; exit 1; fi
+if /bin/sh ../../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../../.. -I../../../../taglib -I../../../../taglib/toolkit -I../../../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT relativevolumeframe.lo -MD -MP -MF ".deps/relativevolumeframe.Tpo" -c -o relativevolumeframe.lo relativevolumeframe.cpp; \
+then mv -f ".deps/relativevolumeframe.Tpo" ".deps/relativevolumeframe.Plo"; else rm -f ".deps/relativevolumeframe.Tpo"; exit 1; fi
+if /bin/sh ../../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../../.. -I../../../../taglib -I../../../../taglib/toolkit -I../../../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT textidentificationframe.lo -MD -MP -MF ".deps/textidentificationframe.Tpo" -c -o textidentificationframe.lo textidentificationframe.cpp; \
+then mv -f ".deps/textidentificationframe.Tpo" ".deps/textidentificationframe.Plo"; else rm -f ".deps/textidentificationframe.Tpo"; exit 1; fi
+mkdir: cannot create directory `.libs': File exists
+if /bin/sh ../../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../../.. -I../../../../taglib -I../../../../taglib/toolkit -I../../../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT uniquefileidentifierframe.lo -MD -MP -MF ".deps/uniquefileidentifierframe.Tpo" -c -o uniquefileidentifierframe.lo uniquefileidentifierframe.cpp; \
+then mv -f ".deps/uniquefileidentifierframe.Tpo" ".deps/uniquefileidentifierframe.Plo"; else rm -f ".deps/uniquefileidentifierframe.Tpo"; exit 1; fi
+if /bin/sh ../../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../../.. -I../../../../taglib -I../../../../taglib/toolkit -I../../../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT unknownframe.lo -MD -MP -MF ".deps/unknownframe.Tpo" -c -o unknownframe.lo unknownframe.cpp; \
+then mv -f ".deps/unknownframe.Tpo" ".deps/unknownframe.Plo"; else rm -f ".deps/unknownframe.Tpo"; exit 1; fi
+/bin/sh ../../../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libframes.la   attachedpictureframe.lo commentsframe.lo relativevolumeframe.lo textidentificationframe.lo uniquefileidentifierframe.lo unknownframe.lo  
+make[5]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2/frames'
+make[5]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg -I../../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v2framefactory.lo -MD -MP -MF ".deps/id3v2framefactory.Tpo" -c -o id3v2framefactory.lo id3v2framefactory.cpp; \
+then mv -f ".deps/id3v2framefactory.Tpo" ".deps/id3v2framefactory.Plo"; else rm -f ".deps/id3v2framefactory.Tpo"; exit 1; fi
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg -I../../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v2synchdata.lo -MD -MP -MF ".deps/id3v2synchdata.Tpo" -c -o id3v2synchdata.lo id3v2synchdata.cpp; \
+then mv -f ".deps/id3v2synchdata.Tpo" ".deps/id3v2synchdata.Plo"; else rm -f ".deps/id3v2synchdata.Tpo"; exit 1; fi
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg -I../../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v2tag.lo -MD -MP -MF ".deps/id3v2tag.Tpo" -c -o id3v2tag.lo id3v2tag.cpp; \
+then mv -f ".deps/id3v2tag.Tpo" ".deps/id3v2tag.Plo"; else rm -f ".deps/id3v2tag.Tpo"; exit 1; fi
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg -I../../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v2header.lo -MD -MP -MF ".deps/id3v2header.Tpo" -c -o id3v2header.lo id3v2header.cpp; \
+then mv -f ".deps/id3v2header.Tpo" ".deps/id3v2header.Plo"; else rm -f ".deps/id3v2header.Tpo"; exit 1; fi
+mkdir: cannot create directory `.libs': File exists
+mkdir: cannot create directory `.libs': File exists
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg -I../../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v2frame.lo -MD -MP -MF ".deps/id3v2frame.Tpo" -c -o id3v2frame.lo id3v2frame.cpp; \
+then mv -f ".deps/id3v2frame.Tpo" ".deps/id3v2frame.Plo"; else rm -f ".deps/id3v2frame.Tpo"; exit 1; fi
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg -I../../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v2footer.lo -MD -MP -MF ".deps/id3v2footer.Tpo" -c -o id3v2footer.lo id3v2footer.cpp; \
+then mv -f ".deps/id3v2footer.Tpo" ".deps/id3v2footer.Plo"; else rm -f ".deps/id3v2footer.Tpo"; exit 1; fi
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/mpeg -I../../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT id3v2extendedheader.lo -MD -MP -MF ".deps/id3v2extendedheader.Tpo" -c -o id3v2extendedheader.lo id3v2extendedheader.cpp; \
+then mv -f ".deps/id3v2extendedheader.Tpo" ".deps/id3v2extendedheader.Plo"; else rm -f ".deps/id3v2extendedheader.Tpo"; exit 1; fi
+/bin/sh ../../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libid3v2.la   id3v2framefactory.lo id3v2synchdata.lo id3v2tag.lo id3v2header.lo id3v2frame.lo id3v2footer.lo id3v2extendedheader.lo ./frames/libframes.la -lz 
+make[5]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/mpeg'
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ape -I../../taglib/mpeg/id3v2 -I./id3v2 -I../../taglib/mpeg/id3v1 -I./id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT mpegfile.lo -MD -MP -MF ".deps/mpegfile.Tpo" -c -o mpegfile.lo mpegfile.cpp; \
+then mv -f ".deps/mpegfile.Tpo" ".deps/mpegfile.Plo"; else rm -f ".deps/mpegfile.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ape -I../../taglib/mpeg/id3v2 -I./id3v2 -I../../taglib/mpeg/id3v1 -I./id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT mpegproperties.lo -MD -MP -MF ".deps/mpegproperties.Tpo" -c -o mpegproperties.lo mpegproperties.cpp; \
+then mv -f ".deps/mpegproperties.Tpo" ".deps/mpegproperties.Plo"; else rm -f ".deps/mpegproperties.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ape -I../../taglib/mpeg/id3v2 -I./id3v2 -I../../taglib/mpeg/id3v1 -I./id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT mpegheader.lo -MD -MP -MF ".deps/mpegheader.Tpo" -c -o mpegheader.lo mpegheader.cpp; \
+then mv -f ".deps/mpegheader.Tpo" ".deps/mpegheader.Plo"; else rm -f ".deps/mpegheader.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ape -I../../taglib/mpeg/id3v2 -I./id3v2 -I../../taglib/mpeg/id3v1 -I./id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT xingheader.lo -MD -MP -MF ".deps/xingheader.Tpo" -c -o xingheader.lo xingheader.cpp; \
+then mv -f ".deps/xingheader.Tpo" ".deps/xingheader.Plo"; else rm -f ".deps/xingheader.Tpo"; exit 1; fi
+/bin/sh ../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libmpeg.la   mpegfile.lo mpegproperties.lo mpegheader.lo xingheader.lo ./id3v2/libid3v2.la ./id3v1/libid3v1.la 
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg'
+Making all in ogg
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/ogg'
+Making all in vorbis
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/ogg/vorbis'
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/ogg     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT vorbisfile.lo -MD -MP -MF ".deps/vorbisfile.Tpo" -c -o vorbisfile.lo vorbisfile.cpp; \
+then mv -f ".deps/vorbisfile.Tpo" ".deps/vorbisfile.Plo"; else rm -f ".deps/vorbisfile.Tpo"; exit 1; fi
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/ogg     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT vorbisproperties.lo -MD -MP -MF ".deps/vorbisproperties.Tpo" -c -o vorbisproperties.lo vorbisproperties.cpp; \
+then mv -f ".deps/vorbisproperties.Tpo" ".deps/vorbisproperties.Plo"; else rm -f ".deps/vorbisproperties.Tpo"; exit 1; fi
+mkdir: cannot create directory `.libs': File exists
+/bin/sh ../../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libvorbis.la   vorbisfile.lo vorbisproperties.lo  
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/ogg/vorbis'
+Making all in flac
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/ogg/flac'
+if /bin/sh ../../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../../.. -I../../../taglib -I../../../taglib/toolkit -I../../../taglib/ogg -I../../../taglib/flac     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT oggflacfile.lo -MD -MP -MF ".deps/oggflacfile.Tpo" -c -o oggflacfile.lo oggflacfile.cpp; \
+then mv -f ".deps/oggflacfile.Tpo" ".deps/oggflacfile.Plo"; else rm -f ".deps/oggflacfile.Tpo"; exit 1; fi
+/bin/sh ../../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o liboggflac.la   oggflacfile.lo  
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/ogg/flac'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/ogg'
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT oggfile.lo -MD -MP -MF ".deps/oggfile.Tpo" -c -o oggfile.lo oggfile.cpp; \
+then mv -f ".deps/oggfile.Tpo" ".deps/oggfile.Plo"; else rm -f ".deps/oggfile.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT oggpage.lo -MD -MP -MF ".deps/oggpage.Tpo" -c -o oggpage.lo oggpage.cpp; \
+then mv -f ".deps/oggpage.Tpo" ".deps/oggpage.Plo"; else rm -f ".deps/oggpage.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT oggpageheader.lo -MD -MP -MF ".deps/oggpageheader.Tpo" -c -o oggpageheader.lo oggpageheader.cpp; \
+then mv -f ".deps/oggpageheader.Tpo" ".deps/oggpageheader.Plo"; else rm -f ".deps/oggpageheader.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT xiphcomment.lo -MD -MP -MF ".deps/xiphcomment.Tpo" -c -o xiphcomment.lo xiphcomment.cpp; \
+then mv -f ".deps/xiphcomment.Tpo" ".deps/xiphcomment.Plo"; else rm -f ".deps/xiphcomment.Tpo"; exit 1; fi
+mkdir: cannot create directory `.libs': File exists
+mkdir: cannot create directory `.libs': File exists
+/bin/sh ../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libogg.la   oggfile.lo oggpage.lo oggpageheader.lo xiphcomment.lo ./vorbis/libvorbis.la ./flac/liboggflac.la 
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/ogg'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/ogg'
+Making all in flac
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/flac'
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ogg -I../../taglib/mpeg/id3v2 -I../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT flacfile.lo -MD -MP -MF ".deps/flacfile.Tpo" -c -o flacfile.lo flacfile.cpp; \
+then mv -f ".deps/flacfile.Tpo" ".deps/flacfile.Plo"; else rm -f ".deps/flacfile.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ogg -I../../taglib/mpeg/id3v2 -I../../taglib/mpeg/id3v1     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT flacproperties.lo -MD -MP -MF ".deps/flacproperties.Tpo" -c -o flacproperties.lo flacproperties.cpp; \
+then mv -f ".deps/flacproperties.Tpo" ".deps/flacproperties.Plo"; else rm -f ".deps/flacproperties.Tpo"; exit 1; fi
+mkdir: cannot create directory `.libs': File exists
+/bin/sh ../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libflac.la   flacfile.lo flacproperties.lo  
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/flac'
+Making all in ape
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/ape'
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT apetag.lo -MD -MP -MF ".deps/apetag.Tpo" -c -o apetag.lo apetag.cpp; \
+then mv -f ".deps/apetag.Tpo" ".deps/apetag.Plo"; else rm -f ".deps/apetag.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT apefooter.lo -MD -MP -MF ".deps/apefooter.Tpo" -c -o apefooter.lo apefooter.cpp; \
+then mv -f ".deps/apefooter.Tpo" ".deps/apefooter.Plo"; else rm -f ".deps/apefooter.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT apeitem.lo -MD -MP -MF ".deps/apeitem.Tpo" -c -o apeitem.lo apeitem.cpp; \
+then mv -f ".deps/apeitem.Tpo" ".deps/apeitem.Plo"; else rm -f ".deps/apeitem.Tpo"; exit 1; fi
+mkdir: cannot create directory `.libs': File exists
+/bin/sh ../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libape.la   apetag.lo apefooter.lo apeitem.lo  
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/ape'
+Making all in mpc
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/mpc'
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ape -I../../taglib/mpeg/id3v1 -I../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT mpcfile.lo -MD -MP -MF ".deps/mpcfile.Tpo" -c -o mpcfile.lo mpcfile.cpp; \
+then mv -f ".deps/mpcfile.Tpo" ".deps/mpcfile.Plo"; else rm -f ".deps/mpcfile.Tpo"; exit 1; fi
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/ape -I../../taglib/mpeg/id3v1 -I../../taglib/mpeg/id3v2     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT mpcproperties.lo -MD -MP -MF ".deps/mpcproperties.Tpo" -c -o mpcproperties.lo mpcproperties.cpp; \
+then mv -f ".deps/mpcproperties.Tpo" ".deps/mpcproperties.Plo"; else rm -f ".deps/mpcproperties.Tpo"; exit 1; fi
+/bin/sh ../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libmpc.la   mpcfile.lo mpcproperties.lo  
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/mpc'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib'
+if /bin/sh ../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I.. -I../taglib/toolkit -I../taglib/mpeg -I../taglib/ogg -I../taglib/flac -I../taglib/mpc -I../taglib/ogg/vorbis     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tag.lo -MD -MP -MF ".deps/tag.Tpo" -c -o tag.lo tag.cpp; \
+then mv -f ".deps/tag.Tpo" ".deps/tag.Plo"; else rm -f ".deps/tag.Tpo"; exit 1; fi
+if /bin/sh ../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I.. -I../taglib/toolkit -I../taglib/mpeg -I../taglib/ogg -I../taglib/flac -I../taglib/mpc -I../taglib/ogg/vorbis     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT fileref.lo -MD -MP -MF ".deps/fileref.Tpo" -c -o fileref.lo fileref.cpp; \
+then mv -f ".deps/fileref.Tpo" ".deps/fileref.Plo"; else rm -f ".deps/fileref.Tpo"; exit 1; fi
+if /bin/sh ../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I.. -I../taglib/toolkit -I../taglib/mpeg -I../taglib/ogg -I../taglib/flac -I../taglib/mpc -I../taglib/ogg/vorbis     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT audioproperties.lo -MD -MP -MF ".deps/audioproperties.Tpo" -c -o audioproperties.lo audioproperties.cpp; \
+then mv -f ".deps/audioproperties.Tpo" ".deps/audioproperties.Plo"; else rm -f ".deps/audioproperties.Tpo"; exit 1; fi
+mkdir: cannot create directory `.libs': File exists
+/bin/sh ../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libtag.la -rpath /usr/lib  -no-undefined -Wl,--no-undefined -Wl,--allow-shlib-undefined -version-info 5:0:4 tag.lo fileref.lo audioproperties.lo ./mpeg/libmpeg.la ./ogg/libogg.la ./flac/libflac.la ./mpc/libmpc.la ./ape/libape.la ./toolkit/libtoolkit.la 
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib'
+Making all in bindings
+make[2]: Entering directory `/tmp/taglib-1.4/bindings'
+Making all in c
+make[3]: Entering directory `/tmp/taglib-1.4/bindings/c'
+if /bin/sh ../../libtool --silent --mode=compile --tag=CXX sparc-bobware-linux-g++ -DHAVE_CONFIG_H -I. -I. -I../.. -I../../taglib -I../../taglib/toolkit -I../../taglib/mpeg -I../../taglib/ogg -I../../taglib/ogg/vorbis -I../../taglib/flac -I../../taglib/mpc     -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common  -MT tag_c.lo -MD -MP -MF ".deps/tag_c.Tpo" -c -o tag_c.lo tag_c.cpp; \
+then mv -f ".deps/tag_c.Tpo" ".deps/tag_c.Plo"; else rm -f ".deps/tag_c.Tpo"; exit 1; fi
+/bin/sh ../../libtool --silent --mode=link --tag=CXX sparc-bobware-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -Wno-non-virtual-dtor -O2 -O2 -m32 -mcpu=v8 -mtune=v9 -Wformat-security -Wmissing-format-attribute -fno-exceptions -fno-check-new -fno-common    -o libtag_c.la -rpath /usr/lib  -no-undefined -Wl,--no-undefined -Wl,--allow-shlib-undefined -version-info 0:0 tag_c.lo ../../taglib/libtag.la 
+make[3]: Leaving directory `/tmp/taglib-1.4/bindings/c'
+make[3]: Entering directory `/tmp/taglib-1.4/bindings'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/tmp/taglib-1.4/bindings'
+make[2]: Leaving directory `/tmp/taglib-1.4/bindings'
+Making all in tests
+make[2]: Entering directory `/tmp/taglib-1.4/tests'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/tmp/taglib-1.4/tests'
+make[2]: Entering directory `/tmp/taglib-1.4'
+make[2]: Nothing to be done for `all-am'.
+make[2]: Leaving directory `/tmp/taglib-1.4'
+make[1]: Leaving directory `/tmp/taglib-1.4'
+Making install in taglib
+make[1]: Entering directory `/tmp/taglib-1.4/taglib'
+Making install in toolkit
+make[2]: Entering directory `/tmp/taglib-1.4/taglib/toolkit'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/toolkit'
+make[3]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'taglib.h' '/tmp/package-taglib/usr/include/taglib/taglib.h'
+ /usr/bin/ginstall -c -p -m 644 'tstring.h' '/tmp/package-taglib/usr/include/taglib/tstring.h'
+ /usr/bin/ginstall -c -p -m 644 'tlist.h' '/tmp/package-taglib/usr/include/taglib/tlist.h'
+ /usr/bin/ginstall -c -p -m 644 'tlist.tcc' '/tmp/package-taglib/usr/include/taglib/tlist.tcc'
+ /usr/bin/ginstall -c -p -m 644 'tstringlist.h' '/tmp/package-taglib/usr/include/taglib/tstringlist.h'
+ /usr/bin/ginstall -c -p -m 644 'tbytevector.h' '/tmp/package-taglib/usr/include/taglib/tbytevector.h'
+ /usr/bin/ginstall -c -p -m 644 'tbytevectorlist.h' '/tmp/package-taglib/usr/include/taglib/tbytevectorlist.h'
+ /usr/bin/ginstall -c -p -m 644 'tfile.h' '/tmp/package-taglib/usr/include/taglib/tfile.h'
+ /usr/bin/ginstall -c -p -m 644 'tmap.h' '/tmp/package-taglib/usr/include/taglib/tmap.h'
+ /usr/bin/ginstall -c -p -m 644 'tmap.tcc' '/tmp/package-taglib/usr/include/taglib/tmap.tcc'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/toolkit'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib/toolkit'
+Making install in mpeg
+make[2]: Entering directory `/tmp/taglib-1.4/taglib/mpeg'
+Making install in id3v1
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v1'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v1'
+make[4]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'id3v1tag.h' '/tmp/package-taglib/usr/include/taglib/id3v1tag.h'
+ /usr/bin/ginstall -c -p -m 644 'id3v1genres.h' '/tmp/package-taglib/usr/include/taglib/id3v1genres.h'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v1'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v1'
+Making install in id3v2
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+Making install in frames
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2/frames'
+make[5]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2/frames'
+make[5]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'attachedpictureframe.h' '/tmp/package-taglib/usr/include/taglib/attachedpictureframe.h'
+ /usr/bin/ginstall -c -p -m 644 'commentsframe.h' '/tmp/package-taglib/usr/include/taglib/commentsframe.h'
+ /usr/bin/ginstall -c -p -m 644 'relativevolumeframe.h' '/tmp/package-taglib/usr/include/taglib/relativevolumeframe.h'
+ /usr/bin/ginstall -c -p -m 644 'textidentificationframe.h' '/tmp/package-taglib/usr/include/taglib/textidentificationframe.h'
+ /usr/bin/ginstall -c -p -m 644 'uniquefileidentifierframe.h' '/tmp/package-taglib/usr/include/taglib/uniquefileidentifierframe.h'
+ /usr/bin/ginstall -c -p -m 644 'unknownframe.h' '/tmp/package-taglib/usr/include/taglib/unknownframe.h'
+make[5]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2/frames'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2/frames'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+make[5]: Entering directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+make[5]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'id3v2extendedheader.h' '/tmp/package-taglib/usr/include/taglib/id3v2extendedheader.h'
+ /usr/bin/ginstall -c -p -m 644 'id3v2frame.h' '/tmp/package-taglib/usr/include/taglib/id3v2frame.h'
+ /usr/bin/ginstall -c -p -m 644 'id3v2header.h' '/tmp/package-taglib/usr/include/taglib/id3v2header.h'
+ /usr/bin/ginstall -c -p -m 644 'id3v2synchdata.h' '/tmp/package-taglib/usr/include/taglib/id3v2synchdata.h'
+ /usr/bin/ginstall -c -p -m 644 'id3v2footer.h' '/tmp/package-taglib/usr/include/taglib/id3v2footer.h'
+ /usr/bin/ginstall -c -p -m 644 'id3v2framefactory.h' '/tmp/package-taglib/usr/include/taglib/id3v2framefactory.h'
+ /usr/bin/ginstall -c -p -m 644 'id3v2tag.h' '/tmp/package-taglib/usr/include/taglib/id3v2tag.h'
+make[5]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg/id3v2'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/mpeg'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/mpeg'
+make[4]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'mpegfile.h' '/tmp/package-taglib/usr/include/taglib/mpegfile.h'
+ /usr/bin/ginstall -c -p -m 644 'mpegproperties.h' '/tmp/package-taglib/usr/include/taglib/mpegproperties.h'
+ /usr/bin/ginstall -c -p -m 644 'mpegheader.h' '/tmp/package-taglib/usr/include/taglib/mpegheader.h'
+ /usr/bin/ginstall -c -p -m 644 'xingheader.h' '/tmp/package-taglib/usr/include/taglib/xingheader.h'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib/mpeg'
+Making install in ogg
+make[2]: Entering directory `/tmp/taglib-1.4/taglib/ogg'
+Making install in vorbis
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/ogg/vorbis'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/ogg/vorbis'
+make[4]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'vorbisfile.h' '/tmp/package-taglib/usr/include/taglib/vorbisfile.h'
+ /usr/bin/ginstall -c -p -m 644 'vorbisproperties.h' '/tmp/package-taglib/usr/include/taglib/vorbisproperties.h'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/ogg/vorbis'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/ogg/vorbis'
+Making install in flac
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/ogg/flac'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/ogg/flac'
+make[4]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'oggflacfile.h' '/tmp/package-taglib/usr/include/taglib/oggflacfile.h'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/ogg/flac'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/ogg/flac'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/ogg'
+make[4]: Entering directory `/tmp/taglib-1.4/taglib/ogg'
+make[4]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'oggfile.h' '/tmp/package-taglib/usr/include/taglib/oggfile.h'
+ /usr/bin/ginstall -c -p -m 644 'oggpage.h' '/tmp/package-taglib/usr/include/taglib/oggpage.h'
+ /usr/bin/ginstall -c -p -m 644 'oggpageheader.h' '/tmp/package-taglib/usr/include/taglib/oggpageheader.h'
+ /usr/bin/ginstall -c -p -m 644 'xiphcomment.h' '/tmp/package-taglib/usr/include/taglib/xiphcomment.h'
+make[4]: Leaving directory `/tmp/taglib-1.4/taglib/ogg'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/ogg'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib/ogg'
+Making install in flac
+make[2]: Entering directory `/tmp/taglib-1.4/taglib/flac'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/flac'
+make[3]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'flacfile.h' '/tmp/package-taglib/usr/include/taglib/flacfile.h'
+ /usr/bin/ginstall -c -p -m 644 'flacproperties.h' '/tmp/package-taglib/usr/include/taglib/flacproperties.h'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/flac'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib/flac'
+Making install in ape
+make[2]: Entering directory `/tmp/taglib-1.4/taglib/ape'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/ape'
+make[3]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'apetag.h' '/tmp/package-taglib/usr/include/taglib/apetag.h'
+ /usr/bin/ginstall -c -p -m 644 'apefooter.h' '/tmp/package-taglib/usr/include/taglib/apefooter.h'
+ /usr/bin/ginstall -c -p -m 644 'apeitem.h' '/tmp/package-taglib/usr/include/taglib/apeitem.h'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/ape'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib/ape'
+Making install in mpc
+make[2]: Entering directory `/tmp/taglib-1.4/taglib/mpc'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib/mpc'
+make[3]: Nothing to be done for `install-exec-am'.
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'mpcfile.h' '/tmp/package-taglib/usr/include/taglib/mpcfile.h'
+ /usr/bin/ginstall -c -p -m 644 'mpcproperties.h' '/tmp/package-taglib/usr/include/taglib/mpcproperties.h'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib/mpc'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib/mpc'
+make[2]: Entering directory `/tmp/taglib-1.4/taglib'
+make[3]: Entering directory `/tmp/taglib-1.4/taglib'
+test -z "/usr/bin" || mkdir -p -- "/tmp/package-taglib/usr/bin"
+ /usr/bin/ginstall -c -p 'taglib-config' '/tmp/package-taglib/usr/bin/taglib-config'
+test -z "/usr/lib" || mkdir -p -- "/tmp/package-taglib/usr/lib"
+ /bin/sh ../libtool --silent --mode=install /usr/bin/ginstall -c -p  'libtag.la' '/tmp/package-taglib/usr/lib/libtag.la'
+libtool: install: warning: remember to run `libtool --finish /usr/lib'
+test -z "/usr/lib/pkgconfig" || mkdir -p -- "/tmp/package-taglib/usr/lib/pkgconfig"
+ /usr/bin/ginstall -c -p -m 644 'taglib.pc' '/tmp/package-taglib/usr/lib/pkgconfig/taglib.pc'
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'tag.h' '/tmp/package-taglib/usr/include/taglib/tag.h'
+ /usr/bin/ginstall -c -p -m 644 'fileref.h' '/tmp/package-taglib/usr/include/taglib/fileref.h'
+ /usr/bin/ginstall -c -p -m 644 'audioproperties.h' '/tmp/package-taglib/usr/include/taglib/audioproperties.h'
+make[3]: Leaving directory `/tmp/taglib-1.4/taglib'
+make[2]: Leaving directory `/tmp/taglib-1.4/taglib'
+make[1]: Leaving directory `/tmp/taglib-1.4/taglib'
+Making install in bindings
+make[1]: Entering directory `/tmp/taglib-1.4/bindings'
+Making install in c
+make[2]: Entering directory `/tmp/taglib-1.4/bindings/c'
+make[3]: Entering directory `/tmp/taglib-1.4/bindings/c'
+test -z "/usr/lib" || mkdir -p -- "/tmp/package-taglib/usr/lib"
+ /bin/sh ../../libtool --silent --mode=install /usr/bin/ginstall -c -p  'libtag_c.la' '/tmp/package-taglib/usr/lib/libtag_c.la'
+libtool: install: warning: remember to run `libtool --finish /usr/lib'
+test -z "/usr/include/taglib" || mkdir -p -- "/tmp/package-taglib/usr/include/taglib"
+ /usr/bin/ginstall -c -p -m 644 'tag_c.h' '/tmp/package-taglib/usr/include/taglib/tag_c.h'
+make[3]: Leaving directory `/tmp/taglib-1.4/bindings/c'
+make[2]: Leaving directory `/tmp/taglib-1.4/bindings/c'
+make[2]: Entering directory `/tmp/taglib-1.4/bindings'
+make[3]: Entering directory `/tmp/taglib-1.4/bindings'
+make[3]: Nothing to be done for `install-exec-am'.
+make[3]: Nothing to be done for `install-data-am'.
+make[3]: Leaving directory `/tmp/taglib-1.4/bindings'
+make[2]: Leaving directory `/tmp/taglib-1.4/bindings'
+make[1]: Leaving directory `/tmp/taglib-1.4/bindings'
+Making install in tests
+make[1]: Entering directory `/tmp/taglib-1.4/tests'
+make[2]: Entering directory `/tmp/taglib-1.4/tests'
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+make[2]: Leaving directory `/tmp/taglib-1.4/tests'
+make[1]: Leaving directory `/tmp/taglib-1.4/tests'
+make[1]: Entering directory `/tmp/taglib-1.4'
+make[2]: Entering directory `/tmp/taglib-1.4'
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+make[2]: Leaving directory `/tmp/taglib-1.4'
+make[1]: Leaving directory `/tmp/taglib-1.4'
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+usr/lib/libtag.so.1 -> libtag.so.1.4.0
+usr/lib/libtag.so -> libtag.so.1.4.0
+usr/lib/libtag_c.so.0 -> libtag_c.so.0.0.0
+usr/lib/libtag_c.so -> libtag_c.so.0.0.0
+
+Making symbolic link creation script:
+( cd usr/lib ; rm -rf libtag.so.1 )
+( cd usr/lib ; ln -sf libtag.so.1.4.0 libtag.so.1 )
+( cd usr/lib ; rm -rf libtag.so )
+( cd usr/lib ; ln -sf libtag.so.1.4.0 libtag.so )
+( cd usr/lib ; rm -rf libtag_c.so.0 )
+( cd usr/lib ; ln -sf libtag_c.so.0.0.0 libtag_c.so.0 )
+( cd usr/lib ; rm -rf libtag_c.so )
+( cd usr/lib ; ln -sf libtag_c.so.0.0.0 libtag_c.so )
+
+It is recommended that you make these lines your new installation script.
+
+Would you like to make this stuff the install script for this package
+and remove the symbolic links ([y]es, [n]o)? y
+
+
+Removing symbolic links:
+removed `./usr/lib/libtag.so.1'
+removed `./usr/lib/libtag.so'
+removed `./usr/lib/libtag_c.so.0'
+removed `./usr/lib/libtag_c.so'
+
+Creating your new ./install/doinst.sh...
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? n
+
+
+Creating tar file taglib-1.4-sparc-2.tar...
+
+./
+usr/
+usr/include/
+usr/include/taglib/
+usr/include/taglib/taglib.h
+usr/include/taglib/tstring.h
+usr/include/taglib/tlist.h
+usr/include/taglib/tlist.tcc
+usr/include/taglib/tstringlist.h
+usr/include/taglib/tbytevector.h
+usr/include/taglib/tbytevectorlist.h
+usr/include/taglib/tfile.h
+usr/include/taglib/tmap.h
+usr/include/taglib/tmap.tcc
+usr/include/taglib/id3v1tag.h
+usr/include/taglib/id3v1genres.h
+usr/include/taglib/attachedpictureframe.h
+usr/include/taglib/commentsframe.h
+usr/include/taglib/relativevolumeframe.h
+usr/include/taglib/textidentificationframe.h
+usr/include/taglib/uniquefileidentifierframe.h
+usr/include/taglib/unknownframe.h
+usr/include/taglib/id3v2extendedheader.h
+usr/include/taglib/id3v2frame.h
+usr/include/taglib/id3v2header.h
+usr/include/taglib/id3v2synchdata.h
+usr/include/taglib/id3v2footer.h
+usr/include/taglib/id3v2framefactory.h
+usr/include/taglib/id3v2tag.h
+usr/include/taglib/mpegfile.h
+usr/include/taglib/mpegproperties.h
+usr/include/taglib/mpegheader.h
+usr/include/taglib/xingheader.h
+usr/include/taglib/vorbisfile.h
+usr/include/taglib/vorbisproperties.h
+usr/include/taglib/oggflacfile.h
+usr/include/taglib/oggfile.h
+usr/include/taglib/oggpage.h
+usr/include/taglib/oggpageheader.h
+usr/include/taglib/xiphcomment.h
+usr/include/taglib/flacfile.h
+usr/include/taglib/flacproperties.h
+usr/include/taglib/apetag.h
+usr/include/taglib/apefooter.h
+usr/include/taglib/apeitem.h
+usr/include/taglib/mpcfile.h
+usr/include/taglib/mpcproperties.h
+usr/include/taglib/tag.h
+usr/include/taglib/fileref.h
+usr/include/taglib/audioproperties.h
+usr/include/taglib/tag_c.h
+usr/bin/
+usr/bin/taglib-config
+usr/lib/
+usr/lib/libtag.so.1.4.0
+usr/lib/libtag.la
+usr/lib/pkgconfig/
+usr/lib/pkgconfig/taglib.pc
+usr/lib/libtag_c.so.0.0.0
+usr/lib/libtag_c.la
+usr/doc/
+usr/doc/taglib-1.4/
+usr/doc/taglib-1.4/AUTHORS
+usr/doc/taglib-1.4/COPYING
+usr/doc/taglib-1.4/INSTALL
+usr/doc/taglib-1.4/README
+usr/doc/taglib-1.4/TODO
+install/
+install/slack-desc
+install/doinst.sh
+tar-1.13: taglib-1.4-sparc-2.tar is the archive; not dumped
+WARNING: zero length file ./usr/doc/taglib-1.4/TODO
+
+Gzipping taglib-1.4-sparc-2.tar...
+
+Renaming taglib-1.4-sparc-2.tar.gz to taglib-1.4-sparc-2.tgz...
+
+Moving taglib-1.4-sparc-2.tgz to .....
+
+Package creation complete.
+

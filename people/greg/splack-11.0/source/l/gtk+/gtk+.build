@@ -1,0 +1,16 @@
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/gtk+-1.2.10.tar.gz
+cd gtk+-1.2.10
+./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --with-glib-prefix=/usr \
+            i386-slackware-linux
+make CFLAGS=-O2
+make CFLAGS=-O2 install
+mkdir -p /usr/doc/gtk+-1.2.10
+cp -a ABOUT-NLS AUTHORS COPYING HACKING INSTALL \
+  NEWS README README.cvs-commits TODO /usr/doc/gtk+-1.2.10
+chown -R root:root /usr/doc/gtk+-1.2.10
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

@@ -1,0 +1,1785 @@
+Exploding package /stash0/slackware/splack-11.0/source/n/pine/_pine.tar.gz in current directory:
+./
+usr/
+usr/bin/
+usr/bin/pine
+usr/bin/pico
+usr/bin/pilot
+usr/doc/
+usr/man/
+usr/man/man1/
+etc/
+Exploding package /stash0/slackware/splack-11.0/source/n/pine/_imapd.tar.gz in current directory:
+./
+usr/
+usr/sbin/
+usr/sbin/imapd
+usr/sbin/ipop3d
+usr/man/
+usr/man/man8/
++==========+
+| pine4.64 |
++==========+
+./pine4.64/
+./pine4.64/contrib/
+./pine4.64/contrib/bitmaps/
+./pine4.64/contrib/bitmaps/unixware/
+./pine4.64/contrib/bitmaps/unixware/pine.icon
+./pine4.64/contrib/bitmaps/unixware/pine.cdb
+./pine4.64/contrib/bitmaps/unixware/pine48.icon
+./pine4.64/contrib/bitmaps/unixware/README
+./pine4.64/contrib/bitmaps/pine.icon
+./pine4.64/contrib/bitmaps/pine2.icon
+./pine4.64/contrib/utils/
+./pine4.64/contrib/utils/sendit.sh
+./pine4.64/contrib/utils/ansiprt.c
+./pine4.64/contrib/utils/brk2pine.sh
+./pine4.64/contrib/utils/sendtoall
+./pine4.64/contrib/utils/pwd2pine
+./pine4.64/contrib/utils/mailtrfc.sh
+./pine4.64/contrib/utils/txtcc.sh
+./pine4.64/contrib/keypad.enable/
+./pine4.64/contrib/keypad.enable/keypad.enable.diff
+./pine4.64/contrib/keypad.enable/ReadMe
+./pine4.64/contrib/carmel/
+./pine4.64/contrib/carmel/doc/
+./pine4.64/contrib/carmel/doc/todo
+./pine4.64/contrib/carmel/doc/carmel-driver
+./pine4.64/contrib/carmel/imapd/
+./pine4.64/contrib/carmel/imapd/imapd.c.patch.old
+./pine4.64/contrib/carmel/pine/
+./pine4.64/contrib/carmel/pine/makefile.sun.patch
+./pine4.64/contrib/carmel/pine/filter.c.patch
+./pine4.64/contrib/carmel/pine/mailview.c.patch
+./pine4.64/contrib/carmel/pine/makefile.ult.patch
+./pine4.64/contrib/carmel/c-client/
+./pine4.64/contrib/carmel/c-client/bzk2cml.c
+./pine4.64/contrib/carmel/c-client/carmel.c
+./pine4.64/contrib/carmel/c-client/Makefile.patch
+./pine4.64/contrib/carmel/c-client/carmel2.c
+./pine4.64/contrib/carmel/c-client/carmel.h
+./pine4.64/contrib/carmel/c-client/carmel-purge.sh
+./pine4.64/contrib/carmel/c-client/carmel2.h
+./pine4.64/contrib/carmel/README
+./pine4.64/contrib/krb5-setup
+./pine4.64/contrib/ports/
+./pine4.64/contrib/ports/aos/
+./pine4.64/contrib/ports/aos/aos.diff
+./pine4.64/contrib/ports/aos/README
+./pine4.64/contrib/ports/vms/
+./pine4.64/contrib/ports/vms/vms_multinet_link.opt
+./pine4.64/contrib/ports/vms/vms_netlib_link.opt
+./pine4.64/contrib/ports/vms/readme.vms
+./pine4.64/contrib/ports/vms/vmsbuild.com
+./pine4.64/contrib/ports/vms/readme.1st
+./pine4.64/contrib/ports/vms/vms_link.opt
+./pine4.64/contrib/ports/vms/vmsbuild_cclient.com
+./pine4.64/contrib/ports/sequent_ptx_4.4.6
+./pine4.64/contrib/smime/
+./pine4.64/contrib/smime/README
+./pine4.64/contrib/smime/pine-smime-20030115.diff
+./pine4.64/contrib/ldap-setup
+./pine4.64/doc/
+./pine4.64/doc/tech-notes/
+./pine4.64/doc/tech-notes/for.pnuts
+./pine4.64/doc/tech-notes/Makefile
+./pine4.64/doc/tech-notes/background.html
+./pine4.64/doc/tech-notes/installation.html
+./pine4.64/doc/tech-notes/introduction.html
+./pine4.64/doc/tech-notes/porting.html
+./pine4.64/doc/tech-notes/config.html
+./pine4.64/doc/tech-notes/low-level.html
+./pine4.64/doc/tech-notes/index.html
+./pine4.64/doc/tech-notes/cmd-line.html
+./pine4.64/doc/tech-notes/config-notes.html
+./pine4.64/doc/tech-notes.txt
+./pine4.64/doc/mailcap.unx
+./pine4.64/doc/pine-ports
+./pine4.64/doc/rpload.1
+./pine4.64/doc/pilot.1
+./pine4.64/doc/rpdump.1
+./pine4.64/doc/brochure.txt
+./pine4.64/doc/mime.types
+./pine4.64/doc/pico.1
+./pine4.64/doc/pine.1
+./pine4.64/build
+./pine4.64/pico/
+./pine4.64/pico/osdep/
+./pine4.64/pico/osdep/os-sv4.ic
+./pine4.64/pico/osdep/os-bsi.h
+./pine4.64/pico/osdep/dosgen
+./pine4.64/pico/osdep/os-3b1.h
+./pine4.64/pico/osdep/dos
+./pine4.64/pico/osdep/makefile.bas
+./pine4.64/pico/osdep/os-bsd.ic
+./pine4.64/pico/osdep/spell.os2
+./pine4.64/pico/osdep/os-isc.h
+./pine4.64/pico/osdep/os-aix.h
+./pine4.64/pico/osdep/os-isc.ic
+./pine4.64/pico/osdep/os-sgi.h
+./pine4.64/pico/osdep/os-bso.h
+./pine4.64/pico/osdep/os-sco.h
+./pine4.64/pico/osdep/os-dos.h
+./pine4.64/pico/osdep/os-bs2.h
+./pine4.64/pico/osdep/os-sgi.ic
+./pine4.64/pico/osdep/os-gso.h
+./pine4.64/pico/osdep/spell.ms
+./pine4.64/pico/osdep/os-3b1.ic
+./pine4.64/pico/osdep/os-dyn.h
+./pine4.64/pico/osdep/os-bs2.ic
+./pine4.64/pico/osdep/os-aux.h
+./pine4.64/pico/osdep/os-gsu.h
+./pine4.64/pico/osdep/os-dyn.ic
+./pine4.64/pico/osdep/os-lyn.h
+./pine4.64/pico/osdep/os-os2.h
+./pine4.64/pico/osdep/os-sun.h
+./pine4.64/pico/osdep/os-lyn.ic
+./pine4.64/pico/osdep/os-nxt.ic
+./pine4.64/pico/osdep/makefile.dos
+./pine4.64/pico/osdep/spell.unx
+./pine4.64/pico/osdep/os-hpp.h
+./pine4.64/pico/osdep/os-bso.ic
+./pine4.64/pico/osdep/os-att.h
+./pine4.64/pico/osdep/os-a32.ic
+./pine4.64/pico/osdep/os-dpx.h
+./pine4.64/pico/osdep/os2
+./pine4.64/pico/osdep/makedep
+./pine4.64/pico/osdep/os-nto.ic
+./pine4.64/pico/osdep/os-cvx.ic
+./pine4.64/pico/osdep/os-pt1.h
+./pine4.64/pico/osdep/os-ult.h
+./pine4.64/pico/osdep/term.cap
+./pine4.64/pico/osdep/os-s40.h
+./pine4.64/pico/osdep/os-os2.ic
+./pine4.64/pico/osdep/os-neb.ic
+./pine4.64/pico/osdep/makefile
+./pine4.64/pico/osdep/os-bsd.h
+./pine4.64/pico/osdep/os-nxt.h
+./pine4.64/pico/osdep/os-bsf.h
+./pine4.64/pico/osdep/os-s40.ic
+./pine4.64/pico/osdep/os-ptx.h
+./pine4.64/pico/osdep/os-sv4.h
+./pine4.64/pico/osdep/os-osx.ic
+./pine4.64/pico/osdep/raw.ios
+./pine4.64/pico/osdep/os-bsf.ic
+./pine4.64/pico/osdep/unix
+./pine4.64/pico/osdep/os-cyg.h
+./pine4.64/pico/osdep/os-mct.h
+./pine4.64/pico/osdep/os-a32.h
+./pine4.64/pico/osdep/os-cyg.ic
+./pine4.64/pico/osdep/term.dos
+./pine4.64/pico/osdep/os-osf.h
+./pine4.64/pico/osdep/os-sco.ic
+./pine4.64/pico/osdep/read.sel
+./pine4.64/pico/osdep/os-a41.ic
+./pine4.64/pico/osdep/os-sc5.h
+./pine4.64/pico/osdep/raw.io
+./pine4.64/pico/osdep/os-hpp.ic
+./pine4.64/pico/osdep/makefile.dl
+./pine4.64/pico/osdep/os-sol.h
+./pine4.64/pico/osdep/os-sc5.ic
+./pine4.64/pico/osdep/os-dpx.ic
+./pine4.64/pico/osdep/dos_gen.h
+./pine4.64/pico/osdep/read.pol
+./pine4.64/pico/osdep/raw.brk
+./pine4.64/pico/osdep/os-lnx.ic
+./pine4.64/pico/osdep/fsync.non
+./pine4.64/pico/osdep/os-osx.h
+./pine4.64/pico/osdep/os-gen.ic
+./pine4.64/pico/osdep/term.inf
+./pine4.64/pico/osdep/os-ptx.ic
+./pine4.64/pico/osdep/truncate
+./pine4.64/pico/osdep/includer.c
+./pine4.64/pico/osdep/os-bsi.ic
+./pine4.64/pico/osdep/term.ans
+./pine4.64/pico/osdep/header
+./pine4.64/pico/osdep/os-a41.h
+./pine4.64/pico/osdep/os-aix.ic
+./pine4.64/pico/osdep/os-dos.ic
+./pine4.64/pico/osdep/os-osf.ic
+./pine4.64/pico/osdep/os-att.ic
+./pine4.64/pico/osdep/os-mnt.h
+./pine4.64/pico/osdep/os-nto.h
+./pine4.64/pico/osdep/os-cvx.h
+./pine4.64/pico/osdep/os-lnx.h
+./pine4.64/pico/osdep/os-aux.ic
+./pine4.64/pico/osdep/os-mnt.ic
+./pine4.64/pico/osdep/os-neb.h
+./pine4.64/pico/osdep/os-pt1.ic
+./pine4.64/pico/osdep/getcwd
+./pine4.64/pico/osdep/os-ult.ic
+./pine4.64/pico/osdep/os-gen.h
+./pine4.64/pico/osdep/os-sun.ic
+./pine4.64/pico/resource.h
+./pine4.64/pico/pico.c
+./pine4.64/pico/makefile.neb
+./pine4.64/pico/makefile.nxt
+./pine4.64/pico/display.c
+./pine4.64/pico/makefile.ptx
+./pine4.64/pico/makefile.ga4
+./pine4.64/pico/makefile.isc
+./pine4.64/pico/makefile.sgi
+./pine4.64/pico/makefile.msc
+./pine4.64/pico/makefile.mct
+./pine4.64/pico/makefile.soc
+./pine4.64/pico/makefile.sco
+./pine4.64/pico/makefile.a32
+./pine4.64/pico/basic.c
+./pine4.64/pico/makefile.bs2
+./pine4.64/pico/makefile.osf
+./pine4.64/pico/makefile.gso
+./pine4.64/pico/makefile.dyn
+./pine4.64/pico/ebind.h
+./pine4.64/pico/makefile.sol
+./pine4.64/pico/makefile.gsu
+./pine4.64/pico/makefile.lyn
+./pine4.64/pico/makefile.vul
+./pine4.64/pico/makefile.osx
+./pine4.64/pico/msmenu.h
+./pine4.64/pico/word.c
+./pine4.64/pico/msmem.c
+./pine4.64/pico/makefile.a41
+./pine4.64/pico/vmsbuild.com
+./pine4.64/pico/makefile.att
+./pine4.64/pico/makefile.epx
+./pine4.64/pico/composer.c
+./pine4.64/pico/pilot.c
+./pine4.64/pico/makefile.lnx
+./pine4.64/pico/makefile.pt1
+./pine4.64/pico/makefile.ult
+./pine4.64/pico/makefile.s40
+./pine4.64/pico/makefile.d-g
+./pine4.64/pico/makefile.bsd
+./pine4.64/pico/makefile.gen
+./pine4.64/pico/attach.c
+./pine4.64/pico/makefile.bsf
+./pine4.64/pico/msdlg.c
+./pine4.64/pico/makefile.sv4
+./pine4.64/pico/makefile.bsi
+./pine4.64/pico/makefile.aix
+./pine4.64/pico/makefile.cyg
+./pine4.64/pico/makefile.bso
+./pine4.64/pico/headers.h
+./pine4.64/pico/makefile.gul
+./pine4.64/pico/region.c
+./pine4.64/pico/makefile.sc5
+./pine4.64/pico/makefile.go5
+./pine4.64/pico/makefile.aux
+./pine4.64/pico/makefile.os2
+./pine4.64/pico/estruct.h
+./pine4.64/pico/blddate.c
+./pine4.64/pico/pico.h
+./pine4.64/pico/makefile.sun
+./pine4.64/pico/browse.c
+./pine4.64/pico/efunc.h
+./pine4.64/pico/search.c
+./pine4.64/pico/fileio.c
+./pine4.64/pico/window.c
+./pine4.64/pico/edef.h
+./pine4.64/pico/makefile.uw2
+./pine4.64/pico/buffer.c
+./pine4.64/pico/bind.c
+./pine4.64/pico/file.c
+./pine4.64/pico/makefile.3b1
+./pine4.64/pico/random.c
+./pine4.64/pico/makefile.hpp
+./pine4.64/pico/makefile.gh9
+./pine4.64/pico/main.c
+./pine4.64/pico/cc5.sol
+./pine4.64/pico/makefile.dpx
+./pine4.64/pico/line.c
+./pine4.64/pico/pico-win.lnk
+./pine4.64/pico/makefile.mnt
+./pine4.64/pico/makefile.nto
+./pine4.64/pico/makefile.cvx
+./pine4.64/pico/picolib.def
+./pine4.64/pine/
+./pine4.64/pine/osdep/
+./pine4.64/pine/osdep/makefile.bas
+./pine4.64/pine/osdep/print.dos
+./pine4.64/pine/osdep/termout.dos
+./pine4.64/pine/osdep/os-aix.h
+./pine4.64/pine/osdep/debuging.os2
+./pine4.64/pine/osdep/err_desc
+./pine4.64/pine/osdep/coredump.fpe
+./pine4.64/pine/osdep/domnames.dos
+./pine4.64/pine/osdep/os-bso.h
+./pine4.64/pine/osdep/header.os2
+./pine4.64/pine/osdep/os-sgi.ic
+./pine4.64/pine/osdep/pw_stuff
+./pine4.64/pine/osdep/print.os2
+./pine4.64/pine/osdep/os-dyn.h
+./pine4.64/pine/osdep/execview.dos
+./pine4.64/pine/osdep/os-lyn.h
+./pine4.64/pine/osdep/err_desc.hom
+./pine4.64/pine/osdep/os-os2.h
+./pine4.64/pine/osdep/os-sun.h
+./pine4.64/pine/osdep/mimedisp.osx
+./pine4.64/pine/osdep/execview.os2
+./pine4.64/pine/osdep/os-hpp.h
+./pine4.64/pine/osdep/os-dpx.h
+./pine4.64/pine/osdep/jobcntrl.dos
+./pine4.64/pine/osdep/domnames.nto
+./pine4.64/pine/osdep/fnexpand
+./pine4.64/pine/osdep/os-hpx.h
+./pine4.64/pine/osdep/makedep
+./pine4.64/pine/osdep/termin.gen
+./pine4.64/pine/osdep/mimedisp
+./pine4.64/pine/osdep/fltrname
+./pine4.64/pine/osdep/termout.unx
+./pine4.64/pine/osdep/os-cvx.ic
+./pine4.64/pine/osdep/os-ult.h
+./pine4.64/pine/osdep/debuging.tim
+./pine4.64/pine/osdep/os-neb.ic
+./pine4.64/pine/osdep/os-bsd.h
+./pine4.64/pine/osdep/os-nxt.h
+./pine4.64/pine/osdep/sunquota
+./pine4.64/pine/osdep/creatdir.dos
+./pine4.64/pine/osdep/os-osx.ic
+./pine4.64/pine/osdep/os-bsf.ic
+./pine4.64/pine/osdep/diskquot.hpp
+./pine4.64/pine/osdep/os-cyg.ic
+./pine4.64/pine/osdep/fltrname.dos
+./pine4.64/pine/osdep/os-osf.h
+./pine4.64/pine/osdep/os-sco.ic
+./pine4.64/pine/osdep/creatdir.os2
+./pine4.64/pine/osdep/os-hpp.ic
+./pine4.64/pine/osdep/canacces
+./pine4.64/pine/osdep/makefile.dos
+./pine4.64/pine/osdep/bld_path.dos
+./pine4.64/pine/osdep/os-sol.h
+./pine4.64/pine/osdep/os-sc5.ic
+./pine4.64/pine/osdep/rename
+./pine4.64/pine/osdep/os-hpx.ic
+./pine4.64/pine/osdep/fltrname.os2
+./pine4.64/pine/osdep/readfile
+./pine4.64/pine/osdep/resource.h
+./pine4.64/pine/osdep/coredump
+./pine4.64/pine/osdep/makefile.os2
+./pine4.64/pine/osdep/os-so5.ic
+./pine4.64/pine/osdep/os-gen.ic
+./pine4.64/pine/osdep/writ_dir
+./pine4.64/pine/osdep/canacces.dos
+./pine4.64/pine/osdep/os-ptx.ic
+./pine4.64/pine/osdep/os-bsi.ic
+./pine4.64/pine/osdep/diskquot.a32
+./pine4.64/pine/osdep/execview.osx
+./pine4.64/pine/osdep/srandom.dum
+./pine4.64/pine/osdep/os-aix.ic
+./pine4.64/pine/osdep/os-dos.ic
+./pine4.64/pine/osdep/os-osf.ic
+./pine4.64/pine/osdep/canacces.os2
+./pine4.64/pine/osdep/domnames
+./pine4.64/pine/osdep/os-nto.h
+./pine4.64/pine/osdep/os-lnx.h
+./pine4.64/pine/osdep/os-aux.ic
+./pine4.64/pine/osdep/solquota
+./pine4.64/pine/osdep/termout.gen
+./pine4.64/pine/osdep/os-neb.h
+./pine4.64/pine/osdep/postreap.wt4
+./pine4.64/pine/osdep/os-pt1.ic
+./pine4.64/pine/osdep/execview
+./pine4.64/pine/osdep/os-bsd.ic
+./pine4.64/pine/osdep/pipe.dos
+./pine4.64/pine/osdep/os-bsi.h
+./pine4.64/pine/osdep/expnfldr
+./pine4.64/pine/osdep/os-isc.h
+./pine4.64/pine/osdep/os-sv4.ic
+./pine4.64/pine/osdep/os-isc.ic
+./pine4.64/pine/osdep/diskquot.a41
+./pine4.64/pine/osdep/os-sgi.h
+./pine4.64/pine/osdep/os-sco.h
+./pine4.64/pine/osdep/os-dos.h
+./pine4.64/pine/osdep/os-bs2.h
+./pine4.64/pine/osdep/os-bs2.ic
+./pine4.64/pine/osdep/pipe.os2
+./pine4.64/pine/osdep/os-aux.h
+./pine4.64/pine/osdep/os-dyn.ic
+./pine4.64/pine/osdep/diskquot
+./pine4.64/pine/osdep/expnfldr.dos
+./pine4.64/pine/osdep/os-lyn.ic
+./pine4.64/pine/osdep/jobcntrl
+./pine4.64/pine/osdep/diskquot.sv4
+./pine4.64/pine/osdep/hostname
+./pine4.64/pine/osdep/pw_stuff.dos
+./pine4.64/pine/osdep/os-nxt.ic
+./pine4.64/pine/osdep/os-bso.ic
+./pine4.64/pine/osdep/diskquot.non
+./pine4.64/pine/osdep/sendmail
+./pine4.64/pine/osdep/creatdir
+./pine4.64/pine/osdep/os-a32.ic
+./pine4.64/pine/osdep/hostname.hom
+./pine4.64/pine/osdep/tempfile
+./pine4.64/pine/osdep/jobcntrl.non
+./pine4.64/pine/osdep/postreap.wtp
+./pine4.64/pine/osdep/diskquot.sun
+./pine4.64/pine/osdep/fgetpos
+./pine4.64/pine/osdep/diskquot.so5
+./pine4.64/pine/osdep/os-nto.ic
+./pine4.64/pine/osdep/os-pt1.h
+./pine4.64/pine/osdep/os-s40.h
+./pine4.64/pine/osdep/os-os2.ic
+./pine4.64/pine/osdep/makefile
+./pine4.64/pine/osdep/bld_path
+./pine4.64/pine/osdep/os-bsf.h
+./pine4.64/pine/osdep/os-s40.ic
+./pine4.64/pine/osdep/os-ptx.h
+./pine4.64/pine/osdep/sendmail.dos
+./pine4.64/pine/osdep/os-sv4.h
+./pine4.64/pine/osdep/termin.dos
+./pine4.64/pine/osdep/tempnam.dos
+./pine4.64/pine/osdep/canonicl
+./pine4.64/pine/osdep/os-cyg.h
+./pine4.64/pine/osdep/fnexpand.dos
+./pine4.64/pine/osdep/dosextra
+./pine4.64/pine/osdep/os-a32.h
+./pine4.64/pine/osdep/chnge_pw
+./pine4.64/pine/osdep/codepage.dos
+./pine4.64/pine/osdep/os-a41.ic
+./pine4.64/pine/osdep/tempfile.non
+./pine4.64/pine/osdep/os-sc5.h
+./pine4.64/pine/osdep/fgetpos.non
+./pine4.64/pine/osdep/hostname.una
+./pine4.64/pine/osdep/os-dpx.ic
+./pine4.64/pine/osdep/lstcmpnt
+./pine4.64/pine/osdep/fnexpand.os2
+./pine4.64/pine/osdep/codepage.os2
+./pine4.64/pine/osdep/os-lnx.ic
+./pine4.64/pine/osdep/canonicl.dos
+./pine4.64/pine/osdep/diskquot.ptx
+./pine4.64/pine/osdep/chnge_pw.dos
+./pine4.64/pine/osdep/os-osx.h
+./pine4.64/pine/osdep/diskquot.sgi
+./pine4.64/pine/osdep/debuging
+./pine4.64/pine/osdep/pw_stuff.fun
+./pine4.64/pine/osdep/includer.c
+./pine4.64/pine/osdep/lstcmpnt.dos
+./pine4.64/pine/osdep/header
+./pine4.64/pine/osdep/rename.hom
+./pine4.64/pine/osdep/os-a41.h
+./pine4.64/pine/osdep/rename.dos
+./pine4.64/pine/osdep/print
+./pine4.64/pine/osdep/ReadMe
+./pine4.64/pine/osdep/pipe
+./pine4.64/pine/osdep/readfile.dos
+./pine4.64/pine/osdep/os-mnt.h
+./pine4.64/pine/osdep/os-cvx.h
+./pine4.64/pine/osdep/os-mnt.ic
+./pine4.64/pine/osdep/termin.unx
+./pine4.64/pine/osdep/debuging.dos
+./pine4.64/pine/osdep/filesize
+./pine4.64/pine/osdep/makefile.dl
+./pine4.64/pine/osdep/os-ult.ic
+./pine4.64/pine/osdep/readfile.os2
+./pine4.64/pine/osdep/os-gen.h
+./pine4.64/pine/osdep/os-sun.ic
+./pine4.64/pine/newmail.c
+./pine4.64/pine/reply.c
+./pine4.64/pine/makefile.neb
+./pine4.64/pine/pine.h
+./pine4.64/pine/init.c
+./pine4.64/pine/makefile.nxt
+./pine4.64/pine/brk2pine.sh
+./pine4.64/pine/makefile.ga4
+./pine4.64/pine/makefile.ptx
+./pine4.64/pine/rpdump.c
+./pine4.64/pine/makefile.isc
+./pine4.64/pine/makefile.msc
+./pine4.64/pine/mailview.c
+./pine4.64/pine/makefile.sgi
+./pine4.64/pine/makefile.mct
+./pine4.64/pine/makefile.sco
+./pine4.64/pine/makefile.soc
+./pine4.64/pine/takeaddr.c
+./pine4.64/pine/makefile.a32
+./pine4.64/pine/makefile.bs2
+./pine4.64/pine/other.c
+./pine4.64/pine/makefile.osf
+./pine4.64/pine/makefile.dyn
+./pine4.64/pine/makefile.gsu
+./pine4.64/pine/send.c
+./pine4.64/pine/makefile.lyn
+./pine4.64/pine/makefile.vul
+./pine4.64/pine/makefile.osx
+./pine4.64/pine/mailcap.c
+./pine4.64/pine/mailcmd.c
+./pine4.64/pine/adrbkcmd.c
+./pine4.64/pine/makefile.ghp
+./pine4.64/pine/cmplhlp2.sh
+./pine4.64/pine/adrbklib.c
+./pine4.64/pine/folder.c
+./pine4.64/pine/adrbklib.h
+./pine4.64/pine/makefile.a41
+./pine4.64/pine/pine-nfs.lnk
+./pine4.64/pine/filter.c
+./pine4.64/pine/makefile.epx
+./pine4.64/pine/makefile.lnx
+./pine4.64/pine/cmplhelp.sh
+./pine4.64/pine/bldaddr.c
+./pine4.64/pine/makefile.pt1
+./pine4.64/pine/makefile.ult
+./pine4.64/pine/makefile.s40
+./pine4.64/pine/makefile.d-g
+./pine4.64/pine/makefile.bsd
+./pine4.64/pine/makefile.gen
+./pine4.64/pine/makefile.bsf
+./pine4.64/pine/mailindx.c
+./pine4.64/pine/makefile.sv4
+./pine4.64/pine/makefile.bsi
+./pine4.64/pine/helpindx.c
+./pine4.64/pine/makefile.aix
+./pine4.64/pine/makefile.cyg
+./pine4.64/pine/makefile.bso
+./pine4.64/pine/screen.c
+./pine4.64/pine/headers.h
+./pine4.64/pine/makefile.gul
+./pine4.64/pine/status.c
+./pine4.64/pine/addrbook.c
+./pine4.64/pine/makefile.sc5
+./pine4.64/pine/pine-wat.lnk
+./pine4.64/pine/makefile.gs4
+./pine4.64/pine/makefile.aux
+./pine4.64/pine/pine-win.lnk
+./pine4.64/pine/makefile.gs5
+./pine4.64/pine/strings.c
+./pine4.64/pine/pine-lwp.lnk
+./pine4.64/pine/pine.hlp
+./pine4.64/pine/pine-pc.lnk
+./pine4.64/pine/makefile.os2
+./pine4.64/pine/makefile.so4
+./pine4.64/pine/makefile.sun
+./pine4.64/pine/signals.c
+./pine4.64/pine/makefile.so5
+./pine4.64/pine/pine.def
+./pine4.64/pine/makefile.uw2
+./pine4.64/pine/mailpart.c
+./pine4.64/pine/README
+./pine4.64/pine/rpload.c
+./pine4.64/pine/makefile.hpp
+./pine4.64/pine/makefile.gh9
+./pine4.64/pine/context.c
+./pine4.64/pine/cmplhelp.cmd
+./pine4.64/pine/pine-use.c
+./pine4.64/pine/makefile.dpx
+./pine4.64/pine/imap.c
+./pine4.64/pine/help.c
+./pine4.64/pine/makefile.mnt
+./pine4.64/pine/context.h
+./pine4.64/pine/mailtrfc.sh
+./pine4.64/pine/makefile.hpx
+./pine4.64/pine/makefile.nto
+./pine4.64/pine/makefile.cvx
+./pine4.64/pine/pine.c
+./pine4.64/pine/args.c
+./pine4.64/build.cmd
+./pine4.64/buildcyg
+./pine4.64/imap/
+./pine4.64/imap/CONTENTS
+./pine4.64/imap/CPYRIGHT
+./pine4.64/imap/docs/
+./pine4.64/imap/docs/rfc/
+./pine4.64/imap/docs/rfc/rfc3502.txt
+./pine4.64/imap/docs/rfc/rfc2971.txt
+./pine4.64/imap/docs/rfc/rfc1731.txt
+./pine4.64/imap/docs/rfc/rfc1732.txt
+./pine4.64/imap/docs/rfc/rfc1733.txt
+./pine4.64/imap/docs/rfc/rfc3501.txt
+./pine4.64/imap/docs/rfc/rfc2061.txt
+./pine4.64/imap/docs/rfc/rfc2062.txt
+./pine4.64/imap/docs/rfc/rfc2086.txt
+./pine4.64/imap/docs/rfc/rfc2087.txt
+./pine4.64/imap/docs/rfc/rfc2088.txt
+./pine4.64/imap/docs/rfc/rfc2177.txt
+./pine4.64/imap/docs/rfc/rfc2180.txt
+./pine4.64/imap/docs/rfc/rfc2192.txt
+./pine4.64/imap/docs/rfc/rfc2193.txt
+./pine4.64/imap/docs/rfc/rfc2195.txt
+./pine4.64/imap/docs/rfc/rfc2221.txt
+./pine4.64/imap/docs/rfc/rfc2222.txt
+./pine4.64/imap/docs/rfc/rfc2245.txt
+./pine4.64/imap/docs/rfc/rfc2342.txt
+./pine4.64/imap/docs/rfc/rfc2234.txt
+./pine4.64/imap/docs/rfc/rfc2359.txt
+./pine4.64/imap/docs/rfc/rfc2683.txt
+./pine4.64/imap/docs/rfc/rfc2595.txt
+./pine4.64/imap/docs/rfc/rfc3348.txt
+./pine4.64/imap/docs/rfc/rfc3503.txt
+./pine4.64/imap/docs/rfc/rfc3516.txt
+./pine4.64/imap/docs/rfc/rfc3656.txt
+./pine4.64/imap/docs/rfc/rfc3691.txt
+./pine4.64/imap/docs/draft/
+./pine4.64/imap/docs/draft/README
+./pine4.64/imap/docs/draft/compare.txt
+./pine4.64/imap/docs/draft/i18n.txt
+./pine4.64/imap/docs/draft/sort.txt
+./pine4.64/imap/docs/BUILD
+./pine4.64/imap/docs/internal.txt
+./pine4.64/imap/docs/CONFIG
+./pine4.64/imap/docs/calendar.txt
+./pine4.64/imap/docs/bugs.txt
+./pine4.64/imap/docs/naming.txt
+./pine4.64/imap/docs/imaprc.txt
+./pine4.64/imap/docs/RELNOTES
+./pine4.64/imap/docs/drivers.txt
+./pine4.64/imap/docs/locking.txt
+./pine4.64/imap/docs/FAQ.txt
+./pine4.64/imap/docs/md5.txt
+./pine4.64/imap/docs/Y2K
+./pine4.64/imap/docs/formats.txt
+./pine4.64/imap/docs/SSLBUILD
+./pine4.64/imap/docs/commndmt.txt
+./pine4.64/imap/docs/FAQ.html
+./pine4.64/imap/docs/IPv6.txt
+./pine4.64/imap/Makefile
+./pine4.64/imap/makefile.nt
+./pine4.64/imap/makefile.ntk
+./pine4.64/imap/makefile.os2
+./pine4.64/imap/makefile.w2k
+./pine4.64/imap/makefile.wce
+./pine4.64/imap/README
+./pine4.64/imap/src/
+./pine4.64/imap/src/c-client/
+./pine4.64/imap/src/c-client/rfc822.c
+./pine4.64/imap/src/c-client/utf8.c
+./pine4.64/imap/src/c-client/env.h
+./pine4.64/imap/src/c-client/fs.h
+./pine4.64/imap/src/c-client/ftl.h
+./pine4.64/imap/src/c-client/mail.c
+./pine4.64/imap/src/c-client/mail.h
+./pine4.64/imap/src/c-client/nntp.c
+./pine4.64/imap/src/c-client/misc.c
+./pine4.64/imap/src/c-client/misc.h
+./pine4.64/imap/src/c-client/netmsg.c
+./pine4.64/imap/src/c-client/netmsg.h
+./pine4.64/imap/src/c-client/newsrc.c
+./pine4.64/imap/src/c-client/newsrc.h
+./pine4.64/imap/src/c-client/nl.h
+./pine4.64/imap/src/c-client/smtp.c
+./pine4.64/imap/src/c-client/nntp.h
+./pine4.64/imap/src/c-client/pop3.c
+./pine4.64/imap/src/c-client/rfc822.h
+./pine4.64/imap/src/c-client/smanager.c
+./pine4.64/imap/src/c-client/smtp.h
+./pine4.64/imap/src/c-client/tcp.h
+./pine4.64/imap/src/c-client/imap4r1.h
+./pine4.64/imap/src/c-client/imap4r1.c
+./pine4.64/imap/src/c-client/flstring.c
+./pine4.64/imap/src/c-client/flstring.h
+./pine4.64/imap/src/c-client/utf8.h
+./pine4.64/imap/src/c-client/auth_gss.c
+./pine4.64/imap/src/c-client/auth_log.c
+./pine4.64/imap/src/c-client/auth_md5.c
+./pine4.64/imap/src/c-client/c-client.h
+./pine4.64/imap/src/c-client/auth_pla.c
+./pine4.64/imap/src/c-client/sslio.h
+./pine4.64/imap/src/imapd/
+./pine4.64/imap/src/imapd/Makefile
+./pine4.64/imap/src/imapd/imapd.c
+./pine4.64/imap/src/imapd/makefile.nt
+./pine4.64/imap/src/imapd/imapd.def
+./pine4.64/imap/src/imapd/makefile.ntk
+./pine4.64/imap/src/imapd/makefile.w2k
+./pine4.64/imap/src/imapd/imapd.8
+./pine4.64/imap/src/ipopd/
+./pine4.64/imap/src/ipopd/Makefile
+./pine4.64/imap/src/ipopd/ipop2d.c
+./pine4.64/imap/src/ipopd/ipop3d.c
+./pine4.64/imap/src/ipopd/ipop2d.def
+./pine4.64/imap/src/ipopd/ipop3d.def
+./pine4.64/imap/src/ipopd/makefile.nt
+./pine4.64/imap/src/ipopd/makefile.ntk
+./pine4.64/imap/src/ipopd/makefile.w2k
+./pine4.64/imap/src/ipopd/ipopd.8
+./pine4.64/imap/src/osdep/
+./pine4.64/imap/src/osdep/dos/
+./pine4.64/imap/src/osdep/dos/os_dnv.h
+./pine4.64/imap/src/osdep/dos/os_dbw.h
+./pine4.64/imap/src/osdep/dos/tcp_wsk.h
+./pine4.64/imap/src/osdep/dos/fs_dos.c
+./pine4.64/imap/src/osdep/dos/ftl_dos.c
+./pine4.64/imap/src/osdep/dos/env_dos.c
+./pine4.64/imap/src/osdep/dos/nl_dos.c
+./pine4.64/imap/src/osdep/dos/tcp_dos.c
+./pine4.64/imap/src/osdep/dos/tcp_dos.h
+./pine4.64/imap/src/osdep/dos/drivers.bat
+./pine4.64/imap/src/osdep/dos/drivraux.bat
+./pine4.64/imap/src/osdep/dos/mtestdbw.bat
+./pine4.64/imap/src/osdep/dos/mtestdnf.bat
+./pine4.64/imap/src/osdep/dos/mtestdnv.bat
+./pine4.64/imap/src/osdep/dos/mtestdpc.bat
+./pine4.64/imap/src/osdep/dos/mtestdwa.bat
+./pine4.64/imap/src/osdep/dos/mtestwsk.bat
+./pine4.64/imap/src/osdep/dos/dummy.h
+./pine4.64/imap/src/osdep/dos/mtest.def
+./pine4.64/imap/src/osdep/dos/os_dbw.c
+./pine4.64/imap/src/osdep/dos/os_dnf.c
+./pine4.64/imap/src/osdep/dos/os_dnf.h
+./pine4.64/imap/src/osdep/dos/os_dnv.c
+./pine4.64/imap/src/osdep/dos/mtxdos.c
+./pine4.64/imap/src/osdep/dos/os_dpc.c
+./pine4.64/imap/src/osdep/dos/os_dpc.h
+./pine4.64/imap/src/osdep/dos/os_dwa.c
+./pine4.64/imap/src/osdep/dos/os_dwa.h
+./pine4.64/imap/src/osdep/dos/os_wsk.c
+./pine4.64/imap/src/osdep/dos/os_wsk.h
+./pine4.64/imap/src/osdep/dos/makefile
+./pine4.64/imap/src/osdep/dos/tcp_dwa.c
+./pine4.64/imap/src/osdep/dos/tcp_dwa.h
+./pine4.64/imap/src/osdep/dos/tcp_wsk.c
+./pine4.64/imap/src/osdep/dos/dummydos.c
+./pine4.64/imap/src/osdep/dos/env_dos.h
+./pine4.64/imap/src/osdep/dos/write.c
+./pine4.64/imap/src/osdep/dos/bezrkdos.c
+./pine4.64/imap/src/osdep/dos/bezrkdos.h
+./pine4.64/imap/src/osdep/dos/mkauths.bat
+./pine4.64/imap/src/osdep/dos/mkautaux.bat
+./pine4.64/imap/src/osdep/dos/fdstring.c
+./pine4.64/imap/src/osdep/dos/fdstring.h
+./pine4.64/imap/src/osdep/dos/pmatch.c
+./pine4.64/imap/src/osdep/mac/
+./pine4.64/imap/src/osdep/mac/fs_mac.c
+./pine4.64/imap/src/osdep/mac/dummy.h
+./pine4.64/imap/src/osdep/mac/pmatch.c
+./pine4.64/imap/src/osdep/mac/env_mac.h
+./pine4.64/imap/src/osdep/mac/ftl_mac.c
+./pine4.64/imap/src/osdep/mac/nl_mac.c
+./pine4.64/imap/src/osdep/mac/os_mac.c
+./pine4.64/imap/src/osdep/mac/os_mac.h
+./pine4.64/imap/src/osdep/mac/tcp_mac.c
+./pine4.64/imap/src/osdep/mac/tcp_mac.h
+./pine4.64/imap/src/osdep/mac/osdep.h
+./pine4.64/imap/src/osdep/mac/linkage.h
+./pine4.64/imap/src/osdep/mac/env_mac.c
+./pine4.64/imap/src/osdep/mac/linkage.c
+./pine4.64/imap/src/osdep/mac/dummymac.c
+./pine4.64/imap/src/osdep/mac/mtest.sit.hqx
+./pine4.64/imap/src/osdep/unix/
+./pine4.64/imap/src/osdep/unix/os_a32.h
+./pine4.64/imap/src/osdep/unix/os_a41.h
+./pine4.64/imap/src/osdep/unix/fs_unix.c
+./pine4.64/imap/src/osdep/unix/env_unix.c
+./pine4.64/imap/src/osdep/unix/env_unix.h
+./pine4.64/imap/src/osdep/unix/os_a32.c
+./pine4.64/imap/src/osdep/unix/ftl_unix.c
+./pine4.64/imap/src/osdep/unix/nl_unix.c
+./pine4.64/imap/src/osdep/unix/tcp_unix.h
+./pine4.64/imap/src/osdep/unix/tcp_unix.c
+./pine4.64/imap/src/osdep/unix/Makefile
+./pine4.64/imap/src/osdep/unix/drivers
+./pine4.64/imap/src/osdep/unix/os_aos.c
+./pine4.64/imap/src/osdep/unix/log_std.c
+./pine4.64/imap/src/osdep/unix/os_a41.c
+./pine4.64/imap/src/osdep/unix/ckp_std.c
+./pine4.64/imap/src/osdep/unix/ckp_sv4.c
+./pine4.64/imap/src/osdep/unix/ckp_ult.c
+./pine4.64/imap/src/osdep/unix/log_sec.c
+./pine4.64/imap/src/osdep/unix/os_bsd.c
+./pine4.64/imap/src/osdep/unix/os_aix.c
+./pine4.64/imap/src/osdep/unix/os_aix.h
+./pine4.64/imap/src/osdep/unix/os_bsf.c
+./pine4.64/imap/src/osdep/unix/os_aos.h
+./pine4.64/imap/src/osdep/unix/os_art.c
+./pine4.64/imap/src/osdep/unix/os_art.h
+./pine4.64/imap/src/osdep/unix/os_asv.c
+./pine4.64/imap/src/osdep/unix/os_asv.h
+./pine4.64/imap/src/osdep/unix/os_aux.c
+./pine4.64/imap/src/osdep/unix/os_aux.h
+./pine4.64/imap/src/osdep/unix/os_bsi.c
+./pine4.64/imap/src/osdep/unix/os_bsd.h
+./pine4.64/imap/src/osdep/unix/os_os4.h
+./pine4.64/imap/src/osdep/unix/os_bsf.h
+./pine4.64/imap/src/osdep/unix/os_osf.h
+./pine4.64/imap/src/osdep/unix/os_bsi.h
+./pine4.64/imap/src/osdep/unix/os_cvx.c
+./pine4.64/imap/src/osdep/unix/os_cvx.h
+./pine4.64/imap/src/osdep/unix/os_cyg.c
+./pine4.64/imap/src/osdep/unix/os_cyg.h
+./pine4.64/imap/src/osdep/unix/os_d-g.c
+./pine4.64/imap/src/osdep/unix/os_d-g.h
+./pine4.64/imap/src/osdep/unix/os_do4.c
+./pine4.64/imap/src/osdep/unix/os_do4.h
+./pine4.64/imap/src/osdep/unix/os_drs.c
+./pine4.64/imap/src/osdep/unix/os_drs.h
+./pine4.64/imap/src/osdep/unix/os_dyn.c
+./pine4.64/imap/src/osdep/unix/os_dyn.h
+./pine4.64/imap/src/osdep/unix/os_hpp.c
+./pine4.64/imap/src/osdep/unix/log_old.c
+./pine4.64/imap/src/osdep/unix/ckp_afs.c
+./pine4.64/imap/src/osdep/unix/os_hpp.h
+./pine4.64/imap/src/osdep/unix/os_isc.c
+./pine4.64/imap/src/osdep/unix/os_isc.h
+./pine4.64/imap/src/osdep/unix/os_lnx.c
+./pine4.64/imap/src/osdep/unix/os_lnx.h
+./pine4.64/imap/src/osdep/unix/os_lyn.c
+./pine4.64/imap/src/osdep/unix/os_lyn.h
+./pine4.64/imap/src/osdep/unix/os_mct.c
+./pine4.64/imap/src/osdep/unix/os_mct.h
+./pine4.64/imap/src/osdep/unix/os_mnt.c
+./pine4.64/imap/src/osdep/unix/os_mnt.h
+./pine4.64/imap/src/osdep/unix/os_nto.c
+./pine4.64/imap/src/osdep/unix/os_nto.h
+./pine4.64/imap/src/osdep/unix/os_nxt.c
+./pine4.64/imap/src/osdep/unix/os_nxt.h
+./pine4.64/imap/src/osdep/unix/os_os4.c
+./pine4.64/imap/src/osdep/unix/os_osx.c
+./pine4.64/imap/src/osdep/unix/os_osf.c
+./pine4.64/imap/src/osdep/unix/os_osx.h
+./pine4.64/imap/src/osdep/unix/dummy.c
+./pine4.64/imap/src/osdep/unix/dummy.h
+./pine4.64/imap/src/osdep/unix/write.c
+./pine4.64/imap/src/osdep/unix/unix.c
+./pine4.64/imap/src/osdep/unix/os_ptx.c
+./pine4.64/imap/src/osdep/unix/os_ptx.h
+./pine4.64/imap/src/osdep/unix/os_pyr.c
+./pine4.64/imap/src/osdep/unix/os_shp.h
+./pine4.64/imap/src/osdep/unix/os_slx.h
+./pine4.64/imap/src/osdep/unix/fsync.c
+./pine4.64/imap/src/osdep/unix/gethstid.c
+./pine4.64/imap/src/osdep/unix/os_pyr.h
+./pine4.64/imap/src/osdep/unix/gr_wait.c
+./pine4.64/imap/src/osdep/unix/gr_wait4.c
+./pine4.64/imap/src/osdep/unix/gr_waitp.c
+./pine4.64/imap/src/osdep/unix/opendir.c
+./pine4.64/imap/src/osdep/unix/mbx.h
+./pine4.64/imap/src/osdep/unix/mtx.c
+./pine4.64/imap/src/osdep/unix/phile.c
+./pine4.64/imap/src/osdep/unix/scandir.c
+./pine4.64/imap/src/osdep/unix/setpgrp.c
+./pine4.64/imap/src/osdep/unix/tenex.c
+./pine4.64/imap/src/osdep/unix/truncate.c
+./pine4.64/imap/src/osdep/unix/tz_bsd.c
+./pine4.64/imap/src/osdep/unix/tz_nul.c
+./pine4.64/imap/src/osdep/unix/tz_sv4.c
+./pine4.64/imap/src/osdep/unix/os_qnx.c
+./pine4.64/imap/src/osdep/unix/strerror.c
+./pine4.64/imap/src/osdep/unix/unix.h
+./pine4.64/imap/src/osdep/unix/news.c
+./pine4.64/imap/src/osdep/unix/os_qnx.h
+./pine4.64/imap/src/osdep/unix/os_s40.c
+./pine4.64/imap/src/osdep/unix/mmdf.c
+./pine4.64/imap/src/osdep/unix/mh.c
+./pine4.64/imap/src/osdep/unix/mh.h
+./pine4.64/imap/src/osdep/unix/mbx.c
+./pine4.64/imap/src/osdep/unix/os_s40.h
+./pine4.64/imap/src/osdep/unix/ckp_dce.c
+./pine4.64/imap/src/osdep/unix/os_sc5.c
+./pine4.64/imap/src/osdep/unix/os_sc5.h
+./pine4.64/imap/src/osdep/unix/os_sco.c
+./pine4.64/imap/src/osdep/unix/mkauths
+./pine4.64/imap/src/osdep/unix/os_sco.h
+./pine4.64/imap/src/osdep/unix/log_os4.c
+./pine4.64/imap/src/osdep/unix/os_sgi.c
+./pine4.64/imap/src/osdep/unix/flocksim.c
+./pine4.64/imap/src/osdep/unix/flocksim.h
+./pine4.64/imap/src/osdep/unix/os_sgi.h
+./pine4.64/imap/src/osdep/unix/os_shp.c
+./pine4.64/imap/src/osdep/unix/fdstring.c
+./pine4.64/imap/src/osdep/unix/os_slx.c
+./pine4.64/imap/src/osdep/unix/mx.c
+./pine4.64/imap/src/osdep/unix/mx.h
+./pine4.64/imap/src/osdep/unix/ckp_ssn.c
+./pine4.64/imap/src/osdep/unix/fdstring.h
+./pine4.64/imap/src/osdep/unix/rename.c
+./pine4.64/imap/src/osdep/unix/os_sol.c
+./pine4.64/imap/src/osdep/unix/pseudo.c
+./pine4.64/imap/src/osdep/unix/pseudo.h
+./pine4.64/imap/src/osdep/unix/getspnam.c
+./pine4.64/imap/src/osdep/unix/utime.c
+./pine4.64/imap/src/osdep/unix/ckp_os4.c
+./pine4.64/imap/src/osdep/unix/os_sos.h
+./pine4.64/imap/src/osdep/unix/kerb_mit.c
+./pine4.64/imap/src/osdep/unix/sig_psx.c
+./pine4.64/imap/src/osdep/unix/os_solo.h
+./pine4.64/imap/src/osdep/unix/sig_sv4.c
+./pine4.64/imap/src/osdep/unix/ckp_bsi.c
+./pine4.64/imap/src/osdep/unix/sig_bsd.c
+./pine4.64/imap/src/osdep/unix/log_bsi.c
+./pine4.64/imap/src/osdep/unix/ckp_svo.c
+./pine4.64/imap/src/osdep/unix/os_sos.c
+./pine4.64/imap/src/osdep/unix/ckp_a41.c
+./pine4.64/imap/src/osdep/unix/os_sun.c
+./pine4.64/imap/src/osdep/unix/ckp_sec.c
+./pine4.64/imap/src/osdep/unix/ckp_psx.c
+./pine4.64/imap/src/osdep/unix/log_sv4.c
+./pine4.64/imap/src/osdep/unix/ckp_nul.c
+./pine4.64/imap/src/osdep/unix/Makefile.gss
+./pine4.64/imap/src/osdep/unix/sslstdio.c
+./pine4.64/imap/src/osdep/unix/Makefile.md5
+./pine4.64/imap/src/osdep/unix/ckp_pam.c
+./pine4.64/imap/src/osdep/unix/ckp_pmb.c
+./pine4.64/imap/src/osdep/unix/os_sun.h
+./pine4.64/imap/src/osdep/unix/os_sv2.c
+./pine4.64/imap/src/osdep/unix/crx_std.c
+./pine4.64/imap/src/osdep/unix/crx_nfs.c
+./pine4.64/imap/src/osdep/unix/ssl_none.c
+./pine4.64/imap/src/osdep/unix/pmatch.c
+./pine4.64/imap/src/osdep/unix/os_sv2.h
+./pine4.64/imap/src/osdep/unix/os_sv4.c
+./pine4.64/imap/src/osdep/unix/os_sv4.h
+./pine4.64/imap/src/osdep/unix/ckp_gss.c
+./pine4.64/imap/src/osdep/unix/ckp_1st.c
+./pine4.64/imap/src/osdep/unix/os_ult.c
+./pine4.64/imap/src/osdep/unix/ckp_2nd.c
+./pine4.64/imap/src/osdep/unix/os_ult.h
+./pine4.64/imap/src/osdep/unix/os_vu2.c
+./pine4.64/imap/src/osdep/unix/ckp_3rd.c
+./pine4.64/imap/src/osdep/unix/ssl_unix.c
+./pine4.64/imap/src/osdep/unix/os_vu2.h
+./pine4.64/imap/src/osdep/unix/ckp_cyg.c
+./pine4.64/imap/src/osdep/unix/nfstold.c
+./pine4.64/imap/src/osdep/unix/log_cyg.c
+./pine4.64/imap/src/osdep/unix/nfstnew.c
+./pine4.64/imap/src/osdep/unix/flockcyg.h
+./pine4.64/imap/src/osdep/unix/flockcyg.c
+./pine4.64/imap/src/osdep/unix/ipo_unix.c
+./pine4.64/imap/src/osdep/unix/ip6_unix.c
+./pine4.64/imap/src/osdep/unix/ip4_unix.c
+./pine4.64/imap/src/osdep/unix/ckp_sce.c
+./pine4.64/imap/src/osdep/unix/os_soln.h
+./pine4.64/imap/src/osdep/unix/flocklnx.c
+./pine4.64/imap/src/osdep/unix/ssl_unix.new
+./pine4.64/imap/src/osdep/vms/
+./pine4.64/imap/src/osdep/vms/fs_vms.c
+./pine4.64/imap/src/osdep/vms/ftl_vms.c
+./pine4.64/imap/src/osdep/vms/nl_vms.c
+./pine4.64/imap/src/osdep/vms/env_vms.c
+./pine4.64/imap/src/osdep/vms/env_vms.h
+./pine4.64/imap/src/osdep/vms/dummy.h
+./pine4.64/imap/src/osdep/vms/linkage.c
+./pine4.64/imap/src/osdep/vms/linkage.h
+./pine4.64/imap/src/osdep/vms/os_vms.c
+./pine4.64/imap/src/osdep/vms/os_vms.h
+./pine4.64/imap/src/osdep/vms/tcp_vms.h
+./pine4.64/imap/src/osdep/vms/tcp_vmsl.c
+./pine4.64/imap/src/osdep/vms/tcp_vmsm.c
+./pine4.64/imap/src/osdep/vms/tcp_vmsn.c
+./pine4.64/imap/src/osdep/vms/clean.com
+./pine4.64/imap/src/osdep/vms/dummyvms.c
+./pine4.64/imap/src/osdep/vms/link.opt
+./pine4.64/imap/src/osdep/vms/build.com
+./pine4.64/imap/src/osdep/vms/pmatch.c
+./pine4.64/imap/src/osdep/vms/link_nlb.opt
+./pine4.64/imap/src/osdep/vms/link_mnt.opt
+./pine4.64/imap/src/osdep/tops-20/
+./pine4.64/imap/src/osdep/tops-20/fs_t20.c
+./pine4.64/imap/src/osdep/tops-20/ftl_t20.c
+./pine4.64/imap/src/osdep/tops-20/nl_t20.c
+./pine4.64/imap/src/osdep/tops-20/env_t20.c
+./pine4.64/imap/src/osdep/tops-20/env_t20.h
+./pine4.64/imap/src/osdep/tops-20/dummy.h
+./pine4.64/imap/src/osdep/tops-20/linkage.h
+./pine4.64/imap/src/osdep/tops-20/log_t20.c
+./pine4.64/imap/src/osdep/tops-20/shortsym.h
+./pine4.64/imap/src/osdep/tops-20/linkage.c
+./pine4.64/imap/src/osdep/tops-20/os_t20.c
+./pine4.64/imap/src/osdep/tops-20/os_t20.h
+./pine4.64/imap/src/osdep/tops-20/tcp_t20.c
+./pine4.64/imap/src/osdep/tops-20/tcp_t20.h
+./pine4.64/imap/src/osdep/tops-20/build.ctl
+./pine4.64/imap/src/osdep/tops-20/dummyt20.c
+./pine4.64/imap/src/osdep/tops-20/pmatch.c
+./pine4.64/imap/src/osdep/amiga/
+./pine4.64/imap/src/osdep/amiga/fs_ami.c
+./pine4.64/imap/src/osdep/amiga/unix.c
+./pine4.64/imap/src/osdep/amiga/Makefile
+./pine4.64/imap/src/osdep/amiga/tenex.c
+./pine4.64/imap/src/osdep/amiga/drivers
+./pine4.64/imap/src/osdep/amiga/unix.h
+./pine4.64/imap/src/osdep/amiga/dummy.c
+./pine4.64/imap/src/osdep/amiga/dummy.h
+./pine4.64/imap/src/osdep/amiga/mkauths
+./pine4.64/imap/src/osdep/amiga/mmdf.c
+./pine4.64/imap/src/osdep/amiga/phile.c
+./pine4.64/imap/src/osdep/amiga/ftl_ami.c
+./pine4.64/imap/src/osdep/amiga/gethstid.c
+./pine4.64/imap/src/osdep/amiga/mbx.h
+./pine4.64/imap/src/osdep/amiga/gr_waitp.c
+./pine4.64/imap/src/osdep/amiga/log_std.c
+./pine4.64/imap/src/osdep/amiga/os_ami.c
+./pine4.64/imap/src/osdep/amiga/news.c
+./pine4.64/imap/src/osdep/amiga/write.c
+./pine4.64/imap/src/osdep/amiga/mh.c
+./pine4.64/imap/src/osdep/amiga/mh.h
+./pine4.64/imap/src/osdep/amiga/mtx.c
+./pine4.64/imap/src/osdep/amiga/tcp_ami.h
+./pine4.64/imap/src/osdep/amiga/nl_ami.c
+./pine4.64/imap/src/osdep/amiga/scandir.c
+./pine4.64/imap/src/osdep/amiga/os_ami.h
+./pine4.64/imap/src/osdep/amiga/tz_bsd.c
+./pine4.64/imap/src/osdep/amiga/mbx.c
+./pine4.64/imap/src/osdep/amiga/tcp_ami.c
+./pine4.64/imap/src/osdep/amiga/mx.c
+./pine4.64/imap/src/osdep/amiga/mx.h
+./pine4.64/imap/src/osdep/amiga/env_ami.c
+./pine4.64/imap/src/osdep/amiga/pseudo.c
+./pine4.64/imap/src/osdep/amiga/pseudo.h
+./pine4.64/imap/src/osdep/amiga/fdstring.c
+./pine4.64/imap/src/osdep/amiga/fdstring.h
+./pine4.64/imap/src/osdep/amiga/ckp_std.c
+./pine4.64/imap/src/osdep/amiga/env_ami.h
+./pine4.64/imap/src/osdep/amiga/Makefile.md5
+./pine4.64/imap/src/osdep/amiga/pmatch.c
+./pine4.64/imap/src/osdep/amiga/ssl_none.c
+./pine4.64/imap/src/osdep/nt/
+./pine4.64/imap/src/osdep/nt/dummy.h
+./pine4.64/imap/src/osdep/nt/fs_nt.c
+./pine4.64/imap/src/osdep/nt/os_nt.c
+./pine4.64/imap/src/osdep/nt/makefile.nt
+./pine4.64/imap/src/osdep/nt/drivers.bat
+./pine4.64/imap/src/osdep/nt/drivraux.bat
+./pine4.64/imap/src/osdep/nt/ftl_nt.c
+./pine4.64/imap/src/osdep/nt/dummynt.c
+./pine4.64/imap/src/osdep/nt/env_nt.h
+./pine4.64/imap/src/osdep/nt/nl_nt.c
+./pine4.64/imap/src/osdep/nt/tcp_nt.c
+./pine4.64/imap/src/osdep/nt/unixnt.h
+./pine4.64/imap/src/osdep/nt/tcp_nt.h
+./pine4.64/imap/src/osdep/nt/os_nt.h
+./pine4.64/imap/src/osdep/nt/mbxnt.c
+./pine4.64/imap/src/osdep/nt/env_nt.c
+./pine4.64/imap/src/osdep/nt/unixnt.c
+./pine4.64/imap/src/osdep/nt/mtxnt.c
+./pine4.64/imap/src/osdep/nt/makefile.w2k
+./pine4.64/imap/src/osdep/nt/write.c
+./pine4.64/imap/src/osdep/nt/tenexnt.c
+./pine4.64/imap/src/osdep/nt/mkauths.bat
+./pine4.64/imap/src/osdep/nt/ssl_nt.c
+./pine4.64/imap/src/osdep/nt/pseudo.c
+./pine4.64/imap/src/osdep/nt/mailfile.h
+./pine4.64/imap/src/osdep/nt/mkautaux.bat
+./pine4.64/imap/src/osdep/nt/yunchan.h
+./pine4.64/imap/src/osdep/nt/pseudo.h
+./pine4.64/imap/src/osdep/nt/yunchan.c
+./pine4.64/imap/src/osdep/nt/mbxnt.h
+./pine4.64/imap/src/osdep/nt/fdstring.c
+./pine4.64/imap/src/osdep/nt/fdstring.h
+./pine4.64/imap/src/osdep/nt/os_w2k.c
+./pine4.64/imap/src/osdep/nt/ssl_none.c
+./pine4.64/imap/src/osdep/nt/makefile.ntk
+./pine4.64/imap/src/osdep/nt/ip4_nt.c
+./pine4.64/imap/src/osdep/nt/makefile.old
+./pine4.64/imap/src/osdep/nt/pmatch.c
+./pine4.64/imap/src/osdep/nt/ssl_w2k.c
+./pine4.64/imap/src/osdep/nt/ip6_nt.c
+./pine4.64/imap/src/osdep/nt/kerb_mit.c
+./pine4.64/imap/src/osdep/nt/ssl_old.c
+./pine4.64/imap/src/osdep/nt/os_ntk.c
+./pine4.64/imap/src/osdep/nt/os_old.c
+./pine4.64/imap/src/osdep/nt/kerb_w2k.c
+./pine4.64/imap/src/osdep/nt/setproto.bat
+./pine4.64/imap/src/osdep/os2/
+./pine4.64/imap/src/osdep/os2/nl_os2.c
+./pine4.64/imap/src/osdep/os2/fs_os2.c
+./pine4.64/imap/src/osdep/os2/ftl_os2.c
+./pine4.64/imap/src/osdep/os2/tcp_os2.c
+./pine4.64/imap/src/osdep/os2/dummy.h
+./pine4.64/imap/src/osdep/os2/tcp_os2.h
+./pine4.64/imap/src/osdep/os2/env_os2.h
+./pine4.64/imap/src/osdep/os2/os_os2.h
+./pine4.64/imap/src/osdep/os2/os_os2.c
+./pine4.64/imap/src/osdep/os2/env_os2.c
+./pine4.64/imap/src/osdep/os2/write.c
+./pine4.64/imap/src/osdep/os2/mbxnt.c
+./pine4.64/imap/src/osdep/os2/mbxnt.h
+./pine4.64/imap/src/osdep/os2/mtxnt.c
+./pine4.64/imap/src/osdep/os2/unixnt.c
+./pine4.64/imap/src/osdep/os2/unixnt.h
+./pine4.64/imap/src/osdep/os2/tenexnt.c
+./pine4.64/imap/src/osdep/os2/makefile.os2
+./pine4.64/imap/src/osdep/os2/pseudo.c
+./pine4.64/imap/src/osdep/os2/pseudo.h
+./pine4.64/imap/src/osdep/os2/pmatch.c
+./pine4.64/imap/src/osdep/os2/dummyos2.c
+./pine4.64/imap/src/osdep/os2/auths.cmd
+./pine4.64/imap/src/osdep/os2/drivers.cmd
+./pine4.64/imap/src/osdep/os2/setproto.cmd
+./pine4.64/imap/src/osdep/wce/
+./pine4.64/imap/src/osdep/wce/drivers.bat
+./pine4.64/imap/src/osdep/wce/drivraux.bat
+./pine4.64/imap/src/osdep/wce/dummy.h
+./pine4.64/imap/src/osdep/wce/ftl_wce.c
+./pine4.64/imap/src/osdep/wce/fs_wce.c
+./pine4.64/imap/src/osdep/wce/dummywce.c
+./pine4.64/imap/src/osdep/wce/env_wce.c
+./pine4.64/imap/src/osdep/wce/env_wce.h
+./pine4.64/imap/src/osdep/wce/tcp_wce.c
+./pine4.64/imap/src/osdep/wce/mkautaux.bat
+./pine4.64/imap/src/osdep/wce/mkauths.bat
+./pine4.64/imap/src/osdep/wce/makefile.wce
+./pine4.64/imap/src/osdep/wce/nl_wce.c
+./pine4.64/imap/src/osdep/wce/pmatch.c
+./pine4.64/imap/src/osdep/wce/os_wce.c
+./pine4.64/imap/src/osdep/wce/os_wce.h
+./pine4.64/imap/src/osdep/wce/setproto.bat
+./pine4.64/imap/src/osdep/wce/tcp_wce.h
+./pine4.64/imap/src/ansilib/
+./pine4.64/imap/src/ansilib/strpbrk.c
+./pine4.64/imap/src/ansilib/strstr.c
+./pine4.64/imap/src/ansilib/strtok.c
+./pine4.64/imap/src/ansilib/strtoul.c
+./pine4.64/imap/src/ansilib/memmove.c
+./pine4.64/imap/src/ansilib/memmove2.c
+./pine4.64/imap/src/ansilib/memset.c
+./pine4.64/imap/src/mtest/
+./pine4.64/imap/src/mtest/mtest.c
+./pine4.64/imap/src/mtest/Makefile
+./pine4.64/imap/src/mtest/makefile.nt
+./pine4.64/imap/src/mtest/mtest.def
+./pine4.64/imap/src/mtest/makefile.ntk
+./pine4.64/imap/src/mtest/makefile.os2
+./pine4.64/imap/src/mtest/makefile.w2k
+./pine4.64/imap/src/charset/
+./pine4.64/imap/src/charset/ibm.c
+./pine4.64/imap/src/charset/jis_0208.c
+./pine4.64/imap/src/charset/ksc_5601.c
+./pine4.64/imap/src/charset/gb_2312.c
+./pine4.64/imap/src/charset/iso_8859.c
+./pine4.64/imap/src/charset/koi8_r.c
+./pine4.64/imap/src/charset/jis_0212.c
+./pine4.64/imap/src/charset/big5.c
+./pine4.64/imap/src/charset/cns11643.c
+./pine4.64/imap/src/charset/gb_12345.c
+./pine4.64/imap/src/charset/koi8_u.c
+./pine4.64/imap/src/charset/tis_620.c
+./pine4.64/imap/src/charset/windows.c
+./pine4.64/imap/src/charset/viscii.c
+./pine4.64/imap/src/mailutil/
+./pine4.64/imap/src/mailutil/Makefile
+./pine4.64/imap/src/mailutil/mailutil.def
+./pine4.64/imap/src/mailutil/makefile.nt
+./pine4.64/imap/src/mailutil/mailutil.c
+./pine4.64/imap/src/mailutil/makefile.ntk
+./pine4.64/imap/src/mailutil/makefile.os2
+./pine4.64/imap/src/mailutil/makefile.w2k
+./pine4.64/imap/src/mailutil/mailutil.1
+./pine4.64/imap/src/dmail/
+./pine4.64/imap/src/dmail/dmail.1
+./pine4.64/imap/src/dmail/dmail.c
+./pine4.64/imap/src/dmail/Makefile
+./pine4.64/imap/src/tmail/
+./pine4.64/imap/src/tmail/Makefile
+./pine4.64/imap/src/tmail/tmail.c
+./pine4.64/imap/src/tmail/tmail.1
+./pine4.64/imap/src/mlock/
+./pine4.64/imap/src/mlock/mlock.c
+./pine4.64/imap/src/mlock/Makefile
+./pine4.64/imap/SUPPORT
+./pine4.64/imap/tools/
+./pine4.64/imap/tools/Makefile
+./pine4.64/imap/tools/an
+./pine4.64/imap/tools/ua
+./pine4.64/imap/tools/uahelper.c
+./pine4.64/CPYRIGHT
+./pine4.64/makefile
+./pine4.64/README
+./pine4.64/packages/
+./pine4.64/packages/debian/
+./pine4.64/packages/debian/changelog
+./pine4.64/packages/debian/control
+./pine4.64/packages/debian/postinst
+./pine4.64/packages/debian/menu
+./pine4.64/packages/debian/postrm
+./pine4.64/packages/debian/preinst
+./pine4.64/packages/debian/rules
+./pine4.64/packages/pine.spec
+./pine4.64/packages/README
+./pine4.64/packages/pine-mdk.spec
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- ./doc/pine.1.orig	2005-04-28 11:28:42.000000000 -0700
+|+++ ./doc/pine.1	2005-07-26 23:05:27.000000000 -0700
+--------------------------
+Patching file doc/pine.1 using Plan A...
+Hunk #1 succeeded at 333.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- ./doc/tech-notes/config-notes.html.orig	2005-03-24 11:47:57.000000000 -0800
+|+++ ./doc/tech-notes/config-notes.html	2005-07-26 23:05:27.000000000 -0700
+--------------------------
+Patching file doc/tech-notes/config-notes.html using Plan A...
+Hunk #1 succeeded at 1273 (offset 20 lines).
+Hunk #2 succeeded at 1265.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- ./doc/tech-notes/installation.html.orig	2003-02-05 19:04:26.000000000 -0800
+|+++ ./doc/tech-notes/installation.html	2005-07-26 23:05:27.000000000 -0700
+--------------------------
+Patching file doc/tech-notes/installation.html using Plan A...
+Hunk #1 succeeded at 218.
+Hunk #2 succeeded at 226.
+Hunk #3 succeeded at 529.
+Hunk #4 succeeded at 650.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- ./pine/osdep/os-lnx.h.orig	2003-05-23 09:07:00.000000000 -0700
+|+++ ./pine/osdep/os-lnx.h	2005-07-26 23:05:27.000000000 -0700
+--------------------------
+Patching file pine/osdep/os-lnx.h using Plan A...
+Hunk #1 succeeded at 163.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- ./pine/init.c.orig	2005-04-07 11:01:42.000000000 -0700
+|+++ ./pine/init.c	2005-07-26 23:05:27.000000000 -0700
+--------------------------
+Patching file pine/init.c using Plan A...
+Hunk #1 succeeded at 428.
+done
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- ./pine/osdep/os-lnx.h.orig	2003-09-16 19:52:56.000000000 -0700
+|+++ ./pine/osdep/os-lnx.h	2003-09-16 20:04:46.000000000 -0700
+--------------------------
+Patching file pine/osdep/os-lnx.h using Plan A...
+Hunk #1 succeeded at 280.
+done
+removed `./doc/tech-notes/config-notes.html~'
+removed `./doc/tech-notes/installation.html~'
+removed `./doc/pine.1~'
+removed `./pine/osdep/os-lnx.h~'
+removed `./pine/init.c~'
+make args are CC=cc  'SSLLIB=/usr/lib' 'SSLDIR=/etc/ssl' 'SSLCERTS=/etc/ssl/certs' 'SSLINCLUDE=/usr/include/openssl' 'OPTIMIZE=-O2' 'DEBUG=-O2' 'LDAPLIBS=-lldap -llber' 'LDAPCFLAGS=-DENABLE_LDAP' 'EXTRACFLAGS=-m32 -mcpu=v8 -mtune=v9' slx
+
+  File /etc/ssl/certs/factory.pem is missing
+  This might indicate that CA certs did not get properly
+  installed.  If you get certificate validation failures
+  in Pine, this might be the reason for them.
+
+Including SSL functionality
+Making c-client library, imapd, and ipopd
+eval make CC=cc SSLLIB=/usr/lib SSLDIR=/etc/ssl SSLCERTS=/etc/ssl/certs SSLINCLUDE=/usr/include/openssl OPTIMIZE=-O2 DEBUG=-O2 LDAPLIBS=-lldap -llber LDAPCFLAGS=-DENABLE_LDAP EXTRACFLAGS=-m32 -mcpu=v8 -mtune=v9 SSLTYPE=unix SPECIALS=SSLDIR=/etc/ssl SSLCERTS=/etc/ssl/certs SSLINCLUDE=/usr/include/openssl SSLLIB=/usr/lib slx
+make sslunix
+make[1]: Entering directory `/tmp/pine4.64/imap'
+make[1]: `sslunix' is up to date.
+make[1]: Leaving directory `/tmp/pine4.64/imap'
+Applying an process to sources...
+tools/an "ln -s" src/c-client c-client
+tools/an "ln -s" src/ansilib c-client
+tools/an "ln -s" src/charset c-client
+tools/an "ln -s" src/osdep/unix c-client
+tools/an "ln -s" src/mtest mtest
+tools/an "ln -s" src/ipopd ipopd
+tools/an "ln -s" src/imapd imapd
+tools/an "ln -s" src/mailutil mailutil
+tools/an "ln -s" src/mlock mlock
+tools/an "ln -s" src/dmail dmail
+tools/an "ln -s" src/tmail tmail
+ln -s tools/an .
+make build EXTRACFLAGS='-m32 -mcpu=v8 -mtune=v9' EXTRALDFLAGS='' EXTRADRIVERS='mbox' EXTRAAUTHENTICATORS='' PASSWDTYPE=std SSLTYPE=unix IP=4 EXTRASPECIALS='' BUILDTYPE=slx
+make[1]: Entering directory `/tmp/pine4.64/imap'
+Building c-client for slx...
+echo `cat SPECIALS`  > c-client/SPECIALS
+cd c-client;make slx EXTRACFLAGS='-m32 -mcpu=v8 -mtune=v9'\
+ EXTRALDFLAGS=''\
+ EXTRADRIVERS='mbox'\
+ EXTRAAUTHENTICATORS=''\
+ PASSWDTYPE=std SSLTYPE=unix IP=4\
+ SSLDIR=/etc/ssl 
+make[2]: Entering directory `/tmp/pine4.64/imap/c-client'
+You are building for libc6/glibc versions of Secure Linux
+If you want libc5 versions you must use sl5 instead!
+If you want libc4 versions you must use sl4 instead!
+make build EXTRACFLAGS='-m32 -mcpu=v8 -mtune=v9' EXTRALDFLAGS='' EXTRADRIVERS='mbox' EXTRAAUTHENTICATORS='' PASSWDTYPE=std SSLTYPE=unix IP=4 `cat SPECIALS` OS=slx \
+ SIGTYPE=psx CHECKPW=psx CRXTYPE=nfs \
+ SPOOLDIR=/var/spool \
+ ACTIVEFILE=/var/lib/news/active \
+ RSHPATH=/usr/bin/rsh \
+ BASECFLAGS="-g -fno-omit-frame-pointer -O2" \
+ BASELDFLAGS="-lcrypt"
+make[3]: Entering directory `/tmp/pine4.64/imap/c-client'
+sh -c 'rm -rf auths.c crexcl.c nfstest.c linkage.[ch] siglocal.c osdep*.[ch] *.o ARCHIVE *FLAGS *TYPE c-client.a || true'
+Once-only environment setup...
+echo cc > CCTYPE
+echo -g -fno-omit-frame-pointer -O2 '-m32 -mcpu=v8 -mtune=v9' > CFLAGS
+echo -DCREATEPROTO=unixproto -DEMPTYPROTO=unixproto \
+ -DMAILSPOOL=\"/var/spool/mail\" \
+ -DANONYMOUSHOME=\"/var/spool/mail/anonymous\" \
+ -DACTIVEFILE=\"/var/lib/news/active\" -DNEWSSPOOL=\"/var/spool/news\" \
+ -DRSHPATH=\"/usr/bin/rsh\" -DLOCKPGM=\"/etc/mlock\" > OSCFLAGS
+echo -lcrypt  > LDFLAGS
+echo "ar rc c-client.a osdep.o mail.o misc.o newsrc.o smanager.o utf8.o siglocal.o dummy.o pseudo.o netmsg.o flstring.o fdstring.o rfc822.o nntp.o smtp.o imap4r1.o pop3.o unix.o mbx.o mmdf.o tenex.o mtx.o news.o phile.o mh.o mx.o;ranlib c-client.a" > ARCHIVE
+echo slx > OSTYPE
+./drivers mbox imap nntp pop3 mh mx mbx tenex mtx mmdf unix news phile dummy
+./mkauths  md5 pla log
+make[4]: Entering directory `/tmp/pine4.64/imap/c-client'
+echo -DMD5ENABLE=\"/etc/cram-md5.pwd\" >> OSCFLAGS
+make[4]: Leaving directory `/tmp/pine4.64/imap/c-client'
+ln -s os_slx.h osdep.h
+ln -s os_slx.c osdepbas.c
+ln -s log_std.c osdeplog.c
+ln -s sig_psx.c siglocal.c
+ln -s crx_nfs.c crexcl.c
+ln -s ip4_unix.c ip_unix.c
+sh -c '(test -f /usr/include/sys/statvfs.h -a slx != sc5 -a slx != sco) && ln -s nfstnew.c nfstest.c || ln -s nfstold.c nfstest.c'
+Standard password authentication
+ln -s ckp_psx.c osdepckp.c
+Building with SSL
+ln -s ssl_unix.c osdepssl.c
+echo -I/usr/include/openssl -I/usr/include/openssl/openssl -DSSL_CERT_DIRECTORY=\"/etc/ssl/certs\" -DSSL_KEY_DIRECTORY=\"/etc/ssl/certs\" >> OSCFLAGS
+echo "  ssl_onceonlyinit ();" >> linkage.c
+echo -L/usr/lib -lssl -lcrypto  >> LDFLAGS
+cat osdepbas.c osdepckp.c osdeplog.c osdepssl.c > osdep.c
+Building OS-dependent module
+If you get No such file error messages for files x509.h, ssl.h,
+pem.h, buffer.h, bio.h, and crypto.h, that means that OpenSSL
+is not installed on your system. Either install OpenSSL first
+or build with command: make slx SSLTYPE=none
+`cat CCTYPE` -c `cat CFLAGS` `cat OSCFLAGS` -c osdep.c
+`cat CCTYPE` -c `cat CFLAGS` mail.c
+`cat CCTYPE` -c `cat CFLAGS` misc.c
+`cat CCTYPE` -c `cat CFLAGS` newsrc.c
+`cat CCTYPE` -c `cat CFLAGS` smanager.c
+`cat CCTYPE` -c `cat CFLAGS` utf8.c
+`cat CCTYPE` -c `cat CFLAGS` siglocal.c
+`cat CCTYPE` -c `cat CFLAGS` dummy.c
+`cat CCTYPE` -c `cat CFLAGS` pseudo.c
+`cat CCTYPE` -c `cat CFLAGS` netmsg.c
+`cat CCTYPE` -c `cat CFLAGS` flstring.c
+`cat CCTYPE` -c `cat CFLAGS` fdstring.c
+`cat CCTYPE` -c `cat CFLAGS` rfc822.c
+`cat CCTYPE` -c `cat CFLAGS` nntp.c
+`cat CCTYPE` -c `cat CFLAGS` smtp.c
+`cat CCTYPE` -c `cat CFLAGS` imap4r1.c
+`cat CCTYPE` -c `cat CFLAGS` pop3.c
+`cat CCTYPE` -c `cat CFLAGS` unix.c
+`cat CCTYPE` -c `cat CFLAGS` mbx.c
+`cat CCTYPE` -c `cat CFLAGS` mmdf.c
+`cat CCTYPE` -c `cat CFLAGS` tenex.c
+`cat CCTYPE` -c `cat CFLAGS` mtx.c
+`cat CCTYPE` -c `cat CFLAGS` news.c
+news.c: In function `news_open':
+news.c:347: warning: passing arg 3 of `scandir' from incompatible pointer type
+`cat CCTYPE` -c `cat CFLAGS` phile.c
+`cat CCTYPE` -c `cat CFLAGS` mh.c
+mh.c: In function `mh_ping':
+mh.c:688: warning: passing arg 3 of `scandir' from incompatible pointer type
+mh.c: In function `mh_append':
+mh.c:938: warning: passing arg 3 of `scandir' from incompatible pointer type
+`cat CCTYPE` -c `cat CFLAGS` mx.c
+mx.c: In function `mx_ping':
+mx.c:647: warning: passing arg 3 of `scandir' from incompatible pointer type
+sh -c 'rm -rf c-client.a || true'
+ar rc c-client.a osdep.o mail.o misc.o newsrc.o smanager.o utf8.o siglocal.o dummy.o pseudo.o netmsg.o flstring.o fdstring.o rfc822.o nntp.o smtp.o imap4r1.o pop3.o unix.o mbx.o mmdf.o tenex.o mtx.o news.o phile.o mh.o mx.o;ranlib c-client.a
+make[3]: Leaving directory `/tmp/pine4.64/imap/c-client'
+make[2]: Leaving directory `/tmp/pine4.64/imap/c-client'
+echo slx > OSTYPE
+touch rebuild
+sh -c 'rm -rf rebuild || true'
+Building bundled tools...
+cd mtest;make
+make[2]: Entering directory `/tmp/pine4.64/imap/mtest'
+cc -I../c-client `cat ../c-client/CFLAGS`   -c -o mtest.o mtest.c
+cc -I../c-client `cat ../c-client/CFLAGS` -o mtest mtest.o ../c-client/c-client.a `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+mtest.o(.text+0x1ab0): In function `prompt':
+/tmp/pine4.64/imap/mtest/mtest.c:585: warning: the `gets' function is dangerous and should not be used.
+make[2]: Leaving directory `/tmp/pine4.64/imap/mtest'
+cd ipopd;make
+make[2]: Entering directory `/tmp/pine4.64/imap/ipopd'
+cc -I../c-client `cat ../c-client/CFLAGS`   -c -o ipop2d.o ipop2d.c
+cc -I../c-client `cat ../c-client/CFLAGS` -o ipop2d ipop2d.o ../c-client/c-client.a `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+cc -I../c-client `cat ../c-client/CFLAGS`   -c -o ipop3d.o ipop3d.c
+cc -I../c-client `cat ../c-client/CFLAGS` -o ipop3d ipop3d.o ../c-client/c-client.a `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+make[2]: Leaving directory `/tmp/pine4.64/imap/ipopd'
+cd imapd;make
+make[2]: Entering directory `/tmp/pine4.64/imap/imapd'
+cc -I../c-client `cat ../c-client/CFLAGS`   -DANOFILE=\"/etc/anonymous.newsgroups\" -DALERTFILE=\"/etc/imapd.alert\" -DNNTPFILE=\"/etc/imapd.nntp\" -DUSERALERTFILE=\".imapalert\" -DSHUTDOWNFILE=\"/etc/nologin\"   -c -o imapd.o imapd.c
+cc -I../c-client `cat ../c-client/CFLAGS`   -DANOFILE=\"/etc/anonymous.newsgroups\" -DALERTFILE=\"/etc/imapd.alert\" -DNNTPFILE=\"/etc/imapd.nntp\" -DUSERALERTFILE=\".imapalert\" -DSHUTDOWNFILE=\"/etc/nologin\" -o imapd imapd.o ../c-client/c-client.a `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+make[2]: Leaving directory `/tmp/pine4.64/imap/imapd'
+cd mailutil;make
+make[2]: Entering directory `/tmp/pine4.64/imap/mailutil'
+cc -I../c-client `cat ../c-client/CFLAGS`   -c -o mailutil.o mailutil.c
+cc -I../c-client `cat ../c-client/CFLAGS` -o mailutil mailutil.o ../c-client/c-client.a `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+make[2]: Leaving directory `/tmp/pine4.64/imap/mailutil'
+cd mlock;make || true
+make[2]: Entering directory `/tmp/pine4.64/imap/mlock'
+cc `cat ../c-client/CFLAGS`   -c -o mlock.o mlock.c
+cc `cat ../c-client/CFLAGS` -o mlock mlock.o
+make[2]: Leaving directory `/tmp/pine4.64/imap/mlock'
+cd dmail;make || true
+make[2]: Entering directory `/tmp/pine4.64/imap/dmail'
+cc -I../c-client `cat ../c-client/CFLAGS`   -c -o dmail.o dmail.c
+cc -I../c-client `cat ../c-client/CFLAGS` -o dmail dmail.o ../c-client/c-client.a `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+make[2]: Leaving directory `/tmp/pine4.64/imap/dmail'
+cd tmail;make || true
+make[2]: Entering directory `/tmp/pine4.64/imap/tmail'
+cc -I../c-client `cat ../c-client/CFLAGS`   -c -o tmail.o tmail.c
+cc -I../c-client `cat ../c-client/CFLAGS` -o tmail tmail.o ../c-client/c-client.a `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+make[2]: Leaving directory `/tmp/pine4.64/imap/tmail'
+make[1]: Leaving directory `/tmp/pine4.64/imap'
+
+Making Pico and Pilot
+make CC=cc SSLLIB=/usr/lib SSLDIR=/etc/ssl SSLCERTS=/etc/ssl/certs SSLINCLUDE=/usr/include/openssl OPTIMIZE=-O2 DEBUG=-O2 LDAPLIBS=-lldap -llber LDAPCFLAGS=-DENABLE_LDAP EXTRACFLAGS=-m32 -mcpu=v8 -mtune=v9 -f makefile.lnx
+rm -f os.h
+ln -s osdep/os-lnx.h os.h
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o main.o main.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o attach.o attach.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o basic.o basic.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o bind.o bind.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o browse.o browse.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o buffer.o buffer.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o composer.o composer.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o display.o display.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o file.o file.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o fileio.o fileio.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o line.o line.c
+cd osdep; make includer os-lnx.c; cd ..
+make[1]: Entering directory `/tmp/pine4.64/pico/osdep'
+cc -o includer includer.c
+./includer < os-lnx.ic > os-lnx.c
+make[1]: Leaving directory `/tmp/pine4.64/pico/osdep'
+rm -f pico_os.c
+ln -s osdep/os-lnx.c pico_os.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o pico_os.o pico_os.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o pico.o pico.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o random.o random.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o region.o region.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o search.o search.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o window.o window.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o word.o word.c
+ar ru libpico.a attach.o basic.o bind.o browse.o buffer.o composer.o display.o file.o fileio.o line.o pico_os.o pico.o random.o region.o search.o window.o word.o
+ar: creating libpico.a
+ranlib libpico.a
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE main.o libpico.a  -lncurses -o pico
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE   -c -o pilot.o pilot.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -Dlnx -DJOB_CONTROL -DPOSIX -DMOUSE pilot.o libpico.a  -lncurses -o pilot
+
+Making Pine and rpload/rpdump.
+make CC=cc SSLLIB=/usr/lib SSLDIR=/etc/ssl SSLCERTS=/etc/ssl/certs SSLINCLUDE=/usr/include/openssl OPTIMIZE=-O2 DEBUG=-O2 LDAPLIBS=-lldap -llber LDAPCFLAGS=-DENABLE_LDAP EXTRACFLAGS=-m32 -mcpu=v8 -mtune=v9 -f makefile.lnx
+rm -f os.h
+ln -s osdep/os-lnx.h os.h
+./cmplhlp2.sh  < pine.hlp > helptext.h
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o addrbook.o addrbook.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o adrbkcmd.o adrbkcmd.c
+adrbkcmd.c: In function `compose_to_ldap_entry':
+adrbkcmd.c:6810: warning: assignment makes pointer from integer without a cast
+adrbkcmd.c:6814: warning: assignment makes pointer from integer without a cast
+adrbkcmd.c:6818: warning: assignment makes pointer from integer without a cast
+adrbkcmd.c:6822: warning: assignment makes pointer from integer without a cast
+adrbkcmd.c:6826: warning: assignment makes pointer from integer without a cast
+adrbkcmd.c: In function `prep_ldap_for_viewing':
+adrbkcmd.c:7010: warning: assignment makes pointer from integer without a cast
+adrbkcmd.c:7014: warning: assignment makes pointer from integer without a cast
+adrbkcmd.c: In function `url_local_ldap':
+adrbkcmd.c:7442: warning: assignment makes pointer from integer without a cast
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o adrbklib.o adrbklib.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o args.o args.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o bldaddr.o bldaddr.c
+bldaddr.c: In function `ldap_lookup':
+bldaddr.c:5388: warning: assignment makes pointer from integer without a cast
+bldaddr.c: In function `address_from_ldap':
+bldaddr.c:6009: warning: assignment makes pointer from integer without a cast
+bldaddr.c:6022: warning: assignment makes pointer from integer without a cast
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o context.o context.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o filter.o filter.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o folder.o folder.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o help.o help.c
+./cmplhelp.sh  < pine.hlp > helptext.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o helptext.o helptext.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o imap.o imap.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o init.o init.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o mailcap.o mailcap.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o mailcmd.o mailcmd.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o mailindx.o mailindx.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o mailpart.o mailpart.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o mailview.o mailview.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o newmail.o newmail.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o other.o other.c
+other.c: In function `ldap_addr_select':
+other.c:3906: warning: assignment makes pointer from integer without a cast
+other.c:3915: warning: assignment makes pointer from integer without a cast
+other.c:3919: warning: assignment makes pointer from integer without a cast
+other.c:3923: warning: assignment makes pointer from integer without a cast
+other.c:3927: warning: assignment makes pointer from integer without a cast
+other.c:3942: warning: assignment makes pointer from integer without a cast
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o pine.o pine.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o reply.o reply.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o screen.o screen.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o send.o send.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o signals.o signals.c
+signals.c: In function `alrm_signal_block':
+signals.c:801: warning: `sigblock' is deprecated (declared at /usr/include/signal.h:181)
+signals.c: In function `alrm_signal_unblock':
+signals.c:817: warning: `sigsetmask' is deprecated (declared at /usr/include/signal.h:184)
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o status.o status.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o strings.o strings.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o takeaddr.o takeaddr.c
+takeaddr.c: In function `save_ldap_entry':
+takeaddr.c:5147: warning: assignment makes pointer from integer without a cast
+takeaddr.c:5151: warning: assignment makes pointer from integer without a cast
+takeaddr.c:5155: warning: assignment makes pointer from integer without a cast
+takeaddr.c:5159: warning: assignment makes pointer from integer without a cast
+takeaddr.c:5163: warning: assignment makes pointer from integer without a cast
+takeaddr.c:5167: warning: assignment makes pointer from integer without a cast
+takeaddr.c:5171: warning: assignment makes pointer from integer without a cast
+takeaddr.c:5175: warning: assignment makes pointer from integer without a cast
+cd osdep; make includer os-lnx.c; cd ..
+make[1]: Entering directory `/tmp/pine4.64/pine/osdep'
+cc -o includer includer.c
+./includer < os-lnx.ic > os-lnx.c
+make[1]: Leaving directory `/tmp/pine4.64/pine/osdep'
+rm -f os.c
+ln -s osdep/os-lnx.c os.c
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o os.o os.c
+echo "char datestamp[]="\"`date`\"";" > date.c
+echo "char hoststamp[]="\"`hostname`\"";" >> date.c
+cc  -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE -o pine addrbook.o adrbkcmd.o adrbklib.o args.o bldaddr.o context.o filter.o folder.o help.o helptext.o imap.o init.o mailcap.o mailcmd.o mailindx.o mailpart.o mailview.o newmail.o other.o pine.o reply.o screen.o send.o signals.o status.o strings.o takeaddr.o os.o date.c ../pico/libpico.a ../c-client/c-client.a -lldap -llber -lncurses `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o rpload.o rpload.c
+cc  -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE -o rpload rpload.o ../pico/libpico.a ../c-client/c-client.a -lldap -llber -lncurses `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+cc -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE   -c -o rpdump.o rpdump.c
+cc  -O2  -O2 -m32 -mcpu=v8 -mtune=v9 -DENABLE_LDAP  -DLNX -DSYSTYPE=\"LNX\" -DMOUSE -o rpdump rpdump.o ../pico/libpico.a ../c-client/c-client.a -lldap -llber -lncurses `cat ../c-client/LDFLAGS`
+../c-client/c-client.a(osdep.o)(.text+0xa044): In function `ssl_onceonlyinit':
+/tmp/pine4.64/imap/c-client/osdep.c:268: warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+
+Links to executables are in bin directory:
+   text	   data	    bss	    dec	    hex	filename
+3409668	 280744	 691144	4381556	 42db74	bin/pine
+ 703057	   6936	   2672	 712665	  adfd9	bin/mtest
+ 744345	   7000	  67400	 818745	  c7e39	bin/imapd
+ 182051	   4292	   2536	 188879	  2e1cf	bin/pico
+ 179747	   4156	   2536	 186439	  2d847	bin/pilot
+ 869653	  10616	   4160	 884429	  d7ecd	bin/rpdump
+ 871225	  10608	   4160	 885993	  d84e9	bin/rpload
+ 700641	   6928	   1664	 709233	  ad271	bin/mailutil
+ 699471	   6928	   2688	 709087	  ad1df	bin/ipop2d
+ 704149	   6920	   1816	 712885	  ae0b5	bin/ipop3d
+Done
+pinepgp-0.18.0/
+pinepgp-0.18.0/configure
+pinepgp-0.18.0/install-sh
+pinepgp-0.18.0/pinegpgp.in
+pinepgp-0.18.0/pinepgpgpg-install.in
+pinepgp-0.18.0/configure.in
+pinepgp-0.18.0/Makefile.in
+pinepgp-0.18.0/README
+pinepgp-0.18.0/COPYING
+pinepgp-0.18.0/ChangeLog
+pinepgp-0.18.0/gnupg-hany-public-key.txt
+pinepgp-0.18.0/packaging/
+pinepgp-0.18.0/packaging/pinepgp.spec
+pinepgp-0.18.0/contrib/
+pinepgp-0.18.0/contrib/solaris_fix.diff
+creating cache ./config.cache
+Configuring pinepgp/0.18.0
+checking for a BSD compatible install... /usr/bin/ginstall -c
+checking whether ln -s works... yes
+checking for gawk... gawk
+checking how to run the C preprocessor... cc -E
+checking for bash... /bin/sh
+checking for cat... /usr/bin/cat
+checking for sed... /usr/bin/sed
+checking for grep... /usr/bin/grep
+checking for rm... /usr/bin/rm
+checking for tar... /usr/bin/tar
+checking for gpg... /usr/bin/gpg
+checking for pgp... no
+checking for pgps... no
+checking for pgpe... no
+checking for pgpv... no
+checking for pgp6... no
+checking for pgp... (cached) no
+following filters will be build:  pinegpg
+checking for mktemp... /usr/bin/mktemp
+updating cache ./config.cache
+creating ./config.status
+creating Makefile
+/usr/bin/cat pinegpgp.in | /usr/bin/sed -e 's%\@SED\@%/usr/bin/sed%;\
+	s%\@CAT\@%/usr/bin/cat%;\
+	s%\@RM\@%/usr/bin/rm%;\
+	s%\@MKTEMP\@%/usr/bin/mktemp%;\
+	s%\@BASH\@%/bin/sh%;\
+	s%\@bindir\@%/usr/bin%;\
+	s%\@tmpdir\@%~/.pinepgp%' > pinegpgp
+chmod 755 pinegpgp
+/usr/bin/cat pinepgpgpg-install.in | /usr/bin/sed -e 's%\@SED\@%/usr/bin/sed%;\
+	s%\@CAT\@%/usr/bin/cat%;\
+	s%\@RM\@%/usr/bin/rm%;\
+	s%\@MKTEMP\@%/usr/bin/mktemp%;\
+	s%\@BASH\@%/bin/sh%;\
+	s%\@bindir\@%/usr/bin%;\
+	s%\@tmpdir\@%~/.pinepgp%' > pinepgpgpg-install
+chmod 755 pinepgpgpg-install
+/usr/bin/cat pinegpgp | /usr/bin/sed -e 's%^cename=.*%cename=GnuPG%;\
+	s%^ces=.*%ces="/usr/bin/gpg -at -s"%;\
+	s%^cee=.*%cee="/usr/bin/gpg -at -e"%;\
+	s%^cese=.*%cese="/usr/bin/gpg -at -se"%;\
+	s%^cec=.*%cec="\/usr/bin/gpg"%;\
+	s%^cefp=.*%cefp=gpg%' > pinegpg.c
+cc -E -DGPG -DUSE_MKTEMP -DUSE_NSE_FIX pinegpg.c | /usr/bin/grep -v "^# .* .*" > pinegpg
+pinegpg.c:1:2: invalid preprocessing directive #!
+chmod 755 pinegpg
+mkdir -p /tmp/package-pine/usr/bin
+/usr/bin/ginstall -c -m 755 pinepgpgpg-install	/tmp/package-pine/usr/bin
+ln -s pinepgpgpg-install /tmp/package-pine/usr/bin/pinegpg-install
+mkdir -p /tmp/package-pine/usr/bin
+/usr/bin/ginstall -c -m 755 pinegpg	/tmp/package-pine/usr/bin
+ln -s pinegpg			/tmp/package-pine/usr/bin/gpg-check
+ln -s pinegpg			/tmp/package-pine/usr/bin/gpg-encrypt
+ln -s pinegpg			/tmp/package-pine/usr/bin/gpg-sign
+ln -s pinegpg			/tmp/package-pine/usr/bin/gpg-sign+encrypt
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+usr/bin/pinegpg-install -> pinepgpgpg-install
+usr/bin/gpg-check -> pinegpg
+usr/bin/gpg-encrypt -> pinegpg
+usr/bin/gpg-sign -> pinegpg
+usr/bin/gpg-sign+encrypt -> pinegpg
+
+Making symbolic link creation script:
+( cd usr/bin ; rm -rf pinegpg-install )
+( cd usr/bin ; ln -sf pinepgpgpg-install pinegpg-install )
+( cd usr/bin ; rm -rf gpg-check )
+( cd usr/bin ; ln -sf pinegpg gpg-check )
+( cd usr/bin ; rm -rf gpg-encrypt )
+( cd usr/bin ; ln -sf pinegpg gpg-encrypt )
+( cd usr/bin ; rm -rf gpg-sign )
+( cd usr/bin ; ln -sf pinegpg gpg-sign )
+( cd usr/bin ; rm -rf gpg-sign+encrypt )
+( cd usr/bin ; ln -sf pinegpg gpg-sign+encrypt )
+
+It is recommended that you make these lines your new installation script.
+
+Would you like to make this stuff the install script for this package
+and remove the symbolic links ([y]es, [n]o)? y
+
+
+Removing symbolic links:
+removed `./usr/bin/pinegpg-install'
+removed `./usr/bin/gpg-check'
+removed `./usr/bin/gpg-encrypt'
+removed `./usr/bin/gpg-sign'
+removed `./usr/bin/gpg-sign+encrypt'
+
+Creating your new ./install/doinst.sh...
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? n
+
+
+Creating tar file pine-4.64-sparc-2.tar...
+
+./
+usr/
+usr/bin/
+usr/bin/pine
+usr/bin/pico
+usr/bin/pilot
+usr/bin/pinepgpgpg-install
+usr/bin/pinegpg
+usr/doc/
+usr/doc/pine4.64/
+usr/doc/pine4.64/README
+usr/doc/pine4.64/CPYRIGHT
+usr/doc/pine4.64/brochure.txt
+usr/doc/pine4.64/mailcap.unx
+usr/doc/pine4.64/mime.types
+usr/doc/pine4.64/pine-ports
+usr/doc/pine4.64/tech-notes/
+usr/doc/pine4.64/tech-notes/for.pnuts
+usr/doc/pine4.64/tech-notes/Makefile
+usr/doc/pine4.64/tech-notes/background.html
+usr/doc/pine4.64/tech-notes/installation.html
+usr/doc/pine4.64/tech-notes/introduction.html
+usr/doc/pine4.64/tech-notes/porting.html
+usr/doc/pine4.64/tech-notes/config.html
+usr/doc/pine4.64/tech-notes/low-level.html
+usr/doc/pine4.64/tech-notes/index.html
+usr/doc/pine4.64/tech-notes/cmd-line.html
+usr/doc/pine4.64/tech-notes/config-notes.html
+usr/doc/pinepgp-0.18.0/
+usr/doc/pinepgp-0.18.0/COPYING
+usr/doc/pinepgp-0.18.0/README
+usr/man/
+usr/man/man1/
+usr/man/man1/pico.1.gz
+usr/man/man1/pilot.1.gz
+usr/man/man1/pine.1.gz
+etc/
+etc/pine.conf
+install/
+install/slack-desc
+install/doinst.sh
+tar-1.13: pine-4.64-sparc-2.tar is the archive; not dumped
+
+Gzipping pine-4.64-sparc-2.tar...
+
+Renaming pine-4.64-sparc-2.tar.gz to pine-4.64-sparc-2.tgz...
+
+Moving pine-4.64-sparc-2.tgz to /tmp...
+
+Package creation complete.
+
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+
+No symbolic links were found, so we won't make an installation script.
+You can make your own later in ./install/doinst.sh and rebuild the
+package if you like.
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? n
+
+
+Creating tar file imapd-4.64-sparc-3.tar...
+
+./
+usr/
+usr/sbin/
+usr/sbin/imapd
+usr/sbin/ipop3d
+usr/man/
+usr/man/man8/
+usr/man/man8/imapd.8.gz
+usr/man/man8/ipopd.8.gz
+usr/doc/
+usr/doc/imap4.64/
+usr/doc/imap4.64/README
+usr/doc/imap4.64/CPYRIGHT
+usr/doc/imap4.64/md5.txt
+usr/doc/imap4.64/additional-imap-documentation
+install/
+install/slack-desc
+tar-1.13: imapd-4.64-sparc-3.tar is the archive; not dumped
+
+Gzipping imapd-4.64-sparc-3.tar...
+
+Renaming imapd-4.64-sparc-3.tar.gz to imapd-4.64-sparc-3.tgz...
+
+Moving imapd-4.64-sparc-3.tgz to /tmp...
+
+Package creation complete.
+

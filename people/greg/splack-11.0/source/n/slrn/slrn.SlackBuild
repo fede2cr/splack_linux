@@ -1,0 +1,65 @@
+#!/bin/sh
+CWD=`pwd`
+
+VERSION=0.9.8.1
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+TMP=/tmp
+PKG=$TMP/package-slrn
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf slrn-$VERSION
+tar xjvf $CWD/slrn-$VERSION.tar.bz2
+cd slrn-$VERSION
+chown -R root:root .
+zcat $CWD/slrn.slrnfeat.diff.gz | patch -p1
+CFLAGS="$SLKCFLAGS" \
+  ./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --with-ssl \
+  --with-slrnpull \
+  --enable-setgid-code \
+  --with-server-file=/etc/nntpserver
+make
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+chown root.news $PKG/usr/bin/slrnpull
+mkdir -p $PKG/usr/doc
+mv $PKG/usr/share/doc/slrn $PKG/usr/doc/slrn-$VERSION
+# big
+rm -f $PKG/usr/doc/slrn-$VERSION/changes
+chmod 2750 $PKG/usr/bin/slrnpull
+mkdir -p $PKG/var/spool/slrnpull/data
+mkdir -p $PKG/var/spool/slrnpull/news
+mkdir -p $PKG/var/spool/slrnpull/out.going
+mkdir -p $PKG/var/spool/slrnpull/out.going/rejects
+cp -a $PKG/usr/doc/slrn-$VERSION/slrnpull/slrnpull.conf $PKG/var/spool/slrnpull
+chown -R news.news $PKG/var/spool/slrnpull
+chmod 3777 $PKG/var/spool/slrnpull/out.going $PKG/var/spool/slrnpull/out.going/rejects
+mkdir -p $PKG/etc
+cp -a $PKG/usr/doc/slrn-$VERSION/slrn.rc $PKG/etc/slrn.rc
+gzip -9 $PKG/usr/man/man1/*
+rmdir $PKG/usr/share/doc
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/slrn-$VERSION-$ARCH-$BUILD.tgz
+

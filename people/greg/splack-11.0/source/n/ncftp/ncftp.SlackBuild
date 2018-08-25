@@ -1,0 +1,80 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-ncftp
+
+VERSION=3.2.0
+ARCH=${ARCH:-i486}
+BUILD=2
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf ncftp-$VERSION
+tar xjvf $CWD/ncftp-$VERSION-src.tar.bz2
+cd ncftp-$VERSION
+chown -R root:root .
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  $ARCH-slackware-linux
+
+make -j3 || exit 1
+
+mkdir -p $PKG/usr/bin
+( cd bin
+  for file in ncftp ncftpbatch ncftpbookmarks ncftpget ncftpls ncftpput ; do
+    cat $file > $PKG/usr/bin/$file
+  done
+  rm -f ncftpspooler
+  ln -sf ncftpbatch ncftpspooler
+)
+chmod 755 $PKG/usr/bin/*
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+mkdir -p $PKG/usr/man/man1
+( cd doc/man
+  for file in *.1 ; do
+    cat $file | gzip -9c > $PKG/usr/man/man1/$file.gz
+  done )
+
+mkdir -p $PKG/usr/doc/ncftp-$VERSION
+cp -a doc/* $PKG/usr/doc/ncftp-$VERSION
+# Useless redundancy:
+rm -r $PKG/usr/doc/ncftp-$VERSION/man \
+      $PKG/usr/doc/ncftp-$VERSION/html
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/ncftp-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+ rm -rf $TMP/ncftp-$VERSION
+ rm -rf $PKG
+fi
+

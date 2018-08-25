@@ -1,0 +1,34 @@
+CWD=`pwd`
+PKG=/tmp/package-netwatch
+rm -rf $PKG
+mkdir -p $PKG/usr
+
+VERSION=1.0a
+ARCH=i386
+BUILD=1
+
+cd /tmp
+tar xzvf $CWD/netwatch-$VERSION.src.tar.gz
+cd netwatch-$VERSION
+chown -R root:root .
+zcat $CWD/netwatch.time.diff.gz | patch -p1
+zcat $CWD/netwatch.phonemyself.diff.gz | patch -p1
+./configure --prefix=/usr
+make
+mkdir -p $PKG/usr/bin
+cat netresolv > $PKG/usr/bin/netresolv
+cat netwatch > $PKG/usr/bin/netwatch
+chmod 755 $PKG/usr/bin/*
+strip $PKG/usr/bin/*
+mkdir -p $PKG/usr/man/man1
+cat netwatch.1 | gzip -9c > $PKG/usr/man/man1/netwatch.1.gz
+mkdir -p $PKG/usr/doc/netwatch-$VERSION
+cp -a \
+  BUGS CHANGES COPYING README README.performance TODO netwatch-1.0a.lsm \
+  $PKG/usr/doc/netwatch-$VERSION
+chmod 644 $PKG/usr/doc/netwatch-$VERSION/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd /tmp/package-netwatch
+makepkg -l y -c n ../netwatch-$VERSION-$ARCH-$BUILD.tgz

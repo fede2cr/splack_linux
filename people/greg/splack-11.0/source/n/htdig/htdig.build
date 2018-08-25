@@ -1,0 +1,37 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=/tmp
+VERSION=3.1.6
+cd $TMP
+echo "Building htdig-$VERSION.tar.gz..."
+tar xzvf $CWD/htdig-$VERSION.tar.gz
+cd htdig-$VERSION
+
+chown -R root:root .
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+
+mkdir -p /usr/doc/htdig-$VERSION
+cp -a COPYING README contrib htdoc /usr/doc/htdig-$VERSION
+chown -R root:root /usr/doc/htdig-$VERSION
+# Let it use default directories... it should end up under /opt...
+# Also, believe it or not, but this stuff is bigger after stripping
+# if -O2 is used...
+#CFLAGS="-O2 -march=i386 -mcpu=i686"
+#CXXFLAGS="-O2 -march=i386 -mcpu=i686"
+./configure i386-slackware-linux
+make
+make install
+
+mv /opt/www/htdig/conf/htdig.conf /opt/www/htdig/conf/htdig.conf.new
+
+mkdir -p /etc/profile.d
+cp -a $CWD/profile.d/* /etc/profile.d
+
+# KDevelop likes this link:
+cd /opt/www/htdig/bin
+rm -f htsearch
+ln -sf ../../cgi-bin/htsearch .
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc
+zcat $CWD/doinst.sh.gz > /install/doinst.sh

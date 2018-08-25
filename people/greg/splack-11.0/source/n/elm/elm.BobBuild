@@ -1,0 +1,49 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-elm
+
+VERSION=2.5.8
+ARCH=${ARCH:-sparc}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf elm$VERSION
+tar xjvf $CWD/elm$VERSION.tar.bz2
+cd elm$VERSION
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+cp $CWD/config-sparc.sh ./config.sh
+mkdir -p $PKG/var/lib/elm \
+         $PKG/usr/bin \
+         $PKG/usr/man/man1 \
+         $PKG/usr/doc/elm-$VERSION
+sh ./Make.defs.SH
+find . -depth -name 'Makefile.SH' -exec sh ./{} \;
+make
+make install
+( cd $PKG/usr/bin ; rm -rf frm )
+( cd $PKG/usr/bin ; ln -sf nfrm frm )
+( cd $PKG/usr/bin ; rm -rf newmail )
+( cd $PKG/usr/bin ; ln -sf wnewmail newmail )
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+( cd $PKG/usr/man/man1 ; mkdir tmp ; cp *.? tmp ; rm *.? ; mv tmp/* . ; rmdir tmp )
+gzip -9 $PKG/usr/man/man?/*.?
+cp -a \
+  NOTICE Overview README doc/*.guid* doc/Elm.cover \
+  $PKG/usr/doc/elm-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/elm-$VERSION-$ARCH-$BUILD.tgz
+

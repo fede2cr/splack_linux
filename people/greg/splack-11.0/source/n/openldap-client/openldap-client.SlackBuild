@@ -1,0 +1,106 @@
+#!/bin/sh
+# OpenLDAP (clients/libraries only!)
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-openldap-client
+
+VERSION=2.3.27
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf openldap-$VERSION
+tar xjvf $CWD/openldap-$VERSION.tar.bz2
+cd openldap-$VERSION
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --localstatedir=/var/lib \
+  --sysconfdir=/etc \
+  --with-cyrus-sasl \
+  --with-tls \
+  --with-readline \
+  --with-threads \
+  --enable-debug \
+  --enable-syslog \
+  --enable-dynamic \
+  --enable-local \
+  --enable-proctitle \
+  --disable-static \
+  --enable-shared \
+  --disable-slapd \
+  --disable-slurpd
+
+make depend || exit 1
+make -j3 || exit 1
+make test || exit 1
+make install DESTDIR=$PKG || exit 1
+
+rm -f $PKG/etc/openldap/ldap.conf.default
+mv $PKG/etc/openldap/ldap.conf $PKG/etc/openldap/ldap.conf.new
+cat << EOF >> $PKG/etc/openldap/ldap.conf.new
+
+# In order to avoid problems with self-signed certificates using TLS:
+# "TLS certificate verification: Error, self signed certificate"
+# See also 'man ldap.conf' or http://www.openldap.org/doc/admin/tls.html
+TLS_REQCERT allow
+
+EOF
+
+mkdir -p $PKG/usr/doc/openldap-$VERSION
+cp -a \
+  ANNOUNCEMENT CHANGES COPYRIGHT LICENSE README \
+  $PKG/usr/doc/openldap-$VERSION
+
+# Remove man pages for the servers (not currently supported or shipped...
+# do they even work properly without the evil PAM?)
+find $PKG/usr/man -name slap* -exec rm -f {} \;
+find $PKG/usr/man -name slurp* -exec rm -f {} \;
+find $PKG/usr/man -type d -empty -exec rmdir {} \;
+
+# Compress and if needed symlink the man pages:
+if [ -d $PKG/usr/man ]; then
+  ( cd $PKG/usr/man
+    for manpagedir in $(find . -type d -name "man*") ; do
+      ( cd $manpagedir
+        for eachpage in $( find . -type l -maxdepth 1) ; do
+          ln -s $( readlink $eachpage ).gz $eachpage.gz
+          rm $eachpage
+        done
+        gzip -9 *.?
+      )
+    done
+  )
+fi
+
+# Strip binaries
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+mkdir $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+
+cd $PKG
+makepkg -l y -c n $TMP/openldap-client-$VERSION-$ARCH-$BUILD.tgz
+

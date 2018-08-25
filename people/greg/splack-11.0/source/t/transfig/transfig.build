@@ -1,0 +1,22 @@
+#!/bin/sh
+CWD=`pwd`
+
+VERSION=3.2.4
+
+cd /tmp
+tar xzvf $CWD/transfig.$VERSION.tar.gz
+cd transfig.$VERSION
+chown -R root:root .
+find . -name "*.orig" | xargs rm
+zcat $CWD/transfig.diff.gz | patch -p1 -E --verbose --backup --suffix=.orig
+xmkmf
+make Makefiles
+make
+make install
+make install.man
+mkdir -p /usr/doc/transfig-$VERSION
+cp -a CHANGES LATEX.AND.XFIG NOTES README doc /usr/doc/transfig-$VERSION
+find /usr/doc/transfig-$VERSION -type f -exec chmod 644 {} \;
+rm /usr/doc/transfig*/doc/*.? /usr/doc/transfig*/doc/MAKEPS
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

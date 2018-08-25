@@ -1,0 +1,598 @@
+elm2.5.8/
+elm2.5.8/doc/
+elm2.5.8/doc/wnewmail.1
+elm2.5.8/doc/listalias.1
+elm2.5.8/doc/messages.1
+elm2.5.8/doc/elm.1
+elm2.5.8/doc/frm.1
+elm2.5.8/doc/help-status
+elm2.5.8/doc/elmrc-info
+elm2.5.8/doc/answer.1
+elm2.5.8/doc/elmrc.samp
+elm2.5.8/doc/Config.guid
+elm2.5.8/doc/newalias.1
+elm2.5.8/doc/Elm.cover
+elm2.5.8/doc/fastmail.1
+elm2.5.8/doc/Users.guide
+elm2.5.8/doc/help-alias
+elm2.5.8/doc/help-pager
+elm2.5.8/doc/mmencode.1
+elm2.5.8/doc/help-selfolder
+elm2.5.8/doc/Makefile.SH
+elm2.5.8/doc/printmail.1
+elm2.5.8/doc/mlists.eg
+elm2.5.8/doc/Ref.guide
+elm2.5.8/doc/help-options
+elm2.5.8/doc/tmac.n
+elm2.5.8/doc/Form.guide
+elm2.5.8/doc/help-fbrowser
+elm2.5.8/doc/help-main
+elm2.5.8/doc/newmail.1
+elm2.5.8/doc/elmalias.1
+elm2.5.8/doc/readmsg.1
+elm2.5.8/doc/chkalias.1
+elm2.5.8/doc/help-attach
+elm2.5.8/doc/mime-types
+elm2.5.8/doc/Alias.guide
+elm2.5.8/lib/
+elm2.5.8/lib/expand.c
+elm2.5.8/lib/okay_addr.c
+elm2.5.8/lib/len_next.c
+elm2.5.8/lib/reverse.c
+elm2.5.8/lib/atonum.c
+elm2.5.8/lib/addrmchusr.c
+elm2.5.8/lib/header_cmp.c
+elm2.5.8/lib/validname.c
+elm2.5.8/lib/strftime.c
+elm2.5.8/lib/strfcpy.c
+elm2.5.8/lib/safemalloc.c
+elm2.5.8/lib/depend.out
+elm2.5.8/lib/parsarpdat.c
+elm2.5.8/lib/basename.c
+elm2.5.8/lib/parsarpwho.c
+elm2.5.8/lib/figadrssee.c
+elm2.5.8/lib/striparens.c
+elm2.5.8/lib/strtokq.c
+elm2.5.8/lib/mcprtlib.c
+elm2.5.8/lib/elmrc.c
+elm2.5.8/lib/putenv.c
+elm2.5.8/lib/can_access.c
+elm2.5.8/lib/mcprt.c
+elm2.5.8/lib/errno.c
+elm2.5.8/lib/patmatch.c
+elm2.5.8/lib/elm_access.c
+elm2.5.8/lib/strincmp.c
+elm2.5.8/lib/remfirstwd.c
+elm2.5.8/lib/fast_getpw.c
+elm2.5.8/lib/mlist.c
+elm2.5.8/lib/parsarpmbox.c
+elm2.5.8/lib/posixsig.c
+elm2.5.8/lib/get_tz.c
+elm2.5.8/lib/shiftlower.c
+elm2.5.8/lib/aliasdb.c
+elm2.5.8/lib/Makefile.SH
+elm2.5.8/lib/initcommon.c
+elm2.5.8/lib/can_open.c
+elm2.5.8/lib/date_util.c
+elm2.5.8/lib/mk_lockname.c
+elm2.5.8/lib/gethostname.c
+elm2.5.8/lib/ndbz.c
+elm2.5.8/lib/getword.c
+elm2.5.8/lib/realfrom.c
+elm2.5.8/lib/gcos_name.c
+elm2.5.8/lib/mk_aliases.c
+elm2.5.8/lib/getarpdate.c
+elm2.5.8/lib/move_left.c
+elm2.5.8/lib/ldstate.c
+elm2.5.8/lib/trim.c
+elm2.5.8/lib/rfc822tlen.c
+elm2.5.8/lib/qstrings.c
+elm2.5.8/lib/mailfile.c
+elm2.5.8/lib/add_site.c
+elm2.5.8/lib/mail_gets.c
+elm2.5.8/lib/getfullnam.c
+elm2.5.8/lib/in_list.c
+elm2.5.8/lib/strstr.c
+elm2.5.8/lib/msgcat.c
+elm2.5.8/lib/chloc.c
+elm2.5.8/lib/tail_of.c
+elm2.5.8/lib/opt_utils.c
+elm2.5.8/nls/
+elm2.5.8/nls/C/
+elm2.5.8/nls/C/C/
+elm2.5.8/nls/C/C/C/
+elm2.5.8/nls/C/C/C/s_elm.m
+elm2.5.8/nls/C/C/C/s_fbrowser.m
+elm2.5.8/nls/C/C/C/s_aliases.m
+elm2.5.8/nls/C/C/C/s_elmalias.m
+elm2.5.8/nls/C/C/C/s_elmrc.m
+elm2.5.8/nls/C/C/C/s_error.m
+elm2.5.8/nls/C/C/C/s_from.m
+elm2.5.8/nls/C/C/C/s_attach.m
+elm2.5.8/nls/C/C/C/s_newmail.m
+elm2.5.8/nls/C/C/C/s_newalias.m
+elm2.5.8/nls/C/C/C/s_readmsg.m
+elm2.5.8/nls/C/C/C/s_answer.m
+elm2.5.8/nls/C/C/C/s_fastmail.m
+elm2.5.8/nls/Makefile
+elm2.5.8/nls/LANGS
+elm2.5.8/nls/elm2.5.cat
+elm2.5.8/nls/Install
+elm2.5.8/nls/gencat/
+elm2.5.8/nls/gencat/Makefile
+elm2.5.8/nls/gencat/README
+elm2.5.8/nls/gencat/gencat.c
+elm2.5.8/nls/gencat/gencat.h
+elm2.5.8/nls/gencat/Copyright
+elm2.5.8/nls/gencat/genlib.c
+elm2.5.8/nls/gencat/dumpmsg.c
+elm2.5.8/src/
+elm2.5.8/src/a_quit.c
+elm2.5.8/src/find_alias.c
+elm2.5.8/src/a_sort.c
+elm2.5.8/src/returnadd.c
+elm2.5.8/src/reply.c
+elm2.5.8/src/showmsg_c.c
+elm2.5.8/src/string2.c
+elm2.5.8/src/strings.c
+elm2.5.8/src/elm.c
+elm2.5.8/src/a_sendmsg.c
+elm2.5.8/src/sndpart_lib.c
+elm2.5.8/src/sndattach.c
+elm2.5.8/src/syscall.c
+elm2.5.8/src/calendar.c
+elm2.5.8/src/savecopy.c
+elm2.5.8/src/depend.out
+elm2.5.8/src/out_utils.c
+elm2.5.8/src/editmsg.c
+elm2.5.8/src/limit.c
+elm2.5.8/src/file_ops.c
+elm2.5.8/src/fileio.c
+elm2.5.8/src/file_util.c
+elm2.5.8/src/sndhdrs.c
+elm2.5.8/src/encode.c
+elm2.5.8/src/pattern.c
+elm2.5.8/src/curses.c
+elm2.5.8/src/args.c
+elm2.5.8/src/screen.c
+elm2.5.8/src/date.c
+elm2.5.8/src/edit.c
+elm2.5.8/src/forms.c
+elm2.5.8/src/chstatus.c
+elm2.5.8/src/a_screen.c
+elm2.5.8/src/help.c
+elm2.5.8/src/Makefile.SH
+elm2.5.8/src/save_opts.c
+elm2.5.8/src/bouncebk.c
+elm2.5.8/src/init.c
+elm2.5.8/src/hdrconfg.c
+elm2.5.8/src/leavembox.c
+elm2.5.8/src/lock.c
+elm2.5.8/src/mime.c
+elm2.5.8/src/delete.c
+elm2.5.8/src/showmsg.c
+elm2.5.8/src/in_utils.c
+elm2.5.8/src/aliaslib.c
+elm2.5.8/src/quit.c
+elm2.5.8/src/save.c
+elm2.5.8/src/options.c
+elm2.5.8/src/sort.c
+elm2.5.8/src/builtin.c
+elm2.5.8/src/alias.c
+elm2.5.8/src/utils.c
+elm2.5.8/src/addr_util.c
+elm2.5.8/src/softkeys.c
+elm2.5.8/src/fbrowser.c
+elm2.5.8/src/a_edit.c
+elm2.5.8/src/sndmsg.c
+elm2.5.8/src/wordwrap.c
+elm2.5.8/src/newmbox.c
+elm2.5.8/src/signals.c
+elm2.5.8/src/sndpart_io.c
+elm2.5.8/src/read_rc.c
+elm2.5.8/hdrs/
+elm2.5.8/hdrs/sysdefs.SH
+elm2.5.8/hdrs/port_termios.h
+elm2.5.8/hdrs/s_elm.h
+elm2.5.8/hdrs/mcprtlib.h
+elm2.5.8/hdrs/sndparts.h
+elm2.5.8/hdrs/s_fbrowser.h
+elm2.5.8/hdrs/elm_lib.h
+elm2.5.8/hdrs/mcprt.h
+elm2.5.8/hdrs/s_aliases.h
+elm2.5.8/hdrs/sndhdrs.h
+elm2.5.8/hdrs/elm_curses.h
+elm2.5.8/hdrs/s_elmalias.h
+elm2.5.8/hdrs/elm_defs.h
+elm2.5.8/hdrs/save_opts.h
+elm2.5.8/hdrs/s_elmrc.h
+elm2.5.8/hdrs/mime.h
+elm2.5.8/hdrs/ndbz.h
+elm2.5.8/hdrs/s_error.h
+elm2.5.8/hdrs/port_stat.h
+elm2.5.8/hdrs/port_dirent.h
+elm2.5.8/hdrs/nl_types.h
+elm2.5.8/hdrs/port_wait.h
+elm2.5.8/hdrs/patchlevel.h
+elm2.5.8/hdrs/s_from.h
+elm2.5.8/hdrs/s_attach.h
+elm2.5.8/hdrs/s_newmail.h
+elm2.5.8/hdrs/s_newalias.h
+elm2.5.8/hdrs/mailfile.h
+elm2.5.8/hdrs/elm_globals.h
+elm2.5.8/hdrs/s_readmsg.h
+elm2.5.8/hdrs/s_answer.h
+elm2.5.8/hdrs/s_fastmail.h
+elm2.5.8/hdrs/msgcat.h
+elm2.5.8/hdrs/parseaddrs.h
+elm2.5.8/test/
+elm2.5.8/test/test.empty
+elm2.5.8/test/test.mail
+elm2.5.8/NOTICE
+elm2.5.8/utils/
+elm2.5.8/utils/listalias.SH
+elm2.5.8/utils/messages.SH
+elm2.5.8/utils/depend.out
+elm2.5.8/utils/answer.c
+elm2.5.8/utils/newalias.c
+elm2.5.8/utils/fastmail.c
+elm2.5.8/utils/checkalias.SH
+elm2.5.8/utils/mmencode.c
+elm2.5.8/utils/from.c
+elm2.5.8/utils/Makefile.SH
+elm2.5.8/utils/prlong.c
+elm2.5.8/utils/printmail.SH
+elm2.5.8/utils/newmail.c
+elm2.5.8/utils/elmalias.c
+elm2.5.8/utils/mailrc.awk
+elm2.5.8/utils/readmsg.c
+elm2.5.8/README
+elm2.5.8/Overview
+elm2.5.8/Changes
+elm2.5.8/Makefile.SH
+elm2.5.8/config.h.SH
+elm2.5.8/Instruct
+elm2.5.8/Configure
+elm2.5.8/MANIFEST
+elm2.5.8/Make.defs.SH
+Extracting Make.defs (with variable substitutions)
+Extracting doc/Makefile (with variable substitutions)
+Extracting lib/Makefile (with variable substitutions)
+Extracting src/Makefile (with variable substitutions)
+Extracting utils/Makefile (with variable substitutions)
+Extracting Makefile (with variable substitutions)
+sh ./config.h.SH
+Extracting config.h (with variable substitutions)
+sh ./hdrs/sysdefs.SH
+Extracting sysdefs.h (with variable substitutions)
++ mkdir bin
+cd lib && make   all
+make[1]: Entering directory `/tmp/elm2.5.8/lib'
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o add_site.o add_site.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o addrmchusr.o addrmchusr.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o aliasdb.o aliasdb.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o atonum.o atonum.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o basename.o basename.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o can_access.o can_access.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o can_open.o can_open.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o chloc.o chloc.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o date_util.o date_util.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o elm_access.o elm_access.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o elmrc.o elmrc.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o errno.o errno.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o expand.o expand.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o fast_getpw.o fast_getpw.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o figadrssee.o figadrssee.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o gcos_name.o gcos_name.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o get_tz.o get_tz.c
+get_tz.c: In function `get_tz_name':
+get_tz.c:137: warning: return discards qualifiers from pointer target type
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o getarpdate.o getarpdate.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o getfullnam.o getfullnam.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o gethostname.o gethostname.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o getword.o getword.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o header_cmp.o header_cmp.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o in_list.o in_list.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o initcommon.o initcommon.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o ldstate.o ldstate.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o len_next.o len_next.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o mail_gets.o mail_gets.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o mailfile.o mailfile.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o mk_aliases.o mk_aliases.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o mk_lockname.o mk_lockname.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o mlist.o mlist.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o move_left.o move_left.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o ndbz.o ndbz.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o okay_addr.o okay_addr.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o opt_utils.o opt_utils.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o parsarpdat.o parsarpdat.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o parsarpmbox.o parsarpmbox.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o parsarpwho.o parsarpwho.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o patmatch.o patmatch.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o posixsig.o posixsig.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o putenv.o putenv.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o qstrings.o qstrings.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o realfrom.o realfrom.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o remfirstwd.o remfirstwd.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o reverse.o reverse.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o rfc822tlen.o rfc822tlen.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o safemalloc.o safemalloc.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o shiftlower.o shiftlower.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o strfcpy.o strfcpy.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o strftime.o strftime.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o strincmp.o strincmp.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o striparens.o striparens.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o strstr.o strstr.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o strtokq.o strtokq.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o tail_of.o tail_of.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o trim.o trim.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o validname.o validname.c
+ar r libutil.a add_site.o addrmchusr.o aliasdb.o atonum.o basename.o can_access.o can_open.o chloc.o date_util.o elm_access.o elmrc.o errno.o expand.o fast_getpw.o figadrssee.o gcos_name.o get_tz.o getarpdate.o getfullnam.o gethostname.o getword.o header_cmp.o in_list.o initcommon.o ldstate.o len_next.o mail_gets.o mailfile.o mk_aliases.o mk_lockname.o mlist.o move_left.o ndbz.o okay_addr.o opt_utils.o parsarpdat.o parsarpmbox.o parsarpwho.o patmatch.o posixsig.o putenv.o qstrings.o realfrom.o remfirstwd.o reverse.o rfc822tlen.o safemalloc.o shiftlower.o strfcpy.o strftime.o strincmp.o striparens.o strstr.o strtokq.o tail_of.o trim.o validname.o
+ar: creating libutil.a
+: libutil.a
+make[1]: Leaving directory `/tmp/elm2.5.8/lib'
+cd src && make   all
+make[1]: Entering directory `/tmp/elm2.5.8/src'
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o addr_util.o addr_util.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o alias.o alias.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o aliaslib.o aliaslib.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o args.o args.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o a_edit.o a_edit.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o a_screen.o a_screen.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o a_sendmsg.o a_sendmsg.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o a_sort.o a_sort.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o a_quit.o a_quit.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o bouncebk.o bouncebk.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o builtin.o builtin.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o calendar.o calendar.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o chstatus.o chstatus.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o curses.o curses.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o date.o date.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o delete.o delete.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o edit.o edit.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o editmsg.o editmsg.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o elm.o elm.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o encode.o encode.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o fbrowser.o fbrowser.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o file_ops.o file_ops.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o file_util.o file_util.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o fileio.o fileio.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o find_alias.o find_alias.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o forms.o forms.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o hdrconfg.o hdrconfg.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o help.o help.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o in_utils.o in_utils.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o init.o init.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o leavembox.o leavembox.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o lock.o lock.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o limit.o limit.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o mime.o mime.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o newmbox.o newmbox.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o options.o options.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o out_utils.o out_utils.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o pattern.o pattern.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o quit.o quit.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o read_rc.o read_rc.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o reply.o reply.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o returnadd.o returnadd.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o save.o save.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o save_opts.o save_opts.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o savecopy.o savecopy.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o screen.o screen.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o showmsg.o showmsg.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o showmsg_c.o showmsg_c.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o signals.o signals.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o sndattach.o sndattach.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o sndhdrs.o sndhdrs.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o sndmsg.o sndmsg.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o sndpart_io.o sndpart_io.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o sndpart_lib.o sndpart_lib.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o softkeys.o softkeys.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o sort.o sort.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o string2.o string2.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o strings.o strings.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o syscall.o syscall.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o utils.o utils.c
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o wordwrap.o wordwrap.c
+cc  -o ../bin/elm addr_util.o alias.o aliaslib.o args.o a_edit.o a_screen.o a_sendmsg.o a_sort.o a_quit.o bouncebk.o builtin.o calendar.o chstatus.o curses.o date.o delete.o edit.o editmsg.o elm.o encode.o fbrowser.o file_ops.o file_util.o fileio.o find_alias.o forms.o hdrconfg.o help.o in_utils.o init.o leavembox.o lock.o limit.o mime.o newmbox.o options.o out_utils.o pattern.o quit.o read_rc.o reply.o returnadd.o save.o save_opts.o savecopy.o screen.o showmsg.o showmsg_c.o signals.o sndattach.o sndhdrs.o sndmsg.o sndpart_io.o sndpart_lib.o softkeys.o sort.o string2.o strings.o syscall.o utils.o wordwrap.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+reply.o(.text+0x10b0): In function `remail':
+: warning: the use of `tempnam' is dangerous, better use `mkstemp'
+make[1]: Leaving directory `/tmp/elm2.5.8/src'
+cd utils && make   all
+make[1]: Entering directory `/tmp/elm2.5.8/utils'
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o answer.o answer.c
+cc  -o ../bin/answer answer.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+sh ../utils/checkalias.SH
+Extracting utils/checkalias (with variable substitutions)
+/bin/cp checkalias ../bin/checkalias ; /bin/chmod u+w,a+rx ../bin/checkalias
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o elmalias.o elmalias.c
+cc  -o ../bin/elmalias elmalias.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o fastmail.o fastmail.c
+cc  -o ../bin/fastmail fastmail.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o from.o from.c
+cc  -o ../bin/frm from.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+sh ../utils/listalias.SH
+Extracting utils/listalias (with variable substitutions)
+/bin/cp listalias ../bin/listalias ; /bin/chmod u+w,a+rx ../bin/listalias
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o mmencode.o mmencode.c
+cc  -o ../bin/mmencode mmencode.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+sh ../utils/messages.SH
+Extracting utils/messages (with variable substitutions)
+/bin/cp messages ../bin/messages ; /bin/chmod u+w,a+rx ../bin/messages
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o newalias.o newalias.c
+cc  -o ../bin/newalias newalias.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o newmail.o newmail.c
+cc  -o ../bin/newmail newmail.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+sh ../utils/printmail.SH
+Extracting utils/printmail (with variable substitutions)
+/bin/cp printmail ../bin/printmail ; /bin/chmod u+w,a+rx ../bin/printmail
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o prlong.o prlong.c
+cc  -o ../bin/prlong prlong.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+cc -m32 -mcpu=v8 -mtune=v9  -O  -I.. -I../hdrs   -c -o readmsg.o readmsg.c
+cc  -o ../bin/readmsg readmsg.o ../lib/libutil.a /usr/lib/libcrypt.a -lncurses 
+make[1]: Leaving directory `/tmp/elm2.5.8/utils'
+cd doc && make   all
+make[1]: Entering directory `/tmp/elm2.5.8/doc'
+make[1]: Leaving directory `/tmp/elm2.5.8/doc'
+cd lib && make   install
+make[1]: Entering directory `/tmp/elm2.5.8/lib'
+make[1]: Nothing to be done for `install'.
+make[1]: Leaving directory `/tmp/elm2.5.8/lib'
+cd src && make   install
+make[1]: Entering directory `/tmp/elm2.5.8/src'
+/bin/rm -f /tmp/package-elm/usr/bin/elm.old ; test ! -f /tmp/package-elm/usr/bin/elm || /bin/mv /tmp/package-elm/usr/bin/elm /tmp/package-elm/usr/bin/elm.old ; /bin/rm -f /tmp/package-elm/usr/bin/elm.old ; /bin/cp ../bin/elm /tmp/package-elm/usr/bin/elm ; test 2755 -lt 999 || /bin/chgrp mail /tmp/package-elm/usr/bin/elm ; /bin/chmod 2755 /tmp/package-elm/usr/bin/elm
+make[1]: Leaving directory `/tmp/elm2.5.8/src'
+cd utils && make   install
+make[1]: Entering directory `/tmp/elm2.5.8/utils'
+/bin/rm -f /tmp/package-elm/usr/bin/answer.old ; test ! -f /tmp/package-elm/usr/bin/answer || /bin/mv /tmp/package-elm/usr/bin/answer /tmp/package-elm/usr/bin/answer.old ; /bin/rm -f /tmp/package-elm/usr/bin/answer.old ; /bin/cp ../bin/answer /tmp/package-elm/usr/bin/answer ; /bin/chmod a+x /tmp/package-elm/usr/bin/answer
+/bin/rm -f /tmp/package-elm/usr/bin/checkalias.old ; test ! -f /tmp/package-elm/usr/bin/checkalias || /bin/mv /tmp/package-elm/usr/bin/checkalias /tmp/package-elm/usr/bin/checkalias.old ; /bin/rm -f /tmp/package-elm/usr/bin/checkalias.old ; /bin/cp ../bin/checkalias /tmp/package-elm/usr/bin/checkalias ; /bin/chmod a+x /tmp/package-elm/usr/bin/checkalias
+/bin/rm -f /tmp/package-elm/usr/bin/elmalias.old ; test ! -f /tmp/package-elm/usr/bin/elmalias || /bin/mv /tmp/package-elm/usr/bin/elmalias /tmp/package-elm/usr/bin/elmalias.old ; /bin/rm -f /tmp/package-elm/usr/bin/elmalias.old ; /bin/cp ../bin/elmalias /tmp/package-elm/usr/bin/elmalias ; /bin/chmod a+x /tmp/package-elm/usr/bin/elmalias
+/bin/rm -f /tmp/package-elm/usr/bin/fastmail.old ; test ! -f /tmp/package-elm/usr/bin/fastmail || /bin/mv /tmp/package-elm/usr/bin/fastmail /tmp/package-elm/usr/bin/fastmail.old ; /bin/rm -f /tmp/package-elm/usr/bin/fastmail.old ; /bin/cp ../bin/fastmail /tmp/package-elm/usr/bin/fastmail ; /bin/chmod a+x /tmp/package-elm/usr/bin/fastmail
+/bin/rm -f /tmp/package-elm/usr/bin/frm.old ; test ! -f /tmp/package-elm/usr/bin/frm || /bin/mv /tmp/package-elm/usr/bin/frm /tmp/package-elm/usr/bin/frm.old ; /bin/rm -f /tmp/package-elm/usr/bin/frm.old ; /bin/cp ../bin/frm /tmp/package-elm/usr/bin/frm ; /bin/chmod a+x /tmp/package-elm/usr/bin/frm
+/bin/rm -f /tmp/package-elm/usr/bin/listalias.old ; test ! -f /tmp/package-elm/usr/bin/listalias || /bin/mv /tmp/package-elm/usr/bin/listalias /tmp/package-elm/usr/bin/listalias.old ; /bin/rm -f /tmp/package-elm/usr/bin/listalias.old ; /bin/cp ../bin/listalias /tmp/package-elm/usr/bin/listalias ; /bin/chmod a+x /tmp/package-elm/usr/bin/listalias
+/bin/rm -f /tmp/package-elm/usr/bin/messages.old ; test ! -f /tmp/package-elm/usr/bin/messages || /bin/mv /tmp/package-elm/usr/bin/messages /tmp/package-elm/usr/bin/messages.old ; /bin/rm -f /tmp/package-elm/usr/bin/messages.old ; /bin/cp ../bin/messages /tmp/package-elm/usr/bin/messages ; /bin/chmod a+x /tmp/package-elm/usr/bin/messages
+/bin/rm -f /tmp/package-elm/usr/bin/mmencode.old ; test ! -f /tmp/package-elm/usr/bin/mmencode || /bin/mv /tmp/package-elm/usr/bin/mmencode /tmp/package-elm/usr/bin/mmencode.old ; /bin/rm -f /tmp/package-elm/usr/bin/mmencode.old ; /bin/cp ../bin/mmencode /tmp/package-elm/usr/bin/mmencode ; /bin/chmod a+x /tmp/package-elm/usr/bin/mmencode
+/bin/rm -f /tmp/package-elm/usr/bin/newalias.old ; test ! -f /tmp/package-elm/usr/bin/newalias || /bin/mv /tmp/package-elm/usr/bin/newalias /tmp/package-elm/usr/bin/newalias.old ; /bin/rm -f /tmp/package-elm/usr/bin/newalias.old ; /bin/cp ../bin/newalias /tmp/package-elm/usr/bin/newalias ; /bin/chmod a+x /tmp/package-elm/usr/bin/newalias
+/bin/rm -f /tmp/package-elm/usr/bin/newmail.old ; test ! -f /tmp/package-elm/usr/bin/newmail || /bin/mv /tmp/package-elm/usr/bin/newmail /tmp/package-elm/usr/bin/newmail.old ; /bin/rm -f /tmp/package-elm/usr/bin/newmail.old ; /bin/cp ../bin/newmail /tmp/package-elm/usr/bin/newmail ; /bin/chmod a+x /tmp/package-elm/usr/bin/newmail
+/bin/rm -f /tmp/package-elm/usr/bin/nfrm.old ; test ! -f /tmp/package-elm/usr/bin/nfrm || /bin/mv /tmp/package-elm/usr/bin/nfrm /tmp/package-elm/usr/bin/nfrm.old ; /bin/rm -f /tmp/package-elm/usr/bin/nfrm.old ; /bin/ln /tmp/package-elm/usr/bin/frm /tmp/package-elm/usr/bin/nfrm
+/bin/rm -f /tmp/package-elm/usr/bin/printmail.old ; test ! -f /tmp/package-elm/usr/bin/printmail || /bin/mv /tmp/package-elm/usr/bin/printmail /tmp/package-elm/usr/bin/printmail.old ; /bin/rm -f /tmp/package-elm/usr/bin/printmail.old ; /bin/cp ../bin/printmail /tmp/package-elm/usr/bin/printmail ; /bin/chmod a+x /tmp/package-elm/usr/bin/printmail
+/bin/rm -f /tmp/package-elm/usr/bin/prlong.old ; test ! -f /tmp/package-elm/usr/bin/prlong || /bin/mv /tmp/package-elm/usr/bin/prlong /tmp/package-elm/usr/bin/prlong.old ; /bin/rm -f /tmp/package-elm/usr/bin/prlong.old ; /bin/cp ../bin/prlong /tmp/package-elm/usr/bin/prlong ; /bin/chmod a+x /tmp/package-elm/usr/bin/prlong
+/bin/rm -f /tmp/package-elm/usr/bin/readmsg.old ; test ! -f /tmp/package-elm/usr/bin/readmsg || /bin/mv /tmp/package-elm/usr/bin/readmsg /tmp/package-elm/usr/bin/readmsg.old ; /bin/rm -f /tmp/package-elm/usr/bin/readmsg.old ; /bin/cp ../bin/readmsg /tmp/package-elm/usr/bin/readmsg ; /bin/chmod a+x /tmp/package-elm/usr/bin/readmsg
+/bin/rm -f /tmp/package-elm/usr/bin/wnewmail.old ; test ! -f /tmp/package-elm/usr/bin/wnewmail || /bin/mv /tmp/package-elm/usr/bin/wnewmail /tmp/package-elm/usr/bin/wnewmail.old ; /bin/rm -f /tmp/package-elm/usr/bin/wnewmail.old ; /bin/ln /tmp/package-elm/usr/bin/newmail /tmp/package-elm/usr/bin/wnewmail
+make[1]: Leaving directory `/tmp/elm2.5.8/utils'
+cd doc && make   install
+make[1]: Entering directory `/tmp/elm2.5.8/doc'
+test ! -f /tmp/package-elm/var/lib/elm/elmrc-info || /bin/rm -f /tmp/package-elm/var/lib/elm/elmrc-info ; /bin/cp elmrc-info /tmp/package-elm/var/lib/elm/elmrc-info ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/elmrc-info
+test ! -f /tmp/package-elm/var/lib/elm/help-main || /bin/rm -f /tmp/package-elm/var/lib/elm/help-main ; /bin/cp help-main /tmp/package-elm/var/lib/elm/help-main ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-main
+test ! -f /tmp/package-elm/var/lib/elm/help-options || /bin/rm -f /tmp/package-elm/var/lib/elm/help-options ; /bin/cp help-options /tmp/package-elm/var/lib/elm/help-options ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-options
+test ! -f /tmp/package-elm/var/lib/elm/help-alias || /bin/rm -f /tmp/package-elm/var/lib/elm/help-alias ; /bin/cp help-alias /tmp/package-elm/var/lib/elm/help-alias ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-alias
+test ! -f /tmp/package-elm/var/lib/elm/help-pager || /bin/rm -f /tmp/package-elm/var/lib/elm/help-pager ; /bin/cp help-pager /tmp/package-elm/var/lib/elm/help-pager ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-pager
+test ! -f /tmp/package-elm/var/lib/elm/help-status || /bin/rm -f /tmp/package-elm/var/lib/elm/help-status ; /bin/cp help-status /tmp/package-elm/var/lib/elm/help-status ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-status
+test ! -f /tmp/package-elm/var/lib/elm/help-fbrowser || /bin/rm -f /tmp/package-elm/var/lib/elm/help-fbrowser ; /bin/cp help-fbrowser /tmp/package-elm/var/lib/elm/help-fbrowser ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-fbrowser
+test ! -f /tmp/package-elm/var/lib/elm/help-attach || /bin/rm -f /tmp/package-elm/var/lib/elm/help-attach ; /bin/cp help-attach /tmp/package-elm/var/lib/elm/help-attach ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-attach
+test ! -f /tmp/package-elm/var/lib/elm/help-selfolder || /bin/rm -f /tmp/package-elm/var/lib/elm/help-selfolder ; /bin/cp help-selfolder /tmp/package-elm/var/lib/elm/help-selfolder ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/help-selfolder
+test ! -f /tmp/package-elm/var/lib/elm/mime-types || /bin/rm -f /tmp/package-elm/var/lib/elm/mime-types ; /bin/cp mime-types /tmp/package-elm/var/lib/elm/mime-types ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/mime-types
+test ! -f /tmp/package-elm/var/lib/elm/mlists.eg || /bin/rm -f /tmp/package-elm/var/lib/elm/mlists.eg ; /bin/cp mlists.eg /tmp/package-elm/var/lib/elm/mlists.eg ; /bin/chmod 444 /tmp/package-elm/var/lib/elm/mlists.eg
+make[2]: Entering directory `/tmp/elm2.5.8/doc'
+test ! -f /tmp/package-elm/usr/man/man1/answer.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/answer.1 ; /bin/cp answer.1 /tmp/package-elm/usr/man/man1/answer.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/answer.1
+test ! -f /tmp/package-elm/usr/man/man1/checkalias.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/checkalias.1 ; /bin/cp chkalias.1 /tmp/package-elm/usr/man/man1/checkalias.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/checkalias.1
+test ! -f /tmp/package-elm/usr/man/man1/elm.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/elm.1 ; /bin/cp elm.1 /tmp/package-elm/usr/man/man1/elm.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/elm.1
+test ! -f /tmp/package-elm/usr/man/man1/elmalias.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/elmalias.1 ; /bin/cp elmalias.1 /tmp/package-elm/usr/man/man1/elmalias.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/elmalias.1
+test ! -f /tmp/package-elm/usr/man/man1/fastmail.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/fastmail.1 ; /bin/cp fastmail.1 /tmp/package-elm/usr/man/man1/fastmail.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/fastmail.1
+test ! -f /tmp/package-elm/usr/man/man1/frm.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/frm.1 ; /bin/cp frm.1 /tmp/package-elm/usr/man/man1/frm.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/frm.1
+test ! -f /tmp/package-elm/usr/man/man1/listalias.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/listalias.1 ; /bin/cp listalias.1 /tmp/package-elm/usr/man/man1/listalias.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/listalias.1
+test ! -f /tmp/package-elm/usr/man/man1/messages.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/messages.1 ; /bin/cp messages.1 /tmp/package-elm/usr/man/man1/messages.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/messages.1
+test ! -f /tmp/package-elm/usr/man/man1/mmencode.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/mmencode.1 ; /bin/cp mmencode.1 /tmp/package-elm/usr/man/man1/mmencode.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/mmencode.1
+test ! -f /tmp/package-elm/usr/man/man1/newalias.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/newalias.1 ; /bin/cp newalias.1 /tmp/package-elm/usr/man/man1/newalias.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/newalias.1
+test ! -f /tmp/package-elm/usr/man/man1/newmail.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/newmail.1 ; /bin/cp newmail.1 /tmp/package-elm/usr/man/man1/newmail.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/newmail.1
+test ! -f /tmp/package-elm/usr/man/man1/printmail.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/printmail.1 ; /bin/cp printmail.1 /tmp/package-elm/usr/man/man1/printmail.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/printmail.1
+test ! -f /tmp/package-elm/usr/man/man1/readmsg.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/readmsg.1 ; /bin/cp readmsg.1 /tmp/package-elm/usr/man/man1/readmsg.1 ; /bin/chmod 444 /tmp/package-elm/usr/man/man1/readmsg.1
+test ! -f /tmp/package-elm/usr/man/man1/wnewmail.1 || /bin/rm -f /tmp/package-elm/usr/man/man1/wnewmail.1 ; /bin/ln /tmp/package-elm/usr/man/man1/newmail.1 /tmp/package-elm/usr/man/man1/wnewmail.1
+make[2]: Leaving directory `/tmp/elm2.5.8/doc'
+make[1]: Leaving directory `/tmp/elm2.5.8/doc'
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+usr/bin/frm -> nfrm
+usr/bin/newmail -> wnewmail
+
+Making symbolic link creation script:
+( cd usr/bin ; rm -rf frm )
+( cd usr/bin ; ln -sf nfrm frm )
+( cd usr/bin ; rm -rf newmail )
+( cd usr/bin ; ln -sf wnewmail newmail )
+
+It is recommended that you make these lines your new installation script.
+
+Would you like to make this stuff the install script for this package
+and remove the symbolic links ([y]es, [n]o)? y
+
+
+Removing symbolic links:
+removed `./usr/bin/frm'
+removed `./usr/bin/newmail'
+
+Creating your new ./install/doinst.sh...
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? n
+
+
+Creating tar file elm-2.5.8-sparc-1.tar...
+
+./
+var/
+var/lib/
+var/lib/elm/
+var/lib/elm/elmrc-info
+var/lib/elm/help-main
+var/lib/elm/help-options
+var/lib/elm/help-alias
+var/lib/elm/help-pager
+var/lib/elm/help-status
+var/lib/elm/help-fbrowser
+var/lib/elm/help-attach
+var/lib/elm/help-selfolder
+var/lib/elm/mime-types
+var/lib/elm/mlists.eg
+usr/
+usr/bin/
+usr/bin/elm
+usr/bin/answer
+usr/bin/checkalias
+usr/bin/elmalias
+usr/bin/fastmail
+usr/bin/listalias
+usr/bin/messages
+usr/bin/mmencode
+usr/bin/newalias
+usr/bin/nfrm
+usr/bin/printmail
+usr/bin/prlong
+usr/bin/readmsg
+usr/bin/wnewmail
+usr/man/
+usr/man/man1/
+usr/man/man1/elm.1.gz
+usr/man/man1/elmalias.1.gz
+usr/man/man1/fastmail.1.gz
+usr/man/man1/frm.1.gz
+usr/man/man1/listalias.1.gz
+usr/man/man1/messages.1.gz
+usr/man/man1/newalias.1.gz
+usr/man/man1/newmail.1.gz
+usr/man/man1/printmail.1.gz
+usr/man/man1/readmsg.1.gz
+usr/man/man1/wnewmail.1.gz
+usr/man/man1/answer.1.gz
+usr/man/man1/checkalias.1.gz
+usr/man/man1/mmencode.1.gz
+usr/doc/
+usr/doc/elm-2.5.8/
+usr/doc/elm-2.5.8/NOTICE
+usr/doc/elm-2.5.8/Overview
+usr/doc/elm-2.5.8/README
+usr/doc/elm-2.5.8/Alias.guide
+usr/doc/elm-2.5.8/Config.guid
+usr/doc/elm-2.5.8/Form.guide
+usr/doc/elm-2.5.8/Ref.guide
+usr/doc/elm-2.5.8/Users.guide
+usr/doc/elm-2.5.8/Elm.cover
+install/
+install/slack-desc
+install/doinst.sh
+tar-1.13: elm-2.5.8-sparc-1.tar is the archive; not dumped
+
+Gzipping elm-2.5.8-sparc-1.tar...
+
+Renaming elm-2.5.8-sparc-1.tar.gz to elm-2.5.8-sparc-1.tgz...
+
+Moving elm-2.5.8-sparc-1.tgz to /tmp...
+
+Package creation complete.
+

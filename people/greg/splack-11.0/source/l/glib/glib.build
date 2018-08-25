@@ -1,0 +1,17 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/glib-1.2.10.tar.gz
+cd glib-1.2.10
+./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            i386-slackware-linux
+make CFLAGS="-O2 -Wall -D_REENTRANT"
+make CFLAGS="-O2 -Wall -D_REENTRANT" install
+mkdir /usr/doc/glib-1.2.10
+cp -a AUTHORS COPYING INSTALL NEWS README /usr/doc/glib-1.2.10
+chmod 644 /usr/doc/glib-1.2.10/*
+chown root:root /usr/doc/glib-1.2.10/*
+chmod 755 /usr/lib/libgmod*.so.*
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

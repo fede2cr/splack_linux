@@ -1,0 +1,56 @@
+#!/bin/sh
+PKG=/tmp/package-lesstif
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=0.93.49
+ARCH=i486
+BUILD=1
+
+CWD=`pwd`
+cd /tmp
+rm -rf lesstif-$VERSION
+tar xjvf $CWD/lesstif-$VERSION.tar.bz2
+cd lesstif-$VERSION
+chown -R root.root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="-O2 -march=i486 -mcpu=i686" \
+./configure --prefix=/usr/X11R6 \
+            --enable-shared \
+            --enable-static \
+            --enable-build-21 \
+            --enable-build-Xlt \
+            --enable-build-Xbae \
+            --enable-xbae-24bit \
+            --enable-xbae-row-heights \
+            --disable-debug \
+            --enable-production \
+            i486-slackware-linux
+make
+# I'm taking these out to see if anyone cares
+#            --enable-build-12
+#            --enable-build-20
+make install DESTDIR=$PKG
+( cd $PKG
+find . | xargs file | grep "ELF 32-bit LSB executable" | grep 80386 | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+find . | xargs file | grep "ELF 32-bit LSB shared object" | grep 80386 | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/usr/doc
+( cd $PKG/usr/doc ; rm -rf lesstif-$VERSION ; ln -sf /usr/X11R6/LessTif lesstif-$VERSION )
+# The config file handles adding this in:
+mkdir -p $PKG/usr/X11R6/lib/X11/config
+cp -a $PKG/usr/X11R6/lib/LessTif/config/* $PKG/usr/X11R6/lib/X11/config
+( cd $PKG/usr/X11R6/lib/X11/config ; mv host.def host.def-lesstif )
+mkdir -p $PKG/etc/X11
+( cd $PKG/usr/X11R6/lib/X11 ; cp -a mwm $PKG/etc/X11 ; rm -rf mwm ; ln -sf ../../../../etc/X11/mwm . )
+( cd $PKG/usr/X11R6/lib/X11 ; cp -a app-defaults $PKG/etc/X11 )
+gzip -9 $PKG/usr/X11R6/man/man?/*.?
+mkdir $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n /tmp/lesstif-$VERSION-$ARCH-$BUILD.tgz
+

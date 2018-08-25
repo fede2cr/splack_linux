@@ -1,0 +1,67 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-glut
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=3.7
+ARCH=i486
+BUILD=1
+
+cd $TMP
+rm -rf glut-$VERSION
+tar xjvf $CWD/glut-$VERSION.tar.bz2
+cd glut-$VERSION
+zcat $CWD/glut.solink.diff.gz | patch -p1 --verbose
+zcat $CWD/glut.i486i686.diff.gz | patch -p1 --verbose
+chown -R root:root .
+find . -type f -perm 444 | xargs chmod 644
+rm -f Glut.cf
+cp -f linux/Glut.cf .
+./mkmkfiles.imake
+cd lib/glut
+rm -f Makefile
+cp -f ../../linux/Makefile .
+make depend
+make
+( cd ../glsmap ; make )
+( cd ../mui ; make )
+( cd ../../man
+  sed s/gle// Imakefile > Imakefile.tmp
+  mv -f Imakefile.tmp Imakefile
+  xmkmf
+)
+cd ../..
+mkdir -p $PKG/usr/X11R6/lib
+cp lib/glut/libglut.so.3.7 $PKG/usr/X11R6/lib
+chmod 755 $PKG/usr/X11R6/lib/libglut.so.3.7
+( cd $PKG/usr/X11R6/lib
+  ln -sf libglut.so.3.7 libglut.so.3
+  ln -sf libglut.so.3 libglut.so
+)
+cp lib/*/lib*.a $PKG/usr/X11R6/lib
+# ?
+rm -f include/GL/tube.h
+mkdir -p $PKG/usr/X11R6/include
+cp -rp include/* $PKG/usr/X11R6/include
+( cd man ; make DESTDIR=$PKG MANDIR=/usr/X11R6/man/man3 install.man )
+( cd $PKG/usr/X11R6/man/man3
+  for file in *.3xglut ; do
+    mv $file `basename $file xglut`
+  done
+  gzip -9 *
+)
+mkdir -p $PKG/usr/doc/glut-$VERSION
+cp -a \
+  FAQ.glut NOTICE README* \
+  $PKG/usr/doc/glut-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+( cd $PKG
+  find . -type f | xargs file | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded )
+
+cd $PKG
+makepkg -l y -c n ../glut-$VERSION-$ARCH-$BUILD.tgz
+

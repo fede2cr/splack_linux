@@ -1,0 +1,36 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-libvorbis
+
+VERSION=1.1.2
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+rm -rf $PKG
+mkdir -p $PKG
+cd /tmp
+rm -rf libvorbis-$VERSION
+tar xjvf $CWD/libvorbis-$VERSION.tar.bz2
+cd libvorbis-$VERSION
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+./configure \
+  --prefix=/usr \
+  $ARCH-slackware-linux
+make
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mv $PKG/usr/share/doc $PKG/usr
+cp -a \
+  AUTHORS COPYING HACKING README \
+  $PKG/usr/doc/libvorbis-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../libvorbis-$VERSION-$ARCH-$BUILD.tgz
+

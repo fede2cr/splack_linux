@@ -1,0 +1,79 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-tin
+
+VERSION=1.8.2
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf tin-$VERSION
+tar xjvf $CWD/tin-$VERSION.tar.bz2
+cd tin-$VERSION
+chown -R root:root .
+./configure \
+ --prefix=/usr \
+  --with-metamail=/usr/bin/metamail \
+  --with-ispell=/usr/bin/ispell \
+  --with-defaults-dir=/etc/tin \
+  --with-libdir=/var/lib/news \
+  --with-ncurses
+make clean
+make build
+make install DESTDIR=$PKG
+make install_sysdefs DESTDIR=$PKG
+cat << EOF > $PKG/etc/tin/README
+
+To complete TIN setup, edit /etc/nntpserver to the name of your NNTP server,
+then edit tin.defaults to set your domain name (and other options).
+
+Happy newsreading! :^)
+
+EOF
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/usr/doc/tin-$VERSION
+cp -a \
+  README doc/* tools \
+  $PKG/usr/doc/tin-$VERSION
+( cd $PKG/usr/doc/tin-$VERSION
+  rm -f CHANGES.old *.1 *.3 *.5
+)
+# Clutter reduction (these are in the tools dir)
+rm -f $PKG/usr/bin/metamutt \
+   $PKG/usr/bin/opt-case.pl \
+   $PKG/usr/bin/url_handler.sh \
+   $PKG/usr/bin/w2r.pl
+chmod 644 $PKG/usr/man/man?/*.?
+( cd $PKG/usr/man/man1
+  mv opt-case.pl.1 w2r.pl.1 $PKG/usr/doc/tin-$VERSION/tools
+)
+gzip -9 $PKG/usr/man/man?/*.?
+( cd $PKG/usr/man/man1
+  rm -f *.1
+  ln -sf tin.1.gz rtin.1.gz
+)
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/tin-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/tin-$VERSION
+  rm -rf $PKG
+fi

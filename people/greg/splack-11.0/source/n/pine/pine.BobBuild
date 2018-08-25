@@ -1,0 +1,132 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+PKG1=$TMP/package-pine
+PKG2=$TMP/package-imapd
+
+VERSION=4.64
+ARCH=${ARCH:-sparc}
+PINEBUILD=2
+IMAPDBUILD=3
+
+PINEPGP=0.18.0
+
+cat << EOF > $CWD/slack-desc.imapd
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+imapd: imapd (IMAP4rev1 from pine${VERSION})
+imapd:
+imapd: /usr/sbin/ipop3d and /usr/sbin/imapd are servers supporting the POP3
+imapd: and IMAP remote mail access protocols.  They allow users to download
+imapd: mail from your Linux system for remote viewing.
+imapd:
+imapd:
+imapd:
+imapd:
+imapd:
+imapd:
+EOF
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG1 $PKG2
+mkdir -p $PKG1 $PKG2
+
+# Explode the package framework:
+cd $PKG1
+explodepkg $CWD/_pine.tar.gz
+cd $PKG2
+explodepkg $CWD/_imapd.tar.gz
+
+echo "+==========+"
+echo "| pine$VERSION |"
+echo "+==========+"
+cd $TMP
+rm -rf pine$VERSION
+tar xjvf $CWD/pine$VERSION.tar.bz2
+cd pine$VERSION
+zcat $CWD/pine-slackware.config.diff.gz | patch -p1 --backup --verbose -E || exit
+# Set default debug level to 0:
+zcat $CWD/pine.debug.diff.gz | patch -p1 --backup --verbose -E || exit
+echo "#define PASSFILE        \".pine.pwd\"" >> pine/osdep/os-lnx.h
+# Remove ~ files:
+find . -name "*~" | xargs rm --verbose
+mkdir $PKG1/usr/doc/pine$VERSION
+cp -a README CPYRIGHT $PKG1/usr/doc/pine$VERSION
+( cd doc ; cp -a * $PKG1/usr/doc/pine$VERSION )
+( cd $PKG1/usr/doc/pine$VERSION ; rm *.1 tech-notes.txt )
+( cd $PKG1/usr/doc/pine$VERSION ; chown -R root:root . )
+mkdir -p $PKG2/usr/doc/imap$VERSION
+cp -a \
+  README CPYRIGHT \
+  imap/docs/md5.txt \
+  $PKG2/usr/doc/imap$VERSION
+cat << EOF > $PKG2/usr/doc/imap$VERSION/additional-imap-documentation
+Additional documentation for imapd may be found in the pine
+sources in the /imap/docs directory.
+EOF
+chown root:root $PKG2/usr/doc/imap$VERSION/*
+./build slx SSLLIB=/usr/lib SSLDIR=/etc/ssl SSLCERTS=/etc/ssl/certs SSLINCLUDE=/usr/include/openssl SSLTYPE=unix OPTIMIZE=-O2 DEBUG=-O2 'LDAPLIBS=-lldap -llber' 'LDAPCFLAGS=-DENABLE_LDAP' EXTRACFLAGS='-m32 -mcpu=v8 -mtune=v9'
+#( cd imap ; make clean )
+#( cd imap ; make slx )
+for file in doc/pico.1 doc/pilot.1 doc/pine.1 ; do
+  cat $file | gzip -9c > $PKG1/usr/man/man1/`basename $file`.gz
+done
+for file in imap/src/imapd/imapd.8 imap/src/ipopd/ipopd.8 ; do
+  cat $file | gzip -9c > $PKG2/usr/man/man8/`basename $file`.gz
+done
+cd imap/imapd
+strip imapd
+cat imapd > $PKG2/usr/sbin/imapd
+cd ../ipopd
+strip ipop3d
+cat ipop3d > $PKG2/usr/sbin/ipop3d
+cd ../../bin
+strip *
+cat pico > $PKG1/usr/bin/pico
+cat pilot > $PKG1/usr/bin/pilot
+cat pine > $PKG1/usr/bin/pine
+# Add a default system-wide config file:
+$PKG1/usr/bin/pine -conf > $PKG1/etc/pine.conf
+
+# Add slack-desc files:
+mkdir -p $PKG1/install
+cat $CWD/slack-desc.pine > $PKG1/install/slack-desc
+mkdir -p $PKG2/install
+cat $CWD/slack-desc.imapd > $PKG2/install/slack-desc
+
+# Add pinepgp support:
+cd $TMP
+tar xzvf $CWD/pinepgp-$PINEPGP.tar.gz
+cd pinepgp-$PINEPGP
+chown -R root:root .
+./configure --prefix=/usr
+make
+make install DESTDIR=$PKG1
+mkdir -p $PKG1/usr/doc/pinepgp-$PINEPGP
+cp -a COPYING README $PKG1/usr/doc/pinepgp-$PINEPGP 
+chmod 644 $PKG1/usr/doc/pinepgp-$PINEPGP/*
+
+# Build the package:
+cd $PKG1
+makepkg -l y -c n $TMP/pine-$VERSION-$ARCH-$PINEBUILD.tgz
+cd $PKG2
+makepkg -l y -c n $TMP/imapd-$VERSION-$ARCH-$IMAPDBUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/pine$VERSION
+  rm -rf $PKG1
+  rm -rf $PKG2
+fi

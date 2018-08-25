@@ -1,0 +1,40 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+PKG=$TMP/package-getmail
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=4.6.3
+ARCH=noarch
+BUILD=1
+
+cd $TMP
+rm -rf getmail-$VERSION
+tar xzvf $CWD/getmail-$VERSION.tar.gz
+chown -R root:root getmail-$VERSION
+cd getmail-$VERSION
+python setup.py build
+python setup.py install --root=$PKG
+
+( cd $PKG/usr/share
+  mv man ..
+  mv doc ..
+  cd ..
+  rmdir share
+)
+
+gzip -9 $PKG/usr/man/man1/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/getmail-$VERSION-$ARCH-$BUILD.tgz
+

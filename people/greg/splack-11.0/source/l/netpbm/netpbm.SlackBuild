@@ -1,0 +1,57 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-netpbm
+
+VERSION=10.18.12
+ARCH=i486
+BUILD=1
+
+rm -rf $PKG
+# netpbm will make this directory, and complains if it already exists:
+#mkdir -p $PKG
+cd /tmp
+rm -rf netpbm-$VERSION
+tar xjvf $CWD/netpbm-$VERSION.tar.bz2
+cd netpbm-$VERSION
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 660 -exec chmod 644 {} \;
+zcat $CWD/netpbm.config.diff.gz | patch -p1 --verbose
+make
+make package pkgdir=$PKG
+( cd $PKG
+  mkdir usr
+  mv bin usr
+  mv include usr
+  mv lib usr
+  mv link/* usr/lib
+  rm -r link
+  # Here we have another dummy who thinks man pages are obsolete.
+  # Start by ditching the bogus empty man pages:
+  rm -r man
+  # Then add the extensive man pages that existed in the source
+  # tarball until the current maintainer decided to remove them:
+  ( cd usr
+    tar xjf $CWD/netpbm-manpages.tar.bz2
+  )
+  # Finally, remove the perl script man replacement that truly *is* useless:
+  rm -f usr/bin/doc.url usr/bin/manweb
+  # This stuff is also pretty useless:
+  rm -r misc README VERSION pkginfo
+)
+mkdir -p $PKG/usr/doc/netpbm-$VERSION 
+cp -a \
+  README doc/COPYRIGHT.PATENT doc/GPL_LICENSE.txt doc/HISTORY doc/copyright_summary \
+  $PKG/usr/doc/netpbm-$VERSION
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+strip -g $PKG/usr/lib/*.a
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../netpbm-$VERSION-$ARCH-$BUILD.tgz
+

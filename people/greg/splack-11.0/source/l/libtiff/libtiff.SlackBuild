@@ -1,0 +1,69 @@
+#!/bin/sh
+CWD=$(pwd)
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-libtiff
+
+VERSION=3.8.2
+ARCH=${ARCH:-i486}
+BUILD=2
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf tiff-$VERSION
+tar xjvf $CWD/tiff-$VERSION.tar.bz2
+cd tiff-$VERSION
+
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+
+zcat $CWD/tiff-3.8.2.goo-sec.diff.gz | patch -p1 --verbose || exit 1
+zcat $CWD/tiff-3.8.2.tiffsplit.commandline.overflow.diff.gz | patch -p1 --verbose || exit 1
+
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --program-prefix="" \
+  --program-suffix="" \
+  $ARCH-slackware-linux
+
+make -j3 || exit 1
+make install DESTDIR=$PKG || exit 1
+rm -r $PKG/usr/share
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+strip -g $PKG/usr/lib/lib*.a
+chmod 755 $PKG/usr/lib/libtiff*.so.*
+mkdir -p $PKG/usr/doc/libtiff-$VERSION
+cp -a \
+  COPYRIGHT README RELEASE-DATE TODO VERSION \
+  $PKG/usr/doc/libtiff-$VERSION
+
+mv $PKG/usr/local/man $PKG/usr
+rmdir $PKG/usr/local
+
+# I'd use that shiny new manpage script here but all the
+# .3 manpages end with '.3tiff'.
+gzip -9 $PKG/usr/man/man?/*
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../libtiff-$VERSION-$ARCH-$BUILD.tgz
+

@@ -1,0 +1,39 @@
+CWD=`pwd`
+PKG=/tmp/package-iptraf
+rm -rf $PKG
+mkdir -p $PKG/usr
+
+VERSION=2.7.0
+ARCH=i386
+BUILD=1
+
+cd /tmp
+tar xzvf $CWD/iptraf-$VERSION.tar.gz
+cd iptraf-$VERSION
+chown -R root:root .
+zcat $CWD/iptraf.paths.diff.gz | patch -p1
+cd src
+make
+strip iptraf rvnamed
+mkdir -p $PKG/usr/sbin
+cp iptraf rvnamed $PKG/usr/sbin
+chmod 755 $PKG/usr/sbin/*
+mkdir -p $PKG/var/cache/iptraf
+mkdir -p $PKG//var/run/iptraf
+mkdir -p $PKG/var/log/iptraf
+mkdir -p $PKG/usr/doc/iptraf-$VERSION
+cd ..
+cp -a \
+  CHANGES Documentation FAQ INSTALL LICENSE README README.contact README.interfaces README.platforms README.rvnamed RELEASE-NOTES \
+  $PKG/usr/doc/iptraf-$VERSION
+mkdir -p $PKG/usr/man/man8
+mv $PKG/usr/doc/iptraf-$VERSION/Documentation/iptraf.8 $PKG/usr/man/man8
+mv $PKG/usr/doc/iptraf-$VERSION/Documentation/rvnamed.8 $PKG/usr/man/man8
+gzip -9 $PKG/usr/man/man8/*
+# crud removal
+rm -f $PKG/usr/doc/iptraf-2.7.0/Documentation/manual.template.gz
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd /tmp/package-iptraf
+makepkg -l y -c n ../iptraf-$VERSION-$ARCH-$BUILD.tgz

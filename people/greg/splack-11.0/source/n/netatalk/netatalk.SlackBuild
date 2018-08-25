@@ -1,0 +1,79 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-netatalk
+rm -rf $PKG
+
+VERSION=2.0.3
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+( cd $PKG
+  explodepkg $CWD/_netatalk.tar.gz )
+
+cd $TMP
+rm -rf netatalk-$VERSION
+tar xjvf $CWD/netatalk-$VERSION.tar.bz2
+cd netatalk-$VERSION
+find . -type d -exec chmod 755 {} \;
+zcat $CWD/netatalk.afpdconf.diff.gz | patch -p1 --verbose || exit
+zcat $CWD/netatalk.etc2ps.diff.gz | patch -p1 --verbose || exit
+chown -R root:root .
+CFLAGS="-O2" \
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --libexecdir=/usr/sbin \
+  --localstatedir=/var \
+  --disable-static \
+  --disable-pam \
+  --with-shadow
+make -j3
+make install DESTDIR=$PKG
+# This is normally installed setuid root, but I'm not 100% sure I trust it yet.
+# I see it uses strcpy() in a few places...
+chmod 755 $PKG/usr/bin/afppasswd
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+( cd $PKG/etc/netatalk
+  for file in AppleVolumes.default AppleVolumes.system afpd.conf afppasswd atalkd.conf netatalk.conf papd.conf ; do
+    mv $file ${file}.new
+    echo "config etc/netatalk/${file}.new" >> $PKG/install/doinst.sh
+  done
+)
+echo "rm -f etc/netatalk/afppasswd.new" >> $PKG/install/doinst.sh
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+gzip -9 $PKG/usr/man/man?/*
+mkdir -p $PKG/usr/doc/netatalk-$VERSION
+cp -a \
+  CONTRIBUTORS COPYING COPYRIGHT NEWS README TODO VERSION \
+  doc \
+  $PKG/usr/doc/netatalk-$VERSION
+# -1, Redundant
+rm -rf $PKG/usr/doc/netatalk-$VERSION/doc/Makefile* \
+       $PKG/usr/doc/netatalk-$VERSION/doc/htmldocs \
+       $PKG/usr/doc/netatalk-$VERSION/doc/*.pdf
+
+# "make install" creates this directory with chmod 0777
+# I'd rather use 755, but I'll assume since this is a
+# new directory that it is needed for something.  This
+# will help it a bit anyway...
+chmod 1777 $PKG/var/spool/netatalk
+# If anyone can confirm that 755 would still work let me know.
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/netatalk-$VERSION-$ARCH-$BUILD.tgz
+

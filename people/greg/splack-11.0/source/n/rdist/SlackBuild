@@ -1,0 +1,57 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-rdist
+
+VERSION=6.1.5
+ARCH=i386
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_rdist.tar.gz
+
+echo "+=============+"
+echo "| rdist-$VERSION |"
+echo "+=============+"
+cd $TMP
+tar xzvf $CWD/rdist-$VERSION.tar.gz
+cd rdist-$VERSION
+mkdir -p $PKG/usr/doc/rdist-$VERSION
+cp -a README $PKG/usr/doc/rdist-$VERSION
+chown root:root $PKG/usr/doc/rdist-$VERSION/*
+chmod 644 $PKG/usr/doc/rdist-$VERSION/*
+zcat $CWD/rdist-$VERSION.diff.gz | patch -p1 --backup
+cp -a README $PKG/usr/doc/rdist/README
+chown root:root $PKG/usr/doc/rdist/README
+chmod 644 $PKG/usr/doc/rdist/README
+make
+cd src
+strip rdist rdistd
+cat rdist > $PKG/usr/bin/rdist
+cat rdistd > $PKG/usr/bin/rdistd
+cd ../doc
+cat rdist.man | gzip -9c > $PKG/usr/man/man1/rdist.1.gz
+cat rdistd.man | gzip -9c > $PKG/usr/man/man1/rdistd.1.gz
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+echo "n" | makepkg $TMP/rdist-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/rdist-$VERSION
+  rm -rf $PKG
+fi

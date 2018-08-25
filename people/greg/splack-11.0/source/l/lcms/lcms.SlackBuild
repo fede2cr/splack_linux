@@ -1,0 +1,39 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-lcms
+
+VERSION=1.15
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+rm -rf $PKG
+mkdir -p $PKG
+cd /tmp
+rm -rf lcms-$VERSION
+tar xjvf $CWD/lcms-$VERSION.tar.bz2
+cd lcms-$VERSION
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS=-O3 \
+./configure \
+  --prefix=/usr \
+  --enable-static=no
+make
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+gzip -9 $PKG/usr/man/man?/*.?
+mkdir -p $PKG/usr/doc/lcms-$VERSION
+cp -a \
+  AUTHORS COPYING INSTALL NEWS README* doc \
+  $PKG/usr/doc/lcms-$VERSION
+find $PKG/usr/doc/lcms-$VERSION -type f -exec chmod 644 {} \;
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../lcms-$VERSION-$ARCH-$BUILD.tgz
+

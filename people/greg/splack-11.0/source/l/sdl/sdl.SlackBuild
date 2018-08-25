@@ -1,0 +1,148 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-sdl
+
+VERSION=1.2.11
+IMAGE=1.2.5
+MIXER=1.2.7
+NET=1.2.6
+TTF=2.0.8
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf sdl-$VERSION
+tar xjf $CWD/SDL-$VERSION.tar.bz2
+cd SDL-$VERSION
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+
+# We must use --disable-x11-shared or programs linked with SDL will
+# crash on machines that use the closed source nVidia drivers.
+
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --enable-shared=yes \
+  --enable-static=no \
+  --disable-x11-shared
+make -j3
+# Spam /, for mixer/image later on:
+make install
+# install to package:
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/SDL-$VERSION/html
+cp -a docs/index.html $PKG/usr/doc/SDL-$VERSION
+cp -a docs/html/*.html $PKG/usr/doc/SDL-$VERSION/html
+cp -a BUGS COPYING CREDITS INSTALL README* TODO WhatsNew $PKG/usr/doc/SDL-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Add SDL_image:
+cd $TMP
+rm -rf SDL_image-$IMAGE
+tar xjf $CWD/SDL_image-$IMAGE.tar.bz2
+cd SDL_image-$IMAGE
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+# we don't want sdl to load the libs with dlopen(), gcc is smarter...
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --enable-shared=yes \
+  --enable-static=no \
+  --enable-jpg-shared=no \
+  --enable-png-shared=no \
+  --enable-tif-shared=no
+
+make -j3
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/SDL_image-$IMAGE
+cp -a \
+  CHANGES COPYING README \
+  $PKG/usr/doc/SDL_image-$IMAGE
+
+# Add SDL_mixer:
+cd $TMP
+rm -rf SDL_mixer-$MIXER
+tar xjf $CWD/SDL_mixer-$MIXER.tar.bz2
+cd SDL_mixer-$MIXER
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --enable-shared=yes \
+  --enable-static=no
+make -j3
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/SDL_mixer-$MIXER
+cp -a \
+  CHANGES COPYING README \
+  $PKG/usr/doc/SDL_mixer-$MIXER
+
+# Add SDL_net:
+cd $TMP
+rm -rf SDL_net-$NET
+tar xjf $CWD/SDL_net-$NET.tar.bz2
+cd SDL_net-$NET
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --enable-shared=yes \
+  --enable-static=no
+make -j3
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/SDL_net-$NET
+cp -a \
+  CHANGES COPYING README \
+  $PKG/usr/doc/SDL_net-$NET
+
+# Add SDL_ttf:
+cd $TMP
+rm -rf SDL_ttf-$TTF
+tar xjf $CWD/SDL_ttf-$TTF.tar.bz2
+cd SDL_ttf-$TTF
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --enable-shared=yes \
+  --enable-static=no
+make -j3
+make install DESTDIR=$PKG
+mkdir -p $PKG/usr/doc/SDL_ttf-$TTF
+cp -a \
+  CHANGES COPYING README \
+  $PKG/usr/doc/SDL_ttf-$TTF
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+gzip -9 $PKG/usr/man/man?/*.?
+
+cd $PKG
+makepkg -l y -c n ../sdl-$VERSION-$ARCH-$BUILD.tgz
+

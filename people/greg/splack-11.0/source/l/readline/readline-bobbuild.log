@@ -1,0 +1,683 @@
+readline-5.1/
+readline-5.1/doc/
+readline-5.1/doc/Makefile.in
+readline-5.1/doc/texinfo.tex
+readline-5.1/doc/version.texi
+readline-5.1/doc/fdl.texi
+readline-5.1/doc/rlman.texi
+readline-5.1/doc/rltech.texi
+readline-5.1/doc/rluser.texi
+readline-5.1/doc/rluserman.texi
+readline-5.1/doc/history.texi
+readline-5.1/doc/hstech.texi
+readline-5.1/doc/hsuser.texi
+readline-5.1/doc/readline.3
+readline-5.1/doc/history.3
+readline-5.1/doc/texi2dvi
+readline-5.1/doc/texi2html
+readline-5.1/doc/readline.ps
+readline-5.1/doc/history.ps
+readline-5.1/doc/rluserman.ps
+readline-5.1/doc/readline.dvi
+readline-5.1/doc/history.dvi
+readline-5.1/doc/rluserman.dvi
+readline-5.1/doc/readline.info
+readline-5.1/doc/history.info
+readline-5.1/doc/rluserman.info
+readline-5.1/doc/readline.html
+readline-5.1/doc/history.html
+readline-5.1/doc/rluserman.html
+readline-5.1/doc/readline.0
+readline-5.1/doc/history.0
+readline-5.1/doc/readline_3.ps
+readline-5.1/doc/history_3.ps
+readline-5.1/doc/history.pdf
+readline-5.1/doc/readline.pdf
+readline-5.1/doc/rluserman.pdf
+readline-5.1/examples/
+readline-5.1/examples/rlfe/
+readline-5.1/examples/rlfe/ChangeLog
+readline-5.1/examples/rlfe/Makefile.in
+readline-5.1/examples/rlfe/README
+readline-5.1/examples/rlfe/config.h.in
+readline-5.1/examples/rlfe/configure
+readline-5.1/examples/rlfe/configure.in
+readline-5.1/examples/rlfe/extern.h
+readline-5.1/examples/rlfe/os.h
+readline-5.1/examples/rlfe/pty.c
+readline-5.1/examples/rlfe/rlfe.c
+readline-5.1/examples/rlfe/screen.h
+readline-5.1/examples/Makefile.in
+readline-5.1/examples/excallback.c
+readline-5.1/examples/fileman.c
+readline-5.1/examples/manexamp.c
+readline-5.1/examples/readlinebuf.h
+readline-5.1/examples/rl-fgets.c
+readline-5.1/examples/rlcat.c
+readline-5.1/examples/rltest.c
+readline-5.1/examples/rl.c
+readline-5.1/examples/rlptytest.c
+readline-5.1/examples/rlversion.c
+readline-5.1/examples/histexamp.c
+readline-5.1/examples/Inputrc
+readline-5.1/support/
+readline-5.1/support/config.guess
+readline-5.1/support/config.rpath
+readline-5.1/support/config.sub
+readline-5.1/support/install.sh
+readline-5.1/support/mkdirs
+readline-5.1/support/mkdist
+readline-5.1/support/mkinstalldirs
+readline-5.1/support/shobj-conf
+readline-5.1/support/shlib-install
+readline-5.1/support/wcwidth.c
+readline-5.1/shlib/
+readline-5.1/shlib/Makefile.in
+readline-5.1/COPYING
+readline-5.1/README
+readline-5.1/MANIFEST
+readline-5.1/INSTALL
+readline-5.1/CHANGELOG
+readline-5.1/CHANGES
+readline-5.1/NEWS
+readline-5.1/USAGE
+readline-5.1/aclocal.m4
+readline-5.1/config.h.in
+readline-5.1/configure
+readline-5.1/configure.in
+readline-5.1/Makefile.in
+readline-5.1/ansi_stdlib.h
+readline-5.1/chardefs.h
+readline-5.1/history.h
+readline-5.1/histlib.h
+readline-5.1/keymaps.h
+readline-5.1/posixdir.h
+readline-5.1/posixjmp.h
+readline-5.1/readline.h
+readline-5.1/posixstat.h
+readline-5.1/rlconf.h
+readline-5.1/rldefs.h
+readline-5.1/rlmbutil.h
+readline-5.1/rlprivate.h
+readline-5.1/rlshell.h
+readline-5.1/rlstdc.h
+readline-5.1/rltty.h
+readline-5.1/rltypedefs.h
+readline-5.1/rlwinsize.h
+readline-5.1/tcap.h
+readline-5.1/tilde.h
+readline-5.1/xmalloc.h
+readline-5.1/bind.c
+readline-5.1/callback.c
+readline-5.1/compat.c
+readline-5.1/complete.c
+readline-5.1/display.c
+readline-5.1/emacs_keymap.c
+readline-5.1/funmap.c
+readline-5.1/input.c
+readline-5.1/isearch.c
+readline-5.1/keymaps.c
+readline-5.1/kill.c
+readline-5.1/macro.c
+readline-5.1/mbutil.c
+readline-5.1/misc.c
+readline-5.1/nls.c
+readline-5.1/parens.c
+readline-5.1/readline.c
+readline-5.1/rltty.c
+readline-5.1/savestring.c
+readline-5.1/search.c
+readline-5.1/shell.c
+readline-5.1/signals.c
+readline-5.1/terminal.c
+readline-5.1/text.c
+readline-5.1/tilde.c
+readline-5.1/undo.c
+readline-5.1/util.c
+readline-5.1/vi_keymap.c
+readline-5.1/vi_mode.c
+readline-5.1/xmalloc.c
+readline-5.1/history.c
+readline-5.1/histexpand.c
+readline-5.1/histfile.c
+readline-5.1/histsearch.c
+Hmm...  Looks like a new-style context diff to me...
+The text leading up to this was:
+--------------------------
+|			   READLINE PATCH REPORT
+|			   =====================
+|
+|Readline-Release: 5.1
+|Patch-ID: readline51-001
+|
+|Bug-Reported-by: Andreas Schwab <schwab@suse.de>
+|Bug-Reference-ID: <20051213141916.4014A394BFABD@sykes.suse.de>
+|Bug-Reference-URL: http://lists.gnu.org/archive/html/bug-bash/2005-12/msg00038.html
+|
+|Bug-Description:
+|
+|A problem with the readline callback interface can result in segmentation
+|faults when using the delete-char function via a multiple-key sequence.
+|Two consecutive calls to delete-char will crash the application calling
+|readline.
+|
+|Patch:
+|
+|*** ../readline-5.1/readline.c	Mon Jul  4 22:29:35 2005
+|--- readline.c	Tue Dec 20 17:38:29 2005
+--------------------------
+Patching file readline.c using Plan A...
+Hunk #1 succeeded at 715.
+Hmm...  The next patch looks like a new-style context diff to me...
+The text leading up to this was:
+--------------------------
+|*** ../readline-5.1/text.c	Sat Sep 24 19:06:07 2005
+|--- text.c	Tue Dec 20 17:38:26 2005
+--------------------------
+Patching file text.c using Plan A...
+Hunk #1 succeeded at 1072.
+Hunk #2 succeeded at 1089.
+Hunk #3 succeeded at 1097.
+done
+configure: WARNING: you should use --build, --host, --target
+checking build system type... sparc-bobware-linux-gnu
+checking host system type... sparc-bobware-linux-gnu
+
+Beginning configuration for readline-5.1 for sparc-bobware-linux-gnu
+
+checking whether make sets $(MAKE)... yes
+checking for sparc-bobware-linux-gnu-gcc... no
+checking for gcc... gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ANSI C... none needed
+checking how to run the C preprocessor... gcc -E
+checking for egrep... grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether gcc needs -traditional... no
+checking for a BSD-compatible install... /usr/bin/ginstall -c
+checking for ar... ar
+checking for sparc-bobware-linux-gnu-ranlib... no
+checking for ranlib... ranlib
+checking for an ANSI C-conforming const... yes
+checking for function prototypes... yes
+checking whether char is unsigned... no
+checking return type of signal handlers... void
+checking for size_t... yes
+checking for ssize_t... yes
+checking for ANSI C header files... (cached) yes
+checking whether stat file-mode macros are broken... no
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking for fcntl... yes
+checking for kill... yes
+checking for lstat... yes
+checking for memmove... yes
+checking for putenv... yes
+checking for select... yes
+checking for setenv... yes
+checking for setlocale... yes
+checking for strcasecmp... yes
+checking for strpbrk... yes
+checking for tcgetattr... yes
+checking for vsnprintf... yes
+checking for isascii... yes
+checking for isxdigit... yes
+checking for getpwent... yes
+checking for getpwnam... yes
+checking for getpwuid... yes
+checking for working strcoll... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking for unistd.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking varargs.h usability... no
+checking varargs.h presence... no
+checking for varargs.h... no
+checking stdarg.h usability... yes
+checking stdarg.h presence... yes
+checking for stdarg.h... yes
+checking for string.h... (cached) yes
+checking for strings.h... (cached) yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking locale.h usability... yes
+checking locale.h presence... yes
+checking for locale.h... yes
+checking pwd.h usability... yes
+checking pwd.h presence... yes
+checking for pwd.h... yes
+checking for memory.h... (cached) yes
+checking termcap.h usability... yes
+checking termcap.h presence... yes
+checking for termcap.h... yes
+checking termios.h usability... yes
+checking termios.h presence... yes
+checking for termios.h... yes
+checking termio.h usability... yes
+checking termio.h presence... yes
+checking for termio.h... yes
+checking sys/pte.h usability... no
+checking sys/pte.h presence... no
+checking for sys/pte.h... no
+checking sys/stream.h usability... no
+checking sys/stream.h presence... no
+checking for sys/stream.h... no
+checking sys/select.h usability... yes
+checking sys/select.h presence... yes
+checking for sys/select.h... yes
+checking sys/file.h usability... yes
+checking sys/file.h presence... yes
+checking for sys/file.h... yes
+checking for sys/ptem.h... no
+checking for type of signal functions... posix
+checking if signal handlers must be reinstalled when invoked... no
+checking for presence of POSIX-style sigsetjmp/siglongjmp... present
+checking for lstat... yes
+checking whether or not strcoll and strcmp differ... no
+checking whether the ctype macros accept non-ascii characters... yes
+checking whether getpw functions are declared in pwd.h... yes
+checking whether termios.h defines TIOCGWINSZ... no
+checking whether sys/ioctl.h defines TIOCGWINSZ... yes
+checking whether signal handlers are of type void... yes
+checking for TIOCSTAT in sys/ioctl.h... no
+checking for FIONREAD in sys/ioctl.h... yes
+checking for speed_t in sys/types.h... no
+checking for struct winsize in sys/ioctl.h and termios.h... sys/ioctl.h
+checking for struct dirent.d_ino... yes
+checking for struct dirent.d_fileno... yes
+checking for tgetent... no
+checking for tgetent in -ltermcap... yes
+checking which library has the termcap functions... using libtermcap
+checking wctype.h usability... yes
+checking wctype.h presence... yes
+checking for wctype.h... yes
+checking wchar.h usability... yes
+checking wchar.h presence... yes
+checking for wchar.h... yes
+checking langinfo.h usability... yes
+checking langinfo.h presence... yes
+checking for langinfo.h... yes
+checking for mbsrtowcs... yes
+checking for mbrtowc... yes
+checking for mbrlen... yes
+checking for wctomb... yes
+checking for wcwidth... yes
+checking for wcsdup... yes
+checking for mbstate_t... yes
+checking for nl_langinfo and CODESET... yes
+checking configuration for building shared libraries... supported
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating doc/Makefile
+config.status: creating examples/Makefile
+config.status: creating shlib/Makefile
+config.status: creating config.h
+config.status: executing default commands
+rm -f readline.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 readline.c
+rm -f vi_mode.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 vi_mode.c
+rm -f funmap.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 funmap.c
+rm -f keymaps.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 keymaps.c
+rm -f parens.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 parens.c
+rm -f search.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 search.c
+rm -f rltty.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 rltty.c
+rm -f complete.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 complete.c
+rm -f bind.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 bind.c
+bind.c: In function `rl_function_of_keyseq':
+bind.c:682: warning: comparison is always true due to limited range of data type
+rm -f isearch.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 isearch.c
+rm -f display.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 display.c
+display.c: In function `rl_character_len':
+display.c:1831: warning: comparison is always true due to limited range of data type
+rm -f signals.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 signals.c
+rm -f util.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 util.c
+rm -f kill.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 kill.c
+rm -f undo.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 undo.c
+rm -f macro.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 macro.c
+rm -f input.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 input.c
+rm -f callback.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 callback.c
+rm -f terminal.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 terminal.c
+rm -f text.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 text.c
+rm -f nls.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 nls.c
+rm -f misc.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 misc.c
+rm -f compat.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 compat.c
+rm -f xmalloc.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 xmalloc.c
+rm -f history.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 history.c
+rm -f histexpand.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 histexpand.c
+rm -f histfile.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 histfile.c
+rm -f histsearch.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 histsearch.c
+rm -f shell.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 shell.c
+rm -f mbutil.o
+gcc -c -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 mbutil.c
+rm -f tilde.o
+gcc -DHAVE_CONFIG_H    -I. -I. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -DREADLINE_LIBRARY -c ./tilde.c
+rm -f libreadline.a
+ar cr libreadline.a readline.o vi_mode.o funmap.o keymaps.o parens.o search.o rltty.o complete.o bind.o isearch.o display.o signals.o util.o kill.o undo.o macro.o input.o callback.o terminal.o text.o nls.o misc.o compat.o xmalloc.o history.o histexpand.o histfile.o histsearch.o shell.o mbutil.o tilde.o
+test -n "ranlib" && ranlib libreadline.a
+rm -f libhistory.a
+ar cr libhistory.a history.o histexpand.o histfile.o histsearch.o shell.o mbutil.o xmalloc.o
+test -n "ranlib" && ranlib libhistory.a
+test -d shlib || mkdir shlib
+( cd shlib ; make  all )
+make[1]: Entering directory `/tmp/readline-5.1/shlib'
+rm -f readline.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o readline.o ../readline.c 
+mv readline.o readline.so
+rm -f vi_mode.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o vi_mode.o ../vi_mode.c 
+mv vi_mode.o vi_mode.so
+rm -f funmap.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o funmap.o ../funmap.c 
+mv funmap.o funmap.so
+rm -f keymaps.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o keymaps.o ../keymaps.c 
+mv keymaps.o keymaps.so
+rm -f parens.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o parens.o ../parens.c 
+mv parens.o parens.so
+rm -f search.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o search.o ../search.c 
+mv search.o search.so
+rm -f rltty.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o rltty.o ../rltty.c 
+mv rltty.o rltty.so
+rm -f complete.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o complete.o ../complete.c 
+mv complete.o complete.so
+rm -f bind.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o bind.o ../bind.c 
+../bind.c: In function `rl_function_of_keyseq':
+../bind.c:682: warning: comparison is always true due to limited range of data type
+mv bind.o bind.so
+rm -f isearch.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o isearch.o ../isearch.c 
+mv isearch.o isearch.so
+rm -f display.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o display.o ../display.c 
+../display.c: In function `rl_character_len':
+../display.c:1831: warning: comparison is always true due to limited range of data type
+mv display.o display.so
+rm -f signals.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o signals.o ../signals.c 
+mv signals.o signals.so
+rm -f util.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o util.o ../util.c 
+mv util.o util.so
+rm -f kill.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o kill.o ../kill.c 
+mv kill.o kill.so
+rm -f undo.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o undo.o ../undo.c 
+mv undo.o undo.so
+rm -f macro.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o macro.o ../macro.c 
+mv macro.o macro.so
+rm -f input.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o input.o ../input.c 
+mv input.o input.so
+rm -f callback.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o callback.o ../callback.c 
+mv callback.o callback.so
+rm -f terminal.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o terminal.o ../terminal.c 
+mv terminal.o terminal.so
+rm -f text.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o text.o ../text.c 
+mv text.o text.so
+rm -f nls.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o nls.o ../nls.c 
+mv nls.o nls.so
+rm -f misc.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o misc.o ../misc.c 
+mv misc.o misc.so
+rm -f xmalloc.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o xmalloc.o ../xmalloc.c 
+mv xmalloc.o xmalloc.so
+rm -f history.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o history.o ../history.c 
+mv history.o history.so
+rm -f histexpand.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o histexpand.o ../histexpand.c 
+mv histexpand.o histexpand.so
+rm -f histfile.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o histfile.o ../histfile.c 
+mv histfile.o histfile.so
+rm -f histsearch.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o histsearch.o ../histsearch.c 
+mv histsearch.o histsearch.so
+rm -f shell.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o shell.o ../shell.c 
+mv shell.o shell.so
+rm -f mbutil.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o mbutil.o ../mbutil.c 
+mv mbutil.o mbutil.so
+rm -f tilde.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -DREADLINE_LIBRARY -c -o tilde.o ../tilde.c
+mv tilde.o tilde.so
+rm -f compat.so
+gcc -c -DHAVE_CONFIG_H    -I. -I.. -I.. -DRL_LIBRARY_VERSION='"5.1"' -O2 -m32 -mcpu=v8 -mtune=v9 -fPIC -o compat.o ../compat.c 
+mv compat.o compat.so
+rm -f libreadline.so.5.1
+gcc -shared -Wl,-soname,libreadline.so.5.1 -Wl,-rpath,/usr/lib -Wl,-soname,`basename libreadline.so.5.1 .1` -o libreadline.so.5.1 readline.so vi_mode.so funmap.so keymaps.so parens.so search.so rltty.so complete.so bind.so isearch.so display.so signals.so util.so kill.so undo.so macro.so input.so callback.so terminal.so text.so nls.so misc.so xmalloc.so history.so histexpand.so histfile.so histsearch.so shell.so mbutil.so tilde.so compat.so 
+rm -f libhistory.so.5.1
+gcc -shared -Wl,-soname,libhistory.so.5.1 -Wl,-rpath,/usr/lib -Wl,-soname,`basename libhistory.so.5.1 .1` -o libhistory.so.5.1 history.so histexpand.so histfile.so histsearch.so shell.so mbutil.so xmalloc.so 
+make[1]: Leaving directory `/tmp/readline-5.1/shlib'
+/bin/sh ./support/mkinstalldirs /tmp/package-readline/usr/include \
+	/tmp/package-readline/usr/include/readline /tmp/package-readline/usr/lib \
+	/tmp/package-readline/usr/info /tmp/package-readline/usr/man/man3
+mkdir -p -- /tmp/package-readline/usr/include /tmp/package-readline/usr/include/readline /tmp/package-readline/usr/lib /tmp/package-readline/usr/info /tmp/package-readline/usr/man/man3
+for f in readline.h chardefs.h keymaps.h history.h tilde.h rlstdc.h rlconf.h rltypedefs.h; do \
+	/usr/bin/ginstall -c -m 644 ./$f /tmp/package-readline/usr/include/readline ; \
+done
+( if test -d doc ; then \
+	cd doc && \
+	make  infodir=/usr/info DESTDIR=/tmp/package-readline install; \
+  fi )
+make[1]: Entering directory `/tmp/readline-5.1/doc'
+/bin/sh ../support/mkdirs /tmp/package-readline/usr/info /tmp/package-readline/usr/man/man3
+if test -n "" ; then \
+	/bin/sh ../support/mkdirs /tmp/package-readline ; \
+fi
+if test -f readline.info; then \
+	/usr/bin/ginstall -c -m 644 readline.info /tmp/package-readline/usr/info/readline.info; \
+else \
+	/usr/bin/ginstall -c -m 644 ./readline.info /tmp/package-readline/usr/info/readline.info; \
+fi
+if test -f rluserman.info; then \
+	/usr/bin/ginstall -c -m 644 rluserman.info /tmp/package-readline/usr/info/rluserman.info; \
+else \
+	/usr/bin/ginstall -c -m 644 ./rluserman.info /tmp/package-readline/usr/info/rluserman.info; \
+fi
+if test -f history.info; then \
+	/usr/bin/ginstall -c -m 644 history.info /tmp/package-readline/usr/info/history.info; \
+else \
+	/usr/bin/ginstall -c -m 644 ./history.info /tmp/package-readline/usr/info/history.info; \
+fi
+if /bin/sh -c 'install-info --version' >/dev/null 2>&1; then \
+	install-info --dir-file=/tmp/package-readline/usr/info/dir \
+		/tmp/package-readline/usr/info/readline.info ; \
+	install-info --dir-file=/tmp/package-readline/usr/info/dir \
+		/tmp/package-readline/usr/info/history.info ; \
+	install-info --dir-file=/tmp/package-readline/usr/info/dir \
+		/tmp/package-readline/usr/info/rluserman.info ; \
+else true; fi
+/usr/bin/ginstall -c -m 644 ./readline.3 /tmp/package-readline/usr/man/man3/readline.3
+/usr/bin/ginstall -c -m 644 ./history.3 /tmp/package-readline/usr/man/man3/history.3
+if test -n "" ; then \
+	if test -f readline.html; then \
+		/usr/bin/ginstall -c -m 644 readline.html /tmp/package-readline/readline.html; \
+	else \
+		/usr/bin/ginstall -c -m 644 ./readline.html /tmp/package-readline/readline.html; \
+	fi ; \
+	if test -f history.html; then \
+		/usr/bin/ginstall -c -m 644 history.html /tmp/package-readline/history.html; \
+	else \
+		/usr/bin/ginstall -c -m 644 ./history.html /tmp/package-readline/history.html; \
+	fi ; \
+	if test -f rluserman.html; then \
+		/usr/bin/ginstall -c -m 644 rluserman.html /tmp/package-readline/rluserman.html; \
+	else \
+		/usr/bin/ginstall -c -m 644 ./rluserman.html /tmp/package-readline/rluserman.html; \
+	fi ; \
+fi
+make[1]: Leaving directory `/tmp/readline-5.1/doc'
+mv /tmp/package-readline/usr/lib/libreadline.a /tmp/package-readline/usr/lib/libreadline.old
+mv: cannot stat `/tmp/package-readline/usr/lib/libreadline.a': No such file or directory
+make: [install-static] Error 1 (ignored)
+/usr/bin/ginstall -c -m 644 libreadline.a /tmp/package-readline/usr/lib/libreadline.a
+test -n "ranlib" && ranlib /tmp/package-readline/usr/lib/libreadline.a
+mv /tmp/package-readline/usr/lib/libhistory.a /tmp/package-readline/usr/lib/libhistory.old
+mv: cannot stat `/tmp/package-readline/usr/lib/libhistory.a': No such file or directory
+make: [install-static] Error 1 (ignored)
+/usr/bin/ginstall -c -m 644 libhistory.a /tmp/package-readline/usr/lib/libhistory.a
+test -n "ranlib" && ranlib /tmp/package-readline/usr/lib/libhistory.a
+test -d shlib || mkdir shlib
+( cd shlib ; make  all )
+make[1]: Entering directory `/tmp/readline-5.1/shlib'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/tmp/readline-5.1/shlib'
+( cd shlib ; make  DESTDIR=/tmp/package-readline install )
+make[1]: Entering directory `/tmp/readline-5.1/shlib'
+/bin/sh ../support/mkdirs /tmp/package-readline/usr/lib
+/bin/sh ../support/shlib-install -O linux-gnu -d /tmp/package-readline/usr/lib -b /tmp/package-readline/usr/bin -i "/usr/bin/ginstall -c -m 644" libhistory.so.5.1
+/bin/sh ../support/shlib-install -O linux-gnu -d /tmp/package-readline/usr/lib -b /tmp/package-readline/usr/bin -i "/usr/bin/ginstall -c -m 644" libreadline.so.5.1
+install: you may need to run ldconfig
+make[1]: Leaving directory `/tmp/readline-5.1/shlib'
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+usr/lib/libhistory.so.5 -> libhistory.so.5.1
+usr/lib/libhistory.so -> libhistory.so.5
+usr/lib/libreadline.so.5 -> libreadline.so.5.1
+usr/lib/libreadline.so -> libreadline.so.5
+
+Making symbolic link creation script:
+( cd usr/lib ; rm -rf libhistory.so.5 )
+( cd usr/lib ; ln -sf libhistory.so.5.1 libhistory.so.5 )
+( cd usr/lib ; rm -rf libhistory.so )
+( cd usr/lib ; ln -sf libhistory.so.5 libhistory.so )
+( cd usr/lib ; rm -rf libreadline.so.5 )
+( cd usr/lib ; ln -sf libreadline.so.5.1 libreadline.so.5 )
+( cd usr/lib ; rm -rf libreadline.so )
+( cd usr/lib ; ln -sf libreadline.so.5 libreadline.so )
+
+It is recommended that you make these lines your new installation script.
+
+Would you like to make this stuff the install script for this package
+and remove the symbolic links ([y]es, [n]o)? y
+
+
+Removing symbolic links:
+removed `./usr/lib/libhistory.so.5'
+removed `./usr/lib/libhistory.so'
+removed `./usr/lib/libreadline.so.5'
+removed `./usr/lib/libreadline.so'
+
+Creating your new ./install/doinst.sh...
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? n
+
+
+Creating tar file readline-5.1-sparc-1.tar...
+
+./
+usr/
+usr/include/
+usr/include/readline/
+usr/include/readline/readline.h
+usr/include/readline/chardefs.h
+usr/include/readline/keymaps.h
+usr/include/readline/history.h
+usr/include/readline/tilde.h
+usr/include/readline/rlstdc.h
+usr/include/readline/rlconf.h
+usr/include/readline/rltypedefs.h
+usr/lib/
+usr/lib/libreadline.a
+usr/lib/libhistory.a
+usr/lib/libhistory.so.5.1
+usr/lib/libreadline.so.5.1
+usr/info/
+usr/info/history.info.gz
+usr/info/readline.info.gz
+usr/info/rluserman.info.gz
+usr/man/
+usr/man/man3/
+usr/man/man3/history.3.gz
+usr/man/man3/readline.3.gz
+usr/doc/
+usr/doc/readline-5.1/
+usr/doc/readline-5.1/CHANGELOG
+usr/doc/readline-5.1/CHANGES
+usr/doc/readline-5.1/COPYING
+usr/doc/readline-5.1/INSTALL
+usr/doc/readline-5.1/MANIFEST
+usr/doc/readline-5.1/README
+usr/doc/readline-5.1/USAGE
+install/
+install/slack-desc
+install/doinst.sh
+tar-1.13: readline-5.1-sparc-1.tar is the archive; not dumped
+
+Gzipping readline-5.1-sparc-1.tar...
+
+Renaming readline-5.1-sparc-1.tar.gz to readline-5.1-sparc-1.tgz...
+
+Moving readline-5.1-sparc-1.tgz to /tmp...
+
+Package creation complete.
+

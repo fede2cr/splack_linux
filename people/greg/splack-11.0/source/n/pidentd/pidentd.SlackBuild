@@ -1,0 +1,62 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-pidentd
+
+VERSION=3.0.19
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf pidentd-$VERSION
+tar xzvf $CWD/pidentd-$VERSION.tar.gz
+cd pidentd-$VERSION
+chown -R root:root .
+zcat $CWD/pidentd.conf.diff.gz | patch -p1 --backup --verbose || exit
+mkdir -p $PKG/usr/doc/pidentd-$VERSION
+cp -a BUGS ChangeLog FAQ INSTALL README Y2K doc/rfc* $PKG/usr/doc/pidentd-$VERSION
+chown -R root:root $PKG/usr/doc/pidentd-$VERSION
+chmod 644 $PKG/usr/doc/pidentd-$VERSION/*
+CFLAGS=-O2 \
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --with-des-includes=/usr/include/openssl \
+  $ARCH-slackware-linux
+make -j3
+mkdir -p $PKG/usr/sbin
+cat src/identd > $PKG/usr/sbin/in.identd
+cat src/ibench > $PKG/usr/sbin/ibench
+cat src/idecrypt > $PKG/usr/sbin/idecrypt
+cat src/ikeygen > $PKG/usr/sbin/ikeygen
+chmod 755 $PKG/usr/sbin/*
+mkdir -p $PKG/etc
+cat etc/identd.conf > $PKG/etc/identd.conf.new
+mkdir -p $PKG/usr/man/man8
+cat doc/identd.8 | gzip -9c > $PKG/usr/man/man8/identd.8.gz
+echo ".so man8/identd.8" | gzip -9c > $PKG/usr/man/man8/in.identd.8.gz
+mkdir -p $PKG/usr/doc/pidentd-$VERSION
+cp -a \
+  BUGS ChangeLog FAQ INSTALL README Y2K doc/rfc* \
+  $PKG/usr/doc/pidentd-$VERSION
+chmod 644 $PKG/usr/doc/pidentd-$VERSION/*
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/pidentd-$VERSION-$ARCH-$BUILD.tgz
+

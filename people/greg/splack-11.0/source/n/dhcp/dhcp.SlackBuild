@@ -1,0 +1,80 @@
+#!/bin/sh
+# Set initial variables:
+CWD=$(pwd)
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-dhcp
+
+VERSION=3.0.4
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_dhcp.tar.gz
+
+cd $TMP
+rm -rf dhcp-$VERSION
+tar xzvf $CWD/dhcp-$VERSION.tar.gz
+cd dhcp-$VERSION
+./configure linux-2.2
+make DEBUG="$SLKCFLAGS"
+make DEBUG="$SLKCFLAGS" install DESTDIR=$PKG
+rm -rf $PKG/usr/local
+mkdir -p $PKG/usr/doc/dhcp-$VERSION
+cp -a \
+  LICENSE README RELNOTES \
+  $PKG/usr/doc/dhcp-$VERSION
+mkdir -p $PKG/usr/doc/dhcp-$VERSION/examples
+cp -a client/dhclient.conf server/dhcpd.conf \
+  $PKG/usr/doc/dhcp-$VERSION/examples
+chown -R root:root $PKG/usr/doc/dhcp-$VERSION
+cat << EOF > $PKG/etc/dhcpd.conf.new
+# dhcpd.conf
+#
+# Configuration file for ISC dhcpd (see 'man dhcpd.conf')
+#
+EOF
+cat << EOF > $PKG/etc/dhclient.conf.new
+# dhclient.conf
+#
+# Configuration file for ISC dhclient (see 'man dhclient.conf')
+#
+EOF
+cat client/scripts/linux > $PKG/sbin/dhclient-script
+chmod 700 $PKG/sbin/dhclient-script
+gzip -9 $PKG/usr/man/man?/*
+find $PKG/usr/man -type f -exec chmod 644 {} \;
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/dhcp-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+ rm -rf $TMP/dhcp-$VERSION
+ rm -rf $PKG
+fi

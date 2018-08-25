@@ -1,0 +1,35 @@
+CWD=`pwd`
+PKG=/tmp/package-popt
+rm -rf $PKG
+mkdir -p $PKG/usr
+
+VERSION=1.7
+ARCH=i386
+BUILD=1
+
+cd /tmp
+tar xzvf $CWD/popt-$VERSION.tar.gz
+cd popt-$VERSION
+chown -R root:root .
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+CFLAGS="-O2 -march=i386 -mcpu=i686" \
+./configure --prefix=/usr \
+            --sysconfdir=/etc
+make
+make install DESTDIR=$PKG
+strip $PKG/usr/bin/*
+( cd $PKG
+  find . | xargs file | grep "ELF 32-bit LSB executable" | grep 80386 | cut -f 1 -d : | xargs strip --strip-unneeded
+  find . | xargs file | grep "ELF 32-bit LSB shared object" | grep 80386 | cut -f 1 -d : | xargs strip --strip-unneeded
+)
+gzip -9 $PKG/usr/man/man?/*
+mkdir -p $PKG/usr/doc/popt-$VERSION
+cp -a \
+  COPYING README \
+  $PKG/usr/doc/popt-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd /tmp/package-popt
+makepkg -l y -c n ../popt-$VERSION-$ARCH-$BUILD.tgz

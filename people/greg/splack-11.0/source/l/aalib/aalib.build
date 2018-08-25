@@ -1,0 +1,20 @@
+CWD=`pwd`
+cd /tmp
+# We can use a release candidate for this lib because it's not all
+# that mission-critial anyway.
+VERSION=1.4rc5
+tar xzvf $CWD/aalib-$VERSION.tar.gz
+cd aalib-1.4.0
+CFLAGS=-O2 ./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            i386-slackware-linux
+make
+make install
+mkdir -p /usr/doc/aalib-$VERSION
+cp -a \
+  ANNOUNCE AUTHORS COPYING ChangeLog INSTALL NEWS README README.OS2 \
+  /usr/doc/aalib-$VERSION
+chown root:root /usr/doc/aalib-$VERSION/*
+chmod 644 /usr/doc/aalib-$VERSION/*
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

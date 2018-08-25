@@ -1,0 +1,49 @@
+#!/bin/sh
+PKG=/tmp/package-fribidi
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=0.10.7
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+CWD=`pwd` 
+cd /tmp
+rm -rf fribidi-$VERSION
+tar xjvf $CWD/fribidi-$VERSION.tar.bz2
+cd fribidi-$VERSION
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+chown -R root:root .
+CFLAGS="$SLKCFLAGS" \
+./configure --prefix=/usr \
+  --with-pic
+make -j3
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+strip -g $PKG/usr/lib/libfribidi.a
+mkdir -p $PKG/usr/doc/fribidi-$VERSION
+cp -a \
+  AUTHORS COPYING NEWS README THANKS TODO \
+  $PKG/usr/doc/fribidi-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n /tmp/fribidi-$VERSION-$ARCH-$BUILD.tgz
+

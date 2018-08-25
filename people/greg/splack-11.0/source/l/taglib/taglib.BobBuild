@@ -1,0 +1,38 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-taglib
+
+VERSION=1.4
+ARCH=${ARCH:-sparc}
+BUILD=2
+
+rm -rf $PKG
+mkdir -p $PKG
+cd /tmp
+rm -rf taglib-$VERSION
+tar xjvf $CWD/taglib-$VERSION.tar.bz2
+cd taglib-$VERSION
+chown -R root:root .
+CFLAGS="-O2 -m32 -mcpu=v8 -mtune=v9" \
+CXXFLAGS="-O2 -m32 -mcpu=v8 -mtune=v9" \
+./configure \
+  --prefix=/usr \
+  --program-prefix="" \
+  --program-suffix="" \
+  $ARCH-bobware-linux
+make -j4
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/usr/doc/taglib-$VERSION
+cp -a \
+  AUTHORS COPYING INSTALL README TODO \
+  $PKG/usr/doc/taglib-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../taglib-$VERSION-$ARCH-$BUILD.tgz
+

@@ -1,0 +1,86 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-lynx
+
+SRCVER=2.8.5rel.1
+PKGVER=2.8.5rel.5
+ARCH=${ARCH:-i486}
+BUILD=2
+
+rm -rf $PKG
+mkdir -p $PKG
+
+cd /tmp
+rm -rf lynx2-8-5
+tar xjvf $CWD/lynx${SRCVER}.tar.bz2
+cd lynx2-8-5
+# Fix /usr/local paths:
+zcat $CWD/lynx.path.diff.gz | patch -p1 --verbose || exit
+# Apply recolorizing patch:
+zcat $CWD/lynx.cfg.diff.gz | patch -p1 --verbose --backup || exit
+# Apply official patches:
+zcat $CWD/2.8.5rel.2.patch.gz | patch -p1 --verbose || exit
+zcat $CWD/2.8.5rel.3.patch.gz | patch -p1 --verbose || exit
+zcat $CWD/2.8.5rel.4.patch.gz | patch -p1 --verbose || exit
+zcat $CWD/2.8.5rel.5.patch.gz | patch -p1 --verbose || exit
+find . -name "*~" | xargs rm
+chown -R root:root .
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib/lynx \
+  --enable-default-colors \
+  --sysconfdir=/etc \
+  --with-screen=ncurses \
+  --enable-gzip-help \
+  --with-zlib \
+  --enable-read-eta \
+  --enable-scrollbar \
+  --with-ssl \
+  --enable-color-style \
+  --enable-prettysrc \
+  --enable-source-cache \
+  --enable-nsl-fork \
+  --enable-nls \
+  --enable-persistent-cookies \
+  --enable-vertrace \
+  --disable-full-paths \
+  --enable-addrlist-page \
+  --enable-charset-choice \
+  --enable-cjk \
+  --enable-htmlized-cfg \
+  --enable-justify-elts \
+  --enable-locale-charset \
+  --enable-externs \
+  --enable-cgi-links \
+  --enable-change-exec \
+  --enable-exec-links \
+  --enable-exec-scripts \
+  --enable-internal-links \
+  --with-bzlib
+
+make
+make install DESTDIR=$PKG
+make install-help DESTDIR=$PKG
+make install-doc DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+# Correct $DESTDIR brokenness:
+rm -f $PKG/usr/lib/lynx/lynx_help/COPYHEADER \
+      $PKG/usr/lib/lynx/lynx_help/COPYING
+( cd $PKG/usr/lib/lynx/lynx_help
+  ln -sf ../lynx_doc/COPYHEADER .
+  ln -sf ../lynx_doc/COPYING .
+)
+( mkdir -p $PKG/usr/doc
+  cd $PKG/usr/doc
+  rm -rf lynx-$PKGVER
+  ln -sf /usr/lib/lynx lynx-$PKGVER )
+gzip -9 $PKG/usr/man/man?/*.?
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../lynx-$PKGVER-$ARCH-$BUILD.tgz
+

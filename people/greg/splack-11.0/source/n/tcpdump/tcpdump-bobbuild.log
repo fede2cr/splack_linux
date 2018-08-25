@@ -1,0 +1,944 @@
++================+
+| libpcap-0.9.4 |
++================+
+libpcap-0.9.4/./
+libpcap-0.9.4/./ChmodBPF/
+libpcap-0.9.4/./ChmodBPF/ChmodBPF
+libpcap-0.9.4/./ChmodBPF/StartupParameters.plist
+libpcap-0.9.4/./.cvsignore
+libpcap-0.9.4/./CHANGES
+libpcap-0.9.4/./CREDITS
+libpcap-0.9.4/./FILES
+libpcap-0.9.4/./INSTALL.txt
+libpcap-0.9.4/./LICENSE
+libpcap-0.9.4/./Makefile.in
+libpcap-0.9.4/./README
+libpcap-0.9.4/./README.Win32
+libpcap-0.9.4/./README.aix
+libpcap-0.9.4/./README.dag
+libpcap-0.9.4/./README.hpux
+libpcap-0.9.4/./README.linux
+libpcap-0.9.4/./README.macosx
+libpcap-0.9.4/./README.septel
+libpcap-0.9.4/./README.tru64
+libpcap-0.9.4/./TODO
+libpcap-0.9.4/./VERSION
+libpcap-0.9.4/./acconfig.h
+libpcap-0.9.4/./aclocal.m4
+libpcap-0.9.4/./arcnet.h
+libpcap-0.9.4/./atmuni31.h
+libpcap-0.9.4/./bpf_dump.c
+libpcap-0.9.4/./bpf/
+libpcap-0.9.4/./bpf/net/
+libpcap-0.9.4/./bpf/net/bpf_filter.c
+libpcap-0.9.4/./bpf_image.c
+libpcap-0.9.4/./config.guess
+libpcap-0.9.4/./config.h.in
+libpcap-0.9.4/./config.sub
+libpcap-0.9.4/./configure
+libpcap-0.9.4/./configure.in
+libpcap-0.9.4/./etherent.c
+libpcap-0.9.4/./ethertype.h
+libpcap-0.9.4/./fad-getad.c
+libpcap-0.9.4/./fad-gifc.c
+libpcap-0.9.4/./fad-glifc.c
+libpcap-0.9.4/./fad-null.c
+libpcap-0.9.4/./fad-win32.c
+libpcap-0.9.4/./gencode.c
+libpcap-0.9.4/./gencode.h
+libpcap-0.9.4/./grammar.y
+libpcap-0.9.4/./inet.c
+libpcap-0.9.4/./install-sh
+libpcap-0.9.4/./llc.h
+libpcap-0.9.4/./mkdep
+libpcap-0.9.4/./nametoaddr.c
+libpcap-0.9.4/./nlpid.h
+libpcap-0.9.4/./optimize.c
+libpcap-0.9.4/./pcap-bpf.c
+libpcap-0.9.4/./pcap-bpf.h
+libpcap-0.9.4/./pcap.3
+libpcap-0.9.4/./pcap-dag.c
+libpcap-0.9.4/./pcap-dag.h
+libpcap-0.9.4/./pcap-dlpi.c
+libpcap-0.9.4/./pcap-dos.c
+libpcap-0.9.4/./pcap-dos.h
+libpcap-0.9.4/./pcap-enet.c
+libpcap-0.9.4/./pcap-int.h
+libpcap-0.9.4/./pcap-linux.c
+libpcap-0.9.4/./pcap-namedb.h
+libpcap-0.9.4/./pcap-nit.c
+libpcap-0.9.4/./pcap-nit.h
+libpcap-0.9.4/./pcap-null.c
+libpcap-0.9.4/./pcap-pf.c
+libpcap-0.9.4/./pcap-pf.h
+libpcap-0.9.4/./pcap-septel.c
+libpcap-0.9.4/./pcap-septel.h
+libpcap-0.9.4/./pcap-snit.c
+libpcap-0.9.4/./pcap-snoop.c
+libpcap-0.9.4/./pcap-stdinc.h
+libpcap-0.9.4/./pcap-win32.c
+libpcap-0.9.4/./pcap.c
+libpcap-0.9.4/./pcap.h
+libpcap-0.9.4/./pcap1.h
+libpcap-0.9.4/./pf.h
+libpcap-0.9.4/./ppp.h
+libpcap-0.9.4/./savefile.c
+libpcap-0.9.4/./scanner.l
+libpcap-0.9.4/./sll.h
+libpcap-0.9.4/./sunatmpos.h
+libpcap-0.9.4/./SUNOS4/
+libpcap-0.9.4/./SUNOS4/nit_if.o.sparc
+libpcap-0.9.4/./SUNOS4/nit_if.o.sun3
+libpcap-0.9.4/./SUNOS4/nit_if.o.sun4c.4.0.3c
+libpcap-0.9.4/./Win32/
+libpcap-0.9.4/./Win32/Include/
+libpcap-0.9.4/./Win32/Include/addrinfo.h
+libpcap-0.9.4/./Win32/Include/Gnuc.h
+libpcap-0.9.4/./Win32/Include/arpa/
+libpcap-0.9.4/./Win32/Include/arpa/nameser.h
+libpcap-0.9.4/./Win32/Include/bittypes.h
+libpcap-0.9.4/./Win32/Include/cdecl_ext.h
+libpcap-0.9.4/./Win32/Include/inetprivate.h
+libpcap-0.9.4/./Win32/Include/ip6_misc.h
+libpcap-0.9.4/./Win32/Include/sockstorage.h
+libpcap-0.9.4/./Win32/Include/net/
+libpcap-0.9.4/./Win32/Include/net/netdb.h
+libpcap-0.9.4/./Win32/Include/net/if.h
+libpcap-0.9.4/./Win32/Include/net/paths.h
+libpcap-0.9.4/./Win32/Prj/
+libpcap-0.9.4/./Win32/Prj/libpcap.dsp
+libpcap-0.9.4/./Win32/Prj/libpcap.dsw
+libpcap-0.9.4/./Win32/Src/
+libpcap-0.9.4/./Win32/Src/getnetent.c
+libpcap-0.9.4/./Win32/Src/ffs.c
+libpcap-0.9.4/./Win32/Src/getaddrinfo.c
+libpcap-0.9.4/./Win32/Src/getnetbynm.c
+libpcap-0.9.4/./Win32/Src/getopt.c
+libpcap-0.9.4/./Win32/Src/getservent.c
+libpcap-0.9.4/./Win32/Src/inet_aton.c
+libpcap-0.9.4/./Win32/Src/inet_net.c
+libpcap-0.9.4/./Win32/Src/inet_pton.c
+libpcap-0.9.4/./doc/
+libpcap-0.9.4/./doc/pcap.html
+libpcap-0.9.4/./doc/pcap.txt
+libpcap-0.9.4/./doc/pcap.xml
+libpcap-0.9.4/./lbl/
+libpcap-0.9.4/./lbl/os-aix4.h
+libpcap-0.9.4/./lbl/os-hpux11.h
+libpcap-0.9.4/./lbl/os-osf4.h
+libpcap-0.9.4/./lbl/os-osf5.h
+libpcap-0.9.4/./lbl/os-solaris2.h
+libpcap-0.9.4/./lbl/os-sunos4.h
+libpcap-0.9.4/./lbl/os-ultrix4.h
+libpcap-0.9.4/./missing/
+libpcap-0.9.4/./missing/snprintf.c
+libpcap-0.9.4/./msdos/
+libpcap-0.9.4/./msdos/bin2c.c
+libpcap-0.9.4/./msdos/common.dj
+libpcap-0.9.4/./msdos/makefile
+libpcap-0.9.4/./msdos/makefile.dj
+libpcap-0.9.4/./msdos/makefile.wc
+libpcap-0.9.4/./msdos/ndis2.c
+libpcap-0.9.4/./msdos/ndis2.h
+libpcap-0.9.4/./msdos/ndis_0.asm
+libpcap-0.9.4/./msdos/pkt_rx0.asm
+libpcap-0.9.4/./msdos/pkt_rx1.s
+libpcap-0.9.4/./msdos/pktdrvr.c
+libpcap-0.9.4/./msdos/pktdrvr.h
+libpcap-0.9.4/./msdos/readme.dos
+libpcap-0.9.4/./packaging/
+libpcap-0.9.4/./packaging/pcap.spec
+libpcap-0.9.4/./packaging/pcap.spec.in
+configure: WARNING: you should use --build, --host, --target
+checking build system type... sparc-bobware-linux-gnu
+checking host system type... sparc-bobware-linux-gnu
+checking target system type... sparc-bobware-linux-gnu
+checking for sparc-bobware-linux-gcc... sparc-bobware-linux-gcc
+checking for C compiler default output... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether sparc-bobware-linux-gcc accepts -g... yes
+checking for sparc-bobware-linux-gcc option to accept ANSI C... none needed
+checking gcc version... 3
+checking for inline... inline
+checking for __attribute__... yes
+checking for u_int8_t using sparc-bobware-linux-gcc... yes
+checking for u_int16_t using sparc-bobware-linux-gcc... yes
+checking for u_int32_t using sparc-bobware-linux-gcc... yes
+checking how to run the C preprocessor... sparc-bobware-linux-gcc -E
+checking for egrep... grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking sys/ioccom.h usability... no
+checking sys/ioccom.h presence... no
+checking for sys/ioccom.h... no
+checking sys/sockio.h usability... no
+checking sys/sockio.h presence... no
+checking for sys/sockio.h... no
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking for netinet/if_ether.h... yes
+checking for ANSI ioctl definitions... yes
+checking for strerror... yes
+checking for strlcpy... no
+checking for vsnprintf... yes
+checking for snprintf... yes
+checking for library containing gethostbyname... none required
+checking for library containing socket... none required
+checking for library containing putmsg... none required
+checking for ether_hostton... yes
+checking whether ether_hostton is declared... no
+checking netinet/ether.h usability... yes
+checking netinet/ether.h presence... yes
+checking for netinet/ether.h... yes
+checking whether ether_hostton is declared... yes
+checking if --disable-protochain option is specified... enabled
+checking packet capture type... linux
+checking for getifaddrs... yes
+checking ifaddrs.h usability... yes
+checking ifaddrs.h presence... yes
+checking for ifaddrs.h... yes
+checking if --enable-ipv6 option is specified... yes
+checking whether to build optimizer debugging code... no
+checking whether to build parser debugging code... no
+checking Linux kernel version... 2
+checking if if_packet.h has tpacket_stats defined... yes
+checking whether we have /proc/net/dev... yes
+checking whether we have DAG API headers... no (/usr/local/include)
+checking whether we have Septel API... no
+checking for flex... flex
+checking for flex 2.4 or higher... yes
+checking for bison... bison
+checking for sparc-bobware-linux-ranlib... no
+checking for ranlib... ranlib
+checking if sockaddr struct has sa_len member... no
+checking if sockaddr_storage struct exists... yes
+checking if dl_hp_ppa_info_t struct has dl_module_id_1 member... no
+checking if unaligned accesses fail... yes
+checking for a BSD-compatible install... /usr/bin/ginstall -c
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating config.h
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./pcap-linux.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./fad-getad.c
+sed -e 's/.*/static const char pcap_version_string[] = "libpcap version &";/' ./VERSION > version.h
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./pcap.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./inet.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./gencode.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./optimize.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./nametoaddr.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./etherent.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./savefile.c
+rm -f bpf_filter.c
+ln -s ./bpf/net/bpf_filter.c bpf_filter.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c bpf_filter.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./bpf_image.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c ./bpf_dump.c
+flex -Ppcap_ -t scanner.l > $$.scanner.c; mv $$.scanner.c scanner.c
+bison -y -p pcap_ -d grammar.y
+mv y.tab.c grammar.c
+mv y.tab.h tokdefs.h
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c scanner.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -Dyylval=pcap_lval -c grammar.c
+sed -e 's/.*/char pcap_version[] = "&";/' ./VERSION > version.c
+sparc-bobware-linux-gcc -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m32 -mcpu=v8 -mtune=v9 -I.  -DHAVE_CONFIG_H  -D_U_="__attribute__((unused))" -c version.c
+ar rc libpcap.a pcap-linux.o fad-getad.o pcap.o inet.o gencode.o optimize.o nametoaddr.o etherent.o savefile.o bpf_filter.o bpf_image.o bpf_dump.o  scanner.o grammar.o version.o  
+ranlib libpcap.a
+[ -d /tmp/package-tcpdump/usr/lib ] || \
+    (mkdir -p /tmp/package-tcpdump/usr/lib; chmod 755 /tmp/package-tcpdump/usr/lib)
+/usr/bin/ginstall -c -m 644 libpcap.a /tmp/package-tcpdump/usr/lib/libpcap.a
+ranlib /tmp/package-tcpdump/usr/lib/libpcap.a
+[ -d /tmp/package-tcpdump/usr/include ] || \
+    (mkdir -p /tmp/package-tcpdump/usr/include; chmod 755 /tmp/package-tcpdump/usr/include)
+/usr/bin/ginstall -c -m 644 ./pcap.h /tmp/package-tcpdump/usr/include/pcap.h
+/usr/bin/ginstall -c -m 644 ./pcap-bpf.h \
+    /tmp/package-tcpdump/usr/include/pcap-bpf.h
+/usr/bin/ginstall -c -m 644 ./pcap-namedb.h \
+    /tmp/package-tcpdump/usr/include/pcap-namedb.h
+[ -d /tmp/package-tcpdump/usr/man/man3 ] || \
+	(mkdir -p /tmp/package-tcpdump/usr/man/man3; chmod 755 /tmp/package-tcpdump/usr/man/man3)
+/usr/bin/ginstall -c -m 644 ./pcap.3 \
+    /tmp/package-tcpdump/usr/man/man3/pcap.3
++================+
+| tcpdump-3.9.4 |
++================+
+tcpdump-3.9.4/./
+tcpdump-3.9.4/./lbl/
+tcpdump-3.9.4/./lbl/os-osf4.h
+tcpdump-3.9.4/./lbl/os-solaris2.h
+tcpdump-3.9.4/./lbl/os-sunos4.h
+tcpdump-3.9.4/./lbl/os-ultrix4.h
+tcpdump-3.9.4/./.cvsignore
+tcpdump-3.9.4/./CHANGES
+tcpdump-3.9.4/./CREDITS
+tcpdump-3.9.4/./FILES
+tcpdump-3.9.4/./INSTALL
+tcpdump-3.9.4/./LICENSE
+tcpdump-3.9.4/./Makefile-devel-adds
+tcpdump-3.9.4/./Makefile.in
+tcpdump-3.9.4/./PLATFORMS
+tcpdump-3.9.4/./README
+tcpdump-3.9.4/./Readme.Win32
+tcpdump-3.9.4/./TODO
+tcpdump-3.9.4/./VERSION
+tcpdump-3.9.4/./acconfig.h
+tcpdump-3.9.4/./aclocal.m4
+tcpdump-3.9.4/./addrtoname.c
+tcpdump-3.9.4/./addrtoname.h
+tcpdump-3.9.4/./ah.h
+tcpdump-3.9.4/./aodv.h
+tcpdump-3.9.4/./appletalk.h
+tcpdump-3.9.4/./arcnet.h
+tcpdump-3.9.4/./atime.awk
+tcpdump-3.9.4/./atm.h
+tcpdump-3.9.4/./atmuni31.h
+tcpdump-3.9.4/./bgp.h
+tcpdump-3.9.4/./bootp.h
+tcpdump-3.9.4/./bpf_dump.c
+tcpdump-3.9.4/./chdlc.h
+tcpdump-3.9.4/./config.guess
+tcpdump-3.9.4/./config.h.in
+tcpdump-3.9.4/./config.sub
+tcpdump-3.9.4/./configure
+tcpdump-3.9.4/./configure.in
+tcpdump-3.9.4/./cpack.c
+tcpdump-3.9.4/./cpack.h
+tcpdump-3.9.4/./dccp.h
+tcpdump-3.9.4/./decnet.h
+tcpdump-3.9.4/./decode_prefix.h
+tcpdump-3.9.4/./enc.h
+tcpdump-3.9.4/./esp.h
+tcpdump-3.9.4/./ether.h
+tcpdump-3.9.4/./ethertype.h
+tcpdump-3.9.4/./extract.h
+tcpdump-3.9.4/./fddi.h
+tcpdump-3.9.4/./gmpls.c
+tcpdump-3.9.4/./gmpls.h
+tcpdump-3.9.4/./gmt2local.c
+tcpdump-3.9.4/./gmt2local.h
+tcpdump-3.9.4/./icmp6.h
+tcpdump-3.9.4/./ieee802_11.h
+tcpdump-3.9.4/./ieee802_11_radio.h
+tcpdump-3.9.4/./igrp.h
+tcpdump-3.9.4/./install-sh
+tcpdump-3.9.4/./interface.h
+tcpdump-3.9.4/./ip.h
+tcpdump-3.9.4/./ip6.h
+tcpdump-3.9.4/./ipfc.h
+tcpdump-3.9.4/./ipproto.c
+tcpdump-3.9.4/./ipproto.h
+tcpdump-3.9.4/./ipsec_doi.h
+tcpdump-3.9.4/./ipx.h
+tcpdump-3.9.4/./isakmp.h
+tcpdump-3.9.4/./l2tp.h
+tcpdump-3.9.4/./l2vpn.c
+tcpdump-3.9.4/./l2vpn.h
+tcpdump-3.9.4/./lane.h
+tcpdump-3.9.4/./llc.h
+tcpdump-3.9.4/./machdep.c
+tcpdump-3.9.4/./machdep.h
+tcpdump-3.9.4/./makemib
+tcpdump-3.9.4/./mib.h
+tcpdump-3.9.4/./mkdep
+tcpdump-3.9.4/./mpls.h
+tcpdump-3.9.4/./nameser.h
+tcpdump-3.9.4/./netbios.h
+tcpdump-3.9.4/./netdissect.h
+tcpdump-3.9.4/./nfs.h
+tcpdump-3.9.4/./nfsfh.h
+tcpdump-3.9.4/./nlpid.c
+tcpdump-3.9.4/./nlpid.h
+tcpdump-3.9.4/./ntp.h
+tcpdump-3.9.4/./oakley.h
+tcpdump-3.9.4/./ospf.h
+tcpdump-3.9.4/./ospf6.h
+tcpdump-3.9.4/./oui.c
+tcpdump-3.9.4/./oui.h
+tcpdump-3.9.4/./packetdat.awk
+tcpdump-3.9.4/./parsenfsfh.c
+tcpdump-3.9.4/./pcap-missing.h
+tcpdump-3.9.4/./pcap_dump_ftell.c
+tcpdump-3.9.4/./pf.h
+tcpdump-3.9.4/./pmap_prot.h
+tcpdump-3.9.4/./ppp.h
+tcpdump-3.9.4/./print-802_11.c
+tcpdump-3.9.4/./print-ah.c
+tcpdump-3.9.4/./print-aodv.c
+tcpdump-3.9.4/./print-ap1394.c
+tcpdump-3.9.4/./print-arcnet.c
+tcpdump-3.9.4/./print-arp.c
+tcpdump-3.9.4/./print-ascii.c
+tcpdump-3.9.4/./print-atalk.c
+tcpdump-3.9.4/./print-atm.c
+tcpdump-3.9.4/./print-beep.c
+tcpdump-3.9.4/./print-bfd.c
+tcpdump-3.9.4/./print-bgp.c
+tcpdump-3.9.4/./print-bootp.c
+tcpdump-3.9.4/./print-cdp.c
+tcpdump-3.9.4/./print-chdlc.c
+tcpdump-3.9.4/./print-cip.c
+tcpdump-3.9.4/./print-cnfp.c
+tcpdump-3.9.4/./print-dccp.c
+tcpdump-3.9.4/./print-decnet.c
+tcpdump-3.9.4/./print-dhcp6.c
+tcpdump-3.9.4/./print-domain.c
+tcpdump-3.9.4/./print-dvmrp.c
+tcpdump-3.9.4/./print-eap.c
+tcpdump-3.9.4/./print-egp.c
+tcpdump-3.9.4/./print-eigrp.c
+tcpdump-3.9.4/./print-enc.c
+tcpdump-3.9.4/./print-esp.c
+tcpdump-3.9.4/./print-ether.c
+tcpdump-3.9.4/./print-fddi.c
+tcpdump-3.9.4/./print-fr.c
+tcpdump-3.9.4/./print-frag6.c
+tcpdump-3.9.4/./print-gre.c
+tcpdump-3.9.4/./print-hsrp.c
+tcpdump-3.9.4/./print-ip.c
+tcpdump-3.9.4/./print-icmp.c
+tcpdump-3.9.4/./print-icmp6.c
+tcpdump-3.9.4/./print-igmp.c
+tcpdump-3.9.4/./print-igrp.c
+tcpdump-3.9.4/./print-ip6.c
+tcpdump-3.9.4/./print-ip6opts.c
+tcpdump-3.9.4/./print-ipcomp.c
+tcpdump-3.9.4/./print-ipfc.c
+tcpdump-3.9.4/./print-ipx.c
+tcpdump-3.9.4/./print-isakmp.c
+tcpdump-3.9.4/./print-isoclns.c
+tcpdump-3.9.4/./print-juniper.c
+tcpdump-3.9.4/./print-krb.c
+tcpdump-3.9.4/./print-l2tp.c
+tcpdump-3.9.4/./print-lane.c
+tcpdump-3.9.4/./print-ldp.c
+tcpdump-3.9.4/./print-llc.c
+tcpdump-3.9.4/./print-lmp.c
+tcpdump-3.9.4/./print-lspping.c
+tcpdump-3.9.4/./print-lwres.c
+tcpdump-3.9.4/./print-mobile.c
+tcpdump-3.9.4/./print-mobility.c
+tcpdump-3.9.4/./print-mpls.c
+tcpdump-3.9.4/./print-msdp.c
+tcpdump-3.9.4/./print-netbios.c
+tcpdump-3.9.4/./print-nfs.c
+tcpdump-3.9.4/./print-ntp.c
+tcpdump-3.9.4/./print-null.c
+tcpdump-3.9.4/./print-ospf.c
+tcpdump-3.9.4/./print-ospf6.c
+tcpdump-3.9.4/./print-pflog.c
+tcpdump-3.9.4/./print-pgm.c
+tcpdump-3.9.4/./print-pim.c
+tcpdump-3.9.4/./print-ppp.c
+tcpdump-3.9.4/./print-pppoe.c
+tcpdump-3.9.4/./print-pptp.c
+tcpdump-3.9.4/./print-radius.c
+tcpdump-3.9.4/./print-raw.c
+tcpdump-3.9.4/./print-rip.c
+tcpdump-3.9.4/./print-ripng.c
+tcpdump-3.9.4/./print-rsvp.c
+tcpdump-3.9.4/./print-rt6.c
+tcpdump-3.9.4/./print-rx.c
+tcpdump-3.9.4/./print-sctp.c
+tcpdump-3.9.4/./print-sip.c
+tcpdump-3.9.4/./print-sl.c
+tcpdump-3.9.4/./print-sll.c
+tcpdump-3.9.4/./print-slow.c
+tcpdump-3.9.4/./print-smb.c
+tcpdump-3.9.4/./print-snmp.c
+tcpdump-3.9.4/./print-stp.c
+tcpdump-3.9.4/./print-sunatm.c
+tcpdump-3.9.4/./print-sunrpc.c
+tcpdump-3.9.4/./print-symantec.c
+tcpdump-3.9.4/./print-syslog.c
+tcpdump-3.9.4/./print-tcp.c
+tcpdump-3.9.4/./print-telnet.c
+tcpdump-3.9.4/./print-tftp.c
+tcpdump-3.9.4/./print-timed.c
+tcpdump-3.9.4/./print-token.c
+tcpdump-3.9.4/./print-udp.c
+tcpdump-3.9.4/./print-vjc.c
+tcpdump-3.9.4/./print-vrrp.c
+tcpdump-3.9.4/./print-wb.c
+tcpdump-3.9.4/./print-zephyr.c
+tcpdump-3.9.4/./route6d.h
+tcpdump-3.9.4/./rpc_auth.h
+tcpdump-3.9.4/./rpc_msg.h
+tcpdump-3.9.4/./rx.h
+tcpdump-3.9.4/./sctpConstants.h
+tcpdump-3.9.4/./sctpHeader.h
+tcpdump-3.9.4/./send-ack.awk
+tcpdump-3.9.4/./setsignal.c
+tcpdump-3.9.4/./setsignal.h
+tcpdump-3.9.4/./slcompress.h
+tcpdump-3.9.4/./slip.h
+tcpdump-3.9.4/./sll.h
+tcpdump-3.9.4/./smb.h
+tcpdump-3.9.4/./smbutil.c
+tcpdump-3.9.4/./stime.awk
+tcpdump-3.9.4/./strcasecmp.c
+tcpdump-3.9.4/./tcp.h
+tcpdump-3.9.4/./tcpdump-stdinc.h
+tcpdump-3.9.4/./tcpdump.1
+tcpdump-3.9.4/./tcpdump.c
+tcpdump-3.9.4/./telnet.h
+tcpdump-3.9.4/./timed.h
+tcpdump-3.9.4/./token.h
+tcpdump-3.9.4/./udp.h
+tcpdump-3.9.4/./util.c
+tcpdump-3.9.4/./vfprintf.c
+tcpdump-3.9.4/./missing/
+tcpdump-3.9.4/./missing/addrinfo.h
+tcpdump-3.9.4/./missing/addrsize.h
+tcpdump-3.9.4/./missing/bittypes.h
+tcpdump-3.9.4/./missing/datalinks.c
+tcpdump-3.9.4/./missing/dlnames.c
+tcpdump-3.9.4/./missing/getaddrinfo.c
+tcpdump-3.9.4/./missing/getnameinfo.c
+tcpdump-3.9.4/./missing/inet_aton.c
+tcpdump-3.9.4/./missing/inet_ntop.c
+tcpdump-3.9.4/./missing/inet_pton.c
+tcpdump-3.9.4/./missing/resolv6.h
+tcpdump-3.9.4/./missing/resolv_ext.h
+tcpdump-3.9.4/./missing/snprintf.c
+tcpdump-3.9.4/./missing/sockstorage.h
+tcpdump-3.9.4/./missing/strdup.c
+tcpdump-3.9.4/./missing/strlcat.c
+tcpdump-3.9.4/./missing/strlcpy.c
+tcpdump-3.9.4/./missing/strsep.c
+tcpdump-3.9.4/./tests/
+tcpdump-3.9.4/./tests/.cvsignore
+tcpdump-3.9.4/./tests/02-sunrise-sunset-esp.puu
+tcpdump-3.9.4/./tests/08-sunrise-sunset-aes.puu
+tcpdump-3.9.4/./tests/08-sunrise-sunset-esp2.puu
+tcpdump-3.9.4/./tests/alltests.sh
+tcpdump-3.9.4/./tests/bgp-infinite-loop.pcap
+tcpdump-3.9.4/./tests/bgp_vpn_attrset.out
+tcpdump-3.9.4/./tests/bgp_vpn_attrset.pcap
+tcpdump-3.9.4/./tests/bgp_vpn_attrset.sh
+tcpdump-3.9.4/./tests/chdlc-slarp-short.pcap
+tcpdump-3.9.4/./tests/chdlc-slarp.pcap
+tcpdump-3.9.4/./tests/eapon1.gdbinit
+tcpdump-3.9.4/./tests/eapon1.out
+tcpdump-3.9.4/./tests/eapon1.puu
+tcpdump-3.9.4/./tests/eapon1.sh
+tcpdump-3.9.4/./tests/eapon2.puu
+tcpdump-3.9.4/./tests/esp-secrets.txt
+tcpdump-3.9.4/./tests/esp0.out
+tcpdump-3.9.4/./tests/esp0.sh
+tcpdump-3.9.4/./tests/esp1.gdbinit
+tcpdump-3.9.4/./tests/esp1.out
+tcpdump-3.9.4/./tests/esp1.sh
+tcpdump-3.9.4/./tests/esp2.gdbinit
+tcpdump-3.9.4/./tests/esp2.out
+tcpdump-3.9.4/./tests/esp2.sh
+tcpdump-3.9.4/./tests/esp3.gdbinit
+tcpdump-3.9.4/./tests/esp3.sh
+tcpdump-3.9.4/./tests/esp4.gdbinit
+tcpdump-3.9.4/./tests/esp4.sh
+tcpdump-3.9.4/./tests/esp5.gdbinit
+tcpdump-3.9.4/./tests/esp5.out
+tcpdump-3.9.4/./tests/esp5.sh
+tcpdump-3.9.4/./tests/espudp1.out
+tcpdump-3.9.4/./tests/espudp1.puu
+tcpdump-3.9.4/./tests/espudp1.sh
+tcpdump-3.9.4/./tests/isakmp-delete-segfault.puu
+tcpdump-3.9.4/./tests/isakmp-identification-segfault.puu
+tcpdump-3.9.4/./tests/isakmp-pointer-loop.puu
+tcpdump-3.9.4/./tests/isakmp1.out
+tcpdump-3.9.4/./tests/isakmp1.sh
+tcpdump-3.9.4/./tests/isakmp2.out
+tcpdump-3.9.4/./tests/isakmp2.sh
+tcpdump-3.9.4/./tests/isakmp3.out
+tcpdump-3.9.4/./tests/isakmp3.sh
+tcpdump-3.9.4/./tests/isakmp4.out
+tcpdump-3.9.4/./tests/isakmp4.sh
+tcpdump-3.9.4/./tests/isakmp4500.puu
+tcpdump-3.9.4/./tests/isis-infinite-loop.pcap
+tcpdump-3.9.4/./tests/ldp-infinite-loop.pcap
+tcpdump-3.9.4/./tests/lmp.out
+tcpdump-3.9.4/./tests/lmp.puu
+tcpdump-3.9.4/./tests/lmp.sh
+tcpdump-3.9.4/./tests/lspping-fec-ldp.pcap
+tcpdump-3.9.4/./tests/lspping-fec-rsvp.pcap
+tcpdump-3.9.4/./tests/mpls-ldp-hello.out
+tcpdump-3.9.4/./tests/mpls-ldp-hello.puu
+tcpdump-3.9.4/./tests/mpls-ldp-hello.sh
+tcpdump-3.9.4/./tests/mpls-traceroute.pcap
+tcpdump-3.9.4/./tests/ospf-gmpls.out
+tcpdump-3.9.4/./tests/ospf-gmpls.puu
+tcpdump-3.9.4/./tests/ospf-gmpls.sh
+tcpdump-3.9.4/./tests/print-A.out
+tcpdump-3.9.4/./tests/print-AA.out
+tcpdump-3.9.4/./tests/print-X.out
+tcpdump-3.9.4/./tests/print-XX.out
+tcpdump-3.9.4/./tests/print-capX.out
+tcpdump-3.9.4/./tests/print-capXX.out
+tcpdump-3.9.4/./tests/print-flags.puu
+tcpdump-3.9.4/./tests/print-flags.sh
+tcpdump-3.9.4/./tests/print-x.out
+tcpdump-3.9.4/./tests/print-xx.out
+tcpdump-3.9.4/./tests/rsvp-infinite-loop.pcap
+tcpdump-3.9.4/./win32/
+tcpdump-3.9.4/./win32/Include/
+tcpdump-3.9.4/./win32/Include/Arpa/
+tcpdump-3.9.4/./win32/Include/Arpa/tftp.h
+tcpdump-3.9.4/./win32/Include/errno.h
+tcpdump-3.9.4/./win32/Include/getopt.h
+tcpdump-3.9.4/./win32/Include/inetprivate.h
+tcpdump-3.9.4/./win32/Include/telnet.h
+tcpdump-3.9.4/./win32/Include/w32_fzs.h
+tcpdump-3.9.4/./win32/Include/Netinet/
+tcpdump-3.9.4/./win32/Include/Netinet/in_systm.h
+tcpdump-3.9.4/./win32/Include/Netinet/ip.h
+tcpdump-3.9.4/./win32/Src/
+tcpdump-3.9.4/./win32/Src/getopt.c
+tcpdump-3.9.4/./win32/prj/
+tcpdump-3.9.4/./win32/prj/GNUmakefile
+tcpdump-3.9.4/./win32/prj/WinDump.dsp
+tcpdump-3.9.4/./win32/prj/WinDump.dsw
+configure: WARNING: you should use --build, --host, --target
+checking build system type... sparc-bobware-linux-gnu
+checking host system type... sparc-bobware-linux-gnu
+checking for sparc-bobware-linux-gcc... sparc-bobware-linux-gcc
+checking for C compiler default output... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether sparc-bobware-linux-gcc accepts -g... yes
+checking for sparc-bobware-linux-gcc option to accept ANSI C... none needed
+checking gcc version... 3
+checking for inline... inline
+checking for __attribute__... yes
+checking how to run the C preprocessor... sparc-bobware-linux-gcc -E
+checking for egrep... grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking rpc/rpcent.h usability... no
+checking rpc/rpcent.h presence... no
+checking for rpc/rpcent.h... no
+checking netdnet/dnetdb.h usability... no
+checking netdnet/dnetdb.h presence... no
+checking for netdnet/dnetdb.h... no
+checking for netinet/if_ether.h... yes
+checking whether time.h and sys/time.h may both be included... yes
+checking Linux kernel version... 2
+checking smi.h usability... no
+checking smi.h presence... no
+checking for smi.h... no
+checking for smiInit in -lsmi... no
+checking whether to enable the possibly-buggy SMB printer... yes
+configure: WARNING: The SMB printer may have exploitable buffer overflows!!!
+checking whether to drop root privileges by default... no
+checking whether to chroot... no
+checking whether to enable ipv6... yes
+checking ipv6 stack type... linux-glibc
+checking for library containing getaddrinfo... none required
+checking getaddrinfo bug... good
+checking for getaddrinfo... yes
+checking for getnameinfo... yes
+checking for dnet_htoa declaration in netdnet/dnetdb.h... no
+checking for char... yes
+checking size of char... 1
+checking for short... yes
+checking size of short... 2
+checking for int... yes
+checking size of int... 4
+checking for long... yes
+checking size of long... 4
+checking for long long... yes
+checking size of long long... 8
+checking for addrinfo... yes
+checking for NI_MAXSERV... yes
+checking for NI_NAMEREQD... yes
+checking for sockaddr_storage... yes
+checking for INADDRSZ... yes
+checking for IN6ADDRSZ... yes
+checking for RES_USE_INET6... yes
+checking for res_state_ext... no
+checking for nsort in res_state... no
+checking for vfprintf... yes
+checking for strcasecmp... yes
+checking for strlcat... no
+checking for strlcpy... no
+checking for strdup... yes
+checking for strsep... yes
+checking for strftime... yes
+checking for setlinebuf... yes
+checking for alarm... yes
+checking for vsnprintf... yes
+checking for snprintf... yes
+checking return type of signal handlers... void
+checking for sigaction... yes
+checking for library containing dnet_htoa... no
+checking for main in -lrpc... no
+checking for library containing getrpcbynumber... none required
+checking for library containing gethostbyname... none required
+checking for library containing socket... none required
+checking for library containing putmsg... none required
+checking for local pcap library... ./../libpcap-0.9.4/libpcap.a
+checking for pcap_list_datalinks... yes
+checking for pcap_set_datalink... yes
+checking for pcap_datalink_name_to_val... yes
+checking for pcap_datalink_val_to_description... yes
+checking for pcap_breakloop... yes
+checking for pcap_dump_ftell... yes
+checking for inet_ntop... yes
+checking for inet_pton... yes
+checking for inet_aton... yes
+checking for ether_ntohost... yes
+checking for buggy ether_ntohost... no
+checking whether ether_ntohost is declared... no
+checking netinet/ether.h usability... yes
+checking netinet/ether.h presence... yes
+checking for netinet/ether.h... yes
+checking whether ether_ntohost is declared... yes
+checking if sockaddr struct has sa_len member... no
+checking for pcap_findalldevs... yes
+checking for pcap_dump_flush... yes
+checking for pcap_lib_version... yes
+checking for pcap_if_t... yes
+checking whether pcap_debug is defined by libpcap... no
+checking whether yydebug is defined by libpcap... no
+checking for bpf_dump... yes
+checking sys/bitypes.h usability... yes
+checking sys/bitypes.h presence... yes
+checking for sys/bitypes.h... yes
+checking for int8_t... yes
+checking for u_int8_t... yes
+checking for int16_t... yes
+checking for u_int16_t... yes
+checking for int32_t... yes
+checking for u_int32_t... yes
+checking for int64_t... yes
+checking for u_int64_t... yes
+checking for inttypes.h... (cached) yes
+checking whether inttypes.h defines the PRI[doxu]64 macros... yes
+checking if sockaddr struct has sa_len member... no
+checking if unaligned accesses fail... yes
+checking for h_errno... yes
+checking for SSLeay... /usr
+checking for DES_cbc_encrypt in -lcrypto... yes
+checking openssl/evp.h usability... yes
+checking openssl/evp.h presence... yes
+checking for openssl/evp.h... yes
+checking for a BSD-compatible install... /usr/bin/ginstall -c
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing default-1 commands
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./addrtoname.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./cpack.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./gmpls.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./oui.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./gmt2local.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./ipproto.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./nlpid.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./l2vpn.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./machdep.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./parsenfsfh.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-802_11.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ap1394.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ah.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-arcnet.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-aodv.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-arp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ascii.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-atalk.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-atm.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-beep.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-bfd.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-bgp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-bootp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-cdp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-chdlc.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-cip.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-cnfp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-dccp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-decnet.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-domain.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-dvmrp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-enc.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-egp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-eap.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-eigrp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-esp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ether.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-fddi.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-fr.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-gre.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-hsrp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-icmp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-igmp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-igrp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ip.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ipcomp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ipfc.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ipx.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-isakmp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-isoclns.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-juniper.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-krb.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-l2tp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-lane.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ldp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-llc.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-lmp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-lspping.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-lwres.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-mobile.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-mpls.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-msdp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-nfs.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ntp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-null.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ospf.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-pflog.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-pgm.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-pim.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ppp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-pppoe.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-pptp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-radius.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-raw.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-rip.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-rsvp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-rx.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-sctp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-sip.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-sl.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-sll.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-slow.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-snmp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-stp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-sunatm.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-sunrpc.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-symantec.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-syslog.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-tcp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-telnet.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-tftp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-timed.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-token.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-udp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-vjc.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-vrrp.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-wb.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-zephyr.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./setsignal.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./tcpdump.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./util.c
+sed -e 's/.*/char version[] = "&";/' ./VERSION > version.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c version.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ip6.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ip6opts.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-mobility.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ripng.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-icmp6.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-frag6.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-rt6.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-ospf6.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-dhcp6.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./print-smb.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -c ./smbutil.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -o strlcat.o -c ./missing/strlcat.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -o strlcpy.o -c ./missing/strlcpy.c
+sparc-bobware-linux-gcc -O2 -m32 -mcpu=v8 -mtune=v9 -DHAVE_CONFIG_H  -I./../libpcap-0.9.4  -I/usr/include -I./missing  -D_U_="__attribute__((unused))" -I. -I./../libpcap-0.9.4  -I/usr/include -I./missing -L/usr/lib  -o tcpdump addrtoname.o cpack.o gmpls.o oui.o gmt2local.o ipproto.o nlpid.o l2vpn.o machdep.o parsenfsfh.o print-802_11.o print-ap1394.o print-ah.o print-arcnet.o print-aodv.o print-arp.o print-ascii.o print-atalk.o print-atm.o print-beep.o print-bfd.o print-bgp.o print-bootp.o print-cdp.o print-chdlc.o print-cip.o print-cnfp.o print-dccp.o print-decnet.o print-domain.o print-dvmrp.o print-enc.o print-egp.o print-eap.o print-eigrp.o print-esp.o print-ether.o print-fddi.o print-fr.o print-gre.o print-hsrp.o print-icmp.o print-igmp.o print-igrp.o print-ip.o print-ipcomp.o print-ipfc.o print-ipx.o print-isakmp.o print-isoclns.o print-juniper.o print-krb.o print-l2tp.o print-lane.o print-ldp.o print-llc.o print-lmp.o print-lspping.o print-lwres.o print-mobile.o print-mpls.o print-msdp.o print-nfs.o print-ntp.o print-null.o print-ospf.o print-pflog.o print-pgm.o print-pim.o print-ppp.o print-pppoe.o print-pptp.o print-radius.o print-raw.o print-rip.o print-rsvp.o print-rx.o print-sctp.o print-sip.o print-sl.o print-sll.o print-slow.o print-snmp.o print-stp.o print-sunatm.o print-sunrpc.o print-symantec.o print-syslog.o print-tcp.o print-telnet.o print-tftp.o print-timed.o print-token.o print-udp.o print-vjc.o print-vrrp.o print-wb.o print-zephyr.o setsignal.o tcpdump.o util.o version.o print-ip6.o print-ip6opts.o print-mobility.o print-ripng.o print-icmp6.o print-frag6.o print-rt6.o print-ospf6.o print-dhcp6.o print-smb.o smbutil.o  strlcat.o strlcpy.o -lcrypto ./../libpcap-0.9.4/libpcap.a 
+[ -d /tmp/package-tcpdump/usr/sbin ] || \
+    (mkdir -p /tmp/package-tcpdump/usr/sbin; chmod 755 /tmp/package-tcpdump/usr/sbin)
+/usr/bin/ginstall -c tcpdump /tmp/package-tcpdump/usr/sbin/tcpdump
+[ -d /tmp/package-tcpdump/usr/man/man1 ] || \
+    (mkdir -p /tmp/package-tcpdump/usr/man/man1; chmod 755 /tmp/package-tcpdump/usr/man/man1)
+/usr/bin/ginstall -c -m 644 ./tcpdump.1 /tmp/package-tcpdump/usr/man/man1/tcpdump.1
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+
+No symbolic links were found, so we won't make an installation script.
+You can make your own later in ./install/doinst.sh and rebuild the
+package if you like.
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? n
+
+
+Creating tar file tcpdump-3.9.4-sparc-2.tar...
+
+./
+usr/
+usr/lib/
+usr/lib/libpcap.a
+usr/include/
+usr/include/pcap.h
+usr/include/pcap-bpf.h
+usr/include/pcap-namedb.h
+usr/man/
+usr/man/man3/
+usr/man/man3/pcap.3.gz
+usr/man/man1/
+usr/man/man1/tcpdump.1.gz
+usr/doc/
+usr/doc/libpcap-0.9.4/
+usr/doc/libpcap-0.9.4/CHANGES
+usr/doc/libpcap-0.9.4/CREDITS
+usr/doc/libpcap-0.9.4/FILES
+usr/doc/libpcap-0.9.4/INSTALL.txt
+usr/doc/libpcap-0.9.4/LICENSE
+usr/doc/libpcap-0.9.4/README
+usr/doc/libpcap-0.9.4/README.aix
+usr/doc/libpcap-0.9.4/README.linux
+usr/doc/libpcap-0.9.4/README.tru64
+usr/doc/libpcap-0.9.4/SUNOS4/
+usr/doc/libpcap-0.9.4/SUNOS4/nit_if.o.sparc
+usr/doc/libpcap-0.9.4/SUNOS4/nit_if.o.sun3
+usr/doc/libpcap-0.9.4/SUNOS4/nit_if.o.sun4c.4.0.3c
+usr/doc/libpcap-0.9.4/TODO
+usr/doc/libpcap-0.9.4/VERSION
+usr/doc/tcpdump-3.9.4/
+usr/doc/tcpdump-3.9.4/CHANGES
+usr/doc/tcpdump-3.9.4/FILES
+usr/doc/tcpdump-3.9.4/INSTALL
+usr/doc/tcpdump-3.9.4/README
+usr/sbin/
+usr/sbin/tcpdump
+install/
+install/slack-desc
+tar-1.13: tcpdump-3.9.4-sparc-2.tar is the archive; not dumped
+
+Gzipping tcpdump-3.9.4-sparc-2.tar...
+
+Renaming tcpdump-3.9.4-sparc-2.tar.gz to tcpdump-3.9.4-sparc-2.tgz...
+
+Moving tcpdump-3.9.4-sparc-2.tgz to /tmp...
+
+Package creation complete.
+

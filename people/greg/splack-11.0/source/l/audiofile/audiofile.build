@@ -1,0 +1,24 @@
+CWD=`pwd`
+
+VERSION=0.2.6
+ARCH=${ARCH:-i486}
+
+cd /tmp
+tar xjvf $CWD/audiofile-$VERSION.tar.bz2
+cd audiofile-$VERSION
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS=-O2 \
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  $ARCH-slackware-linux
+make
+make install
+mkdir -p /usr/doc/audiofile-$VERSION
+cp -a \
+  COPYING TODO README ChangeLog docs/* \
+  /usr/doc/audiofile-$VERSION
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

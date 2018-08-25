@@ -1,0 +1,59 @@
+#!/bin/sh
+CWD=`pwd`
+cd /tmp
+tar xzvf $CWD/metamail-2.7.tar.gz
+cd metamail-2.7
+chown -R root:root .
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 700 -exec chmod 755 {} \;
+zcat $CWD/metamail_2.7-43.diff.gz | patch -p1
+zcat $CWD/metamail.fmtbuf.diff.gz | patch -p1
+( cd bin
+  cat showexternal | perl -pi -e 's|sensible-pager|more|' > se
+  chmod 755 se ; mv se showexternal
+  cat sun-message | perl -pi -e 's|sensible-pager|more|' > sm
+  chmod 755 sm ; mv sm sun-message )
+( cd src/metamail
+  cat mailto.c | perl -pi -e 's|sensible-pager|more|' > m.c
+  mv m.c mailto.c )
+sh ./configure --prefix=/usr
+make
+( cd bin
+  cat mailto-hebrew | perl -pi -e 's|/usr/lib/X11/fonts/misc|/usr/lib/metamail/fonts|' > mh
+  chmod 755 mh ; mv mh mailto-hebrew )
+make install
+mkdir -p /usr/doc/metamail-2.7
+cp -a CREDITS README mailcap /usr/doc/metamail-2.7
+chmod 644 /usr/doc/metamail-2.7/*
+( cd man
+  for file in *.1 ; do
+    cat $file | gzip -9c > /usr/man/man1/$file.gz
+  done
+  #for file in *.4 ; do
+  #  cat $file | gzip -9c > /usr/man/man4/$file.gz
+  #done
+  for file in *.5 ; do
+    cat $file | gzip -9c > /usr/man/man5/$file.gz
+  done )
+( cd fonts
+  make
+  mkdir -p /usr/lib/metamail/fonts
+  for file in *.pcf ; do
+    cat $file > /usr/lib/metamail/fonts/$file
+  done
+  cat fonts.alias > /usr/lib/metamail/fonts/fonts.alias
+  cat fonts.dir > /usr/lib/metamail/fonts/fonts.dir )
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc
+# These are obsolete, broken, and/or undocumented.
+# Complain to volkerdi@slackware.com if you miss any of them...
+for file in \
+  mailserver rcvAppSingle richtoatk sndAppSingle sun-audio-file sun-message sun-to-mime sun2mime \
+  rcvAppleSingle sndAppleSingle sun-message.csh \
+  ; do
+  rm -f /usr/bin/$file
+  rm -f /usr/man/man1/$file.1.gz /usr/man/man1/$file.1
+done
+strip /usr/lib/libmetamail.so
+rm -f /usr/lib/libmetamail.a /usr/lib/libmetamail.la

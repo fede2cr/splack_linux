@@ -1,0 +1,18 @@
+Index: srvrsmtp.c
+===================================================================
+RCS file: /cvs/sendmail/srvrsmtp.c,v
+retrieving revision 8.948
+diff -u -r8.948 srvrsmtp.c
+--- srvrsmtp.c	15 Aug 2006 23:24:58 -0000	8.948
++++ srvrsmtp.c	24 Aug 2006 16:47:19 -0000
+@@ -945,7 +945,9 @@
+ 		char *response;
+ 
+ 		q = macvalue(macid("{client_name}"), e);
+-		SM_ASSERT(q != NULL);
++		SM_ASSERT(q != NULL || OpMode == MD_SMTP);
++		if (q == NULL)
++			q = "localhost";
+ 		response = milter_connect(q, RealHostAddr, e, &state);
+ 		switch (state)
+ 		{

@@ -1,0 +1,25 @@
+#!/bin/sh
+CWD=`pwd` 
+VERSION=0.22.0
+
+cat << EOF
+
+This is one of those [silly] things that will only build under X...
+
+EOF
+sleep 5
+cd /tmp
+tar xjvf $CWD/gdk-pixbuf-$VERSION.tar.bz2
+cd gdk-pixbuf-$VERSION
+CFLAGS="-O2 -march=i486 -mcpu=i686" ./configure \
+           --prefix=/usr \
+           i486-slackware-linux 
+make
+make install
+mkdir -p /usr/doc/gdk-pixbuf-$VERSION
+cp -a AUTHORS COPYING COPYING.LIB INSTALL NEWS README TODO \
+   /usr/doc/gdk-pixbuf-$VERSION
+chown -R root:root /usr/doc/gdk-pixbuf-$VERSION
+chmod 644 /usr/doc/gdk-pixbuf-$VERSION/*
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

@@ -1,0 +1,134 @@
+#!/bin/sh
+#
+# Build and package mod_ssl on Slackware.
+# by:  David Cantrell <david@slackware.com>
+# Currently maintained by:  PJV <volkerdi@slackware.com>
+
+MODSSL_VER=2.8.28
+APACHE_VER=1.3.37
+ARCH=${ARCH:-i486}
+BUILD=1
+
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-mod_ssl
+
+rm -rf $PKG
+mkdir -p $PKG
+( cd $PKG ; explodepkg $CWD/_mod_ssl.tar.gz )
+# Install sample config file:
+cat $CWD/mod_ssl.conf.example > $PKG/etc/apache/mod_ssl.conf.new
+
+cd $TMP
+rm -rf mod_ssl-$MODSSL_VER-$APACHE_VER
+rm -rf apache_$APACHE_VER
+tar xvzf $CWD/apache_$APACHE_VER.tar.gz
+tar xvzf $CWD/mod_ssl-$MODSSL_VER-$APACHE_VER.tar.gz
+
+# build mod_ssl
+cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+chown -R root:root .
+./configure --with-apxs=/usr/sbin/apxs \
+            --with-crt=/etc/apache/mod_ssl/server.crt \
+            --with-key=/etc/apache/mod_ssl/server.key \
+            --with-patch=/usr/bin/patch
+
+# Enjoy this kludge!  :-)
+echo "SSL_CFLAGS= -DSSL_ENGINE -DSSL_USE_SDBM" >> pkg.sslmod/Makefile
+make -j3
+
+# go back to the Apache tree and generate the additional package components
+cd $TMP/apache_$APACHE_VER
+cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.sslcfg/sslcfg.patch | patch -p0
+cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.ssldoc/ssldoc.patch | patch -p0
+cat $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER/pkg.sslsup/sslsup.patch | patch -p0
+zcat $CWD/../apache/apache.dbm.diff.gz | patch -p1
+( cd $TMP/apache_$APACHE_VER/src/support
+  cat apachectl | sed -e "s|PIDFILE=/usr/local/apache/logs/httpd.pid|PIDFILE=/var/run/httpd.pid|g" | sed -e "s|HTTPD='/usr/local/apache/src/httpd'|HTTPD=/usr/sbin/httpd|g" > apachectl.new
+  mv apachectl.new apachectl )
+
+# install mod_ssl
+cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+make -j3
+make install
+mkdir -p $PKG/usr/doc/mod_ssl-$MODSSL_VER-$APACHE_VER
+cp -a ANNOUNCE CREDITS INSTALL LICENSE NEWS README* \
+   $PKG/usr/doc/mod_ssl-$MODSSL_VER-$APACHE_VER
+
+# install the other components for this package
+cd $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+( cd pkg.sslcfg
+  cp -a README.CRT Makefile.crt ca-bundle.crt snakeoil-ca-rsa.crt \
+     snakeoil-ca-dsa.crt snakeoil-rsa.crt snakeoil-dsa.crt \
+     server.crt $PKG/etc/apache/ssl.crt )
+( cd pkg.sslcfg
+  cp -a README.CSR server.csr $PKG/etc/apache/ssl.csr )
+( cd pkg.sslcfg
+  cp -a README.PRM snakeoil-ca-dsa.prm snakeoil-dsa.prm \
+     $PKG/etc/apache/ssl.prm )
+( cd pkg.sslcfg
+  cp -a Makefile.crl README.CRL $PKG/etc/apache/ssl.crl )
+( cd pkg.sslcfg
+  cp -a README.KEY snakeoil-ca-rsa.key snakeoil-ca-dsa.key snakeoil-rsa.key \
+     snakeoil-dsa.key server.key $PKG/etc/apache/ssl.key )
+
+( cd pkg.ssldoc
+  cp -a index.html ssl_* $PKG/var/www/htdocs/manual/mod/mod_ssl )
+( cd pkg.ssldoc
+  cp -a apache_pb.gif feather.jpg mod_ssl_sb.gif openssl_ics.gif \
+     $PKG/var/www/htdocs/manual/images )
+
+cd $TMP/apache_$APACHE_VER
+( cd htdocs
+  cp -a index.html.en $PKG/var/www/htdocs )
+( cd htdocs/manual/mod
+  cp -a index.html.en index-bytype.html.en directives.html.en \
+     $PKG/var/www/htdocs/manual/mod )
+( cd src/support
+  cp -a apachectl $PKG/usr/sbin )
+# This is a point of overlap with the apache package, so we'll make it
+# a symlink so that it's less of a trap for the unsuspecting admin:
+( cd $PKG/usr/sbin
+  mv apachectl apachectl-mod_ssl
+  ln -sf apachectl-mod_ssl apachectl
+)
+
+# Make key files that we wouldn't want overwritten use .new:
+for file in \
+$PKG/etc/apache/ssl.crt/server.crt \
+$PKG/etc/apache/ssl.csr/server.csr \
+$PKG/etc/apache/ssl.key/server.key ; do
+  mv $file ${file}.new
+done
+
+# get the module in the package
+mkdir -p $PKG/usr/libexec/apache
+cp -a /usr/libexec/apache/libssl.so $PKG/usr/libexec/apache
+
+# attributes
+chmod 700 $PKG/etc/apache/ssl.key
+
+# strip:
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+# some housekeeping
+chmod 755 $PKG/usr/sbin/*
+
+# Install slack-desc:
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# make the package
+cd $PKG
+makepkg -l y -c n $TMP/mod_ssl-${MODSSL_VER}_${APACHE_VER}-$ARCH-$BUILD.tgz
+
+# clean up
+if [ "$1" = "--cleanup" ]; then
+   cd $CWD
+   rm -rf $TMP/mod_ssl-$MODSSL_VER-$APACHE_VER
+   rm -rf $TMP/apache_$APACHE_VER
+   rm -rf $PKG
+fi

@@ -1,0 +1,49 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+PKG=$TMP/package-nc
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+echo "+=========+"
+echo "| nc-1.10 |"
+echo "+=========+"
+cd $TMP
+rm -rf nc-110
+mkdir nc-110
+cd nc-110
+tar xzvf $CWD/nc110.tgz
+chown -R root:root .
+zcat $CWD/nc-110-21.diff.gz | patch -p1
+zcat $CWD/nc.diff.gz | patch -p1
+make linux
+strip nc
+mkdir -p $PKG/usr/bin
+cat nc > $PKG/usr/bin/nc
+chmod 755 $PKG/usr/bin/nc
+mkdir -p $PKG/usr/man/man1
+cat debian/nc.1 | gzip -9c > $PKG/usr/man/man1/nc.1.gz
+mkdir -p $PKG/usr/doc/nc-1.10
+cp -a Changelog README data netcat.blurb scripts $PKG/usr/doc/nc-1.10
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/nc-1.10-i386-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+ rm -rf $TMP/nc-110
+ rm -rf $PKG
+fi
