@@ -1,0 +1,106 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "KDE INTERNATIONAL LANGUAGE SUPPORT (KDEI SERIES)" \
+       --checklist "If you would like to install support \
+within KDE for languages other than US English, please \
+select them from the list below. \
+Press ENTER \
+when you are done." 21 74 12 \
+"kde-i18n-af" "Afrikaans language support" "off" \
+"kde-i18n-ar" "Arabic language support" "off" \
+"kde-i18n-az" "Azerbaijani language support" "off" \
+"kde-i18n-bg" "Bulgarian language support" "off" \
+"kde-i18n-bn" "Bengali language support" "off" \
+"kde-i18n-br" "Breton language support" "off" \
+"kde-i18n-bs" "Bosnian language support" "off" \
+"kde-i18n-ca" "Catalan language support" "off" \
+"kde-i18n-cs" "Czech language support" "off" \
+"kde-i18n-cy" "Welsh language support" "off" \
+"kde-i18n-da" "Danish language support" "off" \
+"kde-i18n-de" "German language support" "off" \
+"kde-i18n-en_GB" "English (UK) language support" "off" \
+"kde-i18n-el" "Greek language support" "off" \
+"kde-i18n-eo" "Esperanto language support" "off" \
+"kde-i18n-es" "Spanish language support" "off" \
+"kde-i18n-et" "Estonian language support" "off" \
+"kde-i18n-eu" "Basque language support" "off" \
+"kde-i18n-fa" "Persian (Farsi) language support" "off" \
+"kde-i18n-fi" "Finnish language support" "off" \
+"kde-i18n-fr" "French language support" "off" \
+"kde-i18n-fy" "Abkhasysk language support" "off" \
+"kde-i18n-ga" "Irish language support" "off" \
+"kde-i18n-gl" "Galician language support" "off" \
+"kde-i18n-he" "Hebrew language support" "off" \
+"kde-i18n-hi" "Hindi language support" "off" \
+"kde-i18n-hr" "Croatian language support" "off" \
+"kde-i18n-hu" "Hungarian language support" "off" \
+"kde-i18n-is" "Icelandic language support" "off" \
+"kde-i18n-it" "Italian language support" "off" \
+"kde-i18n-ja" "Japanese language support" "off" \
+"kde-i18n-km" "Khmer language support" "off" \
+"kde-i18n-kk" "Kazakh language support" "off" \
+"kde-i18n-ko" "Korean language support" "off" \
+"kde-i18n-lt" "Lithuanian language support" "off" \
+"kde-i18n-lv" "Latvian language support" "off" \
+"kde-i18n-mk" "Macedonian language support" "off" \
+"kde-i18n-mn" "Mongolian language support" "off" \
+"kde-i18n-ms" "Malay language support" "off" \
+"kde-i18n-nb" "Norwegian (Bokmaal) language support" "off" \
+"kde-i18n-nds" "Low Saxon language support" "off" \
+"kde-i18n-nl" "Dutch language support" "off" \
+"kde-i18n-nn" "Norwegian (Nynorsk) language support" "off" \
+"kde-i18n-pa" "Punjabi language support" "off" \
+"kde-i18n-pl" "Polish language support" "off" \
+"kde-i18n-pt" "Portuguese language support" "off" \
+"kde-i18n-pt_BR" "Brazil Portuguese language support" "off" \
+"kde-i18n-ro" "Romanian language support" "off" \
+"kde-i18n-ru" "Russian language support" "off" \
+"kde-i18n-rw" "Kinyarwanda language support" "off" \
+"kde-i18n-se" "Northern Sami language support" "off" \
+"kde-i18n-sk" "Slovak language support" "off" \
+"kde-i18n-sl" "Slovenian language support" "off" \
+"kde-i18n-sr" "Serbian language support" "off" \
+"kde-i18n-sr@Latn" "Serbian in Latin script language support" "off" \
+"kde-i18n-ss" "Swati language support" "off" \
+"kde-i18n-sv" "Swedish language support" "off" \
+"kde-i18n-ta" "Tamil language support" "off" \
+"kde-i18n-tg" "Tajik language support" "off" \
+"kde-i18n-tr" "Turkish language support" "off" \
+"kde-i18n-uk" "Ukrainian language support" "off" \
+"kde-i18n-uz" "Uzbek language support" "off" \
+"kde-i18n-vi" "Vietnamese language support" "off" \
+"kde-i18n-zh_CN" "Simplified Chinese language support" "off" \
+"kde-i18n-zh_TW" "Chinese language support" "off" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+  rm -f $TMP/SeTpkgs
+  cat /dev/null > $TMP/SeTnewtag
+  for PKG in kde-i18n-af kde-i18n-ar kde-i18n-az kde-i18n-bg kde-i18n-bn kde-i18n-br kde-i18n-bs kde-i18n-ca kde-i18n-cs kde-i18n-cy kde-i18n-da kde-i18n-de kde-i18n-en_GB kde-i18n-el kde-i18n-eo kde-i18n-es kde-i18n-et kde-i18n-eu kde-i18n-fa kde-i18n-fi kde-i18n-fr kde-i18n-fy kde-i18n-ga kde-i18n-gl kde-i18n-he kde-i18n-hi kde-i18n-hr kde-i18n-hu kde-i18n-it kde-i18n-ja kde-i18n-km kde-i18n-kk kde-i18n-is kde-i18n-ko kde-i18n-lt kde-i18n-lv kde-i18n-mk kde-i18n-mn kde-i18n-ms kde-i18n-nb kde-i18n-nds kde-i18n-nl kde-i18n-nn kde-i18n-pa kde-i18n-pl kde-i18n-pt kde-i18n-pt_BR kde-i18n-ro kde-i18n-ru kde-i18n-rw kde-i18n-se kde-i18n-sk kde-i18n-sl kde-i18n-sr kde-i18n-sr@Latn kde-i18n-ss kde-i18n-sv kde-i18n-ta kde-i18n-tg kde-i18n-tr kde-i18n-uk kde-i18n-uz kde-i18n-vi kde-i18n-zh_CN kde-i18n-zh_TW ; do
+    # Get locale name:
+    KDELOCALE=$(echo $PKG | cut -f 3 -d -)
+    # Skip both the kde and koffice packages:
+    echo "kde-i18n-$KDELOCALE: SKP" >> $TMP/SeTnewtag
+    echo "koffice-l10n-$KDELOCALE: SKP" >> $TMP/SeTnewtag
+  done
+  exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PKG in kde-i18n-af kde-i18n-ar kde-i18n-az kde-i18n-bg kde-i18n-bn kde-i18n-br kde-i18n-bs kde-i18n-ca kde-i18n-cs kde-i18n-cy kde-i18n-da kde-i18n-de kde-i18n-en_GB kde-i18n-el kde-i18n-eo kde-i18n-es kde-i18n-et kde-i18n-eu kde-i18n-fa kde-i18n-fi kde-i18n-fr kde-i18n-fy kde-i18n-ga kde-i18n-gl kde-i18n-he kde-i18n-hi kde-i18n-hr kde-i18n-hu kde-i18n-it kde-i18n-ja kde-i18n-km kde-i18n-kk kde-i18n-is kde-i18n-ko kde-i18n-lt kde-i18n-lv kde-i18n-mk kde-i18n-mn kde-i18n-ms kde-i18n-nb kde-i18n-nds kde-i18n-nl kde-i18n-nn kde-i18n-pa kde-i18n-pl kde-i18n-pt kde-i18n-pt_BR kde-i18n-ro kde-i18n-ru kde-i18n-rw kde-i18n-se kde-i18n-sk kde-i18n-sl kde-i18n-sr kde-i18n-sr@Latn kde-i18n-ss kde-i18n-sv kde-i18n-ta kde-i18n-tg kde-i18n-tr kde-i18n-uk kde-i18n-uz kde-i18n-vi kde-i18n-zh_CN kde-i18n-zh_TW ; do
+  # Get locale name:
+  KDELOCALE=$(echo $PKG | cut -f 3 -d -)
+  if grep \"$PKG\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+    # Add both the kde and koffice packages:
+    echo "kde-i18n-$KDELOCALE: ADD" >> $TMP/SeTnewtag
+    echo "koffice-l10n-$KDELOCALE: ADD" >> $TMP/SeTnewtag
+  else
+    # Skip both the kde and koffice packages:
+    echo "kde-i18n-$KDELOCALE: SKP" >> $TMP/SeTnewtag
+    echo "koffice-l10n-$KDELOCALE: SKP" >> $TMP/SeTnewtag
+  fi
+done
+rm -f $TMP/SeTpkgs
