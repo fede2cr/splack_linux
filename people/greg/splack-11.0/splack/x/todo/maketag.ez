@@ -1,0 +1,49 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES X (X Window System)" \
+       --checklist "Please confirm the packages you wish to install \
+from series X.  Use the UP/DOWN keys to scroll through the list, and \
+the SPACE key to deselect any items you don't want to install.  \
+Press ENTER when you are done." \
+21 74 11 \
+"dejavu-ttf" "DejaVu TrueType font family" "on" \
+"fontconfig" "Font configuration library" "on" \
+"ttf-indic-fonts" "Indic script TrueType fonts" "on" \
+"x11" "Main X package" "on" \
+"x11-devel" "Libraries and headers for X programming" "on" \
+"x11-fonts-misc" "Basic fonts needed to run X" "on" \
+"x11-docs" "Documentation for X" "on" \
+"x11-docs-html" "HTML documentation for X" "on" \
+"x11-fonts-100dpi" "100dpi screen fonts" "on" \
+"x11-fonts-scale" "Scalable Type1 and TrueType fonts" "on" \
+"x11-fonts-cyrillic" "Cyrillic fonts" "on" \
+"x11-xdmx" "Distributed Multi-head X server" "on" \
+"x11-xnest" "Experimental nested X server" "on" \
+"x11-xvfb" "Virtual framebuffer X server" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+  rm -f $TMP/SeTpkgs
+  > $TMP/SeTnewtag
+  for pkg in dejavu-ttf fontconfig ttf-indic-fonts x11-docs x11-docs-html x11-devel \
+    x11-fonts-misc x11-fonts-100dpi x11-fonts-scale \
+    x11-fonts-cyrillic x11 x11-xnest x11-xdmx x11-xvfb ; do
+    echo "$pkg: SKP" >> $TMP/SeTnewtag
+  done
+  exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in dejavu-ttf fontconfig ttf-indic-fonts x11-docs x11-docs-html x11-devel x11-fonts-misc \
+  x11-fonts-100dpi x11-fonts-scale x11-fonts-cyrillic x11 \
+  x11-xnest x11-xdmx x11-xvfb ; do
+  if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+    echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+  else
+    echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+  fi
+done
+rm -f $TMP/SeTpkgs

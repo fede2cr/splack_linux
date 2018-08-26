@@ -1,0 +1,74 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES XAP (X APPLICATIONS)" \
+       --checklist "Please confirm the packages you wish to install \
+from series XAP.  Use the UP/DOWN keys to scroll through the list, and \
+the SPACE key to deselect any items you don't want to install.  \
+Press ENTER when you are done." \
+20 70 10 \
+"blackbox" "Minimalist and fast window manager" "on" \
+"fluxbox" "Window manager based on blackbox" "on" \
+"fvwm" "FVWM window manager" "on" \
+"gaim" "GTK+ based messaging program" "on" \
+"gftp" "A multithreaded FTP client" "on" \
+"gimp" "GNU Image Manipulation Program" "on" \
+"gimp-help-2" "Help files from the GIMP image editor" "on" \
+"gkrellm" "Graphical system monitor utility" "on" \
+"gnuchess" "Chess playing programs" "on" \
+"gnuplot" "Gnuplot function plotting utility" "on" \
+"gucharmap" "Unicode character map" "on" \
+"gv" ".ps/.pdf viewer based on Ghostview" "on" \
+"gxine" "Multimedia player (GTK+ user interface)" "on" \
+"imagemagick" "ImageMagick image utilities" "on" \
+"mozilla-firefox" "Mozilla Firefox web browser" "on" \
+"mozilla-thunderbird" "Mozilla Thunderbird email client" "on" \
+"pan" "Pan newsreader (good for Reading News)" "on" \
+"rxvt" "Lightweight xterm alternative" "on" \
+"sane" "Scanner Access Now Easy" "on" \
+"seamonkey" "SeaMonkey Application Suite" "on" \
+"seyon" "A complete telecommunications package" "on" \
+"vim-gvim" "X/GTK+ GUI add-on for the VIM editor" "on" \
+"windowmaker" "GNU window manager for X" "on" \
+"xfm" "xfm, a filemanager for X" "on" \
+"x3270" "x3270 - IBM host access tool" "on" \
+"xchat" "IRC client for X" "on" \
+"xgames" "A collection of games for X" "on" \
+"xfce" "A lightweight desktop environment for X" "on" \
+"xfractint" "Fractint for X" "on" \
+"xine-lib" "Multimedia player libraries" "on" \
+"xine-ui" "Multimedia player (user interface)" "on" \
+"xmms" "An audio player similar to WinAmp" "on" \
+"xpaint" "A color painting/image editing program" "on" \
+"xpdf" "Portable Document Format (PDF) viewer" "on" \
+"xsane" "X interface to Scanner Access Now Easy" "on" \
+"xlockmore" "A screen saver and locker for X" "on" \
+"xscreensaver" "A screen saver and locker for X" "on" \
+"xv" "XV GIF/TIFF/JPEG/PostScript Image Viewer" "on" \
+"xxgdb" "X frontend for the GNU gdb debugger" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+ rm -f $TMP/SeTpkgs
+ > $TMP/SeTnewtag
+ for pkg in \
+   blackbox fluxbox fvwm gaim gftp gimp gimp-help-2 gkrellm gnuchess gnuplot gucharmap gv gxine imagemagick mozilla-firefox mozilla-thunderbird pan rxvt sane seamonkey seyon vim-gvim windowmaker x3270 xchat xfm xfce xfractint xine-lib xine-ui xmms xgames xpaint xpdf xsane xlockmore xscreensaver xv xxgdb \
+  ; do
+  echo "$pkg: SKP" >> $TMP/SeTnewtag
+ done
+ exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in \
+  blackbox fluxbox fvwm gaim gftp gimp gimp-help-2 gkrellm gnuchess gnuplot gucharmap gv gxine imagemagick mozilla-firefox mozilla-thunderbird pan rxvt sane seamonkey seyon vim-gvim windowmaker x3270 xchat xfm xfce xfractint xine-lib xine-ui xmms xgames xpaint xpdf xsane xlockmore xscreensaver xv xxgdb \
+ ; do
+ if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+ else
+  echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+ fi
+done
+rm -f $TMP/SeTpkgs
