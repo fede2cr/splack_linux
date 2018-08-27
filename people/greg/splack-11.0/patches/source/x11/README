@@ -1,0 +1,10 @@
+
+To build the latest patchlevel of X11 for Slackware 11.0, use
+the files in this directory to add or replace the ones that
+shipped with the distribution in source/x/x11/.  Build the
+packages with ./x11.SlackBuild, and then use upgradepkg to
+upgrade the rebuilt packages.
+
+The x11, x11-devel, x11-xdmx, x11-xnest, and x11-xvfb server
+packages are the ones that should be upgraded.
+

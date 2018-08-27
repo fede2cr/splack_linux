@@ -1,0 +1,12 @@
+#
+# mod_php - PHP Hypertext Preprocessor module
+#
+
+# Load the PHP module:
+LoadModule php4_module libexec/apache/libphp4.so
+
+# Tell Apache to feed all *.php files through the PHP module:
+AddType application/x-httpd-php .php
+
+# This will display PHP files in colored syntax form.  Use with caution.
+#AddType application/x-httpd-php-source .phps

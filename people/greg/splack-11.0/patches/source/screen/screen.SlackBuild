@@ -1,0 +1,106 @@
+#!/bin/sh
+# Build GNU screen for Slackware 
+# <volkerdi@slackware.com>
+
+VERSION=${VERSION:-4.0.3}
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1_slack11.0}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-screen
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf screen-$VERSION
+tar xjvf $CWD/screen-$VERSION.tar.bz2
+
+cd screen-$VERSION || exit 1
+
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+CFLAGS="$SLKCFLAGS" \
+./configure --prefix=/usr \
+  --with-sys-screenrc=/etc/screenrc \
+  --with-pty-mode=0620 \
+  --with-pty-group=5 \
+  --enable-telnet \
+  --disable-socket-dir \
+  --enable-locale \
+  --enable-colors256 \
+  --enable-rxvt_osc \
+  $ARCH-slackware-linux
+
+# Substitutions:
+perl -pi -e 's|.*#undef HAVE_BRAILLE.*|#define HAVE_BRAILLE 1|' config.h
+perl -pi -e 's|/usr/local/etc/screenrc|/etc/screenrc|' etc/etcscreenrc doc/*
+perl -pi -e 's|/local/etc/screenrc|/etc/screenrc|' doc/*
+
+# Build screen:
+make || exit 1
+make install DESTDIR=$PKG || exit 1
+
+# Prepare package:
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+# Sorry, pal.  Not around here.
+chmod 755 $PKG/usr/bin/screen-$VERSION
+mkdir -p $PKG/etc/skel
+cat etc/etcscreenrc > $PKG/etc/screenrc.new
+cat etc/screenrc > $PKG/etc/skel/.screenrc.new
+rm -f $PKG/usr/info/dir
+gzip -9 $PKG/usr/info/*
+gzip -9 $PKG/usr/man/man1/*
+mkdir -p $PKG/usr/doc/screen-$VERSION
+chmod 644 doc/FAQ
+cp -a COPYING ChangeLog INSTALL NEWS README TODO \
+  doc/FAQ doc/README.DOTSCREEN \
+  $PKG/usr/doc/screen-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat << EOF > $PKG/install/doinst.sh
+#!/bin/sh
+config() {
+  NEW="\$1"
+  OLD="\$(dirname \$NEW)/\$(basename \$NEW .new)"
+  # If there's no config file by that name, mv it over:
+  if [ ! -r \$OLD ]; then
+    mv \$NEW \$OLD
+  elif [ "\$(cat \$OLD | md5sum)" = "\$(cat \$NEW | md5sum)" ]; then # toss the redundant copy
+    rm \$NEW
+  fi
+  # Otherwise, we leave the .new copy for the admin to consider...
+}
+config etc/screenrc.new
+config etc/skel/.screenrc.new
+# This is probably safer than leaving the hidden .new file...  maybe?
+rm -f etc/skel/.screenrc.new
+EOF
+
+# Build package:
+cd $PKG
+makepkg -l y -c n $TMP/screen-$VERSION-$ARCH-$BUILD.tgz
+

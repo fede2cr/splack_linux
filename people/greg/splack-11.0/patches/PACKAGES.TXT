@@ -1,0 +1,536 @@
+
+PACKAGES.TXT;  Tue Jul 24 17:43:47 UTC 2007
+
+This file provides details on the Slackware packages found
+in the ./patches/ directory.
+
+Total size of all packages (compressed):  153 MB
+Total size of all packages (uncompressed):  425 MB
+
+
+PACKAGE NAME:  amarok-1.4.5-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  17588 K
+PACKAGE SIZE (uncompressed):  30970 K
+PACKAGE DESCRIPTION:
+amarok: amarok (music player)
+amarok:
+amarok: Amarok is a music player for Linux and Unix with an intuitive
+amarok: interface.  Amarok makes playing the music you love easier than ever
+amarok: before -- and looks good doing it.
+amarok:
+
+PACKAGE NAME:  bind-9.3.4-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  1225 K
+PACKAGE SIZE (uncompressed):  3240 K
+PACKAGE DESCRIPTION:
+bind: bind (DNS server and utilities)
+bind:
+bind: The named daemon and support utilities such as dig, host, and
+bind: nslookup.  Sample configuration files for running a simple caching
+bind: nameserver are included.  Documentation for advanced name server
+bind: setup can be found in /usr/doc/bind-9.x.x/.
+bind:
+
+PACKAGE NAME:  fetchmail-6.3.6-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  715 K
+PACKAGE SIZE (uncompressed):  1980 K
+PACKAGE DESCRIPTION:
+fetchmail: fetchmail (mail retrieval and forwarding utility)
+fetchmail:
+fetchmail: fetchmail is a mail retrieval and forwarding utility.  It fetches
+fetchmail: mail from a POP, IMAP, or ETRN-capable remote mailserver and forwards
+fetchmail: it to your local (client) machine's delivery system.  You can then
+fetchmail: handle the retrieved mail using normal mail user agents such as elm,
+fetchmail: pine, or mutt.  The fetchmail utility can be run in a daemon mode to
+fetchmail: repeatedly poll one or more systems at a specified interval.
+fetchmail:
+
+PACKAGE NAME:  file-4.20-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  225 K
+PACKAGE SIZE (uncompressed):  690 K
+PACKAGE DESCRIPTION:
+file: file (a utility to determine file type)
+file:
+file: This is Ian F. Darwin's 'file' utility, used to identify files.
+file: Christos Zoulas has been file's maintainer since 1994.
+file:
+
+PACKAGE NAME:  fontconfig-2.4.2-i486-2_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  301 K
+PACKAGE SIZE (uncompressed):  750 K
+PACKAGE DESCRIPTION:
+fontconfig: fontconfig (Font library and tools)
+fontconfig:
+fontconfig: Fontconfig is a library and tools designed to provide system-wide
+fontconfig: font configuration, customization, and application access.
+fontconfig:
+fontconfig: Fontconfig is written and maintained by Keith Packard.
+fontconfig:
+
+PACKAGE NAME:  freetype-2.3.4-i486-2_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  441 K
+PACKAGE SIZE (uncompressed):  1650 K
+PACKAGE DESCRIPTION:
+freetype: freetype (A Free, High-Quality, and Portable Font Engine)
+freetype:
+freetype: The FreeType engine is a free and portable TrueType font rendering
+freetype: engine.  It has been developed to provide TrueType support to a
+freetype: great variety of platforms and environments.
+freetype:
+
+PACKAGE NAME:  gaim-1.5.0-i486-3_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  4739 K
+PACKAGE SIZE (uncompressed):  12680 K
+PACKAGE DESCRIPTION:
+gaim: gaim
+gaim:
+gaim: Gaim allows you to talk to anyone using a variety of messaging
+gaim: protocols, including AIM (Oscar and TOC), ICQ, IRC, Yahoo!, MSN
+gaim: Messenger, Jabber, Gadu-Gadu, Napster, and Zephyr.  These protocols
+gaim: are implemented using a modular, easy to use design.  To use a
+gaim: protocol, just load the plugin for it.
+gaim:
+gaim: Gaim is NOT affiliated with or endorsed by AOL.
+gaim:
+
+PACKAGE NAME:  gd-2.0.35-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  166 K
+PACKAGE SIZE (uncompressed):  660 K
+PACKAGE DESCRIPTION:
+gd: gd (a graphics library)
+gd:
+gd: gd is a graphics library.  It allows your code to quickly draw images
+gd: complete with lines, arcs, text, multiple colors, cut and paste from
+gd: other images, and flood fills, and write out the result as a PNG or
+gd: JPEG file.  This is particularly useful in web applications, where
+gd: PNG and JPEG are two of the formats accepted for inline images by
+gd: most browsers.
+gd:
+gd: The gd library was written by Thomas Boutell.
+gd:
+
+PACKAGE NAME:  glibc-zoneinfo-2.3.6-noarch-7_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  612 K
+PACKAGE SIZE (uncompressed):  3000 K
+PACKAGE DESCRIPTION:
+glibc-zoneinfo: glibc-zoneinfo (time zone database)
+glibc-zoneinfo:
+glibc-zoneinfo: This package allows you to configure your time zone.
+glibc-zoneinfo:
+glibc-zoneinfo: This database comes from glibc, and is based on the tzdata package by
+glibc-zoneinfo: Arthur David Olson et.al.  The latest version and more information
+glibc-zoneinfo: may be found at ftp://elsie.nci.nih.gov/pub/
+glibc-zoneinfo:
+glibc-zoneinfo: Use the timeconfig utility to set your local time zone.
+glibc-zoneinfo:
+
+PACKAGE NAME:  gnome-icon-theme-2.14.2-noarch-2_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  2759 K
+PACKAGE SIZE (uncompressed):  5460 K
+PACKAGE DESCRIPTION:
+gnome-icon-theme: gnome-icon-theme
+gnome-icon-theme:
+gnome-icon-theme: A set of default icons used by many GTK+ applications.
+gnome-icon-theme:
+
+PACKAGE NAME:  gnupg-1.4.7-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  1768 K
+PACKAGE SIZE (uncompressed):  4520 K
+PACKAGE DESCRIPTION:
+gnupg: gnupg (The GNU Privacy Guard)
+gnupg:
+gnupg: GnuPG is GNU's tool for secure communication and data storage.  It can
+gnupg: be used to encrypt data and to create digital signatures.  It includes
+gnupg: an advanced key management facility and is compliant with the proposed
+gnupg: OpenPGP Internet standard as described in RFC2440.
+gnupg:
+
+PACKAGE NAME:  imagemagick-6.3.3_0-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  3739 K
+PACKAGE SIZE (uncompressed):  13580 K
+PACKAGE DESCRIPTION:
+imagemagick: imagemagick (a robust collection of image processing tools)
+imagemagick:
+imagemagick: ImageMagick is a collection of tools for manipulating and displaying
+imagemagick: digital images.  It can merge images, transform image dimensions,
+imagemagick: do screen captures, create animation sequences, and convert between
+imagemagick: many different image formats.  
+imagemagick:
+imagemagick: ImageMagick was written by John Cristy of ImageMagick Studio.
+imagemagick:
+imagemagick: Home page:  http://www.imagemagick.org/
+imagemagick:
+
+PACKAGE NAME:  ktorrent-2.1.3-i486-2_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  3007 K
+PACKAGE SIZE (uncompressed):  7550 K
+PACKAGE DESCRIPTION:
+ktorrent: ktorrent (BitTorrent program for KDE)
+ktorrent:
+ktorrent: KTorrent is a BitTorrent program for KDE with many features:
+ktorrent: Download torrent files (of course :-), upload and download speed
+ktorrent: capping, Internet searching, UDP trackers, port forwarding with UPnP,
+ktorrent: IP blocking, importing of partially or fully downloaded files,
+ktorrent: support for distributed hash tables, protocol encryption,
+ktorrent: bandwidth scheduling, and much more.
+ktorrent:
+ktorrent: KTorrent's developers are Joris Guisson and Ivan Vasic.
+ktorrent: KTorrent is released under the GPL.
+
+PACKAGE NAME:  libexif-0.6.16-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  308 K
+PACKAGE SIZE (uncompressed):  980 K
+PACKAGE DESCRIPTION:
+libexif: libexif
+libexif:
+libexif: EXIF stands for Exchangeable Image File Format, which is a format used
+libexif: to store extra information in images such as the JPEG files produced
+libexif: by digital cameras.  The libexif library allows programs such as 
+libexif: gthumb to parse, edit, and save EXIF data.
+libexif:
+
+PACKAGE NAME:  libgpod-0.4.2-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  251 K
+PACKAGE SIZE (uncompressed):  840 K
+PACKAGE DESCRIPTION:
+libgpod: libgpod (A library for connecting to some sort of media device ;-)
+libgpod:
+libgpod: libgpod for accessing iPod content. It provides an easy to use way
+libgpod: to retrieve the list of files and playlist stored on an iPod, to
+libgpod: modify them and to save them back to the iPod.
+libgpod:
+libgpod: If you decide to make improvements please contact us so we can work
+libgpod: together. Just drop a mail to:  Gtkpod-devel@lists.sourceforge.net
+libgpod: (you may ask to be CC in the answer).
+libgpod:
+
+PACKAGE NAME:  libmtp-0.1.3-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  215 K
+PACKAGE SIZE (uncompressed):  1200 K
+PACKAGE DESCRIPTION:
+libmtp: libmtp (A library for MTP media devices)
+libmtp:
+libmtp: libmtp is a library that attempts to support Microsoft's Media
+libmtp: Transfer Protocol (MTP).  It was initially based the great libptp2
+libmtp: library by Mariusz Woloszyn now maintained by Marcus Meissners, and
+libmtp: Hubert Figuere's libgphoto2 work based on libptp2 (or is libptp2
+libmtp: based on libgphoto?).  It is like a master DJ has remixed all of
+libmtp: these tracks and then added a new API adapted for portable media
+libmtp: players.  :-)
+libmtp:
+libmtp: For the latest info, check out:  http://libmtp.sourceforge.net
+
+PACKAGE NAME:  libpng-1.2.18-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  472 K
+PACKAGE SIZE (uncompressed):  1140 K
+PACKAGE DESCRIPTION:
+libpng: libpng (Portable Network Graphics library)
+libpng:
+libpng: PNG (Portable Network Graphics) is an extensible file format for the
+libpng: lossless, portable, well-compressed storage of raster images.  PNG
+libpng: provides a patent-free replacement for GIF and can also replace many
+libpng: common uses of TIFF.  Indexed-color, grayscale, and truecolor images
+libpng: are supported, plus an optional alpha channel.  Sample depths range
+libpng: from 1 to 16 bits.
+libpng:
+
+PACKAGE NAME:  libwpd-0.8.9-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  229 K
+PACKAGE SIZE (uncompressed):  700 K
+PACKAGE DESCRIPTION:
+libwpd: libwpd (WordPerfect document format library)
+libwpd:
+libwpd: This package contains a library (libwpd) and tools to transform
+libwpd: WordPerfect documents into other formats such as HTML, text, and raw.
+libwpd:
+libwpd: libwpd is used by word processors such as KWord.
+libwpd:
+
+PACKAGE NAME:  mozilla-firefox-1.5.0.12-i686-1.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  8375 K
+PACKAGE SIZE (uncompressed):  21630 K
+PACKAGE DESCRIPTION:
+mozilla-firefox: mozilla-firefox (Mozilla Firefox Web browser)
+mozilla-firefox:
+mozilla-firefox: This project is a redesign of the Mozilla browser component written
+mozilla-firefox: using the XUL user interface language.  Firefox empowers you to
+mozilla-firefox: browse faster, more safely and more efficiently than with any other
+mozilla-firefox: browser.
+mozilla-firefox:
+mozilla-firefox: Visit the Mozilla Firefox project online:
+mozilla-firefox:   http://www.mozilla.org/projects/firefox/
+mozilla-firefox:
+
+PACKAGE NAME:  mozilla-nss-3.9.2-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  1889 K
+PACKAGE SIZE (uncompressed):  5080 K
+PACKAGE DESCRIPTION:
+mozilla-nss: mozilla-nss (Network Security Services)
+mozilla-nss:
+mozilla-nss: Network Security Services (NSS) is a set of libraries designed to 
+mozilla-nss: support cross-platform development of security-enabled client and
+mozilla-nss: server applications. Applications built with NSS can support
+mozilla-nss: SSL v2 and v3, TLS, PKCS #5, PKCS #7, PKCS #11, PKCS #12, S/MIME,
+mozilla-nss: X.509 v3 certificates, and other security standards.
+mozilla-nss:
+mozilla-nss: Read http://www.mozilla.org/projects/security/pki/nss/overview.html
+mozilla-nss:
+
+PACKAGE NAME:  mozilla-thunderbird-2.0.0.5-i686-1.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  11205 K
+PACKAGE SIZE (uncompressed):  30600 K
+PACKAGE DESCRIPTION:
+mozilla-thunderbird: mozilla-thunderbird (Mozilla Thunderbird mail application)
+mozilla-thunderbird:
+mozilla-thunderbird: Mozilla Thunderbird is a redesign of the Mozilla mail component
+mozilla-thunderbird: written using the XUL user interface language.  Thunderbird makes
+mozilla-thunderbird: emailing safer, faster, and easier than ever before with the
+mozilla-thunderbird: industry's best implementations of features such as intelligent spam
+mozilla-thunderbird: filters, built-in RSS reader, quick search, and much more.
+mozilla-thunderbird:
+mozilla-thunderbird: Visit the Mozilla Thunderbird project online:
+mozilla-thunderbird:   http://www.mozilla.org/projects/thunderbird/
+mozilla-thunderbird:
+
+PACKAGE NAME:  php-4.4.7-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  7152 K
+PACKAGE SIZE (uncompressed):  17620 K
+PACKAGE DESCRIPTION:
+php: php (HTML-embedded scripting language)
+php:
+php: PHP is an HTML-embedded scripting language.  It shares syntax
+php: characteristics with C, Java, and Perl.  The primary objective behind
+php: this language is to make a fast and easy-to-use scripting language
+php: for dynamic web sites.
+php:
+php: More information can be found online at http://www.php.net/
+php:
+
+PACKAGE NAME:  proftpd-1.3.0a-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  861 K
+PACKAGE SIZE (uncompressed):  3020 K
+PACKAGE DESCRIPTION:
+proftpd: proftpd (FTP server daemon)
+proftpd:
+proftpd: ProFTPD is the Professional File Transfer Protocol (FTP) server
+proftpd: daemon.  ProFTPD grew out of the desire to have a secure and
+proftpd: configurable FTP server, and out of a significant admiration of the
+proftpd: Apache web server.
+proftpd:
+
+PACKAGE NAME:  qca-tls-1.0-i486-4_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  37 K
+PACKAGE SIZE (uncompressed):  110 K
+PACKAGE DESCRIPTION:
+qca-tls: qca-tls (SSL/TLS plugin for QCA)
+qca-tls:
+qca-tls: This is a plugin to provide SSL/TLS capability to programs that
+qca-tls: utilize the Qt Cryptographic Architecture (QCA).
+qca-tls:
+qca-tls: The qca-tls plugin was written by Justin Karneges.
+qca-tls:
+
+PACKAGE NAME:  qt-3.3.8-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  16250 K
+PACKAGE SIZE (uncompressed):  50830 K
+PACKAGE DESCRIPTION:
+qt: Qt (a multi-platform C++ graphical user interface toolkit)
+qt:
+qt: Qt is a complete and well-developed object-oriented framework for
+qt: developing graphical user interface (GUI) applications using C++.
+qt:
+qt: This release is free only for development of free software for the X
+qt: Window System.  If you use Qt for developing commercial or other
+qt: non-free software, you must have a professional license.  Please see
+qt: http://www.trolltech.com/purchase.html for information on how to
+qt: obtain a professional license.
+qt:
+
+PACKAGE NAME:  samba-3.0.25a-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  22185 K
+PACKAGE SIZE (uncompressed):  53530 K
+PACKAGE DESCRIPTION:
+samba: samba (SMB file and print server)
+samba:
+samba: Samba is an SMB file and print server for SMB and CIFS clients.  It
+samba: allows you to make file space or printers on a Samba host available to
+samba: any PCs running SMB clients (such as PCs running Windows).
+samba:
+samba: If you have any SMB servers (such as Windows NT/2K Server), you may be
+samba: able to replace them by or supplement them with Samba. One of Samba's
+samba: big strengths is integration, so you can use it to tie together your
+samba: Linux hosts and Windows PC clients.
+samba:
+
+PACKAGE NAME:  screen-4.0.3-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  557 K
+PACKAGE SIZE (uncompressed):  800 K
+PACKAGE DESCRIPTION:
+screen: screen (screen manager with VT100/ANSI terminal emulation)
+screen:
+screen: Screen is a full-screen window manager that multiplexes a physical
+screen: terminal between several processes (typically interactive shells).
+screen: Each virtual terminal provides the functions of a DEC VT100 terminal
+screen: and several control functions from the ISO 6492 (ECMA 48, ANSI X3.64)
+screen: and ISO 2022 standards (e.g. insert/delete line and support for
+screen: multiple character sets).  There is a scrollback history buffer for
+screen: each virtual terminal and a copy-and-paste mechanism that allows
+screen: moving text regions between windows.
+screen:
+
+PACKAGE NAME:  seamonkey-1.1.3-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  17387 K
+PACKAGE SIZE (uncompressed):  69540 K
+PACKAGE DESCRIPTION:
+seamonkey: SeaMonkey (an open-source web browser suite)
+seamonkey:
+seamonkey: The SeaMonkey browser suite.  SeaMonkey features a state-of-the-art
+seamonkey: web browser and powerful email client, as well as a WYSIWYG web page
+seamonkey: composer and a feature-rich IRC chat client. For web developers,
+seamonkey: mozilla.org's DOM inspector and JavaScript debugger tools are
+seamonkey: included as well.
+seamonkey:
+seamonkey: Visit the SeaMonkey project at this URL:
+seamonkey:   http://www.mozilla.org/projects/seamonkey/
+seamonkey:
+
+PACKAGE NAME:  slackpkg-2.60-noarch-1.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  40 K
+PACKAGE SIZE (uncompressed):  150 K
+PACKAGE DESCRIPTION:
+slackpkg: slackpkg 
+slackpkg:
+slackpkg: Slackpkg is a package manager for Slackware. It can download,
+slackpkg: upgrade, install and remove selected packages. With it, you
+slackpkg: can search in the Slackware Package database and find which
+slackpkg: package has the selected file.
+slackpkg:
+slackpkg: Slackpkg DOESN'T replace pkgtool. Actually, Slackpkg uses pkgtool
+slackpkg: for all install|upgrade|remove functions.
+slackpkg:
+
+PACKAGE NAME:  tar-1.16-i486-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  738 K
+PACKAGE SIZE (uncompressed):  1800 K
+PACKAGE DESCRIPTION:
+tar: tar (archiving utility)
+tar:
+tar: This is the GNU version of tar, an archiving program designed to store
+tar: and extract files from an archive file known as a tarfile.  A tarfile
+tar: may be made on a tape drive, however, it is also common to write a
+tar: tarfile to a normal file.
+tar:
+tar: Slackware's package system uses tarfiles compressed with GNU gzip.
+tar:
+
+PACKAGE NAME:  x11-6.9.0-i486-14_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  18824 K
+PACKAGE SIZE (uncompressed):  55120 K
+PACKAGE DESCRIPTION:
+x11: x11 (X11 base package)
+x11:
+x11: This is the base package for X11, and provides the required binaries,
+x11: shared libraries, and support files (except fonts) to run X on Linux.
+x11:
+
+PACKAGE NAME:  x11-devel-6.9.0-i486-13_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  4918 K
+PACKAGE SIZE (uncompressed):  14940 K
+PACKAGE DESCRIPTION:
+x11-devel: x11-devel (Libraries and other files for X programming)
+x11-devel:
+x11-devel: This is a set of include files (found in /usr/X11R6/include), static
+x11-devel: libraries (found in /usr/X11R6/lib/*.a) and configuration files
+x11-devel: (found in /usr/X11R6/lib/X11/config/) needed to compile X programs.
+x11-devel:
+
+PACKAGE NAME:  x11-xdmx-6.9.0-i486-13_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  871 K
+PACKAGE SIZE (uncompressed):  1960 K
+PACKAGE DESCRIPTION:
+x11-xdmx: x11-xdmx (Distributed Multi-head X server)
+x11-xdmx:
+x11-xdmx: Xdmx is a proxy X server that uses one or more other X servers as its
+x11-xdmx: display devices.  It provides multi-head X functionality for displays
+x11-xdmx: that might be located on different machines.
+x11-xdmx:
+
+PACKAGE NAME:  x11-xnest-6.9.0-i486-13_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  1397 K
+PACKAGE SIZE (uncompressed):  3820 K
+PACKAGE DESCRIPTION:
+x11-xnest: x11-xnest (a nested X server)
+x11-xnest:
+x11-xnest: Xnest is an experimental nested server for X that acts as both a 
+x11-xnest: client and a server.  Xnest is a client of the real server which
+x11-xnest: manages windows and graphics requests on its behalf.  Xnest is a
+x11-xnest: server to its own clients.  Xnest manages windows and graphics 
+x11-xnest: requests on their behalf.  To these clients Xnest appears to be a 
+x11-xnest: conventional server.
+x11-xnest:
+
+PACKAGE NAME:  x11-xvfb-6.9.0-i486-13_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  1534 K
+PACKAGE SIZE (uncompressed):  4100 K
+PACKAGE DESCRIPTION:
+x11-xvfb: x11-xvfb (virtual framebuffer X server)
+x11-xvfb:
+x11-xvfb: Xvfb is an X server that can run on machines with no display hardware
+x11-xvfb: and no physical input devices.  It emulates a dumb framebuffer using 
+x11-xvfb: virtual memory.  The primary use of this server is intended to be 
+x11-xvfb: server testing.  The mfb or cfb code for any depth can be exercised
+x11-xvfb: with this server without the need for real hardware that supports the
+x11-xvfb: desired depths.  A secondary use is testing clients against unusual
+x11-xvfb: depths and screen configurations.
+x11-xvfb:
+
+PACKAGE NAME:  xine-lib-1.1.6-i686-1_slack11.0.tgz
+PACKAGE LOCATION:  ./patches/packages
+PACKAGE SIZE (compressed):  4525 K
+PACKAGE SIZE (uncompressed):  9950 K
+PACKAGE DESCRIPTION:
+xine-lib: xine-lib (xine multimedia playback engine libraries)
+xine-lib:
+xine-lib: xine-lib is a free (GPL licensed) high-performance multimedia
+xine-lib: playback engine.  The xine shared libraries are used by xine-ui (and
+xine-lib: other media players and multimedia applications) for smooth video
+xine-lib: processing and playback of multimedia streams such as movies, radio
+xine-lib: and TV network streams, DVDs, and VCDs.
+xine-lib:
+
+

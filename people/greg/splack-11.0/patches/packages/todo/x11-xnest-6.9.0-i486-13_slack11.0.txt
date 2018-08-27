@@ -1,0 +1,11 @@
+x11-xnest: x11-xnest (a nested X server)
+x11-xnest:
+x11-xnest: Xnest is an experimental nested server for X that acts as both a 
+x11-xnest: client and a server.  Xnest is a client of the real server which
+x11-xnest: manages windows and graphics requests on its behalf.  Xnest is a
+x11-xnest: server to its own clients.  Xnest manages windows and graphics 
+x11-xnest: requests on their behalf.  To these clients Xnest appears to be a 
+x11-xnest: conventional server.
+x11-xnest:
+x11-xnest:
+x11-xnest:

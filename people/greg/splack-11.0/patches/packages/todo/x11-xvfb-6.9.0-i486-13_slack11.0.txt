@@ -1,0 +1,11 @@
+x11-xvfb: x11-xvfb (virtual framebuffer X server)
+x11-xvfb:
+x11-xvfb: Xvfb is an X server that can run on machines with no display hardware
+x11-xvfb: and no physical input devices.  It emulates a dumb framebuffer using 
+x11-xvfb: virtual memory.  The primary use of this server is intended to be 
+x11-xvfb: server testing.  The mfb or cfb code for any depth can be exercised
+x11-xvfb: with this server without the need for real hardware that supports the
+x11-xvfb: desired depths.  A secondary use is testing clients against unusual
+x11-xvfb: depths and screen configurations.
+x11-xvfb:
+x11-xvfb:

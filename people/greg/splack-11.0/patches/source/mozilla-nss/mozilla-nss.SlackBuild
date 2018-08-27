@@ -1,0 +1,261 @@
+#!/bin/sh
+# $Id: mozilla-nss.SlackBuild,v 1.2 2006/11/07 22:05:29 root Exp root $
+# Copyright (c) 2005,2006 Eric Hameleers <alien@slackware.com>
+# -----------------------------------------------------------------------------
+#
+# Slackware SlackBuild script 
+# ===========================
+# By:        Eric Hameleers <alien@slackware.com>
+# For:       mozilla-nss
+# Descr:     Network Security Services
+# URL:       http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases
+# Needs:     
+# Changelog:
+# 3.9.2-1:   25/mar/2005 by Eric Hameleers
+#            * Initial build.
+# 3.9.2-2:   07/Nov/2006 by Eric Hameleers <alien@slackware.com>
+#            * Rewrote the SlackBuild for Slackware 11.0
+# pjv reverts to -1_slack11.0, since it's the first inclusion in 11.0...
+# 
+# Run 'sh  mozilla-nss.SlackBuild --cleanup' to build a Slackware package.
+# The package (.tgz) plus descriptive .txt file are created in /tmp .
+# Install using 'installpkg'. 
+#
+# -----------------------------------------------------------------------------
+
+# --- INIT ---
+# Set initial variables:
+
+PRGNAM=mozilla-nss
+SRCNAM=nss
+VERSION=${VERSION:-3.9.2}
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1_slack11.0}
+
+UCDIR=$(echo ${SRCNAM}.${VERSION} | tr '.a-z' '_A-Z')
+
+# Where do we look for sources?
+CWD=`pwd`
+SRCDIR=`dirname $0`
+[ "${SRCDIR:0:1}" == "." ] && SRCDIR=${CWD}/${SRCDIR}
+
+# Place to build (TMP) package (PKG) and output (OUTPUT) the program:
+TMP=${TMP:-/tmp/build}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+DOCS="$SRCDIR/faq.html"
+
+# Make sure you edit SRCURL when you change the program's VERSION
+SOURCE="$SRCDIR/${SRCNAM}-${VERSION}.tar.bz2"
+SRCURL="http://ftp.mozilla.org/pub/mozilla.org/security/${SRCNAM}/releases/${UCDIR}_RTM/src/${SRCNAM}-${VERSION}.tar.gz"
+
+##
+## --- with a little luck, you won't have to edit below this point --- ##
+##
+
+# Exit the script on errors:
+set -o errexit
+trap 'echo "$0 FAILED at line $LINENO!" | tee $OUTPUT/error-${PRGNAM}.log' ERR
+# Catch unitialized variables:
+set -o nounset
+P1=${1:-1}
+
+# Slackware 11 and up need other option (gcc > 3.3.x)
+if [ `gcc -dumpversion | tr -d  '.' |cut -c 1-2` -gt 33 ]; then
+  MOPT=tune
+else
+  MOPT=cpu
+fi
+
+case "$ARCH" in
+  i386)      SLKCFLAGS="-O2 -march=i386 -m${MOPT}=i686"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+  i486)      SLKCFLAGS="-O2 -march=i486 -m${MOPT}=i686"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+  s390)      SLKCFLAGS="-O2"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+  powerpc)   SLKCFLAGS="-O2"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+  x86_64)    SLKCFLAGS="-O2 -fPIC"
+             SLKLDFLAGS="-L/usr/lib64"; LIBDIRSUFFIX="64"
+             ;;
+  athlon-xp) SLKCFLAGS="-march=athlon-xp -O3 -pipe -fomit-frame-pointer"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+esac
+
+if [ ! -d $TMP/tmp-$PRGNAM ]; then
+  mkdir -p $TMP/tmp-$PRGNAM # location to build the source
+elif [ "$P1" != "--oldbuild" ]; then
+  # If the "--oldbuild" parameter is present, we keep
+  #  the old build files and continue;
+  # By default we remove the remnants of previous build and continue:
+  rm -rf $TMP/tmp-$PRGNAM/*
+fi
+
+if [ "$PKG" = "" -o "$PKG" = "/" ] ; then
+  echo "Please provide a sane value for the variable 'PKG'."
+  exit 1
+elif [ ! -d $PKG ]; then
+  mkdir -p $PKG  # place for the package to be built
+else
+  rm -rf $PKG/*  # We always erase old package's contents:
+fi
+
+if [ ! -d $OUTPUT ]; then
+  mkdir -p $OUTPUT  # place for the package to be saved
+fi
+
+
+# --- SOURCE FILE AVAILABILITY ---
+
+if ! [ -f ${SOURCE} ]; then
+  if ! [ "x${SRCURL}" == "x" ]; then
+    # Check if the $SRCDIR is writable at all - if not, download to $OUTPUT
+    [ -w "$SRCDIR" ] || SOURCE="$OUTPUT/`basename $SOURCE`"
+    echo "Source '`basename ${SOURCE}`' not available yet..."
+    echo "Will download file to `dirname $SOURCE`"
+    wget -nv -O "${SOURCE}" "${SRCURL}" || true
+    if [ $? -ne 0 ]; then
+      echo "Downloading '`basename ${SOURCE}`' failed... aborting the build."
+      mv -f "${SOURCE}" "${SOURCE}".FAIL
+      exit 1
+    fi
+  else
+    echo "File '`basename ${SOURCE}`' not available... aborting the build."
+    exit 1
+  fi
+fi
+
+if [ "$P1" == "--download" ]; then
+  echo "Download complete."
+  exit 0
+fi
+
+# --- PACKAGE BUILDING ---
+
+echo "++"
+echo "|| $PRGNAM-$VERSION"
+echo "++"
+
+cd $PKG
+
+# Explode the package framework:
+if [ -f $SRCDIR/_$PRGNAM.tar.gz ]; then
+  explodepkg $SRCDIR/_$PRGNAM.tar.gz
+fi
+
+cd $TMP/tmp-$PRGNAM
+
+
+# --- TARBALL EXTRACTION,PATCH,MODIFY ---
+
+echo "Extracting the source archive(s) for $PRGNAM..."
+tar xjvf ${SOURCE} || true
+if [ $? -ne 0 ]; then
+  echo "Error in unpacking '${SOURCE}!' Aborting..."
+  exit $?
+fi
+cd ${SRCNAM}-${VERSION}
+
+# Patch the makefile/perl inconsistency in Slackware 11.0's version of make:
+( cd mozilla/security/coreconf && patch -p0 < $SRCDIR/rules_mk_perl.patch
+)
+
+chown -R root.root *
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 666 -exec chmod 644 {} \;
+
+
+# --- BUILDING ---
+
+echo Building ...
+
+export LDFLAGS="$SLKLDFLAGS"
+export CFLAGS="$SLKCFLAGS"
+( pushd mozilla/security/nss
+  make BUILD_OPT=1 nss_build_all
+  popd
+  pushd mozilla/security/coreconf/nsinstall
+  make BUILD_OPT=1
+  popd
+  pushd mozilla/security/nss/lib/pki1
+  make BUILD_OPT=1
+  popd
+) 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
+
+#
+# Install all the needed stuff to the package dir
+#
+( pushd mozilla/dist/$(uname -s)*
+  mkdir -p $PKG/usr/{bin,lib,include}
+  # cruft as far as GAIM is concerned?
+  #cp -pL bin/* $PKG/usr/bin/
+  cp -pL lib/* $PKG/usr/lib/
+  cp -pL include/* $PKG/usr/include/
+  #rm -f $PKG/usr/bin/*.so
+  rm -f $PKG/usr/lib/*.a
+  popd
+
+  #pushd mozilla/security/nss/cmd/smimetools
+  #install -m 755 smime $PKG/usr/bin/
+  #sed -i -e 's#/usr/local/bin#/usr/bin#g' $PKG/usr/bin/smime
+  #popd
+) 2>&1 |tee $OUTPUT/install-${PRGNAM}.log
+
+
+# --- DOCUMENTATION ---
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION || true
+chmod -R a-w $PKG/usr/doc/$PRGNAM-$VERSION/*
+
+# Strip binaries
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+
+# --- OWNERSHIP, RIGHTS ---
+
+chmod -R o-w $PKG
+
+
+# --- PACKAGE DESCRIPTION ---
+
+mkdir -p $PKG/install
+cat $SRCDIR/slack-desc > $PKG/install/slack-desc
+if [ -f $SRCDIR/doinst.sh ]; then
+  cat $SRCDIR/doinst.sh >> $PKG/install/doinst.sh
+fi
+if [ -f $SRCDIR/slack-required ]; then
+  cat $SRCDIR/slack-required > $PKG/install/slack-required
+fi
+
+
+# --- BUILDING ---
+
+# Build the package:
+cd $PKG
+makepkg --linkadd y --chown n $OUTPUT/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}.tgz \
+  2>&1 | tee $OUTPUT/makepkg-${PRGNAM}.log
+(cd $OUTPUT && md5sum ${PRGNAM}-${VERSION}-${ARCH}-${BUILD}.tgz > ${PRGNAM}-${VERSION}-${ARCH}-${BUILD}.tgz.md5)
+cat $PKG/install/slack-desc | grep "^${PRGNAM}" > $OUTPUT/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}.txt
+if [ -f $PKG/install/slack-required ]; then
+  cat $PKG/install/slack-required > $OUTPUT/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}.dep
+fi
+
+
+# --- CLEANUP ---
+
+# Clean up the extra stuff:
+if [ "$P1" = "--cleanup" ]; then
+  rm -rf $TMP/tmp-$PRGNAM
+  rm -rf $PKG
+fi

@@ -1,0 +1,220 @@
+#!/bin/sh
+#
+# Build and package mod_php on Slackware.
+# by:  David Cantrell <david@slackware.com>
+# Modified for PHP 4+ by volkerdi@slackware.com
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+PKG=$TMP/package-php
+
+VERSION=${VERSION:-4.4.7}
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1_slack11.0}
+
+PINE=4.64
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+# we need to compile Pine to get c-client.a for IMAP support:
+IMAPLIBDIR=/usr/local/lib/c-client
+if [ -r $IMAPLIBDIR/lib/c-client.a ]; then
+  echo "Using IMAP library:"
+  ls -l $IMAPLIBDIR/lib/c-client.a
+  sleep 5
+else
+  ( cd $CWD/../pine ; ./pine.SlackBuild )
+  ( cd $TMP/pine${PINE}/imap/c-client
+    strip -g c-client.a
+    mkdir -p $IMAPLIBDIR/lib
+    cp c-client.a $IMAPLIBDIR/lib
+    mkdir -p $IMAPLIBDIR/include
+    cp *.h $IMAPLIBDIR/include
+  )
+fi
+
+php_configure() {
+EXTENSION_DIR=/usr/lib/php/extensions \
+CFLAGS="$SLKCFLAGS" \
+./configure --prefix=/usr \
+  $* \
+  --sysconfdir=/etc \
+  --with-config-file-path=/etc/apache \
+  --enable-safe-mode \
+  --with-openssl \
+  --with-ldap \
+  --with-mhash \
+  --enable-bcmath \
+  --with-bz2 \
+  --with-pic \
+  --enable-calendar \
+  --enable-ctype \
+  --with-gdbm \
+  --with-db4 \
+  --with-imap-ssl=$IMAPLIBDIR \
+  --with-imap=$IMAPLIBDIR \
+  --enable-dbase \
+  --enable-ftp \
+  --with-iconv \
+  --with-dom \
+  --with-exif \
+  --enable-exif \
+  --with-gd \
+  --enable-gd-native-ttf \
+  --with-jpeg-dir=/usr \
+  --with-png \
+  --with-ttf \
+  --with-freetype-dir=/usr \
+  --with-gmp \
+  --enable-mbstring \
+  --with-curl=/usr \
+  --with-pcre-regex=/usr \
+  --with-mysql=shared,/usr \
+  --with-gettext=shared,/usr \
+  --with-expat-dir=/usr \
+  --with-xml \
+  --enable-wddx \
+  --with-mm=/usr \
+  --enable-trans-sid \
+  --enable-shmop \
+  --enable-sockets \
+  --with-regex=php \
+  --enable-sysvsem \
+  --enable-sysvshm \
+  --enable-yp \
+  --enable-memory-limit \
+  --with-tsrm-pthreads \
+  --enable-shared \
+  --disable-debug \
+  --with-zlib=/usr
+  # --with-mod_charset    # only for Russian patched Apache
+  # --with-readline=/usr  # this is only for the CGI version
+  # --with-ttf            # this links with the shlib, need X for that
+  # --with-java           # no thanks
+}
+
+# compile php
+rm -rf $PKG
+mkdir -p $PKG/etc/apache
+# A trick from DaMouse to enable building php into $PKG.
+# We'll remove this later on.
+cat /etc/apache/httpd.conf.default > $PKG/etc/apache/httpd.conf
+cd $TMP
+rm -rf php-$VERSION
+tar xjvf $CWD/php-$VERSION.tar.bz2
+
+# Add missing(?) PEAR modules back:
+( cd php-$VERSION/pear/packages
+  cp -a $CWD/pear/*.bz2 .
+  bzip2 -d *.bz2
+)
+
+cd php-$VERSION
+
+# Fixup perms/owners:
+chown -R root:root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -name "*.h" -exec chmod 644 {} \;
+# Sometimes they ship a few of these:
+find . -name "*.orig" -exec rm {} \;
+
+# Patch ini files:
+zcat $CWD/php.ini.diff.gz | patch -p1 --verbose --backup --suffix=.orig || exit 1
+
+# Make the Apache module version of PHP:
+php_configure \
+  --disable-static \
+  --with-apxs=/usr/sbin/apxs \
+  --enable-discard-path
+
+# --with-freetype-dir=foo  Something for later maybe?  any requests?
+
+make -j6 || exit 1
+make install INSTALL_ROOT=$PKG
+make distclean
+
+# PHP likes to install Pear with some strange permissions.
+chmod 755 $PKG/usr/bin/pear
+
+# Make the standalone interpreter:
+php_configure \
+  --enable-force-cgi-redirect \
+  --enable-fastcgi \
+  --enable-pcntl \
+  --enable-sigchild
+
+make -j3 || exit 1
+make install-cli INSTALL_ROOT=$PKG
+chmod 755 $PKG/usr/bin/php
+
+# Install the CGI/FastCGI interpreter:
+cat sapi/cgi/php > $PKG/usr/bin/php-cgi
+chmod 755 $PKG/usr/bin/php-cgi
+
+# PHP 4.4.2 seems to be throwing some junk in the root directory:
+( cd $PKG
+  rm -rf .channels .depdb .depdblock .filemap .lock .registry
+)
+
+# Fix $PKG/usr/lib/php perms:
+( cd $PKG/usr/lib/php
+  find . -perm 666 -exec chmod 644 {} \;
+  find . -perm 664 -exec chmod 644 {} \;
+  find . -perm 600 -exec chmod 644 {} \;
+  find . -perm 444 -exec chmod 644 {} \;
+  find . -perm 400 -exec chmod 644 {} \;
+  find . -perm 440 -exec chmod 644 {} \;
+  find . -perm 777 -exec chmod 755 {} \;
+  find . -perm 775 -exec chmod 755 {} \;
+  find . -perm 511 -exec chmod 755 {} \;
+  find . -perm 711 -exec chmod 755 {} \;
+  find . -perm 555 -exec chmod 755 {} \;
+)
+
+mkdir -p $PKG/usr/doc/php-$VERSION
+cp -a \
+  CODING_STANDARDS CREDITS EXTENSIONS INSTALL LICENSE NEWS README* TODO* \
+  sapi/cgi/README.FastCGI \
+  $PKG/usr/doc/php-$VERSION
+chown -R root:root $PKG/usr/doc/php-$VERSION
+
+mkdir -p $PKG/etc/apache
+cp -a php.ini-dist php.ini-recommended $PKG/etc/apache
+cp -a $CWD/mod_php.conf.example $PKG/etc/apache
+chmod 644 $PKG/etc/apache/*
+chown root:root $PKG/etc/apache/*
+
+rm -f $PKG/etc/apache/httpd*
+
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+gzip -9 $PKG/usr/man/man?/*.?
+
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+#if [ -d "$IMAPLIBDIR" ]; then
+#  ( cd $IMAPLIBDIR && rm -rf * )
+#  rmdir $IMAPLIBDIR
+#fi
+
+cd $PKG
+makepkg -l y -c n $TMP/php-$VERSION-$ARCH-$BUILD.tgz
+

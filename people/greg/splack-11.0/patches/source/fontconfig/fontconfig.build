@@ -1,0 +1,69 @@
+#!/bin/sh
+CWD=`pwd`
+
+VERSION=2.4.2
+
+cat << EOF
+
+***************************************************
+* Building fontconfig-$VERSION
+***************************************************
+
+EOF
+
+# Step one is to remove existing fontconfig cruft:
+rm --verbose -f \
+      /usr/lib/pkgconfig/fontconfig.pc \
+      /usr/bin/fontconfig-config \
+      /usr/lib/libfontconfig.* \
+      /usr/X11R6/lib/pkgconfig/fontconfig.pc \
+      /usr/X11R6/bin/fontconfig-config \
+      /usr/X11R6/lib/libfontconfig.* \
+      /usr/X11R6/man/man?/fc-*
+rm --verbose -rf \
+      /usr/include/fontconfig \
+      /usr/X11R6/include/fontconfig
+
+cd /tmp
+rm -rf fontconfig-$VERSION
+tar xjvf $CWD/fontconfig-$VERSION.tar.bz2
+cd fontconfig-$VERSION
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+
+FCPREFIX=/usr/X11R6
+
+# The wonderful extended version of the font so generously
+# opened up for free modification and distribution by one
+# for the previously proprietary font founderies, and that
+# Stepan Roh did such a marvelous job on getting the ball
+# rolling with should clearly (IMHO) be the default font:
+zcat $CWD/fontconfig.dejavu.diff.gz | patch -p1 --verbose || exit 1
+
+# Hardcode the default font search path rather than having
+# fontconfig figure it out (and possibly follow symlinks, or
+# index ugly bitmapped fonts):
+zcat $CWD/fontconfig.font.dir.list.diff.gz | patch -p1 --verbose --backup --suffix=.orig || exit 1
+
+CFLAGS=$SLKCFLAGS \
+./configure \
+  --prefix=$FCPREFIX \
+  --mandir=/usr/man \
+  --sysconfdir=/etc \
+  --localstatedir=/var
+
+# Uses a currently non-functional sgml tool, thus '-i':
+make -i
+make -i install DESTDIR=$PKG
+ldconfig
+
