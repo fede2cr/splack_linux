@@ -1,0 +1,11 @@
+emacs-nox: emacs-nox (Emacs binary without X support)
+emacs-nox:
+emacs-nox: A replacement /usr/bin/emacs binary that is not compiled with X11 menu
+emacs-nox: support.  This version of emacs is about 400K smaller than the full
+emacs-nox: version of emacs, and is the same in every respect except for X11
+emacs-nox: extensions.  It can still run in an xterm or rxvt if you wish to run
+emacs-nox: it under X, but it is mainly included for those folks who don't have X
+emacs-nox: (or the X11, Xaw3d, and Xt shared libs) installed on their machines.
+emacs-nox: You might want to remove the version that requires X if you install
+emacs-nox: and use this one.
+emacs-nox:

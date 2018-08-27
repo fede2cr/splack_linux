@@ -1,0 +1,11 @@
+emacs: emacs (GNU Emacs)
+emacs:
+emacs: Base binaries and support files for the GNU Emacs editor/environment.
+emacs: This version supports X.  If you do not have X installed, you will
+emacs: also have to install the replacement Emacs binary that does not
+emacs: require the X11, Xaw3d, and Xt libraries.
+emacs:
+emacs: The emacs binary in this package was configured with these options:
+emacs:   i486-slackware-linux --prefix=/usr --with-x11 --with-x-toolkit
+emacs:   --with-pop
+emacs:

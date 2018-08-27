@@ -1,0 +1,11 @@
+byacc: byacc (Berkeley Yacc parser generator)
+byacc:
+byacc: Berkeley Yacc is an LALR(1) parser generator.  Berkeley Yacc
+byacc: has been made as compatible as possible with AT&T Yacc.  Berkeley
+byacc: Yacc can accept any input specification that conforms to the AT&T
+byacc: Yacc documentation.  Specifications that take advantage of
+byacc: undocumented features of AT&T Yacc will probably be rejected.
+byacc: If you skip this package and install GNU bison, a /usr/bin/yacc
+byacc: shell script will be created which will allow you to use bison
+byacc: instead. (It contains 'bison -y $*')
+byacc:

@@ -1,0 +1,11 @@
+emacs-lisp: emacs-lisp (Emacs Lisp source files)
+emacs-lisp:
+emacs-lisp: This package contains source code for the parts of Emacs that are
+emacs-lisp: written in Emacs Lisp.  *.el files are Emacs Lisp source, and the
+emacs-lisp: corresponding *.elc files are byte-compiled versions.
+emacs-lisp:
+emacs-lisp: The emacs package contains all of the *.el files that emacs
+emacs-lisp: requires to run, but these are probably good to have if you've got
+emacs-lisp: the space on your hard drive.
+emacs-lisp:
+emacs-lisp:

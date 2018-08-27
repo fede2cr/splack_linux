@@ -1,0 +1,11 @@
+gcc-g77: gcc-g77 (Fortran support for GCC)
+gcc-g77:
+gcc-g77: This package contains those parts of the compiler collection needed to
+gcc-g77: compile Fortran code.  The base gcc package is also required.  GNU
+gcc-g77: Fortran supports a variety of extensions to, and dialects of, the
+gcc-g77: Fortran language.  Its primary base is the ANSI FORTRAN 77 standard,
+gcc-g77: with some some extensions popularized by the 'f77' and 'f2c' compilers,
+gcc-g77: other compilers (such as Digital products), and the Fortran 90
+gcc-g77: standard.
+gcc-g77:
+gcc-g77:
