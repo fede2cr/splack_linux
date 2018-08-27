@@ -1,0 +1,139 @@
+IGNOREPATH=/boot:/cdrom:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/ax25/mheard:/var/log:/var/spool/cron
+STRIPLIB=y
+STRIPBIN=y
+
+VERSION=7.04h
+PROGNAME=xfbb
+DESC="xfbb-$VERSION \n\
+ \n\
+FBB is a bulletin board software package for amateur packet- \n\
+radio. FBB is developed by Jean-Paul Roubelat, F6FBB. \n\
+\n\
+This Slackware package also includes additional language \n\
+files, the multi server and the 7plus server."
+
+
+ARCH=i486
+BUILD=3
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="ftp://ftp.f6fbb.org/pub/f6fbb/distrib/linux/src/"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   cd $TMP
+   tar zxvf $CWD/xd704h-src.tgz
+   zcat $CWD/xd704h.diff.gz | patch -p0 --verbose
+   cd fbbsrc.704h/src
+   tar zxvf $CWD/multi2k.tgz multi.c
+   make
+   cd X11
+   make 
+   #### servers ####
+   cd $TMP
+   tar zxvf $CWD/7pfbb-2.1.2.tar.gz
+   cd 7pfbb-2.1.2
+   make
+}
+
+
+install() {
+   cd $TMP/fbbsrc.704h/src
+   make install
+   cp multi /usr/lib/fbb/server
+   mkdir -p /usr/lib/fbb/server/multi.cfg
+   ( cd /etc/ax25/fbb ; rm -f multi ; ln -sf /usr/lib/fbb/server/multi.cfg multi )
+   cd $TMP/fbbsrc.704h/src/X11
+   cp xfbb /usr/sbin
+   cp xfbbX /usr/sbin
+   cp xfbbX_cl /usr/sbin
+   
+   mkdir -p /usr/share/fbb
+   cp -R res/* /usr/share/fbb
+   cp $TMP/fbbsrc.704h/include/fbb.xbm /usr/share/fbb
+   
+   cd $TMP
+   tar zxvf $CWD/menu.tar.gz
+   cd menu
+   mkdir -p /opt/kde/share/applnk/HamRadio/$PROGNAME-$VERSION
+   cp kde/* /opt/kde/share/applnk/HamRadio/$PROGNAME-$VERSION
+   cp kde/.* /opt/kde/share/applnk/HamRadio/$PROGNAME-$VERSION
+   mkdir -p /usr/share/gnome/apps/HamRadio/$PROGNAME-$VERSION
+   cp gnome/* /usr/share/gnome/apps/HamRadio/$PROGNAME-$VERSION
+   cp gnome/.* /usr/share/gnome/apps/HamRadio/$PROGNAME-$VERSION
+
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cd $TMP/fbbsrc.704h
+   cp CHANGES FBBTREE INFO README conf/fbb.conf* /usr/doc/$PROGNAME-$VERSION
+   cp $CWD/xfbb.txt /usr/doc/$PROGNAME-$VERSION
+   ln -sf /usr/doc/$PROGNAME-$VERSION/fbb.conf.sample /etc/ax25/
+
+   tar -C /etc/ax25/fbb -zxvf $CWD/languages.tar.gz
+
+   #### servers ####
+   cd /usr/doc/$PROGNAME-$VERSION ; tar -zxvf $CWD/multi2k.tgz readme ; mv readme README.multi
+   cd $TMP/7pfbb-2.1.2 ; ./install_sh
+   cp README.7pserv /usr/doc/$PROGNAME-$VERSION
+
+    cat << EOF > /etc/rc.d/rc.fbb
+#!/bin/sh
+     
+echo "starting FBB daemon..."
+TZ=/etc/localtime ; export TZ ; /usr/sbin/fbb
+EOF
+
+    cat << EOF > /usr/sbin/xfbb.sh
+#!/bin/sh
+#
+# Shell file to start xfbb X11 server software
+#
+
+TZ=/etc/localtime ; XAPPLRESDIR=/usr/share/fbb ; export TZ XAPPLRESDIR ; /usr/sbin/xfbb
+ret=\$?
+
+exit \$ret
+EOF
+
+}
+
+
+attributes() {
+    chmod 600 $PKG/etc/ax25/fbb/*.sys
+    chmod 755 $PKG/etc/rc.d/rc.fbb
+    chmod 755 $PKG/usr/sbin/xfbb.sh
+}
+
+
+special() {
+    cat << EOF >> $CTL/doinst.sh
+    FBBCONF=/etc/ax25/fbb.conf
+    if [ -f \$FBBCONF ] ; then			# Do we already have an existing fbb.conf ?
+        if ! grep 7pserv \$FBBCONF ; then	# Does it already have an entry for the 7pserv ?
+	    echo "  * Adding 7PSERV to fbb.conf"
+	    echo "# 7PSERV 7+ server" >> \$FBBCONF
+	    echo "server = 7PSERV 7pserv 7plus server" >> \$FBBCONF
+	fi
+    fi
+EOF
+   # Generate a slack-desc file
+ 
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+ 
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+ 
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+ 
+subpacks() {
+   echo "no sub-packages..."
+}

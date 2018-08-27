@@ -1,0 +1,30 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-libsafe
+
+VERSION=2.0.16
+SRCPKG=2.0-16
+
+cd /tmp
+rm -rf $PKG
+mkdir -p $PKG
+tar xzvf $CWD/libsafe-$SRCPKG.tar.gz
+cd libsafe-$SRCPKG
+chown -R root.root .
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+make
+mkdir -p $PKG/lib/incoming
+cat src/libsafe.so.$VERSION > $PKG/lib/incoming/libsafe.so.$VERSION
+chmod 755 $PKG/lib/incoming/libsafe.so.$VERSION
+mkdir $PKG/install
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+mkdir -p $PKG/usr/doc/libsafe-$VERSION
+cp -a \
+  COPYING ChangeLog EMAIL_NOTIFICATION INSTALL README doc \
+  $PKG/usr/doc/libsafe-$VERSION
+mkdir -p $PKG/usr/man/man8
+cat doc/libsafe.8 | gzip -9c > $PKG/usr/man/man8/libsafe.8.gz
+cd $PKG
+makepkg -l y -c n /tmp/libsafe-$VERSION-i386-1.tgz

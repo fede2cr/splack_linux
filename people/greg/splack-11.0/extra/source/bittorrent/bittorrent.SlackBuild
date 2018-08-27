@@ -1,0 +1,38 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-bittorrent
+
+VERSION=4.4.0
+ARCH=noarch
+BUILD=1
+
+rm -rf $PKG
+mkdir -p $PKG
+
+cd /tmp
+rm -rf BitTorrent-$VERSION
+tar xjvf $CWD/BitTorrent-$VERSION.tar.bz2
+cd BitTorrent-$VERSION
+chown -R root.root .
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+python setup.py build install --root=$PKG
+# Add bittorrent-xterm (this just opens an xterm for bittorrent-curses so
+# that it can work as a MIME handler from mailcap):
+mkdir -p $PKG/usr/bin
+zcat $CWD/bittorrent-xterm.sh.gz > $PKG/usr/bin/bittorrent-xterm
+chmod 755 $PKG/usr/bin/bittorrent-xterm
+chown -R root.bin $PKG/usr/bin
+mkdir -p $PKG/usr/doc/BitTorrent-$VERSION
+cp -a \
+  INSTALL.unix.txt LICENSE.txt PKG-INFO README.txt TRACKERLESS.txt credits-l10n.txt credits.txt public.key redirdonate.html \
+  $PKG/usr/doc/BitTorrent-$VERSION
+rm -rf $PKG/usr/share/doc $PKG/usr/share/pixmaps/BitTorrent-$VERSION/icons/old
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+# Add support for using bittorrent-curses instead of bittorrent-gui in /etc/mailcap:
+zcat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+makepkg -l y -c n ../bittorrent-$VERSION-$ARCH-$BUILD.tgz
+

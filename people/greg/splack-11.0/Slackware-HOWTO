@@ -1,0 +1,1500 @@
+
+Slackware Linux CD-ROM Installation HOWTO
+Patrick Volkerding <volkerdi@slackware.com>
+v11.0, 2006-09-13
+
+This document covers installation of the Slackware(R) distribution of the
+Linux operating system from the Slackware CD-ROM.
+  ______________________________________________________________________
+
+
+  Table of Contents
+
+
+  1. Introduction
+
+     1.1 Sources of documentation
+
+  2. Hardware requirements
+
+  3. Slackware Space Requirements
+
+     3.1 Preparing a Partition for Slackware
+     3.2 Booting the Slackware CD-ROM
+     3.3 Using Linux fdisk to create Linux partitions
+
+  4. Installing the Slackware distribution
+
+     4.1 The ADDSWAP option
+     4.2 The TARGET option
+     4.3 The SOURCE option
+     4.4 The SELECT option
+     4.5 The INSTALL option
+     4.6 The CONFIGURE option
+     4.7 LILO
+     4.8 Networking
+
+  5. Booting the installed Slackware system
+
+  6. Post-installation configuration
+
+     6.1 /etc/rc.d/rc.modules
+     6.2 Configuring the X Window System
+     6.3 Hardware acceleration with X
+     6.4 User Accounts
+
+  7. For more information
+
+  8. Trademarks
+
+  ______________________________________________________________________
+
+1.  Introduction
+
+Linux is a multiuser, multitasking operating system that was developed by
+Linus Torvalds and hundreds of volunteers around the world working over
+the Internet.
+
+The Linux operating system now runs on several machine architectures,
+including ARMs, Intel 80x86, Sparc, 68K, PowerPC, DEC Alpha, MIPS, nd
+others.  The Slackware distribution of Linux runs on most PC processors
+compatible with the Intel 386 or better, including (but not limited to)
+Intel 386, 486, Celeron, Pentium I/MMX/Pro/II/III/Xeon/4, AMD
+386/486/K5/K6/K6-II/K6-III/Duron/Athlon/Athlon XP/Athlon MP, Athlon 64,
+Cyrix 386/486/5x86/6x86/M-II, Via Cyrix III, Via C3, and the Transmeta
+Crusoe and Efficeon.  Linux is modeled after the UNIX(R) operating
+system.  The Slackware distribution contains a full program development
+system with support for C, C++, Fortran-77, LISP, and other languages,
+full TCP/IP networking with NFS, SLIP, PPP, a full implementation of the
+X Window System, and much more.
+
+
+1.1.  Sources of Documentation
+
+If you're new to Slackware, you'll be happy to know there is a *lot* of
+documentation and help available both on the Internet and on the CD-ROM
+itself.
+
+One of the primary sources of Linux information is a collection of
+documents known as the "Linux HOWTOs."  You can find these on the Internet
+on http://ibiblio.org, in the /pub/Linux/docs/HOWTO directory. These are
+also installed on a Slackware machine in /usr/doc/Linux-HOWTOs/.
+
+Other useful documentation at that site includes:
+
+/pub/Linux/docs/FAQ  -- answers to Frequently Asked Questions about Linux
+
+/pub/Linux/docs/LDP/ -- Manuals written by the Linux Documentation Project.
+
+/pub/Linux/docs/LDP/install-guide -- Matt Welsh's "Linux Installation and
+                        Getting Started" book.  Although the installation
+                        information contained is a little bit dated, it's
+                        still filled with useful information.  If you're
+                        unfamiliar with UNIX, you'll find this guide to
+                        be a handy introduction.
+
+
+2.  Hardware Requirements
+
+Most PC hardware will work fine with Slackware, but some Plug-and-Play
+devices can be tricky to set up.  In some cases you can work around this
+by letting DOS initialize the card and then starting Slackware with the
+Loadlin utility.  Setting the computer's BIOS to configure Plug-and-Play
+cards also may help -- to do this, change the "Plug and Play OS" option to
+"no".
+
+Here's a basic list of what you'll need to install Slackware:
+
+Thirty-two megabytes (32MB) or more of RAM.  If you have less than 32
+megabytes, we strongly suggest adding some additional RAM.  If you have
+low RAM and booting the CD-ROM or boot floppies fails, you can try
+installing with the Zip version of the installer, or install ZipSlack plus
+the fourmeg.zip swapfile.  See the documentation in the rootdisks
+directory for more information about these options. If you have 32 or more
+megabytes of RAM, you'll be just fine.
+
+You also will need some disk space to install Slackware.  For a complete
+installation, you'll probably want to devote a 5GB or larger partition
+completely to Slackware (you'll need more than 3GB for a full default
+installation, and then you'll want extra space when you're done).  You can
+make a smaller subset of Slackware fit into as little as 100 MB (see
+ZipSlack as an example of that), although an average installation uses
+around 2GB to 3.3GB.  The amount of disk space required varies dramatically
+depending on the amount of software you've chosen to install, the number
+of users on your machine, and the amount of swap space you've given
+Slackware.  If you haven't installed Slackware before, you may have to
+experiment.  If you've got the drive space, again, more is going to be
+better than not enough.  Also, you can always install only the first
+software set (the A series containing only the basic system utilities)
+and then install more software later once your system is running.
+
+If you use SCSI, Slackware supports most SCSI controllers, but you'll need
+to select the correct Linux kernel.  Check the list of bootdisks in the
+bootdisks/README.TXT file to see if there's a bootdisk for your
+controller.  You also might consult the SCSI-HOWTO for specific
+information about your controller.  You'll be able to load the appropriate
+kernel from the CD-ROM without needing to use floppy disks in most cases,
+but the README file in the bootdisks is still a good source of
+information.
+
+To install from the CD-ROM, you'll need a supported CD-ROM drive.  Again,
+check the bootdisks/README.TXT file to see if your drive is listed.  If
+it's not, you still have an excellent chance of finding a bootdisk through
+trial and error that works with it anyway, since many CD-ROM drives sold
+by brand-X companies contain electronics manufactured by one of the
+companies that make a supported drive. Also, more and more drives made
+today use the ATAPI/IDE standard -- these drives will all work fine under
+Slackware.
+
+
+3.  Slackware Space Requirements
+
+Slackware divides the installable software into categories.  (in the old
+days when people installed Linux from floppy disks, these were often
+referred to as "disk sets")  Only the A series category (containing the
+base Linux OS) is mandatory, but you can't do very much on a system that
+only has the A series installed.  Here's an overview of the software
+categories available for installation, along with the (approximate) amount
+of drive space needed to install the entire set:
+
+      A  The base Slackware system.  (102 MB)
+
+     AP  Linux applications.  (161 MB)
+
+      D  Program development tools.  (269 MB)
+
+      E  GNU Emacs.  (74 MB)
+
+      F  Answers to Frequently Asked Questions about Linux.  (34 MB)
+
+      K  Linux 2.4.33.3 kernel source.  (196 MB)
+
+    KDE  The K Desktop Environment, applications, and Qt.  (675 MB)
+
+   KDEI  Language support for the K Desktop Environment.  (621 MB)
+
+      L  System libraries.  (318 MB)
+
+      N  Networking applications and utilities.  (161 MB)
+
+      T  TeX typesetting language.  (266 MB)
+
+    TCL  Tcl/Tk/TclX scripting languages and tools.  (19 MB)
+
+      X  X Window System graphical user interface.  (144 MB)
+
+    XAP  Applications for the X Window System.  (384 MB)
+
+      Y  Classic text-based BSD games.  (6 MB)
+
+If you have the disk space, we encourage you to do a full installation for
+best results.  Otherwise, remember that you must install the A set.  You
+probably also want to install the AP, D, L, and N series, as well as the KDE,
+X, and XAP sets if you wish to run the X Window System. The Y series is fun,
+but not required.
+          
+
+3.1  Preparing a Partition for Slackware
+
+If you plan to install Slackware onto its own hard drive partition
+(this offers optimal performance), then you'll need to prepare one or
+more partitions for it.
+
+A partition is a section of a hard drive that has been set aside for
+use by an operating system.  You can have up to four primary
+partitions on a single hard drive.  If you need more than that, you
+can make what is called an ''extended partition.''  This is actually
+a way to make one of the primary partitions contain several
+sub-partitions.
+
+Usually there won't be any free space on your hard drive.  Instead,
+you will have already partitioned it for the use of other operating
+systems, such as MS-DOS or Windows.  Before you can make your Linux
+partitions, you'll need to remove one or more of your existing drive
+partitions to make room for it.  Removing a partition destroys the
+data on it, so you'll want to back it up first.
+
+If you've got a large FAT partition that you'd like to shrink to make
+space for Slackware you might consider purchasing Partition Magic, a
+commercial partition re-sizing tool: http://www.symantec.com).
+Anyone who installs their own operating systems will find this to be
+a very valuable tool.  There are also free options such as GNU parted.
+It is included on the third disc in the "extra" directory and a LiveCD
+version of it can be downloaded from http://gparted.sourceforge.net/
+
+If you plan to repartition your system manually, you'll need to back
+up the data on any partitions you plan to change.  The usual tool for
+deleting/creating partitions is the fdisk program.  Most PC operating
+systems have a version of this tool, and if you're running DOS or
+Windows it's probably best to use the repartitioning tool from that OS.
+Usually DOS uses the entire drive.  Use DOS fdisk to delete the
+partition.  Then create a smaller primary DOS partition, leaving
+enough space to install Linux. Preferably this should be more than 4GB.
+If your machine doesn't have a lot of RAM, you'll want another
+partition for swap space.  The swap partition should be equal to the
+amount of RAM your machine has, but should in any case be at least
+128MB.  If you don't have that much drive space to spare, the more the
+better to avoid running out of virtual RAM (especially if you plan on
+using a graphical desktop).  You'll then need to reinstall DOS or
+Windows on your new DOS partition, and then restore your backup.
+
+We'll go into more detail about partitioning later, and you don't need
+to create any new partitions yet -- just make sure you have enough free
+space on the drive to do an installation (more than 4GB is ideal), or
+that you have some idea about which existing partition you can use for
+to install on.
+
+
+3.2  Booting the Slackware CD-ROM
+
+If your machine has a bootable CD-ROM drive (you may need to configure
+this in the system's BIOS settings) then you'll be able to directly
+boot the first CD-ROM.  If not, then see the README files in the bootdisks
+and rootdisks directories for additional information about starting your
+machine using floppy disks.  The FAQ.TXT also has good information about
+alternate methods of installation.
+
+Now it's time to boot the disc.  Put the Slackware installation CD-ROM in
+your machine's CD-ROM drive and reboot to load the disc.  You'll get an
+initial information screen and a prompt (called the "boot:" prompt) at the
+bottom of the screen.  This is where you'll enter the name of the kernel
+that you want to boot with.  With most systems you'll want to use the
+standard IDE kernel, called sata.i.  To boot this, just enter sata.i on
+the boot prompt:
+
+boot: sata.i
+
+(actually, since the sata.i kernel is the default, you could have just hit
+ENTER and the machine would go ahead and load the sata.i kernel for you)
+
+If you've got some non-standard hardware in your machine (or if sata.i
+doesn't work, and you're beginning to suspect you need a different
+kernel), then you'll have to enter a different option on the boot prompt.  
+Slackware comes with many kernels to support a wide variety of hardware --
+read the details below to select the one that's right for your machine.
+You can press the <<F2>> function key to get more help on the kernel choices
+and <<F3>> to view a list of the available kernels that you can boot from.
+
+First, the "IDE" kernels (so named because they do not have drivers for
+any SCSI controllers built in):
+
+
+
+    bare.i             This is a kernel to use for installation on most 
+                       IDE based PCs, with support for nearly all IDE 
+                       controllers and support for IDE/ATAPI CD-ROM/DVD 
+                       drives.  Most CD-ROM drives made today fall into 
+                       this category.
+
+    bareacpi.i         This is similar to the sata.i, but the kernel
+                       also contains support for ACPI (Advanced Configuration
+                       and Power Interface).  This performs similar power
+                       management (and other) functions like APM (Advanced
+                       Power Management) and is typically used on laptops to
+                       control battery charging and power related functions.
+                       Unlike APM which can be loaded as a kernel module,
+                       ACPI must be built into the kernel.  If you find that
+                       your laptop does not support APM, you may wish to
+                       install using this kernel (or install the
+                       kernel later on).  If you aren't using a laptop, then
+                       you probably will not need ACPI (or APM) support.
+
+    ataraid.i          This is a kernel with support for IDE RAID controllers.
+                       The install disks now have preliminary support for these
+                       controllers as well.  The drivers included are:
+                         3ware Hardware ATA-RAID controllers.
+                         Promise Fasttrak(tm) IDE RAID.
+                         Highpoint 370 software RAID.
+                       Many of these controllers will require some degree of
+                       do-it-yourself setup before and/or after installation.
+
+    lowmem.i           This is a really stripped-down Linux kernel which might
+                       be useful for installing on IDE systems with a low
+                       amount of RAM (less than 8MB).  It's also the only
+                       Slackware kernel that supports old 386 machines.
+                       If bare.i runs into problems, you might try this.
+                       NOTE:  On systems with extremely low memory (4MB),
+                       ZipSlack plus the fourmeg.zip add-on (found in the
+                       zipslack directory) may boot and run even in cases
+                       where lowmem.i doesn't.  If you have to use lowmem.i to
+                       install, you'll then probably have to compile a custom
+                       kernel with the minimal additional features that your
+                       machine requires.
+
+    old_cd.i           This is a version of bare.i with additional support
+                       for old CD-ROM drives on non-standard proprietary
+                       interfaces.  The CD-ROM drives supported by this
+                       kernel are:
+                       Aztech CDA268-01A, Orchid CD-3110, Okano/Wearnes CDD110,
+                         Conrad TXC, CyCDROM CR520, CR540.
+                       Sony CDU31/33a CD-ROM.
+                       Sony CDU531/535 CD-ROM.
+                       Philips/LMS cm206 CD-ROM with cm260 adapter card.
+                       Goldstar R420 CD-ROM  (sometimes sold in a 'Reveal
+                       Multimedia Kit').
+                       ISP16/MAD16/Mozart CD-ROM drives.
+                         (Boot time command line options (or 'append=' options
+                         in /etc/lilo.conf) are:
+                           isp16=<port>,<irq>,<dma>,<drive_type>
+                         Valid values for drive_type include: Sanyo, Panasonic
+                         (same as Sanyo), Sony and Mitsumi.  Default values are:
+                         port=0x340, irq=0, dma=0, drive_type=Sanyo.)
+                       NON-IDE Mitsumi CD-ROM support.
+                       Optics Storage 8000 AT CD-ROM (the 'DOLPHIN' drive).
+                       Sanyo CDR-H94A CD-ROM support.
+                       Matsushita, Kotobuki, Panasonic, CreativeLabs
+                       (Sound Blaster), Longshine and Teac NON-IDE CD-ROM
+                       support.
+
+    pportide.i         This is an extended version of bare.i with support for
+                       a wide variety of parallel-port IDE devices.  Supports
+                       parallel-port products from MicroSolutions,
+                       Hewlett-Packard, SyQuest, Imation, Avatar, and other
+                       manufacturers.
+
+    sata.i             This is a version of bare.i with support for SATA
+                       controllers made by Promise, Silicon Image, SiS,
+                       ServerWorks / Apple K2, VIA, and Vitesse.
+
+
+Then, the SCSI kernels (these also support IDE):
+
+    adaptec.s          This kernel supports most Adaptec SCSI controllers,
+                       including these models:
+                       AHA-1510, AHA-1520, AHA-1522, AHA-1522, AHA-1740,
+                       and AHA-2825.  The AIC7xxx models, which include the
+                       274x EISA cards; 284x VLB cards; 2902, 2910, 293x,
+                       294x, 394x, 3985 and several other PCI and motherboard
+                       based SCSI controllers from Adaptec.
+                       Adaptec's I2O based RAID controllers (including OEM
+                         Adaptec RAID controllers used by HP and Dell,
+                         Adaptec branded AAC964/5400 RAID controllers,
+                         and DPT SmartRaid V cards)
+
+    ibmmca.s           This is a kernel which supports MicroChannel
+                       Architecture, found in some old IBM PS/2 machines and
+                       laptops. It is a bus system similar to PCI or ISA.
+                       Support for most MCA SCSI, Ethernet, and Token Ring
+                       adapters is included.
+
+    jfs.s              A version of bare.i with support for IBM's Journaled
+                       Filesystem as well as Adaptec AIC7xxx SCSI support.
+
+    raid.s             This is a kernel with support for some hardware SCSI
+                       and ATA RAID controllers.  The install disks now have
+                       preliminary support for these controllers as well.  The
+                       drivers included are:
+                         AMI MegaRAID 418, 428, 438, 466, 762, 490 and 467 SCSI
+                         host adapters. (use scsi2.s for newer models)
+                         Compaq Smart Array controllers.
+                         Compaq Smart Array 5xxx controllers.
+                         IBM ServeRAID hardware RAID controllers.
+                         LSI Logic Fusion(TM) MPT devices (not really RAID, but
+                           added since there was room for this driver here)
+                         Mylex DAC960, AcceleRAID, and eXtremeRAID controllers.
+                       Many of these controllers will require some degree of
+                       do-it-yourself setup before and/or after installation.
+
+    scsi.s             This is a SCSI kernel with support for various
+                       controllers.  Note that this disk does not include
+                       Adaptec support any longer -- you must use the adaptec.s
+                       kernel for that.
+                       This disk supports these SCSI controllers:
+                         AM53/79C974 PCI SCSI support
+                         BusLogic SCSI support
+                         EATA ISA/EISA/PCI (DPT and generic EATA/DMA-compliant
+                           boards) support
+                         Initio 91XXU(W) and Initio 91XXU(W) support
+                         SYM53C8XX Version 2 SCSI support
+                         Qlogic ISP SCSI support
+                         Qlogic QLA 1280 SCSI support
+
+    scsi2.s            This is a SCSI kernel with support for various
+                       controllers.
+                       This disk supports these SCSI controllers:
+                         AdvanSys SCSI support (supports all AdvanSys SCSI
+                           controllers, including some SCSI cards included with
+                           HP CD-R/RW drives, the Iomega Jaz Jet SCSI controller,
+                           and the SCSI controller on the Iomega Buz multimedia
+                           adapter)
+                         ACARD 870U/W SCSI host adapter support
+                         AMI MegaRAID (newer models)
+                         Compaq Fibre Channel 64-bit/66Mhz HBA support
+                         Domex DMX3191D SCSI Host Adapters
+                         DTC 3180/3280 SCSI Host Adapters
+                         Future Domain 16xx SCSI/AHA-2920A support
+                         NCR53c7,8xx SCSI support
+                         NCR53C8XX SCSI support
+
+    scsi3.s            This is a SCSI kernel with support for various
+                       controllers.
+                       This disk supports these SCSI controllers:
+                         Western Digital 7000FASST SCSI support
+                         Always IN2000 SCSI support
+                         Intel/ICP (former GDT SCSI Disk Array) RAID
+                           Controller support
+                         PCI2000I EIDE interface card
+                         PCI2220i EIDE interface card
+                         PSI240i EIDE interface card
+                         Qlogic FAS SCSI support
+                         QLogic ISP FC (ISP2100 SCSI-FCP) support
+                         Seagate ST01/ST02, Future Domain TMC-885/950 SCSI
+                           support.
+                         SYM53c416 SCSI host adapter
+                         UltraStor 14F, 24F and 34F SCSI-2 host adapters
+                         Workbit NinjaSCSI-32Bi/UDE support
+
+    speakup.s          This is like the bare.i (standard IDE) disk, but has
+                       support for Speakup (and since there was space, support
+                       for Adaptec's AIC7xxx SCSI controllers is also included)
+                       Speakup provides access to Linux for the visually
+                       impaired community.  It does this by sending console
+                       output to a number of different hardware speech
+                       synthesizers.  It provides access to Linux by making
+                       screen review functions available.  For more information
+                       about speakup and its drivers check out:
+                           http://www.linux-speakup.org.
+                       To use this, you'll need to specify one of the
+                       supported synthesizers on the kernel's boot prompt:
+                           ramdisk speakup_synth=synth
+                       where 'synth' is one of the supported speech
+                       synthesizers:
+                         acntpc, acntsa, apolo, audptr, bns, decext, dectlk,
+                         dtlk, ltlk, spkout, txprt
+
+    xfs.s              This is an extended version of bare.i with support for
+                       SGI's XFS filesystem.  Support for Adaptec's AIC7xxx
+                       SCSI controllers is also included.
+
+
+There is also a 2.6.17.13 install kernel that might be useful if your machine
+has new hardware such as a Serial-ATA controller that isn't working with
+the 2.4 kernel, or if you just want to use a newer kernel with more features:
+
+
+    huge26.s           This is a 2.6.17.13 kernel with support for nearly all
+                       IDE (ATA), SATA, and SCSI controllers, as well as
+                       most of the filesystems supported in the standard
+                       kernel.  The 2.6 kernel series is not the default
+                       kernel on Slackware but does have some advantages for
+                       certain users and hardware, though perhaps the
+                       additional complexity causes it to sacrifice a bit of
+                       stability and security.  If you install with this
+                       kernel you might want to go to ftp.kernel.org later
+                       and build a new kernel from the latest sources.
+
+                       IMPORTANT!  If you install with the huge.s kernel
+                       you will need to find the /extra/linux-2.6.17.13
+                       directory later and install at least the
+                       kernel-modules package in it to have full hardware
+                       support.
+
+
+You'll want to choose a kernel from the list that supports your
+installation media (such as a CD-ROM drive) and the hard drive you'll be
+installing to.  For example, to install from an IDE CD-ROM drive to an IDE
+hard drive, you'd use the bare.i kernel.  Or, for a system with an NCR
+53c810 SCSI controller, SCSI CD-ROM, and SCSI hard drive, you'd use either
+the scsi.s or scsi2.s kernel (since they each have an NCR driver).
+
+Once you've entered your kernel choice and hit ENTER, the kernel and
+install program will load from the CD-ROM, and you'll arrive at the Linux
+login prompt.  (You're running Linux now.  Congratulations!  :-)
+
+To log into the system, enter the name of the superuser account and hit
+Enter:
+
+  root
+
+Since there is no password on the install CD, you will be logged in right
+away.
+
+
+3.3  Using Linux fdisk to create Linux partitions
+
+At this point, you should have a large chunk of unpartitioned space on
+your hard drive that you'll be making into partitions for Slackware.
+
+Now you're ready to create your root Linux partition.  To do this, you'll
+use the Linux version of fdisk.
+
+To need to partition a hard drive, you need to specify the
+name of the device when you start fdisk.  For example:
+
+fdisk /dev/hda          (Repartition the first IDE hard drive)
+fdisk /dev/hdb          (Repartition the second IDE hard drive)
+fdisk /dev/sda          (Repartition the first SCSI hard drive)
+fdisk /dev/sdb          (Repartition the second SCSI hard drive)
+
+[NOTE: If you prefer, you may also try a newer menu-driven version
+ of Linux fdisk called 'cfdisk'.]
+
+Once you've started fdisk, it will display a command prompt.  First look
+at your existing partition table with the 'p' command:
+
+  Command (m for help): p
+
+  Disk /dev/sda: 255 heads, 63 sectors, 1024 cylinders
+  Units = cylinders of 16065 * 512 bytes
+
+     Device Boot  Start    End    Blocks   Id  System
+  /dev/sda1    *      1    702   5638783+  4f  Win95 FAT32 (LBA)
+
+Here we can see that there is one DOS partition on the drive already,
+starting on the first cylinder and extending to cylinder 702.  Since the
+drive has 1024 cylinders, the range 703 - 1024 is free to accept a Linux
+installation.
+
+If the FAT32 partition were using the entire drive, you would have no
+choice but to delete it entirely (this destroys the partition), or go back
+and use some kind of partition resizing tool like GNU parted or Partition
+Magic to create some free space for the installation.  If you need to
+delete a partition, use the 'd' command.  You'll be asked which partition
+number you want to delete -- check the partition size to make sure it's
+the right one.
+
+Next, you'll want to use the 'n' command to create a primary partition.  
+This will be your root Linux partition.
+
+  Command (m for help): n
+  Command action
+     e   extended
+     p   primary partition (1-4)
+
+You'll want to enter 'p' to make a primary partition.
+
+  Partition number (1-4): 2
+
+Here, you enter "2" since DOS is already using the first primary
+partition.  Fdisk will first ask you which cylinder the partition should
+start on.  Fdisk knows where your last partition left off and will suggest
+the first available cylinder on the drive as the starting point for the
+new partition.  Go ahead and accept this value.  Then, fdisk will want to
+know what size to make the partition.  You can specify this in a couple of
+ways, either by entering the ending cylinder number directly, or by
+entering a size. In this case, we'll enter a size.  To do this, you need
+to enter +sizeM -- in this case, +2300M.  Here's what the screen looks
+like as these figures are entered:
+
+  First cylinder (703-1024): 703
+  Last cylinder or +size or +sizeM or +sizeK (33-92): +2300M
+
+You have now created your primary Linux partition with a size of 2300 MB.  
+Next, you'll want to make a Linux swap partition.  You do this the same
+way.  First, enter another "n" to make a primary partition:
+
+  Command (m for help): n
+  Command action
+     e   extended
+     p   primary partition (1-4)
+
+Enter "p" to select a primary partition.  Partition 1 is in use by DOS,
+and you've already used partition 2 for Linux, so you'll want to enter "3"
+for the new partition number:
+
+  Partition number (1-4): 3
+
+Since this is the last partition we plan to make on this hard drive, we'll
+specify the end cylinder manually this time.  Here are the entries for
+this:
+
+  First cylinder (999-1024): 999
+  Last cylinder or +size or +sizeM or +sizeK (999-1024): 1024
+
+Now we need to set the type of partition to 82, used for Linux swap. The
+reason we didn't need to set a partition type the last time is that unless
+otherwise specified Linux fdisk automatically sets the type of all new
+partitions to 83 (Linux).  To set the partition type, use the "t" command:
+
+  Command (m for help): t
+  Partition number (1-4): 3
+  Hex code (type L to list codes): 82
+
+Now you're ready to save the updated partition table information onto your
+hard drive.  Use the "p" command again to check the results and be sure
+you're satisfied with them:
+
+  Command (m for help): p 
+
+Disk /dev/sda: 255 heads, 63 sectors, 92 cylinders
+Units = cylinders of 16065 * 512 bytes
+
+   Device Boot   Start      End    Blocks   Id  System
+/dev/sda1            1      702   5638783+  4f  Win95 FAT32 (LBA)
+/dev/sda2          703      999   2385638   83  Linux
+/dev/sda3          999     1024    200811   82  Linux swap
+
+This looks good, so we'll use the "w" command to write the data out to the
+drive's partition table.  If you want to exit without updating the
+partition table (if you've made a mistake), then you can exit without
+changing anything by using the "q" command instead.
+
+When you exit fdisk using the "w" command, fdisk recommends that you
+reboot the machine to be sure that the changes you've made take effect.  
+Unless you've created extended partitions, you can go ahead and run setup
+without rebooting.
+
+Note:  Sometimes fdisk will give you a message like "This drive has more
+than 1024 cylinders" and warn about possible problems using partitions
+with DOS.  This is because MS-DOS suffers from a limitation that only
+allows access to the first 1024 cylinders on a hard drive.  At one time,
+LILO used the standard BIOS routines to read sectors, so this was a
+limitation of LILO, too. Luckily modern versions of LILO use the LBA32
+method of accessing sectors, so this limitation no longer applies.  If you
+see the warning from fdisk, you can safely ignore it.
+
+
+4.0  Installing the Slackware distribution
+
+Now that you have one or more Linux partitions, you are now ready to begin
+installing software onto your hard drive. To start the Slackware install
+program, enter the command "setup" and hit enter:
+
+  # setup
+
+The installer will start up with a full-color menu on your screen with the
+various options needed to install Slackware.  In general, you'll want to
+start with the ADDSWAP option.  Even if you've already created and
+activated a swap partition manually, you'll need to run this so Slackware
+adds the swap partition to your /etc/fstab file.  If you don't add it,
+your system won't use the swap space when you reboot.
+
+Installing a typical system involves running the following options from
+the setup menu in this order:  ADDSWAP, TARGET, SOURCE, SELECT, INSTALL,
+and CONFIGURE. You may also start with KEYMAP if you have a non-US
+keyboard layout, or with TARGET if you don't want to use a swap partition.
+
+For the rest of this section, we'll walk through a typical installation 
+process.
+
+
+4.1 The ADDSWAP option:
+
+First, we select the ADDSWAP option.  The system will scan for partitions
+marked as type "Linux swap" and will ask if you want to use them for swap
+space.  Answer YES, and the system will format the partition and then make
+it active for swapping.  Once it's finished, setup will display a message
+showing the line it will add to /etc/fstab to configure the swap partition
+at boot time.  Hit enter to continue, and setup will go on to the TARGET
+section of the install.
+
+    NOTE: If you created a partition to use for swap space, but setup
+doesn't see it when it scans your drives, it's possible that the partition
+type hasn't been set in the partition table.  Use the Linux "fdisk"
+program to list your partitions like this:
+
+    # fdisk -l
+
+    Disk /dev/sda: 255 heads, 63 sectors, 1024 cylinders
+    Units = cylinders of 16065 * 512 bytes
+ 
+       Device Boot   Start      End    Blocks   Id  System
+    /dev/sda1            1      702   5638783+  4f  Win95 FAT32 (LBA)
+    /dev/sda2          703      999   2385638   83  Linux
+    /dev/sda3          999     1024    200811   83  Linux
+
+In this case, if /dev/sda3 is meant to be a Linux swap partition, you'll
+need to start fdisk on drive /dev/sda:
+
+    # fdisk /dev/sda
+
+    Command (m for help): t
+    Partition number (1-4): 3
+    Hex code (type L to list codes): 82
+
+    Command (m for help): w
+
+This will change the third partition to type 82 (Linux swap) and write the
+partition table out to /dev/sda.
+
+When you run setup again, the ADDSWAP option should detect the Linux swap
+partition.
+
+
+4.2 The TARGET option:
+
+The next option on the setup menu is TARGET.  This lets you select which
+partition(s) you'd like to install Slackware on, and will format them
+using a Linux filesystem.  Depending on which kernel you chose to boot
+with, your filesystem choices may include ext2 (the traditional Linux
+filesystem), ext3 (a journaling version of ext2), and Reiserfs (the first
+journaling filesystem written for Linux; it stores files in a balanced
+tree).
+
+When you select the TARGET option, the system will scan for "Linux"
+partitions on your hard drives.  If it doesn't find any, you'll need to
+make sure that you've created partitions using the fdisk program, and that
+the partitions are labeled as type 83 (Linux).  This is the same process
+shown above.  If you've created one or more partitions for Slackware using
+Linux's fdisk program then you shouldn't have any problems, since Linux
+fdisk (and cfdisk) sets all new partitions to type 83 (Linux) by default.
+
+You will see a menu listing all the Linux partitions.  Use the arrow keys
+to select the partition you'd like to use for your root (or primary) Linux
+partition and hit enter.  The setup program will then ask if you'd like to
+format the partition, and what type of filesystem to use.  If this is a
+new installation of Slackware, you'll need to do this.  Otherwise, if you
+are installing software onto an existing Linux system, you don't need to
+format the partition.  For example, the partition might be used as your
+/home and contains home directories that you want to keep.  If you choose
+not to format a partition, you'll see "partition will not be reformatted"
+on the top of the screen as you confirm your choice, so that there can be
+no question about it.
+
+There are a few options you need to know about when you format Linux
+partitions.  First, you'll need to decide whether or not you'd like to
+check the partition for bad blocks when you do the format.  This is
+usually not necessary unless you know the drive in question has problems.  
+Checking takes quite a while longer than a normal format (and most IDE
+drives do self-checking anyway), so you'll probably want to just go ahead
+and use the "Format" menu option to format the drive without checking.  
+If you have drive problems later on (and can't just replace the hard drive
+with a better one), then you might want to go back and try again using the
+"Check" option to map out the bad sectors on the drive.
+
+If you are using an ext2 or ext3 filesystem, once you've picked your
+formatting mode, setup will prompt you to provide the inode density.  On
+Linux filesystems, entries called "inodes" store the names of files and
+the locations of the blocks that make up the file.  You need at least one
+inode for each file, so if you run out of inodes then you can't make any
+new files, even if there seems to be plenty of space on the drive.  
+Inodes themselves take up space on your drive, so you need to consider how
+you will use the partition.  Usually, the default value of one inode for
+every 4096 bytes on the drive is fine.  But if you're planning to use the
+drive for something that uses many small files, then you may wish to
+increase the inode density to one inode for every 2048 (or even 1024)
+bytes.  Once you've selected the inode density, setup will go ahead and
+format your root Linux partition. You will then return to the menu showing
+the partitions available for Linux.
+
+You'll notice that the partition you just formatted is now listed as "in
+use."  If you made some other partitions for Slackware, you'll need to go
+through the same process of formatting them, selecting whether or not to
+check for bad blocks, and setting a reasonable inode density.  With these
+partitions there will be an additional step -- you'll need to select where
+you'd like to put the partition in your directory tree.
+
+MS-DOS/Windows assigns a letter such as A:, B:, C:, etc, to each device.
+Unlike DOS, Linux makes your devices visible somewhere under the root
+directory (/).  You might have /dev/hda1 for your root partition (/) and
+put /dev/hda2 somewhere underneath it, such as under your /home directory.  
+When prompted for a mount location, just enter a directory such as /home,
+and hit enter.  As you format each additional partition and place it in
+the filesystem tree, you'll be returned to the partition selection menu.  
+When you've prepared all of your Linux partitions, you'll go on to the
+SOURCE option.
+
+
+4.3 The SOURCE option:
+
+The next menu option is SOURCE, where you select the physical media from
+which to install Slackware.
+
+SOURCE displays a menu offering the choice of installation from CD-ROM, a
+hard drive partition, NFS, or a directory (mounted manually).  You'll want
+to make sure your Slackware CD-ROM is in your drive, and select the first
+option:
+
+  "Install from a Slackware CD-ROM"
+
+Next, the system will ask you if you'd like to scan for your CD-ROM drive
+or pick manually from a list.  (unless you're trying to show off to your
+friends, go ahead and let setup scan for the CD-ROM drive automatically)  
+Setup will then try to access the Slackware CD-ROM.  If this is
+successful, setup will tell you that it found and mounted a CD-ROM on a
+Linux device such as /dev/hdc.  If the CD-ROM was successful found, you
+may skip ahead to the SELECT section below, otherwise read on for some
+CD-ROM troubleshooting tips.
+
+If setup is not successful in accessing the CD-ROM drive, you'll need to
+figure out why before you can go on. The most common reason for this is
+that you used a kernel that doesn't support the CD-ROM drive.  If that's
+the case, you need to restart the installation CD-ROM and specify a kernel
+that contains a driver to support your CD-ROM drive (if the drive is
+connected to a SCSI card, for example, you'll need to use a kernel with
+support for that card).  You can also try switching to a different console
+with Alt-F2 and mounting the CD-ROM drive manually and then installing
+from a pre-mounted directory (if you prefer a hands-on approach).
+
+If you have no idea which device an IDE CD-ROM drive is connected to, you
+should have the system scan for it.  You also can look at the messages
+generated by the system as it boots -- you should see a message that
+Slackware detected your CD-ROM drive along with information about what
+type of drive it is.  You can look at these messages by using the right
+shift key together with the PageUp and PageDown keys to scroll the screen
+up and down.  If you don't see a message about your drive, you're probably
+using the wrong kernel. If you're not sure which kernel you need to use,
+try these steps:
+
+If you have a CD-ROM drive is connected to a SCSI controller, you'll
+probably need to specify one of the SCSI kernels like adaptec.s, scsi.s,
+or scsi2.s.  See the list of SCSI kernels in section 3.2.
+
+If you have an IDE controller, you should have no problems, but if you do
+try IDE (.i) kernels. Watch the screen for a message saying that Slackware
+detected your CD-ROM drive.
+
+If your machine is a little older than average, you can try the old_cd.i
+kernel.  This contains support for a bunch of older CD-ROM drives that
+predate the ATAPI/IDE standard.  Many of these drives came with a
+proprietary interface card, or were connected to sound cards (sometimes
+bundled with the CD-ROM drive).
+
+If Slackware still won't detect your drive, look at the file BOOTING.TXT
+on the CD-ROM.  This contains a list of extra parameters you can pass to
+the kernel when you boot the Slackware CD-ROM.  These parameters can be
+handy to force hardware detection when the autoprobing fails.  For
+example, you can tell the kernel to look for a Sony CDU31a drive by
+entering the following command line on the kernel's first prompt:
+
+   ramdisk cdu31a=0x1f88,0,PAS
+
+This tells the kernel that you've got a Sony CDU31a drive connected to an
+interface card at address 0x1f88, interrupts are disabled, and the
+interface card is a Pro Audio Spectrum.
+
+
+4.4 The SELECT option:
+
+The SELECT option lets you select software to install.
+
+When you start the SELECT option, you'll see a menu where you can choose
+which categories of software you're interested in installing. The first
+series (called the A series) contains the base filesystem structure and
+binaries that are crucial for your system to boot and run properly.  You
+must install the A series.  Make sure that at least the selection for
+series A has an [X] next to it.  Most of the other choices will also have
+an [X] next to them, and while you can use the cursor keys and the space
+bar to unselect items to save space (see the space requirements above for
+details), you're better off with a complete installation if you have the
+space for it.
+
+Once you've selected the general categories of software you wish to
+install, hit enter and you'll go on to the INSTALL option.
+
+
+4.5 The INSTALL option:
+
+This option actually installs the selected packages to the hard drive.
+
+The first question the INSTALL option will ask is what type of prompting
+you'd like to use during the installation process.  A menu will show
+several options, including "full", "newbie", "menu", "expert", "custom",
+"tagpath", and "help".  The help option gives detailed information on each
+of the choices.
+
+Most people will want to use "full".  Others might want "menu", "expert"
+or "newbie" mode.  We'll cover each of these in detail now.
+
+The first option to consider is "full".  If you select this mode, then
+setup assumes you want to install all the packages in each selected series
+and installs them all without further prompting.  This is fast and easy.  
+Of course, depending on which software categories you've chosen, this can
+use a lot of drive space.  If you use this option, you should be
+installing to a partition with at least 2GB free (and hopefully more like
+3GB or so) to insure that you don't run out of drive space during the
+installation process. Because Linux allows you to split your installation
+across multiple partitions, the installer cannot know ahead of time
+whether the packages you've chosen to install will fit your partitioning
+scheme.  Therefore, it is up to you to make sure that there is enough
+room.
+
+The "newbie" mode (which was formerly known as "normal" mode) installs all
+of the required packages in each series.  For each of the non-required
+packages (one by one) you'll get a menu where you can answer YES (install
+the package), NO (do not install the package), or SKIP (skip ahead to the
+next series).  You'll also see a description of what the package does and
+how much space it will require to help you decide whether you need it or
+not.  The "newbie" mode is verbose, requires input after each package, and
+can be tedious.  It certainly takes a lot longer to install using newbie
+mode, and (in spite of the name), it is easier to make mistakes in newbie
+mode than by simply doing a full installation.  Still, using it is a good
+way to get a basic education about what software goes into the system
+since you actually get a chance to read the package descriptions.  With a
+full installation most of the package descriptions will fly by too quickly
+to read.
+
+If you can decide which packages you want from less information, the
+"menu" or "expert" options are a good choice, and go much faster than a
+"newbie" mode installation.  These options display a menu before
+installing each series and let you toggle items on or off with the
+spacebar. In "menu" mode, certain packages that are considered crucial
+will be installed by default, and won't be shown on your selection menu.  
+The "expert" option is similar to the "menu" option, but assumes you want
+control over every package that could get installed. The "expert" mode
+lets you toggle packages individually, allowing the user to make bad
+decisions like turning off crucial packages or installing a package that's
+part of a larger set of software without installing the other parts.  If
+you know exactly what you need, the "expert" mode offers the maximum
+amount of flexibility.  If you don't know what you need, using the
+"expert" mode will allow you to install a system that's missing crucial
+files.  In either case ("menu" or "expert"), when you have selected the
+packages you want, you hit enter and all the selected software from the
+series is installed automatically.  This process is repeated for each
+software series.
+
+The "custom" and "tagpath" options are only used if you've created
+"tagfiles" for installation.  In the first directory of each disk set is a
+file called "tagfile" containing a list of all the packages in that
+series, as well as a flag marking whether the package should be installed
+automatically, skipped, or the user should be prompted to decide.  This is
+useful for situations where you need to install large numbers of machines
+(such as in a computer lab), but most users will not need to create
+tagfiles.  If you are interested in using them, look at one of the
+tagfiles with an editor.
+
+If you're new to Slackware, and you have enough drive space, you'll
+probably want to select the "full" option as the easiest way to install.  
+Otherwise, the "menu" option is another good choice for most beginners.  
+If you think you need (or would just like to see) the extra information
+offered by the "newbie" mode, go ahead and use that.
+
+Once you have selected a prompting mode, the system begins the
+installation process.  If you've chosen "menu" or "expert" mode, you'll
+see a menu of software to choose from right away -- use the arrow keys and
+spacebar to pick what you need, and then hit enter to install it.  If
+you've chosen the "newbie" mode, the installation will begin immediately,
+continuing until it finds optional packages.  You'll get a selection menu
+for each of these.  If you selected "full", now it's time to sit back and
+watch the packages install.
+
+If you've selected too much software, it's possible that your hard drive
+may run out of space during installation.  If this happens, you'll know it
+because you'll see error messages on the screen as setup tries to install
+the packages.  In such a case, your only choice is to reinstall selecting
+less software.  You can avoid this problem by choosing a reasonable amount
+of software to begin with, and installing more software later once your
+system is running. Installing software on a running Slackware system is as
+easy as it is during the initial installation -- just type the following
+command to mount the Slackware CD-ROM:
+
+  mount /dev/cdrom /mnt/cdrom
+
+Then go to the directory with the packages you want to install, and use
+the install-packages script:
+
+  cd /mnt/cdrom/slackware/xap
+  sh install-packages
+
+Other options for installing packages later on include "installpkg" and
+"pkgtool".  For more information about these, see the man pages ("man 
+installpkg", "man pkgtool").
+
+Once you have installed the software on your system, you'll go on to the
+CONFIGURE option.
+
+
+4.6 The CONFIGURE option:
+
+The setup's CONFIGURE option does the basic configuration your system
+needs, such as creating links for your mouse and modem, setting your
+timezone, and more.
+
+The CONFIGURE option will first ensure that you've installed a usable
+Linux kernel on your hard drive.  The installation program should suggest
+installing the same kernel from the CD-ROM that you used for the
+installation process, and you should go ahead and do this by accepting the
+default choices presented in the dialog screen.  There is a
+generic kernel (kernel-ide) that comes with the A series that is actually
+the same as the sata.i kernel, but the best kernel to install to your hard
+drive is the one that you used to do the installation.  If you used a
+bootdisk rather than booting the CD-ROM, you should install the kernel
+from your bootdisk by selecting the "bootdisk" option on the kernel
+installation menu. The menu will prompt you to re-insert your installation
+bootdisk and hit enter, and then setup will copy the kernel from the
+bootdisk to your hard drive.
+
+If you don't want to use the recommended kernel, you can pick any kernel
+from the menu of kernels available on the CD-ROM, but if you install the
+wrong kernel the machine likely won't boot -- it's really a much better
+plan to install the same kernel you installed the system with. Since you
+used it to successfully install Slackware, you know it will work on the
+installed system as well.
+
+NOTE:  If you install a kernel on your system that doesn't boot correctly,
+you can still boot your system with the CD-ROM. To do this, you need to
+enter some information on the boot prompt.  For example, if your root
+partition is on /dev/hda1, you'd enter this to boot your system:
+
+        sata.i root=/dev/hda1 noinitrd ro
+
+The "noinitrd" option tells the kernel not to load the installer image
+into RAM, and the "ro" option makes the root partition initially load as
+read-only so Linux can safely check the filesystem.
+
+You can also start the system with an installation bootdisk, but the
+syntax is slightly different:
+
+        mount root=/dev/hda1 ro
+
+Once you've installed a kernel, you'll be asked if you want to make a
+bootdisk for your new system.  This is a very good idea, so insert a
+formatted floppy disk and use the "Create" option to create a bootdisk for
+your system.
+
+Next, you'll be asked if you have a modem.  If you do, pick the device
+from the list shown.  This will make a link in /dev pointing to the
+correct device, such as /dev/modem -> /dev/ttyS1.  Similarly, you'll be
+asked what type of mouse you have.  Pick the mouse type from the menu (or
+hit cancel if you don't have a mouse), and setup will create a /dev/mouse
+link.  Most computers use a PS/2 mouse, which is the first choice.
+
+After this, other installation scripts will run depending on which
+packages you've installed.  For instance, if you installed the tcpip package
+you'll be asked if you want to configure your network.
+
+
+4.7 LILO
+
+LILO is the Linux Loader, a program that allows you to boot Linux (and
+other operating systems) directly from your hard drive.  If you installed
+the LILO package, you now have an opportunity to set it up.
+
+Installing LILO can be dangerous.  If you make a mistake it's possible to
+make your hard drive unbootable.  If you're new to Linux, it might be a
+good idea to skip LILO installation and use the bootdisk to start your
+system at first.  You can install LILO later using the 'liloconfig'
+command after you've had a chance to read the information about it in
+/usr/lib/lilo.  If you do decide to go ahead and install LILO, be sure you
+have a way to boot all the operating systems on your machine in case
+something goes wrong.  If you can't boot Windows again, use the DOS command
+"FDISK /MBR" to remove LILO from your master boot record.  (You can use
+a Windows Startup Disk for this)
+
+The easiest way to set your machine up with LILO is to pick the "simple"
+choice on the LILO installation menu.  This will examine your system and
+try to set up LILO to be able to boot Windows (DOS) and Linux partitions
+that it finds.  If it locates the OS/2 Boot Manager, it will ask if you'd
+like to configure the Linux partition so that you can add it to the Boot
+Manager menu.  (NOTE: If you use a disk overlay program for large IDE hard
+drives such as EZ-DRIVE, please see the warning below before installing
+LILO)
+
+The "expert" option gives you much more control over the configuration
+of LILO.  If you decide to use the "expert" option, here's how you do
+it.  LILO uses a configuration file called /etc/lilo.conf to hold the
+information about your bootable partitions -- the "expert" LILO
+installation lets you direct the construction of this file.  To create
+the file, first select BEGIN to enter the basic information about 
+where to install LILO.  The first menu will ask if you have extra
+parameters you'd like passed to the Linux kernel at boot time.  If you
+need any extra parameters enter them here.  
+
+Then you'll be asked if you wish to use the framebuffer console.  The
+1024x768x256 console setting is a nice one to use in most cases, but you
+may need to experiment to find the nicest setting for your card.  Some
+look terrible at modes larger than 800x600 because of the default refresh
+rates, but at least ATI cards are known to look great at 1024x768x256.  
+If you want to use the framebuffer console, select a mode here.
+
+Next, decide where you want LILO installed.  Usually you'll want to
+install LILO on the boot drive's MBR (master boot record).  If you use a
+different boot manager (like the one that comes with OS/2) then you'll
+want to install LILO on your root Linux partition and then add that
+partition to the boot manager menu using its configuration tool. Under
+OS/2, this is the fdisk program.
+
+NOTE:  If you use the EZ-DRIVE utility (a diskmanager program supplied
+with some large IDE drives to make them usable with DOS) then do not
+install LILO to the MBR.  If you do, you may disable EZ-DRIVE and render
+your disk unusable with DOS.  Instead, install LILO to the superblock of
+your root Linux partition, and use fdisk to make the partition bootable.
+(With MS-DOS fdisk, this is called setting the "active" partition)
+
+The next menu lets you set a delay before the system boots into the
+default operating system.  If you're using LILO to boot more than one
+operating system (such as DOS and Linux) then you'll need to set a delay
+so you can pick which OS you'd like to boot.  If you press the SHIFT key
+during the delay, LILO will display a prompt where you can type a label
+(typically Windows or Linux) to select which OS to boot.  If you set the
+delay to 'Forever', the system will display a prompt at boot time and wait
+for you to enter a choice.
+
+Next, you need to add entries for each operating system that LILO can
+boot.  The first entry you make will be the machine's default operating
+system.  You can add either a DOS, Linux, or Windows partition first.  
+For example, let's say you select "Linux".  The system will display your
+Linux partitions and ask which one of them you'd like to boot.  Enter the
+name (like /dev/hda1) of your root Linux partition.  Then, you'll be
+prompted to enter a label.  This is the name you will enter at the boot
+time LILO prompt to select which partition you want to boot.  A good
+choice for this is "Linux".
+
+Adding a DOS or Windows partition is similar.  To add a Windows partition
+to the LILO configuration file, select the Windows option.  The system will
+display your FAT/NTFS partitions and ask which one of them you'd like to
+boot with LILO.  Enter the name of your primary Windows partition.  Then
+enter a label for the partition, like "Windows".  Once you've added all of
+your bootable partitions, install LILO by selecting the "Install" option.
+
+
+4.8 Networking
+
+Another configuration menu allows you to configure your machine's
+networking setup.  First, enter a hostname for your machine.  The default
+hostname after installation is "darkstar," but you can enter any name you
+like.  Next, you'll be asked to provide a domain name. If you're running a
+stand-alone machine (possibly using a dialup link to an Internet Service
+Provider) then you can pick any name you like. The default domain name is
+"example.net".  If you are going to add the machine to a local network,
+you'll need to use the same domain name as the rest of the machines on
+your network.  If you're not sure what this is, contact your network
+administrator for help.  Once you've specified the hostname and domain
+name, you'll be asked which type of setup you would like: "static IP",
+"DHCP", or "loopback".
+
+Loopback 
+-------- 
+
+This is the simplest type of setup, defining only a mechanism for the
+machine to contact itself.  If you do not have an Ethernet card, use this
+selection.  This is also the correct selection if you'll be using a PCMCIA
+(laptop) Ethernet card and want to set up your networking in
+/etc/pcmcia/network.opts.  (you could also configure a PCMCIA card using
+the "static IP" or "DHCP" options, but in that case will not be able to
+"hotplug" the card)  Finally, this is the right option to use if you have
+a modem, and will be connecting via dialout and PPP.  You'll select
+loopback now, and then set up your phone connection later using pppsetup
+or kppp.
+
+Static IP
+---------
+
+If your machine has an Ethernet card with a static IP address assigned to
+it, you can use this option to set it up.  You'll be prompted to enter
+your machine's IP address, netmask, the gateway IP address, and the
+nameserver IP address.  If you don't know what numbers you should be
+using, ask the person in charge of the network to help.  After entering
+your information, you'll be asked if you want to probe for your network
+card. This is a good idea, so say yes.  Confirm that the settings are
+correct, and your networking will be configured to use a static IP
+address.
+
+DHCP
+----
+
+DHCP stands for Dynamic Host Configuration Protocol, and is a system where
+your machine contacts a server to obtain its IP and DNS information.  
+This is the usual way to get an IP address with broadband connections like
+cable modems (although some more expensive business-class broadband
+connections may assign static IP addresses).  It is very easy to set up a
+DHCP connection -- just select the option.  Some providers will give you a
+DHCP hostname (Cox is one that does) that you'll also need to enter in
+order to identify yourself to the network.  If you don't have a DHCP
+hostname, just leave it blank and hit ENTER. After entering your
+information, you'll be asked if you want to probe for your network card.
+This is a good idea, so say yes.  Confirm that the settings are correct,
+and your networking will be configured to use DHCP.
+
+Once you've completed all the configuration menus, you can exit setup and
+reboot your machine.  Simply press ctrl-alt-delete and the kernel will
+kill any programs that are running, unmount your filesystems and restart
+the machine.
+
+
+5. Booting the installed Slackware system
+
+If you've installed LILO, make sure you don't have a disk in your floppy
+drive -- when your machine reboots it should start LILO. Otherwise, insert
+the bootdisk made for your system during the configuration process and use
+it to boot.  Also, make sure to remove the CD-ROM to avoid booting it, or
+disable your machine's CD-ROM booting feature in the BIOS settings.
+
+The kernel will go through the startup process, detecting your hardware,
+checking your partitions and starting various processes. Eventually you'll
+be given a login prompt:
+
+darkstar login:
+
+Log into the new system as "root".
+        
+        Welcome to Linux 2.4.33.3.
+
+        darkstar login: root
+        Last login: Sun Aug 11 19:33:31 -0700 2006 on tty3.
+
+        Linux 2.4.33.3.
+        You have new mail.
+
+        darkstar: ~#
+
+
+6. Post-installation configuration
+
+Once the system is running, most of the work is complete.  However, there
+are still a few programs you'll need to configure.  We'll cover the most
+important of these in this section.
+
+6.1 /etc/rc.d/rc.modules
+
+This file contains a list of Linux kernel modules.  A kernel module is
+like a device driver under DOS.  You can think of the /etc/rc.d/rc.modules
+file as similar to DOS's CONFIG.SYS.  The file specifies which modules the
+system needs to load to support the machine's hardware.  After booting
+your machine, you may find that some of your hardware isn't detected
+(usually an Ethernet card).  To provide the support, you'll need to load
+the correct kernel module. Note that modern Linux kernels include a
+feature that allows the kernel to load its own modules, called KMOD.  
+This will load many modules automatically without any need to edit
+rc.modules, and when using KMOD it might be better to tell KMOD how to
+load the modules you want automatically rather than loading them at boot
+time with rc.modules. This is an advanced topic, and outside the scope of
+this document. If you're interested in this, "man modules.conf" is a good
+place to start reading.  In any case, it's best to not edit rc.modules
+unless you find that the modules you want to use are not being loaded
+automatically by KMOD and/or hotplug.  You can see a list of the modules
+that were loaded with the "lsmod" command.
+
+Anyway, back to the matter at hand -- using rc.modules to load kernel
+modules. To do this, edit the /etc/rc.d/rc.modules file with a text editor
+such as "vi", "pico", or "emacs".  You'll see a list of modules, one per
+line.  Most of these lines will have a '#' at the beginning of them which
+causes the line to be ignored.  As an example, let's say your machine has
+a SoundBlaster Live! sound card. To activate support for this card, find
+the line with 'emu10k1' (the name of the driver for Live! cards) in it,
+and remove the '#' from the beginning of the line -- then save the changed
+file.  When you reboot the system, the module will load and the kernel
+will recognize the card.  You could also load the support manually after
+saving the file, avoiding the need for a reboot:
+
+  modprobe emu10k1
+
+There's a lot more information out there about kernel modules, including
+lists of module names and the cards they support, as well as extra options
+you can can add to the module lines to configure the hardware in different
+ways.  The kernel's documentation in /usr/src/linux/Documentation has a
+lot of good information (see especially the kmod.txt file) as does the
+Module-HOWTO found in /usr/doc/Linux-HOWTOs/Module-HOWTO.
+
+
+6.2 Configuring the X Window System
+
+Configuring X can be a complex task.  The reason for this is the vast
+numbers of video cards available for the PC architecture, most of which
+use different programming interfaces.  Luckily, most cards today support
+basic video standards known as VESA, and if your card is among them you'll
+be able to start X using the "startx" command right out of the box.
+
+If this doesn't work with your card, or if you'd like to take advantage of
+the high-performance features of your video card such as hardware
+acceleration or 3-D hardware rendering, then you'll need to reconfigure X.
+
+To configure X, you'll need to make an /etc/X11/xorg.conf file.  This file
+contains lots of details about your video hardware, mouse, and monitor.  
+It's a very complex configuration file, but fortunately there are several
+programs to help create one for you.  We'll mention a few of them here:
+
+xorgsetup
+------------
+
+This is a simple menu driven frontend that's similar in feel to the
+Slackware installer.  It simply tells the X server to take a look at the
+card, and then set up the best initial configuration file it can make
+based on the information it gathers.  The generated /etc/X11/xorg.conf
+file should be a good starting point for most systems (and should work
+without modification).
+
+xorgconfig
+----------
+
+This is a text-based X configuration program that's designed for the
+advanced system administrator.  Here's a sample walkthrough using
+xorgconfig.  First, start the program:
+
+# xorgconfig
+
+This will present a screenful of information about xorgconfig.  To
+continue, press enter.  xorgconfig will ask you to verify you have set
+your PATH correctly.  It should be fine, so go ahead and hit enter.
+
+Next, select your mouse from the menu presented.  If you don't see your
+serial mouse listed, pick the Microsoft protocol -- it's the most common
+and will probably work.  Next xorgconfig will ask you about using
+ChordMiddle and Emulate3Buttons.  You'll see these options described in
+detail on the screen.  Use them if the middle button on your mouse doesn't
+work under X, or if your mouse only has two buttons (Emulate3Buttons lets
+you simulate the middle button by pressing both buttons simultaneously).  
+Then, enter the name of your mouse device.  The default choice,
+/dev/mouse, should work since the link was configured during Slackware
+setup.  If you're running GPM (the Linux mouse server) in repeater mode,
+you can set your mouse type to /dev/gpmdata to have X get information
+about the mouse through gpm.  In some cases (with busmice especially) this
+can work better, but most users shouldn't do this.
+
+xorgconfig will ask you about enabling special key bindings. If you need
+this say "y".  Most users can say "n" -- enter this if you're not sure.
+
+In the next section you enter the sync range for your monitor. To start
+configuring your monitor, press enter.  You will see a list of monitor
+types -- choose one of them.  Be careful not to exceed the specifications
+of your monitor.  Doing so could damage your hardware. Specify the
+vertical sync range for your monitor (you should find this in the manual
+for the monitor).  xorgconfig will ask you to enter strings to identify
+the monitor type in the xorg.conf file. Enter anything you like on these
+3 lines (including nothing at all).
+
+Now you have the opportunity to look at the database of video card types.  
+You'll want to do this, so say "y", and select a card from the list shown.  
+If you don't see your exact card, try selecting one that uses the same
+chipset and it will probably work fine.  Then choose an X server.  You
+should have installed the server recommended for your card, but if not,
+you can always go back and install that later.  Choose option (5) to use
+the X server recommended for your video card's chipset.
+
+Next, tell xorgconfig how much RAM you have on your video card.  
+xorgconfig will want you to enter some more descriptive text about your
+video card.  If you like, you can enter descriptions on these three lines.
+
+You'll be asked next about your RAMDAC and clock generator settings. You
+may enter them if you know the values, but the X server will probably
+successfully probe for these values.  The next option is to run X
+-probeonly to find the clock settings for the card.  You can try this, and
+if it works it will speed up X's startup time.  If it fails, it's not
+usually a big problem.  If it causes problems with your card, don't use
+it.
+
+You'll then be asked which display resolutions you want to use.  Again,
+going with the provided defaults should be fine to start with.  Later on,
+you can edit the /etc/X11/xorg.conf file and rearrange the modes so 1024x768
+(or whatever mode you like) is the default.
+
+At this point, the xorgconfig program will ask if you'd like to save the
+current configuration file.  Answer yes, and the X configuration file is
+saved, completing the setup process.  You can start X now with the
+'startx' command.
+
+6.3 Hardware acceleration with X
+
+If you've used xorgsetup or xorgconfig to configure for your card, and
+it's one that can take advantage of X's direct rendering support,
+you'll certainly want to enable this.  First, make sure that the AGP GART
+device is loaded in /etc/rc.d/rc.modules if you are using an AGP video
+card.  Then, edit your /etc/X11/xorg.conf.  Make sure that the glx and
+dri modules are being loaded:
+
+   Load       "glx"
+   Load       "dri"
+
+These lines will probably already be in place.
+
+Next, if you'd like non-root users to be able to enjoy direct rendering
+support, add this to the end of your xorg.conf:
+
+Section "DRI"
+    Mode 0666
+EndSection
+
+For complete information about hardware rendering support in X, see
+the documentation in /usr/X11R6/lib/X11/doc, especially the README.DRI
+document.
+
+
+6.4 User Accounts
+
+You should make a user account for yourself.  Using "root" as your
+everyday account is dangerous, and is considered bad form (at the very
+least) since you can accidently damage your system if you mistype a
+command.  If you're logged in as a normal user, the effects of bad
+commands will be much more limited.  Normally you'll only log in as root
+to perform system administration tasks, such as setting or changing the
+root password, installing, configuring, or removing system software, and
+creating or deleting user accounts.
+
+To make an account for yourself, use the 'adduser' program.  To start it,
+type 'adduser' at a prompt and follow the instructions.  Going with the
+default selections for user ID, group ID, and shell should be just fine
+for most users.  You'll want to add your user to the cdrom, audio, video
+and scanner groups if you have a computer with multimedia peripherals and
+want to be able to access these. Add these group names, comma separated,
+at the follwing prompt:
+
+  Additional groups (comma separated) []:
+
+
+Passwords and security
+----------------------
+
+When choosing passwords for a Linux system that is connected to a network
+you should pick a strong password.  However, passwords only help protect a
+system from remote trespassing.  It's easy to gain access to a system if
+someone has physical access to the console.
+
+If you forget the root password, you can use a rescue disk to mount your
+root partition and edit the files containing the password information.  
+If you have a bootable CD-ROM drive, you can use the first installation
+CD-ROM as a rescue disk.
+Otherwise, use the bootdisk that you used to install Slackware Linux
+to load the "rescue.dsk" rootdisk image. At the prompt, you can manually
+mount the root Linux partition from your hard drive and remove the root
+password.  For example, if your root linux partition is /dev/hda2, here
+are the commands to use after logging into the rescue disk as "root":
+
+  mount /dev/hda2 /mnt
+  cd /mnt/etc
+
+Next, you'll need to edit the "shadow" file to remove root's password.
+Editors which might be available include "vi", "emacs", and "pico". "vi"
+and "emacs" might be more of an adventure than you need unless you've used
+them before.  The "pico" editor is easy for beginners to use.
+
+  pico shadow
+
+At the top of the file, you'll see a line starting with root.  Right after
+root, you'll notice the encrypted password information between two colons.  
+Here's how root's line in /etc/shadow might look:
+
+root:EnCl6vi6y2KjU:10266:0:::::
+
+To remove root's password, you use the editor to erase the scrambled text
+between the two colons, leaving a line that looks like this:
+
+root::10266:0:::::
+
+Save the file and reboot the machine, and you'll be able to log in as root
+without a password.  The first thing you should do is set a new password
+for root, especially if your machine is connected to a network.
+
+
+Here are some pointers on avoiding weak passwords:
+
+1. Never use your name (or anyone's name), birthdate, license plate,
+   or anything relating to yourself as a password.  Someone trying
+   to break into your machine might be able to look these things up.
+
+2. Don't use a password that is any variation of your login name.
+
+3. Do not use words from the dictionary (especially not "password" :)
+   or syllables of two different words concatenated together as your
+   password.  There are automated programs floating around on the net
+   that can try them all in a short time.
+
+4. Do not use a number (like 123456) or a password shorter than six
+   characters.
+
+
+The strongest passwords are a mix of letters, numbers, and symbols.  
+Here are some examples of strong passwords (but don't use these ;-):
+
+     *^5g!:1?        ()lsp@@9       i8#6#1*x       ++c$!jke      *2zt/mn1
+
+In practice, any password containing one or two words, a number (or two),
+and a symbol (or two) should be quite secure.
+
+
+7. For more information
+
+For more information, visit our web site at http://www.slackware.com
+
+To shop for fine Slackware products, please visit http://store.slackware.com
+
+        Email: info@slackware.com          (Information or general inquiries)
+        FTP:   ftp://ftp.slackware.com     (Updates)
+        WWW:   http://www.slackware.com    (News)
+
+
+8. Trademarks
+
+Slackware is a registered trademark of Slackware Linux, Inc.
+Linux is a Registered Trademark of Linus Torvalds.
+All trademarks are property of their respective owners.
+

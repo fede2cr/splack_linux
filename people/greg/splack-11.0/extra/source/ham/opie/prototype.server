@@ -1,0 +1,90 @@
+# pkginfo
+PROGNAME="opie_server"
+DESC="One-time Passwords In Everything, Release $VERSION\n\
+\n\
+This Slackware binary package only contains the \n\
+OPIE server software."
+
+
+BUILD=2
+
+# package name
+SUBPKGNAME=opie_server-$VERSION-$ARCH-$BUILD
+
+
+subinstall() {
+   cd $TMP/opie-2.32
+   
+   #============================================================================
+   # CONFIGURATION PARAMETERS -- CHANGE THESE TO SUIT YOUR MACHINE
+   
+   # OWNER is the username who should own the OPIE binaries.
+   # GROUP is the groupname associated with the OPIE binaries.
+   #
+   OWNER=0
+   GROUP=bin
+   
+   #  Where should the OPIE standard and extended databases be stored?
+   #
+   #  Some sites might want to put this elsewhere. If you want to use an old
+   # S/Key database, you should create a link from /etc/skeykeys to /etc/opiekeys.
+   KEY_FILE=/etc/opiekeys
+   
+   # These parameters are determined by Autoconf and are probably correct.
+   # If OPIE doesn't build or work right, try tweaking these.
+   MKDIR=mkdir -p
+   CHOWN=/bin/chown
+   LOCALBIN=/usr/bin
+   LOCALMAN=/usr/man
+   LOCK_DIR=/etc/opielocks
+   
+   #server-install: server
+   	echo "Installing OPIE server software..."
+   	echo "Copying OPIE user programs"
+   	/usr/bin/install -m 0555 -o ${OWNER} -g ${GROUP} -s opieinfo ${LOCALBIN}
+   	/usr/bin/install -m 4511 -o ${OWNER} -g ${GROUP} -s opiepasswd ${LOCALBIN}
+   	echo "Installing OPIE system programs..."
+   	/usr/bin/install -m 4111 -o ${OWNER} -g ${GROUP} -s opielogin /bin
+   	echo "Copying opiesu to su"
+   	/usr/bin/install -m 4111 -o ${OWNER} -g ${GROUP} -s opiesu /bin
+   	echo "Copying OPIE ftp daemon"
+   	/usr/bin/install -m 0100 -o ${OWNER} -g ${GROUP} -s opieftpd /usr/sbin
+   	echo "Making sure OPIE database file exists"
+   	touch ${KEY_FILE}
+   	echo "Changing permissions of OPIE database file"
+   	chmod 0644 ${KEY_FILE}
+   	echo "Changing ownership of OPIE database file"
+   	${CHOWN} ${OWNER} ${KEY_FILE}
+   	chgrp ${GROUP} ${KEY_FILE}
+   	/usr/bin/install -m 0700 -o ${OWNER} -g root -d ${LOCK_DIR}
+   	echo "Installing manual pages"
+   	for i in 1 4 5 8; do for j in *.$i; do if test ! -d ${LOCALMAN}/man$i; then ${MKDIR} ${LOCALMAN}/man$i; chmod 755 ${LOCALMAN}/man$i; fi; cp $j ${LOCALMAN}/man$i/$j; ${CHOWN} ${OWNER} ${LOCALMAN}/man$i/$j; chgrp ${GROUP} ${LOCALMAN}/man$i/$j; chmod 644 ${LOCALMAN}/man$i/$j; done; done
+   	echo "REMEMBER to run opiepasswd on your users immediately."
+}
+
+    
+subspecial() {
+   cat << EOF >> $SUBCTL/doinst.sh
+   SU=/bin/su
+   LOGIN=/bin/login
+   BACKUP=orig.b4opie
+	if test ! -e \${LOGIN}.\${BACKUP}; then echo "Renaming existing \${LOGIN} to \${LOGIN}.\${BACKUP}"; mv \${LOGIN} \${LOGIN}.\${BACKUP}; echo "Clearing permissions on old \${LOGIN}"; chmod 0 \${LOGIN}.\${BACKUP}; ln -s /bin/opielogin \${LOGIN} ; fi
+	if test ! -e \${SU}.\${BACKUP}; then echo "Renaming existing su to su.\${BACKUP}"; mv \${SU} \${SU}.\${BACKUP}; echo "Clearing permissions on old su"; chmod 0 \${SU}.\${BACKUP}; ln -s /bin/opiesu \${SU} ; fi
+	
+EOF
+
+   # Generate a slack-desc file
+
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $SUBCTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}

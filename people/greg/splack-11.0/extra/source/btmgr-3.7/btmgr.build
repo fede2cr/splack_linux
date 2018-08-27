@@ -1,0 +1,15 @@
+CWD=`pwd`
+
+VERSION=3.7-1
+
+cd /tmp
+tar xjvf $CWD/btmgr-$VERSION.tar.bz2
+cd btmgr-$VERSION
+chown -R root.root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+make
+make install
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc
+

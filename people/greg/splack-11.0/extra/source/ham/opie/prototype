@@ -1,0 +1,63 @@
+IGNOREPATH=/boot:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/ax25:/var/log:/var/spool/cron
+
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=2.32
+PROGNAME="opie"
+DESC="One-time Passwords In Everything, Release 2.32\n\
+\n\
+OPIE is a freely distributable software package originally developed\n\
+at and for the US Naval Research Laboratory (NRL).\n\
+OPIE provides a one-time password system. The system should be\n\
+secure against the passive attacks now commonplace on the Internet\n\
+(see RFC 1704 for more details).\n\
+This Slackware binary package only contains the OPIE client software."
+
+# maintainer
+ARCH=i386
+BUILD=4
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="ftp://ftp.nrl.navy.mil/pub/security/opie"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/login/"
+
+# package name
+PKGNAME=opie-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar xvzf $CWD/opie-2.32.tar.gz
+   cd opie-2.32
+   FTPD=/usr/sbin/proftpd ; export FTPD ; ./configure --prefix=/usr --enable-insecure-override --enable-anonymous-ftp
+   make client
+   make server
+}
+
+install() {
+   make client-install
+   mkdir -p /usr/doc/opie-$VERSION
+   cp BUG-REPORT COPYRIGHT.NRL INSTALL License.TIN README /usr/doc/opie-$VERSION
+}
+
+
+special() {
+   # Generate a slack-desc file
+
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+
+subpacks() {
+   repack server
+}

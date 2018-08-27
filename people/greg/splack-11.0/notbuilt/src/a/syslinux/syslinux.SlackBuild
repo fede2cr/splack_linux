@@ -1,0 +1,55 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-syslinux
+
+VERSION=2.13
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+rm -rf $PKG
+mkdir -p $PKG
+
+cd $TMP
+rm -rf syslinux-$VERSION
+tar xjvf $CWD/syslinux-$VERSION.tar.bz2
+cd syslinux-$VERSION
+chown -R root.root .
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -type d -exec chmod 755 {} \;
+mkdir -p $PKG/usr/bin
+cp -a syslinux syslinux-nomtools gethostip ppmtolss16 lss16toppm $PKG/usr/bin
+chmod 755 $PKG/usr/bin/*
+chown -R root.bin $PKG/usr/bin
+mkdir -p $PKG/usr/share/syslinux
+cp -a \
+  pxelinux.0 isolinux.bin isolinux-debug.bin syslinux.com copybs.com memdisk/memdisk \
+  $PKG/usr/share/syslinux
+mkdir -p $PKG/usr/lib
+cp -a libsyslinux.a $PKG/usr/lib
+mkdir -p $PKG/usr/include
+cp -a syslinux.h $PKG/usr/include
+mkdir -p $PKG/usr/doc/syslinux-$VERSION
+cp -a \
+  COPYING NEWS README TODO distrib.doc isolinux.doc pxelinux.doc syslinux.doc memdisk/memdisk.doc \
+  menu \
+  $PKG/usr/doc/syslinux-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/syslinux-$VERSION-$ARCH-$BUILD.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/syslinux-$VERSION
+  rm -rf $PKG
+fi

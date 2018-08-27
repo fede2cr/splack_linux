@@ -1,0 +1,36 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+TARBALLVER=23.0
+VERSION=23.505
+
+echo "+====================+"
+echo "| emacspeak-$VERSION |"
+echo "+====================+"
+cd $TMP
+tar xjf $CWD/emacspeak-$TARBALLVER.tar.bz2
+cd emacspeak-$VERSION
+chown -R root:root .
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 700 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+make config
+make
+make install
+mv /usr/share/info/emacspeak* /usr/info
+rmdir /usr/share/info
+( cd /usr/doc
+  rm -rf emacspeak-$VERSION
+  ln -sf /usr/share/emacs/site-lisp/emacspeak emacspeak-$VERSION )
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc
+

@@ -1,0 +1,23 @@
+--- src/loadlin.asm~	Sun Apr 28 22:13:20 1996
++++ src/loadlin.asm	Fri Jan 24 00:32:40 1997
+@@ -1,5 +1,5 @@
+ TESTX = 0
+-LOADLIN_VERSION equ '1.6'
++LOADLIN_VERSION equ '1.6a'
+ 
+ ;   >>> this is file LOADLIN.ASM
+ ;============================================================================
+--- src/srclinux/pgadjust.c~	Sun Mar 17 01:27:44 1996
++++ src/srclinux/pgadjust.c	Fri Jan 24 00:22:13 1997
+@@ -345,7 +345,11 @@
+   lines = SCREEN_INFO.orig_video_lines;
+   cols = SCREEN_INFO.orig_video_cols;
+ 
++#if 0 /* this won;t work any more, because 2.1.22 changed the format
++         of EXT_MEM_K, see STANDARD_MEMORY_BIOS_CALL in setup.S
++       */
+   if (EXT_MEM_K < (3*1024)) error("Less than 4MB of memory.\n");
++#endif
+ 
+   if (PAGELIST) {
+ #ifdef VERBOSE

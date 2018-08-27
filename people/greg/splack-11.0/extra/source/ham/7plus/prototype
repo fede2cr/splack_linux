@@ -1,0 +1,65 @@
+IGNOREPATH=/boot:/cdrom:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/log:/var/spool/cron
+
+STRIPLIB=y
+STRIPBIN=y
+
+VERSION=2.25
+PROGNAME="7plus"
+DESC="7PLUS is an encoder vaguely similar to Unix's UUENCODE.\n\
+It uses a very effective radix216 encoding and incorporates\n\
+diverse mechanisms to ensure decoded data is not corrupted.\n\
+It also includes an interactive repair mechanism which allows\n\
+the repair of damaged files using correction files, thus \n\
+eliminating the need to retransmit entire files. In case of\n\
+a corruption, only the faulty sections are resent. 7PLUS\n\
+is only meant to be used within the Packet Radio network\n\
+for the tranport of binary data through Packet Radio mail.\n\
+It cannot be used for Internet eMail since it needs a\n\
+(almost) transparent path from end to end."
+
+ARCH=i486
+BUILD=2
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="http://home.t-online.de/home/dg1bbq/7plus.htm"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   cd $TMP
+   tar zxvf $CWD/7pl225sr.tgz
+   cd 7plsrc.225
+   make -f linux.mak
+}
+
+install() {
+   cd $TMP/7plsrc.225
+   /usr/bin/install -g root -o root -m 0755 7plus /usr/bin/7plus
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cp 7pl_hist.nts 7plh_old.nts 7plus.cds read_me.1st /usr/doc/$PROGNAME-$VERSION
+   mkdir doc ; cd doc ; unzip -aa $CWD/7pl210mg.zip
+   cp * /usr/doc/$PROGNAME-$VERSION
+}
+
+special() {
+   # Generate a slack-desc file
+ 
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+ 
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+ 
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+                                                                                                  
+subpacks() {
+   echo "no sub-packages..."
+}
+      

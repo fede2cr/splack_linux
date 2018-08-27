@@ -1,0 +1,22 @@
+
+Welcome to 09Slackware07 version 11.0 (Linux kernel 2.4.33.3)!
+
+If you need to pass extra parameters to the kernel, enter them at the prompt
+below after the name of the kernel to boot (scsi.s etc).  NOTE: In most cases 
+the kernel will detect your hardware, and parameters are not needed.
+
+Here are some examples (and more can be found in the BOOTING file):
+   hdx=cyls,heads,sects,wpcom,irq (needed in rare cases where probing fails)
+or hdx=cdrom (force detection of an IDE/ATAPI CD-ROM drive)
+where hdx can be any of hda through hdt.
+
+In a pinch, you can boot your system from here with a command like:
+
+For example, if the Linux system were on /dev/hda1.
+
+boot: sata.i root=/dev/hda1 noinitrd ro 
+
+This prompt is just for entering extra parameters.  If you don't need to enter
+any parameters, hit ENTER to boot the default kernel "sata.i" or press [F2] 
+for a listing of more kernel choices.
+

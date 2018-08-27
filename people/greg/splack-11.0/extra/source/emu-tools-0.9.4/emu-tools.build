@@ -1,0 +1,20 @@
+#!/bin/sh
+CWD=`pwd`
+VERSION=0.9.4
+ARCH=i386
+
+cd /tmp
+tar xzvf $CWD/emu-tools-$VERSION.tar.gz
+cd emu-tools-$VERSION
+find . -perm 775 | xargs chmod 755
+find . -perm 664 | xargs chmod 644
+chown -R root.root .
+zcat $CWD/emu-tools.path.diff.gz | patch -p1
+make
+make install
+mkdir -p $PKG/usr/doc/emu-tools-$VERSION
+cp -a \
+  docs/* \
+  $PKG/usr/doc/emu-tools-$VERSION
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc

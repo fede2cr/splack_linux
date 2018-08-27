@@ -1,0 +1,62 @@
+IGNOREPATH=/boot:/cdrom:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/ax25:/var
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=3.0
+PROGNAME=z8530drv_utils
+DESC="Utilities for Z8530 based SCC boards by Joerg Reuter DL1BKE.\n\
+Needs scc support enabled in the kernel, or have the scc.o\n\
+module loaded.\n\
+\n\
+Edit /etc/ax25/z8530drv.conf to fit your configuration."
+
+# maintainer
+ARCH=i486
+BUILD=3
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="original site for the 3.0-2 version does not seem to exist anymore..."
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/"
+
+# package name
+PKGNAME=z8530drv_utils-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar xvzf $CWD/z8530drv-utils_3.0-2.tar.gz
+   cd z8530drv-utils-3.0
+   make dep
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/z8530drv-utils-3.0
+   cp doc/* README z8530drv-utils-3.0.lsm /usr/doc/z8530drv-utils-3.0
+}
+
+attributes() {
+   chmod 700 $PKG/sbin/sccinit
+   chmod 700 $PKG/sbin/sccparam
+   chmod 700 $PKG/usr/sbin/kissbridge
+}
+
+special() {
+   # Generate a slack-desc file
+ 
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+ 
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+ 
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}

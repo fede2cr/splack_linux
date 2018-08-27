@@ -1,0 +1,127 @@
+
+Slackware 10.2 to 11.0 Upgrade HOWTO  <volkerdi@slackware.com>
+
+This document explains how to upgrade from Slackware 10.2 to Slackware 11.0
+
+-----------------------------------------------------------------------------
+
+
+Before you begin, I would strongly recommend making a backup of your
+system, or, if not the entire system, at least the /etc directory.  You
+might find that you need to refer to a few things after the upgrade
+process is complete. Back it up, or take your chances.
+
+OK, now that everything is safely backed up, let's proceed. :-)
+
+To do this, you'll need the Slackware 11.0 packages.  If these are on a CD,
+create a new directory to mount the CD on so that it doesn't get in the
+way during the upgrade:
+
+mkdir /packages
+mount /dev/cdrom /packages
+
+The packages don't have to be on a CD-ROM, as an alternative you could
+copy the slackware directory (the one with the various package
+subdirectories in it, basically the "slackware" directory from the install
+CD) to someplace like /root/slackware/.  The important thing is that you
+know where the slackware packages directory is.  We'll use /root/slackware
+in the following examples.
+
+
+0.  Put your machine in single-user mode:
+    telinit 1
+
+
+1.  Upgrade your glibc shared libraries.  This is important, or things
+    might go haywire during the first part of the upgrade:
+
+    upgradepkg /root/slackware/a/glibc-solibs-*.tgz
+
+
+2.  Upgrade your package utilities:
+
+    upgradepkg /root/slackware/a/pkgtools-*.tgz
+
+
+3.  Install sed.  You should already have this, but since it's used by
+    the package utilities it is best to be sure:
+
+    upgradepkg --install-new /root/slackware/a/sed-*.tgz
+
+
+4.  Upgrade everything else (and install new packages):
+
+    upgradepkg --install-new /root/slackware/*/*.tgz
+
+
+5.  Make sure your system will boot.  If you use LILO, make sure the
+    paths in /etc/lilo.conf point to a valid kernel and then type 'lilo'
+    to reinstall LILO.  If you use a bootdisk, you'll need to use
+    makebootdisk to make a new bootdisk using the kernel in /boot.
+
+
+6.  Fix your config files.  Some of the config files in /etc are going to 
+    need your attention.  You'll find the new incoming config files on 
+    your system with the ".new" extension.  You may need to fill these in 
+    with information from your old config files and then move them over.
+
+    Feel brave?  You can use this little script to install all of the
+    .new config files in /etc.  If you've made any local changes you'll
+    need to add them to the newly installed files.  Your old config files
+    will be copied to *.bak.  Anyway, it might be an easier starting
+    point.  Here it is:
+
+     #!/bin/sh
+     cd /etc
+     find . -name "*.new" | while read configfile ; do
+       if [ ! "$configfile" = "./rc.d/rc.inet1.conf.new" \
+         -a ! "$configfile" = "./group.new" \
+         -a ! "$configfile" = "./passwd.new" \
+         -a ! "$configfile" = "./shadow.new" ]; then
+         cp -a $(echo $configfile | rev | cut -f 2- -d . | rev) \
+           $(echo $configfile | rev | cut -f 2- -d . | rev).bak 2> /dev/null
+         mv $configfile $(echo $configfile | rev | cut -f 2- -d . | rev)
+       fi
+     done
+
+    You'll probably also need to edit your /etc/X11/xorg.conf to change
+    the name of the keyboard driver from "Keyboard" to "kbd".  I don't
+    know why this changed, but it did.
+
+
+7.  Return to multi-user mode:
+    telinit 3
+
+
+8.  Remove obsolete packages.
+
+    If you go into /var/log/packages and take a look at the package list:
+
+    ls -lt | less
+
+    You may spot some old, obsolete, or discontinued packages.  If so,
+    you can remove these using 'removepkg'.
+
+
+9.  Remove KDE language bloat.  By upgrading all packages using
+    --install-new you've probably installed all of the KDE language
+    translations from the KDEI series, which will use up about 
+    500MB.  If you need only US English, you may remove the KDE
+    language packs like this:
+
+    cd /var/log/packages
+    removepkg kde-i18n* koffice-l10n*
+
+    Even if you need one of these, it might be best to start by
+    removing them all, and then go back and install the ones you
+    need with installpkg.    
+
+
+
+At this point you should be running Slackware 11.0.  :-)
+
+I wish everyone good luck with this!
+
+---
+Patrick Volkerding
+volkerdi@slackware.com

@@ -1,0 +1,201 @@
+Exploding package /home/bobware-10.2/source/a/umsdos-progs/_umsdos-progs.tar.gz in current directory:
+./
+usr/
+usr/man/
+usr/man/man8/
+usr/sbin/
+usr/sbin/testver
+usr/sbin/udump
+sbin/
+sbin/umssync
+install/
+install/doinst.sh
+
+An installation script was detected in ./install/doinst.sh, but
+was not executed.
++===================+
+| umsdos-progs-1.13 |
++===================+
+umsdos_progs/
+umsdos_progs/CVS/
+umsdos_progs/CVS/Root
+umsdos_progs/CVS/Repository
+umsdos_progs/CVS/Entries
+umsdos_progs/tests/
+umsdos_progs/tests/CVS/
+umsdos_progs/tests/CVS/Root
+umsdos_progs/tests/CVS/Repository
+umsdos_progs/tests/CVS/Entries
+umsdos_progs/tests/gen/
+umsdos_progs/tests/gen/CVS/
+umsdos_progs/tests/gen/CVS/Root
+umsdos_progs/tests/gen/CVS/Repository
+umsdos_progs/tests/gen/CVS/Entries
+umsdos_progs/tests/gen/sticky.C
+umsdos_progs/tests/gen/README
+umsdos_progs/tests/gen/dir.C
+umsdos_progs/tests/gen/file.C
+umsdos_progs/tests/gen/hlink.C
+umsdos_progs/tests/gen/mmap.C
+umsdos_progs/tests/gen/mount.C
+umsdos_progs/tests/gen/multi.C
+umsdos_progs/tests/gen/name.C
+umsdos_progs/tests/gen/perm.C
+umsdos_progs/tests/gen/pipe.C
+umsdos_progs/tests/gen/rename.C
+umsdos_progs/tests/gen/.cvsignore
+umsdos_progs/tests/gen/syml.C
+umsdos_progs/tests/gen/time.C
+umsdos_progs/tests/gen/dev.C
+umsdos_progs/tests/spc/
+umsdos_progs/tests/spc/CVS/
+umsdos_progs/tests/spc/CVS/Root
+umsdos_progs/tests/spc/CVS/Repository
+umsdos_progs/tests/spc/CVS/Entries
+umsdos_progs/tests/spc/.cvsignore
+umsdos_progs/tests/spc/README
+umsdos_progs/tests/spc/read.C
+umsdos_progs/tests/spc/hlink.C
+umsdos_progs/tests/Makefile
+umsdos_progs/tests/util.C
+umsdos_progs/tests/utilspc.C
+umsdos_progs/tests/umsdos_test.h
+umsdos_progs/tests/umsdos_test.p
+umsdos_progs/tests/umsdos_test.pm
+umsdos_progs/tests/utstgen.C
+umsdos_progs/tests/utstspc.C
+umsdos_progs/tests/printk.c
+umsdos_progs/tests/.cvsignore
+umsdos_progs/tests/register.C
+umsdos_progs/tests/README
+umsdos_progs/Makefile
+umsdos_progs/README
+umsdos_progs/util/
+umsdos_progs/util/CVS/
+umsdos_progs/util/CVS/Root
+umsdos_progs/util/CVS/Repository
+umsdos_progs/util/CVS/Entries
+umsdos_progs/util/Makefile
+umsdos_progs/util/README
+umsdos_progs/util/TODO
+umsdos_progs/util/main.c
+umsdos_progs/util/numconst.c
+umsdos_progs/util/printk.c
+umsdos_progs/util/testver.c
+umsdos_progs/util/testver_min.c
+umsdos_progs/util/udosctl.c
+umsdos_progs/util/udump.c
+umsdos_progs/util/umsdos_progs.h
+umsdos_progs/util/umsdos_progs.p
+umsdos_progs/util/umsdosio.c
+umsdos_progs/util/umssetup.c
+umsdos_progs/util/umssync.8
+umsdos_progs/util/umssync.c
+umsdos_progs/util/.cvsignore
+umsdos_progs/.cvsignore
+umsdos_progs/umsdos_progs.spec
+umsdos_progs/Makefiledist
+umsdos_progs/include/
+umsdos_progs/include/hack_glibc2.h
+umsdos_progs/include/ums_config.h
+umsdos_progs/include/umsdos_fs.h
+umsdos_progs/include/.cvsignore
+umsdos_progs/include/CVS/
+umsdos_progs/include/CVS/Root
+umsdos_progs/include/CVS/Repository
+umsdos_progs/include/CVS/Entries
+umsdos_progs/include/Makefile
+umsdos_progs/include/mkhead.c
+umsdos_progs/include/umsdos_fs2.h
+umsdos_progs/include/getver.sh
+patching file include/Makefile
+patching file util/Makefile
+patching file tests/Makefile
+make GCC=gcc GPP=g++ -C include all
+make[1]: Entering directory `/tmp/umsdos_progs/include'
+gcc -pipe -O2 -g -m32 -mcpu=v8 -mtune=v9  -o mkhead mkhead.c
+In file included from umsdos_fs.h:9,
+                 from mkhead.c:8:
+ums_config.h:28:16: warning: no newline at end of file
+rm -f umsdos_gen.h
+./mkhead > umsdos_gen.h
+make[1]: Leaving directory `/tmp/umsdos_progs/include'
+make GCC=gcc GPP=g++ -C util all
+make[1]: Entering directory `/tmp/umsdos_progs/util'
+gcc -I../include -MM *.c > .depend
+gcc -I../include -pipe -O2 -g -Wall -Wno-implicit-function-declaration -Wno-implicit -m32 -mcpu=v8 -mtune=v9  -o testver_min testver_min.c
+In file included from ../include/umsdos_gen.h:3,
+                 from testver_min.c:8:
+../include/umsdos_fs2.h:85: warning: no semicolon at end of struct or union
+../include/umsdos_fs2.h:85: error: syntax error before '.' token
+../include/umsdos_fs2.h:85: warning: no semicolon at end of struct or union
+../include/umsdos_fs2.h:87: error: syntax error before '.' token
+../include/umsdos_fs2.h:89: error: syntax error before '.' token
+../include/umsdos_fs2.h:93: error: syntax error before '}' token
+../include/umsdos_fs2.h:93: error: `stat' redeclared as different kind of symbol
+/usr/include/sys/stat.h:365: error: previous declaration of `stat'
+../include/umsdos_fs2.h:93: warning: data definition has no type or storage class
+../include/umsdos_fs2.h:95: error: syntax error before '}' token
+testver_min.c: In function `main':
+testver_min.c:15: error: storage size of `data' isn't known
+testver_min.c:22: error: invalid application of `sizeof' to an incomplete type
+testver_min.c:15: warning: unused variable `data'
+testver_min.c:27:2: warning: no newline at end of file
+make[1]: *** [testver_min] Error 1
+make[1]: Leaving directory `/tmp/umsdos_progs/util'
+make: *** [all] Error 2
+strip: 'umssync': No such file
+strip: 'testver': No such file
+strip: 'udump': No such file
+cat: umssync: No such file or directory
+cat: testver: No such file or directory
+cat: udump: No such file or directory
+
+Slackware package maker, version 2.1.
+
+Searching for symbolic links:
+
+No symbolic links were found, so we won't make an installation script.
+You can make your own later in ./install/doinst.sh and rebuild the
+package if you like.
+
+This next step is optional - you can set the directories in your package
+to some sane permissions. If any of the directories in your package have
+special permissions, then DO NOT reset them here!
+
+Would you like to reset all directory permissions to 755 (drwxr-xr-x) and
+directory ownerships to root.root ([y]es, [n]o)? 
+
+Creating tar file umsdos-progs-1.13-sparc-1.tar...
+
+./
+usr/
+usr/man/
+usr/man/man8/
+usr/man/man8/umssync.8.gz
+usr/sbin/
+usr/sbin/testver
+usr/sbin/udump
+usr/doc/
+usr/doc/umsdos-progs-1.13/
+usr/doc/umsdos-progs-1.13/README
+usr/doc/umsdos-progs-1.13/README.utils
+usr/doc/umsdos-progs-1.13/TODO
+sbin/
+sbin/umssync
+install/
+install/doinst.sh
+install/slack-desc
+tar-1.13: umsdos-progs-1.13-sparc-1.tar is the archive; not dumped
+WARNING: zero length file ./usr/sbin/testver
+WARNING: zero length file ./usr/sbin/udump
+WARNING: zero length file ./sbin/umssync
+
+Gzipping umsdos-progs-1.13-sparc-1.tar...
+
+Renaming umsdos-progs-1.13-sparc-1.tar.gz to umsdos-progs-1.13-sparc-1.tgz...
+
+Moving umsdos-progs-1.13-sparc-1.tgz to /tmp...
+
+Package creation complete.
+

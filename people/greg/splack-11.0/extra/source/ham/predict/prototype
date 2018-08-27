@@ -1,0 +1,96 @@
+IGNOREPATH=/boot:/cdrom:/dev:/home:/mnt:/proc:/root:/tmp:/var/ax25:/var/log:/var/spool/cron
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=2.1.5
+PROGNAME=predict
+DESC="Satellite Tracking Program with Optional Voice Output\n\
+by KD2BD, et al.\n\
+Several client programs are provided:\n\
+earthtrack: Combines predict with xearth\n\
+geosat:     Determines the 'look angles' for geostationary\n\
+            satellites\n\
+gsat:       Graphical front-end for predict using gtk\n\
+\n\
+The upstream predict sources also come with a front-end \n\
+called 'map', but it is not included in the Slackware \n\
+package because it requires the non-free xforms library."
+
+# maintainer
+ARCH=i386
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="ftp://ftp.amsat.org/amsat/software/Linux/"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/contrib/ham/satellite/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar zxvf $CWD/$PROGNAME-$VERSION.tar.gz
+   zcat $CWD/$PROGNAME-$VERSION.diff.gz | patch -p0 --verbose
+   cd $PROGNAME
+   cc -Wall -O3 -s -fomit-frame-pointer -I/usr/include/ncurses \
+      predict.c -lm -lncurses -lpthread -o predict
+   cc -Wall -O3 -s -fomit-frame-pointer vocalizer/vocalizer.c \
+      -o vocalizer/vocalizer
+
+   (cd clients/earthtrack ; \
+        cc -Wall -O3 -s -fomit-frame-pointer -lm earthtrack.c -o earthtrack )
+   (cd clients/geosat ; \
+        cc -Wall -O3 -s -fomit-frame-pointer -lm geosat.c -o geosat )
+   (cd clients/gsat-0.9.0 ; \
+	PATH=$PATH:/opt/gnome/bin:/opt/gnome/sbin ; \
+	./configure --prefix=/usr ; make )
+   (cd clients/kep_reload ; \
+	cc -Wall -O3 -s -fomit-frame-pointer kep_reload.c -o kep_reload )
+}
+
+install() {
+   cd $TMP/$PROGNAME
+   cp predict xpredict /usr/bin
+   cp clients/earthtrack/earthtrack /usr/bin
+   cp clients/geosat/geosat /usr/bin
+   (cd clients/gsat-0.9.0 ; make install )
+   cp clients/kep_reload/kep_reload /usr/bin
+   
+   mkdir -p /usr/lib/predict/default
+   cp -R default /usr/lib/predict
+   for file in 0 1 2 3 4 5 6 7 8 9 approaching azimuth elevation \
+        intro receding vocalizer
+    do
+        cp vocalizer/$file /usr/lib/predict/$file
+    done
+   
+   cp docs/man/predict.man /usr/man/man1/predict.1
+   cp docs/man/geosat.man  /usr/man/man1/geosat.1
+
+   
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cp  CHANGES INSTALL README /usr/doc/$PROGNAME-$VERSION
+   
+   cp clients/earthtrack/README \
+      /usr/doc/$PROGNAME-$VERSION/README.earthtrack
+   
+   cp clients/geosat/README \
+      /usr/doc/$PROGNAME-$VERSION/README.geosat
+   
+   for file in AUTHORS ChangeLog README ; do
+      cp clients/gsat-0.9.0/$file /usr/doc/$PROGNAME-$VERSION/$file.gsat
+   done
+   
+   cp clients/kep_reload/README \
+      /usr/doc/$PROGNAME-$VERSION/README.kep_reload
+   cp clients/kep_reload/kepupdate /usr/doc/$PROGNAME-$VERSION
+   
+   cp -R clients/samples /usr/doc/$PROGNAME-$VERSION
+}
+
+special() {
+   echo "nothing special..."
+}
+
+subpacks() {
+   echo "no sub-packs..."
+}

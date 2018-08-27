@@ -1,0 +1,79 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-linux-wlan-ng
+
+VERSION=0.2.1pre25
+KVERSION=${KVERSION:-2.4.33.3}
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf linux-wlan-ng-$VERSION
+tar xjvf $CWD/linux-wlan-ng-$VERSION.tar.bz2
+cd linux-wlan-ng-$VERSION
+chown -R root.root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+cat << EOF | ./Configure
+y
+y
+y
+y
+/usr/src/linux-$KVERSION
+/tmp/package-linux-wlan-ng
+/etc/pcmcia
+/lib/modules/$KVERSION
+
+n
+EOF
+# If you don't use modversions you should be fine kludging this:
+if [ ! -d /usr/src/linux-${KVERSION}/.tmp_versions ]; then
+  mkdir -p /usr/src/linux-${KVERSION}/.tmp_versions
+fi
+make all || exit 1
+make install
+( cd add-ons/keygen ; make )
+( cd add-ons/lwepgen ; make )
+cat add-ons/keygen/keygen > $PKG/sbin/keygen
+cat add-ons/lwepgen/lwepgen > $PKG/sbin/lwepgen
+chmod 755 $PKG/sbin/keygen $PKG/sbin/lwepgen
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+( cd $PKG
+  mv init.d etc/rc.d
+  mv etc/rc.d/wlan etc/rc.d/rc.wlan
+  chmod 644 etc/rc.d/rc.wlan
+  chmod 644 etc/pcmcia/wlan-ng.conf
+  mv etc/pcmcia/wlan-ng.conf etc/pcmcia/wlan-ng.conf.new
+  mv etc/wlan/wlan.conf etc/wlan/wlan.conf.new
+  mv usr/local/man usr
+  rmdir usr/local
+  cd usr/man/man1
+  #for file in * ; do
+  #  mv $file $(basename $file .man).1
+  #done
+  gzip -9 *
+)
+chown -R root:bin $PKG/sbin
+mkdir -p $PKG/usr/doc/linux-wlan-ng-$VERSION
+cp -a \
+  CHANGES COPYING FAQ LICENSE README THANKS TODO \
+  doc \
+  $PKG/usr/doc/linux-wlan-ng-$VERSION
+rm -f $PKG/usr/doc/linux-wlan-ng-$VERSION/doc/Makefile
+gzip -9 $PKG/usr/man/man?/*.?
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+
+cd $PKG
+makepkg -l y -c n $TMP/linux-wlan-ng-${VERSION}_${KVERSION}-${ARCH}-${BUILD}.tgz
+

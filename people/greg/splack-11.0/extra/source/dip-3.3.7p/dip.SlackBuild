@@ -1,0 +1,60 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+PKG=$TMP/package-dip
+
+VERSION=3.3.7p
+ARCH=i386
+PATCH=1
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+if [ ! -d $PKG ]; then
+  mkdir -p $PKG # place for the package to be built
+fi
+
+# Explode the package framework:
+cd $PKG
+explodepkg $CWD/_dip.tar.gz
+
+echo "+============+"
+echo "| dip-$VERSION |"
+echo "+============+"
+cd $TMP
+tar xzvf $CWD/dip-$VERSION.tar.gz
+cd dip-$VERSION
+zcat $CWD/dip_$VERSION-4.diff.gz | patch -p1 --verbose
+zcat $CWD/dip-$VERSION.slack.diff.gz | patch -p1 --verbose
+tar xzvf $CWD/liblockdev_0.9a.tar.gz
+cd liblockdev-0.9
+make static
+cd ..
+mkdir -p $PKG/usr/doc/dip-$VERSION
+cp -a *README* TAGS samples $PKG/usr/doc/dip-$VERSION
+chown -R root.root $PKG/usr/doc/dip-$VERSION
+chmod -R 644 $PKG/usr/doc/dip-$VERSION
+find $PKG/usr/doc/dip-$VERSION -type d -exec chmod 755 {} \;
+rm -f $PKG/usr/doc/dip-$VERSION/samples/advantis.dip
+make clean
+make depend
+rm -f dip
+make
+strip dip
+cat dip > $PKG/sbin/dip-$VERSION
+cat dip.8 | gzip -9c > $PKG/usr/man/man8/dip.8.gz
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+# Build the package:
+cd $PKG
+makepkg -l y -c n $TMP/dip-$VERSION-$ARCH-$PATCH.tgz
+
+# Clean up the extra stuff:
+if [ "$1" = "--cleanup" ]; then
+  rm -rf $TMP/dip-$VERSION
+  rm -rf $PKG
+fi

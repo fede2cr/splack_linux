@@ -1,0 +1,11 @@
+bin86: bin86 (8086 assembler/loader)
+bin86:
+bin86: This is a complete 8086 assembler and loader which can make 32-bit
+bin86: code for the 386+ processors.  In the past it was used to compile the
+bin86: 16-bit bootsector and setup binaries for the kernel, but modern
+bin86: (2.4.x or newer) kernels use GNU ld instead.
+bin86:
+bin86: The bin86 package is needed to compile 2.2.x or earlier kernels.
+bin86:
+bin86:
+bin86:

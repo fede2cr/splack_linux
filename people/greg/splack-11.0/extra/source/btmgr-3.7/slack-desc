@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in. You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+btmgr: btmgr (Smart Boot Manager)
+btmgr:
+btmgr: Smart BootManager is a tiny, powerful and multi-language boot manager
+btmgr: written in assembler.  SBM supports many features in only 30K bytes
+btmgr: including multi-languages and themes, a user friendly menu system,
+btmgr: partition auto scan, boot schedule, password protection, and more.
+btmgr: SBM is the first GPLed boot manager to embed an IDE ATAPI CD-ROM
+btmgr: driver, it can boot Win95/98/2K, Linux, FreeBSD, OpenBSD, and BeOS
+btmgr: from CD-ROM.  Multi-bootable image CDs are supported as well.
+btmgr:
+btmgr: SBM was written by Suzhe, Lonius, and Christopher Li.

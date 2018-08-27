@@ -1,0 +1,10 @@
+conf:
+   ONE /etc/ax25/ax25.profile
+   ONE /etc/ax25/ax25d.conf
+   ONE /etc/ax25/axspawn.conf
+   ONE /etc/ax25/nrbroadcast
+   ONE /etc/ax25/rip98d.conf 
+   ONE /etc/ax25/rxecho.conf
+   ONE /etc/ax25/ttylinkd.conf
+   ONE /var/ax25/mheard/mheard.dat
+:conf

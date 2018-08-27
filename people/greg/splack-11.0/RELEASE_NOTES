@@ -1,0 +1,114 @@
+
+Slackware 11.0 release notes.
+
+Today is Prickle-Prickle, the 55th day of Bureaucracy in the YOLD 3172
+Sun Oct  1 23:28:27 CDT 2006, The Moon is Waxing Gibbous (68% of Full).
+
+
+Hi folks,
+
+    Here we go with another release of Slackware!  As usual, there are 
+a few things that merit special mention so that they won't be traps for 
+the unprepared.  Also, be sure to see the CHANGES_AND_HINTS.TXT file 
+for more information.
+
+    This version of Slackware contains a glibc built with NPTL (Native 
+POSIX Thread Library) and TLS (Thread Local Storage) support.  There's 
+a lot more information about that in the README.NPTL file.  If you're 
+using a 2.6 kernel that supports NPTL, you'll get better performance 
+out of any software that uses threads.  In general there will be no 
+need to recompile anything to get this boost; anything that links to 
+the pthread library will use the NPTL version of glibc in /lib/tls if 
+the kernel can support it.  The new glibc requires a TLS capable 
+version of ldconfig, and a side-effect of that is that if you try to 
+upgrade the glibc packages on a mounted filesystem using installpkg's 
+ROOT= flag, it's not going to work properly unless the machine you are 
+running from has a TLS capable ldconfig.  So, if you want to do that, 
+either upgrade your own glibc packages first, or chroot to the mounted 
+partition and then upgrade the packages there.  Most people won't have 
+to worry about this -- it only affects upgrades done with the 
+ROOT=/someplace flag, not installs from the CD or upgrades done 
+according to the UPGRADE.TXT instructions.
+
+    As you can see, Slackware 11.0 is still using a 2.4 kernel 
+(2.4.33.3) for the default system kernel.  The 2.4.33.3 kernel has been 
+rock-solid here, and it seemed best to put out one more release of 
+Slackware with support for 2.4 before heading full-force into 2.6 
+territory because a lot of people will want to run the 2.4 kernel on 
+production machines for a long time to come, and some of the changes to 
+the system that will be needed to fully embrace all of 2.6's features 
+aren't necessarily 2.4 kernel-friendly.  The next version of Slackware 
+may drop support for 2.4.x unless LinuxThreads support can be 
+maintained in glibc.
+
+    The 2.6 kernel series shows a great deal of improvment since the 
+last release (I'm running it on my gateway machine), but it's still 
+undergoing heavy development and the stability of any given release can 
+be hit-or-miss.  Things are improving rapidly in that regard though, 
+and Greg Kroah-Hartman, Adrian Bunk, Chris Wright, and some other folks 
+have been helping by producing stable branches (2.6.x.y) after each new 
+major release of a 2.6.x kernel.  Anyway, since there is hardware out 
+there that requires a 2.6 kernel in order to install, this release of 
+Slackware has both 2.6.17.13 and a 2.6.18 kernels integrated into the 
+installer.  To install using one of these, after booting the first 
+disc, enter huge26.s at the boot prompt for the supported 2.6.17.13 
+kernel (which also supports installing via NFS), or test26.s to use the 
+2.6.18 kernel from /testing.  These kernels have compiled-in support 
+for essentially all of the hard drive controllers and filesystems that 
+are supported by the 2.6.x kernel series, and should be helpful for 
+people with new SATA controllers or other hardware that 2.4.33.3 
+doesn't support.  This kernel doesn't have any built in network support 
+and is primarily intended for installing from local media (although 
+huge26.s will support an NFS installation if you run the 'network' 
+script to load your network module, and you're installing from CD or 
+DVD).  After the packages have installed and you've reached the menu 
+where you are prompted to select a kernel to install, BE CERTAIN to 
+install huge26.s or test26.s (whichever one you used to install) or 
+there's a chance that your machine will be unable to boot with the 
+stock sata.i kernel that you'll end up with.
+
+    Also, the kernel module packages for 2.6.x are not part of the 
+standard installation, so if you install using huge26.s or test26.s 
+kernel you'll have to install the corresponding kernel-modules package 
+when you're done.  They can be found under /extra/linux-2.6.17.13/ (or 
+ISO number two under /extra/linux-2.6.17.13), or 
+/testing/packages/linux-2.6.18/ (or ISO number four under 
+/testing-2.6.18/packages/linux-2.6.18).  You might also consider 
+installing the other packages there and building an initrd according to 
+the instructions in README.initrd if you'd like to be running a slimmer 
+kernel without a lot of unneeded drivers taking up RAM, or better yet, 
+visit ftp.kernel.org in /pub/linux/kernel/v2.6/ and grab the latest 
+version of the 2.6 kernel to build your own.  It'll probably have some 
+important fixes.  Note that the 2.6 kernels do not have an 
+"alsa-driver" package, but if you remove that package then you'll have 
+to upgrade to the kernel-headers package for your 2.6 kernel in order 
+to have the /usr/include/sound/ ALSA headers.  These have not been 
+extensively tested, and you may be better off sticking with the 
+kernel-headers for 2.4.33.3 (which are what glibc was compiled against) 
+and the alsa-driver package compiled for 2.4.33.3.
+
+    The GNOME desktop is not shipped as a part of Slackware, and 
+continued maintenance of GNOME for Slackware has been adopted by a 
+couple of outside projects:
+
+    http://gsb.sf.net
+    http://gware.sf.net
+
+    If you're looking for a GNOME distribution for Slackware, I can 
+recommend either of these as being extremely well built and more 
+comprehensive than any GNOME series that was previously included.  If 
+you're a GNOME fan, check them out.  I think you'll be pleased.
+
+    The network setup script /etc/rc.d/rc.inet1 has been extensively 
+rewritten and supports many new options in rc.inet1.conf.  Thanks to 
+Eric Hameleers for doing some great work with this, rc.wireless, and 
+other parts of the networking setup.  See the comments in rc.inet1.conf 
+for information about the new options.  One that didn't get listed yet 
+that I'll mention here is support for IP aliasing.  This sort of thing 
+should work now for setting static IP aliases:  IFNAME[2]="eth0:1"
+
+
+Have fun!  :-)
+
+Pat Volkerding <volkerdi@slackware.com>
+

@@ -1,0 +1,58 @@
+IGNOREPATH=/boot:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/ax25:/var/log:/var/spool/cron
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.5
+PROGNAME="cwdaemon"
+DESC="Cwdaemon is a small daemon which uses the pc parallel or\n\
+serial port and a simple transistor switch to output morse code\n\
+to a transmitter from a text message sent to it via the udp\n\
+internet protocol."
+
+# maintainer
+ARCH=i486
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="http://savannah.nongnu.org/download/tlf/"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar zxvf $CWD/${PROGNAME}-$VERSION.tar.gz
+   cd $PROGNAME-$VERSION
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cd $TMP/$PROGNAME
+   cp AUTHORS ChangeLog INSTALL NEWS README TODO /usr/doc/$PROGNAME-$VERSION
+}
+
+special() {
+   # Generate a slack-desc file
+
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}
+      

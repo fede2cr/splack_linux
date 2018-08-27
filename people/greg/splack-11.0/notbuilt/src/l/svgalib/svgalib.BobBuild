@@ -1,0 +1,52 @@
+#!/bin/sh
+
+CWD=`pwd`
+TMP=/tmp
+PKG=$TMP/package-svgalib
+VERSION=1.4.3
+ARCH=sparc
+BUILD=2
+SLKCFLAGS="-O2 -mcpu=v8"
+
+rm -rf $PKG
+mkdir -p $PKG
+
+# Build svgalib-$VERSION for Slackware.
+cd $TMP
+tar xzvf $CWD/svgalib-$VERSION.tar.gz
+cd svgalib-$VERSION
+zcat $CWD/vga-fix.diff.gz | patch -p0 --backup --suffix=.orig --verbose
+zcat $CWD/svgalib.config.diff.gz | patch -p1 --backup --suffix=.orig --verbose
+sed -i -e "s#TOPDIR=#TOPDIR=$PKG#" Makefile.cfg
+mkdir -p $PKG/etc/vga
+mkdir -p $PKG/usr/doc/svgalib-$VERSION
+
+cp -a 0-INSTALL 0-README lrmi-0.6m mach svgalib.lsm doc et4000 support svpmi $PKG/usr/doc/svgalib-$VERSION
+( cd $PKG/usr/doc/svgalib-$VERSION/doc ; rm -r man? tman )
+chown -R root.root $PKG/usr/doc/svgalib-$VERSION
+make clean
+make install
+( cd /lib ; mv libvga* /usr/lib )
+make demoprogs
+cd demos
+mkdir -p /usr/lib/svgalib
+cp -a accel bankspeed bg_test eventtest forktest fun joytest keytest lineart mjoytest mousetest printftest scrolltest speedtest spin testaccel testgl testlinear vgatest /usr/lib/svgalib
+cd ..
+# These might not be secure enough to install setuid root by default:
+chmod 755 /usr/lib/svgalib/*
+cp -a threeDKit /usr/lib
+cp Makefile.cfg /usr/lib/threeDKit
+( cd /usr/lib/threeDKit ; zcat $CWD/threedkit-makefile.diff.gz | patch -p0 --backup --suffix=.orig )
+rm /usr/lib/threeDKit/Makefile.orig
+chown -R root.root /usr/lib/threeDKit
+( cd /usr/lib/threeDKit ; make clean )
+mkdir -p /install
+cat $CWD/slack-desc > /install/slack-desc
+cat << EOF
+
+
+chmod the /usr/bin things 755!
+
+
+
+EOF

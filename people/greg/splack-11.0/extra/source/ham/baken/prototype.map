@@ -1,0 +1,20 @@
+# pkginfo
+PROGNAME="baken"
+DESC="Maps belonging to the baken program"
+
+BUILD=1
+
+# package name
+PKGNAME=${PROGNAME}_map-$VERSION-$ARCH-$BUILD
+SUBPKGNAME=$PKGNAME
+
+
+subinstall() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install-map
+}
+
+    
+subspecial() {
+   echo "nothing special..."
+}

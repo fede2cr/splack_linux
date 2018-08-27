@@ -1,0 +1,276 @@
+The following list shows which kernels support native Serial ATA, or 
+SATA.  The ones with '=y' have SATA support built into the kernel, while 
+the ones with '=n' would require an initrd in order to support SATA.
+
+The reason all the kernels don't have built-in SATA where it would be 
+sense to have it is so that these kernels (except the huge ones) can 
+still be booted from floppy disks formatted to the standard 1.44MB.
+
+No matter how modular things are made, soon a kernel that isn't almost 
+totally modular will not fit on a floppy disk.  There will be other ways 
+to boot, but the old reliable floppy disk era is quickly coming to a 
+close.
+
+NOTE:  You can ignore any line that contains "BLK_DEV_IDE_SATA", as 
+that's the older SATA support that was replaced by the SCSI_SATA" 
+subsystem.  This list was generated with:  grep SATA *.?/config
+
+adaptec.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+adaptec.s/config:CONFIG_SCSI_SATA=y
+adaptec.s/config:CONFIG_SCSI_SATA_AHCI=m
+adaptec.s/config:CONFIG_SCSI_SATA_SVW=m
+adaptec.s/config:CONFIG_SCSI_SATA_NV=m
+adaptec.s/config:CONFIG_SCSI_SATA_QSTOR=m
+adaptec.s/config:CONFIG_SCSI_SATA_PROMISE=m
+adaptec.s/config:CONFIG_SCSI_SATA_SX4=m
+adaptec.s/config:CONFIG_SCSI_SATA_SIL=m
+adaptec.s/config:CONFIG_SCSI_SATA_SIS=m
+adaptec.s/config:CONFIG_SCSI_SATA_ULI=m
+adaptec.s/config:CONFIG_SCSI_SATA_VIA=m
+adaptec.s/config:CONFIG_SCSI_SATA_VITESSE=m
+
+ataraid.i/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+ataraid.i/config:CONFIG_SCSI_SATA=y
+ataraid.i/config:CONFIG_SCSI_SATA_AHCI=y
+ataraid.i/config:CONFIG_SCSI_SATA_SVW=y
+ataraid.i/config:CONFIG_SCSI_SATA_NV=y
+ataraid.i/config:CONFIG_SCSI_SATA_QSTOR=y
+ataraid.i/config:CONFIG_SCSI_SATA_PROMISE=y
+ataraid.i/config:CONFIG_SCSI_SATA_SX4=y
+ataraid.i/config:CONFIG_SCSI_SATA_SIL=y
+ataraid.i/config:CONFIG_SCSI_SATA_SIS=y
+ataraid.i/config:CONFIG_SCSI_SATA_ULI=y
+ataraid.i/config:CONFIG_SCSI_SATA_VIA=y
+ataraid.i/config:CONFIG_SCSI_SATA_VITESSE=y
+
+bare.i/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+bare.i/config:CONFIG_SCSI_SATA=y
+bare.i/config:CONFIG_SCSI_SATA_AHCI=m
+bare.i/config:CONFIG_SCSI_SATA_SVW=m
+bare.i/config:CONFIG_SCSI_SATA_NV=m
+bare.i/config:CONFIG_SCSI_SATA_QSTOR=m
+bare.i/config:CONFIG_SCSI_SATA_PROMISE=m
+bare.i/config:CONFIG_SCSI_SATA_SX4=m
+bare.i/config:CONFIG_SCSI_SATA_SIL=m
+bare.i/config:CONFIG_SCSI_SATA_SIS=m
+bare.i/config:CONFIG_SCSI_SATA_ULI=m
+bare.i/config:CONFIG_SCSI_SATA_VIA=m
+bare.i/config:CONFIG_SCSI_SATA_VITESSE=m
+
+bareacpi.i/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+bareacpi.i/config:CONFIG_SCSI_SATA=y
+bareacpi.i/config:CONFIG_SCSI_SATA_AHCI=y
+bareacpi.i/config:CONFIG_SCSI_SATA_SVW=y
+bareacpi.i/config:CONFIG_SCSI_SATA_NV=y
+bareacpi.i/config:CONFIG_SCSI_SATA_QSTOR=y
+bareacpi.i/config:CONFIG_SCSI_SATA_PROMISE=y
+bareacpi.i/config:CONFIG_SCSI_SATA_SX4=y
+bareacpi.i/config:CONFIG_SCSI_SATA_SIL=y
+bareacpi.i/config:CONFIG_SCSI_SATA_SIS=y
+bareacpi.i/config:CONFIG_SCSI_SATA_ULI=y
+bareacpi.i/config:CONFIG_SCSI_SATA_VIA=y
+bareacpi.i/config:CONFIG_SCSI_SATA_VITESSE=y
+
+huge26.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+huge26.s/config:CONFIG_SCSI_SATA=y
+huge26.s/config:CONFIG_SCSI_SATA_AHCI=y
+huge26.s/config:CONFIG_SCSI_SATA_SVW=y
+huge26.s/config:CONFIG_SCSI_SATA_MV=y
+huge26.s/config:CONFIG_SCSI_SATA_NV=y
+huge26.s/config:CONFIG_SCSI_SATA_QSTOR=y
+huge26.s/config:CONFIG_SCSI_SATA_PROMISE=y
+huge26.s/config:CONFIG_SCSI_SATA_SX4=y
+huge26.s/config:CONFIG_SCSI_SATA_SIL=y
+huge26.s/config:CONFIG_SCSI_SATA_SIL24=y
+huge26.s/config:CONFIG_SCSI_SATA_SIS=y
+huge26.s/config:CONFIG_SCSI_SATA_ULI=y
+huge26.s/config:CONFIG_SCSI_SATA_VIA=y
+huge26.s/config:CONFIG_SCSI_SATA_VITESSE=y
+huge26.s/config:CONFIG_SCSI_SATA_INTEL_COMBINED=y
+
+ibmmca.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_AHCI is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_SVW is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_NV is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_QSTOR is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_PROMISE is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_SX4 is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_SIL is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_SIS is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_ULI is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_VIA is not set
+ibmmca.s/config:# CONFIG_SCSI_SATA_VITESSE is not set
+
+jfs.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+jfs.s/config:CONFIG_SCSI_SATA=y
+jfs.s/config:CONFIG_SCSI_SATA_AHCI=m
+jfs.s/config:CONFIG_SCSI_SATA_SVW=m
+jfs.s/config:CONFIG_SCSI_SATA_NV=m
+jfs.s/config:CONFIG_SCSI_SATA_QSTOR=m
+jfs.s/config:CONFIG_SCSI_SATA_PROMISE=m
+jfs.s/config:CONFIG_SCSI_SATA_SX4=m
+jfs.s/config:CONFIG_SCSI_SATA_SIL=m
+jfs.s/config:CONFIG_SCSI_SATA_SIS=m
+jfs.s/config:CONFIG_SCSI_SATA_ULI=m
+jfs.s/config:CONFIG_SCSI_SATA_VIA=m
+jfs.s/config:CONFIG_SCSI_SATA_VITESSE=m
+
+lowmem.i/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+
+old_cd.i/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+old_cd.i/config:CONFIG_SCSI_SATA=y
+old_cd.i/config:CONFIG_SCSI_SATA_AHCI=m
+old_cd.i/config:CONFIG_SCSI_SATA_SVW=m
+old_cd.i/config:CONFIG_SCSI_SATA_NV=m
+old_cd.i/config:CONFIG_SCSI_SATA_QSTOR=m
+old_cd.i/config:CONFIG_SCSI_SATA_PROMISE=m
+old_cd.i/config:CONFIG_SCSI_SATA_SX4=m
+old_cd.i/config:CONFIG_SCSI_SATA_SIL=m
+old_cd.i/config:CONFIG_SCSI_SATA_SIS=m
+old_cd.i/config:CONFIG_SCSI_SATA_ULI=m
+old_cd.i/config:CONFIG_SCSI_SATA_VIA=m
+old_cd.i/config:CONFIG_SCSI_SATA_VITESSE=m
+
+pportide.i/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+pportide.i/config:CONFIG_SCSI_SATA=y
+pportide.i/config:CONFIG_SCSI_SATA_AHCI=m
+pportide.i/config:CONFIG_SCSI_SATA_SVW=m
+pportide.i/config:CONFIG_SCSI_SATA_NV=m
+pportide.i/config:CONFIG_SCSI_SATA_QSTOR=m
+pportide.i/config:CONFIG_SCSI_SATA_PROMISE=m
+pportide.i/config:CONFIG_SCSI_SATA_SX4=m
+pportide.i/config:CONFIG_SCSI_SATA_SIL=m
+pportide.i/config:CONFIG_SCSI_SATA_SIS=m
+pportide.i/config:CONFIG_SCSI_SATA_ULI=m
+pportide.i/config:CONFIG_SCSI_SATA_VIA=m
+pportide.i/config:CONFIG_SCSI_SATA_VITESSE=m
+
+raid.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+raid.s/config:CONFIG_SCSI_SATA=y
+raid.s/config:CONFIG_SCSI_SATA_AHCI=m
+raid.s/config:CONFIG_SCSI_SATA_SVW=m
+raid.s/config:CONFIG_SCSI_SATA_NV=m
+raid.s/config:CONFIG_SCSI_SATA_QSTOR=m
+raid.s/config:CONFIG_SCSI_SATA_PROMISE=m
+raid.s/config:CONFIG_SCSI_SATA_SX4=m
+raid.s/config:CONFIG_SCSI_SATA_SIL=m
+raid.s/config:CONFIG_SCSI_SATA_SIS=m
+raid.s/config:CONFIG_SCSI_SATA_ULI=m
+raid.s/config:CONFIG_SCSI_SATA_VIA=m
+raid.s/config:CONFIG_SCSI_SATA_VITESSE=m
+
+sata.i/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+sata.i/config:CONFIG_SCSI_SATA=y
+sata.i/config:CONFIG_SCSI_SATA_AHCI=y
+sata.i/config:CONFIG_SCSI_SATA_SVW=y
+sata.i/config:CONFIG_SCSI_SATA_NV=y
+sata.i/config:CONFIG_SCSI_SATA_QSTOR=y
+sata.i/config:CONFIG_SCSI_SATA_PROMISE=y
+sata.i/config:CONFIG_SCSI_SATA_SX4=y
+sata.i/config:CONFIG_SCSI_SATA_SIL=y
+sata.i/config:CONFIG_SCSI_SATA_SIS=y
+sata.i/config:CONFIG_SCSI_SATA_ULI=y
+sata.i/config:CONFIG_SCSI_SATA_VIA=y
+sata.i/config:CONFIG_SCSI_SATA_VITESSE=y
+
+scsi.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+scsi.s/config:CONFIG_SCSI_SATA=y
+scsi.s/config:CONFIG_SCSI_SATA_AHCI=m
+scsi.s/config:CONFIG_SCSI_SATA_SVW=m
+scsi.s/config:CONFIG_SCSI_SATA_NV=m
+scsi.s/config:CONFIG_SCSI_SATA_QSTOR=m
+scsi.s/config:CONFIG_SCSI_SATA_PROMISE=m
+scsi.s/config:CONFIG_SCSI_SATA_SX4=m
+scsi.s/config:CONFIG_SCSI_SATA_SIL=m
+scsi.s/config:CONFIG_SCSI_SATA_SIS=m
+scsi.s/config:CONFIG_SCSI_SATA_ULI=m
+scsi.s/config:CONFIG_SCSI_SATA_VIA=m
+scsi.s/config:CONFIG_SCSI_SATA_VITESSE=m
+
+scsi2.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+scsi2.s/config:CONFIG_SCSI_SATA=y
+scsi2.s/config:CONFIG_SCSI_SATA_AHCI=m
+scsi2.s/config:CONFIG_SCSI_SATA_SVW=m
+scsi2.s/config:CONFIG_SCSI_SATA_NV=m
+scsi2.s/config:CONFIG_SCSI_SATA_QSTOR=m
+scsi2.s/config:CONFIG_SCSI_SATA_PROMISE=m
+scsi2.s/config:CONFIG_SCSI_SATA_SX4=m
+scsi2.s/config:CONFIG_SCSI_SATA_SIL=m
+scsi2.s/config:CONFIG_SCSI_SATA_SIS=m
+scsi2.s/config:CONFIG_SCSI_SATA_ULI=m
+scsi2.s/config:CONFIG_SCSI_SATA_VIA=m
+scsi2.s/config:CONFIG_SCSI_SATA_VITESSE=m
+scsi3.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+
+scsi3.s/config:CONFIG_SCSI_SATA=y
+scsi3.s/config:CONFIG_SCSI_SATA_AHCI=m
+scsi3.s/config:CONFIG_SCSI_SATA_SVW=m
+scsi3.s/config:CONFIG_SCSI_SATA_NV=m
+scsi3.s/config:CONFIG_SCSI_SATA_QSTOR=m
+scsi3.s/config:CONFIG_SCSI_SATA_PROMISE=m
+scsi3.s/config:CONFIG_SCSI_SATA_SX4=m
+scsi3.s/config:CONFIG_SCSI_SATA_SIL=m
+scsi3.s/config:CONFIG_SCSI_SATA_SIS=m
+scsi3.s/config:CONFIG_SCSI_SATA_ULI=m
+scsi3.s/config:CONFIG_SCSI_SATA_VIA=m
+scsi3.s/config:CONFIG_SCSI_SATA_VITESSE=m
+speakup.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+
+speakup.s/config:CONFIG_SCSI_SATA=y
+speakup.s/config:CONFIG_SCSI_SATA_AHCI=y
+speakup.s/config:CONFIG_SCSI_SATA_SVW=y
+speakup.s/config:CONFIG_SCSI_SATA_NV=y
+speakup.s/config:CONFIG_SCSI_SATA_QSTOR=y
+speakup.s/config:CONFIG_SCSI_SATA_PROMISE=y
+speakup.s/config:CONFIG_SCSI_SATA_SX4=y
+speakup.s/config:CONFIG_SCSI_SATA_SIL=y
+speakup.s/config:CONFIG_SCSI_SATA_SIS=y
+speakup.s/config:CONFIG_SCSI_SATA_ULI=y
+speakup.s/config:CONFIG_SCSI_SATA_VIA=y
+speakup.s/config:CONFIG_SCSI_SATA_VITESSE=y
+
+test26.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+test26.s/config:CONFIG_SCSI_SATA=y
+test26.s/config:CONFIG_SCSI_SATA_AHCI=y
+test26.s/config:CONFIG_SCSI_SATA_SVW=y
+test26.s/config:CONFIG_SCSI_SATA_MV=y
+test26.s/config:CONFIG_SCSI_SATA_NV=y
+test26.s/config:CONFIG_SCSI_SATA_QSTOR=y
+test26.s/config:CONFIG_SCSI_SATA_PROMISE=y
+test26.s/config:CONFIG_SCSI_SATA_SX4=y
+test26.s/config:CONFIG_SCSI_SATA_SIL=y
+test26.s/config:CONFIG_SCSI_SATA_SIL24=y
+test26.s/config:CONFIG_SCSI_SATA_SIS=y
+test26.s/config:CONFIG_SCSI_SATA_ULI=y
+test26.s/config:CONFIG_SCSI_SATA_VIA=y
+test26.s/config:CONFIG_SCSI_SATA_VITESSE=y
+test26.s/config:CONFIG_SCSI_SATA_INTEL_COMBINED=y
+
+xfs.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+xfs.s/config:CONFIG_SCSI_SATA=y
+xfs.s/config:CONFIG_SCSI_SATA_AHCI=m
+xfs.s/config:CONFIG_SCSI_SATA_SVW=m
+xfs.s/config:CONFIG_SCSI_SATA_NV=m
+xfs.s/config:CONFIG_SCSI_SATA_QSTOR=m
+xfs.s/config:CONFIG_SCSI_SATA_PROMISE=m
+xfs.s/config:CONFIG_SCSI_SATA_SX4=m
+xfs.s/config:CONFIG_SCSI_SATA_SIL=m
+xfs.s/config:CONFIG_SCSI_SATA_SIS=m
+xfs.s/config:CONFIG_SCSI_SATA_ULI=m
+xfs.s/config:CONFIG_SCSI_SATA_VIA=m
+xfs.s/config:CONFIG_SCSI_SATA_VITESSE=m
+
+zipslack.s/config:# CONFIG_BLK_DEV_IDE_SATA is not set
+zipslack.s/config:CONFIG_SCSI_SATA=y
+zipslack.s/config:CONFIG_SCSI_SATA_AHCI=y
+zipslack.s/config:CONFIG_SCSI_SATA_SVW=y
+zipslack.s/config:CONFIG_SCSI_SATA_NV=y
+zipslack.s/config:CONFIG_SCSI_SATA_QSTOR=y
+zipslack.s/config:CONFIG_SCSI_SATA_PROMISE=y
+zipslack.s/config:CONFIG_SCSI_SATA_SX4=y
+zipslack.s/config:CONFIG_SCSI_SATA_SIL=y
+zipslack.s/config:CONFIG_SCSI_SATA_SIS=y
+zipslack.s/config:CONFIG_SCSI_SATA_ULI=y
+zipslack.s/config:CONFIG_SCSI_SATA_VIA=y
+zipslack.s/config:CONFIG_SCSI_SATA_VITESSE=y

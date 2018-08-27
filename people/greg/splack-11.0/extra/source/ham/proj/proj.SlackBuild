@@ -1,0 +1,55 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-proj
+
+VERSION=4.4.9
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mcpu=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf proj-$VERSION
+tar xjvf $CWD/proj-$VERSION.tar.bz2
+cd proj-$VERSION/nad
+tar zjvf $CWD/proj-nad27-1.2.tar.bz2
+cd ..
+chown -R root.root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr
+make
+make install DESTDIR=$PKG
+rm -f $PKG/usr/lib/*.a
+chown -R root.bin $PKG/usr/bin
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+mkdir -p $PKG/usr/doc/proj-$VERSION
+cp -a \
+  AUTHORS COPYING ChangeLog NEWS README \
+  $PKG/usr/doc/proj-$VERSION
+gzip -9 $PKG/usr/man/man?/*
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/proj-$VERSION-$ARCH-$BUILD.tgz
+				    

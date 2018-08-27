@@ -1,0 +1,79 @@
+
+This version of Slackware contains support in glibc for NPTL (the 
+Native POSIX Thread Library).  NPTL works with newer kernels (meaning 
+2.6.x, or a 2.4 kernel that is patched to support NPTL, but not an 
+unmodified "vanilla" 2.4 kernel such as Slackware uses) to provide 
+improved performance for threads.  For most applications that do not 
+start large numbers of threads the difference here will not be large, 
+but for high traffic servers, databases, or anything that runs large 
+numbers of threads, NPTL should bring some improvements in scalability 
+and performance.  For compatibility, the regular (linuxthreads) 
+libraries are installed in /lib, and the new NPTL versions are 
+installed in /lib/tls.  Which versions are used depends on the kernel 
+you're using.  If it's newer than 2.6.13, then the NPTL libraries in 
+/lib/tls will be used.  TLS stands for "thread-local storage", and the 
+directory name /lib/tls is a little bit misleading since now both the 
+linuxthreads and NPTL versions of glibc are compiled with TLS support 
+included (this is needed to produce versions of tools such as ldconfig 
+that can run under either kind of system).
+
+Getting all the kinks out of the build script to be able to get this to 
+work with either 2.4 or 2.6 kernels and be able to switch back and 
+forth without issues was quite a challenge, to say the least, and would 
+have been much harder without all the good advice and help folks sent 
+in to help me along and give me important hints.  A special thanks goes 
+to Chad Corkrum for sending in some ./configure options that really 
+helped get the ball rolling here.
+
+Here's some information about compiling things using these libraries -- 
+by default, if you compile something the headers and shared libraries 
+used to compile and link the binary will be the linuxthreads versions, 
+but when you go to run the binary it will link to the NPTL library 
+versions (and you'll get the NPTL speed improvements) if you are 
+running an NPTL capable kernel.  In rare cases you may find that an old 
+binary doesn't work right when run against the NPTL libs, and in this 
+case you can force it to run against the linuxthreads versions by 
+setting the LD_ASSUME_KERNEL variable to assume the use of a 2.4.x 
+(non-NPTL) kernel so that NPTL will not be used.  An easy way to see 
+the effect of this is to try something like the following while using 
+an NPTL enabled kernel:
+  
+  volkerdi@tree:~$ ldd /bin/bash
+        linux-gate.so.1 =>  (0xffffe000)
+        libtermcap.so.2 => /lib/libtermcap.so.2 (0xb7fcf000)
+        libdl.so.2 => /lib/tls/libdl.so.2 (0xb7fcb000)
+        libc.so.6 => /lib/tls/libc.so.6 (0xb7eaf000)
+        /lib/ld-linux.so.2 (0xb7feb000)
+
+Note that in the example above, the binary is running against the NPTL 
+libraries in /lib/tls.  Now, let's try setting LD_ASSUME_KERNEL:
+
+  volkerdi@tree:~$ LD_ASSUME_KERNEL=2.4.30 ldd /bin/bash
+        linux-gate.so.1 =>  (0xffffe000)
+        libtermcap.so.2 => /lib/libtermcap.so.2 (0xb7fcf000)
+        libdl.so.2 => /lib/libdl.so.2 (0xb7fcb000)
+        libc.so.6 => /lib/libc.so.6 (0xb7eb2000)
+        /lib/ld-linux.so.2 (0xb7feb000)
+
+As you can see, now the binary is running against the linuxthreads 
+version of glibc in /lib.  If you find old things that won't work with 
+NPTL (which should be rare), this is the method you'll want to use to 
+work around it.
+
+Now for a little note about compiling things.  In most cases it will be 
+just fine to compile against linuxthreads and run against NPTL, and 
+this approach will produce the most flexible binaries (ones that will 
+run against either linuxthreads or NPTL.)  However, in some cases you 
+might want to use some of the new functions that are only available in 
+NPTL, and to do that you'll need to use the NPTL versions of pthread.h 
+and other headers that are different and link against the NPTL versions 
+of the glibc libraries.  To do this you'll need to add these compile 
+flags to your build in an appropriate spot:
+
+    -I/usr/include/nptl -L/usr/lib/nptl
+    (and link with -lpthread, of course)
+
+Have fun, and report any problems to volkerdi@slackware.com.
+
+Pat
+

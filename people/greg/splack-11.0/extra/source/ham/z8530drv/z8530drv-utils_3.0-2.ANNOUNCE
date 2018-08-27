@@ -1,0 +1,47 @@
+From - Mon Aug 17 13:47:09 1998
+From: Joerg Reuter <jreuter@poboxes.com>
+To: linux-hams@vger.rutgers.edu
+
+Hello folks,
+
+I've just uploaded a .deb, RPM and the corresponding source tar ball
+of the z8530drv-utils-3.0 to ftp://ftp.ccac.rwth-aachen.de/pub/jr/
+
+I just quote the README here:
+z8530drv-utils-3.0-2 (or "-3" for the RPM)
+------------------------------------------
+
+For:
+        - glibc2 AKA libc-6 systems
+        - z8530drv-3.0
+
+Use z8530drv-2.4c-dl1bke.tar.gz for the stock driver delivered with
+Linux kernel 2.0.x. Use z8350drv-3.0-1.dl1bke.tar.gz for a libc-5
+system (type 'ls -l /lib/libc.so.?' on your system to reveal which one 
+you are running. A glibc2 system has a file named "libc.so.6" which
+is a link to libc-2.*. You are running an old libc-5 system if libc.so.6
+does _not_ exist).
+
+Files
+=====
+
+z8530drv-utils_3.0-2_i386.deb           Binary distribution of the utilities
+z8530drv-utils_3.0-2_i386.changes       PGP signed checksum of .deb archive
+z8530drv-utils_3.0-2.tar.gz             GLIBC compliant sources
+z8530drv-utils_3.0-2.dsc                PGP signed checksum of .tar.gz
+z8530drv-utils-3.0-3.i386.rpm           RPM, converted from .deb with alien
+
+
+(End of cut-n-paste)
+
+There is also a patch for Linux kernel 2.0.35 for an upgrade to
+z8530drv-3.0 on that site. It is only for the brave at heart. The 
+patch may or may not work. Though it works perfectly for me (of course)
+it may crash your machine. Thus, (ATTN Alan:) not for inclusion into 
+2.0.36. :-))
+
+73,
+
+Joerg Reuter                                 http://poboxes.com/jreuter/
+And I make my way to where the warm scent of soil fills the evening air. 
+Everything is waiting quietly out there....                 (Anne Clark)

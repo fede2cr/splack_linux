@@ -1,0 +1,50 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+PKG=/tmp/package-brltty
+
+VERSION=3.7.2
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-1}
+
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf brltty-$VERSION
+tar xjvf $CWD/brltty-$VERSION.tar.bz2
+cd brltty-$VERSION
+chown -R root:root .
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 700 -exec chmod 755 {} \;
+find . -perm 744 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+./configure $ARCH-slackware-linux
+make
+make install INSTALL_ROOT=$PKG
+rm -r $PKG/dev
+chmod 755 $PKG/bin/* $PKG/sbin/* $PKG/lib/brltty/*
+mkdir -p $PKG/usr/doc/brltty-$VERSION
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+cp -a \
+  README* COPYING \
+  Documents/Manual-HTML Documents/Manual.txt \
+  $PKG/usr/doc/brltty-$VERSION
+mv $PKG/usr/share/man $PKG/usr
+gzip -9 $PKG/usr/man/man?/*.?
+rmdir $PKG/usr/share
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../brltty-$VERSION-$ARCH-$BUILD.tgz
+

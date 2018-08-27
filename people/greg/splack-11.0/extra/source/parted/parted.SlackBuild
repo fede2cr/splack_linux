@@ -1,0 +1,46 @@
+#!/bin/sh
+CWD=`pwd` 
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-parted
+rm -rf $PKG
+mkdir -p $PKG
+
+VERSION=1.7.1
+ARCH=${ARCH:-i486}
+BUILD=1
+
+cd $TMP
+rm -rf parted-$VERSION
+tar xjvf $CWD/parted-$VERSION.tar.bz2
+cd parted-$VERSION
+chown -R root:root .
+CFLAGS=-O2 \
+./configure \
+  --prefix=/usr \
+  --enable-shared=no \
+  --enable-static=yes \
+  --with-readline
+make
+make install DESTDIR=$PKG
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "current ar archive" | cut -f 1 -d : | xargs strip -g 2> /dev/null
+)
+mkdir -p $PKG/usr/doc/parted-$VERSION
+cp -a \
+  AUTHORS BUGS COPYING NEWS README THANKS TODO \
+  doc/{API,FAT} \
+  $PKG/usr/doc/parted-$VERSION
+rm $PKG/usr/info/dir
+gzip -9 $PKG/usr/info/*
+( cd $PKG/usr/man
+  find . -type f -exec chmod 644 {} \;
+  find . -type f -exec gzip -9 {} \;
+)
+mkdir $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../parted-$VERSION-$ARCH-$BUILD.tgz
+

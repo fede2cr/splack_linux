@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+libsafe: libsafe 
+libsafe:
+libsafe: The libsafe library protects a process against the exploitation of
+libsafe: buffer overflow vulnerabilities in process stacks and against format
+libsafe: string exploits.  Libsafe works with any existing pre-compiled
+libsafe: executable and can be used transparently, even on a system-wide basis.
+libsafe: The method intercepts all calls to library functions that are known to
+libsafe: be vulnerable.  Libsafe has been shown to detect several known attacks
+libsafe: and can potentially prevent yet unknown attacks.  Experiments indicate
+libsafe: that the performance overhead of libsafe is negligible.
+libsafe:

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+dip: dip (Dialup IP connection handler)
+dip:
+dip: Uri Blumenthal's version of Fred N. van Kempen's DIP utility. DIP 
+dip: handles the connections needed for dialup IP links, like SLIP or
+dip: CSLIP.  It can handle both incoming and outgoing connections, using
+dip: password security for incoming connections.  
+dip:
+dip: This is seldom used these days, as most dialups use PPP, not SLIP.
+dip: It's still useful for running IP over a serial connection, though.
+dip:
+dip:

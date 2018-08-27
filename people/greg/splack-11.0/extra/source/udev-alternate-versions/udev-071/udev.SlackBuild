@@ -1,0 +1,69 @@
+#!/bin/sh
+CWD=`pwd`
+PKG=/tmp/package-udev
+
+VERSION=071
+ARCH=${ARCH:-i486}
+BUILD=${BUILD:-2}
+
+rm -rf $PKG
+mkdir -p $PKG
+cd /tmp
+rm -rf udev-$VERSION
+tar xjvf $CWD/udev-$VERSION.tar.bz2
+cd udev-$VERSION
+chown -R root:root .
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+find . -perm 444 -exec chmod 644 {} \;
+find . -perm 400 -exec chmod 644 {} \;
+find . -perm 440 -exec chmod 644 {} \;
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 511 -exec chmod 755 {} \;
+find . -perm 711 -exec chmod 755 {} \;
+find . -perm 555 -exec chmod 755 {} \;
+make
+make EXTRAS=extras/run_directory/
+make install DESTDIR=$PKG
+cp -a extras/run_directory/udev_run_devd $PKG/sbin
+cp -a extras/run_directory/udev_run_hotplugd $PKG/sbin
+# No thanks, we don't use this
+rmdir $PKG/udev 2> /dev/null
+mv $PKG/usr/share/man $PKG/usr
+rmdir $PKG/usr/share
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+rm -r $PKG/etc/udev
+mkdir -p $PKG/etc/udev/rules.d \
+         $PKG/etc/udev/scripts \
+         $PKG/etc/rc.d
+# Yes, this will clobber an existing config file.  This hasn't stabilized, so tough p-tooty.
+cat $CWD/config/udev.conf > $PKG/etc/udev/udev.conf
+cat $CWD/config/rules.d/compat.rules.unsupported > $PKG/etc/udev/rules.d/compat.rules.unsupported
+cat $CWD/config/rules.d/devfs.rules.unsupported > $PKG/etc/udev/rules.d/devfs.rules.unsupported
+cat $CWD/config/rules.d/udev.rules > $PKG/etc/udev/rules.d/udev.rules
+cat $CWD/config/scripts/floppy-extra-devs.sh > $PKG/etc/udev/scripts/floppy-extra-devs.sh
+cat $CWD/config/scripts/ide-devfs.sh > $PKG/etc/udev/scripts/ide-devfs.sh
+cat $CWD/config/scripts/make_extra_nodes.sh > $PKG/etc/udev/scripts/make_extra_nodes.sh
+cat $CWD/config/scripts/scsi-devfs.sh > $PKG/etc/udev/scripts/scsi-devfs.sh
+chmod 755 $PKG/etc/udev/scripts/*
+cat $CWD/config/rc.d/rc.udev > $PKG/etc/rc.d/rc.udev.new
+# This will default to off until (if) udev stabilizes enough for everyday use.
+chmod 644 $PKG/etc/rc.d/rc.udev.new
+mkdir -p $PKG/usr/doc/udev-$VERSION
+cp -a \
+  COPYING FAQ HOWTO-udev_for_dev README README-gcov_for_udev TODO \
+  docs \
+  $PKG/usr/doc/udev-$VERSION
+gzip -9 $PKG/usr/man/man?/*.?
+( cd $PKG/usr/man/man8 ; rm udevsend.8 ; ln -sf udevd.8.gz udevsend.8.gz )
+mkdir -p $PKG/install
+zcat $CWD/doinst.sh > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../udev-$VERSION-$ARCH-$BUILD.tgz
+

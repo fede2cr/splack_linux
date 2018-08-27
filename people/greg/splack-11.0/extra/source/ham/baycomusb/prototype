@@ -1,0 +1,59 @@
+IGNOREPATH=/boot:/cdrom:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/log:/var/spool/cron
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.10
+PROGNAME="baycomusb"
+DESC="Driver for the Baycom USB packet modem\n\
+\n\
+Author: Thomas Sailer <sailer@ife.ee.ethz.ch>\n\
+\n\
+Requires package: libxml (from Slackware 8.1)"
+
+# maintainer
+ARCH=i486
+BUILD=2
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="http://www.baycom.org/bayweb/term/jnx/"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/slackware/slackware-current/extra/ham/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar xvzf $CWD/$PROGNAME-$VERSION.tar.gz
+   cd $PROGNAME-$VERSION
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   make install
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cp AUTHORS ChangeLog NEWS README INSTALL /usr/doc/$PROGNAME-$VERSION
+}
+
+attributes() {
+}
+
+special() {
+   # Generate a slack-desc file
+ 
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+ 
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+ 
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}

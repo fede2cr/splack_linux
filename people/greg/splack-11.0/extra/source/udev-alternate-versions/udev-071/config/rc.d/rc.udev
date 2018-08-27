@@ -1,0 +1,50 @@
+#! /bin/bash
+# script to initialize /dev by using udev.
+#
+# Copyright (C) 2004 Greg Kroah-Hartman <greg@kroah.com>
+# Released under the GPL v2 only.
+
+. /etc/udev/udev.conf
+
+# This is mostly for reference, as udevstart is usually used instead.
+run_udev() {
+  # handle block devices and their partitions
+  for i in /sys/block/*; do
+    # add each drive
+    export DEVPATH=${i#/sys}
+    /sbin/udev block
+    # add each partition, on each device
+    for j in $i/*; do
+      if [ -f $j/dev ]; then
+        export DEVPATH=${j#/sys}
+        /sbin/udev block
+      fi
+    done
+  done
+  # all other device classes
+  for i in /sys/class/*; do
+    for j in $i/*; do
+      if [ -f $j/dev ]; then
+        export DEVPATH=${j#/sys}
+        CLASS=`echo ${i#/sys} | cut --delimiter='/' --fields=3-`
+        /sbin/udev $CLASS
+      fi
+    done
+  done
+  return 0
+}
+
+# If we see sysfs mounted and the kernel supports hotplug, then try to start udev:
+if [ -d /sys/block -a -r /proc/sys/kernel/hotplug ]; then
+  echo "Initializing udev dynamic device directory."
+  mount -n -t ramfs none $udev_root
+  export ACTION=add
+  export UDEV_NO_SLEEP=1
+  # You can use the shell scripts above by calling run_udev or execute udevstart
+  # which does the same thing, but much faster by not using shell.
+  #  only comment out one of the following lines.
+  #run_udev
+  /sbin/udevstart
+  . /etc/udev/scripts/make_extra_nodes.sh
+fi
+

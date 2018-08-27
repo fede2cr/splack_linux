@@ -1,0 +1,30 @@
+--- include/Makefile.orig	2007-05-20 18:53:39.000000000 -0400
++++ include/Makefile	2007-05-20 18:54:14.000000000 -0400
+@@ -1,5 +1,5 @@
+ GCC=gcc
+-CFLAGS=-pipe -O2 -g #-Wall #-w
++CFLAGS=-pipe -O2 -g -m32 -mcpu=v8 -mtune=v9 #-Wall #-w
+ 
+ all: umsdos_gen.h
+ 
+--- util/Makefile.orig	2007-05-20 19:14:05.000000000 -0400
++++ util/Makefile	2007-05-20 19:15:42.000000000 -0400
+@@ -1,6 +1,6 @@
+ GCC=gcc
+ INC=-I../include
+-CFLAGS=$(INC) -pipe -O2 -g -Wall -Wno-implicit-function-declaration -Wno-implicit #-w
++CFLAGS=$(INC) -pipe -O2 -g -Wall -Wno-implicit-function-declaration -Wno-implicit -m32 -mcpu=v8 -mtune=v9 #-w
+ 
+ all: .depend testver_min testver udump umssync udosctl umssetup
+ other: 
+--- tests/Makefile.orig	2007-05-20 19:23:55.000000000 -0400
++++ tests/Makefile	2007-05-20 19:36:12.000000000 -0400
+@@ -1,7 +1,7 @@
+ GPP=g++
+ GCC=gcc
+ INC=-I../include -I../../include
+-CFLAGS=-O2 -g -pipe $(INC) -Wall
++CFLAGS=-O2 -g -pipe $(INC) -Wall -m32 -mcpu=v8 -mtune=v9
+ all: mangle utstgen utstspc
+ 
+ # builtin test in mangle.c

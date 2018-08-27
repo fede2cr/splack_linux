@@ -1,0 +1,71 @@
+IGNOREPATH=/boot:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/ax25:/var/log:/var/spool/cron
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.9
+PROGNAME=soundmodem
+DESC="Usermode Soundcard Modem driver \n\
+\n\
+This package contains the driver and the diagnostic \n\
+utility for userspace SoundModem. It allows you to use \n\
+soundcards supported by OSS/Free as Amateur Packet Radio\n\
+modems.\n\
+Author: Thomas Sailer <sailer@ife.ee.ethz.ch>\n\
+\n\
+Requires audiofile to be installed."
+
+# maintainer
+ARCH=i486
+BUILD=2
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="http://www.baycom.org/~tom/ham/soundmodem/"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar xjvf $CWD/$PROGNAME-$VERSION.tar.bz2
+   cd $PROGNAME-$VERSION
+   ./configure --prefix=/usr --localstatedir=/var
+   make
+}
+
+install() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install
+   /usr/bin/install -g root -o root -m 0755 $CWD/soundmodem.initscript /etc/rc.d/rc.soundmodem
+   /usr/bin/install -g root -o root -m 0755 -d /etc/ax25
+   touch /etc/ax25/soundmodem.conf
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cp AUTHORS ChangeLog INSTALL NEWS README /usr/doc/$PROGNAME-$VERSION
+}
+
+attributes() {
+   chmod 0600 /etc/ax25/soundmodem.conf
+   chown 0.0 /etc/ax25/soundmodem.conf
+}
+    
+
+special() {
+   # Generate a slack-desc file
+
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+
+subpacks() {
+   echo "no sub-packages..."
+}

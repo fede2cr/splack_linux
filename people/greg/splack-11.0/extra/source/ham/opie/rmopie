@@ -1,0 +1,4 @@
+echo "clean-up after (unsuccessfull) build..."
+rm `find / -name "opie*" | grep -v "/usr/src" | grep -v "/home" | grep -v "/proc" | grep -v "/tmp" | grep -v "var" | grep -v "/mnt"`
+rm -r `find / -name "opie*" | grep -v "/usr/src" | grep -v "/home" | grep -v "/proc" | grep -v "/tmp" | grep -v "var" | grep -v "/mnt"`
+rm `find / -name "otp*" | grep -v "/usr/src" | grep -v "/home" | grep -v "/proc" | grep -v "/tmp"`

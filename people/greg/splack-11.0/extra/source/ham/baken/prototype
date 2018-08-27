@@ -1,0 +1,49 @@
+IGNOREPATH=/boot:/cdrom:/dev:/home:/mnt:/proc:/root:/tmp:/var/ax25:/var/log:/var/spool/cron
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.5.3
+PROGNAME=baken
+DESC="Visualisation of VHF/UHF and microwave beacons \n\
+on a map of Europe. As input it takes the file produced \n\
+by G3UUT the Region 1 Beacon Co-ordinator, and attempts \n\
+to extract the beacon data from it. \n\
+Author: Jonathan Naylor, G4KLX."
+
+# maintainer
+ARCH=i486
+BUILD=1
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="http://www.qsl.net:80/g4klx/"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/propagation/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar zxvf $CWD/$PROGNAME-$VERSION.tar.gz
+   zcat $CWD/$PROGNAME-$VERSION.diff.gz | patch -p0 --verbose
+   cd $PROGNAME-$VERSION
+   PATH=$PATH:/opt/gnome/bin:/opt/gnome/sbin
+   make
+}
+
+install() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install-prog
+   /usr/bin/install -g bin -o root -m 0775 iaru /usr/bin
+   /usr/bin/install -g root -o root -m 0755 -d /opt/kde/share/applnk/HamRadio 
+   /usr/bin/install -g root -o root -m 0644 $CWD/baken.kdelnk /opt/kde/share/applnk/HamRadio/baken.kdelnk 
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cp  CHANGES INSTALL README /usr/doc/$PROGNAME-$VERSION
+}
+
+special() {
+   echo "nothing special..."
+}
+
+subpacks() {
+   repack data
+   repack map
+}

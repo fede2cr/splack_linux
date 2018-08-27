@@ -1,0 +1,236 @@
+
+This file documents the packages added (Package Additions) and
+removed (Package Removals) during the development cycle from
+Slackware 10.2 through Slackware 11.0, as well as some potential
+"gotchas" that users can avoid by arming themselves with
+a little knowledge.
+
+
+Package Additions Since 10.2:
+
+    * a/pcmciautils
+    * a/sharutils (split from bin)
+    * a/acl (split from xfsprogs)
+    * a/attr (split from xfsprogs)
+    * a/sysfsutils
+    * a/sysstat
+    * ap/diffstat
+    * ap/dmapi (split from xfsprogs)
+    * ap/linuxdoc-tools
+    * ap/lm_sensors
+    * ap/xfsdump (split from xfsprogs)
+    * d/git
+    * d/mercurial
+    * d/ruby
+    * kde/amarok
+    * kde/qca
+    * kde/qca-tls
+    * l/apr
+    * l/apr-util
+    * l/cairo
+    * l/db42 (for backwards compatibility)
+    * l/db44 (upgrade from db4; see "Package Removals" and
+      "Other Notable Changes and Hints"
+    * l/desktop-file-utils
+    * l/freetype (split from x11) - see note in "Other Notable Changes
+      and Hints" below
+    * l/gd
+    * l/gnome-icon-theme
+    * l/hicolor-icon-theme
+    * l/libgpod
+    * l/libmtp
+    * l/libmusicbrainz
+    * l/libnjb
+    * l/libtheora
+    * l/libtunepimp
+    * l/libvisual (library only, no plugins yet - but this should allow 
+      for compiling audio visualization plugins for amarok without a 
+      recompile of amarok itself)
+    * l/mm (split from apache)
+    * l/mpfr (split from gmp)
+    * l/neon (split from subversion)
+    * l/slang1 (renamed from slang)
+    * l/slang (Added slang 2)
+    * n/mailx (renamed from nail)
+    * n/rdesktop
+    * x/dejavu-ttf
+    * x/fontconfig (split from x11) - see note in "Other Notable
+      Changes and Hints" below
+    * x/ttf-indic-fonts - see note in "Other Notable Changes and
+      Hints" below.
+    * xap/seamonkey
+    * xap/vim-gvim (renamed from xvim) - this package now depends on 
+      ap/vim
+    * kernels/huge26.s/* - added a 2.6.17.13 kernel to the official 
+      (supported) package set.  The user will be given a choice of
+      whether to install the 2.4.33.3 or 2.6.17.13 kernel.  If a 2.6
+      kernel is used, additional packages must be added after the
+      installation -- at the very least the kernel-modules package.
+      Possibly also the kernel-headers to provide /usr/include/sound
+      used to compile ALSA applications.
+    * extra/linux-smp-2.6.17.13/* - added a 2.6.17.13 kernel, modules, 
+      and headers with SMP and hyperthreading support, optimized for
+      i686 or better cores (including dual core CPUs).
+
+
+Package Removals Since 10.2:
+
+    * ap/sgml-tools (replaced with linuxdoc-tools)
+    * d/python-demo (merged with python package)
+    * d/python-tools (merged with python package)
+    * l/db3 (moved to /pasture)
+    * l/db31 (moved to /pasture)
+    * l/db4-* (moved to /pasture)
+    * n/nail (renamed to mailx - see "Package Additions")
+    * xap/abiword (became a pure Gnome app)
+    * xap/mozilla (replaced with seamonkey)
+    * xap/xvim (renamed to vim-gvim) - see note above in "Package 
+      Additions" 
+
+
+Other Notable Changes and Hints:
+
+    * Both the 2.4.x and 2.6.x kernels included are now compiled with 
+high memory support.
+
+    * Many old bison and db packages were pasture-ized from d/ and 
+extra/ and so on; after upgrading/installing Slackware 11.0, you should 
+have *one* bison package and *two* db packages (the db packages are 
+listed in the package additions above) 
+
+    * a/devs was upgraded during the -current development cycle.  You 
+CANNOT upgrade this package while udev is running - you'll need to 
+chmod -x /etc/rc.d/rc.udev, reboot, upgrade the devs package, and then 
+reboot again.  Actually, you don't *have* to reboot again, but if you 
+know that, then you likely know how to go about it that way :)
+If you don't know the trick, here's how to do it (no secrets here):
+  sh /etc/rc.d/rc.udev stop
+  umount /dev/pts
+  umount /dev/shm
+  umount -l /dev
+  installpkg devs*.tgz
+  sh /etc/rc.d/rc.udev start
+  mount -av
+Thanks to Richard Hoyle for this information.
+
+    * So long as we're on the subject of a/devs, be aware that this 
+package is still *required* in order to boot, even if you're using
+a 2.6 kernel and udev, so don't remove it.
+
+    * a/lilo and a/kernel-* were upgraded during the -current 
+development cycle, so be sure to run /sbin/lilo prior to rebooting.
+
+    * glibc was upgraded during the -current development cycle, so be 
+sure to follow the instructions in UPGRADE.TXT when upgrading (do the 
+upgrade in runlevel 1).
+
+    * There was a major upgrade to a/udev and a/sysvinit - make *sure* 
+you merge the *.new scripts in /etc/rc.d prior to rebooting or you 
+*will* have problems.
+
+    * If you're having trouble with udev, make sure you've synchronized
+all of the .new config files and init scripts first.  Most of these
+issues can be fixed with a little bit of fine tuning, such as
+blacklisting unwanted modules in /etc/modprobe.d/blacklist and loading
+the desired replacements in /etc/rc.d/rc.modules.  Often simply
+blacklisting them will result in udev loading the correct modules.
+Also, keep in mind that newer versions of udev (084+) require at least
+a 2.6.15.x kernel.  Experiment with it before resorting to this, but if
+you simply must have one of them, there are alternate versions of udev
+in /extra.
+
+    * If you're running a 2.6 kernel and new udev (084+) on a router, 
+you'll probably need to uncomment (and possibly edit to suit) the rules 
+in /etc/udev/rules.d/network-devices.rules to make your interfaces 
+always get the same names assigned.  Hotplugging events are generated 
+(and processed) in random order by udev, so there's no guarantee that 
+your current eth0 will *always* be eth0 unless you uncomment (and 
+possibly edit) those rules.
+
+    * If you need custom udev rules, DO NOT edit the default udev.rules 
+file - any changes you make will be clobbered with the next udev 
+upgrade.  The correct way is to add a custom file to the 
+/etc/udev/rules.d/ directory - most people use '10-local.rules' - and 
+add your custom rules there.  If there is some reason that one of the 
+default rules needs to be changed, mail Piter Punk and/or Pat with an 
+explanation.
+
+    * the php package now depends on l/freetype
+
+    * As indicated above, freetype and fontconfig were split out of the 
+main X11 packages.  You need to upgrade the main x11 package first, then 
+install fontconfig and freetype, then upgrade the remainder of the x11 
+packs; otherwise, they give an error during postinstall about not being 
+able to load fontconfig libs.
+
+    * The psmouse module is blacklisted by default in the 
+/etc/modprobe.d/blacklist file due to problems with the default kernel 
+options used when it loads; this allows you to load it (from 
+rc.modules, for example) with option "proto=imps" if you need it, or 
+you are certainly free to comment it out in the blacklist file if it 
+works fine for you with the kernel defaults.
+
+    * n/apache now depends on l/mm (l/mm was split from apache)
+
+    * xap/seamonkey was chosen to provide the Mozilla development
+environment (primarily because the official binaries are used for the
+Firefox package, and these do not contain the development headers).
+At this time, only GAIM links with SeaMonkey's libraries, but if you
+are planning to compile something needing "Mozilla" libraries and
+headers, be sure SeaMonkey is installed.
+
+    * There have been quite a few reports that fonts are 'ugly' after 
+upgrading; one way to fix it is to remove /etc/fonts/local.conf if it 
+exists.  If it doesn't exist, or that doesn't work, go into KControl's 
+font settings, uncheck the box for antialiasing, and apply the changes. 
+Then, recheck the box and apply the changes.  This should create a 
+$HOME/.fonts.conf file.  You might consider copying the contents of this 
+newly created file to /etc/fonts/local.conf if you want to fix it for 
+all users on the system.  Thanks to Pat for the initial suggestion with 
+KControl, and thanks to ananke for working out exactly what changes are 
+necessary to fix it.
+
+    * php5 and lvm2 are available in /extra if you would like to use 
+them
+
+    * Slackware's vim package now (starting with vim-7.0.066-i486-1)
+includes a $VIM/vimrc file (in this case, /usr/share/vim/vimrc) for
+vim's default configuration.  This default should provide a suitable
+start for most and your ~/.vimrc will override it if not, but if you
+had previously not explicitly set, e.g., 'backup', because vim's
+compiled-in default resulted in no backups and that suited you, the
+$VIM/vimrc includes 'set backup' and you will suddenly be keeping
+backups.  These settings can be overridden individually (in this case
+with 'set nobackup') but one of several ways to avoid having
+$VIM/vimrc affecting your configuration at all is to put this at the
+top of your ~/.vimrc, overriding everything in $VIM/vimrc: 
+
+ set all& " reset all options to compiled in defaults (thanks to deryni in #vim)
+ unmap Q " remove mapping to gq
+ syntax off " turn syntax off
+ filetype plugin indent off " turn filetype detection off
+ augroup! vimrcEx " delete the autocommand group that wraps text, etc.
+
+    * If you have an ati radeon card and are experiencing problems with 
+it locking up, there is a patched set of ati modules at 
+/extra/x11-radeon-patched/ - if you are not experiencing problems, then 
+don't install this, as it does tend to cause problems if you weren't 
+already having them...
+
+    * The ttf-indic-fonts package supports Bengali, Devanagari, 
+Gujarati, Kannada, Malayalam, Oriya, Punjabi, Tamil, and Telugu.  For 
+information about fully enabling Indic support (including input), see: 
+/usr/doc/Linux-HOWTOs/Indic-Fonts-HOWTO.
+
+    * As part of the upgrade to nfs-utils and portmap, the 
+/etc/rc.d/rc.portmap script has been replaced by /etc/rc.d/rc.rpc.  The 
+rc.rpc script does not have to be executable unless you plan on 
+mounting nfs shares manually (as it will be run by other init scripts 
+if any nfs shares or mounts are detected), or if you plan to run
+YP/NIS.
+
+----
+This file is made available under the GFDL 1.2.
+Thanks to Robby Workman and other contributors for helping to track
+the many changes from Slackware 10.2 to Slackware 11.0.
+

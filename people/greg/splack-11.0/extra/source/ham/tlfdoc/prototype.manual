@@ -1,0 +1,36 @@
+# pkginfo
+
+VERSION=0.8.20
+PROGNAME="tlfdoc"
+DESC="TLF manual (html)"
+
+
+BUILD=1
+ARCH=noarch
+
+# package name
+SUBPKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+
+subinstall() {
+   cd /usr/doc
+   tar zxvf $CWD/$PROGNAME-$VERSION.tar.gz
+}
+
+    
+subspecial() {
+   # Generate a slack-desc file
+
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $SUBCTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}

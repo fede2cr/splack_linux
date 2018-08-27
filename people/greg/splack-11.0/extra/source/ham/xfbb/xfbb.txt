@@ -1,0 +1,36 @@
+FBB is a bulletin board software package for amateur packet-radio.
+FBB is developed by Jean-Paul Roubelat, F6FBB.
+
+This binary package is made for use with a glibc2 based Slackware Linux 
+distribution. It's built for Slackware 9.1.
+
+If you intend to use the xfbbX client or the full X11 version of the FBB server
+you also need to make sure that the lesstif (l series) package is installed.
+
+Use 'pkgtool' to install or remove these from your system.
+These can also be installed with 'installpkg xfbb-7.04h-i486-4.tgz'.
+
+When your system does not yet contain the proper FBB config files then the
+X11 FBB server will not start. To create the config files first start ffb from
+the console.
+
+Need more help? Join the xfbb mailing list. Send a mail to:
+
+    xfbb-request@f6fbb.org
+
+with the word:
+
+    subscribe
+
+in the message body or subject line.
+
+The xfbb mailing list is archived at:
+
+    http://hes.iki.fi/archive/
+
+Please use the archives when you are first starting, because many common 
+questions are answered there. 
+
+Enjoy!                                                      
+73, Arno  pe1icq@amsat.org                                                      
+          pe1icq@pi8zaa.#nbo.nld.eu

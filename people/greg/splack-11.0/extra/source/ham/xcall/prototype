@@ -1,0 +1,68 @@
+IGNOREPATH=/boot:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/ax25:/var/log:/var/spool/cron
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.15
+PROGNAME=xcall
+DESC="Packet radio program for X/GTK\n\
+Xcall is a packet radio program which supports the AX.25,\n\
+NET/ROM and Rose protocols. The current features of xcall\n\
+include: Command line history, Recording of the session\n\
+into a file, AX.25 port information read from the proc\n\
+filesystem, Changing of the receive window font and colors,\n\
+Dutch and French Language support, Basic support for DX\n\
+Clusters. Author:  Joop Stakenborg <pa3aba@debian.org>\n\
+\n\
+Requires glib & gtk+ to be installed."
+
+# maintainer
+ARCH=i486
+BUILD=3
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="http://people.debian.org/~pa3aba/download"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/extra/ham/"
+
+# package name
+PKGNAME=$PROGNAME-$VERSION-$ARCH-$BUILD
+
+compile() {
+   tar zxvf $CWD/${PROGNAME}-$VERSION.tar.gz
+   cd $PROGNAME-$VERSION
+   ./configure --prefix=/usr
+   make
+}
+
+install() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install
+   /usr/bin/install -g root -o root -m 0755 -d /opt/kde/share/applnk/HamRadio
+   /usr/bin/install -g root -o root -m 0644 $CWD/xcall.desktop /opt/kde/share/applnk/HamRadio/xcall.desktop
+   /usr/bin/install -g root -o root -m 0755 -d /usr/share/gnome/apps/HamRadio
+   /usr/bin/install -g root -o root -m 0644 $CWD/xcall.desktop /usr/share/gnome/apps/HamRadio/xcall.desktop
+   mkdir -p /usr/doc/$PROGNAME-$VERSION
+   cd $TMP/$PROGNAME
+   cp AUTHORS ChangeLog INSTALL NEWS README /usr/doc/$PROGNAME-$VERSION
+}
+
+special() {
+   # Generate a slack-desc file
+
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PROGNAME:" >> $TMP/leftside
+   done
+
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}
+      

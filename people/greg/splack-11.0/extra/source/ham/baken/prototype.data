@@ -1,0 +1,21 @@
+# pkginfo
+PROGNAME="baken"
+DESC="Satellite-, location- and user profile-data \n\
+belonging to the baken program."
+
+
+BUILD=1
+
+# package name
+PKGNAME=${PROGNAME}_data-$VERSION-$ARCH-$BUILD
+SUBPKGNAME=$PKGNAME
+
+subinstall() {
+   cd $TMP/$PROGNAME-$VERSION
+   make install-data
+}
+
+    
+subspecial() {
+   echo "nothing special..."
+}

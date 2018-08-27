@@ -1,0 +1,177 @@
+#!/bin/sh
+# Copyright 2002, 2003  Slackware Linux, Inc.,  Concord, CA  USA
+#    All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# This makes a bootdisk in /tmp from a kernel image.
+#
+# This is the command to use:
+#
+# makedisk name kernel
+#          |    |
+#          |    +- This is the name (and maybe path to) the kernel
+#          |       you plan to use, such as bare.i/bzImage.
+#          |
+#          +- This is the name to give the disk, like bare.i.
+
+VERSION="11.0"
+
+# This is reasonable for 1.44MB floppies
+SIZELIMIT=1417
+
+if [ "$1" = "" -o "$2" = "" -o ! -r "$2" ]; then
+  echo
+  echo "Usage: makedisk name kernel"
+  echo "Example: ./makedisk bare.i bare.i/vmlinuz"
+  echo "Disk is made in /tmp, and may then be copied to a formatted floppy."
+  echo
+  exit 1
+fi
+
+DISKNAME=$1
+KERNEL=$2
+CWD=`pwd`
+MOUNT=/tmp/mnt-$$
+if [ ! -d $MOUNT ]; then
+  mkdir -p $MOUNT
+  DELETE_MOUNT=true
+fi
+if [ "`du -s $2 | cut -f 1`" -gt "$SIZELIMIT" ]; then
+  echo "WARNING: kernel $2 is size `du -s $2 | cut -f 1`K, exceeds ${SIZELIMIT}K."
+  echo "         SKIPPING!"
+  sleep 2
+fi
+echo "Making $1 bootdisk from kernel image $2."
+echo "Formatting the target disk."
+zcat $CWD/1440k.img.gz > /tmp/$DISKNAME
+echo "Mounting the target disk on $MOUNT."
+mount -o loop -t vfat /tmp/$DISKNAME $MOUNT
+echo "Copying files over (ignore permission errors)."
+cp $2 $MOUNT/vmlinuz 
+## This avoids a syslinux-1.72 bug, and doesn't seem to hurt anything.
+## Fixed in syslinux 2.06.
+#dd if=/dev/zero bs=1k count=1 >> $MOUNT/vmlinuz
+
+# Did we run out of space?
+dd if=/dev/full of=$MOUNT/test bs=32 count=1
+RESULT=$?
+if [ ! $RESULT = 0 ]; then
+  echo "Fatal error on $MOUNT."
+  read junk_input;
+fi
+rm -f $MOUNT/test
+
+echo "Rdeving -R $MOUNT/vmlinuz 0"
+rdev -R $MOUNT/vmlinuz 0
+echo "Rdeving rdev -r $MOUNT/vmlinuz 49152"
+rdev -r $MOUNT/vmlinuz 49152
+echo "Rdeving -v $MOUNT/vmlinuz -v"
+rdev -v $MOUNT/vmlinuz -1
+echo "Rdeving $MOUNT/vmlinuz /dev/fd0"
+rdev $MOUNT/vmlinuz /dev/fd0
+cat << EOF > $MOUNT/message.txt
+
+Welcome to the 09Slackware07 Linux $VERSION $DISKNAME bootdisk!
+
+If you need to pass extra parameters to the kernel, enter them at the prompt
+below after one of the valid configuration names:  ramdisk (to load a rootdisk
+into memory and boot it), and mount (to boot an existing Linux partition).
+NOTE:  Most hardware is auto-detected without parameters.  So, before assuming
+       your system requires parameters, try a few different bootdisks. :^)
+
+Here are some examples (and more can be found in the BOOTING file):
+   ramdisk hdx=cyls,heads,sects,wpcom,irq  (needed only if probing fails)
+   ramdisk hdx=cdrom (force detection of an IDE/ATAPI CD-ROM drive)
+   where hdx can be any of hda through hdh. Examples: hdc=1050,32,64  hdd=cdrom
+
+If you would rather load the root/install disk from your second floppy drive:
+   ramdisk root=/dev/fd1
+
+In a pinch, you can boot your Linux system with a command like:
+   mount root=/dev/hda1
+
+DON'T SWITCH ANY DISKS YET! This prompt is just for entering extra parameters.
+If you don't need to enter any parameters, hit ENTER to continue.
+
+EOF
+
+cat << EOF > $MOUNT/f1.txt
+ STANDARD MODES:
+ To make the kernel prompt for standard video modes use: vga=ask
+
+ FRAMEBUFFER MODES:
+ To get the kernel to start in VESA framebuffer mode, you need to pass it
+ a vga= init string on the "boot:" prompt.  Here's a table:
+
+   Colors   640x480 800x600 1024x768 1280x1024 1600x1200
+  --------+---------------------------------------------
+  256     |   769     771      773      775       796
+  32,768  |   784     787      790      793       797
+  65,536  |   785     788      791      794       798
+  16.8M   |   786     789      792      795       799
+
+  ...such as this for 1024x768x64k:
+   vga=791
+
+  F2 returns to the previous page.
+
+EOF
+
+cat << EOF > $MOUNT/syslinux.cfg
+default vmlinuz ramdisk_size=7000 root=/dev/fd0u1440 vga=normal rw SLACK_KERNEL=$DISKNAME
+prompt 1
+timeout 6000
+display message.txt
+F1 f1.txt
+F2 message.txt
+#F3 f3.txt
+#F4 f4.txt
+#F5 f5.txt
+#F6 f6.txt
+#F7 f7.txt
+label ramdisk
+  kernel vmlinuz
+  append vmlinuz ramdisk_size=7000 root=/dev/fd0u1440 vga=normal rw SLACK_KERNEL=$DISKNAME
+label mount
+  kernel vmlinuz
+  append ramdisk_size=7000 ro
+EOF
+
+umount $MOUNT
+sync
+echo "Installing SYSLINUX."
+syslinux -s /tmp/$DISKNAME
+echo "Adding extra files (hope they fit :)"
+mount -o loop -t vfat /tmp/$DISKNAME $MOUNT
+( cd `dirname $2`
+  cp config* $MOUNT
+  if [ ! $? = 0 ]; then
+    rm -f $MOUNT/config*
+  fi
+  cp System* $MOUNT
+  if [ ! $? = 0 ]; then
+    rm -f $MOUNT/System*
+  fi
+)
+umount $MOUNT
+sync
+if [ "$DELETE_MOUNT" = "true" ]; then
+  rm -rf $MOUNT
+fi
+echo "Bootdisk $DISKNAME created."

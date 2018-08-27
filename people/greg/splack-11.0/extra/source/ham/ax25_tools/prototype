@@ -1,0 +1,60 @@
+IGNOREPATH=/boot:/cdrom:/dev:/home:/mnt:/proc:/root:/tmp:/usr/src:/var/log:/var/spool/cron 
+
+STRIPLIB=y
+STRIPBIN=y
+
+# pkginfo
+VERSION=0.0.8
+PROGNAME="ax25-tools"
+DESC="AX.25 tools version $VERSION\n\
+\n\
+Author: Craig Small VK2XLZ \n\
+<csmall@small.dropbear.id.au>, et al\n\
+Needs: glibc2.1, A Modern kernel (2.2.x), libtool,\n\
+libax25 0.0.5 or newer, and  zlib."
+
+# maintainer
+BUILD=2
+MAINTAINER="Arno Verhoeven <pe1icq@sharon.esrac.ele.tue.nl>"
+SOURCE="http://prdownloads.sourceforge.net/ax25/"
+LOCATION="http://sharon.esrac.ele.tue.nl/pub/linux/slackware-current/contrib/ham/packet/"
+
+# package name
+PKGNAME=ax25_tools-$VERSION-i386-$BUILD
+
+compile() {
+   tar xvzf $CWD/$PROGNAME-$VERSION.tar.gz
+   zcat $CWD/ax25-tools-0.0.8.rxq.diff.gz | patch -p0 --verbose
+   cd $PROGNAME-$VERSION
+   ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+   make
+}
+
+install() {
+   make install
+   make installconf
+   mkdir -p /usr/doc/$PROGNAME
+   cp AUTHORS ChangeLog INSTALL NEWS README /usr/doc/$PROGNAME
+}
+
+special() {
+   # Generate a slack-desc file
+ 
+   # output the package name first
+   for a in 1 2 3 4 5 6 7 8 9 10 11
+   do
+      echo "$PKGNAME:" >> $TMP/leftside
+   done
+ 
+   # now place the description in a file
+   echo -e "$DESC" > $TMP/rightside
+ 
+   # combine the two
+   paste -d ' ' $TMP/leftside $TMP/rightside > $CTL/slack-desc
+   rm -rf $TMP/leftside $TMP/rightside
+}
+
+subpacks() {
+   echo "no sub-packages..."
+}
+       

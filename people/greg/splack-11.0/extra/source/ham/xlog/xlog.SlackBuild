@@ -1,0 +1,59 @@
+#!/bin/sh
+CWD=`pwd`
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-xlog
+
+VERSION=1.2.2
+ARCH=${ARCH:-i486}
+BUILD=1
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mcpu=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+rm -rf $PKG
+mkdir -p $PKG
+cd $TMP
+rm -rf xlog-$VERSION
+tar xjvf $CWD/xlog-$VERSION.tar.bz2
+cd xlog-$VERSION
+chown -R root.root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+CFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr --enable-hamlib
+make
+make install DESTDIR=$PKG
+/usr/bin/install -g root -o root -m 0755 -d $PKG/opt/kde/share/applnk/HamRadio
+/usr/bin/install -g root -o root -m 0644 data/desktop/xlog.desktop $PKG/opt/kde/share/applnk/HamRadio/xlog.desktop
+/usr/bin/install -g root -o root -m 0755 -d $PKG/usr/share/gnome/apps/HamRadio
+/usr/bin/install -g root -o root -m 0644 data/desktop/xlog.desktop $PKG/usr/share/gnome/apps/HamRadio/xlog.desktop
+
+rm -f $PKG/usr/lib/*.a
+chown -R root.bin $PKG/usr/bin
+( cd $PKG
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+mkdir $PKG/usr/doc
+( cd $PKG/usr/doc ; ln -sf /usr/share/xlog $PKG/usr/doc/xlog-$VERSION )
+
+gzip -9 $PKG/usr/man/man?/*
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n $TMP/xlog-$VERSION-$ARCH-$BUILD.tgz
+	    

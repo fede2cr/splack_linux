@@ -1,0 +1,19 @@
+#!/bin/sh
+# This makes all the bootdisk images.
+
+# Automatic
+KERNELS="`/bin/ls -d *.?`"
+# Manual
+#KERNELS="adaptec.s bare.i raid.s scsi.s"
+
+for bootdisk in $KERNELS ; do
+  echo
+  echo "MAKING BOOTDISK: $bootdisk"
+  echo
+  if [ -r $bootdisk/bzImage ]; then
+    ./makedisk $bootdisk $bootdisk/bzImage
+  elif [ -r $bootdisk/zImage ]; then
+    ./makedisk $bootdisk $bootdisk/zImage
+  fi
+done
+

@@ -1,0 +1,133 @@
+#!/bin/sh
+CWD=`pwd`
+
+VERSION=2.4.3
+ARCH=${ARCH:-i486}
+
+if [ "$ARCH" = "i386" ]; then
+  SLKCFLAGS="-O2 -march=i386 -mcpu=i686"
+elif [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2"
+fi
+
+cd /tmp
+rm -rf package-inn blank.org
+wget -r -v http://blank.org/innfaq
+cd /tmp
+rm -rf inn-$VERSION
+tar xjvf $CWD/inn-$VERSION.tar.bz2
+cd inn-$VERSION
+chown -R root:root .
+mkdir -p /tmp/package-inn/usr/doc/inn-$VERSION
+cp -a CONTRIBUTORS HACKING INSTALL LICENSE MANIFEST NEWS README* TODO /tmp/package-inn/usr/doc/inn-$VERSION
+chmod 644 /tmp/package-inn/usr/doc/inn-$VERSION/*
+( cd /tmp/blank.org ; cp -a innfaq /tmp/package-inn/usr/doc/inn-$VERSION )
+rm -f config.cache
+CFLAGS="$SLKCFLAGS -I/usr/include/db42 " \
+BERKELEY_DB_LIB="-ldb-4.2" \
+sh configure \
+  --enable-tagged-hash \
+  --with-perl \
+  --disable-shared \
+  --with-sendmail=/usr/sbin/sendmail \
+  --prefix=/usr/lib/news \
+  --mandir=/usr/man \
+  --with-news-user=news \
+  --with-news-group=news \
+  --with-news-master=news \
+  --with-db-dir=/var/lib/news \
+  --with-etc-dir=/etc/news \
+  --with-log-dir=/var/log/news \
+  --with-run-dir=/var/lib/news/run \
+  --with-spool-dir=/var/spool/news \
+  --with-tmp-path=/var/lib/news/tmp \
+  --with-berkeleydb \
+  $ARCH-slackware-linux
+make
+mkdir -p /tmp/package-inn
+
+# This is lifted from the INN makefile, and redirected at /tmp/package-inn/, since this part
+# of the Makefile doesn't honor the $DESTDIR variable:
+for D in /usr/lib/news /usr/lib/news/bin /usr/lib/news/bin/auth /usr/lib/news/bin/auth/resolv /usr/lib/news/bin/auth/passwd /usr/lib/news/bin/control /usr/lib/news/bin/filter /usr/lib/news/bin/rnews.libexec /var/lib/news /etc/news /usr/lib/news/lib /usr/man /usr/man/man1 /usr/man/man3 /usr/man/man5 /usr/man/man8 /var/spool/news /var/lib/news/tmp /var/spool/news/archive /var/spool/news/articles /var/spool/news/incoming /var/spool/news/incoming/bad /var/spool/news/innfeed /var/spool/news/overview /var/spool/news/outgoing /var/log/news /var/log/news/OLD ; do
+    support/install-sh -o news -g news -m 0755 -d /tmp/package-inn/$D
+done
+support/install-sh -o news -g news -m 0750 -d /tmp/package-inn/var/lib/news/run
+
+# Cruft:
+#mkdir -p /tmp/package-inn/etc/news
+#mkdir -p /tmp/package-inn/var/lib/news
+#mkdir -p /tmp/package-inn/var/spool/news
+#mkdir -p /tmp/package-inn/usr/lib/news
+#mkdir -p /tmp/package-inn/var/log/news
+#mkdir -p /tmp/package-inn/var/lib/news/run
+#mkdir -p /tmp/package-inn/var/lib/news/backoff
+#chown news.news /tmp/package-inn/var/spool/news \
+#/tmp/package-inn/var/lib/news/run \
+#/tmp/package-inn/var/lib/news/backoff
+#chmod 775 /tmp/package-inn/var/spool/news \
+#/tmp/package-inn/var/lib/news/run \
+#/tmp/package-inn/var/lib/news/backoff # (obsolete?)
+
+make install DESTDIR=/tmp/package-inn
+
+# Strip executables:
+( cd /tmp/package-inn
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+  find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+# Add some default files:
+mkdir -p /tmp/package-inn/etc/rc.d
+( cd /tmp/package-inn/etc/rc.d ; rm -rf rc.news )
+( cd /tmp/package-inn/etc/rc.d ; ln -sf /usr/lib/news/bin/rc.news . )
+mkdir -p /tmp/package-inn/usr/bin
+( cd /tmp/package-inn/usr/bin ; ln -sf /usr/lib/news/bin/inews . )
+# Still listed in include/paths.h:
+touch /tmp/package-inn/var/lib/news/subscriptions
+chown news.news /tmp/package-inn/var/lib/news/subscriptions
+chmod 644 /tmp/package-inn/var/lib/news/subscriptions
+# INN will install an active file automatically.
+#install -m 644 -o news -g news $CWD/active \
+#        /tmp/package-inn/var/lib/news/active
+# Still listed in include/paths.h:
+install -m 644 -o news -g news $CWD/distributions \
+        /tmp/package-inn/var/lib/news/distributions
+# INN ships with this now.
+#install -m 644 -o news -g news $CWD/newsgroups \
+#        /tmp/package-inn/var/lib/news/newsgroups
+# nnrp.access has been replaced by readers.conf.
+#install -m640 -o news -g news $CWD/nnrp.access \
+#        /tmp/package-inn/etc/news/nnrp.access
+rm -f /tmp/package-inn/var/lib/news/history
+touch /tmp/package-inn/var/lib/news/history
+touch /tmp/package-inn/var/lib/news/.news.daily
+chown news.news /tmp/package-inn/var/lib/news/history \
+                /tmp/package-inn/var/lib/news/.news.daily
+install -m 644 -o news -g news $CWD/history.dir \
+        /tmp/package-inn/var/lib/news/history.dir
+install -m 644 -o news -g news $CWD/history.pag \
+        /tmp/package-inn/var/lib/news/history.pag
+# if you transfer with uucp, you'll need to allow rnews access:
+chown uucp.news /tmp/package-inn/usr/lib/news/bin/rnews
+chmod 4550 /tmp/package-inn/usr/lib/news/bin/rnews
+mkdir -p /tmp/package-inn/install
+cat $CWD/slack-desc > /tmp/package-inn/install/slack-desc
+umask 002
+touch /tmp/package-inn/var/log/news/news.notice
+touch /tmp/package-inn/var/log/news/news.crit
+touch /tmp/package-inn/var/log/news/news.err
+touch /tmp/package-inn/var/lib/news/active.times
+chown news.news /tmp/package-inn/var/lib/news/active.times
+chown -R news.news /tmp/package-inn/var/log/news
+chown -R root.root /tmp/package-inn/usr/man
+gzip -9 /tmp/package-inn/usr/man/man?/*
+find /tmp/package-inn/usr/man -type d -exec chmod 755 {} \;
+# This caused some ugly warnings, and isn't really neccessary.
+#mkdir -p /tmp/package-inn/install
+#cat << EOF > /tmp/package-inn/install/doinst.sh
+#chroot . /usr/lib/news/bin/makehistory -o
+#EOF

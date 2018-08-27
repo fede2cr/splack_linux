@@ -1,0 +1,50 @@
+#!/bin/sh
+# Set initial variables:
+CWD=`pwd`
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+PKG=/tmp/package-xcdroast
+
+VERSION=0.98alpha15
+ARCH=${ARCH:-i486}
+BUILD=1
+
+rm -rf $PKG
+mkdir -p $PKG
+echo "+=================+"
+echo "| xcdroast-$VERSION |"
+echo "+=================+"
+cd $TMP
+rm -rf xcdroast-$VERSION
+tar xjvf $CWD/xcdroast-$VERSION.tar.bz2
+cd xcdroast-$VERSION
+chown -R root.root .
+find . -perm 777 -exec chmod 755 {} \;
+find . -perm 775 -exec chmod 755 {} \;
+find . -perm 700 -exec chmod 755 {} \;
+find . -perm 744 -exec chmod 755 {} \;
+find . -perm 666 -exec chmod 644 {} \;
+find . -perm 664 -exec chmod 644 {} \;
+find . -perm 600 -exec chmod 644 {} \;
+./configure --prefix=/usr --sysconfdir=/etc
+make
+make install DESTDIR=$PKG
+strip $PKG/usr/bin/* $PKG/usr/lib/xcdroast-*/bin/*
+chown -R root.bin $PKG/usr/bin
+gzip -9 $PKG/usr/man/man1/*
+mkdir -p $PKG/usr/doc/xcdroast-$VERSION
+cp -a \
+  COPYING ChangeLog INSTALL README \
+  doc/* \
+  $PKG/usr/doc/xcdroast-$VERSION
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+makepkg -l y -c n ../xcdroast-$VERSION-$ARCH-$BUILD.tgz
+
