@@ -1,0 +1,11 @@
+gdk-pixbuf: gdk-pixbuf
+gdk-pixbuf:
+gdk-pixbuf: The GdkPixBuf library provides a number of features, including :
+gdk-pixbuf:    o  GdkPixbuf structure for representing images.
+gdk-pixbuf:    o  Image loading facilities.
+gdk-pixbuf:    o  Rendering of a GdkPixBuf into various formats:
+gdk-pixbuf:       drawables (windows, pixmaps), GdkRGB buffers.
+gdk-pixbuf:    o  Fast scaling and compositing of pixbufs.
+gdk-pixbuf:    o  Simple animation loading (ie. animated gifs)
+gdk-pixbuf:
+gdk-pixbuf: GdkPixBuf is required by many GTK+ programs such as GNOME and xfce.

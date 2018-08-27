@@ -1,0 +1,11 @@
+qca: qca (Qt Cryptographic Architecture)
+qca:
+qca: QCA aims to provide a straightforward and cross-platform crypto API,
+qca: using Qt datatypes and conventions.  QCA separates the API from the
+qca: implementation, using plugins known as Providers.  The advantage of
+qca: this model is to allow applications to avoid linking to or explicitly
+qca: depending on any particular cryptographic library.  This allows one
+qca: to easily change or upgrade crypto implementations without needing
+qca: to recompile the application.
+qca:
+qca: QCA was written by Justin Karneges.

@@ -1,0 +1,129 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES L (Libraries)" \
+       --checklist "Please confirm the packages you wish to install \
+from series L.  Use the UP/DOWN keys to scroll through the list, and \
+the SPACE key to deselect any items you don't want to install.  \
+Keep in mind that many of these libraries are required by KDE \
+or other parts of the system.  It's safest to install all of these \
+packages even if you aren't sure if you need them.  Press ENTER when \
+you are done." 22 74 10 \
+"aalib" "ASCII Art library" "on" \
+"alsa-driver" "ALSA kernel modules" "on" \
+"alsa-lib" "ALSA sound library" "on" \
+"alsa-oss" "OSS compatibility wrapper for ALSA" "on" \
+"apr" "Apache Portable Runtime library" "on" \
+"apr-util" "Extra APR library interfaces" "on" \
+"arts" "Analog Realtime Synthesizer (sound support)" "on" \
+"aspell" "Spell checking library" "on" \
+"aspell-en" "English word list for Aspell" "on" \
+"atk" "Accessability library" "on" \
+"audiofile" "SGI's Audio File sound library" "on" \
+"cairo" "Vector graphics library used by GTK+" "on" \
+"db42" "Berkeley DB library, version 4.2" "on" \
+"db44" "Berkeley DB library, version 4.4" "on" \
+"desktop-file-utils" "Tools for .desktop files" "on" \
+"esound" "Enlightened Sound Daemon" "on" \
+"expat" "XML parser library" "on" \
+"freetype" "Font rendering library" "on" \
+"fribidi" "Unicode BiDirectional library" "on" \
+"gd" "A graphics library" "on" \
+"gdbm" "The GNU gdbm database library" "on" \
+"gdk-pixbuf" "Image library used by GTK+" "on" \
+"glib" "Support library used by GTK+" "on" \
+"glib2" "GLib version 2" "on" \
+"glibc" "The GNU C library" "on" \
+"glibc-i18n" "Internationalization support for glibc" "on" \
+"glibc-profile" "Profiling support for glibc" "on" \
+"glut" "A 3D graphics library" "on" \
+"gnome-icon-theme" "Icons for GTK+ applications" "on" \
+"gmp" "A library for arithmetic" "on" \
+"gnet" "A network socket library" "on" \
+"gtk+" "A graphical toolkit library" "on" \
+"gtk+2" "GTK+ version 2" "on" \
+"hicolor-icon-theme" "Standard icon theme tree" "on" \
+"imlib" "Image loading and rendering library" "on" \
+"jre" "Runtime support for Java(TM)" "on" \
+"lcms" "Little Color Management System" "on" \
+"lesstif" "A Motif clone" "on" \
+"libao" "Audio Output library" "on" \
+"libart_lgpl" "2D graphics library used by KDE" "on" \
+"libcaca" "Colour AsCii Art library" "on" \
+"libexif" "EXIF (image information) library" "on" \
+"libglade" "An interface construction library" "on" \
+"libgpod" "A library for a popular music device" "on" \
+"libgsf" "File I/O library" "on" \
+"libgtkhtml" "HTML rendering library" "on" \
+"libid3tag" "ID3 tag manipulation library" "on" \
+"libidl" "Interface Definition Language library" "on" \
+"libidn" "GNU Internationalized Domain Name library" "on" \
+"libieee1284" "Library to identify parallel port devices" "on" \
+"libjpeg" "JPEG image library and tools" "on" \
+"libmad" "high-quality MPEG audio library" "on" \
+"libmikmod" "MOD audio library" "on" \
+"libmng" "Multiple-image Network Graphics library" "on" \
+"libmusicbrainz" "Find MusicBrainz media metadata" "on" \
+"libmtp" "MTP media device support library" "on" \
+"libnjb" "Creative Nomad and related device library" "on" \
+"libogg" "Ogg Bitstream library" "on" \
+"libpng" "Portable Network Graphics library" "on" \
+"librsvg" "Scalable Vector Graphics library" "on" \
+"libtermcap" "GNU terminal control library" "on" \
+"libtheora" "Theora video codec library" "on" \
+"libtiff" "Tag Image File format library" "on" \
+"libtunepimp" "Tag media files using MusicBrainz servers" "on" \
+"libungif" "GIF extraction library" "on" \
+"libusb" "A library for accessing USB devices" "on" \
+"libvisual" "Audio visualization library" "on" \
+"libvorbis" "Ogg Vorbis library" "on" \
+"libwmf" "WMF graphics format library" "on" \
+"libwmf-docs" "Documentation for libwmf" "on" \
+"libwpd" "WordPerfect document handling library" "on" \
+"libxml2" "XML parser library v2" "on" \
+"libxslt" "XML transformation library" "on" \
+"mhash" "Thread-safe hash library" "on" \
+"mm" "Shared Memory Allocation library" "on" \
+"mpeg_lib" "MPEG-1 video decoding library" "on" \
+"mpfr" "Another math lib based on GMP" "on" \
+"ncurses" "CRT screen handling package" "on" \
+"neon" "HTTP and WebDAV client library" "on" \
+"netpbm" "Graphics library and tools" "on" \
+"pango" "Text rendering library" "on" \
+"pcre" "Perl-compatible regular expression library" "on" \
+"pilot-link" "PalmOS communication library" "on" \
+"popt" "Command line parsing library" "on" \
+"readline" "Input library with editing" "on" \
+"sdl" "Simple DirectMedia Layer library" "on" \
+"shared-mime-info" "MIME database" "on" \
+"slang1" "S-Lang interpreted language and library v1" "on" \
+"slang" "S-Lang interpreted language and library v2" "on" \
+"startup-notification" "Busy cursor library" "on" \
+"svgalib" "Super-VGA Graphics Library" "on" \
+"t1lib" "Library for handling Type 1 fonts" "on" \
+"taglib" "Audio meta-data library" "on" \
+"wv2" "MS Word .doc import library" "on" \
+"xaw3d" "A replacement for libXaw with a 3D look" "on" \
+"zlib" "general purpose data compression library" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+  rm -f $TMP/SeTpkgs
+  cat /dev/null > $TMP/SeTnewtag
+  for PKG in aalib alsa-driver alsa-lib alsa-oss apr apr-util arts aspell aspell-en atk audiofile cairo db42 db44 desktop-file-utils esound expat freetype fribidi gd gdbm gdk-pixbuf glib glib2 glibc glibc-i18n glibc-profile glut gnome-icon-theme gmp gnet gtk+ gtk+2 hicolor-icon-theme imlib jre lcms lesstif libao libart_lgpl libcaca libexif libglade libgpod libgsf libgtkhtml libid3tag libidl libidn libieee1284 libjpeg libmad libmikmod libmng libmusicbrainz libmtp libnjb libogg libpng librsvg libtermcap libtheora libtiff libtunepimp libungif libusb libvisual libvorbis libwmf libwmf-docs libwpd libxml2 libxslt mhash mm mpeg_lib mpfr ncurses neon netpbm pango pcre pilot-link popt readline sdl shared-mime-info slang1 slang startup-notification svgalib t1lib taglib wv2 xaw3d zlib ; do
+    echo "$PKG: SKP" >> $TMP/SeTnewtag
+  done
+  exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PKG in aalib alsa-driver alsa-lib alsa-oss apr apr-util arts aspell aspell-en atk audiofile cairo db42 db44 desktop-file-utils esound expat freetype fribidi gd gdbm gdk-pixbuf glib glib2 glibc glibc-i18n glibc-profile glut gnome-icon-theme gmp gnet gtk+ gtk+2 hicolor-icon-theme imlib jre lcms lesstif libao libart_lgpl libcaca libexif libglade libgpod libgsf libgtkhtml libid3tag libidl libidn libieee1284 libjpeg libmad libmikmod libmng libmusicbrainz libmtp libnjb libogg libpng librsvg libtermcap libtheora libtiff libtunepimp libungif libusb libvisual libvorbis libwmf libwmf-docs libwpd libxml2 libxslt mhash mm mpeg_lib mpfr ncurses neon netpbm pango pcre pilot-link popt readline sdl shared-mime-info slang1 slang startup-notification svgalib t1lib taglib wv2 xaw3d zlib ; do
+  if grep \"$PKG\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+    echo "$PKG: ADD" >> $TMP/SeTnewtag
+  else
+    echo "$PKG: SKP" >> $TMP/SeTnewtag
+  fi
+done
+rm -f $TMP/SeTpkgs

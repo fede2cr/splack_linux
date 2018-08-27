@@ -1,0 +1,106 @@
+#!/bin/sh
+#item   ####description                                      ###on off ###
+TMP=/var/log/setup/tmp
+if [ ! -d $TMP ]; then
+  mkdir -p $TMP
+fi
+cat /dev/null > $TMP/SeTnewtag
+dialog --title "SELECTING PACKAGES FROM SERIES N (NETWORK/NEWS/MAIL/UUCP)" \
+       --checklist "Please confirm the packages you wish to install \
+from series N.  Use the UP/DOWN keys to scroll through the list, and \
+the SPACE key to deselect any items you don't want to install.  \
+Press ENTER when you are done." \
+21 72 11 \
+"apache" "Apache WWW (HTTP) server" "on" \
+"autofs" "Linux automounter" "on" \
+"bind" "Berkeley Internet Name Domain server" "on" \
+"bitchx" "BitchX Internet Relay Chat (IRC) client" "on" \
+"bootp" "Internet Bootstrap Protocol server" "on" \
+"curl" "Command-line URL transfer utility" "on" \
+"cyrus-sasl" "SASL email authentication library" "on" \
+"dhcpcd" "DHCP client daemon" "on" \
+"dhcp" "DHCP server (and client) utilities" "on" \
+"dnsmasq" "Small DNS/DHCP server for a LAN" "on" \
+"elm" "Menu-driven user mail program" "on" \
+"epic4" "EPIC4 Internet Relay Chat (IRC) client" "on" \
+"fetchmail" "Fetch mail from POP/IMAP/ETRN servers" "on" \
+"getmail" "POP3 mail retrieval tool" "on" \
+"gnupg" "GNU Privacy Guard public key encryption" "on" \
+"htdig" "Indexing and search engine" "on" \
+"imapd" "ipop3d/imapd remote mail access daemons" "on" \
+"inetd" "Internet super server daemon" "on" \
+"iproute2" "Kernel routing and traffic control" "on" \
+"iptables" "Firewall configuration utility" "on" \
+"iptraf" "Network monitoring program" "on" \
+"irssi" "IRSSI Internet Relay Chat (IRC) client" "on" \
+"lftp" "Shell-like FTP and HTTP transfer program" "on" \
+"links" "Text-based WWW browser (with frames)" "on" \
+"lynx" "Classic text-based WWW browser" "on" \
+"mailx" "A simple user mail program" "on" \
+"metamail" "Metamail multimedia mail extensions" "on" \
+"mod_ssl" "OpenSSL-based SSL security for Apache" "on" \
+"mutt" "The Mutt E-Mail Client" "on" \
+"nc" "Netcat network utility" "on" \
+"ncftp" "NcFTP file transfer utilities" "on" \
+"netatalk" "Print/file server for Apple Macs" "on" \
+"netpipes" "Network pipe utilities" "on" \
+"netwatch" "Another network monitoring program" "on" \
+"newspost" "Posts multipart binaries on USENET" "on" \
+"nfs-utils" "Network File System daemons" "on" \
+"nmap" "Network scanning utility" "on" \
+"nn" "The NN news reader" "on" \
+"ntp" "Network Time Protocol" "on" \
+"openldap-client" "LDAP authentication libraries" "on" \
+"openssh" "OpenSSH Secure Shell" "on" \
+"openssl" "OpenSSL Secure Sockets Layer toolkit" "on" \
+"php" "PHP scripting language for Apache" "on" \
+"pidentd" "TCP/IP IDENT protocol server" "on" \
+"pine" "Pine menu-driven mail program" "on" \
+"popa3d" "Post Office Protocol v. 3 (POP3) server" "on" \
+"portmap" "Manages NFS and other RPC connections" "on" \
+"ppp" "Point-to-point protocol" "on" \
+"procmail" "Mail delivery/filtering utility" "on" \
+"proftpd" "The Professional FTP (file transfer) daemon" "on" \
+"rdesktop" "Remote Desktop Protocol client" "on" \
+"rdist" "Remote file distribution utility" "on" \
+"rp-pppoe" "Connect to ADSL ISPs that use PPPoE" "on" \
+"rsync" "Enhanced replacement for rcp" "on" \
+"samba" "SMB print/file server for Windows LANs" "on" \
+"sendmail" "The sendmail mail transport agent" "on" \
+"sendmail-cf" "Extra configuration files for sendmail" "on" \
+"slrn" "slrn (s-lang read news) news reader" "on" \
+"stunnel" "Universal SSL tunnel" "on" \
+"tcpdump" "Tool for dumping network packets" "on" \
+"tcpip" "Basic TCP/IP network programs and daemons" "on" \
+"tin" "The 'tin' news reader" "on" \
+"traceroute" "Packet tracing utility" "on" \
+"trn" "A threaded news reader" "on" \
+"uucp" "Taylor UUCP with HDB && Taylor configs" "on" \
+"vsftpd" "The Very Secure FTP (file transfer) daemon" "on" \
+"wget" "WWW/FTP retrieval tool" "on" \
+"whois" "Enhanced whois client" "on" \
+"wireless-tools" "Tools for wireless networking" "on" \
+"yptools" "NIS servers and clients" "on" \
+"ytalk" "Multi-user talk program" "on" \
+2> $TMP/SeTpkgs
+if [ $? = 1 -o $? = 255 ]; then
+ rm -f $TMP/SeTpkgs
+ > $TMP/SeTnewtag
+ for pkg in \
+  apache autofs bind bitchx bootp curl cyrus-sasl dhcp dhcpcd dnsmasq elm epic4 fetchmail getmail gnupg htdig imapd inetd iproute2 iptables iptraf irssi lftp links lynx metamail mod_ssl mutt mailx nc ncftp netatalk netpipes netwatch newspost nfs-utils nmap nn ntp openldap-client openssh openssl php pidentd pine popa3d portmap ppp procmail proftpd rdesktop rdist rp-pppoe rsync samba sendmail sendmail-cf slrn stunnel tcpdump tcpip tin traceroute trn uucp vsftpd wget whois wireless-tools yptools ytalk \
+  ; do
+  echo "$pkg: SKP" >> $TMP/SeTnewtag
+ done
+ exit
+fi
+cat /dev/null > $TMP/SeTnewtag
+for PACKAGE in \
+  apache autofs bind bitchx bootp curl cyrus-sasl dhcp dhcpcd dnsmasq elm epic4 fetchmail getmail gnupg htdig imapd inetd iproute2 iptables iptraf irssi lftp links lynx metamail mod_ssl mutt mailx nc ncftp netatalk netpipes netwatch newspost nfs-utils nmap nn ntp openldap-client openssh openssl php pidentd pine popa3d portmap ppp procmail proftpd rdesktop rdist rp-pppoe rsync samba sendmail sendmail-cf slrn stunnel tcpdump tcpip tin traceroute trn uucp vsftpd wget whois wireless-tools yptools ytalk \
+ ; do
+ if fgrep \"$PACKAGE\" $TMP/SeTpkgs 1> /dev/null 2> /dev/null ; then
+  echo "$PACKAGE: ADD" >> $TMP/SeTnewtag
+ else
+  echo "$PACKAGE: SKP" >> $TMP/SeTnewtag
+ fi
+done
+rm -f $TMP/SeTpkgs
